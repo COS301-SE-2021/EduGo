@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: EduGo Api
+  description: 'Api for the EduGo sytsem '
+  version: 1.0.0
+servers:
+- url: http://localhost
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: lesson
+  description: Subsystem for lessons
+- name: virtualEntity
+  description: Subsystem for virtual entity which includes 3d model and information
+- name: subject
+  description: Subsystem for a subject
+paths:
+  /lesson/createLesson:
+    post:
+      tags:
+      - lesson
+      summary: Create a lesson for a subject
+      operationId: create_lesson
+      requestBody:
+        $ref: '#/components/requestBodies/Lesson'
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        "405":
+          description: Invalid parameters
+      x-openapi-router-controller: swagger_server.controllers.lesson_controller
+  /virtualEntity/createVirtualEntity:
+    post:
+      tags:
+      - virtualEntity
+      summary: Create virtual entity for lesson
+      operationId: createvirtual_entity
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        "405":
+          description: Invalid parameters
+      x-openapi-router-controller: swagger_server.controllers.virtual_entity_controller
+  /subject/createSubject:
+    post:
+      tags:
+      - subject
+      summary: Create subject for organization
+      operationId: create_subject
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        "405":
+          description: Invalid parameters
+      x-openapi-router-controller: swagger_server.controllers.subject_controller
+components:
+  schemas:
+    Lesson:
+      type: object
+      properties:
+        lesson_id:
+          type: integer
+          format: int64
+        subject_id:
+          type: integer
+          format: int64
+        lesson_description:
+          type: string
+        lesson_title:
+          type: string
+        date:
+          type: string
+          format: date-time
+    Subject:
+      type: object
+      properties:
+        subject_id:
+          type: integer
+          format: int64
+        subject_description:
+          type: string
+        subject_title:
+          type: string
+    "3D_Model":
+      type: object
+      properties:
+        "3d_model_id":
+          type: integer
+          format: int64
+        "3d_model_name":
+          type: string
+    Quiz:
+      type: object
+      properties:
+        quiz_id:
+          type: integer
+          format: int64
+        quiz_name:
+          type: string
+    Question:
+      type: object
+      properties:
+        question_id:
+          type: integer
+          format: int64
+        question:
+          type: string
+        options:
+          type: boolean
+          enum:
+          - true
+          - false
+        answer:
+          type: boolean
+    virtualEntity:
+      type: object
+      properties:
+        virtualEntity_id:
+          type: integer
+          format: int64
+        virtualEntity_description:
+          type: string
+        information:
+          type: string
+        "3DModel_id":
+          type: integer
+          format: int64
+        Quiz_id:
+          type: integer
+          format: int64
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      example:
+        code: 0
+        type: type
+        message: message
+  requestBodies:
+    Lesson:
+      description: Lesson object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Lesson'
+      required: true
+
