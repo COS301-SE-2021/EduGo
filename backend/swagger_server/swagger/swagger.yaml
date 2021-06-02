@@ -4,8 +4,8 @@ info:
   description: 'Api for the EduGo sytsem '
   version: 1.0.0
 servers:
-- url: http://localhost
-  description: SwaggerHub API Auto Mocking
+- url: http://localhost:8080
+  description: localhost server
 tags:
 - name: lesson
   description: Subsystem for lessons
