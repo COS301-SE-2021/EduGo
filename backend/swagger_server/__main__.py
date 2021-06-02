@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import connexion
-
+import swagger_server.db as sqlalchemy
 from swagger_server import encoder
 
 
@@ -14,4 +14,5 @@ def main():
 
 
 if __name__ == '__main__':
+
     main()

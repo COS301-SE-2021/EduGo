@@ -1,31 +1,23 @@
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import scoped_session, sessionmaker
+import os
+import connexion
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 
-from src.config import DB_USER, DB_PASSWORD, DB_DB, DB_HOST, DB_PORT
+basedir = os.path.abspath(os.path.dirname(__file__))
 
+# Create the Connexion application instance
+connex_app = connexion.App(__name__, specification_dir=basedir)
 
-def connect(user, password, database, host, port):
-    """
-    Connect to the PostgresSQL database.
-    :param user: Database user.
-    :param password: User password.
-    :param database: Database name.
-    :param host: Host name.
-    :param port: Port number.
-    :return: Database engine and meta.
-    """
-    url_string = 'postgresql://{}:{}@{}:{}/{}'
-    url = url_string.format(user, password, host, port, database)
-    _engine = create_engine(url, client_encoding='utf8')
-    _meta = MetaData(bind=_engine, reflect=True)
-    return _engine, _meta
+# Get the underlying Flask app instance
+app = connex_app.app
 
+# Configure the SQLAlchemy part of the app instance
+app.config['SQLALCHEMY_ECHO'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@localhost/EduGo'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Connect to the database.
-engine, meta = connect(DB_USER, DB_PASSWORD, DB_DB, DB_HOST, DB_PORT)
-db_session = scoped_session(sessionmaker(bind=engine))
+# Create the SQLAlchemy db instance
+db = SQLAlchemy(app)
 
-# Declare base.
-Base = declarative_base()
-Base.query = db_session.query_property()
+# Initialize Marshmallow
+ma = Marshmallow(app)
