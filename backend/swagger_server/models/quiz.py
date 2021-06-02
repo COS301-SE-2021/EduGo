@@ -14,25 +14,25 @@ class Quiz(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, quiz_id: int=None, quiz_name: str=None):  # noqa: E501
+    def __init__(self, id: int=None, title: str=None):  # noqa: E501
         """Quiz - a model defined in Swagger
 
-        :param quiz_id: The quiz_id of this Quiz.  # noqa: E501
-        :type quiz_id: int
-        :param quiz_name: The quiz_name of this Quiz.  # noqa: E501
-        :type quiz_name: str
+        :param id: The id of this Quiz.  # noqa: E501
+        :type id: int
+        :param title: The title of this Quiz.  # noqa: E501
+        :type title: str
         """
         self.swagger_types = {
-            'quiz_id': int,
-            'quiz_name': str
+            'id': int,
+            'title': str
         }
 
         self.attribute_map = {
-            'quiz_id': 'quiz_id',
-            'quiz_name': 'quiz_name'
+            'id': 'id',
+            'title': 'title'
         }
-        self._quiz_id = quiz_id
-        self._quiz_name = quiz_name
+        self._id = id
+        self._title = title
 
     @classmethod
     def from_dict(cls, dikt) -> 'Quiz':
@@ -46,43 +46,43 @@ class Quiz(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def quiz_id(self) -> int:
-        """Gets the quiz_id of this Quiz.
+    def id(self) -> int:
+        """Gets the id of this Quiz.
 
 
-        :return: The quiz_id of this Quiz.
+        :return: The id of this Quiz.
         :rtype: int
         """
-        return self._quiz_id
+        return self._id
 
-    @quiz_id.setter
-    def quiz_id(self, quiz_id: int):
-        """Sets the quiz_id of this Quiz.
+    @id.setter
+    def id(self, id: int):
+        """Sets the id of this Quiz.
 
 
-        :param quiz_id: The quiz_id of this Quiz.
-        :type quiz_id: int
+        :param id: The id of this Quiz.
+        :type id: int
         """
 
-        self._quiz_id = quiz_id
+        self._id = id
 
     @property
-    def quiz_name(self) -> str:
-        """Gets the quiz_name of this Quiz.
+    def title(self) -> str:
+        """Gets the title of this Quiz.
 
 
-        :return: The quiz_name of this Quiz.
+        :return: The title of this Quiz.
         :rtype: str
         """
-        return self._quiz_name
+        return self._title
 
-    @quiz_name.setter
-    def quiz_name(self, quiz_name: str):
-        """Sets the quiz_name of this Quiz.
+    @title.setter
+    def title(self, title: str):
+        """Sets the title of this Quiz.
 
 
-        :param quiz_name: The quiz_name of this Quiz.
-        :type quiz_name: str
+        :param title: The title of this Quiz.
+        :type title: str
         """
 
-        self._quiz_name = quiz_name
+        self._title = title

@@ -6,6 +6,7 @@ from flask import json
 from six import BytesIO
 
 from swagger_server.models.api_response import ApiResponse  # noqa: E501
+from swagger_server.models.create_subject_request import CreateSubjectRequest  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
@@ -17,9 +18,12 @@ class TestSubjectController(BaseTestCase):
 
         Create subject for organization
         """
+        body = CreateSubjectRequest()
         response = self.client.open(
-            '/subject/createSubject',
-            method='POST')
+            '/Gang-of-Five/EduGo/1.0.0/subject/createSubject',
+            method='POST',
+            data=json.dumps(body),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

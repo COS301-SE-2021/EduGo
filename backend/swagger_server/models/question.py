@@ -6,6 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.tf_question import TFQuestion  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -14,32 +15,32 @@ class Question(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, question_id: int=None, question: str=None, options: bool=None, answer: bool=None):  # noqa: E501
+    def __init__(self, id: int=None, question: str=None, options: TFQuestion=None, answer: bool=None):  # noqa: E501
         """Question - a model defined in Swagger
 
-        :param question_id: The question_id of this Question.  # noqa: E501
-        :type question_id: int
+        :param id: The id of this Question.  # noqa: E501
+        :type id: int
         :param question: The question of this Question.  # noqa: E501
         :type question: str
         :param options: The options of this Question.  # noqa: E501
-        :type options: bool
+        :type options: TFQuestion
         :param answer: The answer of this Question.  # noqa: E501
         :type answer: bool
         """
         self.swagger_types = {
-            'question_id': int,
+            'id': int,
             'question': str,
-            'options': bool,
+            'options': TFQuestion,
             'answer': bool
         }
 
         self.attribute_map = {
-            'question_id': 'question_id',
+            'id': 'id',
             'question': 'question',
             'options': 'options',
             'answer': 'answer'
         }
-        self._question_id = question_id
+        self._id = id
         self._question = question
         self._options = options
         self._answer = answer
@@ -56,25 +57,25 @@ class Question(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def question_id(self) -> int:
-        """Gets the question_id of this Question.
+    def id(self) -> int:
+        """Gets the id of this Question.
 
 
-        :return: The question_id of this Question.
+        :return: The id of this Question.
         :rtype: int
         """
-        return self._question_id
+        return self._id
 
-    @question_id.setter
-    def question_id(self, question_id: int):
-        """Sets the question_id of this Question.
+    @id.setter
+    def id(self, id: int):
+        """Sets the id of this Question.
 
 
-        :param question_id: The question_id of this Question.
-        :type question_id: int
+        :param id: The id of this Question.
+        :type id: int
         """
 
-        self._question_id = question_id
+        self._id = id
 
     @property
     def question(self) -> str:
@@ -98,22 +99,22 @@ class Question(Model):
         self._question = question
 
     @property
-    def options(self) -> bool:
+    def options(self) -> TFQuestion:
         """Gets the options of this Question.
 
 
         :return: The options of this Question.
-        :rtype: bool
+        :rtype: TFQuestion
         """
         return self._options
 
     @options.setter
-    def options(self, options: bool):
+    def options(self, options: TFQuestion):
         """Sets the options of this Question.
 
 
         :param options: The options of this Question.
-        :type options: bool
+        :type options: TFQuestion
         """
 
         self._options = options

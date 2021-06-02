@@ -14,30 +14,30 @@ class Subject(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, subject_id: int=None, subject_description: str=None, subject_title: str=None):  # noqa: E501
+    def __init__(self, id: int=None, description: str=None, title: str=None):  # noqa: E501
         """Subject - a model defined in Swagger
 
-        :param subject_id: The subject_id of this Subject.  # noqa: E501
-        :type subject_id: int
-        :param subject_description: The subject_description of this Subject.  # noqa: E501
-        :type subject_description: str
-        :param subject_title: The subject_title of this Subject.  # noqa: E501
-        :type subject_title: str
+        :param id: The id of this Subject.  # noqa: E501
+        :type id: int
+        :param description: The description of this Subject.  # noqa: E501
+        :type description: str
+        :param title: The title of this Subject.  # noqa: E501
+        :type title: str
         """
         self.swagger_types = {
-            'subject_id': int,
-            'subject_description': str,
-            'subject_title': str
+            'id': int,
+            'description': str,
+            'title': str
         }
 
         self.attribute_map = {
-            'subject_id': 'subject_id',
-            'subject_description': 'subject_description',
-            'subject_title': 'subject_title'
+            'id': 'id',
+            'description': 'description',
+            'title': 'title'
         }
-        self._subject_id = subject_id
-        self._subject_description = subject_description
-        self._subject_title = subject_title
+        self._id = id
+        self._description = description
+        self._title = title
 
     @classmethod
     def from_dict(cls, dikt) -> 'Subject':
@@ -51,64 +51,64 @@ class Subject(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def subject_id(self) -> int:
-        """Gets the subject_id of this Subject.
+    def id(self) -> int:
+        """Gets the id of this Subject.
 
 
-        :return: The subject_id of this Subject.
+        :return: The id of this Subject.
         :rtype: int
         """
-        return self._subject_id
+        return self._id
 
-    @subject_id.setter
-    def subject_id(self, subject_id: int):
-        """Sets the subject_id of this Subject.
+    @id.setter
+    def id(self, id: int):
+        """Sets the id of this Subject.
 
 
-        :param subject_id: The subject_id of this Subject.
-        :type subject_id: int
+        :param id: The id of this Subject.
+        :type id: int
         """
 
-        self._subject_id = subject_id
+        self._id = id
 
     @property
-    def subject_description(self) -> str:
-        """Gets the subject_description of this Subject.
+    def description(self) -> str:
+        """Gets the description of this Subject.
 
 
-        :return: The subject_description of this Subject.
+        :return: The description of this Subject.
         :rtype: str
         """
-        return self._subject_description
+        return self._description
 
-    @subject_description.setter
-    def subject_description(self, subject_description: str):
-        """Sets the subject_description of this Subject.
+    @description.setter
+    def description(self, description: str):
+        """Sets the description of this Subject.
 
 
-        :param subject_description: The subject_description of this Subject.
-        :type subject_description: str
+        :param description: The description of this Subject.
+        :type description: str
         """
 
-        self._subject_description = subject_description
+        self._description = description
 
     @property
-    def subject_title(self) -> str:
-        """Gets the subject_title of this Subject.
+    def title(self) -> str:
+        """Gets the title of this Subject.
 
 
-        :return: The subject_title of this Subject.
+        :return: The title of this Subject.
         :rtype: str
         """
-        return self._subject_title
+        return self._title
 
-    @subject_title.setter
-    def subject_title(self, subject_title: str):
-        """Sets the subject_title of this Subject.
+    @title.setter
+    def title(self, title: str):
+        """Sets the title of this Subject.
 
 
-        :param subject_title: The subject_title of this Subject.
-        :type subject_title: str
+        :param title: The title of this Subject.
+        :type title: str
         """
 
-        self._subject_title = subject_title
+        self._title = title

@@ -6,20 +6,24 @@ from flask import json
 from six import BytesIO
 
 from swagger_server.models.api_response import ApiResponse  # noqa: E501
+from swagger_server.models.create_virtual_entity_request import CreateVirtualEntityRequest  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
 class TestVirtualEntityController(BaseTestCase):
     """VirtualEntityController integration test stubs"""
 
-    def test_createvirtual_entity(self):
-        """Test case for createvirtual_entity
+    def test_create_virtual_entity(self):
+        """Test case for create_virtual_entity
 
         Create virtual entity for lesson
         """
+        body = CreateVirtualEntityRequest()
         response = self.client.open(
-            '/virtualEntity/createVirtualEntity',
-            method='POST')
+            '/Gang-of-Five/EduGo/1.0.0/virtualEntity/createVirtualEntity',
+            method='POST',
+            data=json.dumps(body),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

@@ -14,39 +14,44 @@ class VirtualEntity(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, virtual_entity_id: int=None, virtual_entity_description: str=None, information: str=None, _3_d_model_id: int=None, quiz_id: int=None):  # noqa: E501
+    def __init__(self, id: int=None, title: str=None, description: str=None, information: str=None, object_model_id: int=None, quiz_id: int=None):  # noqa: E501
         """VirtualEntity - a model defined in Swagger
 
-        :param virtual_entity_id: The virtual_entity_id of this VirtualEntity.  # noqa: E501
-        :type virtual_entity_id: int
-        :param virtual_entity_description: The virtual_entity_description of this VirtualEntity.  # noqa: E501
-        :type virtual_entity_description: str
+        :param id: The id of this VirtualEntity.  # noqa: E501
+        :type id: int
+        :param title: The title of this VirtualEntity.  # noqa: E501
+        :type title: str
+        :param description: The description of this VirtualEntity.  # noqa: E501
+        :type description: str
         :param information: The information of this VirtualEntity.  # noqa: E501
         :type information: str
-        :param _3_d_model_id: The _3_d_model_id of this VirtualEntity.  # noqa: E501
-        :type _3_d_model_id: int
+        :param object_model_id: The object_model_id of this VirtualEntity.  # noqa: E501
+        :type object_model_id: int
         :param quiz_id: The quiz_id of this VirtualEntity.  # noqa: E501
         :type quiz_id: int
         """
         self.swagger_types = {
-            'virtual_entity_id': int,
-            'virtual_entity_description': str,
+            'id': int,
+            'title': str,
+            'description': str,
             'information': str,
-            '_3_d_model_id': int,
+            'object_model_id': int,
             'quiz_id': int
         }
 
         self.attribute_map = {
-            'virtual_entity_id': 'virtualEntity_id',
-            'virtual_entity_description': 'virtualEntity_description',
+            'id': 'id',
+            'title': 'title',
+            'description': 'description',
             'information': 'information',
-            '_3_d_model_id': '3DModel_id',
-            'quiz_id': 'Quiz_id'
+            'object_model_id': 'objectModelId',
+            'quiz_id': 'quizId'
         }
-        self._virtual_entity_id = virtual_entity_id
-        self._virtual_entity_description = virtual_entity_description
+        self._id = id
+        self._title = title
+        self._description = description
         self._information = information
-        self.__3_d_model_id = _3_d_model_id
+        self._object_model_id = object_model_id
         self._quiz_id = quiz_id
 
     @classmethod
@@ -55,52 +60,73 @@ class VirtualEntity(Model):
 
         :param dikt: A dict.
         :type: dict
-        :return: The virtualEntity of this VirtualEntity.  # noqa: E501
+        :return: The VirtualEntity of this VirtualEntity.  # noqa: E501
         :rtype: VirtualEntity
         """
         return util.deserialize_model(dikt, cls)
 
     @property
-    def virtual_entity_id(self) -> int:
-        """Gets the virtual_entity_id of this VirtualEntity.
+    def id(self) -> int:
+        """Gets the id of this VirtualEntity.
 
 
-        :return: The virtual_entity_id of this VirtualEntity.
+        :return: The id of this VirtualEntity.
         :rtype: int
         """
-        return self._virtual_entity_id
+        return self._id
 
-    @virtual_entity_id.setter
-    def virtual_entity_id(self, virtual_entity_id: int):
-        """Sets the virtual_entity_id of this VirtualEntity.
+    @id.setter
+    def id(self, id: int):
+        """Sets the id of this VirtualEntity.
 
 
-        :param virtual_entity_id: The virtual_entity_id of this VirtualEntity.
-        :type virtual_entity_id: int
+        :param id: The id of this VirtualEntity.
+        :type id: int
         """
 
-        self._virtual_entity_id = virtual_entity_id
+        self._id = id
 
     @property
-    def virtual_entity_description(self) -> str:
-        """Gets the virtual_entity_description of this VirtualEntity.
+    def title(self) -> str:
+        """Gets the title of this VirtualEntity.
 
 
-        :return: The virtual_entity_description of this VirtualEntity.
+        :return: The title of this VirtualEntity.
         :rtype: str
         """
-        return self._virtual_entity_description
+        return self._title
 
-    @virtual_entity_description.setter
-    def virtual_entity_description(self, virtual_entity_description: str):
-        """Sets the virtual_entity_description of this VirtualEntity.
+    @title.setter
+    def title(self, title: str):
+        """Sets the title of this VirtualEntity.
 
 
-        :param virtual_entity_description: The virtual_entity_description of this VirtualEntity.
-        :type virtual_entity_description: str
+        :param title: The title of this VirtualEntity.
+        :type title: str
         """
 
-        self._virtual_entity_description = virtual_entity_description
+        self._title = title
+
+    @property
+    def description(self) -> str:
+        """Gets the description of this VirtualEntity.
+
+
+        :return: The description of this VirtualEntity.
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description: str):
+        """Sets the description of this VirtualEntity.
+
+
+        :param description: The description of this VirtualEntity.
+        :type description: str
+        """
+
+        self._description = description
 
     @property
     def information(self) -> str:
@@ -124,25 +150,25 @@ class VirtualEntity(Model):
         self._information = information
 
     @property
-    def _3_d_model_id(self) -> int:
-        """Gets the _3_d_model_id of this VirtualEntity.
+    def object_model_id(self) -> int:
+        """Gets the object_model_id of this VirtualEntity.
 
 
-        :return: The _3_d_model_id of this VirtualEntity.
+        :return: The object_model_id of this VirtualEntity.
         :rtype: int
         """
-        return self.__3_d_model_id
+        return self._object_model_id
 
-    @_3_d_model_id.setter
-    def _3_d_model_id(self, _3_d_model_id: int):
-        """Sets the _3_d_model_id of this VirtualEntity.
+    @object_model_id.setter
+    def object_model_id(self, object_model_id: int):
+        """Sets the object_model_id of this VirtualEntity.
 
 
-        :param _3_d_model_id: The _3_d_model_id of this VirtualEntity.
-        :type _3_d_model_id: int
+        :param object_model_id: The object_model_id of this VirtualEntity.
+        :type object_model_id: int
         """
 
-        self.__3_d_model_id = _3_d_model_id
+        self._object_model_id = object_model_id
 
     @property
     def quiz_id(self) -> int:

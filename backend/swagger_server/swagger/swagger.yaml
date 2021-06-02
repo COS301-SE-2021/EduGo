@@ -4,6 +4,8 @@ info:
   description: 'Api for the EduGo sytsem '
   version: 1.0.0
 servers:
+- url: https://virtserver.swaggerhub.com/Gang-of-Five/EduGo/1.0.0
+  description: SwaggerHub API Auto Mocking
 - url: http://localhost:8080
   description: localhost server
 tags:
@@ -21,7 +23,10 @@ paths:
       summary: Create a lesson for a subject
       operationId: create_lesson
       requestBody:
-        $ref: '#/components/requestBodies/Lesson'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createLessonRequest'
       responses:
         "200":
           description: successful operation
@@ -37,7 +42,12 @@ paths:
       tags:
       - virtualEntity
       summary: Create virtual entity for lesson
-      operationId: createvirtual_entity
+      operationId: create_virtual_entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createVirtualEntityRequest'
       responses:
         "200":
           description: successful operation
@@ -54,6 +64,11 @@ paths:
       - subject
       summary: Create subject for organization
       operationId: create_subject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSubjectRequest'
       responses:
         "200":
           description: successful operation
@@ -69,15 +84,15 @@ components:
     Lesson:
       type: object
       properties:
-        lesson_id:
+        id:
           type: integer
           format: int64
-        subject_id:
+        subjectId:
           type: integer
           format: int64
-        lesson_description:
+        description:
           type: string
-        lesson_title:
+        title:
           type: string
         date:
           type: string
@@ -85,80 +100,95 @@ components:
     Subject:
       type: object
       properties:
-        subject_id:
+        id:
           type: integer
           format: int64
-        subject_description:
+        description:
           type: string
-        subject_title:
+        title:
           type: string
-    "3D_Model":
+    VirtualEntity:
       type: object
       properties:
-        "3d_model_id":
+        id:
           type: integer
           format: int64
-        "3d_model_name":
+        title:
+          type: string
+        description:
+          type: string
+        information:
+          type: string
+        objectModelId:
+          type: integer
+          format: int64
+        quizId:
+          type: integer
+          format: int64
+    ObjectModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
           type: string
     Quiz:
       type: object
       properties:
-        quiz_id:
+        id:
           type: integer
           format: int64
-        quiz_name:
+        title:
           type: string
     Question:
       type: object
       properties:
-        question_id:
+        id:
           type: integer
           format: int64
         question:
           type: string
         options:
-          type: boolean
-          enum:
-          - true
-          - false
+          $ref: '#/components/schemas/TFQuestion'
         answer:
           type: boolean
-    virtualEntity:
+    createLessonRequest:
       type: object
       properties:
-        virtualEntity_id:
-          type: integer
-          format: int64
-        virtualEntity_description:
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+    createSubjectRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+    createVirtualEntityRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
           type: string
         information:
           type: string
-        "3DModel_id":
-          type: integer
-          format: int64
-        Quiz_id:
-          type: integer
-          format: int64
     ApiResponse:
       type: object
       properties:
-        code:
-          type: integer
-          format: int32
-        type:
-          type: string
         message:
           type: string
       example:
-        code: 0
-        type: type
         message: message
-  requestBodies:
-    Lesson:
-      description: Lesson object that needs to be added to the store
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Lesson'
-      required: true
+    TFQuestion:
+      type: string
+      enum:
+      - "true"
+      - "false"
 

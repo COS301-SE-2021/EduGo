@@ -6,7 +6,7 @@ from flask import json
 from six import BytesIO
 
 from swagger_server.models.api_response import ApiResponse  # noqa: E501
-from swagger_server.models.lesson import Lesson  # noqa: E501
+from swagger_server.models.create_lesson_request import CreateLessonRequest  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
@@ -18,9 +18,9 @@ class TestLessonController(BaseTestCase):
 
         Create a lesson for a subject
         """
-        body = Lesson()
+        body = CreateLessonRequest()
         response = self.client.open(
-            '/lesson/createLesson',
+            '/Gang-of-Five/EduGo/1.0.0/lesson/createLesson',
             method='POST',
             data=json.dumps(body),
             content_type='application/json')

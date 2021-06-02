@@ -14,39 +14,39 @@ class Lesson(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, lesson_id: int=None, subject_id: int=None, lesson_description: str=None, lesson_title: str=None, _date: datetime=None):  # noqa: E501
+    def __init__(self, id: int=None, subject_id: int=None, description: str=None, title: str=None, _date: datetime=None):  # noqa: E501
         """Lesson - a model defined in Swagger
 
-        :param lesson_id: The lesson_id of this Lesson.  # noqa: E501
-        :type lesson_id: int
+        :param id: The id of this Lesson.  # noqa: E501
+        :type id: int
         :param subject_id: The subject_id of this Lesson.  # noqa: E501
         :type subject_id: int
-        :param lesson_description: The lesson_description of this Lesson.  # noqa: E501
-        :type lesson_description: str
-        :param lesson_title: The lesson_title of this Lesson.  # noqa: E501
-        :type lesson_title: str
+        :param description: The description of this Lesson.  # noqa: E501
+        :type description: str
+        :param title: The title of this Lesson.  # noqa: E501
+        :type title: str
         :param _date: The _date of this Lesson.  # noqa: E501
         :type _date: datetime
         """
         self.swagger_types = {
-            'lesson_id': int,
+            'id': int,
             'subject_id': int,
-            'lesson_description': str,
-            'lesson_title': str,
+            'description': str,
+            'title': str,
             '_date': datetime
         }
 
         self.attribute_map = {
-            'lesson_id': 'lesson_id',
-            'subject_id': 'subject_id',
-            'lesson_description': 'lesson_description',
-            'lesson_title': 'lesson_title',
+            'id': 'id',
+            'subject_id': 'subjectId',
+            'description': 'description',
+            'title': 'title',
             '_date': 'date'
         }
-        self._lesson_id = lesson_id
+        self._id = id
         self._subject_id = subject_id
-        self._lesson_description = lesson_description
-        self._lesson_title = lesson_title
+        self._description = description
+        self._title = title
         self.__date = _date
 
     @classmethod
@@ -61,25 +61,25 @@ class Lesson(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def lesson_id(self) -> int:
-        """Gets the lesson_id of this Lesson.
+    def id(self) -> int:
+        """Gets the id of this Lesson.
 
 
-        :return: The lesson_id of this Lesson.
+        :return: The id of this Lesson.
         :rtype: int
         """
-        return self._lesson_id
+        return self._id
 
-    @lesson_id.setter
-    def lesson_id(self, lesson_id: int):
-        """Sets the lesson_id of this Lesson.
+    @id.setter
+    def id(self, id: int):
+        """Sets the id of this Lesson.
 
 
-        :param lesson_id: The lesson_id of this Lesson.
-        :type lesson_id: int
+        :param id: The id of this Lesson.
+        :type id: int
         """
 
-        self._lesson_id = lesson_id
+        self._id = id
 
     @property
     def subject_id(self) -> int:
@@ -103,46 +103,46 @@ class Lesson(Model):
         self._subject_id = subject_id
 
     @property
-    def lesson_description(self) -> str:
-        """Gets the lesson_description of this Lesson.
+    def description(self) -> str:
+        """Gets the description of this Lesson.
 
 
-        :return: The lesson_description of this Lesson.
+        :return: The description of this Lesson.
         :rtype: str
         """
-        return self._lesson_description
+        return self._description
 
-    @lesson_description.setter
-    def lesson_description(self, lesson_description: str):
-        """Sets the lesson_description of this Lesson.
+    @description.setter
+    def description(self, description: str):
+        """Sets the description of this Lesson.
 
 
-        :param lesson_description: The lesson_description of this Lesson.
-        :type lesson_description: str
+        :param description: The description of this Lesson.
+        :type description: str
         """
 
-        self._lesson_description = lesson_description
+        self._description = description
 
     @property
-    def lesson_title(self) -> str:
-        """Gets the lesson_title of this Lesson.
+    def title(self) -> str:
+        """Gets the title of this Lesson.
 
 
-        :return: The lesson_title of this Lesson.
+        :return: The title of this Lesson.
         :rtype: str
         """
-        return self._lesson_title
+        return self._title
 
-    @lesson_title.setter
-    def lesson_title(self, lesson_title: str):
-        """Sets the lesson_title of this Lesson.
+    @title.setter
+    def title(self, title: str):
+        """Sets the title of this Lesson.
 
 
-        :param lesson_title: The lesson_title of this Lesson.
-        :type lesson_title: str
+        :param title: The title of this Lesson.
+        :type title: str
         """
 
-        self._lesson_title = lesson_title
+        self._title = title
 
     @property
     def _date(self) -> datetime:
