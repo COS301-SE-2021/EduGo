@@ -3,6 +3,7 @@
 import connexion
 import swagger_server.db as sqlalchemy
 from swagger_server import encoder
+from swagger_server.db.sqlalchemy import db
 
 
 def main():
@@ -14,5 +15,5 @@ def main():
 
 
 if __name__ == '__main__':
-
+    db.create_all()
     main()
