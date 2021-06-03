@@ -16,6 +16,7 @@ def create_lesson(body=None):  # noqa: E501
 
     :rtype: ApiResponse
     """
+    print(body)
     if connexion.request.is_json:
         body = CreateLessonRequest.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+    return 'do some magic he he'
