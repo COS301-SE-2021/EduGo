@@ -4,6 +4,7 @@ import six
 from swagger_server.models.api_response import ApiResponse  # noqa: E501
 from swagger_server.models.create_lesson_request import CreateLessonRequest  # noqa: E501
 from swagger_server import util
+from swagger_server.services.lesson_service import createLesson
 
 
 def create_lesson(body=None):  # noqa: E501
@@ -16,7 +17,6 @@ def create_lesson(body=None):  # noqa: E501
 
     :rtype: ApiResponse
     """
-    print(body)
     if connexion.request.is_json:
         body = CreateLessonRequest.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic he he'
+    return createLesson(body)
