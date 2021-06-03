@@ -4,7 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 # load the configuration of choice
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://edugo:edugo@13.245.34.29:5432/edugo'
+app.config['SQLALCHEMY_DATABASE_URI'] = ''
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
