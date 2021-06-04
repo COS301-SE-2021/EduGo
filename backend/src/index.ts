@@ -19,8 +19,8 @@ client.connect();
 export {client};
 
 import {router as LessonController} from './lesson/api/controller';
-import {router as SubjectController} from './lesson/api/controller';
-import {router as VirtualEntityController} from './lesson/api/controller';
+import {router as SubjectController} from './subject/api/controller';
+import {router as VirtualEntityController} from './virtualEntity/api/controller';
 
 const PORT = process.env.PORT || 8080;
 
