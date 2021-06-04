@@ -13,7 +13,7 @@ export async function createSubject(request: model.createSubjectRequest) : Promi
     `
     return client.query(query)
     .then(res => {
-        return {message: 'Lesson created successfully'}
+        return {message: 'Subject created successfully'}
     })
     .catch(err => {
         console.error(err);
