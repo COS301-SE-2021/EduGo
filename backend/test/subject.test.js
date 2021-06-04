@@ -4,7 +4,7 @@
 const request = require('supertest')
 const { app } = require('../dist/index')
 
-describe("POST /lesson/createLesson", () => {
+describe("POST /subject/createSubject", () => {
 
   describe("Subject is created ", () => {
 
@@ -18,7 +18,7 @@ describe("POST /lesson/createLesson", () => {
         expect(response.statusCode).toBe(200)
       })
       test("should specify json in the content type header", async () => {
-        const response = await request(app).post("/lesson/createLesson").send({
+        const response = await request(app).post("/subject/createSubject").send({
             
           description: "Some Subject description",
           title:"Edugo Subject",
@@ -31,7 +31,7 @@ describe("POST /lesson/createLesson", () => {
 
   describe("when the one of the parameters are missing", () => {
     test("should respond with a 400 status code", async () => {
-      const response = await request(app).post("/lesson/createLesson").send({
+      const response = await request(app).post("/subject/createSubject").send({
         
         title:"Edugo Subject",
          
