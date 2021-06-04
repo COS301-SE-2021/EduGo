@@ -5,7 +5,7 @@ import {client} from '../../index'
 
 export async function createSubject(request: model.createSubjectRequest) : Promise<ApiResponse | undefined> {
     
-    if (!('title' in request)) {
+    if (!('title' in request) || !('description' in request)) {
         return undefined;
     } 
     const query = `

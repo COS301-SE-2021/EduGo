@@ -5,7 +5,7 @@ import {client} from '../../index'
 
 export async function createLesson(request: model.createLessonRequest) : Promise<ApiResponse | undefined> {
     
-    if (!('title' in request)) {
+    if (!('title' in request) || !('description' in request)) {
         return undefined;
     } 
     let new_lesson: Lesson = {

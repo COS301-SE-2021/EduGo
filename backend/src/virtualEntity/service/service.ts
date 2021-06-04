@@ -7,7 +7,7 @@ export async function createVirtualEntity(request: model.createVirtualEntityRequ
         return undefined;
     } 
     const query = `
-    INSERT INTO virtualEntity (description, title) VALUES ('${request.description}', '${request.title}')
+    INSERT INTO virtualentity (description, title) VALUES ('${request.description}', '${request.title}')
     `
     return client.query(query)
     .then(res => {
