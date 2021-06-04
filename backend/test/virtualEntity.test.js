@@ -8,6 +8,19 @@ describe("POST /virtualEntity/createVirtualEntity", () => {
 
   describe("Virtual Entity is created ", () => {
 
+
+  })
+
+  describe("when the one of the parameters are missing", () => {
+    test("should respond with a 400 status code", async () => {
+      const response = await request(app).post("/subject/createSubject").send({
+        
+        title:"Edugo Subject",
+         
+      })
+      expect(response.statusCode).toBe(400)
+    })
+
   })
 
 })
