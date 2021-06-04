@@ -1,1 +1,9 @@
+# Node stuff
 node_modules
+
+# Env stuff
+.env
+
+# Mac stuff
+.DS_Store
+Icon
