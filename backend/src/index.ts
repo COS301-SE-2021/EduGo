@@ -1,16 +1,15 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import http from 'http';
 import {Client} from 'pg';
 
-dotenv.config();
+//dotenv.config();
 
 const client = new Client({
     user: process.env.DB_USER,
-    host: process.env.DB_URL,
+    host: 'db',
     database: 'edugo',
-    password: process.env.DB_PASS,
+    password: process.env.DB_PASSWORD,
     port: 5432
 });
 
@@ -32,5 +31,8 @@ app.use('/lesson', LessonController)
 app.use('/subject', SubjectController)
 app.use('/virtualEntity', VirtualEntityController)
 
-const server = http.createServer(app);
-server.listen(PORT);
+app.get('/', (req, res) => {
+    res.send('hey there')
+})
+
+app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
