@@ -2,20 +2,23 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import {Client} from 'pg';
+import { dbInit } from './database/index';
 
 //dotenv.config();
 
-const client = new Client({
-    user: process.env.DB_USER,
-    host: 'db',
-    database: 'edugo',
-    password: process.env.DB_PASSWORD,
-    port: 5432
-});
+// const client = new Client({
+//     user: process.env.DB_USER,
+//     host: 'db',
+//     database: 'edugo',
+//     password: process.env.DB_PASSWORD,
+//     port: 5432
+// });
 
-client.connect();
+// client.connect();
 
-export {client};
+// export {client};
+
+dbInit();
 
 import {router as LessonController} from './lesson/api/controller';
 import {router as SubjectController} from './lesson/api/controller';

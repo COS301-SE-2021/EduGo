@@ -1,6 +1,11 @@
 import 'reflect-metadata';
 import { createConnection } from 'typeorm'
 
-createConnection().then(async connection => {
-
-})
+export const dbInit = async () => {
+    createConnection()
+        .then(connection => {
+            console.log('First database connection successful.');
+            connection.close();
+        })
+        .catch(err => console.log(err))
+}

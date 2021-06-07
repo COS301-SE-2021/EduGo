@@ -23,6 +23,8 @@ services:
             PGADMIN_DEFAULT_PASSWORD: edugo_admin
         ports:
             - '8081:80'
+        logging:
+            driver: none
     db:
         container_name: postgres_container
         image: postgres
