@@ -1,7 +1,7 @@
 {
     "verbose": true,
     "ignore": [],
-    "watch": ["src/**/*.ts"],
+    "watch": ["src/**/*.ts", "src/**/*.js"],
     "execMap": {
         "ts": "node --inspect=0.0.0.0:9229 --nolazy -r ts-node/register"
     }
