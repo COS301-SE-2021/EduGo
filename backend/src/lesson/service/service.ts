@@ -1,33 +1,27 @@
-import {Lesson} from '../model/lesson';
-import * as model from '../model/apiModels';
-import {ApiResponse} from '../../model/apiResponse';
-import {client} from '../../index'
+import { CreateLessonRequest } from '../models/CreateLessonRequest';
+import { ApiResponse } from '../../models/apiResponse';
+import { Lesson } from '../../database/entity/Lesson';
+import { createConnection } from 'typeorm';
 
-export async function createLesson(request: model.createLessonRequest) : Promise<ApiResponse | undefined> {
-    
-    if (!('title' in request) || !('description' in request)) {
-        return undefined;
-    } 
-    let new_lesson: Lesson = {
-        date: new Date(),
-        description: request.description,
-        title: request.title,
-        subject_id: null
-    }
-    const query = `
-        INSERT INTO lesson (description, title, date) VALUES ('${new_lesson.description}', '${new_lesson.title}', '${new_lesson.date.toISOString()}')
-    `
-
+export async function createLesson(request: CreateLessonRequest) : Promise<ApiResponse> {
     let response: ApiResponse = {
-        message: 'Lesson created successfully'
+        message: '',
+        type: 'fail'
     }
+    let conn = await createConnection();
+    let lessonRepository = conn.getRepository(Lesson);
 
-    return client.query(query)
-    .then(res => {
-        return {message: 'Lesson created successfully'}
-    })
-    .catch(err => {
-        console.error(err);
-        return {message: 'There was an error'}
+    let lesson: Lesson = new Lesson();
+    lesson.title = request.title;
+    lesson.description = request.description;
+
+    return lessonRepository.save(lesson).then(value => {
+        response.message = `Successfully added lesson ${value.id}`
+        response.type = 'success'
+        return response;
+    }).catch(() => {
+        response.message = 'There was an error adding the lesson'
+        response.type = 'fail'
+        return response;
     })
 }
