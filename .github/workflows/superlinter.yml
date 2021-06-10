@@ -9,9 +9,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        run: docker-compose up -d
       - name: Run Super-Linter
         uses: github/super-linter@v3
         env:
-          DEFAULT_BRANCH: main
+          DEFAULT_BRANCH: develop-testing
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
