@@ -1,4 +1,4 @@
-const request = require('supertest')
+import supertest from "supertest";
 const { app } = require('../dist/index')
 
 //LESSON
@@ -10,25 +10,22 @@ describe("POST /lesson/createLesson", () => {
   describe("Lesson is created ", () => {
 
     test("should respond with a 200 status code", async () => {
-      const response = await request(app).post("/lesson/createLesson").send({
-        
+
+
+      const response = await supertest(app).post("")
+      .send({
         subjectId:1,
         description: "Some Lesson description",
         title:"Edugo Lesson",
-        date: "20 june"
-         
-      })
-      expect(response.statusCode).toBe(200)
-    })
-  
-
+        date: "20 june" });
+        expect("").toBe(200);
   })
 
+  
   describe("when the one of the parameters are missing", () => {
  
   })
 
 })
 
-//LESSON
-
+})
