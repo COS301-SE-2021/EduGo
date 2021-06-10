@@ -8,7 +8,7 @@ export async function createLesson(request: CreateLessonRequest) : Promise<ApiRe
         message: '',
         type: 'fail'
     }
-    let conn = await createConnection();
+    let conn = await createConnection();yiu;hi;s
     let lessonRepository = conn.getRepository(Lesson);
 
     let lesson: Lesson = new Lesson();
