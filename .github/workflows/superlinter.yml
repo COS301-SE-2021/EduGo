@@ -14,8 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker-compose up
+    - name: Build the Backend
+      run: | 
+        docker build ./backend
         
         # env:
         #   DEFAULT_BRANCH: develop-testing
