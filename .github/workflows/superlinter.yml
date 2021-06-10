@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Backend
       run: | 
-        docker build ./backend
+        docker build ./backend 
         
         # env:
         #   DEFAULT_BRANCH: develop-testing
