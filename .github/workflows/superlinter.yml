@@ -7,9 +7,11 @@ jobs:
     name: Lint code base
     runs-on: ubuntu-latest
     steps:
+      - name: Run Docker 
+        run: docker-compose up
       - name: Checkout code
         uses: actions/checkout@v2
-        run: docker-compose up -d
+        
       - name: Run Super-Linter
         uses: github/super-linter@v3
         env:
