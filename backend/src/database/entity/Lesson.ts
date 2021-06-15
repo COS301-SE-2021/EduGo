@@ -7,8 +7,6 @@ export class Lesson {
 
     @Column()
     title: string;
-    @Column()
-    something: string; 
 
     @Column()
     description: string;
