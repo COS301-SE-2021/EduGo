@@ -1,22 +1,21 @@
 import express from 'express';
-import {createVirtualEntity} from '../service/virtualEntityService';
-import {createVirtualEntityRequest} from '../model/apiModels'
+import {CreateVirtualEntityRequest} from '../model/CreateVirtualEntityRequest';
+import { VirtualEntityService } from '../service/virtualEntityService';
+import { VirtualEntityServiceImplementation } from '../service/virtualEntityServiceImplentation';
 
 const router = express.Router();
-
-router.use((req, res, next) => {
-    next()
-})
+const service: VirtualEntityService = new VirtualEntityServiceImplementation();
 
 router.post('/createVirtualEntity', async (req, res) => {
-    let response = await createVirtualEntity(<createVirtualEntityRequest>req.body);
-    if (response === undefined) {
+    let body = <CreateVirtualEntityRequest>req.body;
+    service.CreateVirtualEntity(body).then(response => {
+        res.status(200);
+        res.json(response);
+    })
+    .catch(err => {
         res.status(400);
-        res.json({message: "Missing properties"})
-        return;
-    }
-    res.status(200);
-    res.json(response);
+        res.json({message: 'error', error: err});
+    })
 })
 
 export {router}
