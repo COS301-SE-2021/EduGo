@@ -1,8 +1,7 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
-import {Client} from 'pg';
 import { dbInit } from './database/index';
+import fileUpload from 'express-fileupload';
 
 //dotenv.config();
 
@@ -30,6 +29,7 @@ export const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
+app.use(fileUpload());
 app.use('/lesson', LessonController)
 app.use('/subject', SubjectController)
 app.use('/virtualEntity', VirtualEntityController)
