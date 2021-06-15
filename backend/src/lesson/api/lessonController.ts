@@ -1,6 +1,6 @@
 import express from 'express';
-import {createVirtualEntity} from '../service/service';
-import {createVirtualEntityRequest} from '../model/apiModels'
+import {createLesson} from '../service/lessonService';
+import { CreateLessonRequest } from '../models/CreateLessonRequest'
 
 const router = express.Router();
 
@@ -8,8 +8,9 @@ router.use((req, res, next) => {
     next()
 })
 
-router.post('/createVirtualEntity', async (req, res) => {
-    let response = await createVirtualEntity(<createVirtualEntityRequest>req.body);
+router.post('/createLesson', async (req, res) => {
+    //Create lesson
+    let response = await createLesson(<CreateLessonRequest>req.body);
     if (response === undefined) {
         res.status(400);
         res.json({message: "Missing properties"})
