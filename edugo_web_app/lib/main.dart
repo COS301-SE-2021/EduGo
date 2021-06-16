@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/ui/Views/Landing/EduGoHome.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,17 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'EduGo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'Blank EduGo - Home Page',
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "Montserrat"),
+      home: EduGoHome(),
     );
   }
 }
