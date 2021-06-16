@@ -1,7 +1,7 @@
-# edugo_web_app
+# Edugo Web App
 
-EduGo educator web app.
+This is the web app that will allow teachers to interact with the EduGo system.
 
-# about
+# About
 
-This is the first version of EduGo, by 5DT developed by Gang Of Five (GOF)
+This is the first version of EduGo, by 5DT developed by Gang Of Five (GOF) in 2021
