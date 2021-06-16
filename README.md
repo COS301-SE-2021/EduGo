@@ -1,3 +1,3 @@
-# EduGo
+# EduGo Web App Front End
 
-Web app for EduGo educators to interact with the EduGo system.
+Main branch for the EduGo Web App front end development team.
