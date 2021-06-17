@@ -1,4 +1,4 @@
-import 'package:edugo_web_app/ui/Views/SignInPage.dart';
+import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:flutter/material.dart';
 
 class LandingPageNav extends StatelessWidget {
@@ -104,7 +104,7 @@ class DesktopNavbar extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SignInPage()),
+                      MaterialPageRoute(builder: (context) => SubjectsPage()),
                     );
                   },
                   child: Padding(

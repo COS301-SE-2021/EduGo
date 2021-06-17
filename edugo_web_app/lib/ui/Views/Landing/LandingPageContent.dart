@@ -1,4 +1,4 @@
-import 'package:edugo_web_app/ui/Views/SignInPage.dart';
+import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:flutter/material.dart';
 
 class LandingPageContent extends StatelessWidget {
@@ -34,7 +34,7 @@ class LandingPageContent extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SignInPage()),
+                  MaterialPageRoute(builder: (context) => SubjectsPage()),
                 );
               },
               color: Color.fromARGB(255, 97, 211, 87),

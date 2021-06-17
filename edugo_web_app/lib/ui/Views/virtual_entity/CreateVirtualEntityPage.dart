@@ -24,29 +24,82 @@ class CreateVirtualEntityPage extends StatelessWidget {
                 ),
                 Align(
                     alignment: Alignment.topLeft,
-                    child: Container(
-                      height: MediaQuery.of(context).size.height - 360,
-                      child: SingleChildScrollView(
-                        child: Column(children: <Widget>[
-                          EduGoInput(hintText: "Entity name", width: 450),
-                          SizedBox(
-                            height: 25,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          height: MediaQuery.of(context).size.height - 360,
+                          child: SingleChildScrollView(
+                            child: Column(children: <Widget>[
+                              EduGoInput(hintText: "Entity name", width: 450),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              EduGoMultiLineInput(
+                                width: 450,
+                                maxLines: 3,
+                                hintText: "Entity description",
+                              ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              EduGoMultiLineInput(
+                                width: 450,
+                                maxLines: 4,
+                                hintText: "Quiz information",
+                              )
+                            ]),
                           ),
-                          EduGoMultiLineInput(
-                            width: 450,
-                            maxLines: 3,
-                            hintText: "Entity description",
+                        ),
+                        SizedBox(
+                          width: 120,
+                        ),
+                        Container(
+                          height: MediaQuery.of(context).size.height - 360,
+                          child: Column(
+                            children: <Widget>[
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                onPressed: () {},
+                                minWidth: 400,
+                                height: 60,
+                                child: Text("Add 3D Model",
+                                    style: TextStyle(color: Colors.white)),
+                                color: Color.fromARGB(255, 97, 211, 87),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                onPressed: () {},
+                                minWidth: 400,
+                                height: 60,
+                                child: Text("Generate Marker",
+                                    style: TextStyle(color: Colors.white)),
+                                color: Color.fromARGB(255, 97, 211, 87),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                onPressed: () {},
+                                minWidth: 400,
+                                height: 60,
+                                child: Text("Create Quiz",
+                                    style: TextStyle(color: Colors.white)),
+                                color: Color.fromARGB(255, 97, 211, 87),
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          EduGoMultiLineInput(
-                            width: 450,
-                            maxLines: 4,
-                            hintText: "Quiz information",
-                          )
-                        ]),
-                      ),
+                        ),
+                      ],
                     ))
               ],
             ),
