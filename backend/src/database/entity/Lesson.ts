@@ -15,6 +15,9 @@ export class Lesson {
     @Column()
     date: string; 
 
+    @Column()
+    subjectId: string; 
+
     @Column( {nullable: true} )
     virtualEntityID: string
 }
