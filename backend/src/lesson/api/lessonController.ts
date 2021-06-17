@@ -16,7 +16,7 @@ router.post('/createLesson', async (req, res) => {
     res.json(response);
 })
 
-router.get("/GetLessonsBySubject", async (req, res) => {
+router.get("/getLessonsBySubject", async (req, res) => {
     //Create lesson
     let response = await GetLessonsBySubject(<GetLessonsBySubjectRequest>req.body);
     res.status(200);

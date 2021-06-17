@@ -13,7 +13,7 @@ let statusRes: ApiResponse = {
 export async function createLesson(request: CreateLessonRequest) : Promise<ApiResponse> {
     
   
-    if(request.title== null||request.date == null|| request.description == null){
+    if(request.title== null||request.date == null|| request.description == null|| request.subjectId){
         statusRes.message = "Missing parameters"
         statusRes.type = 'fail'
         return statusRes; 
@@ -28,7 +28,7 @@ export async function createLesson(request: CreateLessonRequest) : Promise<ApiRe
         lesson.description = request.description;
         lesson.date = request.date; 
         return lessonRepository.save(lesson).then(value => {
-            statusRes.message = `Successfully added lesson ${value.id}`
+            statusRes.message = `Successfully added lesson ${value.lessonId}`
             statusRes.type = 'success'
             return statusRes; 
 
@@ -53,14 +53,15 @@ export async function GetLessonsBySubject(request: GetLessonsBySubjectRequest)  
     else{
             let conn = await createConnection();
             let lessonRepository = conn.getRepository(Lesson);
-            let lessons = <Lesson[]><unknown>lessonRepository.find({ subjectId: request.subjectId }).then(value => {
-            let LessonsData: GetLessonsBySubjectResponse= {data:lessons,statusMessage:"Successful"} 
-            return LessonsData; 
-        }).catch(() => {
-            statusRes.message = 'There was an error getting lessons for subjectId provided'
-            statusRes.type = 'fail'
-            return statusRes;
-        })
+            //let lessons = <Lesson[]><unknown>lessonRepository.find({ subjectId: request.subjectId }).then(value => {
+           // let LessonsData: GetLessonsBySubjectResponse= {data:lessons,statusMessage:"Successful"} 
+            //return LessonsData; 
+            //     return; 
+        // }).catch(() => {
+        //     statusRes.message = 'There was an error getting lessons for subjectId provided'
+        //     statusRes.type = 'fail'
+        //     return statusRes;
+        // })
         
     }
     
