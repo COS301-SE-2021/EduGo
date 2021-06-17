@@ -10,5 +10,3 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=sqale_index)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 
-
-P.S. Replace <REPONAME> with your repository name.
