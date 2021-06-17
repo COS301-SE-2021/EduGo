@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+  
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Lesson } from "./Lesson";
 @Entity()
 export class Subject {
     @PrimaryGeneratedColumn()
@@ -10,4 +11,11 @@ export class Subject {
 
     @Column()
     description: string;
+
+    @Column()
+    educatorId: string;
+    
+    @OneToMany(type=> Lesson, lesson => lesson.id )
+    @JoinColumn()
+    lessons:Lesson[]
 }
