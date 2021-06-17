@@ -32,6 +32,52 @@ class EditSubjectPage extends StatelessWidget {
                         children: <Widget>[
                           //SizedBox(height: 100),
                           Container(
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(height: 15),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  // child: Text(
+                                  //   "   Subject ",
+                                  //   style: TextStyle(
+                                  //       fontSize: 25, color: Colors.green),
+                                  // ),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: "  Subject ",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              //fontWeight: FontWeight.bold,
+                                              fontSize: 30),
+                                        ),
+                                        TextSpan(
+                                            text: "Gra",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                //fontWeight: FontWeight.bold,
+                                                fontSize: 30)),
+                                        TextSpan(
+                                            text: "de",
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                //fontWeight: FontWeight.bold,
+                                                fontSize: 30)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: EduGoInput(
+                                      hintText:
+                                          "Enter the new details for the subject grade",
+                                      width: 450),
+                                )
+                              ],
+                            ),
                             //height: MediaQuery.of(context).size.height - 0,
                             //width: MediaQuery.of(context).size.width - 0,
                             height: 150,
@@ -62,7 +108,7 @@ class EditSubjectPage extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           Container(
-                            height: 150,
+                            height: 200,
                             width: 1200,
                             decoration: BoxDecoration(
                               border: Border.all(
