@@ -1,6 +1,5 @@
 import { VirtualEntity } from '../../database/entity/VirtualEntity';
 import { createConnection } from 'typeorm';
-import {ApiResponse} from '../../models/apiResponse';
 import { CreateVirtualEntityRequest } from '../model/CreateVirtualEntityRequest';
 import { VirtualEntityService } from './virtualEntityService';
 import { Model } from '../../database/entity/Model';
@@ -12,6 +11,11 @@ import { Question, QuestionType } from '../../database/entity/quiz/Question';
 
 export class VirtualEntityServiceImplementation extends VirtualEntityService {
     async GetVirtualEntities(request: GetVirtualEntitiesRequest): Promise<GetVirtualEntitiesResponse> {
+        return createConnection().then(conn => {
+            let virtualEntityRepo = conn.getRepository(VirtualEntity);
+
+            return virtualEntityRepo.find()
+        })
         throw new Error('Method not implemented.');
     }
 
@@ -19,8 +23,12 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
         return createConnection().then(conn => {
             let virtualEntityRepo = conn.getRepository(VirtualEntity);
             
-            let model: Model = new Model();
+            let virtualEntity: VirtualEntity = new VirtualEntity();
+            virtualEntity.title = request.title;
+            virtualEntity.description = request.description;
+            
             if (request.model !== undefined) {
+                let model: Model = new Model();
                 model.name = request.model.name;
                 model.description = request.model.description;
                 model.file_link = request.model.file_link;
@@ -28,10 +36,11 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
                 model.file_size = request.model.file_size;
                 model.file_type = request.model.file_type;
                 model.preview_img = request.model.preview_img;
+                virtualEntity.model = model;
             }
 
-            let quiz: Quiz = new Quiz();
             if (request.quiz !== undefined) {
+                let quiz: Quiz = new Quiz();
                 quiz.title = request.quiz.title;
                 quiz.description = request.quiz.description;
                 quiz.questions = request.quiz.questions.map(value => {
@@ -42,12 +51,8 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
                     question.correctAnswer = value.correctAnswer;
                     return question;
                 })
+                virtualEntity.quiz = quiz;
             }
-            let virtualEntity: VirtualEntity = new VirtualEntity();
-            virtualEntity.title = request.title;
-            virtualEntity.description = request.description;
-            virtualEntity.model = model;
-            virtualEntity.quiz = quiz;
             
             return virtualEntityRepo.save(virtualEntity).then(result => {
                 let response: CreateVirtualEntityResponse = {
