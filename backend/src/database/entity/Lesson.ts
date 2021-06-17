@@ -1,10 +1,10 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-
+import {Subject} from "./Subject"
 @Entity()
 export class Lesson {
-    @ManyToOne(type => Lesson, lesson=> lesson.id)
+   
     @PrimaryGeneratedColumn()
-    id: number;
+    lessonId: number;
 
     @Column()
     title: string;
@@ -15,8 +15,9 @@ export class Lesson {
     @Column()
     date: string; 
 
+    @ManyToOne(type => Subject, subject=> subject.id)
     @Column()
-    subjectId: string; 
+    subject:Subject
 
     @Column( {nullable: true} )
     virtualEntityID: string
