@@ -21,7 +21,6 @@ export async function createLesson(request: CreateLessonRequest){
 
     else{
         let conn = await createConnection();
-        let lessonRepository = conn.getRepository(Lesson);
         let lesson: Lesson = new Lesson();
     
         lesson.title = request.title;
@@ -35,7 +34,7 @@ export async function createLesson(request: CreateLessonRequest){
             if (subject){
                 subject?.lessons.push(lesson); 
                 return subjectRepository.save(subject).then(value => {
-                    statusRes.message = `Successfully added lesson ${value.id}`
+                    statusRes.message = `Successfully added lesson `
                     statusRes.type = 'success'
                     return statusRes; 
     
@@ -65,23 +64,21 @@ export async function GetLessonsBySubject(request: GetLessonsBySubjectRequest)  
     }
 
     else{
-            let conn = await createConnection();
-            let subjectRepository = conn.getRepository(Subject);
-            subjectRepository.findOne(request.subjectId).then(subject => {
+        let conn = await createConnection();
+        let subjectRepository = conn.getRepository(Subject);
+        subjectRepository.findOne(request.subjectId).then(subject => {
 
-            if (subject){
-                    let lessons = subject.lessons
-                    let LessonsData: GetLessonsBySubjectResponse= {data:lessons,statusMessage:"Successful"} 
-                    return LessonsData; ;
-      
-            }
+        if (subject){
+            let lessons = subject.lessons
+            let LessonsData: GetLessonsBySubjectResponse= {data:lessons,statusMessage:"Successful"} 
+            return LessonsData;
+        }
             
         }).catch(() => {
             statusRes.message = 'There was an error getting lessons for subjectId provided'
             statusRes.type = 'fail'
             return statusRes;
-        })
-        
+        })  
     }
     
 } 
