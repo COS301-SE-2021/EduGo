@@ -2,6 +2,7 @@ import 'package:edugo_web_app/ui/Views/SettingsPage.dart';
 import 'package:edugo_web_app/ui/Views/StudentsProgressPage.dart';
 import 'package:edugo_web_app/ui/Views/lesson/LessonsPage.dart';
 import 'package:edugo_web_app/ui/Views/subject/CreateSubjectPage.dart';
+import 'package:edugo_web_app/ui/Views/subject/EditSubjectPage.dart';
 import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/CreateVirtualEntityPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityStorePage.dart';
@@ -61,7 +62,7 @@ class DesktopNavBar extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreateSubjectPage()),
+                                builder: (context) => EditSubjectPage()),
                           );
                         },
                       ),
