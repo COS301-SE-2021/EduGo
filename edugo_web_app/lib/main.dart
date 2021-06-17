@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/CreateVirtualEntityPage.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Color.fromARGB(255, 97, 211, 87),
           primarySwatch: Colors.blue,
           fontFamily: "Montserrat"),
-      home: CreateVirtualEntityPage(),
+      home: SubjectsPage(),
     );
   }
 }

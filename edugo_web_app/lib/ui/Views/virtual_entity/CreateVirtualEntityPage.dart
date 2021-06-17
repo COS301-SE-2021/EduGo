@@ -13,19 +13,20 @@ class CreateVirtualEntityPage extends StatelessWidget {
           EduGoContainer(
             width: MediaQuery.of(context).size.width - 100,
             height: MediaQuery.of(context).size.height - 100,
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: Text("Create Virtual Entity",
-                          style: TextStyle(fontSize: 25))),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
+            child: Column(
+              children: <Widget>[
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Text("Create Virtual Entity",
+                        style: TextStyle(fontSize: 25))),
+                SizedBox(
+                  height: 45,
+                ),
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height - 360,
+                      child: SingleChildScrollView(
                         child: Column(children: <Widget>[
                           EduGoInput(hintText: "Entity name", width: 450),
                           SizedBox(
@@ -35,11 +36,19 @@ class CreateVirtualEntityPage extends StatelessWidget {
                             width: 450,
                             maxLines: 3,
                             hintText: "Entity description",
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          EduGoMultiLineInput(
+                            width: 450,
+                            maxLines: 4,
+                            hintText: "Quiz information",
                           )
                         ]),
-                      ))
-                ],
-              ),
+                      ),
+                    ))
+              ],
             ),
           )
         ],

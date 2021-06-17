@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/ui/Views/Landing/EduGoHome.dart';
+import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:flutter/material.dart';
 
 class SignInPage extends StatelessWidget {
@@ -10,9 +11,10 @@ class SignInPage extends StatelessWidget {
         children: <Widget>[
           MaterialButton(
               onPressed: () {
-                //Insert login form field
-                //Run form field checks
-                //Call login service
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SubjectsPage()),
+                );
               },
               child: Text("Sign In")),
           MaterialButton(
