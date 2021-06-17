@@ -15,7 +15,7 @@ export class Subject {
     @Column()
     educatorId: string;
     
-    @OneToMany(type=> Lesson, lesson => lesson.id )
+    @OneToMany(type=> Lesson, lesson => lesson.lessonId )
     @JoinColumn()
     lessons:Lesson[]
 }
