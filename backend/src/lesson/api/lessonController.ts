@@ -20,4 +20,10 @@ router.post('/createLesson', async (req, res) => {
     res.json(response);
 })
 
+router.get("/getLesson", res=> {
+
+
+
+} )
+
 export {router}
