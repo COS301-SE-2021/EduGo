@@ -6,19 +6,108 @@ import { Model } from '../../database/entity/Model';
 import { Quiz } from '../../database/entity/quiz/Quiz';
 import { CreateVirtualEntityResponse } from '../model/CreateVirtualEntityResponse';
 import { GetVirtualEntitiesRequest } from '../model/GetVirtualEntitiesRequest';
-import { GetVirtualEntitiesResponse } from '../model/GetVirtualEntitiesResponse';
+import { GetVirtualEntitiesResponse, GVEs_Model, GVEs_VirtualEntity } from '../model/GetVirtualEntitiesResponse';
 import { Question, QuestionType } from '../../database/entity/quiz/Question';
+import {} from '../model/GetVirtualEntitiesResponse'
+import { GetVirtualEntityRequest } from '../model/GetVirtualEntityRequest';
+import { GetVirtualEntityResponse, GVE_Model, GVE_Quiz } from '../model/GetVirtualEntityResponse';
+import { AddModelToVirtualEntityFileData } from '../model/AddModelToVirtualEntityRequest';
+import { AddModelToVirtualEntityDatabaseResult } from '../model/AddModelToVirtualEntityResponse';
 
 export class VirtualEntityServiceImplementation extends VirtualEntityService {
+    async AddModelToVirtualEntity(request: AddModelToVirtualEntityFileData): Promise<AddModelToVirtualEntityDatabaseResult> {
+        return createConnection().then(conn => {
+            let virtualEntityRepo = conn.getRepository(VirtualEntity);
+
+            return virtualEntityRepo.findOne(request.id, {
+                relations: ["model", "quiz", "quiz.questions"]
+            }).then(entity => {
+                if (entity) {
+                    let model: Model = new Model();
+                    model.name = request.name;
+                    model.description = request.description;
+                    model.file_name = request.file_name;
+                    model.file_link = request.file_link;
+                    model.file_size = request.file_size;
+                    model.file_type = request.file_type;
+                    if (entity.model) {
+                        throw new Error('This virtual entity already has a model');
+                    }
+                    entity.model = model;
+                    return virtualEntityRepo.save(entity).then(result => {
+                        if (result.model) {
+                            let response: AddModelToVirtualEntityDatabaseResult = {
+                                model_id: result.model?.id
+                            }
+                            return response;
+                        }
+                        else throw new Error('There was an error adding to the DB');
+                    })
+                }
+                else throw new Error('There was an error');
+            })
+        })
+    }
+
+    async GetVirtualEntity(request: GetVirtualEntityRequest): Promise<GetVirtualEntityResponse> {
+        return createConnection().then(conn => {
+            let virtualEntityRepo = conn.getRepository(VirtualEntity);
+
+            return virtualEntityRepo.findOne(request.id, {
+                relations: ["model", "quiz", "quiz.questions"]
+            }).then(entity => {
+                if (entity) {
+                    let response: GetVirtualEntityResponse = {
+                        id: entity.id,
+                        title: entity.title,
+                        description: entity.description
+                    }
+                    if (entity.model) {
+                        let model: GVE_Model = {...entity.model}
+                        response.model = model;
+                    }
+                    if (entity.quiz) {
+                        let quiz: GVE_Quiz = {...entity.quiz}
+                        response.quiz = quiz
+                    }
+                    conn.close()
+                    return response
+                }
+                else {
+                    conn.close()
+                    throw new Error(`Could not find entity with id ${request.id}`)
+                }
+            })
+
+            
+        })
+    }
+
     async GetVirtualEntities(request: GetVirtualEntitiesRequest): Promise<GetVirtualEntitiesResponse> {
         return createConnection().then(conn => {
             let virtualEntityRepo = conn.getRepository(VirtualEntity);
 
             return virtualEntityRepo.find({
                 relations: ["model"]
-            }).then()
+            }).then(entities => {
+                let response: GetVirtualEntitiesResponse = {
+                    entities: entities.map(value => {
+                        let entity: GVEs_VirtualEntity = {
+                            title: value.title,
+                            description: value.description,
+                            id: value.id,
+                        }
+                        if (value.model) {
+                            let model: GVEs_Model = {...value.model}
+                            entity.model = model
+                        }
+                        return entity;
+                    })
+                }
+                conn.close()
+                return response;
+            })
         })
-        throw new Error('Method not implemented.');
     }
 
     async CreateVirtualEntity(request: CreateVirtualEntityRequest): Promise<CreateVirtualEntityResponse> {
@@ -61,6 +150,7 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
                     message: 'Successful',
                     id: result.id
                 }
+                conn.close()
                 return response;
             })
         })
