@@ -19,7 +19,7 @@ jobs:
      # docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build Backend
       run: | 
-        docker build ./backend 
+        docker build ./backend --target prod
         
         # env:
         #   DEFAULT_BRANCH: develop-testing
