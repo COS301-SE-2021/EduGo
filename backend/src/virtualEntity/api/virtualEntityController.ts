@@ -2,9 +2,11 @@ import express from 'express';
 import {CreateVirtualEntityRequest} from '../model/CreateVirtualEntityRequest';
 import { VirtualEntityService } from '../service/virtualEntityService';
 import { VirtualEntityServiceImplementation } from '../service/virtualEntityServiceImplentation';
+import {router as modelController} from './modelController';
 
 const router = express.Router();
 const service: VirtualEntityService = new VirtualEntityServiceImplementation();
+router.use('/model', modelController);
 
 router.post('/createVirtualEntity', async (req, res) => {
     let body = <CreateVirtualEntityRequest>req.body;

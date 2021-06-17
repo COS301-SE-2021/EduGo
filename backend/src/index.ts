@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import { dbInit } from './database/index';
-import fileUpload from 'express-fileupload';
 
 //dotenv.config();
 
@@ -29,10 +28,24 @@ export const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
-app.use(fileUpload());
 app.use('/lesson', LessonController)
 app.use('/subject', SubjectController)
 app.use('/virtualEntity', VirtualEntityController)
+
+/*
+ * Look, it's a comment
+ * TODO Fix this
+ */
+
+// app.use((req, res, next) => {
+//     express.json()(req, res, err => {
+//         if (err) {
+//             if (err instanceof SyntaxError) {
+
+//             }
+//         }
+//     })
+// })
 
 app.get('/', (req, res) => {
     res.send('hey there')
