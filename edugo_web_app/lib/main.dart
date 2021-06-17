@@ -1,6 +1,4 @@
 import 'package:edugo_web_app/ui/Views/Landing/EduGoHome.dart';
-import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
-import 'package:edugo_web_app/ui/Views/virtual_entity/CreateVirtualEntityPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {

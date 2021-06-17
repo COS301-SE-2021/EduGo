@@ -86,7 +86,14 @@ class DesktopNavBar extends StatelessWidget {
                       child: GestureDetector(
                         child: Icon(Icons.view_in_ar_outlined,
                             size: 30, color: Colors.white),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    CreateVirtualEntityPage()),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(height: 30),
