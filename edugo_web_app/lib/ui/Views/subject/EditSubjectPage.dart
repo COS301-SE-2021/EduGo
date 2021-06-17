@@ -73,7 +73,7 @@ class EditSubjectPage extends StatelessWidget {
                                   alignment: Alignment.topLeft,
                                   child: EduGoInput(
                                       hintText:
-                                          "Enter the new details for the subject grade",
+                                          "Enter the new details for the subject grade.",
                                       width: 450),
                                 )
                               ],
@@ -94,6 +94,46 @@ class EditSubjectPage extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           Container(
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(height: 15),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  // child: Text(
+                                  //   "   Subject ",
+                                  //   style: TextStyle(
+                                  //       fontSize: 25, color: Colors.green),
+                                  // ),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: "  Descrip",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              //fontWeight: FontWeight.bold,
+                                              fontSize: 30),
+                                        ),
+                                        TextSpan(
+                                            text: "tion",
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                //fontWeight: FontWeight.bold,
+                                                fontSize: 30)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: EduGoInput(
+                                      hintText:
+                                          "Enter the new details for the subject description.",
+                                      width: 450),
+                                )
+                              ],
+                            ),
                             height: 150,
                             width: 1200,
                             decoration: BoxDecoration(
@@ -108,6 +148,46 @@ class EditSubjectPage extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           Container(
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(height: 15),
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  // child: Text(
+                                  //   "   Subject ",
+                                  //   style: TextStyle(
+                                  //       fontSize: 25, color: Colors.green),
+                                  // ),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: "  Pho",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              //fontWeight: FontWeight.bold,
+                                              fontSize: 30),
+                                        ),
+                                        TextSpan(
+                                            text: "to",
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                //fontWeight: FontWeight.bold,
+                                                fontSize: 30)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: EduGoInput(
+                                      hintText:
+                                          "Add a new photo for the subject.",
+                                      width: 450),
+                                )
+                              ],
+                            ),
                             height: 200,
                             width: 1200,
                             decoration: BoxDecoration(
