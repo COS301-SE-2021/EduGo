@@ -22,36 +22,70 @@ class CreateSubjectPage extends StatelessWidget {
                 SizedBox(height: 35),
                 Align(
                   alignment: Alignment.topLeft,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height - 360,
-                    child: SingleChildScrollView(
-                      child: Row(
-                        children: [
-                          Column(
+                  child: Row(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height - 360,
+                        // decoration: BoxDecoration(
+                        //   borderRadius: BorderRadius.only(
+                        //     topRight: Radius.circular(40),
+                        //     topLeft: Radius.circular(40),
+                        //     bottomLeft: Radius.circular(40),
+                        //     bottomRight: Radius.circular(40),
+                        //   ),
+                        // ),
+                        child: SingleChildScrollView(
+                          child: Column(
                             children: <Widget>[
-                              SizedBox(height: 40),
+                              SizedBox(height: 25),
                               EduGoInput(
                                   hintText: "Enter the subject name",
                                   width: 450),
-                              SizedBox(height: 60),
+                              SizedBox(height: 25),
                               EduGoInput(
                                   hintText: "Enter the subject grade",
                                   width: 450),
-                              SizedBox(height: 65),
+                              SizedBox(height: 25),
                               EduGoMultiLineInput(
                                   hintText: "Enter the subject description",
-                                  maxLines: 3,
-                                  width: 450)
+                                  maxLines: 4,
+                                  width: 450),
+                              SizedBox(height: 100),
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                onPressed: () {},
+                                minWidth: 400,
+                                height: 60,
+                                child: Text("Add Subject.",
+                                    style: TextStyle(color: Colors.white)),
+                                color: Color.fromARGB(255, 97, 211, 87),
+                              ),
                             ],
                           ),
-                          Container(
-                              //  width: MediaQuery.of(context).size.width - 200,
-                              //  height: MediaQuery.of(context).size.height - 200,
-
-                              ),
-                        ],
+                        ),
                       ),
-                    ),
+                      SizedBox(width: 100),
+                      Container(
+                        height: MediaQuery.of(context).size.height - 350,
+                        //height: 600,
+                        width: 500,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(40),
+                            topLeft: Radius.circular(40),
+                            bottomLeft: Radius.circular(40),
+                            bottomRight: Radius.circular(40),
+                          ),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
