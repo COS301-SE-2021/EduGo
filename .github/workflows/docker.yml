@@ -20,6 +20,9 @@ jobs:
     - name: docker build Backend
       run: | 
         docker build ./backend --target prod
+    - name: run tests 
+      run: | 
+        cd ./backend && npx jest 
         
         # env:
         #   DEFAULT_BRANCH: develop-testing
