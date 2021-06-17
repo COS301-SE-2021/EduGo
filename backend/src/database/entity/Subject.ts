@@ -13,7 +13,7 @@ export class Subject {
     description: string;
 
     @Column()
-    educatorId: string;
+    educatorId: number;
     
     @OneToMany(type=> Lesson, lesson => lesson.id, {cascade: true} )
     @JoinColumn()
