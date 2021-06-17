@@ -1,3 +1,3 @@
 export interface GetLessonsBySubjectRequest {
-    subjectId: string;
+    subjectId: number;
 }

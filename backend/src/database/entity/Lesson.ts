@@ -4,7 +4,7 @@ import {Subject} from "./Subject"
 export class Lesson {
    
     @PrimaryGeneratedColumn()
-    lessonId: number;
+    id: number;
 
     @Column()
     title: string;
@@ -15,8 +15,7 @@ export class Lesson {
     @Column()
     date: string; 
 
-    @ManyToOne(type => Subject, subject=> subject.id)
-    @Column()
+    @ManyToOne(() => Subject, subject=> subject.id)
     subject:Subject
 
     @Column( {nullable: true} )

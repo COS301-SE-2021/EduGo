@@ -3,7 +3,7 @@ import * as model from '../model/apiModels';
 import {ApiResponse} from '../../models/apiResponse';
 //import {client} from '../../index'
 
-export async function createSubject(request: model.createSubjectRequest) : Promise<ApiResponse | undefined> {
+export async function createSubject(request: model.createSubjectRequest) {
     
     if (!('title' in request) || !('description' in request)) {
         return undefined;
