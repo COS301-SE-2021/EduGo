@@ -18,6 +18,7 @@ import { dbInit } from './database/index';
 
 dbInit();
 
+
 import {router as LessonController} from './lesson/api/lessonController';
 import {router as SubjectController} from './subject/api/subjectController';
 import {router as VirtualEntityController} from './virtualEntity/api/virtualEntityController';

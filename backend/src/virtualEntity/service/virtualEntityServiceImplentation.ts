@@ -14,7 +14,9 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
         return createConnection().then(conn => {
             let virtualEntityRepo = conn.getRepository(VirtualEntity);
 
-            return virtualEntityRepo.find()
+            return virtualEntityRepo.find({
+                relations: ["model"]
+            }).then()
         })
         throw new Error('Method not implemented.');
     }
