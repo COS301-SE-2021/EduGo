@@ -1,7 +1,5 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
-import {Client} from 'pg';
 import { dbInit } from './database/index';
 
 //dotenv.config();
@@ -20,9 +18,9 @@ import { dbInit } from './database/index';
 
 dbInit();
 
-import {router as LessonController} from './lesson/api/controller';
-import {router as SubjectController} from './lesson/api/controller';
-import {router as VirtualEntityController} from './lesson/api/controller';
+import {router as LessonController} from './lesson/api/lessonController';
+import {router as SubjectController} from './subject/api/subjectController';
+import {router as VirtualEntityController} from './virtualEntity/api/virtualEntityController';
 
 const PORT = process.env.PORT || 8080;
 
@@ -32,8 +30,22 @@ app.use(express.json());
 app.use(cors());
 app.use('/lesson', LessonController)
 app.use('/subject', SubjectController)
-
 app.use('/virtualEntity', VirtualEntityController)
+
+/*
+ * Look, it's a comment
+ * TODO Fix this
+ */
+
+// app.use((req, res, next) => {
+//     express.json()(req, res, err => {
+//         if (err) {
+//             if (err instanceof SyntaxError) {
+
+//             }
+//         }
+//     })
+// })
 
 app.get('/', (req, res) => {
     res.send('hey there')

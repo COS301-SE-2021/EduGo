@@ -1,6 +1,6 @@
 import express from 'express';
 import { createSubjectRequest } from '../model/apiModels';
-import { createSubject } from '../service/service';
+import { createSubject } from '../service/subjectService';
 
 const router = express.Router();
 

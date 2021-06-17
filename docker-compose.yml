@@ -13,6 +13,7 @@ services:
         working_dir: /usr/app
         volumes:
             - ./backend:/usr/app
+#            - $HOME/.aws/credentials:/home/.aws/credentials:ro
         depends_on:
             - db
     pgadmin:
