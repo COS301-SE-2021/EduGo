@@ -2,7 +2,10 @@ version: '3'
 services:
     edugo-server:
         container_name: edugo_server_container
-        build: ./backend
+        build: 
+            context: ./backend
+            target: debug
+        image: gangoffive/edugo
         command: sh -c "npm install && npm run dev"
         environment:
             PORT: 7000
