@@ -1,22 +1,66 @@
 import express from 'express';
 import cors from 'cors';
-import { dbInit } from './database/index';
+import { createConnections, ConnectionOptions } from 'typeorm';
 
-//dotenv.config();
+let options: ConnectionOptions[] = [
+    {
+        name: process.env.NODE_ENV === "test" ? "none" : "default",
+        type: 'postgres',
+        host: 'db',
+        port: 5432,
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: 'edugo',
+        synchronize: true,
+        logging: false,
+        entities: ['src/database/entity/**/*.ts'],
+        migrations: ['src/database/migration/**/*.ts'],
+        subscribers: ['src/database/subscriber/**/*.ts'],
+        cli: {
+            entitiesDir: 'src/database/entity',
+            migrationsDir: 'src/database/migration',
+            subscribersDir: 'src/database/subscriber'
+        }
+    },
+    {
+        name: process.env.NODE_ENV === "test" ? "default" : "none",
+        type: 'postgres',
+        host: 'db',
+        port: 5432,
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: 'edugo',
+        synchronize: true,
+        logging: false,
+        entities: ['src/database/entity/**/*.ts'],
+        migrations: ['src/database/migration/**/*.ts'],
+        subscribers: ['src/database/subscriber/**/*.ts'],
+        cli: {
+            entitiesDir: 'src/database/entity',
+            migrationsDir: 'src/database/migration',
+            subscribersDir: 'src/database/subscriber'
+        }
+    }
+    // {
+    //     name: process.env.NODE_ENV === "test" ? "default" : "none",
+    //     type: 'sqljs',
+    //     database: new Uint8Array(),
+    //     location: 'database',
+    //     logging: false,
+    //     synchronize: true,
+    //     entities: ['src/database/entity/**/*.ts']
+    // }
+]
 
-// const client = new Client({
-//     user: process.env.DB_USER,
-//     host: 'db',
-//     database: 'edugo',
-//     password: process.env.DB_PASSWORD,
-//     port: 5432
-// });
 
-// client.connect();
-
-// export {client};
-
-dbInit();
+createConnections(options).then(conns => {
+    if (conns[0].isConnected && conns[1].isConnected)
+        console.log('Database connections established');
+    else {
+        console.log('There was an error connecting to the databases');
+        throw new Error('Database connection error');
+    }
+})
 
 import {router as LessonController} from './lesson/api/lessonController';
 import {router as SubjectController} from './subject/api/subjectController';
