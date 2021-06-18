@@ -39,5 +39,8 @@ services:
             - '5432:5432'
         volumes:
             - edugo-db:/var/lib/postgresql/data
+    test-db:
+        container_name: postgres_test_container
 volumes:
     edugo-db:
+    test-db-volume:
