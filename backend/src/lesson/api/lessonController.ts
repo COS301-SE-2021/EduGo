@@ -1,26 +1,28 @@
-import express from 'express';
-import {createLesson, GetLessonsBySubject} from '../service/lessonService';
-import { CreateLessonRequest } from '../models/CreateLessonRequest'
-import { GetLessonsBySubjectRequest } from '../models/GetLessonsBySubjectRequest';
+import express from "express";
+import { createLesson, GetLessonsBySubject } from "../service/lessonService";
+import { CreateLessonRequest } from "../models/CreateLessonRequest";
+import { GetLessonsBySubjectRequest } from "../models/GetLessonsBySubjectRequest";
 
 const router = express.Router();
 
 router.use((req, res, next) => {
-    next()
-})
+  next();
+});
 
-router.post('/createLesson', async (req, res) => {
-    //Create lesson
-    let response = await createLesson(<CreateLessonRequest>req.body);
+router.post("/createLesson", async (req, res) => {
+  //Create lesson
+  createLesson(<CreateLessonRequest>req.body).then((response) => {
     res.status(200);
     res.json(response);
-})
+  });
+});
 
-router.get("/getLessonsBySubject", async (req, res) => {
-    //Create lesson
-    let response = await GetLessonsBySubject(<GetLessonsBySubjectRequest>req.body);
+router.post("/getLessonsBySubject", async (req, res) => {
+  //Create lesson
+  GetLessonsBySubject(<GetLessonsBySubjectRequest>req.body).then((response) => {
     res.status(200);
     res.json(response);
-})
+  });
+});
 
-export {router}
+export { router };
