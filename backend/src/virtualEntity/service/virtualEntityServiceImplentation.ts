@@ -1,5 +1,5 @@
 import { VirtualEntity } from '../../database/entity/VirtualEntity';
-import { createConnection } from 'typeorm';
+import { createConnection, getConnection } from 'typeorm';
 import { CreateVirtualEntityRequest } from '../model/CreateVirtualEntityRequest';
 import { VirtualEntityService } from './virtualEntityService';
 import { Model } from '../../database/entity/Model';
@@ -8,7 +8,6 @@ import { CreateVirtualEntityResponse } from '../model/CreateVirtualEntityRespons
 import { GetVirtualEntitiesRequest } from '../model/GetVirtualEntitiesRequest';
 import { GetVirtualEntitiesResponse, GVEs_Model, GVEs_VirtualEntity } from '../model/GetVirtualEntitiesResponse';
 import { Question, QuestionType } from '../../database/entity/quiz/Question';
-import {} from '../model/GetVirtualEntitiesResponse'
 import { GetVirtualEntityRequest } from '../model/GetVirtualEntityRequest';
 import { GetVirtualEntityResponse, GVE_Model, GVE_Quiz } from '../model/GetVirtualEntityResponse';
 import { AddModelToVirtualEntityFileData } from '../model/AddModelToVirtualEntityRequest';
@@ -16,7 +15,7 @@ import { AddModelToVirtualEntityDatabaseResult } from '../model/AddModelToVirtua
 
 export class VirtualEntityServiceImplementation extends VirtualEntityService {
     async AddModelToVirtualEntity(request: AddModelToVirtualEntityFileData): Promise<AddModelToVirtualEntityDatabaseResult> {
-        return createConnection().then(conn => {
+        let conn = getConnection();
             let virtualEntityRepo = conn.getRepository(VirtualEntity);
 
             return virtualEntityRepo.findOne(request.id, {
@@ -37,20 +36,23 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
                     return virtualEntityRepo.save(entity).then(result => {
                         if (result.model) {
                             let response: AddModelToVirtualEntityDatabaseResult = {
-                                model_id: result.model?.id
+                                model_id: result.model.id
                             }
                             return response;
                         }
-                        else throw new Error('There was an error adding to the DB');
+                        else {
+                            throw new Error('There was an error adding to the DB')
+                        };
                     })
                 }
-                else throw new Error('There was an error');
+                else {
+                    throw new Error('There was an error');
+                }
             })
-        })
     }
 
     async GetVirtualEntity(request: GetVirtualEntityRequest): Promise<GetVirtualEntityResponse> {
-        return createConnection().then(conn => {
+        let conn = getConnection();
             let virtualEntityRepo = conn.getRepository(VirtualEntity);
 
             return virtualEntityRepo.findOne(request.id, {
@@ -70,48 +72,42 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
                         let quiz: GVE_Quiz = {...entity.quiz}
                         response.quiz = quiz
                     }
-                    conn.close()
                     return response
                 }
                 else {
-                    conn.close()
                     throw new Error(`Could not find entity with id ${request.id}`)
                 }
             })
 
-            
-        })
     }
 
     async GetVirtualEntities(request: GetVirtualEntitiesRequest): Promise<GetVirtualEntitiesResponse> {
-        return createConnection().then(conn => {
-            let virtualEntityRepo = conn.getRepository(VirtualEntity);
+        let conn = getConnection();
+        let virtualEntityRepo = conn.getRepository(VirtualEntity);
 
-            return virtualEntityRepo.find({
-                relations: ["model"]
-            }).then(entities => {
-                let response: GetVirtualEntitiesResponse = {
-                    entities: entities.map(value => {
-                        let entity: GVEs_VirtualEntity = {
-                            title: value.title,
-                            description: value.description,
-                            id: value.id,
-                        }
-                        if (value.model) {
-                            let model: GVEs_Model = {...value.model}
-                            entity.model = model
-                        }
-                        return entity;
-                    })
-                }
-                conn.close()
-                return response;
-            })
+        return virtualEntityRepo.find({
+            relations: ["model"]
+        }).then(entities => {
+            let response: GetVirtualEntitiesResponse = {
+                entities: entities.map(value => {
+                    let entity: GVEs_VirtualEntity = {
+                        title: value.title,
+                        description: value.description,
+                        id: value.id,
+                    }
+                    if (value.model) {
+                        let model: GVEs_Model = {...value.model}
+                        entity.model = model
+                    }
+                    return entity;
+                })
+            }
+            return response;
         })
     }
 
     async CreateVirtualEntity(request: CreateVirtualEntityRequest): Promise<CreateVirtualEntityResponse> {
-        return createConnection().then(conn => {
+        let conn = getConnection()
             let virtualEntityRepo = conn.getRepository(VirtualEntity);
             
             let virtualEntity: VirtualEntity = new VirtualEntity();
@@ -150,10 +146,8 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
                     message: 'Successful',
                     id: result.id
                 }
-                conn.close()
                 return response;
             })
-        })
     }
 
 }
