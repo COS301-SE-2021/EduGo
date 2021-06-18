@@ -22,6 +22,7 @@
     "multer-s3": "^2.9.0",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
+    "sql.js": "^1.5.0",
     "typeorm": "^0.2.34"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@types/multer-s3": "^2.7.9",
     "@types/node": "^15.12.0",
     "@types/pg": "^8.6.0",
+    "@types/supertest": "^2.0.11",
     "jest": "^27.0.4",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3",
