@@ -1,4 +1,5 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Lesson } from "./Lesson";
 import { Model } from "./Model";
 import { Quiz } from "./quiz/Quiz";
 
@@ -24,4 +25,7 @@ export class VirtualEntity {
     })
     @JoinColumn()
     model?: Model;
+
+    @ManyToMany(type => Lesson, lesson => lesson.virtualEntities)
+    lessons: Lesson[];
 }

@@ -28,6 +28,7 @@ export async function createLesson(request: CreateLessonRequest) {
 		lesson.title = request.title;
 		lesson.description = request.description;
 		lesson.date = request.date;
+		lesson.virtualEntities = [];
 
 		let subjectRepository = conn.getRepository(Subject);
 
