@@ -1,35 +1,34 @@
 import express from 'express';
 import cors from 'cors';
-import { createConnections, ConnectionOptions } from 'typeorm';
+import { createConnection, ConnectionOptions } from 'typeorm';
 
-let options: ConnectionOptions[] = [
-    {
-        name: process.env.NODE_ENV === "test" ? "none" : "default",
+let options: ConnectionOptions = {
+    type: 'postgres',
+    host: 'db',
+    port: 5432,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: 'edugo',
+    synchronize: true,
+    logging: false,
+    entities: ['src/database/entity/**/*.ts'],
+    migrations: ['src/database/migration/**/*.ts'],
+    subscribers: ['src/database/subscriber/**/*.ts'],
+    cli: {
+        entitiesDir: 'src/database/entity',
+        migrationsDir: 'src/database/migration',
+        subscribersDir: 'src/database/subscriber'
+    }
+}
+
+if (process.env.NODE_ENV === 'test') {
+    options = {
         type: 'postgres',
         host: 'db',
         port: 5432,
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
-        database: 'edugo',
-        synchronize: true,
-        logging: false,
-        entities: ['src/database/entity/**/*.ts'],
-        migrations: ['src/database/migration/**/*.ts'],
-        subscribers: ['src/database/subscriber/**/*.ts'],
-        cli: {
-            entitiesDir: 'src/database/entity',
-            migrationsDir: 'src/database/migration',
-            subscribersDir: 'src/database/subscriber'
-        }
-    },
-    {
-        name: process.env.NODE_ENV === "test" ? "default" : "none",
-        type: 'postgres',
-        host: 'db',
-        port: 5432,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: 'edugo',
+        database: 'test',
         synchronize: true,
         logging: false,
         entities: ['src/database/entity/**/*.ts'],
@@ -41,24 +40,18 @@ let options: ConnectionOptions[] = [
             subscribersDir: 'src/database/subscriber'
         }
     }
-    // {
-    //     name: process.env.NODE_ENV === "test" ? "default" : "none",
-    //     type: 'sqljs',
-    //     database: new Uint8Array(),
-    //     location: 'database',
-    //     logging: false,
-    //     synchronize: true,
-    //     entities: ['src/database/entity/**/*.ts']
-    // }
-]
+}
 
 
-createConnections(options).then(conns => {
-    if (conns[0].isConnected && conns[1].isConnected)
-        console.log('Database connections established');
+createConnection(options).then(conn => {
+    if (conn.isConnected) {
+        if (process.env.NODE_ENV === 'test')
+            console.log('Test database connection established');
+        else
+            console.log('Database connection established');
+    }
     else {
-        console.log('There was an error connecting to the databases');
-        throw new Error('Database connection error');
+        throw new Error('Database connection failed')
     }
 })
 
