@@ -21,7 +21,6 @@ jobs:
     - name: docker build Backend
       run: | 
         docker build ./backend
-    - run: npm ci
     - name: run tests 
 
       run: | 
