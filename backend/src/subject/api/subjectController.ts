@@ -19,7 +19,7 @@ router.post("/createSubject", async (req, res) => {
   });
 });
 
-router.get("/getSubjectsByEducator", async (req, res) => {
+router.post("/getSubjectsByEducator", async (req, res) => {
   //Create lesson
   GetSubjectsByEducator(<GetSubjectsByEducatorRequest>req.body).then(
     (subjects) => {

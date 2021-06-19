@@ -15,7 +15,8 @@ export async function createLesson(request: CreateLessonRequest) {
   if (
     request.title == null ||
     request.date == null ||
-    request.description == null
+    request.description == null ||
+    request.subjectId == null
   ) {
     statusRes.message = "Missing parameters";
     statusRes.type = "fail";
@@ -27,32 +28,19 @@ export async function createLesson(request: CreateLessonRequest) {
     lesson.title = request.title;
     lesson.description = request.description;
     lesson.date = request.date;
-
+    
     let subjectRepository = conn.getRepository(Subject);
-
     return subjectRepository
-      .findOne({ where: { id: request.subjectId } })
-      .then((subject) => {
-        if (subject) {
-          subject?.lessons.push(lesson);
-          return subjectRepository
-            .save(subject)
-            .then((value) => {
-              statusRes.message = `Successfully added lesson `;
-              statusRes.type = "success";
-              return value;
-            })
-            .catch(() => {
-              statusRes.message =
-                "There was an error adding the lesson to the database";
-              statusRes.type = "fail";
-              return statusRes;
-            });
-        } else {
-          statusRes.message = "Subject Doesn't Exist";
-          statusRes.type = "fail";
-          return statusRes;
-        }
+      .save({ id: request.subjectId, lessons: [lesson] })
+      .then((value) => {
+        statusRes.message = `Successfully added lesson `;
+        statusRes.type = "success";
+        return value;
+      })
+      .catch((err) => {
+        statusRes.message = err.message;
+        statusRes.type = "fail";
+        return statusRes;
       });
   }
 }
@@ -75,7 +63,7 @@ export async function GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
           };
           return LessonsData;
         } else {
-          statusRes.message = "There Subject doesn't exist";
+          statusRes.message = "The Subject doesn't exist";
           statusRes.type = "fail";
           return statusRes;
         }
