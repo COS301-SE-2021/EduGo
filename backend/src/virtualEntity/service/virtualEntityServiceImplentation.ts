@@ -20,6 +20,7 @@ import {
 } from "../model/GetVirtualEntityResponse";
 import { AddModelToVirtualEntityFileData } from "../model/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityDatabaseResult } from "../model/AddModelToVirtualEntityResponse";
+import { Lesson } from "../../database/entity/Lesson";
 
 export class VirtualEntityServiceImplementation extends VirtualEntityService {
   async AddModelToVirtualEntity(
@@ -126,45 +127,56 @@ export class VirtualEntityServiceImplementation extends VirtualEntityService {
     request: CreateVirtualEntityRequest
   ): Promise<CreateVirtualEntityResponse> {
     let conn = getConnection();
-    let virtualEntityRepo = conn.getRepository(VirtualEntity);
+    let lessonRepo = conn.getRepository(Lesson)
 
-    let virtualEntity: VirtualEntity = new VirtualEntity();
-    virtualEntity.title = request.title;
-    virtualEntity.description = request.description;
+    return lessonRepo.findOne(request.lesson_id, {
+      relations: ["virtualEntities"]
+    }).then(lesson => {
+      if (lesson) {
+        let ve: VirtualEntity = new VirtualEntity();
+        ve.title = request.title;
+        ve.description = request.description;
 
-    if (request.model !== undefined) {
-      let model: Model = new Model();
-      model.name = request.model.name;
-      model.description = request.model.description;
-      model.file_link = request.model.file_link;
-      model.file_name = request.model.file_name;
-      model.file_size = request.model.file_size;
-      model.file_type = request.model.file_type;
-      model.preview_img = request.model.preview_img;
-      virtualEntity.model = model;
-    }
+        if (request.model !== undefined) {
+          let model: Model = new Model();
+          model.name = request.model.name;
+          model.description = request.model.description;
+          model.file_link = request.model.file_link;
+          model.file_name = request.model.file_name;
+          model.file_size = request.model.file_size;
+          model.file_type = request.model.file_type;
+          model.preview_img = request.model.preview_img;
+          ve.model = model;
+        }
 
-    if (request.quiz !== undefined) {
-      let quiz: Quiz = new Quiz();
-      quiz.title = request.quiz.title;
-      quiz.description = request.quiz.description;
-      quiz.questions = request.quiz.questions.map((value) => {
-        let question: Question = new Question();
-        question.question = value.question;
-        question.type = <QuestionType>value.type;
-        question.options = value.options;
-        question.correctAnswer = value.correctAnswer;
-        return question;
-      });
-      virtualEntity.quiz = quiz;
-    }
+        if (request.quiz !== undefined) {
+          let quiz: Quiz = new Quiz();
+          quiz.title = request.quiz.title;
+          quiz.description = request.quiz.description;
+          quiz.questions = request.quiz.questions.map((value) => {
+            let question: Question = new Question();
+            question.question = value.question;
+            question.type = <QuestionType>value.type;
+            question.options = value.options;
+            question.correctAnswer = value.correctAnswer;
+            return question;
+          });
+          ve.quiz = quiz;
+        }
+        lesson.virtualEntities.push(ve);
 
-    return virtualEntityRepo.save(virtualEntity).then((result) => {
-      let response: CreateVirtualEntityResponse = {
-        message: "Successful",
-        id: result.id,
-      };
-      return response;
-    });
+        return lessonRepo.save(lesson).then(result => {
+          let response: CreateVirtualEntityResponse = {
+            id: ve.id,
+            message: "Successfully added virtual entity and updated lesson"
+          }
+          return response;
+        })
+        .catch(err => {console.log(err); throw err});
+      }
+      else {
+        throw new Error('Could not find lesson')
+      }
+    })
   }
 }

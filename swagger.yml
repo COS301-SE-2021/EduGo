@@ -252,6 +252,9 @@ components:
     CreateVirtualEntityRequest:
       type: object
       properties:
+        lesson_id:
+          type: number
+          format: int64
         title:
           type: string
         description:
