@@ -21,6 +21,8 @@ jobs:
     - name: docker build Backend
       run: | 
         docker build ./backend
+    - run: npm ci
     - name: run tests 
+
       run: | 
-        cd ./backend && npm run test 
+        cd ./backend && npx jest 
