@@ -62,7 +62,7 @@ class DesktopNavBar extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreateSubjectPage()),
+                                builder: (context) => SubjectsPage()),
                           );
                         },
                       ),

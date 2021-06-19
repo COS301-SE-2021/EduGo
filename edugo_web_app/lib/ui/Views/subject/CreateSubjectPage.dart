@@ -1,3 +1,5 @@
+import 'package:edugo_web_app/ui/Views/subject/EditSubjectPage.dart';
+import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
 import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
@@ -55,10 +57,16 @@ class CreateSubjectPage extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SubjectsPage()),
+                                  );
+                                },
                                 minWidth: 400,
                                 height: 60,
-                                child: Text("Add Subject.",
+                                child: Text("Add Subject",
                                     style: TextStyle(color: Colors.white)),
                                 color: Color.fromARGB(255, 97, 211, 87),
                               ),
@@ -68,7 +76,7 @@ class CreateSubjectPage extends StatelessWidget {
                       ),
                       SizedBox(width: 100),
                       Container(
-                        height: MediaQuery.of(context).size.height - 350,
+                        height: MediaQuery.of(context).size.height - 450,
                         //height: 600,
                         width: 500,
                         decoration: BoxDecoration(
@@ -87,7 +95,13 @@ class CreateSubjectPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(height: 400),
+                            SizedBox(height: 60),
+                            Icon(
+                              Icons.add_a_photo_outlined,
+                              size: 200,
+                              color: Color.fromARGB(255, 97, 211, 87),
+                            ),
+                            SizedBox(height: 60),
                             MaterialButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius:
@@ -95,7 +109,7 @@ class CreateSubjectPage extends StatelessWidget {
                               onPressed: () {},
                               minWidth: 65,
                               height: 40,
-                              child: Text("Add Photo.",
+                              child: Text("Add Photo",
                                   style: TextStyle(color: Colors.white)),
                               color: Color.fromARGB(255, 97, 211, 87),
                               // margin: EdgeInsets.fromLTRB(20, 100, 20, 20),
@@ -114,3 +128,8 @@ class CreateSubjectPage extends StatelessWidget {
     );
   }
 }
+
+
+// Icon(
+// Icons.add_a_photo_outlined,
+// ),
