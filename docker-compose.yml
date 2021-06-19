@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
     edugo-server:
         container_name: edugo_server_container
@@ -44,3 +44,4 @@ services:
             - ./sql:/docker-entrypoint-initdb.d/
 volumes:
     edugo-db:
+
