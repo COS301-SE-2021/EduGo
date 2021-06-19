@@ -1,7 +1,7 @@
 import * as model from "../model/apiModels";
 import { ApiResponse } from "../../models/apiResponse";
 import { CreateSubjectRequest } from "../model/CreateSubjectRequest";
-import { createConnection } from "typeorm";
+import { createConnection, getConnection } from "typeorm";
 import { Subject } from "../../database/entity/Subject";
 import { GetSubjectsByEducatorRequest } from "../model/GetSubjectsByEducatorRequest";
 import { GetLessonsBySubjectResponse } from "../model/GetSubjectsByEducatorResponse";
@@ -23,7 +23,7 @@ export async function createSubject(request: CreateSubjectRequest) {
     statusRes.type = "fail";
     return statusRes;
   } else {
-    let conn = await createConnection();
+    let conn = await getConnection();
     let subject: Subject = new Subject();
     subject.title = request.title;
     subject.description = request.description;
@@ -54,17 +54,22 @@ export async function GetSubjectsByEducator(
     statusRes.message = "educatorId not provided";
     return statusRes;
   } else {
-    let conn = await createConnection();
+    let conn = await getConnection();
     let subjectRepository = conn.getRepository(Subject);
-    subjectRepository
+    return subjectRepository
       .find({ where: { educatorId: request.educatorId } })
       .then((subjects) => {
-        if (subjects) {
+        if (subjects.length > 0) {
           let LessonsData: GetLessonsBySubjectResponse = {
             data: subjects,
             statusMessage: "Successful",
           };
           return LessonsData;
+        } else {
+          statusRes.message =
+            "EducatorId invalid or Educator hasn't created subjects";
+          statusRes.type = "fail";
+          return statusRes;
         }
       })
       .catch(() => {

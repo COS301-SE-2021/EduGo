@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import {Subject} from "./Subject"
 @Entity()
 export class Lesson {
@@ -15,6 +15,7 @@ export class Lesson {
     @Column()
     date: string; 
 
+    @JoinColumn()
     @ManyToOne(() => Subject, subject=> subject.id)
     subject:Subject
 
