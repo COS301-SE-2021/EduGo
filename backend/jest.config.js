@@ -1,4 +1,5 @@
 module.exports = {
+<<<<<<< HEAD
   "transform": {
     "^.+\\.(ts|js|html)$": "ts-jest"
 }
@@ -15,3 +16,8 @@ module.exports = {
     "<rootDir>/test/setupTests.ts"
   ]
 };
+=======
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+};
+>>>>>>> parent of 71e8483 (Update jest.config.js)
