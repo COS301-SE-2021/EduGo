@@ -23,4 +23,4 @@ jobs:
         docker build ./backend
     - name: run tests 
       run: | 
-        cd ./backend && jest 
+        cd ./backend && npm run test 
