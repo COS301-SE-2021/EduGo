@@ -16,7 +16,7 @@ export class Lesson {
     date: string; 
 
     @JoinColumn()
-    @ManyToOne(() => Subject, subject=> subject.id)
+    @ManyToOne(() => Subject, subject=> subject.lessons)
     subject:Subject
 
     @Column( {nullable: true} )

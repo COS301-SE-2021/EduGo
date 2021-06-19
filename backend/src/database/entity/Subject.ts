@@ -21,7 +21,7 @@ export class Subject {
   @Column()
   educatorId: number;
 
-  @OneToMany((type) => Lesson, (lesson) => lesson.id, { cascade: true })
+  @OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true })
   @JoinColumn()
   lessons: Lesson[];
 }
