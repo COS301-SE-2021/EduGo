@@ -1,4 +1,4 @@
 export interface createSubjectRequest {
-    title: string;
-    description: string;
+  title: string;
+  description: string;
 }

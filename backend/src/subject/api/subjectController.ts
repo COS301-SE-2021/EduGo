@@ -1,22 +1,32 @@
-import express from 'express';
-import { createSubjectRequest } from '../model/apiModels';
-import { createSubject } from '../service/subjectService';
+import express from "express";
+import { GetLessonsBySubjectRequest } from "../../lesson/models/GetLessonsBySubjectRequest";
+import { GetSubjectsByEducator } from "../../subject/service/subjectService";
+import { CreateSubjectRequest } from "../model/CreateSubjectRequest";
+import { GetSubjectsByEducatorRequest } from "../model/GetSubjectsByEducatorRequest";
+import { createSubject } from "../service/subjectService";
 
 const router = express.Router();
 
 router.use((req, res, next) => {
-    next()
-})
+  next();
+});
 
-router.post('/createSubject', async (req, res) => {
-    let response = await createSubject(<createSubjectRequest>req.body);
-    if (response === undefined) {
-        res.status(400);
-        res.json({message: "Missing properties"})
-        return;
-    }
+router.post("/createSubject", async (req, res) => {
+  //Create subject
+  createSubject(<CreateSubjectRequest>req.body).then((subjectResponse) => {
     res.status(200);
-    res.json(response);
-})
+    res.json(subjectResponse);
+  });
+});
 
-export {router}
+router.post("/getSubjectsByEducator", async (req, res) => {
+  //Create lesson
+  GetSubjectsByEducator(<GetSubjectsByEducatorRequest>req.body).then(
+    (subjects) => {
+      res.status(200);
+      res.json(subjects);
+    }
+  );
+});
+
+export { router };
