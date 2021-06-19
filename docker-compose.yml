@@ -41,5 +41,6 @@ services:
             - '5432:5432'
         volumes:
             - edugo-db:/var/lib/postgresql/
+            - ./sql:/docker-entrypoint-initdb.d/
 volumes:
     edugo-db:
