@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/ui/Views/subject/CreateSubjectPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoNav/NavBar.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
 import 'package:edugo_web_app/ui/widgets/subjectCard.dart';
@@ -17,17 +18,57 @@ class SubjectsPage extends StatelessWidget {
           height: MediaQuery.of(context).size.height - 100,
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.black,
+              color: Colors.red,
               //width: 1,
               style: BorderStyle.solid,
             ),
           ),
-          child: Column(children: <Widget>[
-            Align(
-              alignment: Alignment.centerLeft,
-              child: SubjectCard(height: 330, width: 280),
-            )
-          ]),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        //child: SizedBox(
+                        child: Text(
+                          "Subjects",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateSubjectPage()),
+                          );
+                        },
+                        minWidth: 50,
+                        height: 60,
+                        child: Text("Add Subject.",
+                            style: TextStyle(color: Colors.white)),
+                        color: Color.fromARGB(255, 97, 211, 87),
+                      ),
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: SubjectCard(height: 330, width: 280),
+                )
+              ],
+            ),
+          ),
         ),
       ],
     ));
