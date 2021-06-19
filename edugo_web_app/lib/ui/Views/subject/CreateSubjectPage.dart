@@ -84,6 +84,24 @@ class CreateSubjectPage extends StatelessWidget {
                             style: BorderStyle.solid,
                           ),
                         ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(height: 400),
+                            MaterialButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              onPressed: () {},
+                              minWidth: 65,
+                              height: 40,
+                              child: Text("Add Photo.",
+                                  style: TextStyle(color: Colors.white)),
+                              color: Color.fromARGB(255, 97, 211, 87),
+                              // margin: EdgeInsets.fromLTRB(20, 100, 20, 20),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
