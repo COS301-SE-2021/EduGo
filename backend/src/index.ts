@@ -1,24 +1,59 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
-import {Client} from 'pg';
-import { dbInit } from './database/index';
+import { createConnection, ConnectionOptions } from 'typeorm';
 
-//dotenv.config();
+let options: ConnectionOptions = {
+    type: 'postgres',
+    host: 'db',
+    port: 5432,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: 'edugo',
+    synchronize: true,
+    logging: false,
+    entities: ['src/database/entity/**/*.ts'],
+    migrations: ['src/database/migration/**/*.ts'],
+    subscribers: ['src/database/subscriber/**/*.ts'],
+    cli: {
+        entitiesDir: 'src/database/entity',
+        migrationsDir: 'src/database/migration',
+        subscribersDir: 'src/database/subscriber'
+    }
+}
 
-// const client = new Client({
-//     user: process.env.DB_USER,
-//     host: 'db',
-//     database: 'edugo',
-//     password: process.env.DB_PASSWORD,
-//     port: 5432
-// });
+if (process.env.NODE_ENV === 'test') {
+    options = {
+        type: 'postgres',
+        host: 'db',
+        port: 5432,
+        username: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: 'test',
+        synchronize: true,
+        logging: false,
+        entities: ['src/database/entity/**/*.ts'],
+        migrations: ['src/database/migration/**/*.ts'],
+        subscribers: ['src/database/subscriber/**/*.ts'],
+        cli: {
+            entitiesDir: 'src/database/entity',
+            migrationsDir: 'src/database/migration',
+            subscribersDir: 'src/database/subscriber'
+        }
+    }
+}
 
-// client.connect();
 
-// export {client};
-
-dbInit();
+createConnection(options).then(conn => {
+    if (conn.isConnected) {
+        if (process.env.NODE_ENV === 'test')
+            console.log('Test database connection established');
+        else
+            console.log('Database connection established');
+    }
+    else {
+        throw new Error('Database connection failed')
+    }
+})
 
 import {router as LessonController} from './lesson/api/lessonController';
 import {router as SubjectController} from './subject/api/subjectController';
@@ -33,6 +68,21 @@ app.use(cors());
 app.use('/lesson', LessonController)
 app.use('/subject', SubjectController)
 app.use('/virtualEntity', VirtualEntityController)
+
+/*
+ * Look, it's a comment
+ * TODO Fix this
+ */
+
+// app.use((req, res, next) => {
+//     express.json()(req, res, err => {
+//         if (err) {
+//             if (err instanceof SyntaxError) {
+
+//             }
+//         }
+//     })
+// })
 
 app.get('/', (req, res) => {
     res.send('hey there')
