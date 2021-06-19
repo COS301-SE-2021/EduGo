@@ -20,7 +20,7 @@ jobs:
      # docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build Backend
       run: | 
-        docker build ./backend --target prod
+        docker build ./backend
     - name: run tests 
       run: | 
-        cd ./backend && npx jest 
+        cd ./backend && npm insall && jest 
