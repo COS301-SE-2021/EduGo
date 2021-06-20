@@ -5,7 +5,7 @@ import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
 import 'package:edugo_web_app/ui/widgets/input_fields/EduGoMultiLineInput.dart';
 import 'package:flutter/material.dart';
 
-class CreateSubjectPage extends StatelessWidget {
+class CreateLesonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EduGoPage(
@@ -40,6 +40,45 @@ class CreateSubjectPage extends StatelessWidget {
                                   maxLines: 4,
                                   width: 450),
                               SizedBox(height: 100),
+                              // Create entity
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LessonsPage()),
+                                  );
+                                },
+                                minWidth: 400,
+                                height: 60,
+                                child: Text("Create Virtual Entity",
+                                    style: TextStyle(color: Colors.white)),
+                                color: Color.fromARGB(255, 97, 211, 87),
+                              ),
+                              //
+
+                              // Upload entity
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LessonsPage()),
+                                  );
+                                },
+                                minWidth: 400,
+                                height: 60,
+                                child: Text("Upload Virtual Entity",
+                                    style: TextStyle(color: Colors.white)),
+                                color: Color.fromARGB(255, 97, 211, 87),
+                              ),
+                              //
                               MaterialButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
