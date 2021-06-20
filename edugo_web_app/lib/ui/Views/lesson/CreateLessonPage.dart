@@ -126,7 +126,7 @@ class CreateLesonPage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            Row(children: [CreateDate()]),
+                            //Row(children: [CreateDate()]),
                             Row(children: [CreateTime()])
                           ],
                         ),
