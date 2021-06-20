@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class EduGoContainer extends StatelessWidget {
   EduGoContainer({
-    required this.child,
-    required this.height,
-    required this.width,
+    this.child,
+    this.height,
+    this.width,
   });
   final Widget child;
   final double height;
