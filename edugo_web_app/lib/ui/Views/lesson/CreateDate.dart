@@ -6,6 +6,8 @@ class CreateDate extends StatefulWidget {
 }
 
 class _CreateDateState extends State<CreateDate> {
+  DateTime _date = DateTime(2020, 11, 17);
+
   void _selectDate() async {
     final DateTime newDate = await showDatePicker(
       context: context,
@@ -20,8 +22,6 @@ class _CreateDateState extends State<CreateDate> {
       });
     }
   }
-
-  DateTime _date = DateTime(2020, 11, 17);
 
   @override
   Widget build(BuildContext context) {

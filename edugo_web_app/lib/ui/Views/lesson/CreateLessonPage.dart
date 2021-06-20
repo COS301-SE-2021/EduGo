@@ -1,5 +1,7 @@
 import 'package:edugo_web_app/ui/Views/lesson/CreateDate.dart';
-import 'package:edugo_web_app/ui/Views/lesson/CreateTime.dart';
+import 'package:edugo_web_app/ui/Views/lesson/CreateEndTime.dart';
+import 'package:edugo_web_app/ui/Views/lesson/CreateStartTime.dart';
+import 'package:edugo_web_app/ui/Views/lesson/LessonPage.dart';
 import 'package:edugo_web_app/ui/Views/lesson/LessonsPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityStorePage.dart';
@@ -24,7 +26,7 @@ class CreateLesonPage extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   child: Text("Create Lesson", style: TextStyle(fontSize: 25)),
                 ),
-                SizedBox(height: 35),
+                SizedBox(height: 5),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Row(
@@ -85,8 +87,8 @@ class CreateLesonPage extends StatelessWidget {
                                 color: Color.fromARGB(255, 97, 211, 87),
                               ),
                               //
-                              SizedBox(height: 25),
-                              /*MaterialButton(
+                              SizedBox(height: 15),
+                              MaterialButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
@@ -94,7 +96,7 @@ class CreateLesonPage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LessonsPage()),
+                                        builder: (context) => LessonPage()),
                                   );
                                 },
                                 minWidth: 400,
@@ -102,7 +104,7 @@ class CreateLesonPage extends StatelessWidget {
                                 child: Text("Add Lesson",
                                     style: TextStyle(color: Colors.white)),
                                 color: Color.fromARGB(255, 97, 211, 87),
-                              ),*/
+                              ),
                             ],
                           ),
                         ),
@@ -126,8 +128,9 @@ class CreateLesonPage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            //Row(children: [CreateDate()]),
-                            Row(children: [CreateTime()])
+                            Row(children: [CreateDate()]),
+                            Row(children: [CreateStartTime()]),
+                            Row(children: [CreateEndTime()])
                           ],
                         ),
                       ),
