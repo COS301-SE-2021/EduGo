@@ -34,10 +34,13 @@ class _SignInPageFormState extends State<SignInPageForm> {
               Padding(
                 padding: const EdgeInsets.only(top: 60.0),
                 child: Center(
-                  child: Container(
-                      width: 200,
-                      height: 150,
-                      child: Image.asset('asset/images/flutter-logo.png')),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40.0),
+                    child: Image.asset(
+                      "../assets/images/edugo_logo.png",
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                  ),
                 ),
               ),
               Padding(
