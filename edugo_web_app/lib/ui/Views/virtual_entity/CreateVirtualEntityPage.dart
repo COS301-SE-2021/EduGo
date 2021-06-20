@@ -1,12 +1,11 @@
 import 'dart:html' as html;
 import 'dart:typed_data';
 import 'dart:convert';
+import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
-import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
-import 'package:edugo_web_app/ui/widgets/input_fields/EduGoMultiLineInput.dart';
 import 'package:edugo_web_app/ui/widgets/viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
@@ -18,10 +17,14 @@ class CreateVirtualEntityPage extends StatefulWidget {
 }
 
 class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
-  //file Upload
   List<int> _selectedFile;
   Uint8List _bytesData;
+  String entityName = "";
+  String entityDescription = "";
+  int entityLesson = 1;
   String modelUrl = "";
+  var model;
+  String filename = "";
 
   startWebFilePicker() async {
     html.InputElement uploadInput = html.FileUploadInputElement();
@@ -36,6 +39,9 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
 
       reader.onLoadEnd.listen((e) {
         _handleResult(reader.result);
+        setState(() {
+          filename = file.name;
+        });
       });
       reader.readAsDataUrl(file);
     });
@@ -48,16 +54,41 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
     });
   }
 
-  void makeRequest() async {
-    var url = Uri.parse(
-        "http://127.0.0.1:8000/upload_api/web/app_dev.php/api/save-file/");
+  void makeUploadRequest() async {
+    var url =
+        Uri.parse("http://localhost:8080/virtualEntity/model/uploadModel");
     var request = new http.MultipartRequest("POST", url);
     request.files.add(http.MultipartFile.fromBytes('file', _selectedFile,
         contentType: new MediaType('application', 'octet-stream'),
-        filename: "3D Model"));
-    request.send().then((response) {
-      setState(() {});
-    });
+        filename: filename));
+    request
+        .send()
+        .then((result) async {
+          http.Response.fromStream(result).then((response) {
+            if (response.statusCode == 200) {
+              Map<String, dynamic> _3DModel = jsonDecode(response.body);
+              setState(() {
+                viewerLinkToModel = _3DModel['file_link'];
+              });
+            }
+          });
+        })
+        .catchError((err) => print('error : ' + err.toString()))
+        .whenComplete(() {});
+  }
+
+  Future<http.Response> saveVirtualEntity() {
+    return http.post(
+      Uri.parse('http://localhost:8080/virtualEntity/createVirtualEntity'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "title": entityName,
+        'lesson_id': entityLesson.toString(),
+        "description": entityDescription
+      }),
+    );
   }
 
   //Interface Management variables
@@ -65,8 +96,7 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
   String viewerLinkToModel = "";
   String previewModelLink = "";
   bool modelvisible = false;
-  bool enableQuizCreate = false;
-  bool quizCreateContainer = false;
+  bool enableSaveEntity = false;
   bool enableAddModel = true;
   String str = "";
   @override
@@ -82,10 +112,7 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
                 children: <Widget>[
                   Align(
                       alignment: Alignment.topLeft,
-                      child: Text(
-                          quizCreateContainer
-                              ? "Create Quiz"
-                              : "Create Virtual Entity",
+                      child: Text("Create Virtual Entity",
                           style: TextStyle(fontSize: 25))),
                   SizedBox(
                     height: 20,
@@ -93,138 +120,43 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
                   modelContainerVisible
                       ? Align(
                           alignment: Alignment.topLeft,
-                          child: quizCreateContainer
-                              ? Column(children: <Widget>[],)
-                              : Row(
-                                  children: <Widget>[
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height -
-                                              360,
-                                      child: SingleChildScrollView(
-                                        child: Column(children: <Widget>[
-                                          EduGoInput(
-                                              hintText: "Entity name",
-                                              width: 450),
-                                          SizedBox(
-                                            height: 25,
-                                          ),
-                                          EduGoMultiLineInput(
-                                            width: 450,
-                                            maxLines: 3,
-                                            hintText: "Entity description",
-                                          ),
-                                          SizedBox(
-                                            height: 25,
-                                          ),
-                                          EduGoMultiLineInput(
-                                            width: 450,
-                                            maxLines: 4,
-                                            hintText: viewerLinkToModel,
-                                          )
-                                        ]),
-                                      ),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height - 360,
+                                child: SingleChildScrollView(
+                                  child: Column(children: <Widget>[
+                                    SizedBox(
+                                        width: 450,
+                                        child: TextField(
+                                          onChanged: (text) {
+                                            setState(() {
+                                              entityName = text;
+                                            });
+                                          },
+                                          cursorColor:
+                                              Color.fromARGB(255, 97, 211, 87),
+                                          decoration: InputDecoration(
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                    color: Color.fromARGB(
+                                                        255, 97, 211, 87),
+                                                    width: 2.0),
+                                              ),
+                                              border: OutlineInputBorder(),
+                                              hintText: "Entity Name"),
+                                        )),
+                                    SizedBox(
+                                      height: 25,
                                     ),
                                     SizedBox(
-                                      width: 120,
-                                    ),
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height -
-                                              360,
-                                      child: Column(
-                                        children: <Widget>[
-                                          enableAddModel
-                                              ? MaterialButton(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  10))),
-                                                  disabledColor: Color.fromRGBO(
-                                                      211, 212, 217, 1),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      modelContainerVisible =
-                                                          !modelContainerVisible;
-                                                      viewerLinkToModel = "";
-                                                      enableAddModel = false;
-                                                    });
-                                                  },
-                                                  minWidth: 400,
-                                                  height: 60,
-                                                  child: Text("Add 3D Model",
-                                                      style: TextStyle(
-                                                          color: Colors.white)),
-                                                  color: Color.fromARGB(
-                                                      255, 97, 211, 87),
-                                                )
-                                              : Text("QR Marker"),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          MaterialButton(
-                                            disabledColor: Color.fromRGBO(
-                                                211, 212, 217, 1),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10))),
-                                            onPressed: enableQuizCreate
-                                                ? () {
-                                                    setState(() {
-                                                      quizCreateContainer =
-                                                          true;
-                                                    });
-                                                  }
-                                                : null,
-                                            minWidth: 400,
-                                            height: 60,
-                                            child: Text("Create Quiz",
-                                                style: TextStyle(
-                                                    color: enableQuizCreate
-                                                        ? Colors.white
-                                                        : Color.fromARGB(
-                                                            255, 97, 211, 87))),
-                                            color: Color.fromARGB(
-                                                255, 97, 211, 87),
-                                          ),
-                                          SizedBox(
-                                            height: 50,
-                                          ),
-                                          MaterialButton(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(10))),
-                                            onPressed: null,
-                                            minWidth: 400,
-                                            height: 60,
-                                            child: Text("Add Virtual Entity",
-                                                style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 97, 211, 87))),
-                                            color: Color.fromARGB(
-                                                255, 97, 211, 87),
-                                            disabledColor: Color.fromRGBO(
-                                                211, 212, 217, 1),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ))
-                      : Container(
-                          child: Row(
-                            children: [
-                              Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                      width: 400,
+                                      width: 450,
                                       child: TextField(
                                         onChanged: (text) {
-                                          previewModelLink = text;
+                                          setState(() {
+                                            entityDescription = text;
+                                          });
                                         },
                                         cursorColor:
                                             Color.fromARGB(255, 97, 211, 87),
@@ -236,18 +168,93 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
                                                   width: 2.0),
                                             ),
                                             border: OutlineInputBorder(),
-                                            hintText: "Paste Link to 3D Model"),
-                                      )),
-                                  SizedBox(
-                                    height: 40,
-                                  ),
+                                            hintText: "Entity description"),
+                                        keyboardType: TextInputType.multiline,
+                                        maxLines: 4,
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 120,
+                              ),
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height - 360,
+                                child: Column(
+                                  children: <Widget>[
+                                    enableAddModel
+                                        ? MaterialButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10))),
+                                            disabledColor: Color.fromRGBO(
+                                                211, 212, 217, 1),
+                                            onPressed: () {
+                                              setState(() {
+                                                modelContainerVisible =
+                                                    !modelContainerVisible;
+                                                viewerLinkToModel = "";
+                                                enableAddModel = false;
+                                              });
+                                            },
+                                            minWidth: 400,
+                                            height: 60,
+                                            child: Text("Add 3D Model",
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                            color: Color.fromARGB(
+                                                255, 97, 211, 87),
+                                          )
+                                        : Text(""),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    MaterialButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      onPressed: () {
+                                        saveVirtualEntity().then((response) => {
+                                              if (response.statusCode == 200)
+                                                {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SubjectsPage()),
+                                                  )
+                                                }
+                                            });
+                                      },
+                                      minWidth: 400,
+                                      height: 60,
+                                      child: Text("Save Virtual Entity",
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      color: Color.fromARGB(255, 97, 211, 87),
+                                      disabledColor:
+                                          Color.fromRGBO(211, 212, 217, 1),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ))
+                      : Container(
+                          child: Row(
+                            children: [
+                              Column(
+                                children: <Widget>[
                                   MaterialButton(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(10))),
                                     onPressed: () {
+                                      startWebFilePicker();
+                                      makeUploadRequest();
                                       setState(() {
-                                        viewerLinkToModel = previewModelLink;
                                         if (viewerLinkToModel.isEmpty) {
                                           modelvisible = false;
                                         } else {
@@ -257,7 +264,7 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
                                     },
                                     minWidth: 400,
                                     height: 60,
-                                    child: Text("Preview 3D Model",
+                                    child: Text("Upload 3D Model",
                                         style: TextStyle(color: Colors.white)),
                                     color: Color.fromARGB(255, 97, 211, 87),
                                   ),
@@ -274,15 +281,14 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
                                               modelContainerVisible =
                                                   !modelContainerVisible;
                                               modelvisible = !modelvisible;
-
                                               previewModelLink = "";
-                                              enableQuizCreate = true;
+                                              enableSaveEntity = true;
                                             });
                                           }
                                         : null,
                                     minWidth: 400,
                                     height: 60,
-                                    child: Text("Upload 3D Model",
+                                    child: Text("Add model to entity",
                                         style: TextStyle(
                                             color: !modelvisible
                                                 ? Color.fromARGB(
