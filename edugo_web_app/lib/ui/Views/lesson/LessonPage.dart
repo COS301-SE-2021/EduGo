@@ -1,3 +1,4 @@
+import 'package:card_settings/card_settings.dart';
 import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
@@ -13,97 +14,77 @@ class LessonPage extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           EduGoContainer(
-            width: MediaQuery.of(context).size.width - 100,
-            height: MediaQuery.of(context).size.height - 100,
+            width: MediaQuery.of(context).size.width - 50,
+            height: MediaQuery.of(context).size.height - 50,
             child: Column(
               children: [
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Align(
-                        alignment: Alignment.topCenter,
+                        alignment: Alignment.topLeft,
                         child: Text("Geometry 101 - Polymorphism",
                             style: TextStyle(fontSize: 25)),
                       ),
                       Align(
                         alignment: Alignment.topRight,
                         child: Image.asset(
-                          "../assets/images/change_title_button.png",
-                          width: MediaQuery.of(context).size.width / 3,
-                        ),
+                            "../assets/images/change_title_button.png",
+                            width: MediaQuery.of(context).size.width / 3,
+                            height: 50),
                       )
                     ]),
                 Row(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: SubjectCard(height: 100, width: 1000),
-                    )
-                  ],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text("Description: ",
+                            style: TextStyle(fontSize: 15)),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Image.asset(
+                            "../assets/images/edit_description_button.png",
+                            width: MediaQuery.of(context).size.width / 3,
+                            height: 50),
+                      )
+                    ]),
+                Row(children: [
+                  SizedBox(
+                    width: 1000.0,
+                    height: 100.0,
+                    child: Card(child: Text('Long Description')),
+                  )
+                ]),
                 Row(
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: SubjectCard(height: 200, width: 1000),
-                    )
+                    Container(
+                        padding: EdgeInsets.all(10),
+                        child: RichText(
+                            text: TextSpan(
+                          text: 'Virtual Entity',
+                        ))),
                   ],
                 ),
+                Row(children: [
+                  SizedBox(
+                      width: 1000.0,
+                      height: 300.0,
+                      child: Column(
+                        children: [Row(), Row()],
+                      )),
+                ]),
               ],
-              /* 
-              //Entire screen
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text("Create Subject", style: TextStyle(fontSize: 25)),
-                ),
-                SizedBox(height: 35),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height - 360,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(height: 25),
-                              EduGoInput(
-                                  hintText: "Enter the subject name",
-                                  width: 450),
-                              SizedBox(height: 25),
-                              EduGoInput(
-                                  hintText: "Enter the subject grade",
-                                  width: 450),
-                              SizedBox(height: 25),
-                              EduGoMultiLineInput(
-                                  hintText: "Enter the subject description",
-                                  maxLines: 4,
-                                  width: 450),
-                              SizedBox(height: 100),
-                              MaterialButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SubjectsPage()),
-                                  );
-                                },
-                                minWidth: 400,
-                                height: 60,
-                                child: Text("Add Subject",
-                                    style: TextStyle(color: Colors.white)),
-                                color: Color.fromARGB(255, 97, 211, 87),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 100),
-                      Container(
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+/*
+ Container(
                         height: MediaQuery.of(context).size.height - 450,
                         //height: 600,
                         width: 500,
@@ -145,15 +126,5 @@ class LessonPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            */
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+                    
+ */
