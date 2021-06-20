@@ -122,7 +122,12 @@ class CreateLesonPage extends StatelessWidget {
                             style: BorderStyle.solid,
                           ),
                         ),
-                        child: Column(),
+                        child: Column(
+                          children: [
+                            Row(children: [CreateDate()]),
+                            Row(children: [CreateTime()])
+                          ],
+                        ),
                       ),
                     ],
                   ),
