@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class EduGoPage extends StatelessWidget {
   EduGoPage({
-    required this.child,
+    this.child,
   });
   final Widget child;
 

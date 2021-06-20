@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EduGoMultiLineInput extends StatelessWidget {
-  EduGoMultiLineInput(
-      {required this.hintText, required this.maxLines, required this.width});
+  EduGoMultiLineInput({this.hintText, this.maxLines, this.width});
   final String hintText;
   final double width;
   final maxLines;
