@@ -37,11 +37,18 @@ class LessonPage extends StatelessWidget {
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: SubjectCard(height: 330, width: 280),
+                      child: SubjectCard(height: 100, width: 1000),
                     )
                   ],
                 ),
-                Row(),
+                Row(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: SubjectCard(height: 200, width: 1000),
+                    )
+                  ],
+                ),
               ],
               /* 
               //Entire screen
