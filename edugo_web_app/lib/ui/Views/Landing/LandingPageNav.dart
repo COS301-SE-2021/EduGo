@@ -1,4 +1,4 @@
-import 'package:edugo_web_app/ui/Views/SignInPage.dart';
+import 'package:edugo_web_app/ui/Views/SignIn/SignInPage.dart';
 import 'package:flutter/material.dart';
 
 class LandingPageNav extends StatelessWidget {
