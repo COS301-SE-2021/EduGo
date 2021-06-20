@@ -84,11 +84,8 @@ class _SignInPageFormState extends State<SignInPageForm> {
                 child: TextButton(
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) =>
-                                  SubjectPage())); //should be subject page
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => SubjectPage()));
                       print("Validated");
                     } else {
                       print("Not Validated");
