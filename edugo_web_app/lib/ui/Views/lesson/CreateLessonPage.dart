@@ -1,4 +1,6 @@
 import 'package:edugo_web_app/ui/Views/lesson/LessonsPage.dart';
+import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityPage.dart';
+import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityStorePage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
 import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
@@ -49,7 +51,8 @@ class CreateLesonPage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LessonsPage()),
+                                        builder: (context) =>
+                                            VirtualEntityPage()),
                                   );
                                 },
                                 minWidth: 400,
@@ -69,7 +72,8 @@ class CreateLesonPage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LessonsPage()),
+                                        builder: (context) =>
+                                            VirtualEntityStore()),
                                   );
                                 },
                                 minWidth: 400,
