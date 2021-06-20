@@ -39,7 +39,7 @@ class CreateLesonPage extends StatelessWidget {
                                   hintText: "Enter the lesson description",
                                   maxLines: 4,
                                   width: 450),
-                              SizedBox(height: 100),
+                              SizedBox(height: 25),
                               // Create entity
                               MaterialButton(
                                 shape: RoundedRectangleBorder(
@@ -59,7 +59,7 @@ class CreateLesonPage extends StatelessWidget {
                                 color: Color.fromARGB(255, 97, 211, 87),
                               ),
                               //
-
+                              SizedBox(height: 25),
                               // Upload entity
                               MaterialButton(
                                 shape: RoundedRectangleBorder(
@@ -79,7 +79,8 @@ class CreateLesonPage extends StatelessWidget {
                                 color: Color.fromARGB(255, 97, 211, 87),
                               ),
                               //
-                              MaterialButton(
+                              SizedBox(height: 25),
+                              /*MaterialButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
@@ -95,14 +96,14 @@ class CreateLesonPage extends StatelessWidget {
                                 child: Text("Add Lesson",
                                     style: TextStyle(color: Colors.white)),
                                 color: Color.fromARGB(255, 97, 211, 87),
-                              ),
+                              ),*/
                             ],
                           ),
                         ),
                       ),
                       SizedBox(width: 100),
                       Container(
-                        height: MediaQuery.of(context).size.height - 450,
+                        height: MediaQuery.of(context).size.height - 350,
                         width: 500,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -112,35 +113,12 @@ class CreateLesonPage extends StatelessWidget {
                             bottomRight: Radius.circular(40),
                           ),
                           border: Border.all(
-                            color: Colors.black,
+                            color: Colors.grey,
                             width: 1,
                             style: BorderStyle.solid,
                           ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(height: 60),
-                            Icon(
-                              Icons.add_a_photo_outlined,
-                              size: 200,
-                              color: Color.fromARGB(255, 97, 211, 87),
-                            ),
-                            SizedBox(height: 60),
-                            MaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              onPressed: () {},
-                              minWidth: 65,
-                              height: 40,
-                              child: Text("Add Photo",
-                                  style: TextStyle(color: Colors.white)),
-                              color: Color.fromARGB(255, 97, 211, 87),
-                              // margin: EdgeInsets.fromLTRB(20, 100, 20, 20),
-                            ),
-                          ],
-                        ),
+                        child: Column(),
                       ),
                     ],
                   ),
