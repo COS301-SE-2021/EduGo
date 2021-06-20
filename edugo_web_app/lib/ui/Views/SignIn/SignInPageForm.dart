@@ -79,7 +79,7 @@ class _SignInPageFormState extends State<SignInPageForm> {
                 height: 50,
                 width: 250,
                 decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Color.fromRGBO(20, 195, 50, 1.0),
                     borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
                   onPressed: () {
