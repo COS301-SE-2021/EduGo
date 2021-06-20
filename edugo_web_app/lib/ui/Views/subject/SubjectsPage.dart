@@ -1,6 +1,5 @@
 import 'package:edugo_web_app/ui/Views/subject/CreateSubjectPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoNav/NavBar.dart';
-import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
 import 'package:edugo_web_app/ui/widgets/subjectCard.dart';
 import 'package:flutter/material.dart';
 

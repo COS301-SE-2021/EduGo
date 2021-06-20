@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class SubjectCard extends StatelessWidget {
   SubjectCard({
-    required this.height,
-    required this.width,
+    this.height,
+    this.width,
   });
 
   final double height;
