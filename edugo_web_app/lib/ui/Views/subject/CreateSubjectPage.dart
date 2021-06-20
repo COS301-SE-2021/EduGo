@@ -103,6 +103,9 @@ class CreateSubjectPage extends StatelessWidget {
                             ),
                             SizedBox(height: 60),
                             MaterialButton(
+                              Icon(
+  Icons.add_outlined,
+),
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
