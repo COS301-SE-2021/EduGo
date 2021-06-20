@@ -1,6 +1,6 @@
+import 'package:edugo_web_app/ui/Views/subject/SubjectPage.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:mish/Views/lesson/CreateLessonPage.dart';
 
 class SignInPageForm extends StatefulWidget {
   @override
@@ -88,7 +88,7 @@ class _SignInPageFormState extends State<SignInPageForm> {
                           context,
                           MaterialPageRoute(
                               builder: (_) =>
-                                  CreateLessonPage())); //should be subject page
+                                  SubjectPage())); //should be subject page
                       print("Validated");
                     } else {
                       print("Not Validated");

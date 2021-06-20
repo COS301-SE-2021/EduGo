@@ -1,5 +1,5 @@
+import 'package:edugo_web_app/ui/Views/SignIn/SignInPageContent.dart';
 import 'package:flutter/material.dart';
-import 'package:mish/Views/SignIn/SignInPageContent.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
