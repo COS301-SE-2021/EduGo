@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/ui/Views/lesson/LessonPage.dart';
 import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,8 @@ class LandingPageContent extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SubjectsPage()),
+                  MaterialPageRoute(
+                      builder: (context) => LessonPage()), //SubjectsPage()),
                 );
               },
               color: Color.fromARGB(255, 97, 211, 87),
