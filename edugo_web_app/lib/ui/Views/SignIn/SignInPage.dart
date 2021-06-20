@@ -47,7 +47,13 @@ class SignInPage extends StatelessWidget {
                               end: Alignment.bottomCenter,
                             ),
                           ),
-                          child: Text('Column 1'))
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 40.0),
+                            child: Image.asset(
+                              "../assets/images/signin_image.png",
+                              width: MediaQuery.of(context).size.width / 2,
+                            ),
+                          ))
                     ],
                   ),
                 ])));
