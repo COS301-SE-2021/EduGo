@@ -65,9 +65,17 @@ class CreateSubjectPage extends StatelessWidget {
                                 },
                                 minWidth: 400,
                                 height: 60,
-                                child: Text("Add Subject",
-                                    style: TextStyle(color: Colors.white)),
                                 color: Color.fromARGB(255, 97, 211, 87),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.add_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    Text("Add Subject",
+                                        style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -92,7 +100,7 @@ class CreateSubjectPage extends StatelessWidget {
                           ),
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             SizedBox(height: 60),
                             Icon(
@@ -102,18 +110,25 @@ class CreateSubjectPage extends StatelessWidget {
                             ),
                             SizedBox(height: 60),
                             MaterialButton(
-                              Icon(
-  Icons.add_outlined,
-),
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               onPressed: () {},
-                              minWidth: 65,
-                              height: 40,
-                              child: Text("Add Photo",
-                                  style: TextStyle(color: Colors.white)),
+                              minWidth: 30,
+                              //height: 40,
                               color: Color.fromARGB(255, 97, 211, 87),
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.add_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Add Photo",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                               // margin: EdgeInsets.fromLTRB(20, 100, 20, 20),
                             ),
                           ],
@@ -130,6 +145,7 @@ class CreateSubjectPage extends StatelessWidget {
     );
   }
 }
+
 
 
 // Icon(

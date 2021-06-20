@@ -1,0 +1,47 @@
+version: "3"
+services:
+    edugo-server:
+        container_name: edugo_server_container
+        build: 
+            context: ./backend
+            target: debug
+        image: gangoffive/edugo
+        command: sh -c "npm install && npm run dev"
+        environment:
+            PORT: 7000
+            DB_USER: postgres
+            DB_PASSWORD: edugo_admin
+            DB_TEST_USER: edugo
+            DB_TEST_PASSWORD: edugo_test
+        ports:
+            - '8080:7000'
+        working_dir: /usr/app
+        volumes:
+            - ./backend:/usr/app
+#            - $HOME/.aws/credentials:/home/.aws/credentials:ro
+        depends_on:
+            - db
+    pgadmin:
+        container_name: pgadmin_container
+        image: dpage/pgadmin4
+        environment: 
+            PGADMIN_DEFAULT_EMAIL: edugo@edugo.com
+            PGADMIN_DEFAULT_PASSWORD: edugo_admin
+        ports:
+            - '8081:80'
+        logging:
+            driver: none
+    db:
+        container_name: postgres_container
+        image: postgres
+        environment: 
+            POSTGRES_DB: edugo
+            POSTGRES_PASSWORD: edugo_admin
+        ports:
+            - '5432:5432'
+        volumes:
+            - edugo-db:/var/lib/postgresql/
+            - ./sql:/docker-entrypoint-initdb.d/
+volumes:
+    edugo-db:
+
