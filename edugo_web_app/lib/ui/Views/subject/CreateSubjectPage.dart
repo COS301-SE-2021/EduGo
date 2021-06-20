@@ -4,8 +4,63 @@ import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
 import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
 import 'package:edugo_web_app/ui/widgets/input_fields/EduGoMultiLineInput.dart';
 import 'package:flutter/material.dart';
+//import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
-class CreateSubjectPage extends StatelessWidget {
+class CreateSubjectPage extends StatefulWidget {
+  @override
+  _CreateSubjectPageState createState() => _CreateSubjectPageState();
+}
+
+class _CreateSubjectPageState extends State<CreateSubjectPage> {
+  static const urlPrefix = 'http://localhost:8080/subject/createSubject';
+
+  final _subjectGradeController = TextEditingController();
+  String subjectGrade;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _subjectGradeController.addListener(() {
+  //     final String text = _subjectGradeController.text;
+  //   });
+  // }
+
+  // void makeRequest(subjectGrade) async {
+  //   final url = Uri.parse('$urlPrefix');
+  //   final headers = {"Content-type": "application/json"};
+  //   final json =
+  //       '{"title": $subjectGrade, "description": "Description test 2", "educatorId": "3"}';
+  //   final response = await post(url, headers: headers, body: json);
+  //   print('Status code: ${subjectGrade}');
+  //   print('Status code: ${response.statusCode}');
+  //   print('Body: ${response.body}');
+  //   (() {});
+  //   //print(subjectGrade);
+  //   //print(subjectGrade.runtimeType);
+  // }
+
+  void makeRequest() async {
+    final url = Uri.parse('$urlPrefix');
+    var response = await post(url, headers: {
+      'contentType': 'application/json'
+    }, body: {
+      'title': subjectGrade,
+      'description': 'test 3',
+      'educatorId': '3'
+    });
+    var statusCode = response.statusCode;
+    print(subjectGrade);
+    print(statusCode);
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    _subjectGradeController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return EduGoPage(
@@ -39,9 +94,25 @@ class CreateSubjectPage extends StatelessWidget {
                           child: Column(
                             children: <Widget>[
                               SizedBox(height: 25),
-                              EduGoInput(
-                                  hintText: "Enter the subject name",
-                                  width: 450),
+                              // EduGoInput(
+                              //     hintText: "Enter the subject name",
+                              //     width: 450),
+                              SizedBox(
+                                  width: 450,
+                                  child: TextField(
+                                    controller: _subjectGradeController,
+                                    cursorColor:
+                                        Color.fromARGB(255, 97, 211, 87),
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 97, 211, 87),
+                                              width: 2.0),
+                                        ),
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Enter the subject name'),
+                                  )),
                               SizedBox(height: 25),
                               EduGoInput(
                                   hintText: "Enter the subject grade",
@@ -57,6 +128,10 @@ class CreateSubjectPage extends StatelessWidget {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 onPressed: () {
+                                  setState(() {
+                                    subjectGrade = _subjectGradeController.text;
+                                  });
+                                  makeRequest();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -145,9 +220,3 @@ class CreateSubjectPage extends StatelessWidget {
     );
   }
 }
-
-
-
-// Icon(
-// Icons.add_a_photo_outlined,
-// ),
