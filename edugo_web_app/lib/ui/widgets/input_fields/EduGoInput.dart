@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class EduGoInput extends StatelessWidget {
   final String hintText;
   final double width;
-  EduGoInput({required this.hintText, required this.width}) {}
+  EduGoInput({this.hintText, this.width}) {}
 
   @override
   Widget build(BuildContext context) {
