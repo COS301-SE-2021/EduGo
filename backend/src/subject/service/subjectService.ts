@@ -17,7 +17,7 @@ export async function createSubject(request: CreateSubjectRequest) {
 	if (
 		request.title == null ||
 		request.educatorId == null ||
-		request.description == null
+		request.description == null|| request.grade
 	) {
 		statusRes.message = "Missing parameters";
 		statusRes.type = "fail";
@@ -28,6 +28,7 @@ export async function createSubject(request: CreateSubjectRequest) {
 		subject.title = request.title;
 		subject.description = request.description;
 		subject.educatorId = request.educatorId;
+		subject.grade = request.grade; 
 		subject.lessons = [];
 		let subjectRepository = conn.getRepository(Subject);
 

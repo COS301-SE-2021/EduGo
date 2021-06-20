@@ -1,8 +1,9 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import {Subject} from "./Subject"
+import { VirtualEntity } from "./VirtualEntity";
 @Entity()
 export class Lesson {
-   
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -19,6 +20,9 @@ export class Lesson {
     @ManyToOne(() => Subject, subject=> subject.lessons)
     subject:Subject
 
-    @Column( {nullable: true} )
-    virtualEntityID: string
+    @ManyToMany(type => VirtualEntity, virtualEntities => virtualEntities.lessons, {
+        cascade: true
+    })
+    @JoinTable()
+    virtualEntities: VirtualEntity[];
 }

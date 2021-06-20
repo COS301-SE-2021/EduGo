@@ -28,6 +28,7 @@ export async function createLesson(request: CreateLessonRequest) {
 		lesson.title = request.title;
 		lesson.description = request.description;
 		lesson.date = request.date;
+		lesson.virtualEntities = [];
 
 		let subjectRepository = conn.getRepository(Subject);
 
@@ -63,7 +64,7 @@ export async function GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
 		let conn = getConnection();
 		let subjectRepository = conn.getRepository(Subject);
 		return subjectRepository
-			.findOne({ where: { id: request.subjectId } })
+			.findOne(request.subjectId, {relations: ["lessons"]})
 			.then((subject) => {
 				if (subject) {
 					let lessons = subject.lessons;
