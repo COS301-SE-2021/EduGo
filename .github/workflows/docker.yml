@@ -17,8 +17,7 @@ jobs:
           node-version: 12
       - run: npm ci
         working-directory: ./backend
-      - run: npm test
+      - run: docker-compose run --rm edugo-server npm run test
         working-directory: ./backend
-      - run: npm run build
-        working-directory: ./backend
+
  
