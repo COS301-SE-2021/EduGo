@@ -1,12 +1,8 @@
-import 'dart:html';
-
 import 'package:edugo_web_app/ui/Views/lesson/CreateDate.dart';
 import 'package:edugo_web_app/ui/Views/lesson/CreateEndTime.dart';
 import 'package:edugo_web_app/ui/Views/lesson/CreateStartTime.dart';
-import 'package:edugo_web_app/ui/Views/lesson/LessonPage.dart';
 import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/CreateVirtualEntityPage.dart';
-import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityStorePage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
