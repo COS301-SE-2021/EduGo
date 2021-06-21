@@ -1,21 +1,21 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ develop-test ]
-  pull_request:
-    branches: [ develop-test ]
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
 
 jobs:
-  test_pull_request:
-    runs-on: ubuntu-latest
+    test_pull_request:
+        runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: npm ci
-        working-directory: ./backend
-      - run: docker-compose run --rm edugo-server npm run test
-        working-directory: ./backend
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+            - run: npm ci
+              working-directory: ./backend
+            - run: docker-compose run --rm edugo-server npm run test
+              working-directory: ./backend
