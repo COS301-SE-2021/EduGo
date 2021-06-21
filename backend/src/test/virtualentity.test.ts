@@ -4,6 +4,7 @@ import {app} from '../index';
 import request from 'supertest';
 import { Lesson } from "../database/entity/Lesson";
 import { Subject } from "../database/entity/Subject";
+import { validateCreateVirtualEntityRequest } from '../virtualEntity/validate';
 
 beforeAll(async () => {
     await createConnection({
@@ -42,8 +43,142 @@ beforeAll(async () => {
     await getConnection().getRepository(Subject).save(sampleSubject);
 })
 
-describe('Testing if tests work', () => {
-    test('Should pass', async () => {
+afterAll(async () => {
+    await getConnection().close();
+})
+
+describe('Create Virtual Entity', () => {
+    test('If basic create virtual entity validation passes', () => {
+        let data = {
+            lesson_id: 1,
+            title: '',
+            description: ''
+        }
+
+        let result = validateCreateVirtualEntityRequest(data);
+        expect(result.ok).toBe(true);
+    });
+
+    test('If incorrect basic create virtual entity validation passes', () => {
+        let data = {
+            lesson_id: 1,
+            title: '',
+        }
+
+        let result = validateCreateVirtualEntityRequest(data);
+        expect(result.ok).toBe(false);
+        expect(result.message).toContain('description');
+    });
+
+    test('If create virtual entity validation with model passes', () => {
+        let data = {
+            lesson_id: 1,
+            title: '',
+            description: '',
+            model: {
+                name: '',
+                file_link: '',
+                file_size: 0,
+                file_name: '',
+                file_type: ''
+            }
+        }
+
+        let result = validateCreateVirtualEntityRequest(data);
+        expect(result.ok).toBe(true);
+    })
+
+    test('If create virtual entity validation with model passes', () => {
+        let data = {
+            lesson_id: 1,
+            title: '',
+            description: '',
+            model: {
+                name: '',
+                file_link: '',
+                file_name: '',
+                file_type: ''
+            }
+        }
+
+        let result = validateCreateVirtualEntityRequest(data);
+        expect(result.ok).toBe(false);
+        expect(result.message).toContain('file_size');
+    })
+
+    test('If create virtual entity validation with quiz and no questions passes', () => {
+        let data = {
+            lesson_id: 1,
+            title: '',
+            description: '',
+            quiz: {
+                title: '',
+                description: ''
+            }
+        }
+
+        let result = validateCreateVirtualEntityRequest(data);
+        expect(result.ok).toBe(true);
+    });
+
+    test('If create virtual entity validation with quiz and no questions passes', () => {
+        let data = {
+            lesson_id: 1,
+            title: '',
+            description: '',
+            quiz: {
+                description: ''
+            }
+        }
+
+        let result = validateCreateVirtualEntityRequest(data);
+        expect(result.ok).toBe(false);
+        expect(result.message).toContain('title');
+    });
+
+    test('If create virtual entity validation with quiz and a question passes', () => {
+        let data = {
+            lesson_id: 1,
+            title: '',
+            description: '',
+            quiz: {
+                title: '',
+                description: '',
+                questions: [
+                    {
+                        type: '',
+                        question: ''
+                    }
+                ]
+            }
+        }
+
+        let result = validateCreateVirtualEntityRequest(data);
+        expect(result.ok).toBe(true);
+    })
+
+    test('If create virtual entity validation with quiz and a question passes', () => {
+        let data = {
+            lesson_id: 1,
+            title: '',
+            description: '',
+            quiz: {
+                title: '',
+                description: '',
+                questions: [
+                    {
+                        question: ''
+                    }
+                ]
+            }
+        }
+
+        let result = validateCreateVirtualEntityRequest(data);
+        expect(result.ok).toBe(false);
+        expect(result.message).toContain('type');
+    })
+
+    test('If new virtual entity is successfully created', async () => {
         const response = await request(app).post('/virtualEntity/createVirtualEntity').send({
             lesson_id: 1,
             title: "Virtual Entity",
