@@ -1,29 +1,44 @@
 class Entities {
-  final List<Entity> entities;
+  List<Entity> entities;
 
   Entities({this.entities});
 
-  factory Entities.fromJson(Map<String, dynamic> parsedJson) {
-    var list = parsedJson['entities'] as List;
-    print(list.runtimeType);
-    List<Entity> dataList = list.map((i) => Entity.fromJson(i)).toList();
+  Entities.fromJson(Map<String, dynamic> json) {
+    if (json['entities'] != null) {
+      entities = new List<Entity>();
+      json['entities'].forEach((v) {
+        entities.add(new Entity.fromJson(v));
+      });
+    }
+  }
 
-    return Entities(entities: dataList);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.entities != null) {
+      data['entities'] = this.entities.map((v) => v.toJson()).toList();
+    }
+    return data;
   }
 }
 
 class Entity {
-  final int id;
-  final String title;
-  final String description;
+  String title;
+  String description;
+  int id;
 
-  Entity({this.id, this.title, this.description});
+  Entity({this.title, this.description, this.id});
 
-  factory Entity.fromJson(Map<String, dynamic> parsedJson) {
-    return Entity(
-      id: parsedJson['id'],
-      title: parsedJson['title'],
-      description: parsedJson['description'],
-    );
+  Entity.fromJson(Map<String, dynamic> json) {
+    title = json['title'];
+    description = json['description'];
+    id = json['id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['title'] = this.title;
+    data['description'] = this.description;
+    data['id'] = this.id;
+    return data;
   }
 }
