@@ -19,22 +19,36 @@ class _CreateEndTimeState extends State<CreateEndTime> {
     });
   }
 
+/*
+ MaterialButton(
+    shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.all(Radius.circular(10))),
+    //onpressed,
+    minWidth: 400,
+    height: 60,
+    child: Text("Upload Virtual Entity",
+        style: TextStyle(color: Colors.white)),
+    color: Color.fromARGB(255, 97, 211, 87),
+*/
   Widget build(BuildContext context) {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width / 5,
-        height: MediaQuery.of(context).size.height / 5,
+        height: 80, //height: MediaQuery.of(context).size.height / 5,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            ElevatedButton(
+            MaterialButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
               onPressed: _selectTime,
-              child: Text('SELECT END TIME'),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Selected time: ${_time.format(context)}',
+              minWidth: 400,
+              height: 60,
+              child: Text("SELECT END TIME",
+                  style: TextStyle(color: Colors.white)),
+              color: Color.fromARGB(255, 97, 211, 87),
             ),
           ],
         ),

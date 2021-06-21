@@ -26,19 +26,20 @@ class _CreateDateState extends State<CreateDate> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
-      height: 200,
+      width: MediaQuery.of(context).size.width / 5,
+      height: 80,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
+            MaterialButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
               onPressed: _selectDate,
-              child: Text('SELECT DATE'),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Selected date: $_date',
+              minWidth: 400,
+              height: 60,
+              child: Text("SELECT DATE", style: TextStyle(color: Colors.white)),
+              color: Color.fromARGB(255, 97, 211, 87),
             ),
           ],
         ),

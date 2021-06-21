@@ -87,23 +87,6 @@ class CreateLesonPage extends StatelessWidget {
                               ),
                               //
                               SizedBox(height: 15),
-                              MaterialButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LessonPage()),
-                                  );
-                                },
-                                minWidth: 400,
-                                height: 60,
-                                child: Text("Add Lesson",
-                                    style: TextStyle(color: Colors.white)),
-                                color: Color.fromARGB(255, 97, 211, 87),
-                              ),
                             ],
                           ),
                         ),
@@ -125,13 +108,33 @@ class CreateLesonPage extends StatelessWidget {
                             style: BorderStyle.solid,
                           ),
                         ),
-                        child: Column(
-                          children: [
-                            Row(children: [CreateDate()]),
-                            Row(children: [CreateStartTime()]),
-                            Row(children: [CreateEndTime()])
-                          ],
-                        ),
+                        child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Column(
+                              children: <Widget>[
+                                CreateDate(),
+                                CreateStartTime(),
+                                CreateEndTime(),
+                                MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LessonPage()),
+                                    );
+                                  },
+                                  minWidth:
+                                      MediaQuery.of(context).size.width / 5,
+                                  height: 60,
+                                  child: Text("Add Lesson",
+                                      style: TextStyle(color: Colors.white)),
+                                  color: Color.fromARGB(255, 97, 211, 87),
+                                ),
+                              ],
+                            )),
                       ),
                     ],
                   ),
