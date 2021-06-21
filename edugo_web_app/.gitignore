@@ -46,3 +46,9 @@ app.*.map.json
 /android/app/release
 
 *.icloud
+
+
+node_modules
+.env
+.DS_Store
+dist

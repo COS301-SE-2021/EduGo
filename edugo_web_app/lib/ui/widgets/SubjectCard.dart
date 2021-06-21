@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class SubjectCard extends StatelessWidget {
   // SubjectCard({
-  //   //this.height,
-  //   //this.width,
-  //   //this.path,
-  // });
+  final String title;
+  final String grade;
+  final String description;
+  SubjectCard({this.title, this.grade, this.description}) {}
 
   //final double height;
   //final double width;
@@ -66,7 +66,7 @@ class SubjectCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                        "Grade 12 Maths",
+                        "$title",
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -76,21 +76,6 @@ class SubjectCard extends StatelessWidget {
                   ),
                   // ),
                   //SizedBox(width: 20),
-                  MaterialButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditSubjectPage()),
-                      );
-                    },
-                    child: Icon(
-                      Icons.edit_outlined,
-                      color: Colors.white,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -130,6 +115,69 @@ class SubjectCard extends StatelessWidget {
             // ),
             // Image.asset('assets/card-sample-image.jpg'),
             // Image.asset('assets/card-sample-image-2.jpg'),
+            Align(
+              alignment: Alignment.centerLeft,
+              // child: SizedBox(
+              //   height: 180,
+              //   child: Text(
+              //     "Grade 12 Maths",
+              //     style: TextStyle(
+              //       fontSize: 20,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "$grade",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              // child: SizedBox(
+              //   height: 180,
+              //   child: Text(
+              //     "Grade 12 Maths",
+              //     style: TextStyle(
+              //       fontSize: 20,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "$description",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: MaterialButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditSubjectPage()),
+                  );
+                },
+                child: Icon(
+                  Icons.edit_outlined,
+                  color: Colors.white,
+                ),
+              ),
+            )
           ],
         ),
         //),

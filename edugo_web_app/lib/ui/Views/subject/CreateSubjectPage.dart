@@ -1,8 +1,8 @@
 import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
-import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
-import 'package:edugo_web_app/ui/widgets/input_fields/EduGoMultiLineInput.dart';
+//import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
+//import 'package:edugo_web_app/ui/widgets/input_fields/EduGoMultiLineInput.dart';
 import 'package:flutter/material.dart';
 //import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -15,8 +15,14 @@ class CreateSubjectPage extends StatefulWidget {
 class _CreateSubjectPageState extends State<CreateSubjectPage> {
   static const urlPrefix = 'http://localhost:8080/subject/createSubject';
 
+  final _subjectTitleController = TextEditingController();
+  String subjectTitle;
+
   final _subjectGradeController = TextEditingController();
   String subjectGrade;
+
+  final _subjectDescriptionController = TextEditingController();
+  String subjectDescription;
 
   // @override
   // void initState() {
@@ -45,19 +51,28 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
     var response = await post(url, headers: {
       'contentType': 'application/json'
     }, body: {
-      'title': subjectGrade,
-      'description': 'test 3',
-      'educatorId': '3'
+      'title': subjectTitle,
+      'description': subjectDescription,
+      'grade': subjectGrade,
+      'educatorId': '1'
     });
-    var statusCode = response.statusCode;
-    print(subjectGrade);
-    print(statusCode);
+    // var statusCode = response.statusCode;
+    // print(statusCode);
+    // print(subjectTitle);
+    // print(subjectDescription);
+    // print(subjectGrade);
+    // var x = subjectGrade;
+    // print(x.runtimeType);
+    // int y = int.tryParse(subjectGrade);
+    // print(subject_Grade.runtimeType);
   }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
+    _subjectTitleController.dispose();
     _subjectGradeController.dispose();
+    _subjectDescriptionController.dispose();
     super.dispose();
   }
 
@@ -100,7 +115,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                               SizedBox(
                                   width: 450,
                                   child: TextField(
-                                    controller: _subjectGradeController,
+                                    controller: _subjectTitleController,
                                     cursorColor:
                                         Color.fromARGB(255, 97, 211, 87),
                                     decoration: InputDecoration(
@@ -114,14 +129,49 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                         hintText: 'Enter the subject name'),
                                   )),
                               SizedBox(height: 25),
-                              EduGoInput(
-                                  hintText: "Enter the subject grade",
-                                  width: 450),
+                              // EduGoInput(
+                              //     hintText: "Enter the subject grade",
+                              //     width: 450),
+                              SizedBox(
+                                  width: 450,
+                                  child: TextField(
+                                    controller: _subjectGradeController,
+                                    cursorColor:
+                                        Color.fromARGB(255, 97, 211, 87),
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 97, 211, 87),
+                                              width: 2.0),
+                                        ),
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Enter the subject grade'),
+                                  )),
                               SizedBox(height: 25),
-                              EduGoMultiLineInput(
-                                  hintText: "Enter the subject description",
+                              // EduGoMultiLineInput(
+                              //     hintText: "Enter the subject description",
+                              //     maxLines: 4,
+                              //     width: 450),
+                              SizedBox(
+                                width: 450,
+                                child: TextField(
+                                  controller: _subjectDescriptionController,
+                                  cursorColor: Color.fromARGB(255, 97, 211, 87),
+                                  decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 97, 211, 87),
+                                            width: 2.0),
+                                      ),
+                                      border: OutlineInputBorder(),
+                                      hintText:
+                                          'Enter the subject description'),
+                                  keyboardType: TextInputType.multiline,
                                   maxLines: 4,
-                                  width: 450),
+                                ),
+                              ),
                               SizedBox(height: 100),
                               MaterialButton(
                                 shape: RoundedRectangleBorder(
@@ -129,7 +179,10 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                         BorderRadius.all(Radius.circular(10))),
                                 onPressed: () {
                                   setState(() {
+                                    subjectTitle = _subjectTitleController.text;
                                     subjectGrade = _subjectGradeController.text;
+                                    subjectDescription =
+                                        _subjectDescriptionController.text;
                                   });
                                   makeRequest();
                                   Navigator.push(
