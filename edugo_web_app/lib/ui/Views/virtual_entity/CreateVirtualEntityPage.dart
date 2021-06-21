@@ -217,13 +217,15 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
                                               Radius.circular(10))),
                                       onPressed: () {
                                         saveVirtualEntity().then((response) => {
+                                              // ignore: sdk_version_ui_as_code
                                               if (response.statusCode == 200)
                                                 {
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            SubjectsPage()),
+                                                        builder: (context) {
+                                                      return SubjectsPage();
+                                                    }),
                                                   )
                                                 }
                                             });
