@@ -19,6 +19,9 @@ export class Subject {
   description: string;
 
   @Column()
+  grade: number;
+
+  @Column()
   educatorId: number;
 
   @OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true })
