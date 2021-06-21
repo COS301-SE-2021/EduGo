@@ -3,10 +3,14 @@
 ## Description 
 Gang of five - EduGo - EduGo is an educational system that aims to shape and influence the future of education throughthe use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and virtual entities.  
 
+## Recorded Demo 1 Video
+https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing
 ## Recorded Demo 2 video
 Demo 2 Video: https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing
 ## Software requirements specifiction
 https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=sharing
+## Architectural requirements specification
+https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing
 ## Project Management Tool
 https://3.basecamp.com/5098601/projects/22442122
 
