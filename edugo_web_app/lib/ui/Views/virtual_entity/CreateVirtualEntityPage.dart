@@ -2,6 +2,7 @@ import 'dart:html' as html;
 import 'dart:typed_data';
 import 'dart:convert';
 import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
+import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityStorePage.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
@@ -224,7 +225,7 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) {
-                                                      return SubjectsPage();
+                                                      return VirtualEntityStore();
                                                     }),
                                                   )
                                                 }
