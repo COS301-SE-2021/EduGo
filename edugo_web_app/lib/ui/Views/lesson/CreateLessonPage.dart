@@ -76,7 +76,7 @@ class _CreateLesonPageState extends State<CreateLesonPage> {
   @override
   void initState() {
     super.initState();
-    futureLesson = createLesson();
+    //futureLesson = createLesson();
     //print(futureLesson);
   }
 
@@ -219,6 +219,7 @@ class _CreateLesonPageState extends State<CreateLesonPage> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   onPressed: () {
+                                    run: createLesson(),
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
