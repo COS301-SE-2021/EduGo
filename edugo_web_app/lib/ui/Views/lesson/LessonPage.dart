@@ -1,8 +1,51 @@
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
 import 'package:flutter/material.dart';
+// API
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class LessonPage extends StatelessWidget {
+//"title": "sdfhfsdh", "date": "bsdsfdhg", "description":"sdfh sfdhd sfhsh" ,"subjectId":"1"
+class Lesson {
+  String subjectId;
+
+  Lesson({
+    this.subjectId,
+  });
+
+  Map<String, String> headers = null;
+  Future<Lesson> fetchLesson() async {
+    final response = await http.post(
+        Uri.parse('http://localhost:8080/lesson/getLessonsBySubject'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept': '*/*',
+        },
+        body: jsonEncode(<String,
+            String>{})); //Future<Response> post(dynamic url, {Map<String, String> headers, dynamic body, Encoding encoding})
+
+    if (response.statusCode == 200) {
+      return Lesson.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load Lesson');
+    }
+  }
+
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    return Lesson(
+      subjectId: json['subjectId'],
+    );
+  }
+}
+
+//
+class LessonPage extends StatefulWidget {
+  @override
+  _LessonPageState createState() => _LessonPageState();
+}
+
+class _LessonPageState extends State<LessonPage> {
+  Lesson _lessonInstance = new Lesson();
   @override
   Widget build(BuildContext context) {
     return EduGoPage(
@@ -18,7 +61,7 @@ class LessonPage extends StatelessWidget {
                     children: <Widget>[
                       Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Geometry 101 - Polymorphism",
+                        child: Text(_lessonInstance.subjectId, //title
                             style: TextStyle(fontSize: 25)),
                       ),
                       Align(

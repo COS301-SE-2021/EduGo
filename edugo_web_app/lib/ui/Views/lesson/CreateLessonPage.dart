@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:edugo_web_app/ui/Views/lesson/CreateDate.dart';
 import 'package:edugo_web_app/ui/Views/lesson/CreateEndTime.dart';
 import 'package:edugo_web_app/ui/Views/lesson/CreateStartTime.dart';
@@ -6,11 +8,66 @@ import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityStorePage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
-import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
 import 'package:edugo_web_app/ui/widgets/input_fields/EduGoMultiLineInput.dart';
 import 'package:flutter/material.dart';
 
-class CreateLesonPage extends StatelessWidget {
+/// API
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class Lesson {
+  //"title": "sdfhfsdh", "date": "bsdsfdhg", "description":"sdfh sfdhd sfhsh" ,"subjectId":"1"
+  String title;
+  String id;
+  String description;
+  String subjectId;
+
+  Lesson({
+    this.title,
+    this.id,
+    this.description,
+    this.subjectId,
+  });
+
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    return Lesson(
+      title: json['title'],
+      id: json['id'],
+      description: json['description'],
+      subjectId: json['subjectId'],
+    );
+  }
+}
+
+Future<Lesson> fetchLesson() async {
+  final response = await http
+      .get(Uri.parse('https://jsonplaceholder.typicode.com/Lessons/1'));
+
+  if (response.statusCode == 200) {
+    return Lesson.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load Lesson');
+  }
+}
+
+////
+class CreateLesonPage extends StatefulWidget {
+  @override
+  _CreateLesonPageState createState() => _CreateLesonPageState();
+}
+
+class _CreateLesonPageState extends State<CreateLesonPage> {
+  Future<Lesson> futureLesson;
+  Lesson _lessonInstance = new Lesson();
+  @override
+  void initState() {
+    super.initState();
+    futureLesson = fetchLesson();
+    //print(futureLesson);
+  }
+
   @override
   Widget build(BuildContext context) {
     return EduGoPage(
@@ -36,14 +93,44 @@ class CreateLesonPage extends StatelessWidget {
                           child: Column(
                             children: <Widget>[
                               SizedBox(height: 25),
-                              EduGoInput(
-                                  hintText: "Enter the lesson name",
-                                  width: 450),
+                              SizedBox(
+                                  width: 450,
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _lessonInstance.title = value;
+                                      });
+                                    },
+                                    cursorColor:
+                                        Color.fromARGB(255, 97, 211, 87),
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 97, 211, 87),
+                                              width: 2.0),
+                                        ),
+                                        border: OutlineInputBorder(),
+                                        hintText: "Enter lesson name"),
+                                  )),
                               SizedBox(height: 25),
-                              EduGoMultiLineInput(
-                                  hintText: "Enter the lesson description",
+                              SizedBox(
+                                width: 450,
+                                child: TextField(
+                                  cursorColor: Color.fromARGB(255, 97, 211, 87),
+                                  decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 97, 211, 87),
+                                            width: 2.0),
+                                      ),
+                                      border: OutlineInputBorder(),
+                                      hintText: "Enter lesson description"),
+                                  keyboardType: TextInputType.multiline,
                                   maxLines: 4,
-                                  width: 450),
+                                ),
+                              ),
                               SizedBox(height: 25),
                               // Create entity
                               MaterialButton(
@@ -112,7 +199,7 @@ class CreateLesonPage extends StatelessWidget {
                             alignment: Alignment.topLeft,
                             child: Column(
                               children: <Widget>[
-                                CreateDate(),
+                                CreateDate(), //state across dart files
                                 CreateStartTime(),
                                 CreateEndTime(),
                                 MaterialButton(
