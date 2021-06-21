@@ -1,9 +1,73 @@
+import 'dart:html';
+import 'dart:js_util';
+
 import 'package:edugo_web_app/ui/Views/subject/CreateSubjectPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoNav/NavBar.dart';
 import 'package:edugo_web_app/ui/widgets/SubjectCard.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+//import 'package:http/http.dart' as http;
+
+class Subject {
+  List<Data> data;
+  String statusMessage;
+
+  Subject({this.data, this.statusMessage});
+
+  Subject.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = new List<Data>();
+      json['data'].forEach((v) {
+        data.add(new Data.fromJson(v));
+      });
+    }
+    statusMessage = json['statusMessage'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data.map((v) => v.toJson()).toList();
+    }
+    data['statusMessage'] = this.statusMessage;
+    return data;
+  }
+}
+
+class Data {
+  int id;
+  String title;
+  int grade;
+  String description;
+  int educatorId;
+
+  Data({this.id, this.title, this.grade, this.description, this.educatorId});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    grade = json['grade'];
+    description = json['description'];
+    educatorId = json['educatorId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['title'] = this.title;
+    data['grade'] = this.grade;
+    data['description'] = this.description;
+    data['educatorId'] = this.educatorId;
+    return data;
+  }
+}
+
+Subject subject;
+int sizeOfSubjectsArray;
+List titleArray = [];
+List gradeArray = [];
+List descriptionArray = [];
 
 class SubjectsPage extends StatefulWidget {
   @override
@@ -11,30 +75,57 @@ class SubjectsPage extends StatefulWidget {
 }
 
 class _SubjectsPageState extends State<SubjectsPage> {
-  static const urlPrefix = 'http://localhost:8080/subject/createSubject';
-
-  String subjectTitle;
-  String subjectGrade;
-  String subjectDescription;
+  static const urlPrefix =
+      'http://localhost:8080/subject/getSubjectsbyEducator';
 
   void getRequest() async {
-    final url = Uri.parse('$urlPrefix/posts');
-    Response response = await get(url);
-    print('Status code: ${response.statusCode}');
-    print('Headers: ${response.headers}');
-    print('Body: ${response.body}');
+    final url = Uri.parse('$urlPrefix');
+    var response = await post(url,
+        headers: {'contentType': 'application/json'},
+        body: {'educatorId': '1'});
 
-    // if(response.statusCode == 200){
+    subject = Subject.fromJson(jsonDecode(response.body));
 
+    // print('Status code: ${response.statusCode}');
+    // print(response.body);
+
+    // for (int i = 0; i < sizeOfSubjectsArray; i++) {
+    //   titleArray[i] = subject.data[i].title;
+    //   gradeArray[i] = subject.data[i].grade;
+    //   descriptionArray[i] = subject.data[i].description;
     // }
+
+    // print(subject.data[0].description);
+    // print(subject.data.length);
+    sizeOfSubjectsArray = subject.data.length;
+    //return subject;
+    //print(sizeOfSubjectsArray);
+
+    //displayCards(sizeOfSubjectsArray);
   }
 
-  void displayCards() async {
+  // if(response.statusCode == 200){
+
+  // }
+  // }
+
+  void displayCards() {
     getRequest();
+
+    //print(sizeOfSubjectsArray);
+
+    //ex();
+    //print(sizeOfSubjectsArray);
+    // for (int i = 0; i < sizeOfSubjectsArray; i++) {
+    //   print(titleArray[i]);
+    //   print(gradeArray[i]);
+    //   print(descriptionArray[i]);
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
+    getRequest();
     displayCards();
     return Scaffold(
       body: Stack(
