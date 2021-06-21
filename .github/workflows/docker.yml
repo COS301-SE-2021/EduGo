@@ -7,23 +7,14 @@ on:
     branches: [ develop-test ]
 
 jobs:
-  build:
+  test_pull_request:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    #- name: docker login
-     # env:
-     # DOCKER_USER: ${{ secrets.DOCKER_USERANAME }}   
-     # DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
-      #run: |
-     # docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - name: docker build Backend
-      run: | 
-        docker build ./backend --target prod
-    - name: run tests 
-      run: | 
-        cd ./backend && npx jest 
-        
-        # env:
-        #   DEFAULT_BRANCH: develop-testing
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+ 
