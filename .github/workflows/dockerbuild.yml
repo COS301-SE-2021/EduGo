@@ -20,7 +20,7 @@ jobs:
      # docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: run app 
       run: | 
-       up.sh 
+       ./up.sh 
     - name: run tests 
       run: | 
-       test.sh 
+       ./test.sh 
