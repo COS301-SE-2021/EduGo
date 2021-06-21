@@ -3,7 +3,7 @@ import {Subject} from "./Subject"
 import { VirtualEntity } from "./VirtualEntity";
 @Entity()
 export class Lesson {
-   
+
     @PrimaryGeneratedColumn()
     id: number;
 

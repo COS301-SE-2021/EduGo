@@ -17,9 +17,10 @@ export async function createSubject(request: CreateSubjectRequest) {
 	if (
 		request.title == null ||
 		request.educatorId == null ||
-		request.description == null
+		request.description == null|| 
+		request.grade == null
 	) {
-		statusRes.message = "Missing parameters";
+		statusRes.message = "Missing parameters"+JSON.stringify(request);
 		statusRes.type = "fail";
 		return statusRes;
 	} else {
@@ -28,6 +29,7 @@ export async function createSubject(request: CreateSubjectRequest) {
 		subject.title = request.title;
 		subject.description = request.description;
 		subject.educatorId = request.educatorId;
+		subject.grade = request.grade; 
 		subject.lessons = [];
 		let subjectRepository = conn.getRepository(Subject);
 
