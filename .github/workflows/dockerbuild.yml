@@ -24,4 +24,4 @@ jobs:
     - name: run tests 
 
       run: | 
-        cd ./backend && npx jest 
+       docker-compose run --rm edugo-server npm run test 
