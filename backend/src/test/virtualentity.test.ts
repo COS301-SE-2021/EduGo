@@ -38,13 +38,12 @@ beforeAll(async () => {
     sampleSubject.grade = 12;
     sampleSubject.lessons = [sampleLesson];
 
-    console.log("Connected: " + getConnection().isConnected)
-
     await getConnection().getRepository(Subject).save(sampleSubject);
 })
 
 afterAll(async () => {
     await getConnection().close();
+    console.log('closed');
 })
 
 describe('Create Virtual Entity', () => {
@@ -211,7 +210,42 @@ describe('Create Virtual Entity', () => {
                 preview_img: ""
             }
         })
-        console.log(response.statusCode);
         expect(response.statusCode).toBe(200);
+    })
+
+    test('If new virtual entity is not successfully created due to invalid request body', async () => {
+        const response = await request(app).post('/virtualEntity/createVirtualEntity').send({
+            lesson_id: 1,
+            title: "Virtual Entity",
+            description: "The first actual virtual entity",
+            quiz: {
+                title: "The quiz",
+                description: "Info about the quiz",
+                questions: [
+                    {
+                        question: "What is the answer",
+                        options: ["True", "False"],
+                        correctAnswer: "True"
+                    },
+                    {
+                        type: "MultipleChoice",
+                        question: "What is the second answer",
+                        options: ["A", "B", "C", "D"],
+                        correctAnswer: "B"
+                    }
+                ]
+            },
+            model: {
+                name: "A New Model",
+                description: "Info about the model",
+                file_link: "http://model",
+                file_size: 36.2,
+                file_type: "obj",
+                file_name: "model_1",
+                preview_img: ""
+            }
+        })
+        expect(response.statusCode).toBe(400);
+        expect(response.body.message).toContain('type');
     })
 })
