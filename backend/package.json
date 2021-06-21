@@ -9,7 +9,7 @@
     "dev": "nodemon src/index.ts",
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "author": "Gang of Five",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "sql.js": "^1.5.0",
+    "ts-transformer-keys": "^0.4.3",
     "typeorm": "^0.2.34"
   },
   "devDependencies": {
