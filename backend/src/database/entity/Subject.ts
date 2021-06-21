@@ -16,6 +16,9 @@ export class Subject {
   title: string;
 
   @Column()
+  grade: number;
+  
+  @Column()
   description: string;
 
   @Column()
