@@ -65,7 +65,7 @@ class _CreateVirtualEntityPageState extends State<CreateVirtualEntityPage> {
     request
         .send()
         .then((result) async {
-          http.Response.fromStream(result).then((response) {
+          http.Response.fromStream(result).then((response) async {
             if (response.statusCode == 200) {
               Map<String, dynamic> _3DModel = jsonDecode(response.body);
               setState(() {
