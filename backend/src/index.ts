@@ -86,4 +86,5 @@ app.get('/', (req, res) => {
     res.send('hey there')
 })
 
-app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+if (process.env.NODE_ENV !== 'test')
+    app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
