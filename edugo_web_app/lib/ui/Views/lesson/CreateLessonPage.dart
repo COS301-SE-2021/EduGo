@@ -8,7 +8,6 @@ import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityStorePage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
-import 'package:edugo_web_app/ui/widgets/input_fields/EduGoMultiLineInput.dart';
 import 'package:flutter/material.dart';
 
 /// API
@@ -18,13 +17,13 @@ import 'dart:convert';
 class Lesson {
   //"title": "sdfhfsdh", "date": "bsdsfdhg", "description":"sdfh sfdhd sfhsh" ,"subjectId":"1"
   String title;
-  String id;
+  String date = DateTime.now().toString();
   String description;
-  String subjectId;
+  String subjectId = "1";
 
   Lesson({
     this.title,
-    this.id,
+    this.date,
     this.description,
     this.subjectId,
   });
@@ -32,25 +31,37 @@ class Lesson {
   factory Lesson.fromJson(Map<String, dynamic> json) {
     return Lesson(
       title: json['title'],
-      id: json['id'],
+      date: json['date'],
       description: json['description'],
       subjectId: json['subjectId'],
     );
   }
 }
 
-Future<Lesson> fetchLesson() async {
-  final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/Lessons/1'));
+Future<http.Response> createLesson() {
+  return http.post(
+    Uri.parse('http://localhost:8080/lesson/createLesson'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      "title": "", //title,
+      "date": "", //date,
+      "description": "", //description,
+      "subjectId": "1"
+    }),
+  );
+}
+/*Future<Lesson> createLesson() async {
+  final response =
+      await http.get(Uri.parse('http://localhost:8080/lesson/createLesson'));
 
   if (response.statusCode == 200) {
     return Lesson.fromJson(jsonDecode(response.body));
   } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
     throw Exception('Failed to load Lesson');
   }
-}
+}*/
 
 ////
 class CreateLesonPage extends StatefulWidget {
@@ -59,12 +70,13 @@ class CreateLesonPage extends StatefulWidget {
 }
 
 class _CreateLesonPageState extends State<CreateLesonPage> {
-  Future<Lesson> futureLesson;
+// Future<Lesson> futureLesson;
+  Future<http.Response> futureLesson;
   Lesson _lessonInstance = new Lesson();
   @override
   void initState() {
     super.initState();
-    futureLesson = fetchLesson();
+    futureLesson = createLesson();
     //print(futureLesson);
   }
 
