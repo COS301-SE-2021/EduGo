@@ -18,7 +18,7 @@ jobs:
      # DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       #run: |
      # docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    - run: npm test
+    - run: cd ./backend && npm test
     - name: run app 
       run: | 
        docker-compose run --rm edugo-server npm run test
