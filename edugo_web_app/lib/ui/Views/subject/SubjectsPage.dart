@@ -4,20 +4,20 @@ import 'package:edugo_web_app/ui/Views/subject/CreateSubjectPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoNav/NavBar.dart';
 import 'package:edugo_web_app/ui/widgets/SubjectCard.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Subject {
-  List<Data> data;
+class Subjects {
+  List<Subject> data;
   String statusMessage;
 
-  Subject({this.data, this.statusMessage});
+  Subjects({this.data, this.statusMessage});
 
-  Subject.fromJson(Map<String, dynamic> json) {
+  Subjects.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<Data>();
+      data = new List<Subject>();
       json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data.add(new Subject.fromJson(v));
       });
     }
     statusMessage = json['statusMessage'];
@@ -33,16 +33,16 @@ class Subject {
   }
 }
 
-class Data {
+class Subject {
   int id;
   String title;
   int grade;
   String description;
   int educatorId;
 
-  Data({this.id, this.title, this.grade, this.description, this.educatorId});
+  Subject({this.id, this.title, this.grade, this.description, this.educatorId});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Subject.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     grade = json['grade'];
@@ -51,13 +51,13 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['grade'] = this.grade;
-    data['description'] = this.description;
-    data['educatorId'] = this.educatorId;
-    return data;
+    final Map<String, dynamic> subject = new Map<String, dynamic>();
+    subject['id'] = this.id;
+    subject['title'] = this.title;
+    subject['grade'] = this.grade;
+    subject['description'] = this.description;
+    subject['educatorId'] = this.educatorId;
+    return subject;
   }
 }
 
@@ -73,23 +73,26 @@ class SubjectsPage extends StatefulWidget {
 }
 
 class _SubjectsPageState extends State<SubjectsPage> {
+  String subjects;
+  Subjects subjectsmodel;
   static const urlPrefix =
       'http://localhost:8080/subject/getSubjectsbyEducator';
 
-  void getRequest() async {
+  Future<http.Response> getRequest() async {
     final url = Uri.parse('$urlPrefix');
-    var response = await post(url,
+    // var response = await
+    return http.post(url,
         headers: {'contentType': 'application/json'},
         body: {'educatorId': '1'});
 
-    subject = Subject.fromJson(jsonDecode(response.body));
-    sizeOfSubjectsArray = subject.data.length;
+    // subject = Subject.fromJson(jsonDecode(response.body));
+    // sizeOfSubjectsArray = subject.data.length;
 
-    for (int i = 0; i < sizeOfSubjectsArray; i++) {
-      titleArray.add(subject.data[i].title);
-      gradeArray.add(subject.data[i].grade.toString());
-      descriptionArray.add(subject.data[i].description);
-    }
+    // for (int i = 0; i < sizeOfSubjectsArray; i++) {
+    //   titleArray.add(subject.data[i].title);
+    //   gradeArray.add(subject.data[i].grade.toString());
+    //   descriptionArray.add(subject.data[i].description);
+    // }
   }
 
   void displayCards() async {
@@ -110,13 +113,31 @@ class _SubjectsPageState extends State<SubjectsPage> {
     }
   }
 
+  Widget getTextWidgets(List<Subject> strings) {
+    return new Row(
+        children: strings
+            .map((item) => new Container(
+                  child: SubjectCard(
+                    title: item.title,
+                    grade: item.grade.toString(),
+                    description: item.description,
+                  ),
+                ))
+            .toList());
+  }
+
   @override
   Widget build(BuildContext context) {
     //displayCards();
     // print(titleArray.first);
 
     // if (titleArray.isEmpty) print("NOT EMPOTY");
-
+    getRequest().then((value) {
+      setState(() {
+        subjects = value.body;
+        subjectsmodel = Subjects.fromJson(jsonDecode(subjects));
+      });
+    });
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -206,8 +227,15 @@ class _SubjectsPageState extends State<SubjectsPage> {
                   //child:
                   // SubjectCard(
                   //     title: "Bio", grade: "Grade 10", description: "Test1"),
-                  SubjectCard(
-                      title: "Math", grade: "Gtrade 10", description: "ok"),
+                  Container(
+                    height: MediaQuery.of(context).size.height - 100,
+                    child: ListView(
+                      padding: EdgeInsets.symmetric(vertical: 60),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[getTextWidgets(subjectsmodel.data)],
+                    ),
+                  ),
 
                   //SubjectCard(),
                   //)
