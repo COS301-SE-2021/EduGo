@@ -1,13 +1,11 @@
 import 'dart:html';
 import 'dart:js_util';
-
 import 'package:edugo_web_app/ui/Views/subject/CreateSubjectPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoNav/NavBar.dart';
 import 'package:edugo_web_app/ui/widgets/SubjectCard.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
-//import 'package:http/http.dart' as http;
 
 class Subject {
   List<Data> data;
@@ -85,48 +83,40 @@ class _SubjectsPageState extends State<SubjectsPage> {
         body: {'educatorId': '1'});
 
     subject = Subject.fromJson(jsonDecode(response.body));
-
-    // print('Status code: ${response.statusCode}');
-    // print(response.body);
-
-    // for (int i = 0; i < sizeOfSubjectsArray; i++) {
-    //   titleArray[i] = subject.data[i].title;
-    //   gradeArray[i] = subject.data[i].grade;
-    //   descriptionArray[i] = subject.data[i].description;
-    // }
-
-    // print(subject.data[0].description);
-    // print(subject.data.length);
     sizeOfSubjectsArray = subject.data.length;
-    //return subject;
-    //print(sizeOfSubjectsArray);
 
-    //displayCards(sizeOfSubjectsArray);
+    for (int i = 0; i < sizeOfSubjectsArray; i++) {
+      titleArray.add(subject.data[i].title);
+      gradeArray.add(subject.data[i].grade.toString());
+      descriptionArray.add(subject.data[i].description);
+    }
   }
 
-  // if(response.statusCode == 200){
+  void displayCards() async {
+    await getRequest();
 
-  // }
-  // }
+    // print(sizeOfSubjectsArray);
+    // print(titleArray);
 
-  void displayCards() {
-    getRequest();
+    // print(gradeArray[0].runtimeType);
 
-    //print(sizeOfSubjectsArray);
-
-    //ex();
-    //print(sizeOfSubjectsArray);
-    // for (int i = 0; i < sizeOfSubjectsArray; i++) {
-    //   print(titleArray[i]);
-    //   print(gradeArray[i]);
-    //   print(descriptionArray[i]);
-    // }
+    if (sizeOfSubjectsArray > 0) {
+      for (int size = 0; size < 1; size++) {
+        SubjectCard(
+            title: titleArray[0],
+            grade: gradeArray[0],
+            description: descriptionArray[0]);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    getRequest();
-    displayCards();
+    //displayCards();
+    // print(titleArray.first);
+
+    // if (titleArray.isEmpty) print("NOT EMPOTY");
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -138,7 +128,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
             height: MediaQuery.of(context).size.height - 100,
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.red,
+                //color: Colors.red,
                 //width: 1,
                 style: BorderStyle.solid,
               ),
@@ -214,8 +204,10 @@ class _SubjectsPageState extends State<SubjectsPage> {
                   // Align(
                   //alignment: Alignment.topLeft,
                   //child:
+                  // SubjectCard(
+                  //     title: "Bio", grade: "Grade 10", description: "Test1"),
                   SubjectCard(
-                      title: "Bio", grade: "Grade 10", description: "Test1"),
+                      title: "Math", grade: "Gtrade 10", description: "ok"),
 
                   //SubjectCard(),
                   //)
