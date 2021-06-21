@@ -9,12 +9,16 @@ on:
 jobs:
   test_pull_request:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 12
       - run: npm ci
+        working-directory: ./backend
       - run: npm test
+        working-directory: ./backend
       - run: npm run build
+        working-directory: ./backend
  
