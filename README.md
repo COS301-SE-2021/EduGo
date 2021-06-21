@@ -19,5 +19,14 @@ Gang of five - EduGo - EduGo is an educational system that aims to shape and inf
 | [<img src="https://media-exp3.licdn.com/dms/image/C4D35AQFoYgKs60mqtw/profile-framedphoto-shrink_800_800/0/1613250996795?e=1624345200&v=beta&t=nS95m3HedWXeTmPYJ7SiciizutXqtWzVgkIvEjjMNJw" width="150" height="150">](https://github.com/Tshwarelo-Noah "Noah Mafarala") <br/> Noah Mafarala <br/> u19181851 | [GitHub](https://github.com/Tshwarelo-Noah) <br/> [Profile Page](https://github.com/Tshwarelo-Noah) <br/> [LinkedIn](https://www.linkedin.com/in/noah-mafaralala-815760178/) <br/> | Trading  <br/>Music  <br/> Food <br/>
 
 
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=bugs)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=code_smells)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=ncloc)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=alert_status)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=security_rating)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=sqale_index)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 
 
