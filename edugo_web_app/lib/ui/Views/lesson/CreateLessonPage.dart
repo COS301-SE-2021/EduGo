@@ -4,6 +4,8 @@ import 'package:edugo_web_app/ui/Views/lesson/CreateDate.dart';
 import 'package:edugo_web_app/ui/Views/lesson/CreateEndTime.dart';
 import 'package:edugo_web_app/ui/Views/lesson/CreateStartTime.dart';
 import 'package:edugo_web_app/ui/Views/lesson/LessonPage.dart';
+import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
+import 'package:edugo_web_app/ui/Views/virtual_entity/CreateVirtualEntityPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityPage.dart';
 import 'package:edugo_web_app/ui/Views/virtual_entity/VirtualEntityStorePage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
@@ -16,9 +18,9 @@ import 'dart:convert';
 
 class Lesson {
   //"title": "sdfhfsdh", "date": "bsdsfdhg", "description":"sdfh sfdhd sfhsh" ,"subjectId":"1"
-  String title;
+  String title = "";
   String date = DateTime.now().toString();
-  String description;
+  String description = "";
   String subjectId = "1";
 
   Lesson({
@@ -76,7 +78,7 @@ class _CreateLesonPageState extends State<CreateLesonPage> {
   @override
   void initState() {
     super.initState();
-    futureLesson = createLesson();
+    // futureLesson = createLesson();
     //print(futureLesson);
   }
 
@@ -154,7 +156,7 @@ class _CreateLesonPageState extends State<CreateLesonPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            VirtualEntityPage()),
+                                            CreateVirtualEntityPage()),
                                   );
                                 },
                                 minWidth: 400,
@@ -193,7 +195,7 @@ class _CreateLesonPageState extends State<CreateLesonPage> {
                       SizedBox(width: 100),
                       Container(
                         height: MediaQuery.of(context).size.height - 350,
-                        width: 500,
+                        width: 400,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(40),
@@ -219,10 +221,12 @@ class _CreateLesonPageState extends State<CreateLesonPage> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
                                   onPressed: () {
+                                    createLesson()
+                                        .then((value) => print(value.body));
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => LessonPage()),
+                                          builder: (context) => SubjectsPage()),
                                     );
                                   },
                                   minWidth:

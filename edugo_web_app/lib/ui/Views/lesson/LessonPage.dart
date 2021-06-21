@@ -45,7 +45,7 @@ class LessonPage extends StatefulWidget {
 }
 
 class _LessonPageState extends State<LessonPage> {
-  Lesson _lessonInstance = new Lesson();
+  Lesson _lessonInstance = new Lesson(subjectId: "");
   @override
   Widget build(BuildContext context) {
     return EduGoPage(

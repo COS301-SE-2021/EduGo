@@ -90,7 +90,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                   alignment: Alignment.topLeft,
                   child: Text("Create Subject", style: TextStyle(fontSize: 25)),
                 ),
-                SizedBox(height: 35),
+                SizedBox(height: 30),
                 Align(
                   alignment: Alignment.topLeft,
                   child: Row(
@@ -128,7 +128,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                         border: OutlineInputBorder(),
                                         hintText: 'Enter the subject name'),
                                   )),
-                              SizedBox(height: 25),
+                              SizedBox(height: 20),
                               // EduGoInput(
                               //     hintText: "Enter the subject grade",
                               //     width: 450),
@@ -172,7 +172,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                   maxLines: 4,
                                 ),
                               ),
-                              SizedBox(height: 100),
+                              SizedBox(height: 20),
                               MaterialButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -192,7 +192,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                   );
                                 },
                                 minWidth: 400,
-                                height: 60,
+                                height: 40,
                                 color: Color.fromARGB(255, 97, 211, 87),
                                 child: Row(
                                   children: <Widget>[
@@ -211,9 +211,9 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                       ),
                       SizedBox(width: 100),
                       Container(
-                        height: MediaQuery.of(context).size.height - 450,
+                        height: MediaQuery.of(context).size.height - 420,
                         //height: 600,
-                        width: 500,
+                        width: 400,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(40),
@@ -222,7 +222,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                             bottomRight: Radius.circular(40),
                           ),
                           border: Border.all(
-                            color: Colors.black,
+                            color: Colors.white,
                             width: 1,
                             style: BorderStyle.solid,
                           ),
@@ -230,19 +230,18 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                         child: Column(
                           // crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(height: 60),
                             Icon(
                               Icons.add_a_photo_outlined,
-                              size: 200,
+                              size: 100,
                               color: Color.fromARGB(255, 97, 211, 87),
                             ),
-                            SizedBox(height: 60),
+                            SizedBox(height: 70),
                             MaterialButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               onPressed: () {},
-                              minWidth: 30,
+                              minWidth: 20,
                               //height: 40,
                               color: Color.fromARGB(255, 97, 211, 87),
                               child: Row(
