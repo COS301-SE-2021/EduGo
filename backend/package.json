@@ -9,7 +9,7 @@
     "dev": "nodemon src/index.ts",
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "author": "Gang of Five",
   "license": "ISC",

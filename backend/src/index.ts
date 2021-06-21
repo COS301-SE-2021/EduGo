@@ -42,18 +42,16 @@ if (process.env.NODE_ENV === 'test') {
     }
 }
 
-
-createConnection(options).then(conn => {
-    if (conn.isConnected) {
-        if (process.env.NODE_ENV === 'test')
-            console.log('Test database connection established');
-        else
+if (process.env.NODE_ENV !== 'test') {
+    createConnection(options).then(conn => {
+        if (conn.isConnected) {
             console.log('Database connection established');
-    }
-    else {
-        throw new Error('Database connection failed')
-    }
-})
+        }
+        else {
+            throw new Error('Database connection failed')
+        }
+    })
+}
 
 import {router as LessonController} from './lesson/api/lessonController';
 import {router as SubjectController} from './subject/api/subjectController';

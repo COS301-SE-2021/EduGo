@@ -1,7 +1,9 @@
-import { createConnection } from "typeorm";
+import { createConnection, getConnection } from "typeorm";
 
 import {app} from '../index';
 import request from 'supertest';
+import { Lesson } from "../database/entity/Lesson";
+import { Subject } from "../database/entity/Subject";
 
 beforeAll(async () => {
     await createConnection({
@@ -22,6 +24,22 @@ beforeAll(async () => {
             subscribersDir: 'src/database/subscriber'
         }
     });
+
+    let sampleLesson: Lesson = new Lesson();
+    sampleLesson.title = 'Test Lesson';
+    sampleLesson.description = 'Just a test';
+    sampleLesson.date = '21/06/2021';
+
+    let sampleSubject: Subject = new Subject();
+    sampleSubject.title = 'Test Subject';
+    sampleSubject.description = 'Just a test';
+    sampleSubject.educatorId = 1;
+    sampleSubject.grade = 12;
+    sampleSubject.lessons = [sampleLesson];
+
+    console.log("Connected: " + getConnection().isConnected)
+
+    await getConnection().getRepository(Subject).save(sampleSubject);
 })
 
 describe('Testing if tests work', () => {
@@ -58,6 +76,7 @@ describe('Testing if tests work', () => {
                 preview_img: ""
             }
         })
+        console.log(response.statusCode);
         expect(response.statusCode).toBe(200);
     })
 })
