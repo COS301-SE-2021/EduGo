@@ -7,9 +7,11 @@ Gang of five - EduGo - EduGo is an educational system that aims to shape and inf
 https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing
 ## Recorded Demo 2 video
 Demo 2 Video: https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing
-## Software requirements specifiction
+## Software requirements specification (Demo 1)
+https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=sharing
+## Software requirements specifiction (Demo 2)
 https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=sharing
-## Architectural requirements specification
+## Architectural requirements specification (Demo 2)
 https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing
 ## Project Management Tool
 https://3.basecamp.com/5098601/projects/22442122
