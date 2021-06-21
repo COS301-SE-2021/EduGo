@@ -1,11 +1,41 @@
 import 'package:edugo_web_app/ui/Views/subject/CreateSubjectPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoNav/NavBar.dart';
-import 'package:edugo_web_app/ui/widgets/subjectCard.dart';
+import 'package:edugo_web_app/ui/widgets/SubjectCard.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
 
-class SubjectsPage extends StatelessWidget {
+class SubjectsPage extends StatefulWidget {
+  @override
+  _SubjectsPageState createState() => _SubjectsPageState();
+}
+
+class _SubjectsPageState extends State<SubjectsPage> {
+  static const urlPrefix = 'http://localhost:8080/subject/createSubject';
+
+  String subjectTitle;
+  String subjectGrade;
+  String subjectDescription;
+
+  void getRequest() async {
+    final url = Uri.parse('$urlPrefix/posts');
+    Response response = await get(url);
+    print('Status code: ${response.statusCode}');
+    print('Headers: ${response.headers}');
+    print('Body: ${response.body}');
+
+    // if(response.statusCode == 200){
+
+    // }
+  }
+
+  void displayCards() async {
+    getRequest();
+  }
+
   @override
   Widget build(BuildContext context) {
+    displayCards();
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -90,10 +120,14 @@ class SubjectsPage extends StatelessWidget {
                   //   ),
                   // ],
                   // ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: SubjectCard(),
-                  )
+                  // Align(
+                  //alignment: Alignment.topLeft,
+                  //child:
+                  SubjectCard(
+                      title: "Bio", grade: "Grade 10", description: "Test1"),
+
+                  //SubjectCard(),
+                  //)
                 ],
               ),
             ),
