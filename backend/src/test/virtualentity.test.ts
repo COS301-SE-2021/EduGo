@@ -9,7 +9,7 @@ import { validateCreateVirtualEntityRequest } from '../virtualEntity/validate';
 beforeAll(async () => {
     await createConnection({
         type: 'postgres',
-        host: 'db',
+        host: process.env.DB_HOST || 'localhost',
         port: 5432,
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
