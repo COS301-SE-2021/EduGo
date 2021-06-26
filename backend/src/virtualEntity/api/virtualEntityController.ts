@@ -3,7 +3,7 @@ import {CreateVirtualEntityRequest} from '../model/CreateVirtualEntityRequest';
 import { GetVirtualEntityRequest } from '../model/GetVirtualEntityRequest';
 import { VirtualEntityService } from '../service/virtualEntityService';
 import { VirtualEntityServiceImplementation } from '../service/virtualEntityServiceImplentation';
-import { validateCreateVirtualEntityRequest } from '../validate';
+import { validateCreateVirtualEntityRequest, validateAddModelToVirtualEntityRequest, validateGetVirtualEntityRequest } from '../validate';
 import { uploadFile } from '../../fileUpload';
 import { AddModelToVirtualEntityFileData, AddModelToVirtualEntityRequest } from '../model/AddModelToVirtualEntityRequest';
 import { AddModelToVirtualEntityResponse } from '../model/AddModelToVirtualEntityResponse';
@@ -47,12 +47,17 @@ router.post('/uploadModel', uploadFile.single('file'), async (req, res) => {
 })
 
 router.post('addToVirtualEntity', uploadFile.single('file'), async (req, res) => {
-    const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
-    let body: AddModelToVirtualEntityRequest = <AddModelToVirtualEntityRequest>req.body;
+    let valid = validateAddModelToVirtualEntityRequest(req.body);
 
-    if (file == undefined)
-        res.status(400).json({message: 'Please upload a file'});
+    if (valid.ok) {
+        const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
+        let body: AddModelToVirtualEntityRequest = <AddModelToVirtualEntityRequest>req.body;
     
+        if (file == undefined) {
+            res.status(400).json({message: 'Please upload a file'});
+            return;
+        }
+        
         let baseFile = {
             file_name: file.key,
             file_link: file.location,
@@ -75,6 +80,10 @@ router.post('addToVirtualEntity', uploadFile.single('file'), async (req, res) =>
             }
             res.status(200).json(resp)
         })
+        return;
+    }
+    res.status(400).send(valid.message);
+    
 })
 
 router.post('/getVirtualEntities', async (req, res) => {
@@ -89,15 +98,23 @@ router.post('/getVirtualEntities', async (req, res) => {
 })
 
 router.post('/getVirtualEntity', async (req, res) => {
-    let body = <GetVirtualEntityRequest>req.body;
-    service.GetVirtualEntity(body).then(response => {
-        res.status(200);
-        res.json(response);
-    })
-    .catch(err => {
-        res.status(400);
-        res.json({message: 'error', error: err});
-    })
+    let valid = validateGetVirtualEntityRequest(req.body);
+
+    if (valid.ok) {
+        let body = <GetVirtualEntityRequest>req.body;
+        service.GetVirtualEntity(body).then(response => {
+            res.status(200);
+            res.json(response);
+        })
+        .catch(err => {
+            res.status(400);
+            res.json({message: 'error', error: err});
+        })
+    }
+    else {
+        res.status(400).send(valid.message)
+    }
+    
 })
 
 export {router}

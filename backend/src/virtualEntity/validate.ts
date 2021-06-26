@@ -55,7 +55,36 @@ export const validateCreateVirtualEntityRequest = (body: any): validationResult 
         }
     }
 
-    if (body.lesson_id <= 0)
+    if (typeof body.lesson_id !== 'number' || body.lesson_id <= 0)
         return invalid('lesson_id')
+    return {ok: true, message: ''}
+}
+
+export const validateAddModelToVirtualEntityRequest = (body: any): validationResult => {
+    let keys = ["virtualEntity_id", "name", "description"];
+
+    let body_keys = Object.keys(keys);
+    for (let key in keys) {
+        if (!body_keys.includes(key))
+            return missing(key)
+    }
+
+    if (typeof body.virtualEntity_id !== 'number' || body.virtualEntity_id <= 0)
+        return invalid('virtualEntity_id')
+
+    return {ok: true, message: ''}
+}
+
+export const validateGetVirtualEntityRequest = (body: any): validationResult => {
+    let keys = ["id"];
+
+    let body_keys = Object.keys(body);
+    for (let key in keys)
+        if (!body_keys.includes(key))
+            return missing(key);
+
+    if (typeof body.id !== 'number' || body.id <= 0)
+        return invalid('id')
+
     return {ok: true, message: ''}
 }
