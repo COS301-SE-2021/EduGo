@@ -52,6 +52,7 @@ if (process.env.NODE_ENV !== 'test') {
 import {router as LessonController} from './lesson/api/lessonController';
 import {router as SubjectController} from './subject/api/subjectController';
 import {router as VirtualEntityController} from './virtualEntity/api/virtualEntityController';
+import {router as OrganisationController} from './organisation/api/OrganisationController';
 
 const PORT = process.env.PORT || 8080;
 
@@ -62,6 +63,7 @@ app.use(cors());
 app.use('/lesson', LessonController)
 app.use('/subject', SubjectController)
 app.use('/virtualEntity', VirtualEntityController)
+app.use('/organisation', OrganisationController)
 
 /*
  * Look, it's a comment
