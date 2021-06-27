@@ -1,5 +1,5 @@
 import { VirtualEntity } from "../../database/entity/VirtualEntity";
-import { createConnection, getConnection } from "typeorm";
+import { getConnection } from "typeorm";
 import { CreateVirtualEntityRequest } from "../model/CreateVirtualEntityRequest";
 import { VirtualEntityService } from "./virtualEntityService";
 import { Model } from "../../database/entity/Model";
