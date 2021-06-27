@@ -1,11 +1,6 @@
-export interface GVEs_Model {
+import {Model} from './Default'
+export interface GVEs_Model extends Model {
     id: number;
-    name: string;
-    description: string;
-    file_link: string;
-    file_size: number;
-    file_type: string;
-    file_name: string;
 }
 
 export interface GVEs_VirtualEntity {
