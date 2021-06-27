@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { createConnection, ConnectionOptions } from 'typeorm';
+import { createConnection, ConnectionOptions, QueryFailedError } from 'typeorm';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -40,6 +40,11 @@ if (process.env.NODE_ENV !== 'test') {
         }
         else {
             throw new Error('Database connection failed')
+        }
+    })
+    .catch(err => {
+        if (err instanceof QueryFailedError) {
+            
         }
     })
 }

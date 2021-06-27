@@ -1,4 +1,3 @@
-import { ApiResponse } from "../../models/apiResponse";
 import { AddModelToVirtualEntityFileData } from "../model/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityDatabaseResult } from "../model/AddModelToVirtualEntityResponse";
 import { CreateVirtualEntityRequest } from "../model/CreateVirtualEntityRequest";
