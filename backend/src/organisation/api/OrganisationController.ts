@@ -11,7 +11,7 @@ import { OrganisationServiceImplementation } from '../service/OrganisationServic
 export const router = express.Router();
 const service: OrganisationService = new OrganisationServiceImplementation();
 
-router.post('createOrganisation', async (req, res) => {
+router.post('/createOrganisation', async (req, res) => {
     let body = <CreateOrganisationRequest>req.body;
     service.CreateOrganisation(body).then(response => {
         res.status(200).json(response);
@@ -27,7 +27,7 @@ router.post('createOrganisation', async (req, res) => {
     })
 })
 
-router.post('getOrganisations', async (req, res) => {
+router.post('/getOrganisations', async (req, res) => {
     service.GetOrganisations({}).then(response => {
         res.status(200).json(response);
     }).
@@ -43,7 +43,7 @@ router.post('getOrganisations', async (req, res) => {
 
 })
 
-router.post('getOrganisation', async (req, res) => {
+router.post('/getOrganisation', async (req, res) => {
     let body = <GetOrganisationRequest>req.body;
     service.GetOrganisation(body).then(response => {
         res.status(200).json(response);
@@ -59,7 +59,7 @@ router.post('getOrganisation', async (req, res) => {
     })
 })
 
-router.post('addSubject', async (req, res) => {
+router.post('/addSubject', async (req, res) => {
     let body = <AddSubjectToOrganisationRequest>req.body;
     service.AddSubjectToOrganisation(body).then(response => {
         res.status(200).json(response);
