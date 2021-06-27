@@ -1,10 +1,22 @@
 import express from 'express';
 import cors from 'cors';
 import { createConnection, ConnectionOptions } from 'typeorm';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+if (!('DB_USER' in process.env)) 
+    console.log('Database username missing')
+if (!('DB_PASSWORD' in process.env))
+    console.log('Database password missing')
+if (!('AWS_ACCESS_KEY' in process.env))
+    console.log('AWS Access Key missing')
+if (!('AWS_SECRET_ACCESS_KEY' in process.env))
+    console.log('AWS Secret Access Key missing');
 
 let options: ConnectionOptions = {
     type: 'postgres',
-    host: 'db',
+    host: process.env.DB_HOST || 'localhost',
     port: 5432,
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
@@ -18,27 +30,6 @@ let options: ConnectionOptions = {
         entitiesDir: 'src/database/entity',
         migrationsDir: 'src/database/migration',
         subscribersDir: 'src/database/subscriber'
-    }
-}
-
-if (process.env.NODE_ENV === 'test') {
-    options = {
-        type: 'postgres',
-        host: 'db',
-        port: 5432,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: 'test',
-        synchronize: true,
-        logging: false,
-        entities: ['src/database/entity/**/*.ts'],
-        migrations: ['src/database/migration/**/*.ts'],
-        subscribers: ['src/database/subscriber/**/*.ts'],
-        cli: {
-            entitiesDir: 'src/database/entity',
-            migrationsDir: 'src/database/migration',
-            subscribersDir: 'src/database/subscriber'
-        }
     }
 }
 

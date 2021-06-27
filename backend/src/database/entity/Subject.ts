@@ -3,7 +3,6 @@ import {
   Entity,
   JoinColumn,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Lesson } from "./Lesson";
@@ -18,7 +17,7 @@ export class Subject {
   @Column()
   description: string;
 
-  @Column()
+  @Column({nullable: true})
   grade: number;
 
   @Column()
