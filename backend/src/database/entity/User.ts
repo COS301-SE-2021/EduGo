@@ -8,7 +8,7 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm";
 
-export abstract class User {
+export  class User {
 	@PrimaryGeneratedColumn()
 	id: number;
 
