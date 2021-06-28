@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import passport from "passport";
 
 // Pass the global passport object into the configuration function
-require("./config/passport")(passport);
+require("./auth/lib/passport")(passport);
 
 const PORT = process.env.PORT || 8080;
 
