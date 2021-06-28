@@ -20,11 +20,11 @@ export async function register(request: RegisterRequest) {
 		user.firstName = request.firstName;
 		user.lastName = request.lastName;
 		user.organizationId = request.organizationId;
-
+		user.verified = false;
 		const saltHAsh = utils.genPassword(request.password);
 		user.salt = saltHAsh.salt;
 		user.hash = saltHAsh.hash;
-
+		user.admin = false;
 		let userRepo = conn.getRepository(Educator);
 
 		return userRepo.save(user).then((result) => {
