@@ -13,28 +13,26 @@ let statusRes: ApiResponse = {
 // Resistration of a user
 export async function register(request: RegisterRequest) {
 	let conn = getConnection();
-	let user =
-		request.userType.toLowerCase() == "educator"
-			? new Educator()
-			: new Student();
 
-	user.email = request.email;
-	user.firstName = request.firstName;
-	user.lastName = request.lastName;
-	user.organizationId = request.organizationId;
+	if (request.userType.toLowerCase() == "educator") {
+		let user = new Educator();
+		user.email = request.email;
+		user.firstName = request.firstName;
+		user.lastName = request.lastName;
+		user.organizationId = request.organizationId;
 
-	const saltHAsh = utils.genPassword(request.password);
-	user.salt = saltHAsh.salt;
-	user.hash = saltHAsh.hash;
+		const saltHAsh = utils.genPassword(request.password);
+		user.salt = saltHAsh.salt;
+		user.hash = saltHAsh.hash;
 
-	let userRepo =
-		request.userType.toLowerCase() == "educator"
-			? conn.getRepository(Educator)
-			: conn.getRepository(Student);
+		let userRepo = conn.getRepository(Educator);
 
-	return userRepo.save(user).then((result) => {
-		return result;
-	});
+		return userRepo.save(user).then((result) => {
+			statusRes.message = "User registered";
+			statusRes.type = "success";
+			return statusRes;
+		});
+	}
 }
 
 export async function login(request: LoginRequest) {}
