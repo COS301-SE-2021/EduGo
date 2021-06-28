@@ -5,4 +5,5 @@ export interface RegisterRequest {
 	email: string;
 	organizationId: number;
 	userType: string;
+	username: string;
 }
