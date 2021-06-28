@@ -8,9 +8,11 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm";
 
-export  class User {
+export class User {
 	@PrimaryGeneratedColumn()
 	id: number;
+	@Column()
+	username: string;
 
 	@Column()
 	firstName: string;
@@ -28,7 +30,7 @@ export  class User {
 	salt: string;
 
 	@Column()
-	organizationId:number; 
+	organizationId: number;
 
 	@Column()
 	verified: boolean;
