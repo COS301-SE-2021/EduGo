@@ -7,9 +7,10 @@ import { Student } from "../../database/entity/Student";
 import utils from "../lib/utils";
 import { RegisterRequest } from "../models/RegisterRequest";
 
-let statusRes: ApiResponse = {
+let statusRes: any = {
 	message: "",
 	type: "fail",
+	token: null,
 };
 
 export async function register(request: RegisterRequest) {
@@ -31,8 +32,17 @@ export async function register(request: RegisterRequest) {
 		let userRepo = conn.getRepository(Educator);
 
 		return userRepo.save(user).then((result) => {
-			statusRes.message = "Educator registered";
-			statusRes.type = "success";
+			let isValid = utils.validPassword(
+				request.password,
+				user.hash,
+				user.salt
+			);
+			if (isValid) {
+				statusRes.token = utils.issueJWT(user);
+				statusRes.message = "Educator registered";
+				statusRes.type = "success";
+			}
+
 			return statusRes;
 		});
 	} else {
