@@ -10,7 +10,4 @@ import {
 import { User } from "./User";
 
 @Entity()
-export class Student extends User {
-	@Column()
-	organizationId: string;
-}	
+export class Student extends User {}
