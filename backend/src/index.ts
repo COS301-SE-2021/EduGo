@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { createConnection, ConnectionOptions, QueryFailedError } from 'typeorm';
 import dotenv from 'dotenv';
+import passport from "passport";
 
 dotenv.config();
 
@@ -18,24 +19,29 @@ if (!('MAILGUN_API_KEY' in process.env))
 if (!('MAILGUN_DOMAIN' in process.env))
     console.log('Mailgun domain missing');
 
+// Pass the global passport object into the configuration function
+require("./auth/lib/passport")(passport);
+
+const PORT = process.env.PORT || 8080;
+
 let options: ConnectionOptions = {
-    type: 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    port: 5432,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: 'edugo',
-    synchronize: true,
-    logging: false,
-    entities: ['src/database/entity/**/*.ts'],
-    migrations: ['src/database/migration/**/*.ts'],
-    subscribers: ['src/database/subscriber/**/*.ts'],
-    cli: {
-        entitiesDir: 'src/database/entity',
-        migrationsDir: 'src/database/migration',
-        subscribersDir: 'src/database/subscriber'
-    }
-}
+	type: "postgres",
+	host: process.env.DB_HOST || "localhost",
+	port: 5432,
+	username: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	database: "edugo",
+	synchronize: true,
+	logging: false,
+	entities: ["src/database/entity/**/*.ts"],
+	migrations: ["src/database/migration/**/*.ts"],
+	subscribers: ["src/database/subscriber/**/*.ts"],
+	cli: {
+		entitiesDir: "src/database/entity",
+		migrationsDir: "src/database/migration",
+		subscribersDir: "src/database/subscriber",
+	},
+};
 
 if (process.env.NODE_ENV !== 'test') {
     createConnection(options).then(conn => {
@@ -59,17 +65,18 @@ import {router as VirtualEntityController} from './virtualEntity/api/virtualEnti
 import {router as OrganisationController} from './organisation/api/OrganisationController';
 import { EmailService } from './email/EmailService';
 import { MailgunEmailService } from './email/MailgunEmailService';
-
-const PORT = process.env.PORT || 8080;
+import { router as AuthController } from "./auth/api/authController";
 
 export const app = express();
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use('/lesson', LessonController)
 app.use('/subject', SubjectController)
 app.use('/virtualEntity', VirtualEntityController)
 app.use('/organisation', OrganisationController)
+app.use("/auth", AuthController);
+
 
 /*
  * Look, it's a comment
@@ -86,9 +93,9 @@ app.use('/organisation', OrganisationController)
 //     })
 // })
 
-app.get('/', (req, res) => {
-    res.send('hey there')
-})
+app.get("/", (req, res) => {
+	res.send("hey there");
+});
 
 app.post('/email', (req, res) => {
     let {to, name, code} = req.body;
