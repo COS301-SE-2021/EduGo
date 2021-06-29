@@ -13,6 +13,10 @@ if (!('AWS_ACCESS_KEY' in process.env))
     console.log('AWS Access Key missing')
 if (!('AWS_SECRET_ACCESS_KEY' in process.env))
     console.log('AWS Secret Access Key missing');
+if (!('MAILGUN_API_KEY' in process.env))
+    console.log('Mailgun API key missing');
+if (!('MAILGUN_DOMAIN' in process.env))
+    console.log('Mailgun domain missing');
 
 let options: ConnectionOptions = {
     type: 'postgres',
@@ -53,6 +57,8 @@ import {router as LessonController} from './lesson/api/lessonController';
 import {router as SubjectController} from './subject/api/subjectController';
 import {router as VirtualEntityController} from './virtualEntity/api/virtualEntityController';
 import {router as OrganisationController} from './organisation/api/OrganisationController';
+import { EmailService } from './email/EmailService';
+import { MailgunEmailService } from './email/MailgunEmailService';
 
 const PORT = process.env.PORT || 8080;
 
@@ -82,6 +88,14 @@ app.use('/organisation', OrganisationController)
 
 app.get('/', (req, res) => {
     res.send('hey there')
+})
+
+app.post('/email', (req, res) => {
+    let {to, name, code} = req.body;
+
+    let emailService: EmailService = new MailgunEmailService();
+    emailService.sendOneEmail(to, name, code);
+    res.status(200).send()
 })
 
 if (process.env.NODE_ENV !== 'test')
