@@ -51,11 +51,11 @@ function genPassword(password) {
 /**
  * @param {*} user - The user object.  We need this to set the JWT `sub` payload property to the Postgre user ID
  */
-function issueJWT(id) {
+function issueJWT(user) {
 	const expiresIn = "1d";
 
 	const payload = {
-		sub: id,
+		sub: user.id,
 		iat: Date.now(),
 	};
 

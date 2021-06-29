@@ -12,37 +12,66 @@ import { LoginRequest } from "../models/LoginRequest";
 let statusRes: any = {
 	message: "",
 	type: "fail",
-	token: null,
+	token: undefined,
 };
 
 export async function register(request: RegisterRequest) {
-	let conn = getConnection();
-	// registration for a student
-	let user = new User();
-	user.email = request.email;
-	user.firstName = request.firstName;
-	user.lastName = request.lastName;
-	user.username = request.username;
-	user.organizationId = request.organizationId;
-	user.verified = false;
-	const saltHAsh = utils.genPassword(request.password);
-	user.salt = saltHAsh.salt;
-	user.hash = saltHAsh.hash;
-	user.isAdmin = false;
-	user.type = request.userType;
-	//user.admin = false;
-	let userRepo = conn.getRepository(User);
+	// Check if parameters are set
+	if (
+		request.email == null ||
+		request.firstName == null ||
+		request.lastName == null ||
+		request.username == null ||
+		request.organizationId == null ||
+		request.userType == null
+	) {
+		statusRes.message = "Missing Parameters";
+		statusRes.type = "success";
+		return statusRes;
+	}
 
-	return userRepo
-		.save(user)
-		.then((result) => {
-			statusRes.message = "Educator registered";
-			statusRes.type = "success";
-			return statusRes;
-		})
-		.catch((err) => {
-			console.log(err);
-		});
+	let userRepo = getRepository(User);
+	//Check if user exists with specified username and email address
+	let emailExists = await userRepo.findOne({
+		where: { email: request.email },
+	});
+	let usernameExists = await userRepo.findOne({
+		where: { username: request.username },
+	});
+
+	// username and password don't exist and contiue to registering user
+	if (!emailExists && !usernameExists) {
+		let user = new User();
+		user.email = request.email.toLowerCase();
+		user.firstName = request.firstName;
+		user.lastName = request.lastName;
+		user.username = request.username.toLowerCase();
+		user.organizationId = request.organizationId;
+		user.verified = false;
+		const saltHAsh = utils.genPassword(request.password);
+		user.salt = saltHAsh.salt;
+		user.hash = saltHAsh.hash;
+		user.isAdmin = false;
+		user.type = request.userType;
+
+		return userRepo
+			.save(user)
+			.then((result) => {
+				statusRes.message = "User registered";
+				statusRes.type = "fail";
+				return statusRes;
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	} else {
+		emailExists
+			? (statusRes.message = "Email provided already exists")
+			: (statusRes.message = "Username Provided already exists");
+		statusRes.type = "fail";
+		return statusRes;
+	}
+	// registration for a student
 }
 
 export async function login(request: LoginRequest) {
@@ -66,7 +95,7 @@ export async function login(request: LoginRequest) {
 			if (isvalid) {
 				// issue jwt token for the user
 
-				statusRes.token = utils.issueJWT(user.id);
+				statusRes.token = utils.issueJWT(user.id).token;
 				statusRes.message = "User Logged in";
 				statusRes.type = "success";
 				return statusRes;
