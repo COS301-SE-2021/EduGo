@@ -2,7 +2,10 @@ import { EmailService } from "./EmailService";
 import mailgun from 'mailgun-js';
 import Handlebars from 'handlebars';
 import fs from 'fs';
-import { VerificationCodeInterface } from './VerificationCodeInterface';
+import { VerificationCodeInterface } from './models/VerificationCodeTemplateObject';
+import { VerificationEmail } from "./models/VerificationEmail";
+
+const FROM = `EduGo <test@${process.env.MAILGUN_DOMAIN}>`;
 
 export class MailgunEmailService implements EmailService {
     mg: mailgun.Mailgun;
@@ -18,20 +21,39 @@ export class MailgunEmailService implements EmailService {
 
     sendOneEmail(to: string, name: string, code: string): void {
         let html = this.verificationCodeTemplate({
-            name: name,
             code: code,
             link: `http://localhost:8082/?user=sthenyandeni&code=ABCD`
         });
+
+        
         let data: mailgun.messages.SendData = {
             to: to,
-            subject: 'Test',
-            from: `EduGo <test@${process.env.MAILGUN_DOMAIN}>`,
+            subject: 'Verification Code',
+            from: FROM,
             html: html
         }
         console.log(data);
         this.mg.messages().send(data).then(result => {
             console.log(result);
         })
+    }
+
+    SendBulkVerificationEmails(emails: VerificationEmail[]): boolean {
+        let recipientEmails: string = emails.map(value => value.email).join(', ');
+
+        let recipientJSON: any = {};
+        for (let i = 0; i < emails.length; i++) {
+            recipientJSON[emails[i].email] = {html: this.verificationCodeTemplate({code: emails[i].code, link: ''})}
+        }
+
+        let data: mailgun.messages.BatchData = {
+            to: recipientEmails,
+            from: FROM,
+            subject: 'Verification Code',
+            html: '%recipient.html%',
+            'recipient-variables':  JSON.stringify(recipientJSON)
+        }
+        throw new Error("Method not implemented.");
     }
 
 }
