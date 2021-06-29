@@ -7,7 +7,7 @@ import {
 	OneToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm";
-
+@Entity()
 export class User {
 	@PrimaryGeneratedColumn()
 	id: number;
@@ -34,4 +34,10 @@ export class User {
 
 	@Column()
 	verified: boolean;
+
+	@Column()
+	isAdmin: boolean;
+
+	@Column()
+	type: string;
 }
