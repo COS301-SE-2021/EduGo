@@ -38,7 +38,7 @@ export class MailgunEmailService implements EmailService {
         })
     }
 
-    SendBulkVerificationEmails(emails: VerificationEmail[]): boolean {
+    async SendBulkVerificationEmails(emails: VerificationEmail[]): Promise<boolean> {
         let recipientEmails: string = emails.map(value => value.email).join(', ');
 
         let recipientJSON: any = {};
@@ -53,7 +53,15 @@ export class MailgunEmailService implements EmailService {
             html: '%recipient.html%',
             'recipient-variables':  JSON.stringify(recipientJSON)
         }
-        throw new Error("Method not implemented.");
+
+        return this.mg.messages().send(data).then(result => {
+            console.log('Sent email result')
+            console.log(result);
+            return true;
+        })
+        .catch(err => {
+            return false;
+        })
     }
 
 }
