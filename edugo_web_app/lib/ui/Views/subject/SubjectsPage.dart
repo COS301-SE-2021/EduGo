@@ -49,16 +49,6 @@ class Subject {
     description = json['description'];
     educatorId = json['educatorId'];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> subject = new Map<String, dynamic>();
-    subject['id'] = this.id;
-    subject['title'] = this.title;
-    subject['grade'] = this.grade;
-    subject['description'] = this.description;
-    subject['educatorId'] = this.educatorId;
-    return subject;
-  }
 }
 
 Subject subject;
