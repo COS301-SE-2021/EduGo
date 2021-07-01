@@ -66,6 +66,7 @@ import {router as OrganisationController} from './organisation/api/OrganisationC
 import { EmailService } from './email/EmailService';
 import { MailgunEmailService } from './email/MailgunEmailService';
 import { router as AuthController } from "./auth/api/authController";
+import { router as UserController } from './user/api/userController'
 
 export const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -76,6 +77,7 @@ app.use('/subject', SubjectController)
 app.use('/virtualEntity', VirtualEntityController)
 app.use('/organisation', OrganisationController)
 app.use("/auth", AuthController);
+app.use('/user', UserController);
 
 
 /*
