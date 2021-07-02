@@ -15,7 +15,7 @@ class Subjects {
 
   Subjects.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<Subject>();
+      data = <Subject>[];
       json['data'].forEach((v) {
         data.add(new Subject.fromJson(v));
       });
@@ -61,12 +61,6 @@ class Subject {
   }
 }
 
-Subject subject;
-int sizeOfSubjectsArray;
-List titleArray = [];
-List gradeArray = [];
-List descriptionArray = [];
-
 class SubjectsPage extends StatefulWidget {
   @override
   _SubjectsPageState createState() => _SubjectsPageState();
@@ -83,47 +77,24 @@ class _SubjectsPageState extends State<SubjectsPage> {
     // var response = await
     return http.post(url,
         headers: {'contentType': 'application/json'},
-        body: {'educatorId': '1'});
-
-    // subject = Subject.fromJson(jsonDecode(response.body));
-    // sizeOfSubjectsArray = subject.data.length;
-
-    // for (int i = 0; i < sizeOfSubjectsArray; i++) {
-    //   titleArray.add(subject.data[i].title);
-    //   gradeArray.add(subject.data[i].grade.toString());
-    //   descriptionArray.add(subject.data[i].description);
-    // }
-  }
-
-  void displayCards() async {
-    await getRequest();
-
-    // print(sizeOfSubjectsArray);
-    // print(titleArray);
-
-    // print(gradeArray[0].runtimeType);
-
-    if (sizeOfSubjectsArray > 0) {
-      for (int size = 0; size < 1; size++) {
-        SubjectCard(
-            title: titleArray[0],
-            grade: gradeArray[0],
-            description: descriptionArray[0]);
-      }
-    }
+        body: {'educatorId': '2'});
   }
 
   Widget getTextWidgets(List<Subject> strings) {
-    return new Row(
-        children: strings
-            .map((item) => new Container(
-                  child: SubjectCard(
-                    title: item.title,
-                    grade: item.grade.toString(),
-                    description: item.description,
-                  ),
-                ))
-            .toList());
+    for (int counter = 0; counter < strings.length; counter++) {
+      if (counter % 2 == 0) {
+        return new Row(
+            children: strings
+                .map((item) => new Container(
+                      child: SubjectCard(
+                        title: item.title,
+                        grade: item.grade.toString(),
+                        description: item.description,
+                      ),
+                    ))
+                .toList());
+      }
+    }
   }
 
   @override
@@ -162,7 +133,6 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       Expanded(
                         child: Align(
                           alignment: Alignment.topLeft,
-                          //child: SizedBox(
                           child: Text(
                             "Subjects",
                             style: TextStyle(
@@ -188,8 +158,6 @@ class _SubjectsPageState extends State<SubjectsPage> {
                           minWidth: 50,
                           height: 60,
                           color: Color.fromARGB(255, 97, 211, 87),
-                          // child: Text("Add Subject.",
-                          //     style: TextStyle(color: Colors.white)),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -206,27 +174,13 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       ),
                     ],
                   ),
-                  // Row(
-                  //   children: <Widget>[
-                  // Align(
-                  //   alignment: Alignment.bottomRight,
-                  //child:
                   Text(
                     "Published Subjects",
                     style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
-                    // style: TextStyle(color: Colors.black),
                   ),
-                  //   ),
-                  // ],
-                  // ),
-                  // Align(
-                  //alignment: Alignment.topLeft,
-                  //child:
-                  // SubjectCard(
-                  //     title: "Bio", grade: "Grade 10", description: "Test1"),
                   Container(
                     height: MediaQuery.of(context).size.height - 100,
                     child: ListView(
@@ -236,9 +190,6 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       children: <Widget>[getTextWidgets(subjectsmodel.data)],
                     ),
                   ),
-
-                  //SubjectCard(),
-                  //)
                 ],
               ),
             ),
