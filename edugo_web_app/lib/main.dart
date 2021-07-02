@@ -1,4 +1,4 @@
-import 'package:edugo_web_app/ui/Views/Landing/EduGoHome.dart';
+import 'package:edugo_web_app/src/Pages/Home/Home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Color.fromARGB(255, 97, 211, 87),
           primarySwatch: Colors.blue,
           fontFamily: "Montserrat"),
-      home: EduGoHome(),
+      home: Home(),
     );
   }
 }
