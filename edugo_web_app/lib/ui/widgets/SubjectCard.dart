@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/ui/Views/subject/EditSubjectPage.dart';
+import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:flutter/material.dart';
 
 class SubjectCard extends StatelessWidget {
@@ -74,18 +75,43 @@ class SubjectCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: MaterialButton(
+                        minWidth: 15,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100)),
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => EditSubjectPage()),
+                                builder: (context) => SubjectsPage()),
+                            //add elete code here to delete from database
                           );
                         },
                         child: Icon(
-                          Icons.edit_outlined,
+                          Icons.delete_outlined,
                           color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: MaterialButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100)),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EditSubjectPage()),
+                            );
+                          },
+                          child: Icon(
+                            Icons.edit_outlined,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

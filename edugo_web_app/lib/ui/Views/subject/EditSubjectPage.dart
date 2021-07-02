@@ -299,6 +299,7 @@ class EditSubjectPage extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => SubjectsPage()),
+                                      //add code here for edit in the database
                                     );
                                   },
                                   minWidth: 50,
