@@ -67,27 +67,31 @@ class SubjectCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: MaterialButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EditSubjectPage()),
-                      );
-                    },
-                    child: Icon(
-                      Icons.edit_outlined,
-                      color: Colors.white,
+              Row(
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100)),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditSubjectPage()),
+                          );
+                        },
+                        child: Icon(
+                          Icons.edit_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )
+                  )
+                ],
+              ),
             ],
           ),
           //),

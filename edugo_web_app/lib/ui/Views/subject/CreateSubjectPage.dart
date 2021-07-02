@@ -154,15 +154,41 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                   );
                                 },
                                 minWidth: 400,
-                                height: 40,
+                                height: 60,
                                 color: Color.fromARGB(255, 97, 211, 87),
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
-                                      Icons.add_outlined,
+                                      Icons.done_outlined,
                                       color: Colors.white,
                                     ),
                                     Text("Add Subject",
+                                        style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              MaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SubjectsPage()),
+                                  );
+                                },
+                                minWidth: 400,
+                                height: 60,
+                                color: Color.fromARGB(255, 97, 211, 87),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.close_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    Text("Cancel",
                                         style: TextStyle(color: Colors.white)),
                                   ],
                                 ),
@@ -218,7 +244,6 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                   ),
                                 ],
                               ),
-                              // margin: EdgeInsets.fromLTRB(20, 100, 20, 20),
                             ),
                           ],
                         ),

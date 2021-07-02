@@ -257,7 +257,7 @@ class EditSubjectPage extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: Align(
-                                  alignment: Alignment.bottomLeft,
+                                  alignment: Alignment.center,
                                   child: MaterialButton(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
@@ -290,35 +290,31 @@ class EditSubjectPage extends StatelessWidget {
                               ),
                               SizedBox(width: 50),
                               Expanded(
-                                child: Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: MaterialButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5))),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                SubjectsPage()),
-                                      );
-                                    },
-                                    minWidth: 50,
-                                    height: 60,
-                                    color: Color.fromARGB(255, 97, 211, 87),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.add_outlined,
-                                          color: Colors.white,
-                                        ),
-                                        Text(
-                                          "Finish edit",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
+                                child: MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SubjectsPage()),
+                                    );
+                                  },
+                                  minWidth: 50,
+                                  height: 60,
+                                  color: Color.fromARGB(255, 97, 211, 87),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.done_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      Text(
+                                        "Finish edit",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
