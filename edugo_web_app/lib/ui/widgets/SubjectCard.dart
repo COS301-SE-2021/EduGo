@@ -19,7 +19,7 @@ class SubjectCard extends StatelessWidget {
           color: Color.fromARGB(255, 97, 211, 87),
           child: Column(
             children: [
-              Image.asset("../assets/images/Maths.jpeg"),
+              Image.asset("../assets/images/english.jpeg"),
               Container(
                 child: Row(
                   children: <Widget>[
@@ -69,19 +69,22 @@ class SubjectCard extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.centerRight,
-                child: MaterialButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EditSubjectPage()),
-                    );
-                  },
-                  child: Icon(
-                    Icons.edit_outlined,
-                    color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditSubjectPage()),
+                      );
+                    },
+                    child: Icon(
+                      Icons.edit_outlined,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               )

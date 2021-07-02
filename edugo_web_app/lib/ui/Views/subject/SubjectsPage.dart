@@ -77,32 +77,24 @@ class _SubjectsPageState extends State<SubjectsPage> {
     // var response = await
     return http.post(url,
         headers: {'contentType': 'application/json'},
-        body: {'educatorId': '1'});
+        body: {'educatorId': '3'});
   }
 
   Widget getTextWidgets(List<Subject> strings) {
-    for (int counter = 0; counter < strings.length; counter++) {
-      if (counter % 2 == 0) {
-        return new Row(
-            children: strings
-                .map((item) => new Container(
-                      child: SubjectCard(
-                        title: item.title,
-                        grade: item.grade.toString(),
-                        description: item.description,
-                      ),
-                    ))
-                .toList());
-      }
-    }
+    return new Row(
+        children: strings
+            .map((item) => new Container(
+                  child: SubjectCard(
+                    title: item.title,
+                    grade: item.grade.toString(),
+                    description: item.description,
+                  ),
+                ))
+            .toList());
   }
 
   @override
   Widget build(BuildContext context) {
-    //displayCards();
-    // print(titleArray.first);
-
-    // if (titleArray.isEmpty) print("NOT EMPOTY");
     getRequest().then((value) {
       setState(() {
         subjects = value.body;
