@@ -1,0 +1,990 @@
+define(['dart_sdk', 'packages/flutter/src/widgets/layout_builder.dart', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/rendering/layer.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/painting/strut_style.dart', 'packages/flutter/src/material/colors.dart', 'packages/flutter/src/rendering/flex.dart', 'packages/flutter/src/material/icon_button.dart', 'packages/flutter/src/material/page.dart', 'packages/edugo_web_app/ui/widgets/SubjectCard.dart', 'packages/flutter/src/painting/rounded_rectangle_border.dart', 'packages/flutter/src/painting/border_radius.dart'], (function load__packages__edugo_web_app__ui__Views__Landing__LandingPageNav_dart(dart_sdk, packages__flutter__src__widgets__layout_builder$46dart, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__rendering__layer$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__painting__strut_style$46dart, packages__flutter__src__material__colors$46dart, packages__flutter__src__rendering__flex$46dart, packages__flutter__src__material__icon_button$46dart, packages__flutter__src__material__page$46dart, packages__edugo_web_app__ui__widgets__SubjectCard$46dart, packages__flutter__src__painting__rounded_rectangle_border$46dart, packages__flutter__src__painting__border_radius$46dart) {
+  'use strict';
+  const core = dart_sdk.core;
+  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
+  const dart = dart_sdk.dart;
+  const dartx = dart_sdk.dartx;
+  const layout_builder = packages__flutter__src__widgets__layout_builder$46dart.src__widgets__layout_builder;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const text = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text;
+  const navigator = packages__flutter__src__widgets__widget_span$46dart.src__widgets__navigator;
+  const box = packages__flutter__src__rendering__layer$46dart.src__rendering__box;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const text_style = packages__flutter__src__painting__strut_style$46dart.src__painting__text_style;
+  const colors = packages__flutter__src__material__colors$46dart.src__material__colors;
+  const flex = packages__flutter__src__rendering__flex$46dart.src__rendering__flex;
+  const material_button = packages__flutter__src__material__icon_button$46dart.src__material__material_button;
+  const page = packages__flutter__src__material__page$46dart.src__material__page;
+  const SubjectsPage = packages__edugo_web_app__ui__widgets__SubjectCard$46dart.ui__Views__subject__SubjectsPage;
+  const rounded_rectangle_border = packages__flutter__src__painting__rounded_rectangle_border$46dart.src__painting__rounded_rectangle_border;
+  const border_radius = packages__flutter__src__painting__border_radius$46dart.src__painting__border_radius;
+  var LandingPageNav = Object.create(dart.library);
+  dart._checkModuleNullSafetyMode(false);
+  var T = {
+    _LocationL: () => (T._LocationL = dart.constFn(dart.legacy(widget_inspector._Location)))(),
+    StatelessWidgetL: () => (T.StatelessWidgetL = dart.constFn(dart.legacy(framework.StatelessWidget)))(),
+    BuildContextL: () => (T.BuildContextL = dart.constFn(dart.legacy(framework.BuildContext)))(),
+    BoxConstraintsL: () => (T.BoxConstraintsL = dart.constFn(dart.legacy(box.BoxConstraints)))(),
+    BuildContextLAndBoxConstraintsLToStatelessWidgetL: () => (T.BuildContextLAndBoxConstraintsLToStatelessWidgetL = dart.constFn(dart.fnType(T.StatelessWidgetL(), [T.BuildContextL(), T.BoxConstraintsL()])))(),
+    WidgetL: () => (T.WidgetL = dart.constFn(dart.legacy(framework.Widget)))(),
+    JSArrayOfWidgetL: () => (T.JSArrayOfWidgetL = dart.constFn(_interceptors.JSArray$(T.WidgetL())))(),
+    SubjectsPageL: () => (T.SubjectsPageL = dart.constFn(dart.legacy(SubjectsPage.SubjectsPage)))(),
+    BuildContextLToSubjectsPageL: () => (T.BuildContextLToSubjectsPageL = dart.constFn(dart.fnType(T.SubjectsPageL(), [T.BuildContextL()])))(),
+    VoidToNull: () => (T.VoidToNull = dart.constFn(dart.fnType(core.Null, [])))()
+  };
+  const CT = Object.create({
+    _: () => (C, CT)
+  });
+  dart.defineLazy(CT, {
+    get C1() {
+      return C[1] = dart.constList([], T._LocationL());
+    },
+    get C0() {
+      return C[0] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[1] || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 9,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C2() {
+      return C[2] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[1] || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 11,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C5() {
+      return C[5] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "builder",
+        [_Location_column]: 26,
+        [_Location_line]: 7,
+        [_Location_file]: null
+      });
+    },
+    get C4() {
+      return C[4] = dart.constList([C[5] || CT.C5], T._LocationL());
+    },
+    get C3() {
+      return C[3] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[4] || CT.C4,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 7,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C6() {
+      return C[6] = dart.const({
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 20,
+        [EdgeInsets_right]: 40,
+        [EdgeInsets_top]: 20,
+        [EdgeInsets_left]: 40
+      });
+    },
+    get C9() {
+      return C[9] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 19,
+        [_Location_line]: 27,
+        [_Location_file]: null
+      });
+    },
+    get C10() {
+      return C[10] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 19,
+        [_Location_line]: 28,
+        [_Location_file]: null
+      });
+    },
+    get C8() {
+      return C[8] = dart.constList([C[9] || CT.C9, C[10] || CT.C10], T._LocationL());
+    },
+    get C7() {
+      return C[7] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[8] || CT.C8,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 26,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C13() {
+      return C[13] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 19,
+        [_Location_line]: 34,
+        [_Location_file]: null
+      });
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 19,
+        [_Location_line]: 35,
+        [_Location_file]: null
+      });
+    },
+    get C12() {
+      return C[12] = dart.constList([C[13] || CT.C13, C[14] || CT.C14], T._LocationL());
+    },
+    get C11() {
+      return C[11] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[12] || CT.C12,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 33,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 15,
+        [_Location_line]: 25,
+        [_Location_file]: null
+      });
+    },
+    get C16() {
+      return C[16] = dart.constList([C[17] || CT.C17], T._LocationL());
+    },
+    get C15() {
+      return C[15] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[16] || CT.C16,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 24,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 12,
+        [EdgeInsets_right]: 12,
+        [EdgeInsets_top]: 12,
+        [EdgeInsets_left]: 12
+      });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 24,
+        [_Location_line]: 47,
+        [_Location_file]: null
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 36,
+        [_Location_line]: 47,
+        [_Location_file]: null
+      });
+    },
+    get C20() {
+      return C[20] = dart.constList([C[21] || CT.C21, C[22] || CT.C22], T._LocationL());
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[20] || CT.C20,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 47,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 21,
+        [_Location_line]: 49,
+        [_Location_file]: null
+      });
+    },
+    get C24() {
+      return C[24] = dart.constList([C[25] || CT.C25], T._LocationL());
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[24] || CT.C24,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 48,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 24,
+        [_Location_line]: 51,
+        [_Location_file]: null
+      });
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 23,
+        [_Location_line]: 52,
+        [_Location_file]: null
+      });
+    },
+    get C27() {
+      return C[27] = dart.constList([C[28] || CT.C28, C[29] || CT.C29], T._LocationL());
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[27] || CT.C27,
+        [_Location_name]: null,
+        [_Location_column]: 19,
+        [_Location_line]: 51,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 17,
+        [_Location_line]: 45,
+        [_Location_file]: null
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 17,
+        [_Location_line]: 46,
+        [_Location_file]: null
+      });
+    },
+    get C31() {
+      return C[31] = dart.constList([C[32] || CT.C32, C[33] || CT.C33], T._LocationL());
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[31] || CT.C31,
+        [_Location_name]: null,
+        [_Location_column]: 22,
+        [_Location_line]: 44,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 15,
+        [_Location_line]: 43,
+        [_Location_file]: null
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 15,
+        [_Location_line]: 44,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.constList([C[36] || CT.C36, C[37] || CT.C37], T._LocationL());
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[35] || CT.C35,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 42,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 11,
+        [_Location_line]: 23,
+        [_Location_file]: null
+      });
+    },
+    get C39() {
+      return C[39] = dart.constList([C[40] || CT.C40], T._LocationL());
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[39] || CT.C39,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 22,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 22,
+        [_Location_file]: null
+      });
+    },
+    get C42() {
+      return C[42] = dart.constList([C[43] || CT.C43], T._LocationL());
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[42] || CT.C42,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 21,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 7,
+        [_Location_line]: 20,
+        [_Location_file]: null
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 21,
+        [_Location_file]: null
+      });
+    },
+    get C45() {
+      return C[45] = dart.constList([C[46] || CT.C46, C[47] || CT.C47], T._LocationL());
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[45] || CT.C45,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 19,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 40,
+        [EdgeInsets_right]: 60,
+        [EdgeInsets_top]: 40,
+        [EdgeInsets_left]: 60
+      });
+    },
+    get C51() {
+      return C[51] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 19,
+        [_Location_line]: 75,
+        [_Location_file]: null
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 19,
+        [_Location_line]: 76,
+        [_Location_file]: null
+      });
+    },
+    get C50() {
+      return C[50] = dart.constList([C[51] || CT.C51, C[52] || CT.C52], T._LocationL());
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[50] || CT.C50,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 74,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C55() {
+      return C[55] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 19,
+        [_Location_line]: 82,
+        [_Location_file]: null
+      });
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 19,
+        [_Location_line]: 83,
+        [_Location_file]: null
+      });
+    },
+    get C54() {
+      return C[54] = dart.constList([C[55] || CT.C55, C[56] || CT.C56], T._LocationL());
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[54] || CT.C54,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 81,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C59() {
+      return C[59] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 15,
+        [_Location_line]: 73,
+        [_Location_file]: null
+      });
+    },
+    get C58() {
+      return C[58] = dart.constList([C[59] || CT.C59], T._LocationL());
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[58] || CT.C58,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 72,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C62() {
+      return C[62] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 22,
+        [_Location_line]: 92,
+        [_Location_file]: null
+      });
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 34,
+        [_Location_line]: 92,
+        [_Location_file]: null
+      });
+    },
+    get C61() {
+      return C[61] = dart.constList([C[62] || CT.C62, C[63] || CT.C63], T._LocationL());
+    },
+    get C60() {
+      return C[60] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[61] || CT.C61,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 92,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C66() {
+      return C[66] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 19,
+        [_Location_line]: 94,
+        [_Location_file]: null
+      });
+    },
+    get C65() {
+      return C[65] = dart.constList([C[66] || CT.C66], T._LocationL());
+    },
+    get C64() {
+      return C[64] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[65] || CT.C65,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 93,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C69() {
+      return C[69] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 22,
+        [_Location_line]: 96,
+        [_Location_file]: null
+      });
+    },
+    get C70() {
+      return C[70] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 21,
+        [_Location_line]: 97,
+        [_Location_file]: null
+      });
+    },
+    get C68() {
+      return C[68] = dart.constList([C[69] || CT.C69, C[70] || CT.C70], T._LocationL());
+    },
+    get C67() {
+      return C[67] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[68] || CT.C68,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 96,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C73() {
+      return C[73] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "width",
+        [_Location_column]: 19,
+        [_Location_line]: 99,
+        [_Location_file]: null
+      });
+    },
+    get C72() {
+      return C[72] = dart.constList([C[73] || CT.C73], T._LocationL());
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[72] || CT.C72,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 98,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C74() {
+      return C[74] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[1] || CT.C1,
+        [_Location_name]: null,
+        [_Location_column]: 63,
+        [_Location_line]: 107,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C75() {
+      return C[75] = dart.const({
+        __proto__: edge_insets.EdgeInsets.prototype,
+        [EdgeInsets_bottom]: 8,
+        [EdgeInsets_right]: 8,
+        [EdgeInsets_top]: 8,
+        [EdgeInsets_left]: 8
+      });
+    },
+    get C78() {
+      return C[78] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "data",
+        [_Location_column]: 23,
+        [_Location_line]: 113,
+        [_Location_file]: null
+      });
+    },
+    get C79() {
+      return C[79] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "style",
+        [_Location_column]: 23,
+        [_Location_line]: 114,
+        [_Location_file]: null
+      });
+    },
+    get C77() {
+      return C[77] = dart.constList([C[78] || CT.C78, C[79] || CT.C79], T._LocationL());
+    },
+    get C76() {
+      return C[76] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[77] || CT.C77,
+        [_Location_name]: null,
+        [_Location_column]: 28,
+        [_Location_line]: 112,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 21,
+        [_Location_line]: 111,
+        [_Location_file]: null
+      });
+    },
+    get C83() {
+      return C[83] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 21,
+        [_Location_line]: 112,
+        [_Location_file]: null
+      });
+    },
+    get C81() {
+      return C[81] = dart.constList([C[82] || CT.C82, C[83] || CT.C83], T._LocationL());
+    },
+    get C80() {
+      return C[80] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[81] || CT.C81,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 110,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C86() {
+      return C[86] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "minWidth",
+        [_Location_column]: 19,
+        [_Location_line]: 102,
+        [_Location_file]: null
+      });
+    },
+    get C87() {
+      return C[87] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "height",
+        [_Location_column]: 19,
+        [_Location_line]: 103,
+        [_Location_file]: null
+      });
+    },
+    get C88() {
+      return C[88] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 19,
+        [_Location_line]: 104,
+        [_Location_file]: null
+      });
+    },
+    get C89() {
+      return C[89] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 19,
+        [_Location_line]: 110,
+        [_Location_file]: null
+      });
+    },
+    get C90() {
+      return C[90] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "color",
+        [_Location_column]: 19,
+        [_Location_line]: 117,
+        [_Location_file]: null
+      });
+    },
+    get C91() {
+      return C[91] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "shape",
+        [_Location_column]: 19,
+        [_Location_line]: 118,
+        [_Location_file]: null
+      });
+    },
+    get C85() {
+      return C[85] = dart.constList([C[86] || CT.C86, C[87] || CT.C87, C[88] || CT.C88, C[89] || CT.C89, C[90] || CT.C90, C[91] || CT.C91], T._LocationL());
+    },
+    get C84() {
+      return C[84] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[85] || CT.C85,
+        [_Location_name]: null,
+        [_Location_column]: 17,
+        [_Location_line]: 101,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C94() {
+      return C[94] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 15,
+        [_Location_line]: 91,
+        [_Location_file]: null
+      });
+    },
+    get C93() {
+      return C[93] = dart.constList([C[94] || CT.C94], T._LocationL());
+    },
+    get C92() {
+      return C[92] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[93] || CT.C93,
+        [_Location_name]: null,
+        [_Location_column]: 13,
+        [_Location_line]: 90,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C97() {
+      return C[97] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "mainAxisAlignment",
+        [_Location_column]: 11,
+        [_Location_line]: 70,
+        [_Location_file]: null
+      });
+    },
+    get C98() {
+      return C[98] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 11,
+        [_Location_line]: 71,
+        [_Location_file]: null
+      });
+    },
+    get C96() {
+      return C[96] = dart.constList([C[97] || CT.C97, C[98] || CT.C98], T._LocationL());
+    },
+    get C95() {
+      return C[95] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[96] || CT.C96,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 69,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C101() {
+      return C[101] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 69,
+        [_Location_file]: null
+      });
+    },
+    get C100() {
+      return C[100] = dart.constList([C[101] || CT.C101], T._LocationL());
+    },
+    get C99() {
+      return C[99] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[100] || CT.C100,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 68,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    },
+    get C104() {
+      return C[104] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 7,
+        [_Location_line]: 67,
+        [_Location_file]: null
+      });
+    },
+    get C105() {
+      return C[105] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 68,
+        [_Location_file]: null
+      });
+    },
+    get C103() {
+      return C[103] = dart.constList([C[104] || CT.C104, C[105] || CT.C105], T._LocationL());
+    },
+    get C102() {
+      return C[102] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[103] || CT.C103,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 66,
+        [_Location_file]: "file:///D:/Users/u19187166/Documents/GitHub/EduGo/edugo_web_app/lib/ui/Views/Landing/LandingPageNav.dart"
+      });
+    }
+  }, false);
+  var C = Array(106).fill(void 0);
+  var I = ["package:edugo_web_app/ui/Views/Landing/LandingPageNav.dart"];
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  LandingPageNav.LandingPageNav = class LandingPageNav$ extends framework.StatelessWidget {
+    build(context) {
+      return new layout_builder.LayoutBuilder.new({builder: dart.fn((context, constraints) => {
+          if (dart.notNull(constraints.maxWidth) > 800) {
+            return new LandingPageNav.DesktopNavbar.new({$creationLocationd_0dea112b090073317d4: C[0] || CT.C0});
+          } else
+            return new LandingPageNav.TabletNavbar.new({$creationLocationd_0dea112b090073317d4: C[2] || CT.C2});
+        }, T.BuildContextLAndBoxConstraintsLToStatelessWidgetL()), $creationLocationd_0dea112b090073317d4: C[3] || CT.C3});
+    }
+  };
+  (LandingPageNav.LandingPageNav.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    LandingPageNav.LandingPageNav.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = LandingPageNav.LandingPageNav.prototype;
+  dart.addTypeTests(LandingPageNav.LandingPageNav);
+  dart.addTypeCaches(LandingPageNav.LandingPageNav);
+  dart.setMethodSignature(LandingPageNav.LandingPageNav, () => ({
+    __proto__: dart.getMethods(LandingPageNav.LandingPageNav.__proto__),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(LandingPageNav.LandingPageNav, I[0]);
+  var EdgeInsets_bottom = dart.privateName(edge_insets, "EdgeInsets.bottom");
+  var EdgeInsets_right = dart.privateName(edge_insets, "EdgeInsets.right");
+  var EdgeInsets_top = dart.privateName(edge_insets, "EdgeInsets.top");
+  var EdgeInsets_left = dart.privateName(edge_insets, "EdgeInsets.left");
+  LandingPageNav.TabletNavbar = class TabletNavbar extends framework.StatelessWidget {
+    build(context) {
+      return new basic.Padding.new({padding: C[6] || CT.C6, child: new container.Container.new({child: new basic.Column.new({children: T.JSArrayOfWidgetL().of([new basic.Row.new({children: T.JSArrayOfWidgetL().of([new text.Text.new("Edu", {style: new text_style.TextStyle.new({fontWeight: ui.FontWeight.bold, color: colors.Colors.black, fontSize: 45.0}), $creationLocationd_0dea112b090073317d4: C[7] || CT.C7}), new text.Text.new("Go", {style: new text_style.TextStyle.new({fontWeight: ui.FontWeight.bold, color: colors.Colors.white, fontSize: 45.0}), $creationLocationd_0dea112b090073317d4: C[11] || CT.C11})]), $creationLocationd_0dea112b090073317d4: C[15] || CT.C15}), new basic.Padding.new({padding: C[18] || CT.C18, child: new basic.Row.new({mainAxisAlignment: flex.MainAxisAlignment.center, children: T.JSArrayOfWidgetL().of([new text.Text.new("About Us", {style: new text_style.TextStyle.new({color: colors.Colors.white}), $creationLocationd_0dea112b090073317d4: C[19] || CT.C19}), new basic.SizedBox.new({width: 30.0, $creationLocationd_0dea112b090073317d4: C[23] || CT.C23}), new text.Text.new("Register Organisation", {style: new text_style.TextStyle.new({color: colors.Colors.white}), $creationLocationd_0dea112b090073317d4: C[26] || CT.C26})]), $creationLocationd_0dea112b090073317d4: C[30] || CT.C30}), $creationLocationd_0dea112b090073317d4: C[34] || CT.C34})]), $creationLocationd_0dea112b090073317d4: C[38] || CT.C38}), $creationLocationd_0dea112b090073317d4: C[41] || CT.C41}), $creationLocationd_0dea112b090073317d4: C[44] || CT.C44});
+    }
+  };
+  (LandingPageNav.TabletNavbar.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    LandingPageNav.TabletNavbar.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = LandingPageNav.TabletNavbar.prototype;
+  dart.addTypeTests(LandingPageNav.TabletNavbar);
+  dart.addTypeCaches(LandingPageNav.TabletNavbar);
+  dart.setMethodSignature(LandingPageNav.TabletNavbar, () => ({
+    __proto__: dart.getMethods(LandingPageNav.TabletNavbar.__proto__),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(LandingPageNav.TabletNavbar, I[0]);
+  LandingPageNav.DesktopNavbar = class DesktopNavbar extends framework.StatelessWidget {
+    build(context) {
+      return new basic.Padding.new({padding: C[48] || CT.C48, child: new container.Container.new({child: new basic.Row.new({mainAxisAlignment: flex.MainAxisAlignment.spaceBetween, children: T.JSArrayOfWidgetL().of([new basic.Row.new({children: T.JSArrayOfWidgetL().of([new text.Text.new("Edu", {style: new text_style.TextStyle.new({fontWeight: ui.FontWeight.bold, color: colors.Colors.black, fontSize: 45.0}), $creationLocationd_0dea112b090073317d4: C[49] || CT.C49}), new text.Text.new("Go", {style: new text_style.TextStyle.new({fontWeight: ui.FontWeight.bold, color: colors.Colors.white, fontSize: 45.0}), $creationLocationd_0dea112b090073317d4: C[53] || CT.C53})]), $creationLocationd_0dea112b090073317d4: C[57] || CT.C57}), new basic.Row.new({children: T.JSArrayOfWidgetL().of([new text.Text.new("About Us", {style: new text_style.TextStyle.new({color: colors.Colors.white}), $creationLocationd_0dea112b090073317d4: C[60] || CT.C60}), new basic.SizedBox.new({width: 30.0, $creationLocationd_0dea112b090073317d4: C[64] || CT.C64}), new text.Text.new("Register Organisation", {style: new text_style.TextStyle.new({color: colors.Colors.white}), $creationLocationd_0dea112b090073317d4: C[67] || CT.C67}), new basic.SizedBox.new({width: 30.0, $creationLocationd_0dea112b090073317d4: C[71] || CT.C71}), new material_button.MaterialButton.new({minWidth: 150.0, height: 40.0, onPressed: dart.fn(() => {
+                      navigator.Navigator.push(dart.dynamic, context, new page.MaterialPageRoute.new({builder: dart.fn(context => new SubjectsPage.SubjectsPage.new({$creationLocationd_0dea112b090073317d4: C[74] || CT.C74}), T.BuildContextLToSubjectsPageL())}));
+                    }, T.VoidToNull()), child: new basic.Padding.new({padding: C[75] || CT.C75, child: new text.Text.new("Sign In", {style: new text_style.TextStyle.new({color: new ui.Color.fromARGB(255, 97, 211, 87)}), $creationLocationd_0dea112b090073317d4: C[76] || CT.C76}), $creationLocationd_0dea112b090073317d4: C[80] || CT.C80}), color: colors.Colors.white, shape: new rounded_rectangle_border.RoundedRectangleBorder.new({borderRadius: new border_radius.BorderRadius.all(new ui.Radius.circular(12.0))}), $creationLocationd_0dea112b090073317d4: C[84] || CT.C84})]), $creationLocationd_0dea112b090073317d4: C[92] || CT.C92})]), $creationLocationd_0dea112b090073317d4: C[95] || CT.C95}), $creationLocationd_0dea112b090073317d4: C[99] || CT.C99}), $creationLocationd_0dea112b090073317d4: C[102] || CT.C102});
+    }
+  };
+  (LandingPageNav.DesktopNavbar.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    LandingPageNav.DesktopNavbar.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = LandingPageNav.DesktopNavbar.prototype;
+  dart.addTypeTests(LandingPageNav.DesktopNavbar);
+  dart.addTypeCaches(LandingPageNav.DesktopNavbar);
+  dart.setMethodSignature(LandingPageNav.DesktopNavbar, () => ({
+    __proto__: dart.getMethods(LandingPageNav.DesktopNavbar.__proto__),
+    build: dart.fnType(dart.legacy(framework.Widget), [dart.legacy(framework.BuildContext)])
+  }));
+  dart.setLibraryUri(LandingPageNav.DesktopNavbar, I[0]);
+  dart.trackLibraries("packages/edugo_web_app/ui/Views/Landing/LandingPageNav.dart", {
+    "package:edugo_web_app/ui/Views/Landing/LandingPageNav.dart": LandingPageNav
+  }, {
+  }, '{"version":3,"sourceRoot":"","sources":["LandingPageNav.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;UAK4B;AACxB,YAAO,gDAAuB,SAAC,SAAS;AACtC,cAAyB,aAArB,AAAY,WAAD,aAAY;AACzB,kBAAO;;AAEP,kBAAO;;IAEb;;;;;;EACF;;;;;;;;;;;;;UAI4B;AACxB,YAAO,uDAEE,oCACE,gCACa,yBAChB,6BACoB,yBAChB,kBACE,eACO,0CACoB,2BACT,+BACJ,iEAEhB,kBACE,cACO,0CACoB,2BACT,+BACJ,gIAIpB,wDAES,sCACgC,yCACnB,yBAChB,kBAAK,oBAAmB,qCAAwB,kFAChD,+BACS,iEAET,kBAAK,iCACM,qCAAwB;IAQnD;;;;;;EACF;;;;;;;;;UAI4B;AACxB,YAAO,yDAEE,oCACE,sCACgC,+CACnB,yBAChB,6BACoB,yBAChB,kBACE,eACO,0CACoB,2BACT,+BACJ,mEAEhB,kBACE,cACO,0CACoB,2BACT,+BACJ,gIAIpB,6BACoB,yBAChB,kBAAK,oBAAmB,qCAAwB,kFAChD,+BACS,iEAET,kBAAK,iCACM,qCAAwB,kFACnC,+BACS,iEAET,kDACY,eACF,iBACG;AAIR,sBAHS,uCACR,OAAO,EACP,yCAA2B,QAAC,WAAY;+CAGrC,wDAEE,kBACL,mBACO,qCAAuB,sBAAS,KAAK,IAAI,KAAK,oIAG3C,4BACP,uEACwB,mCAAW,uBAAS;IAQnE;;;;;;EACF","file":"../../../../../../../../../../packages/edugo_web_app/ui/Views/Landing/LandingPageNav.dart.lib.js"}');
+  // Exports:
+  return {
+    ui__Views__Landing__LandingPageNav: LandingPageNav
+  };
+}));
+
+//# sourceMappingURL=LandingPageNav.dart.lib.js.map
