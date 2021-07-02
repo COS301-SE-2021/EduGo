@@ -12,11 +12,12 @@ class EduGoInput extends StatelessWidget {
         child: TextField(
           cursorColor: Color.fromARGB(255, 97, 211, 87),
           decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
-              ),
-              border: OutlineInputBorder(),
+              // focusedBorder: OutlineInputBorder(
+              //   borderSide: const BorderSide(
+              //       color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              // ),
+              // border: OutlineInputBorder(),
+              border: InputBorder.none,
               hintText: hintText),
         ));
   }

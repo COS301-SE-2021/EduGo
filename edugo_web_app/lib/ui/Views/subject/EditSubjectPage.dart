@@ -2,6 +2,7 @@ import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
 import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 
 import 'SubjectsPage.dart';
 
@@ -26,9 +27,6 @@ class EditSubjectPage extends StatelessWidget {
                   child: Container(
                     height: MediaQuery.of(context).size.height - 360,
                     width: MediaQuery.of(context).size.width - 360,
-                    decoration: BoxDecoration(
-                        //border: Border.all(color: Colors.black),
-                        ),
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
@@ -56,36 +54,38 @@ class EditSubjectPage extends StatelessWidget {
                                           text: "  Subject ",
                                           style: TextStyle(
                                               color: Colors.black,
-                                              //fontWeight: FontWeight.bold,
                                               fontSize: 30),
                                         ),
                                         TextSpan(
                                             text: "Tit",
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                //fontWeight: FontWeight.bold,
                                                 fontSize: 30)),
                                         TextSpan(
                                             text: "le",
                                             style: TextStyle(
                                                 color: Colors.green,
-                                                //fontWeight: FontWeight.bold,
                                                 fontSize: 30)),
                                       ],
                                     ),
                                   ),
                                 ),
                                 SizedBox(height: 20),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: EduGoInput(
-                                      hintText: "Enter the new Subject Title.",
-                                      width: 450),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: FractionallySizedBox(
+                                      widthFactor: 0.9,
+                                      child: EduGoInput(
+                                        hintText:
+                                            "Enter the new Subject Title.",
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
-                            //height: MediaQuery.of(context).size.height - 0,
-                            //width: MediaQuery.of(context).size.width - 0,
                           ),
                           SizedBox(height: 20),
                           Container(
@@ -105,11 +105,6 @@ class EditSubjectPage extends StatelessWidget {
                                 SizedBox(height: 15),
                                 Align(
                                   alignment: Alignment.topLeft,
-                                  // child: Text(
-                                  //   "   Subject ",
-                                  //   style: TextStyle(
-                                  //       fontSize: 25, color: Colors.green),
-                                  // ),
                                   child: RichText(
                                     text: TextSpan(
                                       children: <TextSpan>[
@@ -137,16 +132,21 @@ class EditSubjectPage extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(height: 20),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: EduGoInput(
-                                      hintText: "Enter the new Subject Grade.",
-                                      width: 450),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: FractionallySizedBox(
+                                      widthFactor: 0.9,
+                                      child: EduGoInput(
+                                        hintText:
+                                            "Enter the new Subject Grade.",
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
-                            //height: MediaQuery.of(context).size.height - 0,
-                            //width: MediaQuery.of(context).size.width - 0,
                           ),
                           SizedBox(height: 20),
                           Container(
@@ -155,11 +155,6 @@ class EditSubjectPage extends StatelessWidget {
                                 SizedBox(height: 15),
                                 Align(
                                   alignment: Alignment.topLeft,
-                                  // child: Text(
-                                  //   "   Subject ",
-                                  //   style: TextStyle(
-                                  //       fontSize: 25, color: Colors.green),
-                                  // ),
                                   child: RichText(
                                     text: TextSpan(
                                       children: <TextSpan>[
@@ -167,26 +162,30 @@ class EditSubjectPage extends StatelessWidget {
                                           text: "  Descrip",
                                           style: TextStyle(
                                               color: Colors.black,
-                                              //fontWeight: FontWeight.bold,
                                               fontSize: 30),
                                         ),
                                         TextSpan(
                                             text: "tion",
                                             style: TextStyle(
                                                 color: Colors.green,
-                                                //fontWeight: FontWeight.bold,
                                                 fontSize: 30)),
                                       ],
                                     ),
                                   ),
                                 ),
                                 SizedBox(height: 20),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: EduGoInput(
-                                      hintText:
-                                          "Enter the new details for the subject description.",
-                                      width: 450),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: FractionallySizedBox(
+                                      widthFactor: 0.9,
+                                      child: EduGoInput(
+                                        hintText:
+                                            "Enter the new Subject Description.",
+                                      ),
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -231,9 +230,13 @@ class EditSubjectPage extends StatelessWidget {
                                 Align(
                                   alignment: Alignment.center,
                                   child: EduGoInput(
-                                      hintText:
-                                          "Add a new photo for the subject.",
-                                      width: 450),
+                                      // hintText:
+                                      //     "Add a new photo for the subject.",
+                                      // width: 450
+                                      //     DropzoneView(
+                                      //   onDrop:
+                                      // ),
+                                      ),
                                 )
                               ],
                             ),
