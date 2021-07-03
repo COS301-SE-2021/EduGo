@@ -1,8 +1,11 @@
 import {
 	Column,
 	Entity,
+	JoinTable,
+	ManyToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
+import { Subject } from "./Subject";
 
 @Entity()
 export class User {
@@ -32,4 +35,12 @@ export class User {
 
 	@Column()
 	verified: boolean;
+
+	@ManyToMany(type => Subject, subjectEnrolled => subjectEnrolled.students)
+	@JoinTable()
+	subjectsEnrolled: Subject[];
+
+	@ManyToMany(type => Subject, subjectManaging => subjectManaging.educators)
+	@JoinTable()
+	subjectsManaging: Subject[];
 }
