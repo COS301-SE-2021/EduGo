@@ -15,6 +15,7 @@ import { VerificationEmail } from "../../email/models/VerificationEmail";
 import { EmailList } from '../models/SerivceModels';
 import { AddedToSubjectEmail } from "../../email/models/AddedToSubjectEmail";
 import { Subject } from "../../database/entity/Subject";
+import { DatabaseError } from "../../exceptions/DatabaseError";
 
 // To Do
 //export async function makeUserAdmin(request: RegisterRequest) {}
@@ -66,6 +67,9 @@ export class UserService {
 
 							//TODO: Review this
 							getRepository(Subject).save(subject)
+							.catch(err => {
+								throw new DatabaseError('Users could not be added to database')
+							})
 
 							let verifiedUsers: AddedToSubjectEmail[] = users.map(value => {
 								let email: AddedToSubjectEmail = {
@@ -113,7 +117,7 @@ export class UserService {
 		let unverifiedUserRepo = getRepository(UnverifiedUser);
 
 		//Find verified users from FULL list of emails
-		return userRepo.find({email: In(emails)}).then(userResult => {
+		return this.GetUsersFromEmails(emails).then(userResult => {
 			//Get list of existing verified user emails
 			let existingVerifiedUserEmails: string[] = userResult.map(value => value.email);
 
