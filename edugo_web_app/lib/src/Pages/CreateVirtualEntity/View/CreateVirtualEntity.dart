@@ -1,11 +1,12 @@
+// Create Virtual Enitity Page
+// Todo : Create a virtual entity by giving it a name,description and a 3D Model
+
 import 'package:edugo_web_app/src/Components/Widgets/PageLayout.dart';
 import 'package:edugo_web_app/src/Components/Widgets/Viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-//Create Virtual Enitity Page
-//Todo : Create a virtual entity by giving it a name,description and a 3D Model
 class CreateVirtualEntity extends StatefulWidget {
   @override
   State<CreateVirtualEntity> createState() => _CreateVirtualEntityState();
