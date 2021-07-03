@@ -1,5 +1,4 @@
-import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/CreateVirtualEntity.dart';
-import 'package:edugo_web_app/src/Pages/Home/Home.dart';
+import 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';
 import 'package:flutter/material.dart';
 
 class Content extends StatelessWidget {
@@ -36,7 +35,7 @@ class Content extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CreateVirtualEntity()),
+                      builder: (context) => CreateVirtualEntityView()),
                 );
               },
               color: Color.fromARGB(255, 97, 211, 87),

@@ -1,5 +1,5 @@
-import 'package:edugo_web_app/src/Pages/Home/Footer/HomeDesktopFooter.dart';
-import 'package:edugo_web_app/src/Pages/Home/Footer/HomeTabletFooter.dart';
+import 'package:edugo_web_app/src/Pages/Home/View/Components/Footer/HomeDesktopFooter.dart';
+import 'package:edugo_web_app/src/Pages/Home/View/Components/Footer/HomeTabletFooter.dart';
 import 'package:flutter/material.dart';
 
 class HomeFooter extends StatelessWidget {

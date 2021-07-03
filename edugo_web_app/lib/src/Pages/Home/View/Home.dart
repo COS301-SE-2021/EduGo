@@ -1,8 +1,8 @@
+import 'package:edugo_web_app/src/Pages/Home/View/Components/Footer/HomeFooter.dart';
+import 'package:edugo_web_app/src/Pages/Home/View/Components/Navigation/HomeNavigation.dart';
 import 'package:flutter/material.dart';
 
-import 'Content.dart';
-import 'Footer/HomeFooter.dart';
-import 'Navigation/HomeNavigation.dart';
+import 'Components/Content.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -19,16 +19,14 @@ class Home extends StatelessWidget {
               ]),
         ),
         child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              HomeNavigation(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60),
-                child: Content(),
-              ),
-              HomeFooter()
-            ],
-          ),
+          child: Column(children: <Widget>[
+            HomeNavigation(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: Content(),
+            ),
+            HomeFooter()
+          ]),
         ),
       ),
     );

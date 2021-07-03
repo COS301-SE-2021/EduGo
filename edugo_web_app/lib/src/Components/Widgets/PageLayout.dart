@@ -21,7 +21,7 @@ class PageLayout extends StatelessWidget {
           builder: (context, constraints) {
             if (constraints.maxWidth > 1199) {
               return Container(
-                padding: EdgeInsets.only(top: 70, left: 150, right: 150),
+                padding: EdgeInsets.only(top: 50, left: 150, right: 150),
                 child: child,
                 margin: EdgeInsets.only(left: 100, top: 100),
                 width: MediaQuery.of(context).size.width - 100,

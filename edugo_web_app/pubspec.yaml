@@ -36,6 +36,8 @@ dependencies:
   json_annotation: ^4.0.1
   provider: ^5.0.0
   flutter_screenutil: ^5.0.0+2
+  qr_flutter: ^4.0.0
+  momentum: ^2.0.1
 
 
 

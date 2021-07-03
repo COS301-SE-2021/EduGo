@@ -18,7 +18,7 @@ class Viewer extends StatelessWidget {
         "   </head>" +
         "<body>" +
         "" +
-        "<model-viewer style='width: 100%; height: 350px;' id=\"model\" src='" +
+        "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
         "https://practiceucket.s3.us-east-2.amazonaws.com/Astronaut.glb" +
         "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
         "" +
@@ -29,7 +29,7 @@ class Viewer extends StatelessWidget {
         'edugo_model_viewer',
         (int viewId) => IFrameElement()
           ..width = '300'
-          ..height = "370"
+          ..height = "360"
           ..src =
               "data:text/html;charset=utf-8," + Uri.encodeComponent(modelview)
           ..style.border = 'none');
@@ -37,7 +37,7 @@ class Viewer extends StatelessWidget {
       textDirection: TextDirection.ltr,
       child: SizedBox(
           width: 300,
-          height: 370,
+          height: 360,
           child: HtmlElementView(viewType: 'edugo_model_viewer')),
     );
   }

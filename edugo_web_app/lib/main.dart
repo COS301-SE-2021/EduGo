@@ -1,9 +1,13 @@
-import 'package:edugo_web_app/src/Pages/Home/Home.dart';
+import 'package:edugo_web_app/src/Pages/Home/View/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momentum/momentum.dart';
 
 void main() {
-  runApp(MyApp());
+  Momentum(
+    controllers: [],
+    child: MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -1,8 +1,8 @@
-import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/CreateVirtualEntity.dart';
-import 'package:edugo_web_app/src/Pages/Home/Home.dart';
+import 'package:edugo_web_app/src/Pages/Home/View/Home.dart';
+import 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +14,7 @@ class SignInPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CreateVirtualEntity()),
+                      builder: (context) => CreateVirtualEntityView()),
                 );
               },
               child: Text("Sign In")),
