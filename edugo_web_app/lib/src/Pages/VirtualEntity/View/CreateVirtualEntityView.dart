@@ -19,7 +19,7 @@ class CreateVirtualEntityView extends StatefulWidget {
 
 class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
   bool modelVisible = false;
-  bool qrVisible = false;
+  bool qrVisible = true;
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,11 @@
 import 'package:edugo_web_app/src/Components/Components.dart';
 import 'package:edugo_web_app/src/Controller.dart';
 import 'package:edugo_web_app/src/Model.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/VirtualEntityButton.dart';
+import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/VirtualEntityWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:momentum/momentum.dart';
 
 class ViewVirtualEntityView extends StatelessWidget {
-  ViewVirtualEntityView();
   @override
   Widget build(BuildContext context) {
     return PageLayout(

@@ -19,14 +19,16 @@ class Home extends StatelessWidget {
               ]),
         ),
         child: SingleChildScrollView(
-          child: Column(children: <Widget>[
-            HomeNavigation(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
-              child: Content(),
-            ),
-            HomeFooter()
-          ]),
+          child: Column(
+            children: <Widget>[
+              HomeNavigation(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 60),
+                child: Content(),
+              ),
+              HomeFooter()
+            ],
+          ),
         ),
       ),
     );

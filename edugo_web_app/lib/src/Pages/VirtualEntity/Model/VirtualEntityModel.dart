@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/src/Controller.dart';
+
 import 'package:momentum/momentum.dart';
 
 class VirtualEntityModel extends MomentumModel<VirtualEntityController> {

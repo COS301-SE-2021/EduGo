@@ -1,6 +1,7 @@
 // * General Desktop Navigation applied on most of the pages inside the web app, for devices with bigger screens
 
 import 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';
+import 'package:edugo_web_app/src/View.dart';
 import 'package:flutter/material.dart';
 
 class DesktopNavBar extends StatelessWidget {
@@ -73,8 +74,7 @@ class DesktopNavBar extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    CreateVirtualEntityView()),
+                                builder: (context) => ViewVirtualEntityView()),
                           );
                         },
                       ),
@@ -105,8 +105,7 @@ class DesktopNavBar extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    CreateVirtualEntityView()),
+                                builder: (context) => VirtualEntityStoreView()),
                           );
                         },
                       ),
@@ -122,7 +121,7 @@ class DesktopNavBar extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    CreateVirtualEntityView()),
+                                    UpdateVirtualEntityView()),
                           );
                         },
                       ),

@@ -1,6 +1,5 @@
 import 'package:edugo_web_app/src/Components/Widgets/PageLayout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VirtualEntityStoreView extends StatefulWidget {
   @override

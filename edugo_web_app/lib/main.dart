@@ -5,11 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momentum/momentum.dart';
 
 void main() {
-  Momentum(
-    controllers: [
-      VirtualEntityController(),
-    ],
-    child: MyApp(),
+  runApp(
+    Momentum(
+      controllers: [
+        VirtualEntityController(),
+      ],
+      child: MyApp(),
+    ),
   );
 }
 
