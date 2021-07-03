@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+//Create Virtual Enitity Page
+//Todo : Create a virtual entity by giving it a name,description and a 3D Model
 class CreateVirtualEntity extends StatefulWidget {
   @override
   State<CreateVirtualEntity> createState() => _CreateVirtualEntityState();
@@ -11,6 +13,7 @@ class CreateVirtualEntity extends StatefulWidget {
 
 class _CreateVirtualEntityState extends State<CreateVirtualEntity> {
   bool modelVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return FocusWatcher(
