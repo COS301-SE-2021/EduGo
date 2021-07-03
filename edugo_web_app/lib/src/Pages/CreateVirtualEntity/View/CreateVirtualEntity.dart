@@ -1,5 +1,5 @@
-// Create Virtual Enitity Page
-// Todo : Create a virtual entity by giving it a name,description and a 3D Model
+//* Create Virtual Enitity Page
+//  Todo : Create a virtual entity by giving it a name,description and a 3D Model
 
 import 'package:edugo_web_app/src/Components/Widgets/PageLayout.dart';
 import 'package:edugo_web_app/src/Components/Widgets/Viewer.dart';

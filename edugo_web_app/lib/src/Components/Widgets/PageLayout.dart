@@ -1,3 +1,5 @@
+// * General Page Layout applied on most of the pages inside the web app
+
 import 'package:edugo_web_app/src/Components/Navigation/NavBar.dart';
 import 'package:flutter/material.dart';
 

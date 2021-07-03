@@ -1,3 +1,5 @@
+// * General Desktop Navigation applied on most of the pages inside the web app, for devices with bigger screens
+
 import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/CreateVirtualEntity.dart';
 import 'package:flutter/material.dart';
 

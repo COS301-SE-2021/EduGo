@@ -1,3 +1,5 @@
+// * Custom built 3D Model viewer, for rendering 3D models in the web app
+
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 import 'package:flutter/material.dart';

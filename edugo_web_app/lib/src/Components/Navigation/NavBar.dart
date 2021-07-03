@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+// * Navigation builder for the web app
 
+import 'package:flutter/material.dart';
 import 'DesktopNavBar.dart';
 import 'TabletNavBar.dart';
 
