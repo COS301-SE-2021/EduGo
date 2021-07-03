@@ -6,8 +6,8 @@ class SubjectCard extends StatelessWidget {
   // SubjectCard({
   final String title;
   final String grade;
-  final String description;
-  SubjectCard({this.title, this.grade, this.description}) {}
+  //final String description;
+  SubjectCard({this.title, this.grade}) {}
 
   @override
   Widget build(BuildContext context) {
@@ -55,19 +55,19 @@ class SubjectCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Description: ' + "$description",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(16.0),
+              //     child: Text(
+              //       'Description: ' + "$description",
+              //       style: TextStyle(
+              //           fontSize: 20,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.white),
+              //     ),
+              //   ),
+              // ),
               Row(
                 children: [
                   Align(

@@ -80,17 +80,28 @@ class _SubjectsPageState extends State<SubjectsPage> {
         body: {'educatorId': '3'});
   }
 
-  Widget getTextWidgets(List<Subject> strings) {
-    return new Row(
-        children: strings
-            .map((item) => new Container(
-                  child: SubjectCard(
-                    title: item.title,
-                    grade: item.grade.toString(),
-                    description: item.description,
-                  ),
-                ))
-            .toList());
+  List<Widget> getEntities(List<Subject> subjectList) {
+    if (subjectList != null && subjectList.isNotEmpty) {
+      return subjectList
+          .map((subject) => new Container(
+                child: SubjectCard(
+                  title: subject.title,
+                  grade: subject.grade.toString(),
+                ),
+              ))
+          .toList();
+    } else {
+      List<Widget> subjects = <Widget>[];
+      subjects.add(
+        new Container(
+          child: SubjectCard(
+            title: "There are no subjects to display",
+            grade: '',
+          ),
+        ),
+      );
+      return subjects;
+    }
   }
 
   @override
@@ -173,13 +184,35 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  // Container(
+                  //   height: MediaQuery.of(context).size.height - 100,
+                  //   child: ListView(
+                  //     padding: EdgeInsets.symmetric(vertical: 60),
+                  //     shrinkWrap: true,
+                  //     scrollDirection: Axis.horizontal,
+                  //     children: <Widget>[getTextWidgets(subjectsmodel.data)],
+                  //   ),
+                  // ),
                   Container(
                     height: MediaQuery.of(context).size.height - 100,
-                    child: ListView(
-                      padding: EdgeInsets.symmetric(vertical: 60),
+                    //   decoration: BoxDecoration(
+                    //     border: Border.all(
+                    //       //color: Colors.red,
+                    //       //width: 1,
+                    //       style: BorderStyle.solid,
+                    //     ),
+                    //   ),
+                    // ),
+                    padding: EdgeInsets.only(top: 75),
+                    child: GridView.count(
+                      primary: false,
+                      padding: const EdgeInsets.all(20),
+                      crossAxisSpacing: 30,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      children: <Widget>[getTextWidgets(subjectsmodel.data)],
+                      mainAxisSpacing: 20,
+                      crossAxisCount: 2,
+                      children: getEntities(subjectsmodel.data),
                     ),
                   ),
                 ],
