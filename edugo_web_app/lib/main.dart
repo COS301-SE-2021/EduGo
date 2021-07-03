@@ -1,11 +1,14 @@
-import 'package:edugo_web_app/src/Pages/Home/View/Home.dart';
+import 'package:edugo_web_app/src/Controller.dart';
+import 'package:edugo_web_app/src/View.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momentum/momentum.dart';
 
 void main() {
   Momentum(
-    controllers: [],
+    controllers: [
+      VirtualEntityController(),
+    ],
     child: MyApp(),
   );
 }
