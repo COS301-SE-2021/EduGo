@@ -1,71 +1,110 @@
 import { ApiResponse } from "../../models/apiResponse";
 import { Lesson } from "../../database/entity/Lesson";
-import { Any, createConnection, getConnection } from "typeorm";
+import { Any, createConnection, getConnection, getRepository } from "typeorm";
 import { Subject } from "../../database/entity/Subject";
 import { Educator } from "../../database/entity/Educator";
 import { Student } from "../../database/entity/Student";
+import { User } from "../../database/entity/User";
 import utils from "../lib/utils";
 import { RegisterRequest } from "../models/RegisterRequest";
+import { LoginRequest } from "../models/LoginRequest";
 
 let statusRes: any = {
 	message: "",
 	type: "fail",
-	token: null,
+	token: undefined,
 };
 
 export async function register(request: RegisterRequest) {
-	let conn = getConnection();
-	// registration for a student
-	if (request.userType.toLowerCase() == "educator") {
-		let user = new Educator();
-		user.email = request.email;
+	// Check if parameters are set
+	if (
+		request.email == null ||
+		request.firstName == null ||
+		request.lastName == null ||
+		request.username == null ||
+		request.organizationId == null ||
+		request.userType == null
+	) {
+		statusRes.message = "Missing Parameters";
+		statusRes.type = "success";
+		return statusRes;
+	}
+
+	let userRepo = getRepository(User);
+	//Check if user exists with specified username and email address
+	let emailExists = await userRepo.findOne({
+		where: { email: request.email },
+	});
+	let usernameExists = await userRepo.findOne({
+		where: { username: request.username },
+	});
+
+	// username and password don't exist and contiue to registering user
+	if (!emailExists && !usernameExists) {
+		let user = new User();
+		user.email = request.email.toLowerCase();
 		user.firstName = request.firstName;
 		user.lastName = request.lastName;
-		user.username = request.username;
+		user.username = request.username.toLowerCase();
 		user.organizationId = request.organizationId;
 		user.verified = false;
 		const saltHAsh = utils.genPassword(request.password);
 		user.salt = saltHAsh.salt;
 		user.hash = saltHAsh.hash;
+		user.isAdmin = false;
+		user.type = request.userType;
 
-		user.admin = false;
-		let userRepo = conn.getRepository(Educator);
+		return userRepo
+			.save(user)
+			.then((result) => {
+				statusRes.message = "User registered";
+				statusRes.type = "fail";
+				return statusRes;
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	} else {
+		emailExists
+			? (statusRes.message = "Email provided already exists")
+			: (statusRes.message = "Username Provided already exists");
+		statusRes.type = "fail";
+		return statusRes;
+	}
+	// registration for a student
+}
 
-		return userRepo.save(user).then((result) => {
-			let isValid = utils.validPassword(
+export async function login(request: LoginRequest) {
+	let UserRepo = getRepository(User);
+
+	// Find user with given Username
+	return UserRepo.findOne({ where: { username: request.username } })
+		.then((user) => {
+			if (!user) {
+				statusRes.message = "User doesn't exist";
+				return statusRes;
+			}
+
+			// validate password of user
+			let isvalid = utils.validPassword(
 				request.password,
 				user.hash,
 				user.salt
 			);
-			if (isValid) {
-				statusRes.token = utils.issueJWT(user);
-				statusRes.message = "Educator registered";
+
+			if (isvalid) {
+				// issue jwt token for the user
+
+				statusRes.token = utils.issueJWT(user.id).token;
+				statusRes.message = "User Logged in";
 				statusRes.type = "success";
+				return statusRes;
+			} else {
+				statusRes.message = "Password is invalid";
+				return statusRes;
 			}
-
-			return statusRes;
+		})
+		.catch((err) => {
+			console.log(err);
 		});
-	} else {
-		// registration for an educator
-		let user = new Student();
-		user.email = request.email;
-		user.firstName = request.firstName;
-		user.lastName = request.lastName;
-		user.username = request.username;
-		user.organizationId = request.organizationId;
-		user.verified = false;
-		const saltHAsh = utils.genPassword(request.password);
-		user.salt = saltHAsh.salt;
-		user.hash = saltHAsh.hash;
-
-		let userRepo = conn.getRepository(Student);
-
-		return userRepo.save(user).then((result) => {
-			statusRes.message = "Student registered";
-			statusRes.type = "success";
-			return statusRes;
-		});
-	}
 }
-
-export async function login() {}

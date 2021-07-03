@@ -19,20 +19,20 @@ const options = {
 module.exports = (passport: any) => {
 	// The JWT payload is passed into the verify callback
 	passport.use(
-		new JwtStrategy(options, function (jwt_payload: any) {
-			console.log(jwt_payload);
+		new JwtStrategy(options, (payload: any, done: any) => {
+			console.log(payload);
 			let conn = getConnection();
 			let UserRepo = conn.getRepository(User);
 			// We will assign the `sub` property on the JWT to the database ID of user
-			UserRepo.findOne(jwt_payload.sub)
+			UserRepo.findOne(payload.sub)
 				.then((user) => {
 					if (user) {
-						return user;
-					} else return null;
+						return done(null, user);
+					} else done(null, false);
 				})
-				.catch((err) => {
-					return err;
-				});
+				.catch((err) => done(err, null));
 		})
 	);
+
+	
 };
