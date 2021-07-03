@@ -74,10 +74,9 @@ class _SubjectsPageState extends State<SubjectsPage> {
 
   Future<http.Response> getRequest() async {
     final url = Uri.parse('$urlPrefix');
-    // var response = await
     return http.post(url,
         headers: {'contentType': 'application/json'},
-        body: {'educatorId': '3'});
+        body: {'educatorId': '10'});
   }
 
   List<Widget> getEntities(List<Subject> subjectList) {
@@ -96,11 +95,20 @@ class _SubjectsPageState extends State<SubjectsPage> {
         new Container(
           child: SubjectCard(
             title: "There are no subjects to display",
-            grade: '',
+            //grade: '',
           ),
         ),
       );
       return subjects;
+      // List<Subject> newList = <Subject>[];
+      // return newList
+      //     .map((subject) => new Container(
+      //           child: SubjectCard(
+      //             title: 'There are no subjects.',
+      //             //grade: subject.grade.toString(),
+      //           ),
+      //         ))
+      //     .toList();
     }
   }
 
@@ -123,8 +131,6 @@ class _SubjectsPageState extends State<SubjectsPage> {
             height: MediaQuery.of(context).size.height - 100,
             decoration: BoxDecoration(
               border: Border.all(
-                //color: Colors.red,
-                //width: 1,
                 style: BorderStyle.solid,
               ),
             ),
@@ -184,34 +190,19 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // Container(
-                  //   height: MediaQuery.of(context).size.height - 100,
-                  //   child: ListView(
-                  //     padding: EdgeInsets.symmetric(vertical: 60),
-                  //     shrinkWrap: true,
-                  //     scrollDirection: Axis.horizontal,
-                  //     children: <Widget>[getTextWidgets(subjectsmodel.data)],
-                  //   ),
-                  // ),
                   Container(
-                    height: MediaQuery.of(context).size.height - 100,
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(
-                    //       //color: Colors.red,
-                    //       //width: 1,
-                    //       style: BorderStyle.solid,
-                    //     ),
-                    //   ),
-                    // ),
+                    height: MediaQuery.of(context).size.height - 200,
                     padding: EdgeInsets.only(top: 75),
                     child: GridView.count(
+                      childAspectRatio:
+                          MediaQuery.of(context).size.height / 1000,
                       primary: false,
                       padding: const EdgeInsets.all(20),
                       crossAxisSpacing: 30,
                       shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
+                      scrollDirection: Axis.vertical,
                       mainAxisSpacing: 20,
-                      crossAxisCount: 2,
+                      crossAxisCount: 4,
                       children: getEntities(subjectsmodel.data),
                     ),
                   ),

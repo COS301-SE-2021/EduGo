@@ -1,10 +1,7 @@
 import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoContainer.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoPage.dart';
-//import 'package:edugo_web_app/ui/widgets/input_fields/EduGoInput.dart';
-//import 'package:edugo_web_app/ui/widgets/input_fields/EduGoMultiLineInput.dart';
 import 'package:flutter/material.dart';
-//import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -71,9 +68,6 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                           child: Column(
                             children: <Widget>[
                               SizedBox(height: 25),
-                              // EduGoInput(
-                              //     hintText: "Enter the subject name",
-                              //     width: 450),
                               SizedBox(
                                   width: 450,
                                   child: TextField(
@@ -91,9 +85,6 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                         hintText: 'Enter the subject name'),
                                   )),
                               SizedBox(height: 20),
-                              // EduGoInput(
-                              //     hintText: "Enter the subject grade",
-                              //     width: 450),
                               SizedBox(
                                   width: 450,
                                   child: TextField(
@@ -111,10 +102,6 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                                         hintText: 'Enter the subject grade'),
                                   )),
                               SizedBox(height: 25),
-                              // EduGoMultiLineInput(
-                              //     hintText: "Enter the subject description",
-                              //     maxLines: 4,
-                              //     width: 450),
                               SizedBox(
                                 width: 450,
                                 child: TextField(
@@ -200,7 +187,6 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                       SizedBox(width: 100),
                       Container(
                         height: MediaQuery.of(context).size.height - 420,
-                        //height: 600,
                         width: 400,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -216,7 +202,6 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
                           ),
                         ),
                         child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Icon(
                               Icons.add_a_photo_outlined,

@@ -112,20 +112,17 @@ class EditSubjectPage extends StatelessWidget {
                                           text: "  Subject ",
                                           style: TextStyle(
                                               color: Colors.black,
-                                              //fontWeight: FontWeight.bold,
                                               fontSize: 30),
                                         ),
                                         TextSpan(
                                             text: "Gra",
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                //fontWeight: FontWeight.bold,
                                                 fontSize: 30)),
                                         TextSpan(
                                             text: "de",
                                             style: TextStyle(
                                                 color: Colors.green,
-                                                //fontWeight: FontWeight.bold,
                                                 fontSize: 30)),
                                       ],
                                     ),
@@ -229,14 +226,7 @@ class EditSubjectPage extends StatelessWidget {
                                 SizedBox(height: 20),
                                 Align(
                                   alignment: Alignment.center,
-                                  child: EduGoInput(
-                                      // hintText:
-                                      //     "Add a new photo for the subject.",
-                                      // width: 450
-                                      //     DropzoneView(
-                                      //   onDrop:
-                                      // ),
-                                      ),
+                                  child: EduGoInput(),
                                 )
                               ],
                             ),
@@ -299,7 +289,6 @@ class EditSubjectPage extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => SubjectsPage()),
-                                      //add code here for edit in the database
                                     );
                                   },
                                   minWidth: 50,
