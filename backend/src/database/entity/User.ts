@@ -43,4 +43,11 @@ export class User {
 	@ManyToMany(type => Subject, subjectManaging => subjectManaging.educators)
 	@JoinTable()
 	subjectsManaging: Subject[];
+
+	@Column()
+	isAdmin: boolean;
+
+	@Column()
+	type: string;
+
 }
