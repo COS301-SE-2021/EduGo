@@ -1,0 +1,1 @@
+// * This file will export all the views defined in the different pages
