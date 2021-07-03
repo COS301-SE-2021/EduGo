@@ -12,19 +12,14 @@ import { EmailError } from "../../exceptions/EmailError";
 import { EmailService } from "../../email/EmailService";
 import { MailgunEmailService } from "../../email/MailgunEmailService";
 import { VerificationEmail } from "../../email/models/VerificationEmail";
-let statusRes: ApiResponse = {
-	message: "",
-	type: "fail",
-};
+import { EmailList } from '../models/SerivceModels';
+import { AddedToSubjectEmail } from "../../email/models/AddedToSubjectEmail";
+import { Subject } from "../../database/entity/Subject";
 
 // To Do
 //export async function makeUserAdmin(request: RegisterRequest) {}
 
-interface EmailList {
-	verified: string[];
-	unverified: string[];
-	nonexistent: string[];
-}
+
 
 export class UserService {
 	emailService: EmailService;
@@ -41,19 +36,51 @@ export class UserService {
 				console.log('Email List')
 				console.log(emailList);
 
-				let nonExistentUsers: UnverifiedUser[] = emailList.nonexistent.map(value => {
+				let nonExistingUsers: UnverifiedUser[] = emailList.nonexistent.map(value => {
 					let user: UnverifiedUser = new UnverifiedUser();
 					user.email = value;
 					user.verificationCode = this.generateCode(5);
 					return user;
 				})
 
-				this.sendVerificationEmails(nonExistentUsers).then(emailsSent => {
+				this.sendVerificationEmails(nonExistingUsers).then(emailsSent => {
 					if (!emailsSent)
 						throw new EmailError('Not all the emails were sent');
 
-					getRepository(UnverifiedUser).save(nonExistentUsers).then(savedUsers => {
+					getRepository(UnverifiedUser).save(nonExistingUsers).then(savedUsers => {
 						console.log(`${savedUsers.length} users saved`);
+					})
+				})
+
+				this.GetUnverifiedUsersWithVerificationCodes(emailList.unverified).then(users => {
+					this.SendReminderEmails(users).then(emailsSent => {
+						if (!emailsSent)
+							throw new EmailError('Not all the emails were sent');
+					})
+				})
+
+				this.GetUsersFromEmails(emailList.verified).then(users => {
+					getRepository(Subject).findOne(request.subject_id).then(subject => {
+						if (subject) {
+							subject.students.push(...users);
+
+							//TODO: Review this
+							getRepository(Subject).save(subject)
+
+							let verifiedUsers: AddedToSubjectEmail[] = users.map(value => {
+								let email: AddedToSubjectEmail = {
+									email: value.email,
+									name: value.firstName,
+									subject: subject.title
+								}
+								return email;
+							});
+							this.SendAddedToSubjectEmails(verifiedUsers).then(emailsSent => {
+								if (!emailsSent)
+									throw new EmailError('Not all the emails were sent');
+							})
+						}
+						else throw new Error('Subject could not be found')
 					})
 				})
 			});
@@ -63,6 +90,15 @@ export class UserService {
 	private async sendVerificationEmails(users: UnverifiedUser[]): Promise<boolean> {
 		let emails: VerificationEmail[] = users.map(value => {return {code: value.verificationCode, email: value.email}})
 		return this.emailService.SendBulkVerificationEmails(emails);
+	}
+
+	private async SendReminderEmails(users: UnverifiedUser[]): Promise<boolean> {
+		let emails: VerificationEmail[] = users.map(value => {return {code: value.verificationCode, email: value.email}})
+		return this.emailService.SendBulkVerificationReminderEmails(emails);
+	}
+
+	private async SendAddedToSubjectEmails(users: AddedToSubjectEmail[]): Promise<boolean> {
+		throw new Error('')
 	}
 
 	private generateCode(length: number): string {
@@ -89,13 +125,22 @@ export class UserService {
 				//Get the emails of all the unverified users
 				let existingUnverifiedUserEmails: string[] = unverifiedUserResult.map(value => value.email);
 
-				let nonExistentUsers: string[] = remainingEmails.filter(value => !existingUnverifiedUserEmails.includes(value))
+				let nonExistingUsers: string[] = remainingEmails.filter(value => !existingUnverifiedUserEmails.includes(value))
 				return {
 					verified: existingVerifiedUserEmails,
 					unverified: existingUnverifiedUserEmails,
-					nonexistent: nonExistentUsers
+					nonexistent: nonExistingUsers
 				}
 			})
 		})
 	}
+
+	private async GetUnverifiedUsersWithVerificationCodes(emails: string[]): Promise<UnverifiedUser[]> {
+		return getRepository(UnverifiedUser).find({email: In(emails)}).then(users => users);
+	}
+
+	private async GetUsersFromEmails(emails: string[]): Promise<User[]> {
+		return getRepository(User).find({email: In(emails)}).then(users => users);
+	}
+
 }
