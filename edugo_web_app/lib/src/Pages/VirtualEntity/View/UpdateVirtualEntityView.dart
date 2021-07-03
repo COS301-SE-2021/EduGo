@@ -1,5 +1,6 @@
 import 'package:edugo_web_app/src/Components/Widgets/PageLayout.dart';
 import 'package:edugo_web_app/src/Components/Widgets/Viewer.dart';
+import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/VirtualEntityWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,7 +25,11 @@ class UpdateVirtualEntityView extends StatelessWidget {
               Spacer(),
               Align(
                 alignment: Alignment.topRight,
-                child: makeButton("Delete Entity", () {}, 200, 50),
+                child: VirtualEntityButton(
+                    text: "Delete Entity",
+                    onPressed: () {},
+                    width: 200,
+                    height: 50),
               ),
             ],
           ),
@@ -43,7 +48,9 @@ class UpdateVirtualEntityView extends StatelessWidget {
                     child: Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        child: getInputBox())),
+                        child: VirtualEntityInputBox(
+                          text: "Entity Name...",
+                        ))),
                 SizedBox(
                   height: 30,
                 ),
@@ -53,7 +60,9 @@ class UpdateVirtualEntityView extends StatelessWidget {
                   child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      child: getMultiLineInputBox()),
+                      child: VirtualEntityMultiLine(
+                        text: "Description",
+                      )),
                 ),
                 SizedBox(
                   height: 30,
@@ -70,11 +79,19 @@ class UpdateVirtualEntityView extends StatelessWidget {
                           Spacer(),
                           Column(
                             children: [
-                              makeButton("Change 3D Model", () {}, 400, 65),
+                              VirtualEntityButton(
+                                  text: "Change 3D Model",
+                                  onPressed: () {},
+                                  width: 400,
+                                  height: 65),
                               SizedBox(
                                 height: 60,
                               ),
-                              makeButton("Print Marker", () {}, 400, 65)
+                              VirtualEntityButton(
+                                  text: "Print Marker",
+                                  onPressed: () {},
+                                  width: 400,
+                                  height: 65)
                             ],
                           )
                         ]),
@@ -83,7 +100,11 @@ class UpdateVirtualEntityView extends StatelessWidget {
                 SizedBox(
                   height: 50,
                 ),
-                makeButton("Update Virtual Entity", () {}, 400, 65),
+                VirtualEntityButton(
+                    text: "Update Virtual Entity",
+                    onPressed: () {},
+                    width: 400,
+                    height: 65),
               ],
             ),
           ),
@@ -91,65 +112,4 @@ class UpdateVirtualEntityView extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget makeButton(String text, Function onPressed, var width, var height) {
-  return MaterialButton(
-    elevation: 20,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-    onPressed: onPressed,
-    minWidth: ScreenUtil().setWidth(width),
-    height: height,
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-    color: Color.fromARGB(255, 97, 211, 87),
-    disabledColor: Color.fromRGBO(211, 212, 217, 1),
-  );
-}
-
-Widget getInputBox() {
-  return SizedBox(
-    width: 370,
-    height: 60,
-    child: TextField(
-      cursorColor: Color.fromARGB(255, 97, 211, 87),
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-              color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
-        ),
-        border: OutlineInputBorder(),
-        hintStyle: TextStyle(fontSize: 20),
-        hintText: "Enter entity name...",
-      ),
-    ),
-  );
-}
-
-Widget getMultiLineInputBox() {
-  return SizedBox(
-    width: 370,
-    child: TextField(
-      cursorColor: Color.fromARGB(255, 97, 211, 87),
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-              color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
-        ),
-        border: OutlineInputBorder(),
-        hintText: "Entity description...",
-        hintStyle: TextStyle(fontSize: 20),
-      ),
-      keyboardType: TextInputType.multiline,
-      maxLines: 5,
-    ),
-  );
 }

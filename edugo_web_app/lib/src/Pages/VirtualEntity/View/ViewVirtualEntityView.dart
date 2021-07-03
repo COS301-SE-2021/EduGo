@@ -1,7 +1,9 @@
-import 'package:edugo_web_app/src/Components/Widgets/PageLayout.dart';
-import 'package:edugo_web_app/src/Components/Widgets/Viewer.dart';
+import 'package:edugo_web_app/src/Components/Components.dart';
+import 'package:edugo_web_app/src/Controller.dart';
+import 'package:edugo_web_app/src/Model.dart';
+import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/VirtualEntityButton.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:momentum/momentum.dart';
 
 class ViewVirtualEntityView extends StatelessWidget {
   ViewVirtualEntityView();
@@ -14,11 +16,14 @@ class ViewVirtualEntityView extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                  "Mish the skeleton",
-                  style: TextStyle(
-                    fontSize: 32,
-                  ),
+                child: MomentumBuilder(
+                  controllers: [VirtualEntityController],
+                  builder: (context, snapshot) {
+                    var counter = snapshot<VirtualEntityModel>();
+                    return Text(
+                      '${counter.virtualEntityName}',
+                    );
+                  },
                 ),
               ),
             ],
@@ -41,11 +46,20 @@ class ViewVirtualEntityView extends StatelessWidget {
                         Spacer(),
                         Column(
                           children: [
-                            Text("Entiy Description"),
+                            Text("Entity Description"),
                             SizedBox(
                               height: 200,
                             ),
-                            makeButton("Add Entity to Lesson", () {}, 300, 65),
+                            VirtualEntityButton(
+                                text: "Add Entity to Lesson",
+                                onPressed: () {
+                                  Momentum.controller<VirtualEntityController>(
+                                          context)
+                                      .updateVirtualEntityName(
+                                          "Noah the Star!!!");
+                                },
+                                width: 300,
+                                height: 65),
                           ],
                         ),
                       ],
@@ -59,65 +73,4 @@ class ViewVirtualEntityView extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget makeButton(String text, Function onPressed, var width, var height) {
-  return MaterialButton(
-    elevation: 20,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-    onPressed: onPressed,
-    minWidth: ScreenUtil().setWidth(width),
-    height: height,
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-    color: Color.fromARGB(255, 97, 211, 87),
-    disabledColor: Color.fromRGBO(211, 212, 217, 1),
-  );
-}
-
-Widget getInputBox() {
-  return SizedBox(
-    width: 370,
-    height: 60,
-    child: TextField(
-      cursorColor: Color.fromARGB(255, 97, 211, 87),
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-              color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
-        ),
-        border: OutlineInputBorder(),
-        hintStyle: TextStyle(fontSize: 20),
-        hintText: "Enter entity name...",
-      ),
-    ),
-  );
-}
-
-Widget getMultiLineInputBox() {
-  return SizedBox(
-    width: 370,
-    child: TextField(
-      cursorColor: Color.fromARGB(255, 97, 211, 87),
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-              color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
-        ),
-        border: OutlineInputBorder(),
-        hintText: "Entity description...",
-        hintStyle: TextStyle(fontSize: 20),
-      ),
-      keyboardType: TextInputType.multiline,
-      maxLines: 5,
-    ),
-  );
 }

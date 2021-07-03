@@ -40,27 +40,6 @@ class _VirtualEntityStoreViewState extends State<VirtualEntityStoreView> {
   }
 }
 
-Widget makeButton(String text, Function onPressed, var width, var height) {
-  return MaterialButton(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(
-        Radius.circular(10),
-      ),
-    ),
-    onPressed: onPressed,
-    minWidth: ScreenUtil().setWidth(width),
-    height: height,
-    child: Text(
-      text,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-    color: Color.fromARGB(255, 97, 211, 87),
-    disabledColor: Color.fromRGBO(211, 212, 217, 1),
-  );
-}
-
 List<Widget> getEntities() {
   List<Widget> enitites = <Widget>[];
   for (int i = 0; i < 12; i++) {
