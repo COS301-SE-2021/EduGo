@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Organisation } from "./Organisation";
+import { Subject } from "./Subject";
 
 @Entity()
 export class UnverifiedUser {
@@ -13,4 +15,11 @@ export class UnverifiedUser {
 
     @CreateDateColumn()
     createdDate: Date;
+
+    @ManyToOne(type => Organisation, organisation => organisation.unverifiedUsers, {cascade: true})
+    organisation: Organisation;
+
+    @ManyToMany(type => Subject, subject => subject.unverifiedUsers)
+    @JoinTable()
+    subjects: Subject[];
 }

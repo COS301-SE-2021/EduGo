@@ -9,7 +9,9 @@ import {
 } from "typeorm";
 import { Lesson } from "./Lesson";
 import { Organisation } from "./Organisation";
-import { User } from "./User";
+import { Student } from "./Student";
+import { UnverifiedUser } from "./UnverifiedUser";
+
 @Entity()
 export class Subject {
   @PrimaryGeneratedColumn()
@@ -19,13 +21,7 @@ export class Subject {
   title: string;
 
   @Column()
-  description: string;
-
-  @Column({nullable: true})
   grade: number;
-
-  @Column()
-  educatorId: number;
 
   @OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true })
   @JoinColumn()
@@ -35,9 +31,12 @@ export class Subject {
   @JoinColumn()
   organisation: Organisation;
 
-  @ManyToMany(type => User, student => student.subjectsEnrolled, {cascade: true})
-  students: User[];
+  @ManyToMany(type => Student, student => student.subjects, {cascade: true})
+  students: Student[];
 
-  @ManyToMany(type => User, educator => educator.subjectsManaging, {cascade: true})
-  educators: User[];
+  @ManyToMany(type => Student, educator => educator.subjects, {cascade: true})
+  educators: Student[];
+
+  @ManyToMany(type => UnverifiedUser, unverifiedUser => unverifiedUser.subjects)
+  unverifiedUsers: UnverifiedUser[];
 }
