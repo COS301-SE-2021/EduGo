@@ -4,33 +4,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:momentum/momentum.dart';
 
 class VirtualEntityModel extends MomentumModel<VirtualEntityController> {
-  final int value;
   final String virtualEntityName;
+  final String virtualEntity3DModelLink;
   final List<Widget> virtualEntityStore;
   VirtualEntityModel(VirtualEntityController controller,
-      {this.value, this.virtualEntityName, this.virtualEntityStore})
+      {this.virtualEntityName,
+      this.virtualEntityStore,
+      this.virtualEntity3DModelLink})
       : super(controller);
 
   @override
   void update({
-    int value,
+    String virtualEntityName,
+    String virtualEntity3DModelLink,
+    List<Widget> virtualEntityStore,
   }) {
-    VirtualEntityModel(
-      controller,
-      value: value ?? this.value,
-    ).updateMomentum();
+    VirtualEntityModel(controller,
+            virtualEntityName: virtualEntityName ?? this.virtualEntityName,
+            virtualEntity3DModelLink:
+                virtualEntity3DModelLink ?? this.virtualEntity3DModelLink,
+            virtualEntityStore: virtualEntityStore ?? this.virtualEntityStore)
+        .updateMomentum();
   }
 
   void updateVirtualEntityName({String virtualEntityName}) {
-    VirtualEntityModel(controller,
-            virtualEntityName: virtualEntityName ?? this.virtualEntityName)
-        .updateMomentum();
+    update(virtualEntityName: virtualEntityName);
   }
 
   void updateVirtualEntityStore({List<Widget> virtualEntities}) {
-    VirtualEntityModel(controller,
-            virtualEntityName: virtualEntityName,
-            virtualEntityStore: virtualEntities ?? this.virtualEntityStore)
-        .updateMomentum();
+    update(virtualEntityStore: virtualEntities);
+  }
+
+  void updateVirtualEntity3DModelLink({String virtualEntity3DModelLink}) {
+    update(virtualEntity3DModelLink: virtualEntity3DModelLink);
   }
 }
