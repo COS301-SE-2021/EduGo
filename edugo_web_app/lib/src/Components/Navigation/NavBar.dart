@@ -1,6 +1,6 @@
 // * Navigation builder for the web app
 
-import 'package:flutter/material.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'DesktopNavBar.dart';
 import 'TabletNavBar.dart';
 

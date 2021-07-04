@@ -1,8 +1,6 @@
 // * General Desktop Navigation applied on most of the pages inside the web app, for devices with bigger screens
 
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';
-import 'package:edugo_web_app/src/View.dart';
-import 'package:flutter/material.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class DesktopNavBar extends StatelessWidget {
   @override
@@ -49,6 +47,9 @@ class DesktopNavBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Column(children: <Widget>[
+                    //*
+                    //* Subjects Icon
+                    //*
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
@@ -58,13 +59,15 @@ class DesktopNavBar extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    CreateVirtualEntityView()),
+                                builder: (context) => SubjectsView()),
                           );
                         },
                       ),
                     ),
                     SizedBox(height: 30),
+                    //*
+                    //* Lessons Icon
+                    //*
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
@@ -74,12 +77,15 @@ class DesktopNavBar extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ViewVirtualEntityView()),
+                                builder: (context) => LessonsView()),
                           );
                         },
                       ),
                     ),
                     SizedBox(height: 30),
+                    //*
+                    //* Create VirtualEntity Icon
+                    //*
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
@@ -96,6 +102,9 @@ class DesktopNavBar extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 30),
+                    //*
+                    //* Virtual Entity Store Icon
+                    //*
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
@@ -111,22 +120,28 @@ class DesktopNavBar extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 30),
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        child: Icon(Icons.school_outlined,
-                            size: 30, color: Colors.white),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    UpdateVirtualEntityView()),
-                          );
-                        },
-                      ),
-                    )
+                    //*
+                    //* Grades Icon
+                    //*
+                    // MouseRegion(
+                    //   cursor: SystemMouseCursors.click,
+                    //   child: GestureDetector(
+                    //     child: Icon(Icons.school_outlined,
+                    //         size: 30, color: Colors.white),
+                    //     onTap: () {
+                    //       Navigator.push(
+                    //         context,
+                    //         MaterialPageRoute(
+                    //             builder: (context) =>
+                    //                 UpdateVirtualEntityView()),
+                    //       );
+                    //     },
+                    //   ),
+                    // )
                   ]),
+                  //*
+                  //* Settings Icon
+                  //*
                   MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(

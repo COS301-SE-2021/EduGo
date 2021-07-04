@@ -1,6 +1,4 @@
-import 'package:edugo_web_app/src/Pages/Home/View/Home.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';
-import 'package:flutter/material.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class SignInView extends StatelessWidget {
   @override

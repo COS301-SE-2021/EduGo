@@ -2,9 +2,13 @@
 
 // * Lesson View Exports
 export 'package:edugo_web_app/src/Pages/Lesson/View/CreateLessonView.dart';
+export 'package:edugo_web_app/src/Pages/Lesson/View/LessonsView.dart';
+export 'package:edugo_web_app/src/Pages/Lesson/View/UpdateLessonView.dart';
 
 // * Subject View Exports
 export 'package:edugo_web_app/src/Pages/Subject/View/CreateSubjectView.dart';
+export 'package:edugo_web_app/src/Pages/Subject/View/SubjectsView.dart';
+export 'package:edugo_web_app/src/Pages/Subject/View/UpdateSubjectView.dart';
 
 // * Virtual Entity View Exports
 export 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';

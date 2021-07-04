@@ -1,8 +1,4 @@
-import 'package:edugo_web_app/src/Pages/Home/View/Components/Footer/HomeFooter.dart';
-import 'package:edugo_web_app/src/Pages/Home/View/Components/Navigation/HomeNavigation.dart';
-import 'package:flutter/material.dart';
-
-import 'Components/Content.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class Home extends StatelessWidget {
   @override

@@ -1,57 +1,46 @@
-import 'package:edugo_web_app/src/Components/Widgets/PageLayout.dart';
-import 'package:flutter/material.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class VirtualEntityStoreView extends StatefulWidget {
-  @override
-  State<VirtualEntityStoreView> createState() => _VirtualEntityStoreViewState();
-}
+class VirtualEntityStoreView extends StatelessWidget {
+  const VirtualEntityStoreView({Key key}) : super(key: key);
 
-class _VirtualEntityStoreViewState extends State<VirtualEntityStoreView> {
   @override
   Widget build(BuildContext context) {
-    return PageLayout(
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Text(
-              "Virtual Entity Store",
-              style: TextStyle(
-                fontSize: 32,
+    //* Controller loading virtual entities on build on the VirtualEntityStoreView
+    Momentum.controller<VirtualEntityController>(context)
+        .getVirtualEntities(context);
+    //*
+    return MomentumBuilder(
+      controllers: [VirtualEntityController],
+      builder: (context, snapshot) {
+        var entity = snapshot<VirtualEntityModel>();
+        return PageLayout(
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  "Virtual Entity Store",
+                  style: TextStyle(
+                    fontSize: 32,
+                  ),
+                ),
               ),
-            ),
+              Container(
+                padding: EdgeInsets.only(top: 75),
+                child: GridView.count(
+                  primary: false,
+                  padding: const EdgeInsets.only(
+                      right: 30, left: 30, top: 30, bottom: 50),
+                  crossAxisSpacing: 40,
+                  mainAxisSpacing: 40,
+                  crossAxisCount: 4,
+                  children: entity.virtualEntityStore,
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding: EdgeInsets.only(top: 75),
-            child: GridView.count(
-              primary: false,
-              padding: const EdgeInsets.only(
-                  right: 30, left: 30, top: 30, bottom: 50),
-              crossAxisSpacing: 40,
-              mainAxisSpacing: 40,
-              crossAxisCount: 4,
-              children: getEntities(),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
-}
-
-List<Widget> getEntities() {
-  List<Widget> enitites = <Widget>[];
-  for (int i = 0; i < 12; i++) {
-    enitites.add(
-      Material(
-        borderRadius: BorderRadius.circular(10),
-        elevation: 40,
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          child: const Text('Revolution, they...'),
-        ),
-      ),
-    );
-  }
-  return enitites;
 }

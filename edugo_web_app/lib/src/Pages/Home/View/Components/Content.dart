@@ -1,6 +1,4 @@
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';
-import 'package:edugo_web_app/src/View.dart';
-import 'package:flutter/material.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class Content extends StatelessWidget {
   List<Widget> pageChildren(double width, context) {
@@ -33,11 +31,7 @@ class Content extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ViewVirtualEntityView()),
-                );
+                MomentumRouter.goto(context, SubjectsView);
               },
               color: Color.fromARGB(255, 97, 211, 87),
               shape: RoundedRectangleBorder(

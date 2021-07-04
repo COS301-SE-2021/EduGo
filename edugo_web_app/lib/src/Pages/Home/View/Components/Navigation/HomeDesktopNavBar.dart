@@ -1,6 +1,4 @@
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/ViewVirtualEntityView.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/VirtualEntityStoreView.dart';
-import 'package:flutter/material.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class HomeDesktopNavbar extends StatelessWidget {
   @override
@@ -44,11 +42,7 @@ class HomeDesktopNavbar extends StatelessWidget {
                   minWidth: 150,
                   height: 40,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ViewVirtualEntityView()),
-                    );
+                    MomentumRouter.goto(context, SubjectsView);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8),
