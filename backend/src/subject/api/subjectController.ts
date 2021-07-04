@@ -9,40 +9,34 @@ import { createSubject } from "../service/subjectService";
 const router = express.Router();
 
 router.use((req, res, next) => {
-  next();
+	next();
 });
 
-router.post("/createSubject", uploadFile.single('file'), async (req, res) => {
-  const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
+router.post("/createSubject", uploadFile.single("file"), async (req, res) => {
+	const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
 
-  // if (file == undefined)
-  //    // res.status(400).json({message: 'Please upload a file'});
+	let filelLink;
 
-  //     if
-  // let response: any = {
-  //     file_name: file.key,
-  //     file_size: file.size,
-  //     file_type: file.key.split('.')[file.key.split('.').length-1],
-  //     file_link: file.location
-  // }
-  // res.status(200).json(response);
-  
-  
-  //Create subject
-  createSubject(<CreateSubjectRequest>req.body).then((subjectResponse) => {
-    res.status(200);
-    res.json(subjectResponse);
-  });
+	// if image was submitted check make file link the link from Amazon S3 bucket. If not make it an empty string
+	file ? (filelLink = file.location) : (filelLink = "");
+
+	//Create subject
+	createSubject(<CreateSubjectRequest>req.body, filelLink).then(
+		(subjectResponse) => {
+			res.status(200);
+			res.json(subjectResponse);
+		}
+	);
 });
 
 router.post("/getSubjectsByEducator", async (req, res) => {
-  //Create lesson
-  GetSubjectsByEducator(<GetSubjectsByEducatorRequest>req.body).then(
-    (subjects) => { 
-      res.status(200);
-      res.json(subjects);
-    }
-  );
+	//Create lesson
+	GetSubjectsByEducator(<GetSubjectsByEducatorRequest>req.body).then(
+		(subjects) => {
+			res.status(200);
+			res.json(subjects);
+		}
+	);
 });
 
 export { router };

@@ -26,4 +26,5 @@ export class Subject {
   @OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true })
   @JoinColumn()
   lessons: Lesson[];
+	image: string;
 }

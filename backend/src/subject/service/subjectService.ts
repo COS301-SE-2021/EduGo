@@ -13,12 +13,12 @@ let statusRes: ApiResponse = {
 	type: "fail",
 };
 
-export async function createSubject(request: CreateSubjectRequest) {
+export async function createSubject(request: CreateSubjectRequest, imageLink: string) {
 	if (
 		request.title == null ||
 		request.educatorId == null ||
 		request.description == null ||
-		request.grade == null
+		request.grade == null 
 	) {
 		statusRes.message = "Missing parameters";
 		statusRes.type = "fail";
@@ -36,6 +36,7 @@ export async function createSubject(request: CreateSubjectRequest) {
 		subject.educatorId = request.educatorId;
 		subject.grade = request.grade; 
 		subject.lessons = [];
+		subject.image = imageLink;
 		let subjectRepository = conn.getRepository(Subject);
 
 		return subjectRepository
