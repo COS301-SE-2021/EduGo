@@ -24,6 +24,7 @@ export async function createLesson(request: CreateLessonRequest) {
 		statusRes.type = "fail";
 		return statusRes;
 	} else {
+		// Set all attributes of a lesson
 		let conn = getConnection();
 		let lesson: Lesson = new Lesson();
 		let user: User = new User();
@@ -35,10 +36,11 @@ export async function createLesson(request: CreateLessonRequest) {
 		lesson.endTime = request.endTime;
 
 		let subjectRepository = conn.getRepository(Subject);
-
+		// search for subject with the givem id
 		return subjectRepository.findOne(request.subjectId).then((subject) => {
 			if (subject) {
 				subject.lessons = [lesson];
+				// set add the lesson to the subject
 				return subjectRepository
 					.save(subject)
 					.then((value) => {
