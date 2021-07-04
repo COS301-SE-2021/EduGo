@@ -3,4 +3,5 @@ export interface CreateSubjectRequest {
 	description: string;
 	educatorId: number;
 	grade: number;
+	image: any;
 }

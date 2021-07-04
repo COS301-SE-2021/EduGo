@@ -17,12 +17,19 @@ export async function createSubject(request: CreateSubjectRequest) {
 	if (
 		request.title == null ||
 		request.educatorId == null ||
-		request.description == null
+		request.description == null ||
+		request.image == null ||
+		request.image == null
 	) {
 		statusRes.message = "Missing parameters";
 		statusRes.type = "fail";
 		return statusRes;
 	} else {
+		//TO DO
+		// upload image to s3 and save the link in database
+		
+
+		// storing all subject info in db
 		let conn = getConnection();
 		let subject: Subject = new Subject();
 		subject.title = request.title;

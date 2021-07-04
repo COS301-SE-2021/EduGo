@@ -16,7 +16,9 @@ export async function createLesson(request: CreateLessonRequest) {
 		request.title == null ||
 		request.date == null ||
 		request.description == null ||
-		request.subjectId == null
+		request.subjectId == null ||
+		request.startTime == null ||
+		request.endTime == null
 	) {
 		statusRes.message = "Missing parameters";
 		statusRes.type = "fail";
@@ -24,11 +26,13 @@ export async function createLesson(request: CreateLessonRequest) {
 	} else {
 		let conn = getConnection();
 		let lesson: Lesson = new Lesson();
-		let user : User = new User(); 
+		let user: User = new User();
 		lesson.title = request.title;
 		lesson.description = request.description;
 		lesson.date = request.date;
 		lesson.virtualEntities = [];
+		lesson.startTime = request.startTime;
+		lesson.endTime = request.endTime;
 
 		let subjectRepository = conn.getRepository(Subject);
 
@@ -64,7 +68,7 @@ export async function GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
 		let conn = getConnection();
 		let subjectRepository = conn.getRepository(Subject);
 		return subjectRepository
-			.findOne(request.subjectId, {relations: ["lessons"]})
+			.findOne(request.subjectId, { relations: ["lessons"] })
 			.then((subject) => {
 				if (subject) {
 					let lessons = subject.lessons;

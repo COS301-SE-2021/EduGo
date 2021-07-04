@@ -16,6 +16,12 @@ export class Lesson {
     @Column()
     date: string; 
 
+    @Column()
+    startTime: string 
+
+    @Column()
+    endTime: string 
+
     @JoinColumn()
     @ManyToOne(() => Subject, subject=> subject.lessons)
     subject:Subject
