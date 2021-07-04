@@ -6,6 +6,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class CreateVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Momentum.controller<VirtualEntityController>(context).reset();
     return MomentumBuilder(
       controllers: [VirtualEntityController],
       builder: (context, snapshot) {

@@ -5,7 +5,8 @@ class VirtualEntityController extends MomentumController<VirtualEntityModel> {
   VirtualEntityModel init() {
     return VirtualEntityModel(this,
         virtualEntityName: "Mish the Skeleton",
-        virtualEntityStore: [Text("No entities in the store")]);
+        virtualEntityStore: [Text("No entities in the store")],
+        virtualEntity3DModelLink: "");
   }
 
   void updateVirtualEntityName(String virtualEntityName) {
@@ -49,10 +50,18 @@ class VirtualEntityController extends MomentumController<VirtualEntityModel> {
 //*                                                                                           *
 //*********************************************************************************************
   void upload3DModel() async {
-    await startWebFilePicker();
+    //await startWebFilePicker();
+    preview3DModel();
+  }
+
+  void preview3DModel() async {
     model.updateVirtualEntity3DModelLink(
         virtualEntity3DModelLink:
             "https://practiceucket.s3.us-east-2.amazonaws.com/Astronaut.glb");
+  }
+
+  void clearLinkTo3DModel() {
+    model.updateVirtualEntity3DModelLink(virtualEntity3DModelLink: "");
   }
 
 //! Virtual Entity Controller Helper Methods and Attributes
