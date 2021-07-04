@@ -1,8 +1,17 @@
 import {
 	Column,
 	Entity,
+	JoinColumn,
+	JoinTable,
+	ManyToMany,
+	ManyToOne,
+	OneToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm";
+import { Educator } from "./Educator";
+import { Organisation } from "./Organisation";
+import { Student } from "./Student";
+
 @Entity()
 export class User {
 	@PrimaryGeneratedColumn()
@@ -26,15 +35,14 @@ export class User {
 	@Column()
 	salt: string;
 
-	@Column()
-	organizationId: number;
+	@ManyToOne(type => Organisation, organisation => organisation.users)
+	organisation: Organisation;
 
-	@Column()
-	verified: boolean;
+	@OneToOne(type => Student, student => student.user, {nullable: true, cascade: true})
+	@JoinColumn()
+	student: Student;
 
-	@Column()
-	isAdmin: boolean;
-
-	@Column()
-	type: string;
+	@OneToOne(type => Educator, educator => educator.user, {nullable: true, cascade: true})
+	@JoinColumn()
+	educator: Educator;
 }

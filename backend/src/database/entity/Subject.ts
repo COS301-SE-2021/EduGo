@@ -2,12 +2,16 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Lesson } from "./Lesson";
 import { Organisation } from "./Organisation";
+import { Student } from "./Student";
+import { UnverifiedUser } from "./UnverifiedUser";
+
 @Entity()
 export class Subject {
   @PrimaryGeneratedColumn()
@@ -17,13 +21,7 @@ export class Subject {
   title: string;
 
   @Column()
-  description: string;
-
-  @Column({nullable: true})
   grade: number;
-
-  @Column()
-  educatorId: number;
 
   @OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true })
   @JoinColumn()
@@ -34,4 +32,13 @@ export class Subject {
   @ManyToOne(() => Organisation, organisation => organisation.subjects)
   @JoinColumn()
   organisation: Organisation;
+
+  @ManyToMany(type => Student, student => student.subjects, {cascade: true})
+  students: Student[];
+
+  @ManyToMany(type => Student, educator => educator.subjects, {cascade: true})
+  educators: Student[];
+
+  @ManyToMany(type => UnverifiedUser, unverifiedUser => unverifiedUser.subjects)
+  unverifiedUsers: UnverifiedUser[];
 }
