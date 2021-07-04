@@ -2,10 +2,12 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Lesson } from "./Lesson";
+import { Organisation } from "./Organisation";
 @Entity()
 export class Subject {
   @PrimaryGeneratedColumn()
@@ -26,5 +28,10 @@ export class Subject {
   @OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true })
   @JoinColumn()
   lessons: Lesson[];
+  @Column()
 	image: string;
+
+  @ManyToOne(() => Organisation, organisation => organisation.subjects)
+  @JoinColumn()
+  organisation: Organisation;
 }
