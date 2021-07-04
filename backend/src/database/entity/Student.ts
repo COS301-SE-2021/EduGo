@@ -1,13 +1,22 @@
 import {
-	Column,
 	Entity,
-	JoinColumn,
+	JoinTable,
 	ManyToMany,
-	ManyToOne,
 	OneToOne,
 	PrimaryGeneratedColumn,
 } from "typeorm";
+import { Subject } from "./Subject";
 import { User } from "./User";
 
 @Entity()
-export class Student extends User {}
+export class Student {
+	@PrimaryGeneratedColumn()
+	id: number;
+
+	@OneToOne(type => User, user => user.student)
+	user: User;
+
+	@ManyToMany(type => Subject, subject => subject.students, {cascade: true})
+	@JoinTable()
+	subjects: Subject[];
+}
