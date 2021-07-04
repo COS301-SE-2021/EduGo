@@ -4,10 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class VirtualEntityButton extends StatelessWidget {
   final String text;
   final Function onPressed;
+  final double elevation;
   final double width;
   final double height;
   const VirtualEntityButton(
-      {Key key, this.text, this.onPressed, this.width, this.height})
+      {Key key,
+      this.text,
+      this.onPressed,
+      this.width,
+      this.elevation,
+      this.height})
       : super(
           key: key,
         );
@@ -15,6 +21,7 @@ class VirtualEntityButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      elevation: elevation,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(10),
