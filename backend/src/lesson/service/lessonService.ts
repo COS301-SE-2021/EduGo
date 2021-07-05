@@ -5,7 +5,7 @@ import { Lesson } from "../../database/entity/Lesson";
 import { Any, createConnection, getConnection } from "typeorm";
 import { GetLessonsBySubjectRequest } from "../models/GetLessonsBySubjectRequest";
 import { Subject } from "../../database/entity/Subject";
-
+import { User } from "../../database/entity/User";
 let statusRes: ApiResponse = {
 	message: "",
 	type: "fail",
@@ -24,7 +24,7 @@ export async function createLesson(request: CreateLessonRequest) {
 	} else {
 		let conn = getConnection();
 		let lesson: Lesson = new Lesson();
-
+		let user : User = new User(); 
 		lesson.title = request.title;
 		lesson.description = request.description;
 		lesson.date = request.date;
