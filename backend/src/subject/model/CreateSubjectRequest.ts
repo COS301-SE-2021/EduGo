@@ -1,6 +1,6 @@
 export interface CreateSubjectRequest {
 	title: string;
-	educatorId: number;
+	educator_id: number;
 	grade: number;
-	organisationId: number;
+	organisation_id: number;
 }
