@@ -1,30 +1,24 @@
 import express from "express";
 import { GetLessonsBySubjectRequest } from "../../lesson/models/GetLessonsBySubjectRequest";
-import { GetSubjectsByEducator } from "../../subject/service/subjectService";
+import { SubjectService } from "../../subject/service/subjectService";
 import { CreateSubjectRequest } from "../model/CreateSubjectRequest";
 import { GetSubjectsByEducatorRequest } from "../model/GetSubjectsByEducatorRequest";
-import { createSubject } from "../service/subjectService";
 
 const router = express.Router();
 
-router.use((req, res, next) => {
-  next();
-});
+const service: SubjectService = new SubjectService();
 
 router.post("/createSubject", async (req, res) => {
   //Create subject
-  createSubject(<CreateSubjectRequest>req.body).then((subjectResponse) => {
-    res.status(200);
-    res.json(subjectResponse);
+  service.CreateSubject(<CreateSubjectRequest>req.body).then(subjectResponse => {
+    res.status(200).json(subjectResponse);
   });
 });
 
 router.post("/getSubjectsByEducator", async (req, res) => {
-  //Create lesson
-  GetSubjectsByEducator(<GetSubjectsByEducatorRequest>req.body).then(
-    (subjects) => {
-      res.status(200);
-      res.json(subjects);
+  service.GetSubjectsByEducator(<GetSubjectsByEducatorRequest>req.body).then(
+    subjects => {
+      res.status(200).json(subjects);
     }
   );
 });
