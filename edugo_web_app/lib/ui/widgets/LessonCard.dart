@@ -1,13 +1,14 @@
 import 'package:edugo_web_app/ui/Views/lesson/LessonsPage.dart';
 import 'package:edugo_web_app/ui/Views/subject/EditSubjectPage.dart';
-import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
+//import 'package:edugo_web_app/ui/Views/subject/SubjectsPage.dart';
 import 'package:flutter/material.dart';
 
-class SubjectCard extends StatelessWidget {
+class LessonCard extends StatelessWidget {
   final String title;
-  final String grade;
+  final String description;
+  final String date;
 
-  SubjectCard({this.title, this.grade}) {}
+  LessonCard({this.title, this.description, this.date}) {}
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +23,10 @@ class SubjectCard extends StatelessWidget {
         color: Color.fromARGB(255, 97, 211, 87),
         child: new InkWell(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LessonsPage()),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => EditSubjectPage()),
+            // );
           },
           child: Column(
             children: [
@@ -58,7 +59,20 @@ class SubjectCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
-                    'Grade: ' + "$grade",
+                    'Description: ' + "$description",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Date: ' + "$date",
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -80,7 +94,7 @@ class SubjectCard extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SubjectsPage()),
+                                builder: (context) => LessonsPage()),
                           );
                         },
                         child: Icon(
