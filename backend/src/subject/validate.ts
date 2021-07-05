@@ -8,7 +8,7 @@ const missing = (param: string): validationResult => {
 };
 
 export const validateCreateSubjectRequest = (body: any): validationResult => {
-	let keys = ["title", "description", "educatorId", "subject"];
+	let keys = ["title", "organisationId", "educatorId", "subject"];
 	for (let key of keys) {
 		let body_keys = Object.keys(body);
 		if (!body_keys.includes(key)) return missing(key);
