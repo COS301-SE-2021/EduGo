@@ -11,12 +11,13 @@ import { VerificationEmail } from "../../email/models/VerificationEmail";
 import { EmailList } from "../models/SerivceModels";
 import { AddUsersToSubjectRequest } from "../models/AddUsersToSubjectRequest";
 import { validateEmails } from "../validate";
+import { MockEmailService } from "../../email/MockEmailService";
 
 export class StudentService {
     emailService: EmailService;
 
     constructor() {
-        this.emailService = new MailgunEmailService();
+        this.emailService = new MockEmailService();
     }
 
     public async AddUsersToSubject(request: AddUsersToSubjectRequest): Promise<void> {
@@ -61,7 +62,8 @@ export class StudentService {
                     }
                 });
 
-                userRepository.save(users).then(() => {
+                //TODO: Switch this to the subject repository
+                subjectRepository.save(subject).then(() => {
                     this.emailService.SendBulkAddedToSubjectEmails(addedToSubjectEmails).then(result => {
                         if (!result)
                             throw new EmailError('Could not send all emails')
@@ -120,6 +122,7 @@ export class StudentService {
                 user.email = value
                 user.verificationCode = this.generateCode(5)
                 user.organisation = subject.organisation
+                user.type = 'student'
                 return user
             })
 
@@ -140,7 +143,11 @@ export class StudentService {
         let userRepository = getRepository(User);
         let unverifiedRepository = getRepository(UnverifiedUser);
 
-        let list: EmailList;
+        let list: EmailList = {
+            verified: [],
+            unverified: [],
+            nonexistent: []
+        };
 
         return userRepository.find({where: {email: In(emails)}}).then(users => {
             list.verified = users.map(value => value.email)

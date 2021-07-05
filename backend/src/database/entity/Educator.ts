@@ -17,7 +17,7 @@ export class Educator {
 	@OneToOne(type => User, user => user.educator)
 	user: User;
 
-	@ManyToMany(type => Subject, subject => subject.educators, {cascade: true})
+	@ManyToMany(type => Subject, subject => subject.educators)
 	@JoinTable()
 	subjects: Subject[];
 

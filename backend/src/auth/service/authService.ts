@@ -46,13 +46,20 @@ export async function register(request: RegisterRequest) {
 		user.firstName = request.firstName;
 		user.lastName = request.lastName;
 		user.username = request.username.toLowerCase();
-		user.organizationId = request.organizationId;
-		user.verified = false;
+		//TODO: Get the current organisation and set that
+		//user.organizationId = request.organizationId;
 		const saltHAsh = utils.genPassword(request.password);
 		user.salt = saltHAsh.salt;
 		user.hash = saltHAsh.hash;
-		user.isAdmin = false;
-		user.type = request.userType;
+		//TODO: Determine whether the user is a student or educator and react accordingly
+		if (request.userType === 'student') {
+			let student: Student = new Student();
+			user.student = student;
+		}
+		else if (request.userType === 'educator') {
+			let educator: Educator = new Educator();
+			user.educator = educator;
+		}
 
 		return userRepo
 			.save(user)
