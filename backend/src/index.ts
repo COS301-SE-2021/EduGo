@@ -32,7 +32,8 @@ let options: ConnectionOptions = {
 	password: process.env.DB_PASSWORD,
 	database: "edugo",
 	synchronize: true,
-	logging: false,
+	logging: true,
+    logger: 'file',
 	entities: ["src/database/entity/**/*.ts"],
 	migrations: ["src/database/migration/**/*.ts"],
 	subscribers: ["src/database/subscriber/**/*.ts"],
@@ -45,6 +46,7 @@ let options: ConnectionOptions = {
 
 if (process.env.NODE_ENV !== 'test') {
     createConnection(options).then(conn => {
+        
         if (conn.isConnected) {
             console.log('Database connection established');
         }
@@ -53,9 +55,7 @@ if (process.env.NODE_ENV !== 'test') {
         }
     })
     .catch(err => {
-        if (err instanceof QueryFailedError) {
-            
-        }
+        console.log(err)
     })
 }
 

@@ -2,6 +2,8 @@ import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, Pri
 import { Organisation } from "./Organisation";
 import { Subject } from "./Subject";
 
+type UserType = 'student' | 'educator'
+
 @Entity()
 export class UnverifiedUser {
     @PrimaryGeneratedColumn()
@@ -22,4 +24,7 @@ export class UnverifiedUser {
     @ManyToMany(type => Subject, subject => subject.unverifiedUsers)
     @JoinTable()
     subjects: Subject[];
+
+    @Column()
+    type: UserType
 }

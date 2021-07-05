@@ -7,6 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Educator } from "./Educator";
 import { Lesson } from "./Lesson";
 import { Organisation } from "./Organisation";
 import { Student } from "./Student";
@@ -34,8 +35,8 @@ export class Subject {
   @ManyToMany(type => Student, student => student.subjects, {cascade: true})
   students: Student[];
 
-  @ManyToMany(type => Student, educator => educator.subjects, {cascade: true})
-  educators: Student[];
+  @ManyToMany(type => Educator, educator => educator.subjects, {cascade: true})
+  educators: Educator[];
 
   @ManyToMany(type => UnverifiedUser, unverifiedUser => unverifiedUser.subjects)
   unverifiedUsers: UnverifiedUser[];
