@@ -8,6 +8,8 @@ import { User } from "../../database/entity/User";
 import utils from "../lib/utils";
 import { RegisterRequest } from "../models/RegisterRequest";
 import { LoginRequest } from "../models/LoginRequest";
+import { VerifyInvitationRequest } from "../models/VerifyInvitationRequest";
+import { UnverifiedUser } from "../../database/entity/UnverifiedUser";
 
 let statusRes: any = {
 	message: "",
@@ -39,31 +41,43 @@ export async function register(request: RegisterRequest) {
 		where: { username: request.username },
 	});
 
-	// username and password don't exist and contiue to registering user
+	// username and email don't exist and contiue to registering user
 	if (!emailExists && !usernameExists) {
-		let user = new User();
-		user.email = request.email.toLowerCase();
-		user.firstName = request.firstName;
-		user.lastName = request.lastName;
-		user.username = request.username.toLowerCase();
-		user.organizationId = request.organizationId;
-		user.verified = false;
-		const saltHAsh = utils.genPassword(request.password);
-		user.salt = saltHAsh.salt;
-		user.hash = saltHAsh.hash;
-		user.isAdmin = false;
-		user.type = request.userType;
+		let invitedUser = await getRepository(UnverifiedUser).findOne({
+			where: { email: request.email },
+		});
+		// Only invited users can register
+		if (invitedUser) {
+			let user = new User();
+			user.email = request.email.toLowerCase();
+			user.firstName = request.firstName;
+			user.lastName = request.lastName;
+			user.username = request.username.toLowerCase();
+			const saltHAsh = utils.genPassword(request.password);
+			user.salt = saltHAsh.salt;
+			user.hash = saltHAsh.hash;
 
-		return userRepo
-			.save(user)
-			.then((result) => {
-				statusRes.message = "User registered";
-				statusRes.type = "fail";
-				return statusRes;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			return userRepo
+				.save(user)
+				.then((result) => {
+					// removing user from unverified list after they have registerd successfully
+					if (invitedUser)
+						getRepository(UnverifiedUser).delete(invitedUser);
+
+					statusRes.message = "User registered";
+					statusRes.type = "fail";
+					return statusRes;
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		} else {
+			statusRes.message =
+				"Email address that was invited with doesn't match provided email address";
+
+			statusRes.type = "fail";
+			return statusRes;
+		}
 	} else {
 		emailExists
 			? (statusRes.message = "Email provided already exists")
@@ -71,6 +85,7 @@ export async function register(request: RegisterRequest) {
 		statusRes.type = "fail";
 		return statusRes;
 	}
+
 	// registration for a student
 }
 
@@ -107,4 +122,40 @@ export async function login(request: LoginRequest) {
 		.catch((err) => {
 			console.log(err);
 		});
+}
+
+// User invitation code before registering
+
+export async function verifyInvitation(request: VerifyInvitationRequest) {
+	// check if user is already registered
+
+	let existingUser = await getRepository(User).findOne({
+		where: { email: request.email },
+	});
+
+	if (existingUser) {
+		statusRes.message = "Email used already registered";
+		return statusRes;
+	}
+
+	// Check if email of user is in invitation list
+	let inviatationRepo = getRepository(UnverifiedUser);
+
+	let user = await inviatationRepo.findOne({
+		where: { email: request.email },
+	});
+
+	if (user) {
+		// the user has been invited by educator
+		// now check if user verification code is valid
+
+		if (user.verificationCode == request.verificationCode) {
+			statusRes.message = "Invitiation code is valid";
+			statusRes.type = "success";
+			return statusRes;
+		}
+	} else {
+		statusRes.message = "User has not been invited to sign up for EduGo";
+		return statusRes;
+	}
 }
