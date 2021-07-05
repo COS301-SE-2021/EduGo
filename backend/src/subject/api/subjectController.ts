@@ -1,5 +1,4 @@
 import express from "express";
-import { GetLessonsBySubjectRequest } from "../../lesson/models/GetLessonsBySubjectRequest";
 import { SubjectService } from "../../subject/service/subjectService";
 import { CreateSubjectRequest } from "../model/CreateSubjectRequest";
 import { GetSubjectsByEducatorRequest } from "../model/GetSubjectsByEducatorRequest";
