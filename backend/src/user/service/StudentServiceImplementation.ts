@@ -9,7 +9,7 @@ import { EmailError } from "../../exceptions/EmailError";
 import { UnverifiedUser } from "../../database/entity/UnverifiedUser";
 import { VerificationEmail } from "../../email/models/VerificationEmail";
 import { EmailList } from "../models/SerivceModels";
-import { AddUsersToSubjectRequest } from "../models/AddUsersToSubjectRequest";
+import { AddStudentsToSubjectRequest } from "../models/AddStudentsToSubjectRequest";
 import { validateEmails } from "../validate";
 import { MockEmailService } from "../../email/MockEmailService";
 
@@ -20,19 +20,19 @@ export class StudentService {
         this.emailService = new MockEmailService();
     }
 
-    public async AddUsersToSubject(request: AddUsersToSubjectRequest): Promise<void> {
-        let emails: string[] = request.users;
+    public async AddUsersToSubject(request: AddStudentsToSubjectRequest): Promise<void> {
+        let emails: string[] = request.students;
 
         if (validateEmails(emails)) {
-            this.CategoriseUsersFromEmails(emails).then(list => {
-                this.HandleVerifiedUsers(list.verified, request.subject_id);
-                this.HandleUnverifiedUsers(list.unverified, request.subject_id);
-                this.HandleNonexistentUsers(list.nonexistent, request.subject_id);
+            this.CategoriseStudentsFromEmails(emails).then(list => {
+                this.HandleVerifiedStudents(list.verified, request.subject_id);
+                this.HandleUnverifiedStudents(list.unverified, request.subject_id);
+                this.HandleNonexistentStudents(list.nonexistent, request.subject_id);
             })
         }
     }
 
-    private async HandleVerifiedUsers(emails: string[], id: number): Promise<void> {
+    private async HandleVerifiedStudents(emails: string[], id: number): Promise<void> {
         let subjectRepository = getRepository(Subject);
         let userRepository = getRepository(User);
 
@@ -73,7 +73,7 @@ export class StudentService {
         })
     }
 
-    private async HandleUnverifiedUsers(emails: string[], id: number): Promise<void> {
+    private async HandleUnverifiedStudents(emails: string[], id: number): Promise<void> {
         let subjectRepository = getRepository(Subject);
         let userRepository = getRepository(UnverifiedUser);
 
@@ -107,7 +107,7 @@ export class StudentService {
 
     //Precondition: all the emails given are already known to NOT exists, so checking if they
     //exist is unnecessary
-    private async HandleNonexistentUsers(emails: string[], id: number): Promise<void> {
+    private async HandleNonexistentStudents(emails: string[], id: number): Promise<void> {
         let subjectRepository = getRepository(Subject)
         let userRepository = getRepository(UnverifiedUser)
 
@@ -139,7 +139,7 @@ export class StudentService {
         })
     }
 
-    private async CategoriseUsersFromEmails(emails: string[]): Promise<EmailList> {
+    private async CategoriseStudentsFromEmails(emails: string[]): Promise<EmailList> {
         let userRepository = getRepository(User);
         let unverifiedRepository = getRepository(UnverifiedUser);
 
