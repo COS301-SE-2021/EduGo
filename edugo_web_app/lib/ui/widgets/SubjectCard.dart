@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 class SubjectCard extends StatelessWidget {
   final String title;
   final String grade;
+  final int id;
 
-  SubjectCard({this.title, this.grade}) {}
+  SubjectCard({this.title, this.grade, this.id}) {}
 
   @override
   Widget build(BuildContext context) {

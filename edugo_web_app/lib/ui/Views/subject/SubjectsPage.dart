@@ -50,6 +50,10 @@ class Subject {
     educatorId = json['educatorId'];
   }
 
+  int getSubjectID() {
+    return this.id;
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> subject = new Map<String, dynamic>();
     subject['id'] = this.id;
@@ -84,9 +88,9 @@ class _SubjectsPageState extends State<SubjectsPage> {
       return subjectList
           .map((subject) => new Container(
                 child: SubjectCard(
-                  title: subject.title,
-                  grade: subject.grade.toString(),
-                ),
+                    title: subject.title,
+                    grade: subject.grade.toString(),
+                    id: subject.id),
               ))
           .toList();
     } else {

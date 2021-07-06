@@ -137,6 +137,9 @@ class Lesson {
 }
 
 class LessonsPage extends StatefulWidget {
+  // final int subjectID;
+
+  // const LessonsPage({Key key, this.subjectID}) : super(key: key);
   @override
   _LessonsPageState createState() => _LessonsPageState();
 }
@@ -148,8 +151,8 @@ class _LessonsPageState extends State<LessonsPage> {
 
   Future<http.Response> getRequest() async {
     final url = Uri.parse('$urlPrefix');
-    return http.post(url,
-        headers: {'contentType': 'application/json'},
+    return http.post(url, headers: {'contentType': 'application/json'},
+        //GET THIS ID FROM THE CARD AND NOT HARD CODED.
         body: {'subjectId': '23'});
   }
 
