@@ -111,7 +111,13 @@ export class EducatorService {
      * @param {string[]} emails - An unsorted/uncategorised/unvalidated/unverified array of email addresses of educators
      * @param {Organisation} org - An object detailing the current organisation, includes the unverifiedUsers relation
      * @returns {EmailList} - An object containing 3 string arrays
-     * @description 
+     * @description Will receive an array of educator email addresses and through filtering and comparison from the
+     * organisations users and unverified users, will group the email addresses by nonexistent and unverified
+     * 1. Get a list of all the unverified user emails (this is the 'ALL' list)
+     * 2. Get all the emails of educators within that the organisation (this is the 'EDU' list)
+     * 3. Categorise the unverified emails by checking which ones are in the 'ALL' list and saving those
+     * 4. Get the nonexistent emails by checking which emails DO NOT occur in the 'EDU' list
+     * 5. Return the compiled list
      */
     private CategoriseEducatorsFromEmails(emails: string[], org: Organisation): EmailList {
         let list: EmailList = {
