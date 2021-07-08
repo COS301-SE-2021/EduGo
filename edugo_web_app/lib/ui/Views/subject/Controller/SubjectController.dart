@@ -5,7 +5,10 @@ class SubjectController extends MomentumController<SubjectModel> {
   @override
   SubjectModel init() {
     return SubjectModel(this,
-        subjectTitle: 'Test title 1', subjectGrade: 'Test grade 1');
+        subjectTitle: 'Test title 1',
+        subjectGrade: 'Test grade 1',
+        subjectDesctiprion: 'test description 1',
+        subjectID: '1');
   }
 
   void updateSubjectTitle(String subjectTitle) {
