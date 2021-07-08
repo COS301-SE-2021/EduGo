@@ -1,7 +1,5 @@
-import { String } from "aws-sdk/clients/acm";
-import { Subject } from "./subject";
+import { Subject } from "./Default";
 
-export interface GetLessonsBySubjectResponse{ 
-    statusMessage : String; 
-    data:Subject[]; 
+export interface GetSubjectsByEducatorResponse{ 
+    data: Subject[]
 }

@@ -1,12 +1,8 @@
-export interface AddModelToVirtualEntityResponse {
+import {Model} from './Default'
+
+export interface AddModelToVirtualEntityResponse extends Model {
     virtualEntity_id: number;
     model_id: number;
-    name: string;
-    description: string;
-    file_link: string;
-    file_size: number;
-    file_type: string;
-    file_name: string;
 }
 
 export interface AddModelToVirtualEntityDatabaseResult {
