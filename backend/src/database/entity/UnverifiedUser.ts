@@ -2,7 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, Pri
 import { Organisation } from "./Organisation";
 import { Subject } from "./Subject";
 
-type UserType = 'student' | 'educator'
+export type UserType = 'student' | 'educator'
 
 @Entity()
 export class UnverifiedUser {

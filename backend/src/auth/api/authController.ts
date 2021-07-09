@@ -1,5 +1,6 @@
 import { VerifyRequest } from "aws-sdk/clients/kms";
 import express from "express";
+import jwtDecode from "jwt-decode";
 import { userInfo } from "os";
 import passport from "passport";
 import { LoginRequest } from "../models/LoginRequest";
@@ -12,9 +13,17 @@ router.use((req, res, next) => {
 	next();
 });
 
+export async function decodeToken(req: any, res: any, next: any) {
+	const token = req.headers.authorization.slice(7);
+	const payload = jwtDecode(token);
+	console.log(payload);
+	next();
+}
+
 router.get(
 	"/protected",
 	passport.authenticate("jwt", { session: false }),
+	decodeToken,
 	(req, res, next) => {
 		res.status(200).json({
 			success: true,
