@@ -153,6 +153,9 @@ export async function verifyInvitation(request: VerifyInvitationRequest) {
 			statusRes.message = "Invitiation code is valid";
 			statusRes.type = "success";
 			return statusRes;
+		} else {
+			statusRes.message = "Invitation code is invalid";
+			return statusRes;
 		}
 	} else {
 		statusRes.message = "User has not been invited to sign up for EduGo";
