@@ -2,15 +2,15 @@ import express from "express";
 
 //import { RegisterRequest } from "../models/registerRequest";
 import { json } from "body-parser";
-import { UserService } from "../service/StudentServiceImplementation";
 import { AddUsersToSubjectRequest } from "../models/AddUsersToSubjectRequest";
+import { StudentService } from "../service/StudentServiceImplementation";
 const router = express.Router();
 
 router.use((req, res, next) => {
 	next();
 });
 
-const service: UserService = new UserService();
+const service: StudentService = new StudentService();
 
 router.post("/addUsersToSubject", async (req, res) => {
 	let body: AddUsersToSubjectRequest = <AddUsersToSubjectRequest>req.body;
