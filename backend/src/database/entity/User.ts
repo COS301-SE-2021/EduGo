@@ -16,8 +16,8 @@ import { Student } from "./Student";
 export class User {
 	@PrimaryGeneratedColumn()
 	id: number;
-	
-	@Column({unique: true})
+
+	@Column({ unique: true })
 	username: string;
 
 	@Column()
@@ -26,7 +26,7 @@ export class User {
 	@Column()
 	lastName: string;
 
-	@Column({unique: true})
+	@Column({ unique: true })
 	email: string;
 
 	@Column()
@@ -35,14 +35,22 @@ export class User {
 	@Column()
 	salt: string;
 
-	@ManyToOne(type => Organisation, organisation => organisation.users)
+	@ManyToOne((type) => Organisation, (organisation) => organisation.users)
 	organisation: Organisation;
 
-	@OneToOne(type => Student, student => student.user, {nullable: true, cascade: true})
+	@OneToOne((type) => Student, (student) => student.user, {
+		nullable: true,
+		cascade: true,
+		onDelete: "CASCADE",
+	})
 	@JoinColumn()
 	student: Student;
 
-	@OneToOne(type => Educator, educator => educator.user, {nullable: true, cascade: true})
+	@OneToOne((type) => Educator, (educator) => educator.user, {
+		nullable: true,
+		cascade: true,
+		onDelete: "CASCADE",
+	})
 	@JoinColumn()
 	educator: Educator;
 }

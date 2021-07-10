@@ -1,6 +1,6 @@
 import seed from "./seed.json";
 import express from "express";
-import { getRepository } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 import { Organisation } from "./database/entity/Organisation";
 import { User } from "./database/entity/User";
 import { Student } from "./database/entity/Student";
@@ -11,9 +11,17 @@ import { verifyInvitation } from "./auth/service/authService";
 const router = express.Router();
 
 router.post("/hidden/seed", async (req, res) => {
+	const entities = getConnection().entityMetadatas;
+
+	// // clear all the tables before seeding
+	// for (const entity of entities) {
+	// 	const repository = getConnection().getRepository(entity.name); // Get repository
+	// 	await repository.clear(); // Clear each entity table's content
+	// }
+
 	let organisationRepository = getRepository(Organisation);
 	let userRepository = getRepository(User);
-
+	let invitedUserRepo = getRepository(UnverifiedUser);
 	let organisations: Organisation[] = seed.organisation.map((value) => {
 		let organisation: Organisation = new Organisation();
 		organisation.id = value.id;
@@ -26,33 +34,6 @@ router.post("/hidden/seed", async (req, res) => {
 
 	let orgLength = organisations.length;
 
-	// unverifies users created
-	let userType: UserType;
-	let invitedUsers: any[] = seed.invitedUsers.map(
-		async (value, index) => {
-			let invitedUser: UnverifiedUser = new UnverifiedUser();
-			invitedUser.email = value.email;
-
-			invitedUser.type = <UserType>value.type;
-
-			let org = await organisationRepository.findOne(
-				value.organization_id
-			);
-			if (org)
-			{
-				invitedUser.organisation = org;
-				invitedUser.verificationCode = value.verificationCode;
-				return invitedUser;
-			} 
-
-		
-		}
-	);
-
-	
-	getRepository(UnverifiedUser).save(<UnverifiedUser[]>invitedUsers);
-
-	
 	let users: User[] = seed.user.map((value, index) => {
 		let user: User = new User();
 		user.id = value.id;
@@ -75,14 +56,51 @@ router.post("/hidden/seed", async (req, res) => {
 		return user;
 	});
 
-	organisationRepository.save(organisations).then((savedOrgs) => {
-		userRepository.save(users).then((savedUsers) => {
+	// save organizations and users to a table
+	let savedOrgs = await organisationRepository
+		.save(organisations)
+		.then(() => {
+			userRepository.save(users).then((users) => {
+				if (!users) {
+					res.status(400);
+					return;
+				}
+			});
+		});
+
+	let userType: UserType;
+	let invitedUsers: UnverifiedUser[] = seed.invitedUsers.map(
+		(value, index) => {
+			let invitedUser: UnverifiedUser = new UnverifiedUser();
+			invitedUser.email = value.email;
+			invitedUser.id = value.id;
+			invitedUser.type = <UserType>value.type;
+			invitedUser.verificationCode = value.verificationCode;
+			organisationRepository
+				.findOne(value.organization_id)
+				.then((org) => {
+					if (org) invitedUser.organisation = org;
+				})
+				.catch((err) => {
+					console.log(err);
+					res.status(400).json({
+						Return: "Organization given not found",
+						errorMessage: err.message,
+					});
+				});
+			return invitedUser;
+		}
+	);
+	console.log(invitedUsers);
+	invitedUserRepo.save(invitedUsers).then((invitedUse) => {
+		if (invitedUse) {
 			let response = {
-				org_count: savedOrgs.length,
-				user_count: savedUsers.length,
+				invited_count: invitedUse.length,
 			};
 			res.status(200).json(response);
-		});
+		} else {
+			res.status(400).json({ Return: "invited user not saves" });
+		}
 	});
 });
 

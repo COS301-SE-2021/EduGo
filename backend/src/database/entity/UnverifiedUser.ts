@@ -18,7 +18,7 @@ export class UnverifiedUser {
     @CreateDateColumn()
     createdDate: Date;
 
-    @ManyToOne(type => Organisation, organisation => organisation.unverifiedUsers, {cascade: true})
+    @ManyToOne(type => Organisation, organisation => organisation.unverifiedUsers, {cascade: true, onDelete: "CASCADE"})
     organisation: Organisation;
 
     @ManyToMany(type => Subject, subject => subject.unverifiedUsers)
