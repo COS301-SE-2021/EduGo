@@ -17,6 +17,7 @@ export async function decodeToken(req: any, res: any, next: any) {
 	const token = req.headers.authorization.slice(7);
 	const payload = jwtDecode(token);
 	console.log(payload);
+	
 	next();
 }
 

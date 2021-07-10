@@ -57,7 +57,7 @@ router.post("/hidden/seed", async (req, res) => {
 	});
 
 	// save organizations and users to a table
-	let savedOrgs = await organisationRepository
+	organisationRepository
 		.save(organisations)
 		.then(() => {
 			userRepository
@@ -79,7 +79,7 @@ router.post("/hidden/seed", async (req, res) => {
 		.catch((err) => {
 			console.log(err);
 			res.status(400).json({
-				Return: "Organizations nt saved",
+				Return: "Organizations not saved",
 				errorMessage: err.message,
 			});
 		});
