@@ -1,27 +1,15 @@
-export interface GVE_Model {
+import { Model, Quiz, Question } from "./Default";
+
+export interface GVE_Model extends Model {
     id: number;
-    name: string;
-    description: string;
-    file_link: string;
-    file_size: number;
-    file_type: string;
-    file_name: string;
-    preview_img?: string;
 }
 
-export interface GVE_Question {
+export interface GVE_Question extends Question {
     id: number;
-    type: string;
-    question: string;
-    correctAnswer?: string;
-    options?: string[];
 }
 
-export interface GVE_Quiz {
+export interface GVE_Quiz extends Quiz {
     id: number;
-    title: string;
-    description: string;
-    questions: GVE_Question[];
 }
 
 export interface GetVirtualEntityResponse {
