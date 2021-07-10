@@ -31,7 +31,10 @@ class _SettingsState extends State<Settings> {
             heightFactor: 0.90,
           ),
         ),
-        Flexible(child: Bottom_Nav_Bar()),
+        Flexible(
+          child: Row(),
+          //child: Bottom_Nav_Bar(destination: destination,)
+        ),
       ]),
     );
   }
