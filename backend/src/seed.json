@@ -22,21 +22,21 @@
 			"email": "student@test.com"
 		},
 		{
-			"id": 1,
+			"id": 2,
 			"verificationCode": "testCode",
 			"organization_id": "1",
 			"type": "educator",
-			"email": "educator@test.com"
+			"email": "educator1@test.com"
 		},
 		{
-			"id": 2,
+			"id": 3,
 			"verificationCode": "testCode",
 			"organization_id": "1",
 			"type": "student",
-			"email": "student@test.com"
+			"email": "student1@test.com"
 		},
 		{
-			"id": 2,
+			"id": 4,
 			"verificationCode": "testCode",
 			"organization_id": "1",
 			"type": "educator",

@@ -60,24 +60,29 @@ router.post("/hidden/seed", async (req, res) => {
 	let savedOrgs = await organisationRepository
 		.save(organisations)
 		.then(() => {
-			userRepository.save(users).then((users) => {
-				if (!users) {
-					res.status(400);
-					return;
-				}
-			}).catch((err) => {
-				console.log(err);
-				res.status(400).json({
-					Return: " users not saved",
-					errorMessage: err.message,
-				});;
-		}).catch((err) => {
+			userRepository
+				.save(users)
+				.then((users) => {
+					if (!users) {
+						res.status(400);
+						return;
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+					res.status(400).json({
+						Return: "Users not saved",
+						errorMessage: err.message,
+					});
+				});
+		})
+		.catch((err) => {
 			console.log(err);
 			res.status(400).json({
-				Return: " Organizations not saved",
+				Return: "Organizations nt saved",
 				errorMessage: err.message,
-			});;
-
+			});
+		});
 	let userType: UserType;
 	let invitedUsers: UnverifiedUser[] = seed.invitedUsers.map(
 		(value, index) => {
@@ -102,16 +107,25 @@ router.post("/hidden/seed", async (req, res) => {
 		}
 	);
 	console.log(invitedUsers);
-	invitedUserRepo.save(invitedUsers).then((invitedUse) => {
-		if (invitedUse) {
-			let response = {
-				invited_count: invitedUse.length,
-			};
-			res.status(200).json(response);
-		} else {
-			res.status(400).json({ Return: "invited user not saves" });
-		}
-	});
+	invitedUserRepo
+		.save(invitedUsers)
+		.then((invitedUse) => {
+			if (invitedUse) {
+				let response = {
+					invited_count: invitedUse.length,
+				};
+				res.status(200).json(response);
+			} else {
+				res.status(400).json({ Return: "invited user not saves" });
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(400).json({
+				Return: "Invited Users given not added",
+				errorMessage: err.message,
+			});
+		});
 });
 
 router.get("/hidden/seed", async (req, res) => {
