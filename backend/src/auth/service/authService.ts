@@ -31,6 +31,12 @@ export async function register(request: RegisterRequest) {
 		statusRes.type = "success";
 		return statusRes;
 	}
+	// check if user has verified
+	let verifiedUser = await getRepository(UnverifiedUser).findOne({
+		where: { email: request.email, verified: true },
+	});
+	if (!verifiedUser) {
+	}
 
 	let userRepo = getRepository(User);
 	//Check if user exists with specified username and email address
@@ -48,6 +54,14 @@ export async function register(request: RegisterRequest) {
 		});
 		// Only invited users can register
 		if (invitedUser) {
+			if (!invitedUser.verified) {
+				statusRes.message =
+					"User has not verified account using invitation code";
+				statusRes.type = "fail";
+				statusRes.token = undefined;
+				return statusRes;
+			}
+
 			let user = new User();
 			user.email = request.email.toLowerCase();
 			user.firstName = request.firstName;
@@ -153,8 +167,18 @@ export async function verifyInvitation(request: VerifyInvitationRequest) {
 		// now check if user verification code is valid
 
 		if (user.verificationCode == request.verificationCode) {
-			statusRes.message = "Invitiation code is valid";
-			statusRes.type = "success";
+			// set user as verified
+			let verified: boolean = <boolean>(
+				(<unknown>setUserToverified(user.id))
+			);
+			if (verified) {
+				statusRes.message = "Invitiation code is valid";
+				statusRes.type = "success";
+			} else {
+				statusRes.message = "User unable to be verified";
+				return statusRes;
+			}
+
 			return statusRes;
 		} else {
 			statusRes.message = "Invitation code is invalid";
@@ -164,4 +188,19 @@ export async function verifyInvitation(request: VerifyInvitationRequest) {
 		statusRes.message = "User has not been invited to sign up for EduGo";
 		return statusRes;
 	}
+}
+
+async function setUserToverified(user_id: number) {
+	try {
+		await getConnection()
+			.createQueryBuilder()
+			.update(UnverifiedUser)
+			.set({ verified: true })
+			.where("id = :id", { id: user_id })
+			.execute();
+	} catch (err) {
+		console.log(err);
+		return false;
+	}
+	return true;
 }
