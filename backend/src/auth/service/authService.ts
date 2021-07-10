@@ -65,7 +65,7 @@ export async function register(request: RegisterRequest) {
 						getRepository(UnverifiedUser).delete(invitedUser);
 
 					statusRes.message = "User registered";
-					statusRes.type = "fail";
+					statusRes.type = "success";
 					return statusRes;
 				})
 				.catch((err) => {
@@ -76,6 +76,7 @@ export async function register(request: RegisterRequest) {
 				"Email address that was invited with doesn't match provided email address";
 
 			statusRes.type = "fail";
+			statusRes.token = undefined;
 			return statusRes;
 		}
 	} else {
@@ -83,6 +84,8 @@ export async function register(request: RegisterRequest) {
 			? (statusRes.message = "Email provided already exists")
 			: (statusRes.message = "Username Provided already exists");
 		statusRes.type = "fail";
+		statusRes.token = undefined;
+
 		return statusRes;
 	}
 
@@ -110,7 +113,7 @@ export async function login(request: LoginRequest) {
 			if (isvalid) {
 				// issue jwt token for the user
 
-				statusRes.token = utils.issueJWT(user.id).token;
+				statusRes.token = utils.issueJWT(user).token;
 				statusRes.message = "User Logged in";
 				statusRes.type = "success";
 				return statusRes;
