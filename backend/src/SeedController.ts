@@ -65,8 +65,18 @@ router.post("/hidden/seed", async (req, res) => {
 					res.status(400);
 					return;
 				}
-			});
-		});
+			}).catch((err) => {
+				console.log(err);
+				res.status(400).json({
+					Return: " users not saved",
+					errorMessage: err.message,
+				});;
+		}).catch((err) => {
+			console.log(err);
+			res.status(400).json({
+				Return: " Organizations not saved",
+				errorMessage: err.message,
+			});;
 
 	let userType: UserType;
 	let invitedUsers: UnverifiedUser[] = seed.invitedUsers.map(
