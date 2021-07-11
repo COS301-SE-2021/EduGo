@@ -11,7 +11,7 @@ class _GradesPageState extends State<GradesPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: null,
+      child: Text("Grades"),
     );
   }
 }

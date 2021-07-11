@@ -11,7 +11,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: null,
+      child: Text("Subjects"),
     );
   }
 }

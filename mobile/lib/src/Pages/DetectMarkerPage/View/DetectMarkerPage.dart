@@ -11,7 +11,7 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: null,
+      child: Text("Detect Marker"),
     );
   }
 }

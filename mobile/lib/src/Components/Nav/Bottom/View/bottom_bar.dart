@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/Nav/Bottom/Model/destination.dart';
+
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 
-class DestinationView extends StatefulWidget {
-  const DestinationView({Key? key, required this.destination})
-      : super(key: key);
-
-  final Destination destination;
+class BottomBar extends StatefulWidget {
+  const BottomBar({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _DestinationViewState createState() => _DestinationViewState();
+  _BottomBarState createState() => _BottomBarState();
 }
 
-//todo: display destinations
 //todo: change icons
-class _DestinationViewState extends State<DestinationView> {
+class _BottomBarState extends State<BottomBar> {
   //_selectedIndex is used to determine which tab was selected in the bottom nav
   int _selectedIndex = 0;
 
@@ -53,36 +51,34 @@ class _DestinationViewState extends State<DestinationView> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.cottage_rounded,
+              Icons.library_books_rounded,
               color: Colors.grey,
             ),
             label: 'SUBJECTS',
             activeIcon: Icon(
-              Icons.cottage_rounded,
+              Icons.library_books_rounded,
               color: Color.fromARGB(255, 97, 211, 87),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.cottage_rounded,
+              Icons.checklist_rtl_outlined,
               color: Colors.grey,
-              //size: 36,
             ),
             label: 'GRADES',
             activeIcon: Icon(
-              Icons.cottage_rounded,
+              Icons.checklist_rtl_outlined,
               color: Color.fromARGB(255, 97, 211, 87),
-              //size: 36,
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.cottage_rounded,
+              Icons.center_focus_weak,
               color: Colors.grey,
             ),
             label: 'DETECT MARKER',
             activeIcon: Icon(
-              Icons.cottage_rounded,
+              Icons.center_focus_weak,
               color: Color.fromARGB(255, 97, 211, 87),
             ),
           ),
@@ -93,6 +89,7 @@ class _DestinationViewState extends State<DestinationView> {
           });
         },
       ),
+      //go to that page
       body: _widgetOptions.elementAt(_selectedIndex),
     );
   }
