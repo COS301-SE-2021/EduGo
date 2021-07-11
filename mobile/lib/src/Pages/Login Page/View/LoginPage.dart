@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
             ),
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(top: 40),
+                padding: const EdgeInsets.only(top: 60),
                 child: Column(
                   children: [
                     Text(
@@ -53,6 +53,42 @@ class LoginPage extends StatelessWidget {
                           color: Colors.black,
                           fontSize: 60),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 100),
+                      child: TextField(
+                        style: TextStyle(),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(), hintText: "Email"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: TextField(
+                        style: TextStyle(),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(), hintText: "Password"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 100),
+                      child: MaterialButton(
+                        onPressed: () {},
+                        height: 60,
+                        color: Colors.black,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                            ),
+                            Icon(Icons.login_outlined, color: Colors.white),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
