@@ -22,21 +22,44 @@ import 'package:momentum/momentum.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Row(
-            children: [
-              Text("User", style: TextStyle(color: Colors.black)),
-              TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter a search term'),
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              border: Border.all(
+                style: BorderStyle.solid,
+                color: Colors.green,
               ),
-            ],
+            ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 40),
+                child: Column(
+                  children: [
+                    Text(
+                      "User",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 60),
+                    ),
+                    Text(
+                      "Login",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 60),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }
