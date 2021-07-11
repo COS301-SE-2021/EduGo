@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
+import 'package:mobile/src/Pages/PreferencesPage/Controller/Preferences.dart';
+import 'package:mobile/src/Pages/PreferencesPage/Model/User.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 
@@ -16,6 +19,7 @@ class SideBar extends StatefulWidget {
 //todo mometum name and surname
 //todo buttons with icons Lessons, Preferences, Settings, Toggle Organistaions,Logout
 class _SideBarState extends State<SideBar> {
+  final user = Preferences.user;
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -31,12 +35,24 @@ class _SideBarState extends State<SideBar> {
               children: <Widget>[
                 Column(
                   children: <Widget>[
-                    Text("profile pic box decor?"),
+                    ProfileWidget(
+                        image_path: user.image_path,
+                        isEdit: false,
+                        onClicked: () async {}),
                   ],
                 ),
                 Column(
                   children: <Widget>[
-                    Text("Name & surname"),
+                    Row(
+                      children: [
+                        Text("Name & surname"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text("Organisation"),
+                      ],
+                    ),
                   ],
                 ),
               ],
