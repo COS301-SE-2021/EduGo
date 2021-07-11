@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
 
 class MobileEduGoPage extends StatelessWidget {
   final Widget child;
@@ -12,8 +13,8 @@ class MobileEduGoPage extends StatelessWidget {
         children: <Widget>[
           Flexible(
               child: FractionallySizedBox(
-                  heightFactor: 0.8, widthFactor: 1.0, child: child)),
-          //todo include Bottom bar
+                  heightFactor: 1.0, widthFactor: 1.0, child: child)),
+          BottomBar(),
         ],
       ),
     );

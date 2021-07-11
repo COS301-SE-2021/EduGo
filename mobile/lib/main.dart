@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
+import 'package:mobile/src/Components/Templates/MobileEduGoPage.dart';
+import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 
 void main() {
   runApp(MyApp());

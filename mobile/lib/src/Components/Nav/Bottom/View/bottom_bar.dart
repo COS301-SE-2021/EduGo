@@ -14,7 +14,6 @@ class BottomBar extends StatefulWidget {
   _BottomBarState createState() => _BottomBarState();
 }
 
-//todo: change icons
 class _BottomBarState extends State<BottomBar> {
   //_selectedIndex is used to determine which tab was selected in the bottom nav
   int _selectedIndex = 0;
