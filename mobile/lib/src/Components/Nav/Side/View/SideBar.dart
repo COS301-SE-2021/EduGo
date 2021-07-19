@@ -7,7 +7,6 @@ import 'package:mobile/src/Pages/PreferencesPage/Model/User.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 
-// https://maffan.medium.com/how-to-create-a-side-menu-in-flutter-a2df7833fdfb
 class SideBar extends StatefulWidget {
   SideBar({Key? key}) : super(key: key);
 
