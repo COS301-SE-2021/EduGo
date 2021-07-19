@@ -3,7 +3,6 @@ import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/Controller/Preferences.dart';
-import 'package:mobile/src/Pages/PreferencesPage/Model/User.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 
@@ -14,14 +13,13 @@ class SideBar extends StatefulWidget {
   _SideBarState createState() => _SideBarState();
 }
 
-//todo circular profile
-//todo mometum name and surname
-//todo buttons with icons Lessons, Preferences, Settings, Toggle Organistaions,Logout
+//todo momentum name and surname
 class _SideBarState extends State<SideBar> {
   final user = Preferences.user;
   @override
   Widget build(BuildContext context) {
     return Align(
+      //Align the side bar
       alignment: Alignment.centerRight,
       heightFactor: 1.00,
       widthFactor: 1.00,
@@ -29,35 +27,13 @@ class _SideBarState extends State<SideBar> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
+            //Drawer header onsists of a profile picture, the user's current org, the user's name and surname
             DrawerHeader(
-                child: Row(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    ProfileWidget(
-                        image_path: user.image_path,
-                        isEdit: false,
-                        onClicked: () async {}),
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Text("Name & surname"),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("Organisation"),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            )),
+                child: ProfileWidget(
+                    user: user, isEdit: false, onClicked: () async {})),
+            //All List tiles below have icons and titled tiles that lead to their relevant pages
             ListTile(
-              leading: Icon(Icons.input),
+              leading: Icon(Icons.summarize_outlined),
               title: Text('Lessons'),
               onTap: () => Navigator.push(
                 context,
