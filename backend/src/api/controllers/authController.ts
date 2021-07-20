@@ -1,12 +1,8 @@
-import { VerifyRequest } from "aws-sdk/clients/kms";
 import express from "express";
-import jwtDecode from "jwt-decode";
-import { userInfo } from "os";
-import passport from "passport";
-import { isUser, isAdmin, passportJWT } from "../../middleware/passport";
-import { LoginRequest } from "../models/authModels/LoginRequest";
-import { RegisterRequest } from "../models/authModels/RegisterRequest";
-import { VerifyInvitationRequest } from "../models/authModels/VerifyInvitationRequest";
+import { isUser, isAdmin, passportJWT } from "../middleware/passport";
+import { LoginRequest } from "../interfaces/authInterfaces/LoginRequest";
+import { RegisterRequest } from "../interfaces/authInterfaces/RegisterRequest";
+import { VerifyInvitationRequest } from "../interfaces/authInterfaces/VerifyInvitationRequest";
 import { register, login, verifyInvitation } from "../services/authService";
 const router = express.Router();
 

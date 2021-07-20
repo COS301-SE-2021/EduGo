@@ -4,7 +4,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 import jwtDecode from "jwt-decode";
 import passport from "passport";
-import { User } from "../../database/entity/User";
+import { User } from "../Database/User";
 import { getConnection } from "typeorm";
 
 const pathToKey = path.join(__dirname, "id_rsa_pub.pem");

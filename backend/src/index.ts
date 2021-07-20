@@ -20,7 +20,7 @@ if (!('MAILGUN_DOMAIN' in process.env))
     console.log('Mailgun domain missing');
 
 // Pass the global passport object into the configuration function
-require("./auth/lib/passport")(passport);
+require("./api/middleware/passport")(passport);
 
 const PORT = process.env.PORT || 8080;
 
@@ -59,15 +59,15 @@ if (process.env.NODE_ENV !== 'test') {
     })
 }
 
-import {router as LessonController} from './lesson/api/lessonController';
-import {router as SubjectController} from './subject/api/subjectController';
-import {router as VirtualEntityController} from './virtualEntity/api/virtualEntityController';
-import {router as OrganisationController} from './organisation/api/OrganisationController';
-import { EmailService } from './email/EmailService';
-import { MailgunEmailService } from './email/MailgunEmailService';
+import {router as LessonController} from './api/controllers/lessonController';
+import {router as SubjectController} from './api/controllers/subjectController';
+import {router as VirtualEntityController} from './api/controllers/virtualEntityController';
+import {router as OrganisationController} from './api/controllers/OrganisationController';
+import { EmailService } from './api/services/EmailService';
+import { MailgunEmailService } from './api/services/MailgunEmailService';
 import { router as AuthController } from "./api/controllers/authController";
-import { router as UserController } from './user/api/userController';
-import { router as SeedController} from './SeedController'
+import { router as UserController } from './api/controllers/userController';
+import { router as SeedController} from './api/controllers/SeedController'
 
 export const app = express();
 app.use(express.urlencoded({ extended: true }));

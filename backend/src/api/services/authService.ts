@@ -1,10 +1,10 @@
 import { getConnection, getRepository } from "typeorm";
-import { User } from "../../database/entity/User";
+import { User } from "../Database/User";
 import utils from "../helper/authHelper/utils";
-import { RegisterRequest } from "../models/authModels/RegisterRequest";
-import { LoginRequest } from "../models/authModels/LoginRequest";
-import { VerifyInvitationRequest } from "../models/authModels/VerifyInvitationRequest";
-import { UnverifiedUser } from "../../database/entity/UnverifiedUser";
+import { RegisterRequest } from "../interfaces/authInterfaces/RegisterRequest";
+import { LoginRequest } from "../interfaces/authInterfaces/LoginRequest";
+import { VerifyInvitationRequest } from "../interfaces/authInterfaces/VerifyInvitationRequest";
+import { UnverifiedUser } from "../Database/UnverifiedUser";
 
 let statusRes: any = {
 	message: "",
