@@ -72,14 +72,14 @@ export class OrganisationServiceImplementation implements OrganisationService {
 		organisation.email = request.organisation_email;
 		organisation.phone = request.organisation_phone;
 		organisation.subjects = [];
-
-		// TODO create user
-		request.userType = "OrganizationAdmin"
+		
+		// create first admin for organisation
+		request.userType = "OrganizationAdmin";
 		let registerObj: RegisterRequest = {
 			...request,
 		};
 
-        register(registerObj)
+		register(registerObj);
 
 		// create organization
 		let organisationRepo = getRepository(Organisation);

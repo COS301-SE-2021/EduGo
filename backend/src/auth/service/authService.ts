@@ -10,6 +10,7 @@ import { RegisterRequest } from "../models/RegisterRequest";
 import { LoginRequest } from "../models/LoginRequest";
 import { VerifyInvitationRequest } from "../models/VerifyInvitationRequest";
 import { UnverifiedUser } from "../../database/entity/UnverifiedUser";
+import { Organisation } from "../../database/entity/Organisation";
 
 let statusRes: any = {
 	message: "",
@@ -24,10 +25,13 @@ export async function register(request: RegisterRequest) {
 		request.firstName == null ||
 		request.lastName == null ||
 		request.username == null ||
-		request.userType == null
+		request.userType == null ||
+		request.password == null ||
+		request.organisation_id == null
 	) {
 		statusRes.message = "Missing Parameters";
 		statusRes.type = "success";
+		console.log(statusRes);
 		return statusRes;
 	}
 
@@ -37,6 +41,7 @@ export async function register(request: RegisterRequest) {
 	}
 
 	// educator or student registration
+
 	return userRegistration(request);
 }
 
@@ -141,17 +146,19 @@ async function setUserToverified(user_id: number) {
 
 async function userRegistration(request: RegisterRequest) {
 	// check if user has entered invitation code
-	let verifiedUser = await getRepository(UnverifiedUser).findOne({
-		where: { email: request.email, verified: true },
+
+	let userRepo = getRepository(User);
+	// check if username and password exist
+	let usernameExists = await userRepo.findOne({
+		where: { username: request.username },
+	});
+	let emailExists = await userRepo.findOne({
+		where: { email: request.email },
 	});
 
-	if (!verifiedUser) {
-		// TODO user not verified exception
-		//
-	}
-	let userRepo = getRepository(User);
-	// username and email don't exist and contiue to registering user
-	if (!emailExists(request) && !usernameExists(request)) {
+	// if user name and password dont exist procced
+	if (!emailExists && !usernameExists) {
+		// check if user did verify their number
 		let invitedUser = await getRepository(UnverifiedUser).findOne({
 			where: { email: request.email },
 		});
@@ -162,6 +169,8 @@ async function userRegistration(request: RegisterRequest) {
 					"User has not verified account using invitation code";
 				statusRes.type = "fail";
 				statusRes.token = undefined;
+				console.log(statusRes);
+
 				return statusRes;
 			}
 
@@ -183,6 +192,8 @@ async function userRegistration(request: RegisterRequest) {
 
 					statusRes.message = "User registered";
 					statusRes.type = "success";
+					console.log(statusRes);
+
 					return statusRes;
 				})
 				.catch((err) => {
@@ -194,31 +205,47 @@ async function userRegistration(request: RegisterRequest) {
 
 			statusRes.type = "fail";
 			statusRes.token = undefined;
+			console.log(statusRes);
+
 			return statusRes;
 		}
 	}
 }
 
-async function emailExists(request: RegisterRequest) {
+function emailExists(request: RegisterRequest) {
 	let userRepo = getRepository(User);
 	//Check if user exists with specified username and email address
-	let emailExists = await userRepo.findOne({
+	let emailExists = userRepo.findOne({
 		where: { email: request.email },
 	});
+	if (emailExists == undefined) return true;
+
+	return false;
+}
+function usernameExists(request: RegisterRequest) {
+	let userRepo = getRepository(User);
+
+	let usernameExists = userRepo.findOne({
+		where: { username: request.username },
+	});
+	console.log(usernameExists);
+	if (usernameExists == undefined) return true;
+
+	return false;
 	// TODO add exceptions
 }
 
-async function usernameExists(request: RegisterRequest) {
+async function firstAdminRegistration(request: RegisterRequest) {
 	let userRepo = getRepository(User);
 
 	let usernameExists = await userRepo.findOne({
 		where: { username: request.username },
 	});
-	// TODO add exceptions
-}
 
-async function firstAdminRegistration(request: RegisterRequest) {
-	if (!emailExists(request) && !usernameExists(request)) {
+	let emailExists = await userRepo.findOne({
+		where: { email: request.email },
+	});
+	if (!emailExists && !usernameExists) {
 		let user = new User();
 		user.email = request.email.toLowerCase();
 		user.firstName = request.firstName;
@@ -228,17 +255,20 @@ async function firstAdminRegistration(request: RegisterRequest) {
 		user.salt = saltHAsh.salt;
 		user.hash = saltHAsh.hash;
 		let userRepo = getRepository(User);
-
+		user.isAdmin = true;
 		return userRepo
 			.save(user)
 			.then((result) => {
-				statusRes.message = " First admin User registered";
+				statusRes.message = "First admin User registered";
 				statusRes.type = "success";
 				return statusRes;
 			})
 			.catch((err) => {
 				console.log(err);
+				return "dszfg sfdg";
 				// TODO database save error
 			});
+	} else {
+		return "username and email already exist";
 	}
 }
