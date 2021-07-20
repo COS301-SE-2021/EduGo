@@ -55,7 +55,9 @@ function issueJWT(user) {
 	const expiresIn = "1d";
 
 	const payload = {
-		user: user,
+		user_id: user.id,
+		organisation_id: user.organisation_id
+
 	};
 
 	const signedToken = jsonwebtoken.sign(payload, PRIV_KEY, {

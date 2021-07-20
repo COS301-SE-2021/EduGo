@@ -35,7 +35,7 @@ export async function register(request: RegisterRequest) {
 	let verifiedUser = await getRepository(UnverifiedUser).findOne({
 		where: { email: request.email, verified: true },
 	});
-	
+
 	if (!verifiedUser) {
 	}
 
@@ -204,4 +204,8 @@ async function setUserToverified(user_id: number) {
 		return false;
 	}
 	return true;
+}
+
+async function setUserToAdmin(){
+	
 }

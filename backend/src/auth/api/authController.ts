@@ -17,14 +17,14 @@ router.use((req, res, next) => {
 router.get("/protected", passportJWT, isUser, (req, res, next) => {
 	res.status(200).json({
 		success: true,
-		msg: "You are successfully authenticated to this route!",
+		msg: "You are successfully authenticated  as a user to this route!",
 	});
 });
 
 router.get("/protectedAdmin", passportJWT, isAdmin, (req, res, next) => {
 	res.status(200).json({
 		success: true,
-		msg: "You are successfully authenticated to this route!",
+		msg: "You are successfully as an admin to this route!",
 	});
 });
 router.post("/login", async (req, res) => {
