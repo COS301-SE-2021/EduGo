@@ -31,7 +31,9 @@ class ProfileWidget extends StatelessWidget {
       currentAccountPicture: CircleAvatar(
           //profile picture
           radius: 30.0,
-          backgroundImage: new AssetImage(user.image_path)),
+          //backgroundImage: new AssetImage(user.image_path)),
+          backgroundImage: NetworkImage('https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg')
+      )
     );
   }
 }
