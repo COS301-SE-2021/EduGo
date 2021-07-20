@@ -7,3 +7,4 @@ export const validateEmail = (email: string): boolean => {
 export const validateEmails = (emails: string[]): boolean => {
     return emails.every(value => validateEmail(value));
 }
+

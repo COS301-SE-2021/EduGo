@@ -206,6 +206,4 @@ async function setUserToverified(user_id: number) {
 	return true;
 }
 
-async function setUserToAdmin(){
-	
-}
+
