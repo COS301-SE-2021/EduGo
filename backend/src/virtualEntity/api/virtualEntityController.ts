@@ -123,4 +123,6 @@ router.post('/getTestModels', async (req, res) => {
     res.status(200).json(await mockService.GetTestModels());
 })
 
+//Post endpoint for sending mock data
+
 export {router}
