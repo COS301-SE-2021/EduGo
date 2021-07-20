@@ -1,4 +1,4 @@
-import seed from "../../seed.json";
+import seed from "../helper/seed.json";
 import express from "express";
 import { getConnection, getRepository } from "typeorm";
 import { Organisation } from "../Database/Organisation";
