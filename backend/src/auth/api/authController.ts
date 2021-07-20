@@ -3,6 +3,7 @@ import express from "express";
 import jwtDecode from "jwt-decode";
 import { userInfo } from "os";
 import passport from "passport";
+import { isUser, isAdmin, passportJWT } from "../../middleware/passport";
 import { LoginRequest } from "../models/LoginRequest";
 import { RegisterRequest } from "../models/RegisterRequest";
 import { VerifyInvitationRequest } from "../models/VerifyInvitationRequest";
@@ -13,25 +14,19 @@ router.use((req, res, next) => {
 	next();
 });
 
-export async function decodeToken(req: any, res: any, next: any) {
-	const token = req.headers.authorization.slice(7);
-	const payload = jwtDecode(token);
-	console.log(payload);
-	
-	next();
-}
+router.get("/protected", passportJWT, isUser, (req, res, next) => {
+	res.status(200).json({
+		success: true,
+		msg: "You are successfully authenticated  as a user to this route!",
+	});
+});
 
-router.get(
-	"/protected",
-	passport.authenticate("jwt", { session: false }),
-	decodeToken,
-	(req, res, next) => {
-		res.status(200).json({
-			success: true,
-			msg: "You are successfully authenticated to this route!",
-		});
-	}
-);
+router.get("/protectedAdmin", passportJWT, isAdmin, (req, res, next) => {
+	res.status(200).json({
+		success: true,
+		msg: "You are successfully as an admin to this route!",
+	});
+});
 router.post("/login", async (req, res) => {
 	login(<LoginRequest>req.body)
 		.then((user) => {

@@ -4,6 +4,9 @@ import express from "express";
 import { json } from "body-parser";
 import { AddUsersToSubjectRequest } from "../models/AddUsersToSubjectRequest";
 import { StudentService } from "../service/StudentServiceImplementation";
+import { SetUserToAdminRequest } from "../models/SetUserToAdminRequet";
+import { setUserToAdmin } from "../service/UserService";
+import { RevokeUserFromAdminRequest } from "../models/RevokeUserFromAdminRequest";
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -19,4 +22,18 @@ router.post("/addUsersToSubject", async (req, res) => {
 	});
 });
 
+router.post("/setUserToAdmin", async (req, res) => {
+	let body: SetUserToAdminRequest = <SetUserToAdminRequest>req.body;
+	setUserToAdmin(body).then(() => {
+		res.status(200).send("ok");
+	});
+});
+
+
+router.post("/revokeUserFromAdmin", async (req, res) => {
+	let body: RevokeUserFromAdminRequest = <RevokeUserFromAdminRequest>req.body;
+	setUserToAdmin(body).then(() => {
+		res.status(200).send("ok");
+	});
+});
 export { router };

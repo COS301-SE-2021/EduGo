@@ -66,6 +66,8 @@ router.post("/hidden/seed", async (req, res) => {
 					if (!users) {
 						res.status(400);
 						return;
+					} else {
+						addInvitedUsersToDB(res);
 					}
 				})
 				.catch((err) => {
@@ -83,7 +85,28 @@ router.post("/hidden/seed", async (req, res) => {
 				errorMessage: err.message,
 			});
 		});
-	let userType: UserType;
+});
+
+router.get("/hidden/seed", async (req, res) => {
+	let organisationRepository = getRepository(Organisation);
+	let userRepository = getRepository(User);
+
+	// userRepository.findByIds([1,2,3,4,5,6,7,8], {relations: ['organisation']}).then(users => {
+	//     res.status(200).json(users);
+	// })
+
+	organisationRepository
+		.findByIds([1, 2], {
+			relations: ["users", "users.student", "users.educator"],
+		})
+		.then((orgs) => {
+			res.status(200).json(orgs);
+		});
+});
+
+function addInvitedUsersToDB(res: any) {
+	let organisationRepository = getRepository(Organisation);
+	let invitedUserRepo = getRepository(UnverifiedUser);
 	let invitedUsers: UnverifiedUser[] = seed.invitedUsers.map(
 		(value, index) => {
 			let invitedUser: UnverifiedUser = new UnverifiedUser();
@@ -126,23 +149,5 @@ router.post("/hidden/seed", async (req, res) => {
 				errorMessage: err.message,
 			});
 		});
-});
-
-router.get("/hidden/seed", async (req, res) => {
-	let organisationRepository = getRepository(Organisation);
-	let userRepository = getRepository(User);
-
-	// userRepository.findByIds([1,2,3,4,5,6,7,8], {relations: ['organisation']}).then(users => {
-	//     res.status(200).json(users);
-	// })
-
-	organisationRepository
-		.findByIds([1, 2], {
-			relations: ["users", "users.student", "users.educator"],
-		})
-		.then((orgs) => {
-			res.status(200).json(orgs);
-		});
-});
-
+}
 export { router };
