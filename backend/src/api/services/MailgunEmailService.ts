@@ -2,9 +2,9 @@ import { EmailService } from "./EmailService";
 import mailgun from 'mailgun-js';
 import Handlebars from 'handlebars';
 import fs from 'fs';
-import { VerificationCodeTemplateObject, AddedToSubjectTemplateObject } from './models/TemplateObjects';
-import { VerificationEmail } from "./models/VerificationEmail";
-import { AddedToSubjectEmail } from "./models/AddedToSubjectEmail";
+import { VerificationCodeTemplateObject, AddedToSubjectTemplateObject } from '../interfaces/emailInterfaces/TemplateObjects';
+import { VerificationEmail } from "../interfaces/emailInterfaces/VerificationEmail";
+import { AddedToSubjectEmail } from "../interfaces/emailInterfaces/AddedToSubjectEmail";
 
 
 const FROM = `EduGo <test@${process.env.MAILGUN_DOMAIN}>`;

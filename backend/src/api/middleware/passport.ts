@@ -2,12 +2,11 @@ import fs from "fs";
 import path from "path";
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
-import jwtDecode from "jwt-decode";
-import passport from "passport";
+
 import { User } from "../Database/User";
 import { getConnection } from "typeorm";
 
-const pathToKey = path.join(__dirname, "id_rsa_pub.pem");
+const pathToKey = path.join(__dirname, "../helper/authHelper/id_rsa_pub.pem");
 const PUB_KEY = fs.readFileSync(pathToKey, "utf8");
 
 // At a minimum, you must pass the `jwtFromRequest` and `secretOrKey` properties
@@ -36,20 +35,4 @@ module.exports = (passport: any) => {
 	);
 };
 
-export async function isUser(req: any, res: any, next: any) {
-	const token = req.headers.authorization.slice(7);
-	const payload = jwtDecode(token);
-	console.log(payload);
-	next();
-}
 
-export async function isAdmin(req: any, res: any, next: any) {
-	const token = req.headers.authorization.slice(7);
-	const payload = jwtDecode(token);
-	console.log(payload);
-	next();
-}
-
-export async function passportJWT() {
-	passport.authenticate("jwt", { session: false });
-}

@@ -1,5 +1,5 @@
 import express from "express";
-import { isUser, isAdmin, passportJWT } from "../middleware/passport";
+import { isUser, isAdmin, passportJWT } from "../middleware/rules";
 import { LoginRequest } from "../interfaces/authInterfaces/LoginRequest";
 import { RegisterRequest } from "../interfaces/authInterfaces/RegisterRequest";
 import { VerifyInvitationRequest } from "../interfaces/authInterfaces/VerifyInvitationRequest";

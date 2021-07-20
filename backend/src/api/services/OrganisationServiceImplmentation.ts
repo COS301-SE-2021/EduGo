@@ -11,7 +11,7 @@ import {
 } from "../interfaces/organisationInterfaces/GetOrganisationsResponse";
 import { OrganisationService } from "./OrganisationService";
 import { DatabaseError } from "../exceptions/DatabaseError";
-import { NonExistantItemError } from "../../exceptions/NonExistantItemError";
+import { NonExistantItemError } from "../exceptions/NonExistantItemError";
 import { AddSubjectToOrganisationRequest } from "../interfaces/organisationInterfaces/AddSubjectToOrganisationRequest";
 import { AddSubjectToOrganisationResponse } from "../interfaces/organisationInterfaces/AddSubjectToOrganisationResponse";
 import { Subject } from "../Database/Subject";

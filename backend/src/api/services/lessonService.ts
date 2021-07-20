@@ -1,12 +1,11 @@
 import { CreateLessonRequest } from "../interfaces/lessonInterfaces/CreateLessonRequest";
 import { GetLessonsBySubjectResponse } from "../interfaces/lessonInterfaces/GetLessonsBySubjectResponse";
-import { ApiResponse } from "../../models/apiResponse";
 import { Lesson } from "../Database/Lesson";
 import { Any, createConnection, getConnection } from "typeorm";
 import { GetLessonsBySubjectRequest } from "../interfaces/lessonInterfaces/GetLessonsBySubjectRequest";
 import { Subject } from "../Database/Subject";
 import { User } from "../Database/User";
-let statusRes: ApiResponse = {
+let statusRes: any = {
 	message: "",
 	type: "fail",
 };
