@@ -4,10 +4,10 @@ import jwtDecode from "jwt-decode";
 import { userInfo } from "os";
 import passport from "passport";
 import { isUser, isAdmin, passportJWT } from "../../middleware/passport";
-import { LoginRequest } from "../models/LoginRequest";
-import { RegisterRequest } from "../models/RegisterRequest";
-import { VerifyInvitationRequest } from "../models/VerifyInvitationRequest";
-import { register, login, verifyInvitation } from "../service/authService";
+import { LoginRequest } from "../models/authModels/LoginRequest";
+import { RegisterRequest } from "../models/authModels/RegisterRequest";
+import { VerifyInvitationRequest } from "../models/authModels/VerifyInvitationRequest";
+import { register, login, verifyInvitation } from "../services/authService";
 const router = express.Router();
 
 router.use((req, res, next) => {

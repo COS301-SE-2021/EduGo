@@ -15,8 +15,8 @@ import { NonExistantItemError } from "../../exceptions/NonExistantItemError";
 import { AddSubjectToOrganisationRequest } from "../models/AddSubjectToOrganisationRequest";
 import { AddSubjectToOrganisationResponse } from "../models/AddSubjectToOrganisationResponse";
 import { Subject } from "../../database/entity/Subject";
-import { RegisterRequest } from "../../auth/models/RegisterRequest";
-import { register } from "../../auth/service/authService";
+import { RegisterRequest } from "../../api/models/authModels/RegisterRequest";
+import { register } from "../../api/services/authService";
 
 export class OrganisationServiceImplementation implements OrganisationService {
 	async AddSubjectToOrganisation(

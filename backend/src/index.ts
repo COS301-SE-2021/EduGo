@@ -65,7 +65,7 @@ import {router as VirtualEntityController} from './virtualEntity/api/virtualEnti
 import {router as OrganisationController} from './organisation/api/OrganisationController';
 import { EmailService } from './email/EmailService';
 import { MailgunEmailService } from './email/MailgunEmailService';
-import { router as AuthController } from "./auth/api/authController";
+import { router as AuthController } from "./api/controllers/authController";
 import { router as UserController } from './user/api/userController';
 import { router as SeedController} from './SeedController'
 

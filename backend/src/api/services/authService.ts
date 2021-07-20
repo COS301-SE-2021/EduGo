@@ -1,16 +1,10 @@
-import { ApiResponse } from "../../models/apiResponse";
-import { Lesson } from "../../database/entity/Lesson";
-import { Any, createConnection, getConnection, getRepository } from "typeorm";
-import { Subject } from "../../database/entity/Subject";
-import { Educator } from "../../database/entity/Educator";
-import { Student } from "../../database/entity/Student";
+import { getConnection, getRepository } from "typeorm";
 import { User } from "../../database/entity/User";
-import utils from "../lib/utils";
-import { RegisterRequest } from "../models/RegisterRequest";
-import { LoginRequest } from "../models/LoginRequest";
-import { VerifyInvitationRequest } from "../models/VerifyInvitationRequest";
+import utils from "../helper/authHelper/utils";
+import { RegisterRequest } from "../models/authModels/RegisterRequest";
+import { LoginRequest } from "../models/authModels/LoginRequest";
+import { VerifyInvitationRequest } from "../models/authModels/VerifyInvitationRequest";
 import { UnverifiedUser } from "../../database/entity/UnverifiedUser";
-import { Organisation } from "../../database/entity/Organisation";
 
 let statusRes: any = {
 	message: "",
