@@ -6,12 +6,16 @@ import { VerificationCodeTemplateObject, AddedToSubjectTemplateObject } from './
 import { VerificationEmail } from "./models/VerificationEmail";
 import { AddedToSubjectEmail } from "./models/AddedToSubjectEmail";
 
+
 const FROM = `EduGo <test@${process.env.MAILGUN_DOMAIN}>`;
 
 type EmailType = 'verification' | 'reminder' | 'added';
 
 export class MailgunEmailService implements EmailService {
+    
     mg: mailgun.Mailgun;
+
+    // handle bar templates 
     verificationCodeTemplate: HandlebarsTemplateDelegate<VerificationCodeTemplateObject>;
     verificationReminderTemplate: HandlebarsTemplateDelegate<VerificationCodeTemplateObject>;
     addedToSubjectTemplate: HandlebarsTemplateDelegate<AddedToSubjectTemplateObject>;
@@ -26,6 +30,7 @@ export class MailgunEmailService implements EmailService {
         this.verificationCodeTemplate = Handlebars.compile(rawVerificationCodeTemplate);
         this.verificationReminderTemplate = Handlebars.compile(rawVerificationReminderTemplate);
         this.addedToSubjectTemplate = Handlebars.compile(rawAddedToSubjectTemplate);
+    
     }
 
     sendOneEmail(to: string, name: string, code: string): void {
@@ -34,7 +39,6 @@ export class MailgunEmailService implements EmailService {
             link: `http://localhost:8082/?user=sthenyandeni&code=ABCD`
         });
 
-        
         let data: mailgun.messages.SendData = {
             to: to,
             subject: 'Verification Code',

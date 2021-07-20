@@ -1,5 +1,5 @@
 export interface Organisation {
-    name: string;
-    email: string;
-    phone: string;
+	organisation_name: string;
+	organisation_email: string;
+	organisation_phone: string;
 }
