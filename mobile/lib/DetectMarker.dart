@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/VirtualEntity.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class DetectMarkerView extends StatefulWidget {
@@ -63,5 +65,22 @@ class _DetectMarkerViewState extends State<DetectMarkerView> {
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+}
+
+VirtualEntityData validateMarker(String data) {
+  if (
+    data.length > 12 &&
+    data.substring(0, 13) == "EduGo_Marker "
+  ){
+    //Marker has passed first two tests
+    String jsonString = data.substring(13);
+    try {
+      Map<String, dynamic> json = jsonDecode(jsonString);
+      return VirtualEntityData.fromJson(json);
+    }
+    catch (err) {
+      //TODO: Log/Handle json decode error
+    }
   }
 }
