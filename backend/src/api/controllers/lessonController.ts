@@ -1,5 +1,5 @@
 import express from "express";
-import { LessonService } from "../services/lessonService";
+import { LessonService } from "../services/LessonService";
 import { CreateLessonRequest } from "../interfaces/lessonInterfaces/CreateLessonRequest";
 import { GetLessonsBySubjectRequest } from "../interfaces/lessonInterfaces/GetLessonsBySubjectRequest";
 

@@ -19,7 +19,7 @@ import { NonExistantItemError } from "../exceptions/NonExistantItemError";
 
 import { Subject } from "../Database/Subject";
 import { RegisterRequest } from "../interfaces/authInterfaces/RegisterRequest";
-import { AuthService } from "./authService";
+import { AuthService } from "./AuthService";
 
 export class OrganisationService {
 	async AddSubjectToOrganisation(

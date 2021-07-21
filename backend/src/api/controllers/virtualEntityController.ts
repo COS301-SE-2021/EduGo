@@ -2,14 +2,14 @@ import express from 'express';
 import {CreateVirtualEntityRequest} from '../interfaces/virtualEntityInterfaces/CreateVirtualEntityRequest';
 import { GetVirtualEntityRequest } from '../interfaces/virtualEntityInterfaces/GetVirtualEntityRequest';
 import { VirtualEntityService } from '../services/VirtualEntityService';
-import { VirtualEntityServiceImplementation } from '../services/virtualEntityServiceImplentation';
+
 import { validateCreateVirtualEntityRequest, validateAddModelToVirtualEntityRequest, validateGetVirtualEntityRequest } from '../validations/virtualEntityValidate';
 import { uploadFile } from '../helper/awsHelper/fileUpload';
 import { AddModelToVirtualEntityFileData, AddModelToVirtualEntityRequest } from '../interfaces/virtualEntityInterfaces/AddModelToVirtualEntityRequest';
 import { AddModelToVirtualEntityResponse } from '../interfaces/virtualEntityInterfaces/AddModelToVirtualEntityResponse';
 
 const router = express.Router();
-const service: VirtualEntityService = new VirtualEntityServiceImplementation();
+const service: VirtualEntityService = new VirtualEntityService();
 
 router.post('/createVirtualEntity', async (req, res) => {
     let valid = validateCreateVirtualEntityRequest(req.body);

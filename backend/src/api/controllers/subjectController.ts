@@ -1,5 +1,5 @@
 import express from "express";
-import { SubjectService } from "../services/subjectService";
+import { SubjectService } from "../services/SubjectService";
 import { CreateSubjectRequest } from "../interfaces/subjectInterfaces/CreateSubjectRequest";
 import { GetSubjectsByEducatorRequest } from "../interfaces/subjectInterfaces/GetSubjectsByEducatorRequest";
 
