@@ -75,7 +75,7 @@ export class StudentService {
 								};
 							});
 
-						//TODO: Switch this to the subject repository
+						
 						subjectRepository.save(subject).then(() => {
 							this.emailService
 								.SendBulkAddedToSubjectEmails(
