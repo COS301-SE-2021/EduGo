@@ -15,20 +15,27 @@ export class UserService {
 		let user = await userRepo.findOne({ where: { username: username } });
 
 		if (user) {
-			if (user.educator.adminisAdmin) {
-				user.isAdmin = false;
-				userRepo
-					.save(user)
-					.then((saved) => {
-						return true;
-					})
-					.catch((err) => {
-						// exception for database unable to save
-						console.log(err.message);
-						return false;
-					});
+			if (user.educator) {
+				if(user.educator.admin){
+					user.educator.admin = false;
+					userRepo
+						.save(user)
+						.then((saved) => {
+							return true;
+						})
+						.catch((err) => {
+							// exception for database unable to save
+							console.log(err.message);
+							return false;
+						});
+				}
+
+				else{
+					// user is already admin 
+				}
+				
 			} else {
-				// add user is not an admin expetion
+				// add user is not an educator
 				return false;
 			}
 		} else {
@@ -39,7 +46,7 @@ export class UserService {
 
 	public async revokeUserFromAdmin(request: RevokeUserFromAdminRequest) {
 		if (request.username == null) {
-			//TO DO EXCEPTION
+			//TODO EXCEPTION
 			return false;
 		}
 
@@ -48,18 +55,27 @@ export class UserService {
 		let user = await userRepo.findOne({ where: { username: username } });
 
 		if (user) {
-			if (user.isAdmin) {
-				user.isAdmin = false;
-				userRepo.save(user).then((saved) => {
-					if (saved) {
-						// user successfully revoked from admin
-						return true;
-					}
-					// saving to data base error
-					return false;
-				});
+			if (user.educator) {
+				if(!user.educator.admin){
+					user.educator.admin = false;
+					userRepo
+						.save(user)
+						.then((saved) => {
+							return true;
+						})
+						.catch((err) => {
+							// exception for database unable to save
+							console.log(err.message);
+							return false;
+						});
+				}
+
+				else{
+					// user is already admin 
+				}
+				
 			} else {
-				// add user is not an admin expetion
+				// add user is not an educator
 				return false;
 			}
 		} else {
