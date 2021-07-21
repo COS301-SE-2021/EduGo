@@ -79,9 +79,10 @@ export const validateGetVirtualEntityRequest = (body: any): validationResult => 
     let keys = ["id"];
 
     let body_keys = Object.keys(body);
-    for (let key in keys)
+    for (let key of keys) {
         if (!body_keys.includes(key))
             return missing(key);
+    }
 
     if (typeof body.id !== 'number' || body.id <= 0)
         return invalid('id')

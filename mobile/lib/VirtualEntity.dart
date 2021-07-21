@@ -44,10 +44,13 @@ class Model {
 }
 
 Future<VirtualEntity> getVirtualEntity(int id) async {
-  String body = jsonEncode({'id': id});
-  print(body);
-
-  final response = await http.post(Uri.parse("${globals.baseUrl}virtualEntity/getVirtualEntity"), body: body);
+  final response = await http.post(
+    Uri.parse("${globals.baseUrl}virtualEntity/getVirtualEntity"), 
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode(<String, int>{'id': id}));
+  print(response.body);
 
   if (response.statusCode == 200) {
     return VirtualEntity.fromJson(jsonDecode(response.body));
@@ -71,6 +74,7 @@ class VirtualEntityView extends StatefulWidget {
 class _VirtualEntityViewState extends State<VirtualEntityView> {
   final VirtualEntityData data;
   Future<VirtualEntity> entity;
+  String name = 'None';
 
   _VirtualEntityViewState({@required this.data});
 
@@ -82,46 +86,35 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<VirtualEntity>(
-      future: entity,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Scaffold(
-            body: ModelViewer(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Virtual Entity: ${name}"),
+      ),
+      body: FutureBuilder<VirtualEntity>(
+        future: entity,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            setState(() {
+              name = snapshot.data.model.name;
+            });
+            return ModelViewer(
               backgroundColor: Colors.teal[50],
               src: snapshot.data.model.file_link,
-              alt: '${snapshot.data.model.name}',
+              alt: snapshot.data.model.name,
               autoPlay: true,
               ar: true,
               arScale: 'auto',
               autoRotate: true,
               cameraControls: true,
-            ),
-          );
-        }
-        else if (snapshot.hasError) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Virtual Entity'),
-              automaticallyImplyLeading: false,
-              backgroundColor: Colors.black,
-            ),
-            body: Text('Virtual Entity not found'),
-          );
-        }
-        else {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Virtual Entity'),
-              automaticallyImplyLeading: false,
-              backgroundColor: Colors.black,
-            ),
-            body: Center(
-              child: CircularProgressIndicator()
-            )
-          );
-        }
-      }
+            );
+          }
+          else if (snapshot.hasError) {
+            return Text(snapshot.error);
+          }
+          else
+            return Center(child: CircularProgressIndicator());
+        },
+      )
     );
   }
 }
