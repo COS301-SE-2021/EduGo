@@ -10,7 +10,7 @@ import { VerificationEmail } from "../interfaces/emailInterfaces/VerificationEma
 import { EmailList } from "../interfaces/userInterfaces/SerivceModels";
 import { AddUsersToSubjectRequest } from "../interfaces/userInterfaces/AddUsersToSubjectRequest";
 import { validateEmails } from "../validations/emailValidate";
-import { MockEmailService } from "../services/MockEmailService";
+import { MockEmailService } from "./MockEmailService";
 
 export class StudentService {
 	emailService: EmailService;

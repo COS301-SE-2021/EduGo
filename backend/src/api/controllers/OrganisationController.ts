@@ -4,12 +4,11 @@ import { DatabaseError } from "../exceptions/DatabaseError";
 import { AddSubjectToOrganisationRequest } from "../interfaces/organisationInterfaces/AddSubjectToOrganisationRequest";
 import { CreateOrganisationRequest } from "../interfaces/organisationInterfaces/CreateOrganisationRequest";
 import { GetOrganisationRequest } from "../interfaces/organisationInterfaces/GetOrganisationRequest";
-import { GetOrganisationsRequest } from "../interfaces/organisationInterfaces/GetOrganisationsRequest";
 import { OrganisationService } from "../services/OrganisationService";
-import { OrganisationServiceImplementation } from "../services/OrganisationServiceImplmentation";
+
 
 export const router = express.Router();
-const service: OrganisationService = new OrganisationServiceImplementation();
+const service: OrganisationService = new OrganisationService();
 
 router.post("/createOrganisation", async (req, res) => {
 	let body = <CreateOrganisationRequest>req.body;

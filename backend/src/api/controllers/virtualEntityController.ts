@@ -1,7 +1,7 @@
 import express from 'express';
 import {CreateVirtualEntityRequest} from '../interfaces/virtualEntityInterfaces/CreateVirtualEntityRequest';
 import { GetVirtualEntityRequest } from '../interfaces/virtualEntityInterfaces/GetVirtualEntityRequest';
-import { VirtualEntityService } from '../services/virtualEntityService';
+import { VirtualEntityService } from '../services/VirtualEntityService';
 import { VirtualEntityServiceImplementation } from '../services/virtualEntityServiceImplentation';
 import { validateCreateVirtualEntityRequest, validateAddModelToVirtualEntityRequest, validateGetVirtualEntityRequest } from '../validations/virtualEntityValidate';
 import { uploadFile } from '../helper/awsHelper/fileUpload';

@@ -6,7 +6,6 @@ import { User } from "../Database/User";
 import { Student } from "../Database/Student";
 import { Educator } from "../Database/Educator";
 import { UnverifiedUser, UserType } from "../Database/UnverifiedUser";
-import { verifyInvitation } from "../services/AuthService";
 
 const router = express.Router();
 

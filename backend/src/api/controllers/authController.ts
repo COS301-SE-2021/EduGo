@@ -3,7 +3,7 @@ import { isUser, isAdmin, passportJWT } from "../middleware/rules";
 import { LoginRequest } from "../interfaces/authInterfaces/LoginRequest";
 import { RegisterRequest } from "../interfaces/authInterfaces/RegisterRequest";
 import { VerifyInvitationRequest } from "../interfaces/authInterfaces/VerifyInvitationRequest";
-import { AuthService  } from "../services/AuthService";
+import { AuthService  } from "../services/authService";
 
 const service = new AuthService();
 const router = express.Router();
