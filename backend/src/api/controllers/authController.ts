@@ -3,9 +3,9 @@ import { isUser, isAdmin, passportJWT } from "../middleware/rules";
 import { LoginRequest } from "../interfaces/authInterfaces/LoginRequest";
 import { RegisterRequest } from "../interfaces/authInterfaces/RegisterRequest";
 import { VerifyInvitationRequest } from "../interfaces/authInterfaces/VerifyInvitationRequest";
-import { authService } from "../services/authService";
+import { AuthService  } from "../services/AuthService";
 
-const AuthService = new authService();
+const service = new AuthService();
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -26,7 +26,7 @@ router.get("/protectedAdmin", passportJWT, isAdmin, (req, res, next) => {
 	});
 });
 router.post("/login", async (req, res) => {
-	AuthService.login(<LoginRequest>req.body)
+	service.login(<LoginRequest>req.body)
 		.then((user) => {
 			if (user) {
 				if (user.type == "success") {
@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-	AuthService.register(<RegisterRequest>req.body)
+	service.register(<RegisterRequest>req.body)
 		.then((user) => {
 			if (user) {
 				if (user.type == "success") {
@@ -62,7 +62,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/verifyInvitation", async (req, res) => {
-	AuthService.verifyInvitation(<VerifyInvitationRequest>req.body)
+	service.verifyInvitation(<VerifyInvitationRequest>req.body)
 		.then((user) => {
 			if (user) {
 				if (user.type == "success") {

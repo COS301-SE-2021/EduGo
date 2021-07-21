@@ -59,13 +59,13 @@ if (process.env.NODE_ENV !== 'test') {
     })
 }
 
-import {router as LessonController} from './api/controllers/lessonController';
+import {router as LessonController} from './api/controllers/LessonController';
 import {router as SubjectController} from './api/controllers/subjectController';
 import {router as VirtualEntityController} from './api/controllers/virtualEntityController';
 import {router as OrganisationController} from './api/controllers/OrganisationController';
 import { EmailService } from './api/services/EmailService';
 import { MailgunEmailService } from './api/services/MailgunEmailService';
-import { router as AuthController } from "./api/controllers/authController";
+import { router as AuthController } from "./api/controllers/AuthController";
 import { router as UserController } from './api/controllers/userController';
 import { router as SeedController} from './api/controllers/SeedController'
 

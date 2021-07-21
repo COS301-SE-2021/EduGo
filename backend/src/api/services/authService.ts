@@ -12,7 +12,7 @@ let statusRes: any = {
 	token: undefined,
 };
 
-export class authService {
+export class AuthService {
 	public async register(request: RegisterRequest) {
 		// Check if parameters are set
 		if (
