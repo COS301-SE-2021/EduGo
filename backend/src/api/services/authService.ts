@@ -7,6 +7,9 @@ import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest"
 import { UnverifiedUser } from "../database/UnverifiedUser";
 import { Organisation } from "../database/Organisation";
 import { Educator } from "../database/Educator";
+import { DatabaseError } from "../errors/DatabaseError";
+import { NonExistantItemError } from "../errors/NonExistantItemError";
+
 
 let statusRes: any = {
 	message: "",
@@ -49,8 +52,8 @@ export class AuthService {
 		return UserRepo.findOne({ where: { username: request.username } })
 			.then((user) => {
 				if (!user) {
-					statusRes.message = "User doesn't exist";
-					return statusRes;
+					throw new NonExistantItemError(`User with username ${request.username} not found`);
+					
 				}
 
 				// validate password of user
@@ -62,9 +65,6 @@ export class AuthService {
 
 				if (isValid) {
 					// issue jwt token for the user
-
-
-					
 					statusRes.token = issueJWT(user).token;
 					statusRes.message = "User Logged in";
 					statusRes.type = "success";
@@ -106,16 +106,11 @@ export class AuthService {
 
 			if (user.verificationCode == request.verificationCode) {
 				// set user as verified
-				let verified: boolean = <boolean>(
-					(<unknown>this.setUserToverified(user.id))
-				);
+				let verified: boolean = await this.setUserToverified(user.id);
 				if (verified) {
 					statusRes.message = "Invitiation code is valid";
 					statusRes.type = "success";
-				} else {
-					statusRes.message = "User unable to be verified";
-					return statusRes;
-				}
+				} 
 
 				return statusRes;
 			} else {
@@ -138,8 +133,8 @@ export class AuthService {
 				.where("id = :id", { id: user_id })
 				.execute();
 		} catch (err) {
-			console.log(err);
-			return false;
+			throw new DatabaseError(`Unable to update unverified UserID ${user_id} to true`);
+			
 		}
 		return true;
 	}
@@ -215,7 +210,7 @@ export class AuthService {
 						return statusRes;
 					})
 					.catch((err) => {
-						console.log(err);
+						throw new DatabaseError('User unable to be saved to DB');
 					});
 			} else {
 				statusRes.message =
@@ -286,9 +281,7 @@ export class AuthService {
 					return statusRes;
 				})
 				.catch((err) => {
-					console.log(err);
-					return "dszfg sfdg";
-					// TODO database save error
+					throw new DatabaseError('User unable to be saved to DB');
 				});
 		} else {
 			return "username and email already exist";
