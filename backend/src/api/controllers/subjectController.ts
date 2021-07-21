@@ -1,7 +1,7 @@
 import express from "express";
 import { SubjectService } from "../services/SubjectService";
-import { CreateSubjectRequest } from "../interfaces/subjectInterfaces/CreateSubjectRequest";
-import { GetSubjectsByEducatorRequest } from "../interfaces/subjectInterfaces/GetSubjectsByEducatorRequest";
+import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
+import { GetSubjectsByEducatorRequest } from "../models/subject/GetSubjectsByEducatorRequest";
 
 const router = express.Router();
 

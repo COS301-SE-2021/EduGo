@@ -1,10 +1,10 @@
-import { CreateLessonRequest } from "../interfaces/lessonInterfaces/CreateLessonRequest";
-import { GetLessonsBySubjectResponse } from "../interfaces/lessonInterfaces/GetLessonsBySubjectResponse";
-import { Lesson } from "../Database/Lesson";
+import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
+import { GetLessonsBySubjectResponse } from "../models/lesson/GetLessonsBySubjectResponse";
+import { Lesson } from "../database/Lesson";
 import { getConnection } from "typeorm";
-import { GetLessonsBySubjectRequest } from "../interfaces/lessonInterfaces/GetLessonsBySubjectRequest";
-import { Subject } from "../Database/Subject";
-import { User } from "../Database/User";
+import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
+import { Subject } from "../database/Subject";
+import { User } from "../database/User";
 let statusRes: any = {
 	message: "",
 	type: "fail",

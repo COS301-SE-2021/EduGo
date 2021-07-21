@@ -1,24 +1,24 @@
-import { AddSubjectToOrganisationRequest } from "../interfaces/organisationInterfaces/AddSubjectToOrganisationRequest";
-import { AddSubjectToOrganisationResponse } from "../interfaces/organisationInterfaces/AddSubjectToOrganisationResponse";
-import { CreateOrganisationRequest } from "../interfaces/organisationInterfaces/CreateOrganisationRequest";
-import { CreateOrganisationResponse } from "../interfaces/organisationInterfaces/CreateOrganisationResponse";
-import { GetOrganisationRequest } from "../interfaces/organisationInterfaces/GetOrganisationRequest";
-import { GetOrganisationResponse } from "../interfaces/organisationInterfaces/GetOrganisationResponse";
-import { GetOrganisationsRequest } from "../interfaces/organisationInterfaces/GetOrganisationsRequest";
+import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest";
+import { AddSubjectToOrganisationResponse } from "../models/organisation/AddSubjectToOrganisationResponse";
+import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisationRequest";
+import { CreateOrganisationResponse } from "../models/organisation/CreateOrganisationResponse";
+import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
+import { GetOrganisationResponse } from "../models/organisation/GetOrganisationResponse";
+import { GetOrganisationsRequest } from "../models/organisation/GetOrganisationsRequest";
 
-import { Organisation } from "../Database/Organisation";
+import { Organisation } from "../database/Organisation";
 import { getRepository } from "typeorm";
 
 import {
 	GetOrganisationsResponse,
 	GOs_Organisation,
-} from "../interfaces/organisationInterfaces/GetOrganisationsResponse";
+} from "../models/organisation/GetOrganisationsResponse";
 
-import { DatabaseError } from "../exceptions/DatabaseError";
-import { NonExistantItemError } from "../exceptions/NonExistantItemError";
+import { DatabaseError } from "../errors/DatabaseError";
+import { NonExistantItemError } from "../errors/NonExistantItemError";
 
-import { Subject } from "../Database/Subject";
-import { RegisterRequest } from "../interfaces/authInterfaces/RegisterRequest";
+import { Subject } from "../database/Subject";
+import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { AuthService } from "./AuthService";
 
 export class OrganisationService {

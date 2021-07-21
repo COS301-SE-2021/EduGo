@@ -3,7 +3,7 @@ import path from "path";
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 
-import { User } from "../Database/User";
+import { User } from "../database/User";
 import { getConnection } from "typeorm";
 
 const pathToKey = path.join(__dirname, "../helper/authHelper/id_rsa_pub.pem");

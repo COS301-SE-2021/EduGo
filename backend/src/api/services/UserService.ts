@@ -1,7 +1,7 @@
-import { User } from "../Database/User";
+import { User } from "../database/User";
 import { getRepository } from "typeorm";
-import { RevokeUserFromAdminRequest } from "../interfaces/userInterfaces/RevokeUserFromAdminRequest";
-import { SetUserToAdminRequest } from "../interfaces/userInterfaces/SetUserToAdminRequet";
+import { RevokeUserFromAdminRequest } from "../models/user/RevokeUserFromAdminRequest";
+import { SetUserToAdminRequest } from "../models/user/SetUserToAdminRequet";
 
 export class UserService {
 	public async setUserToAdmin(request: SetUserToAdminRequest) {

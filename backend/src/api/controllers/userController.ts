@@ -2,11 +2,11 @@ import express from "express";
 
 //import { RegisterRequest } from "../models/registerRequest";
 import { json } from "body-parser";
-import { AddUsersToSubjectRequest } from "../interfaces/userInterfaces/AddUsersToSubjectRequest";
+import { AddUsersToSubjectRequest } from "../models/user/AddUsersToSubjectRequest";
 import { StudentService } from "../services/StudentService";
-import { SetUserToAdminRequest } from "../interfaces/userInterfaces/SetUserToAdminRequet";
+import { SetUserToAdminRequest } from "../models/user/SetUserToAdminRequet";
 import { UserService } from "../services/UserService";
-import { RevokeUserFromAdminRequest } from "../interfaces/userInterfaces/RevokeUserFromAdminRequest";
+import { RevokeUserFromAdminRequest } from "../models/user/RevokeUserFromAdminRequest";
 const router = express.Router();
 
 router.use((req, res, next) => {

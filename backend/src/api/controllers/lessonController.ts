@@ -1,7 +1,7 @@
 import express from "express";
 import { LessonService } from "../services/LessonService";
-import { CreateLessonRequest } from "../interfaces/lessonInterfaces/CreateLessonRequest";
-import { GetLessonsBySubjectRequest } from "../interfaces/lessonInterfaces/GetLessonsBySubjectRequest";
+import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
+import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 
 const router = express.Router();
 const service = new LessonService(); 

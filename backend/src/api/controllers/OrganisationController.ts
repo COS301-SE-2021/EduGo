@@ -1,9 +1,9 @@
 import express from "express";
-import { NonExistantItemError } from "../exceptions/NonExistantItemError";
-import { DatabaseError } from "../exceptions/DatabaseError";
-import { AddSubjectToOrganisationRequest } from "../interfaces/organisationInterfaces/AddSubjectToOrganisationRequest";
-import { CreateOrganisationRequest } from "../interfaces/organisationInterfaces/CreateOrganisationRequest";
-import { GetOrganisationRequest } from "../interfaces/organisationInterfaces/GetOrganisationRequest";
+import { NonExistantItemError } from "../errors/NonExistantItemError";
+import { DatabaseError } from "../errors/DatabaseError";
+import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest";
+import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisationRequest";
+import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import { OrganisationService } from "../services/OrganisationService";
 
 

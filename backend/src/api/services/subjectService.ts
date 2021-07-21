@@ -1,14 +1,14 @@
 
-import { CreateSubjectRequest } from "../interfaces/subjectInterfaces/CreateSubjectRequest";
+import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
 import { getConnection, getRepository } from "typeorm";
-import { Subject } from "../Database/Subject";
-import { GetSubjectsByEducatorRequest } from "../interfaces/subjectInterfaces/GetSubjectsByEducatorRequest";
-import { GetSubjectsByEducatorResponse } from "../interfaces/subjectInterfaces/GetSubjectsByEducatorResponse";
-import { Organisation } from "../Database/Organisation";
-import { CreateSubjectResponse } from "../interfaces/subjectInterfaces/CreateSubjectResponse";
-import { User } from "../Database/User";
-import { DatabaseError } from "../exceptions/DatabaseError";
-import { Subject as GSBE_Subject } from "../interfaces/subjectInterfaces/Default";
+import { Subject } from "../database/Subject";
+import { GetSubjectsByEducatorRequest } from "../models/subject/GetSubjectsByEducatorRequest";
+import { GetSubjectsByEducatorResponse } from "../models/subject/GetSubjectsByEducatorResponse";
+import { Organisation } from "../database/Organisation";
+import { CreateSubjectResponse } from "../models/subject/CreateSubjectResponse";
+import { User } from "../database/User";
+import { DatabaseError } from "../errors/DatabaseError";
+import { Subject as GSBE_Subject } from "../models/subject/Default";
 
 //import {client} from '../../index'
 
@@ -76,74 +76,4 @@ export class SubjectService {
 	}
 }
 
-// export async function GetSubjectsByEducator(
-// 	request: GetSubjectsByEducatorRequest
-// ) {
-// 	if (request.educatorId == null) {
-// 		statusRes.message = "educatorId not provided";
-// 		return statusRes;
-// 	} else {
-// 		let conn = await getConnection();
-// 		let subjectRepository = conn.getRepository(Subject);
-// 		return subjectRepository
-// 			.find({ where: { educatorId: request.educatorId } })
-// 			.then((subjects) => {
-// 				if (subjects.length > 0) {
-// 					let LessonsData: GetLessonsBySubjectResponse = {
-// 						data: subjects,
-// 						statusMessage: "Successful",
-// 					};
-// 					return LessonsData;
-// 				} else {
-// 					statusRes.message =
-// 						"EducatorId invalid or Educator hasn't created subjects";
-// 					statusRes.type = "fail";
-// 					return statusRes;
-// 				}
-// 			})
-// 			.catch(() => {
-// 				statusRes.message =
-// 					"There was an error getting subjects for educators provided";
-// 				statusRes.type = "fail";
-// 				return statusRes;
-// 			});
-// 	}
-// }
 
-// export async function createSubject(request: CreateSubjectRequest) {
-// 	if (
-// 		request.title == null ||
-// 		request.educator_id == null
-// 	) {
-// 		statusRes.message = "Missing parameters"+JSON.stringify(request);
-// 		statusRes.type = "fail";
-// 		return statusRes;
-// 	} else {
-// 		let conn = getConnection();
-// 		let subject: Subject = new Subject();
-// 		subject.title = request.title;
-// 		subject.lessons = [];
-// 		subject.grade = request.grade;
-// 		let subjectRepository = conn.getRepository(Subject);
-// 		return getRepository(Organisation).findOne(request.organisation_id).then(org => {
-// 			if (org) {
-// 				subject.organisation = org;
-// 				return subjectRepository
-// 					.save(subject)
-// 					.then((value) => {
-// 						statusRes.message = `Successfully added subject `;
-// 						statusRes.type = "success";
-// 						return statusRes;
-// 					})
-// 					.catch((err) => {
-// 						statusRes.message =
-// 							"There was an error adding the subject to the database";
-// 						statusRes.type = "fail";
-// 						console.log(err);
-// 						return statusRes;
-// 					});
-// 			}
-// 			throw new Error('')
-// 		})
-// 	}
-// }

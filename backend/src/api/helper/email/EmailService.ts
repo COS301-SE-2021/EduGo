@@ -1,5 +1,5 @@
-import { AddedToSubjectEmail } from "../interfaces/emailInterfaces/AddedToSubjectEmail";
-import { VerificationEmail } from "../interfaces/emailInterfaces/VerificationEmail";
+import { AddedToSubjectEmail } from "./models/AddedToSubjectEmail";
+import { VerificationEmail } from "./models/VerificationEmail";
 
 export abstract class EmailService {
     abstract sendOneEmail(to: string, name: string, code: string): void;

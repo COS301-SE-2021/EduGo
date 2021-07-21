@@ -1,6 +1,6 @@
 import { EmailService } from "./EmailService";
-import { AddedToSubjectEmail } from "../interfaces/emailInterfaces/AddedToSubjectEmail";
-import { VerificationEmail } from "../interfaces/emailInterfaces/VerificationEmail";
+import { AddedToSubjectEmail } from "./models/AddedToSubjectEmail";
+import { VerificationEmail } from "./models/VerificationEmail";
 
 export class MockEmailService extends EmailService {
 	sendOneEmail(to: string, name: string, code: string): void {

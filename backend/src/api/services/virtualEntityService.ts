@@ -1,25 +1,25 @@
-import { VirtualEntity } from "../Database/VirtualEntity";
+import { VirtualEntity } from "../database/VirtualEntity";
 import { getConnection } from "typeorm";
-import { CreateVirtualEntityRequest } from "../interfaces/virtualEntityInterfaces/CreateVirtualEntityRequest";
-import { Model } from "../Database/Model";
-import { Quiz } from "../Database/Quiz";
-import { CreateVirtualEntityResponse } from "../interfaces/virtualEntityInterfaces/CreateVirtualEntityResponse";
-import { GetVirtualEntitiesRequest } from "../interfaces/virtualEntityInterfaces/GetVirtualEntitiesRequest";
+import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
+import { Model } from "../database/Model";
+import { Quiz } from "../database/Quiz";
+import { CreateVirtualEntityResponse } from "../models/virtualEntity/CreateVirtualEntityResponse";
+import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEntitiesRequest";
 import {
 	GetVirtualEntitiesResponse,
 	GVEs_Model,
 	GVEs_VirtualEntity,
-} from "../interfaces/virtualEntityInterfaces/GetVirtualEntitiesResponse";
-import { Question, QuestionType } from "../Database/Question";
-import { GetVirtualEntityRequest } from "../interfaces/virtualEntityInterfaces/GetVirtualEntityRequest";
+} from "../models/virtualEntity/GetVirtualEntitiesResponse";
+import { Question, QuestionType } from "../database/Question";
+import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import {
 	GetVirtualEntityResponse,
 	GVE_Model,
 	GVE_Quiz,
-} from "../interfaces/virtualEntityInterfaces/GetVirtualEntityResponse";
-import { AddModelToVirtualEntityFileData } from "../interfaces/virtualEntityInterfaces/AddModelToVirtualEntityRequest";
-import { AddModelToVirtualEntityDatabaseResult } from "../interfaces/virtualEntityInterfaces/AddModelToVirtualEntityResponse";
-import { Lesson } from "../Database/Lesson";
+} from "../models/virtualEntity/GetVirtualEntityResponse";
+import { AddModelToVirtualEntityFileData } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
+import { AddModelToVirtualEntityDatabaseResult } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
+import { Lesson } from "../database/Lesson";
 
 export class VirtualEntityService {
 	async AddModelToVirtualEntity(

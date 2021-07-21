@@ -1,8 +1,8 @@
 import express from "express";
-import { isUser, isAdmin, passportJWT } from "../middleware/rules";
-import { LoginRequest } from "../interfaces/authInterfaces/LoginRequest";
-import { RegisterRequest } from "../interfaces/authInterfaces/RegisterRequest";
-import { VerifyInvitationRequest } from "../interfaces/authInterfaces/VerifyInvitationRequest";
+import { isUser, isAdmin, passportJWT } from "../middleware/validate";
+import { LoginRequest } from "../models/auth/LoginRequest";
+import { RegisterRequest } from "../models/auth/RegisterRequest";
+import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
 import { AuthService  } from "../services/AuthService";
 
 const service = new AuthService();

@@ -1,16 +1,16 @@
-import { EmailService } from "./EmailService";
+import { EmailService } from "../helper/email/EmailService";
 import { getRepository, In } from "typeorm";
-import { User } from "../Database/User";
-import { Subject } from "../Database/Subject";
-import { DatabaseError } from "../exceptions/DatabaseError";
-import { AddedToSubjectEmail } from "../interfaces/emailInterfaces/AddedToSubjectEmail";
-import { EmailError } from "../exceptions/EmailError";
-import { UnverifiedUser } from "../Database/UnverifiedUser";
-import { VerificationEmail } from "../interfaces/emailInterfaces/VerificationEmail";
-import { EmailList } from "../interfaces/userInterfaces/SerivceModels";
-import { AddUsersToSubjectRequest } from "../interfaces/userInterfaces/AddUsersToSubjectRequest";
-import { validateEmails } from "../validations/emailValidate";
-import { MockEmailService } from "./MockEmailService";
+import { User } from "../database/User";
+import { Subject } from "../database/Subject";
+import { DatabaseError } from "../errors/DatabaseError";
+import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail";
+import { EmailError } from "../errors/EmailError";
+import { UnverifiedUser } from "../database/UnverifiedUser";
+import { VerificationEmail } from "../helper/email/models/VerificationEmail";
+import { EmailList } from "../models/user/SerivceModels";
+import { AddUsersToSubjectRequest } from "../models/user/AddUsersToSubjectRequest";
+import { validateEmails } from "../controllers/validations/emailValidate";
+import { MockEmailService } from "../helper/email/MockEmailService";
 
 export class StudentService {
 	emailService: EmailService;
