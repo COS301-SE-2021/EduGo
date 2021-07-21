@@ -9,13 +9,13 @@ export class UserService {
 			//TO DO EXCEPTION
 			return null;
 		}
-
+// TO DO change this to cater for Educators not user
 		let userRepo = getRepository(User);
 		let username = request.username;
 		let user = await userRepo.findOne({ where: { username: username } });
 
 		if (user) {
-			if (user.isAdmin) {
+			if (user.educator.adminisAdmin) {
 				user.isAdmin = false;
 				userRepo
 					.save(user)

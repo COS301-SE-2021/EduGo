@@ -6,7 +6,7 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 import { User } from "../database/User";
 import { getConnection } from "typeorm";
 
-const pathToKey = path.join(__dirname, "../helper/authHelper/id_rsa_pub.pem");
+const pathToKey = path.join(__dirname, "../helper/auth/id_rsa_pub.pem");
 const PUB_KEY = fs.readFileSync(pathToKey, "utf8");
 
 // At a minimum, you must pass the `jwtFromRequest` and `secretOrKey` properties

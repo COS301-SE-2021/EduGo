@@ -21,6 +21,6 @@ export class Educator {
 	@JoinTable()
 	subjects: Subject[];
 
-	@Column()
+	@Column({default:false})
 	admin: boolean;
 }

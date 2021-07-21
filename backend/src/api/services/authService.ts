@@ -1,10 +1,12 @@
 import { getConnection, getRepository } from "typeorm";
 import { User } from "../database/User";
-import utils from "../helper/auth/utils";
+import {genPassword,issueJWT,validPassword} from "../helper/auth/utils";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
 import { UnverifiedUser } from "../database/UnverifiedUser";
+import { Organisation } from "../database/Organisation";
+import { Educator } from "../database/Educator";
 
 let statusRes: any = {
 	message: "",
@@ -52,16 +54,18 @@ export class AuthService {
 				}
 
 				// validate password of user
-				let isvalid = utils.validPassword(
+				let isValid = validPassword(
 					request.password,
 					user.hash,
 					user.salt
 				);
 
-				if (isvalid) {
+				if (isValid) {
 					// issue jwt token for the user
 
-					statusRes.token = utils.issueJWT(user).token;
+
+					
+					statusRes.token = issueJWT(user).token;
 					statusRes.message = "User Logged in";
 					statusRes.type = "success";
 					return statusRes;
@@ -90,9 +94,9 @@ export class AuthService {
 		}
 
 		// Check if email of user is in invitation list
-		let inviatationRepo = getRepository(UnverifiedUser);
+		let invitationRepo = getRepository(UnverifiedUser);
 
-		let user = await inviatationRepo.findOne({
+		let user = await invitationRepo.findOne({
 			where: { email: request.email },
 		});
 
@@ -140,20 +144,38 @@ export class AuthService {
 		return true;
 	}
 
-	public async userRegistration(request: RegisterRequest) {
-		// check if user has entered invitation code
+	public async doesEmailExist(request: RegisterRequest) {
+		let userRepo = getRepository(User);
+		// check if username and password exist
+		let emailExists = await userRepo.findOne({
+			where: { email: request.email },
+		});
 
+		if (emailExists) return true;
+
+		return false;
+	}
+
+	public async doesUsernameExist(request: RegisterRequest) {
 		let userRepo = getRepository(User);
 		// check if username and password exist
 		let usernameExists = await userRepo.findOne({
 			where: { username: request.username },
 		});
-		let emailExists = await userRepo.findOne({
-			where: { email: request.email },
-		});
 
-		// if user name and password dont exist procced
-		if (!emailExists && !usernameExists) {
+		if (usernameExists) return true;
+
+		return false;
+	}
+
+	public async userRegistration(request: RegisterRequest) {
+		// if user name and password don't exist proceed
+
+		let userRepo = getRepository(User);
+		if (
+			!(await this.doesEmailExist(request)) &&
+			!(await this.doesUsernameExist(request))
+		) {
 			// check if user did verify their number
 			let invitedUser = await getRepository(UnverifiedUser).findOne({
 				where: { email: request.email },
@@ -165,30 +187,30 @@ export class AuthService {
 						"User has not verified account using invitation code";
 					statusRes.type = "fail";
 					statusRes.token = undefined;
-					console.log(statusRes);
 
 					return statusRes;
 				}
+
+				let org = invitedUser.organisation;
 
 				let user = new User();
 				user.email = request.email.toLowerCase();
 				user.firstName = request.firstName;
 				user.lastName = request.lastName;
 				user.username = request.username.toLowerCase();
-				const saltHAsh = utils.genPassword(request.password);
+				const saltHAsh = genPassword(request.password);
 				user.salt = saltHAsh.salt;
 				user.hash = saltHAsh.hash;
-
+				user.organisation = org;
 				return userRepo
 					.save(user)
 					.then((result) => {
-						// removing user from unverified list after they have registerd successfully
+						// removing user from unverified list after they have registered successfully
 						if (invitedUser)
 							getRepository(UnverifiedUser).delete(invitedUser);
 
 						statusRes.message = "User registered";
 						statusRes.type = "success";
-						console.log(statusRes);
 
 						return statusRes;
 					})
@@ -234,24 +256,28 @@ export class AuthService {
 	public async firstAdminRegistration(request: RegisterRequest) {
 		let userRepo = getRepository(User);
 
-		let usernameExists = await userRepo.findOne({
-			where: { username: request.username },
-		});
+		if (
+			!(await this.doesEmailExist(request)) &&
+			!(await this.doesUsernameExist(request))
+		) {
 
-		let emailExists = await userRepo.findOne({
-			where: { email: request.email },
-		});
-		if (!emailExists && !usernameExists) {
+			let orgRepo = getRepository(Organisation);
+
+
 			let user = new User();
 			user.email = request.email.toLowerCase();
 			user.firstName = request.firstName;
 			user.lastName = request.lastName;
 			user.username = request.username.toLowerCase();
-			const saltHAsh = utils.genPassword(request.password);
+			const saltHAsh = genPassword(request.password);
 			user.salt = saltHAsh.salt;
 			user.hash = saltHAsh.hash;
 			let userRepo = getRepository(User);
-			user.isAdmin = true;
+			
+			user.educator = new Educator(); 
+			user.educator.admin = true; 
+
+			
 			return userRepo
 				.save(user)
 				.then((result) => {

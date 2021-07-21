@@ -35,8 +35,6 @@ export class User {
 	@Column()
 	salt: string;
 
-	@Column({ default: false })
-	isAdmin: boolean;
 
 	@ManyToOne((type) => Organisation, (organisation) => organisation.users)
 	organisation: Organisation;

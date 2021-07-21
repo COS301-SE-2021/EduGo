@@ -1,7 +1,8 @@
-const crypto = require("crypto");
-const jsonwebtoken = require("jsonwebtoken");
-const fs = require("fs");
-const path = require("path");
+import crypto from "crypto";
+import jsonwebtoken from "jsonwebtoken";
+import fs from "fs";
+import path from "path";
+import { User } from "../../database/User";
 
 const pathToKey = path.join(__dirname, "/id_rsa_priv.pem");
 const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
@@ -19,7 +20,7 @@ const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
  * This function uses the crypto library to decrypt the hash using the salt and then compares
  * the decrypted hash/salt with the password that the user provided at login
  */
-function validPassword(password, hash, salt) {
+export function validPassword(password: string, hash: string, salt: string) {
 	var hashVerify = crypto
 		.pbkdf2Sync(password, salt, 10000, 64, "sha512")
 		.toString("hex");
@@ -36,7 +37,7 @@ function validPassword(password, hash, salt) {
  * ALTERNATIVE: It would also be acceptable to just use a hashing algorithm to make a hash of the plain text password.
  * You would then store the hashed password in the database and then re-hash it to verify later (similar to what we do here)
  */
-function genPassword(password) {
+export function genPassword(password: string) {
 	var salt = crypto.randomBytes(32).toString("hex");
 	var genHash = crypto
 		.pbkdf2Sync(password, salt, 10000, 64, "sha512")
@@ -51,13 +52,17 @@ function genPassword(password) {
 /**
  * @param {*} user - The user object.  We need this to set the JWT `sub` payload property to the Postgre user ID
  */
-function issueJWT(user) {
+export function issueJWT(user: User) {
 	const expiresIn = "1d";
+	let isAdmin = false;
+
+	// check if user is an educator and if they are an admin if they are set admin to true
+	if (user.educator !== undefined) {
+		if (user.educator.admin) isAdmin = true;
+	}
 
 	const payload = {
-		user_id: user.id,
-		organisation_id: user.organisation_id
-
+		user_id: user.id
 	};
 
 	const signedToken = jsonwebtoken.sign(payload, PRIV_KEY, {
