@@ -31,6 +31,22 @@ class _DetectMarkerViewState extends State<DetectMarkerView> {
 
   @override
   Widget build(BuildContext context) {
+    // if (result != null) {
+    //   print(result.code);
+    //   try {
+    //     VirtualEntityData data = validateMarker(result.code);
+    //     Navigator.of(context).push(
+    //     MaterialPageRoute(builder: 
+    //       (context) => VirtualEntityView(data: data)
+    //     )
+    //   );
+    //   }
+    //   catch (err) {
+    //     //TODO handle error
+    //     print(err);
+    //   }  
+    // }
+
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -38,7 +54,29 @@ class _DetectMarkerViewState extends State<DetectMarkerView> {
             flex: 5,
             child: QRView(
               key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
+              onQRViewCreated: (QRViewController controller) {
+                this.controller = controller;
+                controller.scannedDataStream.listen((data) {
+                  // setState(() {
+                  //   result = data;
+                  // });
+                  if (result == null) {
+                    result = data;
+                    try {
+                      VirtualEntityData data = validateMarker(result.code);
+                      Navigator.of(context).push(
+                      MaterialPageRoute(builder: 
+                        (context) => VirtualEntityView(data: data)
+                      )
+                    );
+                    }
+                    catch (err) {
+                      //TODO handle error
+                      print(err);
+                    }
+                  }
+                });
+              },
             ),
           ),
           Expanded(
@@ -82,5 +120,9 @@ VirtualEntityData validateMarker(String data) {
     catch (err) {
       //TODO: Log/Handle json decode error
     }
+  }
+  else {
+    print('Wrong');
+    throw Exception('Invalid Marker');
   }
 }
