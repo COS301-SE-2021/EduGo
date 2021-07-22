@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/DetectMarker.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
 
-void main() => runApp(MaterialApp(home: MyHome()));
+void main() {
+  runApp(MyApp());
+}
 
-class MyHome extends StatelessWidget {
-  const MyHome({Key key}) : super(key: key);
-
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Flutter Demo Home Page')),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => DetectMarkerView(),
-            ));
-          },
-          child: Text('Detect Marker'),
-        ),
-      ),
+    return MaterialApp(
+      title: 'EduGo',
+      theme: ThemeData(
+          primaryColor: Color.fromARGB(255, 97, 211, 87),
+          primarySwatch: Colors.blue,
+          fontFamily: "Montserrat"),
+      home: BottomBar(),
     );
   }
 }

@@ -128,6 +128,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.1"
+  momentum:
+    dependency: "direct dev"
+    description:
+      name: momentum
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
   path:
     dependency: transitive
     description:
