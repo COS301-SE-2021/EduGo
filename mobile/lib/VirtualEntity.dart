@@ -86,35 +86,43 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Virtual Entity: ${name}"),
-      ),
-      body: FutureBuilder<VirtualEntity>(
-        future: entity,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            setState(() {
-              name = snapshot.data.model.name;
-            });
-            return ModelViewer(
+    return FutureBuilder<VirtualEntity>(
+      future: this.entity,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(snapshot.data.model.name)
+            ),
+            body: ModelViewer(
               backgroundColor: Colors.teal[50],
               src: snapshot.data.model.file_link,
               alt: snapshot.data.model.name,
-              autoPlay: true,
               ar: true,
               arScale: 'auto',
+              autoPlay: true,
               autoRotate: true,
               cameraControls: true,
-            );
-          }
-          else if (snapshot.hasError) {
-            return Text(snapshot.error);
-          }
-          else
-            return Center(child: CircularProgressIndicator());
-        },
-      )
+            ),
+          );
+        }
+        else if (snapshot.hasError) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Virtual Entity')
+            ),
+            body: Center(child: Text('There was an error loading the virtual entity: ${snapshot.error}'))
+          );
+        }
+        else {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Loading...'),
+            ),
+            body: Center(child: CircularProgressIndicator())
+          );
+        }
+      },
     );
   }
 }
