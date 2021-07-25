@@ -32,8 +32,8 @@ Model _$ModelFromJson(Map<String, dynamic> json) {
     json['description'] as String? ?? '',
     json['file_name'] as String,
     json['file_link'] as String,
-    json['file_size'] as int,
-    json['file_type'] as String,
+    json['file_size'] as int? ?? 0,
+    json['file_type'] as String? ?? '',
   );
 }
 
@@ -69,8 +69,8 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['id', 'type', 'question']);
   return Question(
     json['id'] as int,
-    _$enumDecodeNullable(_$QuestionTypeEnumMap, json['type']) ??
-        QuestionType.TrueFalse,
+    _$enumDecode(_$QuestionTypeEnumMap, json['type'],
+        unknownValue: QuestionType.TrueFalse),
     json['question'] as String,
     json['correctAnswer'] as String? ?? '',
     (json['options'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -109,17 +109,6 @@ K _$enumDecode<K, V>(
       return MapEntry(unknownValue, enumValues.values.first);
     },
   ).key;
-}
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$QuestionTypeEnumMap = {

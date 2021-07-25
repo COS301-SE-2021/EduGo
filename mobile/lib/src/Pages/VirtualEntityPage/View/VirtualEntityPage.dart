@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Controller/VirtualEntityController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:model_viewer/model_viewer.dart';
+import 'package:http/http.dart' as http;
 
 class VirtualEntityView extends StatefulWidget {
   final VirtualEntityData data;
@@ -21,7 +22,7 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
   @override
   void initState() {
     super.initState();
-    this.entity = getVirtualEntity(data.ve_id);
+    this.entity = getVirtualEntity(data.ve_id, client: http.Client());
   }
 
   _VirtualEntityViewState({required this.data});
