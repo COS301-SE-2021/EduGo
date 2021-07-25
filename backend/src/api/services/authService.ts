@@ -1,6 +1,6 @@
 import { getConnection, getRepository } from "typeorm";
 import { User } from "../database/User";
-import {genPassword,issueJWT,validPassword} from "../helper/auth/utils";
+import { genPassword, issueJWT, validPassword } from "../helper/auth/utils";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
@@ -10,7 +10,7 @@ import { Educator } from "../database/Educator";
 import { DatabaseError } from "../errors/DatabaseError";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { InvalidParameterError } from "../errors/InvalidParametersError";
-
+import { validateRegisterRequest } from "./validations/authValidate";
 
 let statusRes: any = {
 	message: "",
@@ -21,17 +21,7 @@ let statusRes: any = {
 export class AuthService {
 	public async register(request: RegisterRequest) {
 		// Check if parameters are set
-		if (
-			request.email == null ||
-			request.firstName == null ||
-			request.lastName == null ||
-			request.username == null ||
-			request.userType == null ||
-			request.password == null ||
-			request.organisation_id == null
-		) {
-			throw new InvalidParameterError("One of the paramter are invalid")
-		}
+		validateRegisterRequest(request);
 
 		if (request.userType == "OrganizationAdmin") {
 			// registering the first admin for an organization
@@ -50,7 +40,9 @@ export class AuthService {
 		return UserRepo.findOne({ where: { username: request.username } })
 			.then((user) => {
 				if (!user) {
-					throw new NonExistantItemError(`User with username ${request.username} not found`);
+					throw new NonExistantItemError(
+						`User with username ${request.username} not found`
+					);
 				}
 
 				// validate password of user
@@ -107,7 +99,7 @@ export class AuthService {
 				if (verified) {
 					statusRes.message = "Invitiation code is valid";
 					statusRes.type = "success";
-				} 
+				}
 
 				return statusRes;
 			} else {
@@ -130,8 +122,9 @@ export class AuthService {
 				.where("id = :id", { id: user_id })
 				.execute();
 		} catch (err) {
-			throw new DatabaseError(`Unable to update unverified UserID ${user_id} to true`);
-			
+			throw new DatabaseError(
+				`Unable to update unverified UserID ${user_id} to true`
+			);
 		}
 		return true;
 	}
@@ -207,7 +200,9 @@ export class AuthService {
 						return statusRes;
 					})
 					.catch((err) => {
-						throw new DatabaseError('User unable to be saved to DB');
+						throw new DatabaseError(
+							"User unable to be saved to DB"
+						);
 					});
 			} else {
 				statusRes.message =
@@ -225,7 +220,7 @@ export class AuthService {
 	public async emailExists(request: RegisterRequest) {
 		let userRepo = getRepository(User);
 		//Check if user exists with specified username and email address
-		let emailExists = userRepo.findOne({
+		let emailExists = await userRepo.findOne({
 			where: { email: request.email },
 		});
 		if (emailExists == undefined) return true;
@@ -235,7 +230,7 @@ export class AuthService {
 	public async usernameExists(request: RegisterRequest) {
 		let userRepo = getRepository(User);
 
-		let usernameExists = userRepo.findOne({
+		let usernameExists = await userRepo.findOne({
 			where: { username: request.username },
 		});
 		console.log(usernameExists);
@@ -252,9 +247,7 @@ export class AuthService {
 			!(await this.doesEmailExist(request)) &&
 			!(await this.doesUsernameExist(request))
 		) {
-
 			let orgRepo = getRepository(Organisation);
-
 
 			let user = new User();
 			user.email = request.email.toLowerCase();
@@ -265,11 +258,10 @@ export class AuthService {
 			user.salt = saltHAsh.salt;
 			user.hash = saltHAsh.hash;
 			let userRepo = getRepository(User);
-			
-			user.educator = new Educator(); 
-			user.educator.admin = true; 
 
-			
+			user.educator = new Educator();
+			user.educator.admin = true;
+
 			return userRepo
 				.save(user)
 				.then((result) => {
@@ -278,7 +270,7 @@ export class AuthService {
 					return statusRes;
 				})
 				.catch((err) => {
-					throw new DatabaseError('User unable to be saved to DB');
+					throw new DatabaseError("User unable to be saved to DB");
 				});
 		} else {
 			return "username and email already exist";

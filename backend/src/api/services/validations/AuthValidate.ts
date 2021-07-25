@@ -1,19 +1,22 @@
-
 import { validationResult } from "../../helper/ValidationHelper";
 import { missing, invalid } from "../../../api/helper/ValidationHelper";
+import { InvalidParameterError } from "../../errors/InvalidParametersError";
 
 export const validateRegisterRequest = (body: any): validationResult => {
-    let keys = ["lesson_id", "title", "description"];
-    let model_keys = ["name", "file_link", "file_size", "file_name", "file_type"];
-    let quiz_keys = ["title", "description"];
-    let question_keys = ["type", "question"];
+	let keys = [
+		"email",
+		"firstName",
+		"lastName",
+		"username",
+		"userType",
+		"password",
+		"organisation_id",
+	];
 
-    
-    let body_keys = Object.keys(body);
-    for (let key of keys) {
-        if (!body_keys.includes(key))
-            return missing(key);
-    }
+	let body_keys = Object.keys(body);
+	for (let key of keys) {
+		if (!body_keys.includes(key)) throw new InvalidParameterError(`Parameter is missing ${key}`);
+	}
 
-    return {ok: true, message: ''}
-}
+	return { ok: true, message: "" };
+};
