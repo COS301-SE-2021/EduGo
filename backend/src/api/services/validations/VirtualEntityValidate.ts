@@ -1,15 +1,11 @@
+import { missing, invalid } from "../../../api/helper/ValidationHelper";
+
 interface validationResult {
     ok: boolean;
     message: string;
 }
 
-const missing = (param: string): validationResult => {
-    return {ok: false, message: `Missing param: ${param}`};
-}
 
-const invalid = (param: string): validationResult => {
-    return {ok: false, message: `Invalid param: ${param}`}
-}
 
 export const validateCreateVirtualEntityRequest = (body: any): validationResult => {
     let keys = ["lesson_id", "title", "description"];

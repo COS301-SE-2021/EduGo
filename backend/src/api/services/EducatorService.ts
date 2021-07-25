@@ -1,5 +1,5 @@
 import { getRepository, In } from "typeorm";
-import { validateEmails } from "../controllers/validations/emailValidate";
+import { validateEmails } from "./validations/EmailValidate";
 import { Organisation } from "../database/Organisation";
 import { UnverifiedUser } from "../database/UnverifiedUser";
 import { DatabaseError } from "../errors/DatabaseError";

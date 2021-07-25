@@ -7,7 +7,7 @@ import {
 	validateCreateVirtualEntityRequest,
 	validateAddModelToVirtualEntityRequest,
 	validateGetVirtualEntityRequest,
-} from "./validations/virtualEntityValidate";
+} from "../services/validations/VirtualEntityValidate";
 import { uploadFile } from "../helper/aws/fileUpload";
 import {
 	AddModelToVirtualEntityFileData,
