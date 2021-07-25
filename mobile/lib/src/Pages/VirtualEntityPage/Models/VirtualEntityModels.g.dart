@@ -52,6 +52,9 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     json['title'] as String,
     json['description'] as String? ?? '',
+    (json['questions'] as List<dynamic>?)
+        ?.map((e) => Question.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -59,6 +62,7 @@ Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
+      'questions': instance.questions?.map((e) => e.toJson()).toList(),
     };
 
 Question _$QuestionFromJson(Map<String, dynamic> json) {
