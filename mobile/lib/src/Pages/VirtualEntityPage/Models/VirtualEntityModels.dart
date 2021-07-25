@@ -84,12 +84,17 @@ enum QuestionType {
   @JsonValue("FreeText") FreeText,
 }
 
+QuestionType toQuestionType(String type) {
+    QuestionType t = QuestionType.values.firstWhere((element) => element.toString() == "QuestionType.${type}", orElse: () => QuestionType.TrueFalse);
+    return t;
+}
+
 @JsonSerializable()
 class Question {
   @JsonKey(required: true)
   int id;
 
-  @JsonKey(required: true, defaultValue: QuestionType.TrueFalse)
+  @JsonKey(required: true, unknownEnumValue: QuestionType.TrueFalse)
   QuestionType type;
 
   @JsonKey(required: true)

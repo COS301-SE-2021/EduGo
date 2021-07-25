@@ -40,6 +40,47 @@ void main() {
       expect(question.correctAnswer, 'True');
       expect(question.options, ['True', 'False']);
     });
+
+    //TODO fix test such that it works!!!
+    test('type should default to TrueFalse if invalid type is given', () {
+      String json = '''
+        {
+          "id": 1,
+          "type": "Invalid",
+          "question": "Is this a question?",
+          "correctAnswer": "True",
+          "options": [
+            "True",
+            "False"
+          ]
+        }
+      ''';
+      Question question = Question.fromJson(jsonDecode(json));
+      expect(question.type, QuestionType.TrueFalse);
+      //expect(() => Question.fromJson(jsonDecode(json)), throwsA(isA()));
+    });
+
+    test('should throw an error when invalid json is given', () {
+      String json = '''
+        {
+          "id": 1,
+          "type": "TrueFalse",
+          "question": "Is this a question?",
+          "correctAnswer": "True",
+        }
+      ''';
+      expect(() => Question.fromJson(jsonDecode(json)), throwsA(isA<FormatException>()));
+    });
+
+    test('toQuestionType function returns proper QuestionType value', () {
+      expect(toQuestionType('TrueFalse'), QuestionType.TrueFalse);
+      expect(toQuestionType('MultipleChoice'), QuestionType.MultipleChoice);
+      expect(toQuestionType('FreeText'), QuestionType.FreeText);
+    });
+
+    test('toQuestionType function returns TrueFalse enum for invalid QuestionType value', () {
+      expect(toQuestionType('Invalid'), QuestionType.TrueFalse);
+    });
   });
 
   group("Quiz", () {
@@ -74,6 +115,7 @@ void main() {
       expect(quiz.questions, null);
     });
 
+    //Maybe an integration test
     test('should correctly instantiate a more complex quiz object from a json string', () {
       String json = '''
         {
@@ -120,6 +162,26 @@ void main() {
       expect(quiz.questions![1].correctAnswer, 'B');
       expect(quiz.questions![1].options, ['A', 'B', 'C', 'D']);
     });
+
+    test("should throw an error when invalid json is given", () {
+      String json = '''
+        {
+          "id": 1,
+          "title": "${title}",
+          "description": "${description}",
+      ''';
+      expect(() => Quiz.fromJson(jsonDecode(json)), throwsA(isA<FormatException>()));
+    });
+
+    test("should throw an error due to missing required property", () {
+      String json = '''
+        {
+          "id": 1,
+          "description": "${description}"
+        }
+      ''';
+      expect(() => Quiz.fromJson(jsonDecode(json)), throwsA(isA<MissingRequiredKeysException>()));
+    });
   });
 
   group("Model" , () {
@@ -143,7 +205,7 @@ void main() {
       expect(model.file_size, 0);
     });
 
-    test('that is incorrectly formatted should throw error', () {
+    test('should throw an error when invalid json is given', () {
       String json = '''
         {
           "name": "Model Name",
