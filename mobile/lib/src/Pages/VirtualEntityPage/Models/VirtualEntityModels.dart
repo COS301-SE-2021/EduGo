@@ -46,7 +46,10 @@ class Model {
   @JsonKey(required: true)
   String file_link;
 
+  @JsonKey(required: false, defaultValue: 0)
   int file_size;
+
+  @JsonKey(required: false, defaultValue: '')
   String file_type;
 
   Model(this.name, this.description, this.file_name, this.file_link, this.file_size, this.file_type);
