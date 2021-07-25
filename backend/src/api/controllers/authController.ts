@@ -1,9 +1,10 @@
 import express from "express";
+import { handleErrors } from "../helper/ErrorCatch";
 import { isUser, isAdmin, passportJWT } from "../middleware/validate";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
-import { AuthService  } from "../services/AuthService";
+import { AuthService } from "../services/AuthService";
 
 const service = new AuthService();
 const router = express.Router();
@@ -26,17 +27,10 @@ router.get("/protectedAdmin", passportJWT, isAdmin, (req, res, next) => {
 	});
 });
 router.post("/login", async (req, res) => {
-	service.login(<LoginRequest>req.body)
-		.then((user) => {
-			if (user) {
-				if (user.type == "success") {
-					res.status(200);
-					res.json(user);
-				} else {
-					res.status(400);
-					res.json(user);
-				}
-			}
+	service
+		.login(<LoginRequest>req.body)
+		.then((response) => {
+			res.status(200).json(response);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -44,38 +38,24 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-	service.register(<RegisterRequest>req.body)
-		.then((user) => {
-			if (user) {
-				if (user.type == "success") {
-					res.status(200);
-					res.json(user);
-				} else {
-					res.status(400);
-					res.json(user);
-				}
-			}
+	service
+		.register(<RegisterRequest>req.body)
+		.then((response) => {
+			res.status(200).json(response);
 		})
 		.catch((err) => {
-			console.log(err);
+			handleErrors(err, res);
 		});
 });
 
 router.post("/verifyInvitation", async (req, res) => {
-	service.verifyInvitation(<VerifyInvitationRequest>req.body)
-		.then((user) => {
-			if (user) {
-				if (user.type == "success") {
-					res.status(200);
-					res.json(user);
-				} else {
-					res.status(400);
-					res.json(user);
-				}
-			}
+	service
+		.verifyInvitation(<VerifyInvitationRequest>req.body)
+		.then((response) => {
+			res.status(200).json(response);
 		})
 		.catch((err) => {
-			console.log(err);
+			handleErrors(err, res);
 		});
 });
 

@@ -9,6 +9,7 @@ import { Organisation } from "../database/Organisation";
 import { Educator } from "../database/Educator";
 import { DatabaseError } from "../errors/DatabaseError";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
+import { InvalidParameterError } from "../errors/InvalidParametersError";
 
 
 let statusRes: any = {
@@ -29,10 +30,7 @@ export class AuthService {
 			request.password == null ||
 			request.organisation_id == null
 		) {
-			statusRes.message = "Missing Parameters";
-			statusRes.type = "success";
-			console.log(statusRes);
-			return statusRes;
+			throw new InvalidParameterError("One of the paramter are invalid")
 		}
 
 		if (request.userType == "OrganizationAdmin") {
@@ -53,7 +51,6 @@ export class AuthService {
 			.then((user) => {
 				if (!user) {
 					throw new NonExistantItemError(`User with username ${request.username} not found`);
-					
 				}
 
 				// validate password of user
