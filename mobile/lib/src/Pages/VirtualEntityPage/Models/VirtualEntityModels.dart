@@ -11,6 +11,49 @@ class VirtualEntityData {
 }
 
 @JsonSerializable(explicitToJson: true)
+class VirtualEntity {
+  @JsonKey(required: true)
+  int id;
+
+  @JsonKey(required: true)
+  String title;
+
+  @JsonKey(defaultValue: '')
+  String description;
+
+  @JsonKey(defaultValue: null)
+  Model? model;
+
+  VirtualEntity(this.id, this.title, this.description);
+
+  factory VirtualEntity.fromJson(Map<String, dynamic> json) => _$VirtualEntityFromJson(json);
+  Map<String, dynamic> toJson() => _$VirtualEntityToJson(this);
+}
+
+@JsonSerializable()
+class Model {
+  @JsonKey(required: true)
+  String name;
+
+  @JsonKey(defaultValue: '')
+  String description;
+
+  @JsonKey(required: true)
+  String file_name;
+
+  @JsonKey(required: true)
+  String file_link;
+
+  int file_size;
+  String file_type;
+
+  Model(this.name, this.description, this.file_name, this.file_link, this.file_size, this.file_type);
+
+  factory Model.fromJson(Map<String, dynamic> json) => _$ModelFromJson(json);
+  Map<String, dynamic> toJson() => _$ModelToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
 class Quiz {
   @JsonKey(required: true)
   int id;
