@@ -64,7 +64,7 @@ export const validateAddModelToVirtualEntityRequest = (body: any): validationRes
     let keys = ["virtualEntity_id", "name", "description"];
 
     let body_keys = Object.keys(keys);
-    for (let key in keys) {
+    for (let key of keys) {
         if (!body_keys.includes(key))
             return missing(key)
     }
@@ -79,7 +79,7 @@ export const validateGetVirtualEntityRequest = (body: any): validationResult => 
     let keys = ["id"];
 
     let body_keys = Object.keys(body);
-    for (let key in keys)
+    for (let key of keys)
         if (!body_keys.includes(key))
             return missing(key);
 
