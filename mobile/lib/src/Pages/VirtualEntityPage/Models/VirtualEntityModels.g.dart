@@ -65,7 +65,8 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['id', 'type', 'question']);
   return Question(
     json['id'] as int,
-    json['type'] as String? ?? 'TrueFalse',
+    _$enumDecodeNullable(_$QuestionTypeEnumMap, json['type']) ??
+        QuestionType.TrueFalse,
     json['question'] as String,
     json['correctAnswer'] as String? ?? '',
     (json['options'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -74,8 +75,51 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
       'id': instance.id,
-      'type': instance.type,
+      'type': _$QuestionTypeEnumMap[instance.type],
       'question': instance.question,
       'correctAnswer': instance.correctAnswer,
       'options': instance.options,
     };
+
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
+  }
+
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
+}
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$QuestionTypeEnumMap = {
+  QuestionType.TrueFalse: 'TrueFalse',
+  QuestionType.MultipleChoice: 'MultipleChoice',
+  QuestionType.FreeText: 'FreeText',
+};

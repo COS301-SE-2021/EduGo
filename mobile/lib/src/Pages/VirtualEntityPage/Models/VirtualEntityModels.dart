@@ -72,13 +72,19 @@ class Quiz {
   Map<String, dynamic> toJson() => _$QuizToJson(this);
 }
 
+enum QuestionType {
+  @JsonValue("TrueFalse") TrueFalse, 
+  @JsonValue("MultipleChoice") MultipleChoice,
+  @JsonValue("FreeText") FreeText,
+}
+
 @JsonSerializable()
 class Question {
   @JsonKey(required: true)
   int id;
 
-  @JsonKey(required: true, defaultValue: 'TrueFalse')
-  String type;
+  @JsonKey(required: true, defaultValue: QuestionType.TrueFalse)
+  QuestionType type;
 
   @JsonKey(required: true)
   String question;
