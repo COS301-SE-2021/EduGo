@@ -33,12 +33,12 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
         if (snapshot.hasData) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(snapshot.data!.model.name),
+              title: Text(snapshot.data!.model!.name),
             ),
             body: ModelViewer(
               backgroundColor: Colors.teal[50],
-              src: snapshot.data!.model.file_link,
-              alt: snapshot.data!.model.name,
+              src: snapshot.data!.model!.file_link,
+              alt: snapshot.data!.model!.name,
               ar: true,
               arScale: 'auto',
               autoRotate: true,
