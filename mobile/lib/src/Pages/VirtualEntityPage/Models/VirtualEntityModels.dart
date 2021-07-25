@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+part 'VirtualEntityModels.g.dart';
+
 class VirtualEntityData {
   final int ve_id;
 
