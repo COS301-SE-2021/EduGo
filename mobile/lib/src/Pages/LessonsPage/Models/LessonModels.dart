@@ -20,7 +20,7 @@ class Lesson {
   @JsonKey(defaultValue: '')
   String endTime;
 
-  @JsonKey(defaultValue: null)
+  @JsonKey(defaultValue: [])
   List<VirtualEntity> virtualEntities;
 
   Lesson(this.id, this.title, this.description, this.startTime, this.endTime, this.virtualEntities);
