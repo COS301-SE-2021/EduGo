@@ -4,10 +4,10 @@ import { InvalidParameterError } from "../../errors/InvalidParametersError";
 
 export const validateRegisterRequest = (body: any): validationResult => {
 	let keys = [
-		"email",
-		"firstName",
-		"lastName",
-		"username",
+		"user_email",
+		"user_firstName",
+		"user_lastName",
+		"user_username",
 		"userType",
 		"password",
 		"organisation_id",
@@ -15,7 +15,8 @@ export const validateRegisterRequest = (body: any): validationResult => {
 
 	let body_keys = Object.keys(body);
 	for (let key of keys) {
-		if (!body_keys.includes(key)) throw new InvalidParameterError(`Parameter is missing ${key}`);
+		if (!body_keys.includes(key))
+			throw new InvalidParameterError(`Parameter is missing ${key}`);
 	}
 
 	return { ok: true, message: "" };

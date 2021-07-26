@@ -5,7 +5,7 @@ import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubje
 import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisationRequest";
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import { OrganisationService } from "../services/OrganisationService";
-
+import { handleErrors } from "../helper/ErrorCatch";
 
 export const router = express.Router();
 const service: OrganisationService = new OrganisationService();
@@ -18,11 +18,7 @@ router.post("/createOrganisation", async (req, res) => {
 			res.status(200).json(response);
 		})
 		.catch((err) => {
-			if (err instanceof DatabaseError) res.status(500).json(err);
-			else if (err instanceof NonExistantItemError)
-				res.status(400).json(err);
-			else {
-			}
+			handleErrors(err, res);
 		});
 });
 
@@ -33,11 +29,7 @@ router.post("/getOrganisations", async (req, res) => {
 			res.status(200).json(response);
 		})
 		.catch((err) => {
-			if (err instanceof DatabaseError) res.status(500).json(err);
-			else if (err instanceof NonExistantItemError)
-				res.status(400).json(err);
-			else {
-			}
+			handleErrors(err, res);
 		});
 });
 
@@ -49,11 +41,7 @@ router.post("/getOrganisation", async (req, res) => {
 			res.status(200).json(response);
 		})
 		.catch((err) => {
-			if (err instanceof DatabaseError) res.status(500).json(err);
-			else if (err instanceof NonExistantItemError)
-				res.status(400).json(err);
-			else {
-			}
+			handleErrors(err, res);
 		});
 });
 
@@ -65,10 +53,6 @@ router.post("/addSubject", async (req, res) => {
 			res.status(200).json(response);
 		})
 		.catch((err) => {
-			if (err instanceof DatabaseError) res.status(500).json(err);
-			else if (err instanceof NonExistantItemError)
-				res.status(400).json(err);
-			else {
-			}
+			handleErrors(err, res);
 		});
 });

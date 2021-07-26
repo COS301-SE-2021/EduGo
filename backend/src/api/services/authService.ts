@@ -21,7 +21,13 @@ let statusRes: any = {
 export class AuthService {
 	public async register(request: RegisterRequest) {
 		// Check if parameters are set
-		validateRegisterRequest(request);
+		try{
+			validateRegisterRequest(request)
+		}
+		
+		catch (error){
+			throw error
+		};
 
 		if (request.userType == "OrganizationAdmin") {
 			// registering the first admin for an organization
@@ -133,7 +139,7 @@ export class AuthService {
 		let userRepo = getRepository(User);
 		// check if username and password exist
 		let emailExists = await userRepo.findOne({
-			where: { email: request.email },
+			where: { email: request.user_email },
 		});
 
 		if (emailExists) return true;
@@ -163,7 +169,7 @@ export class AuthService {
 		) {
 			// check if user did verify their number
 			let invitedUser = await getRepository(UnverifiedUser).findOne({
-				where: { email: request.email },
+				where: { email: request.user_email },
 			});
 			// Only invited users can register
 			if (invitedUser) {
@@ -179,9 +185,9 @@ export class AuthService {
 				let org = invitedUser.organisation;
 
 				let user = new User();
-				user.email = request.email.toLowerCase();
-				user.firstName = request.firstName;
-				user.lastName = request.lastName;
+				user.email = request.user_email.toLowerCase();
+				user.firstName = request.user_firstName;
+				user.lastName = request.user_lastName;
 				user.username = request.username.toLowerCase();
 				const saltHAsh = genPassword(request.password);
 				user.salt = saltHAsh.salt;
@@ -221,7 +227,7 @@ export class AuthService {
 		let userRepo = getRepository(User);
 		//Check if user exists with specified username and email address
 		let emailExists = await userRepo.findOne({
-			where: { email: request.email },
+			where: { email: request.user_email },
 		});
 		if (emailExists == undefined) return true;
 
@@ -250,9 +256,9 @@ export class AuthService {
 			let orgRepo = getRepository(Organisation);
 
 			let user = new User();
-			user.email = request.email.toLowerCase();
-			user.firstName = request.firstName;
-			user.lastName = request.lastName;
+			user.email = request.user_email.toLowerCase();
+			user.firstName = request.user_firstName;
+			user.lastName = request.user_lastName;
 			user.username = request.username.toLowerCase();
 			const saltHAsh = genPassword(request.password);
 			user.salt = saltHAsh.salt;

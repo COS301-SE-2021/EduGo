@@ -1,9 +1,10 @@
 export interface RegisterRequest {
-	organisation_id: null;
+	organisation_id: number;
 	password: any;
-	firstName: string;
-	lastName: string;
-	email: string;
+	user_firstName: string;
+	user_lastName: string;
+	user_email: string;
 	userType: string;
 	username: string;
 }
+

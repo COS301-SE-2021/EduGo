@@ -76,25 +76,28 @@ export class OrganisationService {
 		organisation.phone = request.organisation_phone;
 		organisation.subjects = [];
 
-		// create first admin for organisation
-		request.userType = "OrganizationAdmin";
-		let registerObj: RegisterRequest = {
-			...request,
-		};
-		let authService = new AuthService();
-
-		authService.register(registerObj);
-
 		// create organization
 		let organisationRepo = getRepository(Organisation);
 		return organisationRepo
 			.save(organisation)
-			.then((org) => {
-				let response: CreateOrganisationResponse = {
-					id: org.id,
+			.then(async (org) => {
+				// create first admin for organisation
+				request.userType = "OrganizationAdmin";
+				request.organisation_id = org.id;
+				let registerObj: RegisterRequest = {
+					...request,
 				};
+				let authService = new AuthService();
 
-				return response;
+				try {
+					await authService.register(registerObj);
+					let response: CreateOrganisationResponse = {
+						id: org.id,
+					};
+					return response;
+				} catch (error) {
+					throw error;
+				}
 			})
 			.catch((err) => {
 				throw new DatabaseError("Could not create a new organisation");
