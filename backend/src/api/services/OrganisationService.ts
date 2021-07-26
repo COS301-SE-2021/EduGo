@@ -100,7 +100,7 @@ export class OrganisationService {
 				}
 			})
 			.catch((err) => {
-				throw new DatabaseError("Could not create a new organisation");
+				throw err;
 			});
 	}
 
@@ -126,7 +126,7 @@ export class OrganisationService {
 				);
 			})
 			.catch((err) => {
-				throw new DatabaseError();
+				throw new DatabaseError(err.message);
 			});
 	}
 

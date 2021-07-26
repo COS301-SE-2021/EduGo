@@ -7,7 +7,7 @@ export const validateRegisterRequest = (body: any): validationResult => {
 		"user_email",
 		"user_firstName",
 		"user_lastName",
-		"user_username",
+		"username",
 		"userType",
 		"password",
 		"organisation_id",
