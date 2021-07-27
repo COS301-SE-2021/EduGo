@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
+import 'package:momentum/momentum.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    Momentum(
+      child: MyApp(),
+      controllers: [LessonsController()]
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
