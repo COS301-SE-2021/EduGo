@@ -10,7 +10,7 @@ import { Educator } from "../database/Educator";
 import { DatabaseError } from "../errors/DatabaseError";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { InvalidParameterError } from "../errors/InvalidParametersError";
-import { validateRegisterRequest } from "./validations/authValidate";
+import { validateRegisterRequest } from "./validations/AuthValidate";
 
 let statusRes: any = {
 	message: "",

@@ -78,6 +78,7 @@ export class OrganisationService {
 
 		// create organization
 		let organisationRepo = getRepository(Organisation);
+		
 		return organisationRepo
 			.save(organisation)
 			.then(async (org) => {
