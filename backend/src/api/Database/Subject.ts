@@ -15,7 +15,7 @@ import { Student } from "./Student";
 import { UnverifiedUser } from "./UnverifiedUser";
 import { User } from "./User";
 
-@Index(["organisation", "title", "grade"])
+@Index(["organisation", "title", "grade"],{unique:true})
 @Entity()
 export class Subject {
 	@PrimaryGeneratedColumn()

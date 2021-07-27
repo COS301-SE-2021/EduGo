@@ -5,13 +5,14 @@ import { getConnection } from "typeorm";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import { Subject } from "../database/Subject";
 import { User } from "../database/User";
+import { handleSavetoDBErrors } from "../helper/ErrorCatch";
+import { NonExistantItemError } from "../errors/NonExistantItemError";
 let statusRes: any = {
 	message: "",
 	type: "fail",
 };
 
-
-export class LessonService{
+export class LessonService {
 	public async createLesson(request: CreateLessonRequest) {
 		if (
 			request.title == null ||
@@ -35,37 +36,34 @@ export class LessonService{
 			lesson.virtualEntities = [];
 			lesson.startTime = request.startTime;
 			lesson.endTime = request.endTime;
-	
+
 			let subjectRepository = conn.getRepository(Subject);
 			// search for subject with the givem id
-			return subjectRepository.findOne(request.subjectId).then((subject) => {
-				if (subject) {
-					subject.lessons = [lesson];
-					// set add the lesson to the subject
-					return subjectRepository
-						.save(subject)
-						.then((value) => {
-							statusRes.message = `Successfully added lesson `;
-							statusRes.type = "success";
-							return statusRes;
-						})
-						.catch((err) => {
-							statusRes.message = err.message;
-							statusRes.type = "fail";
-							return statusRes;
-						});
-				} else {
-					statusRes.message = "Subject Doesn't Exist";
-					statusRes.type = "fail";
-					return statusRes;
-				}
-			});
+			return subjectRepository
+				.findOne(request.subjectId)
+				.then((subject) => {
+					if (subject) {
+						subject.lessons = [lesson];
+						// set add the lesson to the subject
+						return subjectRepository
+							.save(subject)
+							.then((value) => {
+								return { id: lesson.id };
+							})
+							.catch((err) => {
+								throw handleSavetoDBErrors(err);
+							});
+					} else {
+						throw new NonExistantItemError("Subject Doesn't exixt");
+					}
+				});
 		}
 	}
-	
+
 	public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
 		if (request.subjectId == null) {
-			statusRes.message = "SubjectId not provided" + JSON.stringify(request);
+			statusRes.message =
+				"SubjectId not provided" + JSON.stringify(request);
 			return statusRes;
 		} else {
 			let conn = getConnection();
@@ -95,4 +93,3 @@ export class LessonService{
 		}
 	}
 }
-
