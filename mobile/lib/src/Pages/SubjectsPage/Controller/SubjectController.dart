@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mobile/globals.dart';
 import 'package:mobile/src/Exceptions.dart';
-import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectModels.dart';
+import 'package:mobile/src/Pages/SubjectsPage/Models/Subject.dart';
 
 Future<List<Subject>> getSubjectsByUser(int userId, {required http.Client client}) async {
   final response = await client.post(

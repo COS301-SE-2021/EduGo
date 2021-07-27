@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 //import 'package:mobile/src/Pages/LessonsPage/Models/LessonModels.dart';
 
-part 'SubjectModels.g.dart';
+part 'Subject.g.dart';
 
 @JsonSerializable()
 class Subject {

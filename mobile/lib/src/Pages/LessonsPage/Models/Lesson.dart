@@ -3,7 +3,7 @@ import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
 import 'package:momentum/momentum.dart';
 // import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 
-part 'LessonModels.g.dart';
+part 'Lesson.g.dart';
 
 @JsonSerializable()
 class Lesson {
