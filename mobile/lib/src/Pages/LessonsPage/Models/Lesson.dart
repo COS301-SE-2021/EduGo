@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
 // import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 
 part 'Lesson.g.dart';
