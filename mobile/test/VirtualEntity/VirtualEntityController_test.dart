@@ -1,14 +1,11 @@
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as httpTest;
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mobile/src/Pages/VirtualEntityPage/Controller/VirtualEntityController.dart';
 import 'package:mobile/globals.dart';
 
-@GenerateMocks([http.Client])
 void main() {
   group('Virtual Entity', () {
     test('should fetch virtual entity if the http call completes successfully', () async {
