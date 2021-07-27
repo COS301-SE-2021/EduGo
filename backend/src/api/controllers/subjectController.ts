@@ -1,7 +1,7 @@
 import express from "express";
 import { SubjectService } from "../services/SubjectService";
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
-import { GetSubjectsByEducatorRequest } from "../models/subject/GetSubjectsByEducatorRequest";
+import { GetSubjectsByUserRequest } from "../models/subject/GetSubjectsByUserRequest";
 import {
 	isEducator,
 	passportJWT,
@@ -31,12 +31,16 @@ router.post(
 	}
 );
 
-router.post("/getSubjectsByEducator", async (req, res) => {
-	service
-		.GetSubjectsByEducator(<GetSubjectsByEducatorRequest>req.body)
-		.then((subjects) => {
-			res.status(200).json(subjects);
-		});
-});
+router.post(
+	"/getSubjectsByUser",
+	passport.authenticate("jwt", { session: false }),
+	async (req, res) => {
+		service
+			.GetSubjectsByUser(<GetSubjectsByUserRequest>req.body)
+			.then((subjects) => {
+				res.status(200).json(subjects);
+			});
+	}
+);
 
 export { router };

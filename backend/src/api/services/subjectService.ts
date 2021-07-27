@@ -1,8 +1,8 @@
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
 import { getConnection, getRepository } from "typeorm";
 import { Subject } from "../database/Subject";
-import { GetSubjectsByEducatorRequest } from "../models/subject/GetSubjectsByEducatorRequest";
-import { GetSubjectsByEducatorResponse } from "../models/subject/GetSubjectsByEducatorResponse";
+import { GetSubjectsByUserRequest } from "../models/subject/GetSubjectsByUserRequest";
+import { GetSubjectsByUserResponse } from "../models/subject/GetSubjectsByUserResponse";
 import { Organisation } from "../database/Organisation";
 import { CreateSubjectResponse } from "../models/subject/CreateSubjectResponse";
 import { User } from "../database/User";
@@ -23,8 +23,7 @@ export class SubjectService {
 		request: CreateSubjectRequest,
 		user_id: number
 	): Promise<CreateSubjectResponse> {
-
-		// get user information to use for the request 
+		// get user information to use for the request
 		let userDetails: User;
 		try {
 			userDetails = await getUserDetails(user_id);
@@ -73,9 +72,9 @@ export class SubjectService {
 			});
 	}
 
-	async GetSubjectsByEducator(
-		request: GetSubjectsByEducatorRequest
-	): Promise<GetSubjectsByEducatorResponse> {
+	async GetSubjectsByUser(
+		request: GetSubjectsByUserRequest
+	): Promise<GetSubjectsByUserResponse> {
 		let userRepository = getRepository(User);
 
 		return userRepository
