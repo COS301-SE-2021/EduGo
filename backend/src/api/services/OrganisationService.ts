@@ -20,6 +20,8 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { Subject } from "../database/Subject";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { AuthService } from "./AuthService";
+import { DuplicateError } from "../errors/DuplicateError";
+import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 
 export class OrganisationService {
 	async AddSubjectToOrganisation(
@@ -63,7 +65,7 @@ export class OrganisationService {
 				);
 			})
 			.catch((err) => {
-				throw new DatabaseError();
+				throw new DatabaseError(err.message);
 			});
 	}
 
@@ -78,7 +80,7 @@ export class OrganisationService {
 
 		// create organization
 		let organisationRepo = getRepository(Organisation);
-		
+
 		return organisationRepo
 			.save(organisation)
 			.then(async (org) => {
@@ -101,7 +103,7 @@ export class OrganisationService {
 				}
 			})
 			.catch((err) => {
-				throw err;
+				throw handleSavetoDBErrors(err);
 			});
 	}
 

@@ -1,14 +1,25 @@
+import { Request } from "express";
 import jwtDecode from "jwt-decode";
 import passport from "passport";
 import { getRepository } from "typeorm";
-import {User} from "../database/User"
+import { User } from "../database/User";
+import { NonExistantItemError } from "../errors/NonExistantItemError";
+import { UnauthorizedUserError } from "../errors/UnauthorizedUserError";
+import { handleErrors } from "../helper/ErrorCatch";
 // TODO add rules
-
+interface MyPayload {
+	user_id: number;
+}
 interface AuthenticateObject {
 	id: number;
 	isAdmin: boolean;
-	isEducator: boolean; 
-	organisation_id : number; 
+	isEducator: boolean;
+	organisation_id: number;
+	educator_id: number;
+}
+
+export interface RequestObjectWithUserId extends Request{
+	user_id:number
 }
 
 export async function isUser(req: any, res: any, next: any) {
@@ -28,24 +39,36 @@ export async function isAdmin(req: any, res: any, next: any) {
 // TODO add rules
 export async function isEducator(req: any, res: any, next: any) {
 	const token = req.headers.authorization.slice(7);
-	const payload = jwtDecode(token);
+	const payload = jwtDecode<MyPayload>(token);
+
 	console.log(payload);
-	next();
+	try {
+		let user: AuthenticateObject = await getUserDetails(payload.user_id);
+		if (user.isEducator) {
+			next();
+		} else throw new UnauthorizedUserError("User is not an Educator");
+	} catch (err) {
+		handleErrors(err, res);
+	}
 }
 
-async function authenticate(id: number): Promise<AuthenticateObject> {
-	return getRepository(User).findOne({ id: id }).then(user => {
-		if (user) {
-			return {
-				id: user.id,
-				isAdmin: user.educator !== undefined ? user.educator.admin : false,
-				isEducator: user.educator !== undefined ? true : false,
-				organisation_id: user.organisation.id
-			}
-		}
-		//TODO: Add exception for non-existing user
-		throw new Error("User not found");
-	});
+async function getUserDetails(id: number): Promise<AuthenticateObject> {
+	return getRepository(User)
+		.findOne({ id: id })
+		.then((user) => {
+			if (user) {
+				return {
+					id: user.id,
+					isAdmin:
+						user.educator !== undefined
+							? user.educator.admin
+							: false,
+					isEducator: user.educator !== undefined ? true : false,
+					organisation_id: user.organisation.id,
+					educator_id: user.educator.id,
+				};
+			} else throw new NonExistantItemError("User not found");
+		});
 }
 
 export async function passportJWT() {
