@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
+// import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 
 part 'LessonModels.g.dart';
 
@@ -20,10 +20,10 @@ class Lesson {
   @JsonKey(defaultValue: '')
   String endTime;
 
-  @JsonKey(defaultValue: [])
-  List<VirtualEntity> virtualEntities;
+  // @JsonKey(defaultValue: [])
+  // List<VirtualEntity> virtualEntities;
 
-  Lesson(this.id, this.title, this.description, this.startTime, this.endTime, this.virtualEntities);
+  Lesson(this.id, this.title, this.description, this.startTime, this.endTime);
 
   factory Lesson.fromJson(Map<String, dynamic> json) => _$LessonFromJson(json);
   Map<String, dynamic> toJson() => _$LessonToJson(this);

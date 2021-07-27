@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 //import 'package:mobile/src/Pages/LessonsPage/Models/LessonModels.dart';
 
+part 'SubjectModels.g.dart';
+
 @JsonSerializable()
 class Subject {
   @JsonKey(required: true)
@@ -18,5 +20,5 @@ class Subject {
   Subject(this.id, this.title, this.grade);
 
   factory Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);
-  Map<String, dynamic> toJson() => _$SubjectToJson();
+  Map<String, dynamic> toJson() => _$SubjectToJson(this);
 }
