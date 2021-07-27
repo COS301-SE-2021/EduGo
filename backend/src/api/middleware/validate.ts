@@ -14,8 +14,6 @@ interface AuthenticateObject {
 	id: number;
 	isAdmin: boolean;
 	isEducator: boolean;
-	organisation_id: number;
-	educator_id: number;
 }
 
 export interface RequestObjectWithUserId extends Request {
@@ -72,9 +70,7 @@ async function getUserDetails(id: number): Promise<AuthenticateObject> {
 						user.educator !== undefined
 							? user.educator.admin
 							: false,
-					isEducator: user.educator !== undefined ? true : false,
-					organisation_id: user.organisation.id,
-					educator_id: user.educator.id,
+					isEducator: user.educator !== undefined ? true : false
 				};
 			} else throw new NonExistantItemError("User not found");
 		});
