@@ -11,6 +11,7 @@ class Subject {
   @JsonKey(required: true)
   String title;
 
+  //If grade is 0, then the subject does not have a grade
   @JsonKey(required: false, defaultValue: 0)
   int grade;
 

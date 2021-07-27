@@ -18,5 +18,16 @@ void main() {
       expect(subject.title, 'Test Subject');
       expect(subject.grade, 9);
     });
+
+    test('should set grade to 0 when grade is omitted', () {
+      String json = '''
+        {
+          "id": 1,
+          "title": "Test Subject"
+        }
+      ''';
+      Subject subject = Subject.fromJson(jsonDecode(json));
+      expect(subject.grade, 0);
+    });
   });
 }
