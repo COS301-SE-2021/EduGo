@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 import { handleErrors } from "../helper/ErrorCatch";
-import { isUser, isAdmin, passportJWT } from "../middleware/validate";
+import { isUser, isAdmin, passportJWT, RequestObjectWithUserId } from "../middleware/validate";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
@@ -18,7 +18,7 @@ router.get(
 	"/protected",
 	passport.authenticate("jwt", { session: false }),
 	isUser,
-	(req, res, next) => {
+	(req:RequestObjectWithUserId, res: any) => {
 		res.status(200).json({
 			success: true,
 			msg: "You are successfully authenticated  as a user to this route!",

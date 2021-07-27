@@ -4,6 +4,7 @@ import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
 import { GetSubjectsByUserRequest } from "../models/subject/GetSubjectsByUserRequest";
 import {
 	isEducator,
+	isUser,
 	passportJWT,
 	RequestObjectWithUserId,
 } from "../middleware/validate";
@@ -34,11 +35,17 @@ router.post(
 router.post(
 	"/getSubjectsByUser",
 	passport.authenticate("jwt", { session: false }),
-	async (req, res) => {
+	isUser,
+	async (req: RequestObjectWithUserId, res: any) => {
 		service
-			.GetSubjectsByUser(<GetSubjectsByUserRequest>req.body)
+			.GetSubjectsByUser(<GetSubjectsByUserRequest>{
+				user_id: req.user_id,
+			})
 			.then((subjects) => {
 				res.status(200).json(subjects);
+			})
+			.catch((err) => {
+				handleErrors(err, res);
 			});
 	}
 );

@@ -10,6 +10,9 @@ import { DatabaseError } from "../errors/DatabaseError";
 import { Subject as GSBE_Subject } from "../models/subject/Default";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { handleErrors } from "../helper/ErrorCatch";
+import { Educator } from "../database/Educator";
+import { NonExistantItemError } from "../errors/NonExistantItemError";
+import { Student } from "../database/Student";
 
 //import {client} from '../../index'
 
@@ -78,23 +81,43 @@ export class SubjectService {
 		let userRepository = getRepository(User);
 
 		return userRepository
-			.findOne(request.educator_id, {
-				relations: ["educator", "educator.subjects"],
+			.findOne(request.user_id, {
+				relations: ["educator", "student"],
 			})
-			.then((user) => {
+			.then(async (user) => {
+				// if user is a educator then return the educators subjects
 				if (user && user.educator) {
-					let subjects: GSBE_Subject[] = user.educator.subjects.map(
-						(value) => {
-							return {
-								id: value.id,
-								title: value.title,
-								grade: value.grade,
-							};
+	
+					try {
+						let educatorData = await getRepository(
+							Educator
+						).findOne(user.educator.id, {
+							relations: ["subjects"],
+						});
+						if (educatorData) {
+							return { data: educatorData.subjects };
 						}
-					);
-					return { data: subjects };
+					} catch (error) {
+						throw error;
+					}
+				}
+				else if(user && user.student ){
+					try {
+						let studentData = await getRepository(
+							Student
+						).findOne(user.educator.id, {
+							relations: ["subjects"],
+						});
+						if (studentData) {
+							return { data: studentData.subjects };
+						}
+					} catch (error) {
+						throw error;
+					}
 				}
 				throw new DatabaseError("Educator subjects could not be found");
 			});
 	}
+
+	//public mapSubjectDataFromDb(Subject);
 }

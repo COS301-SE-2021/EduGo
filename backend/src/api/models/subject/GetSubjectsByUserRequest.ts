@@ -1,3 +1,3 @@
 export interface GetSubjectsByUserRequest {
-	educator_id: number;
+	user_id: number;
 }

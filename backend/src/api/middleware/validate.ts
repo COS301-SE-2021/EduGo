@@ -20,11 +20,24 @@ export interface RequestObjectWithUserId extends Request {
 	user_id: number;
 }
 
-export async function isUser(req: any, res: any, next: any) {
-	const token = req.headers.authorization.slice(7);
-	const payload = jwtDecode(token);
-	console.log(payload);
-	next();
+export async function isUser(req: RequestObjectWithUserId, res: any, next: any) {
+	if (req.headers.authorization) {
+		const token = req.headers.authorization.slice(7);
+		const payload = jwtDecode<MyPayload>(token);
+
+		console.log(payload);
+		try {
+			let user: AuthenticateObject = await getUserDetails(
+				payload.user_id
+			);
+			if (user) {
+				next();
+			} else throw new UnauthorizedUserError("User is not authorized");
+		} catch (err) {
+			handleErrors(err, res);
+		}
+	}
+	res.status(500);
 }
 
 // TODO add rules

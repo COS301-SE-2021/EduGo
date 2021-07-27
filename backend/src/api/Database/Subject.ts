@@ -13,6 +13,7 @@ import { Lesson } from "./Lesson";
 import { Organisation } from "./Organisation";
 import { Student } from "./Student";
 import { UnverifiedUser } from "./UnverifiedUser";
+import { User } from "./User";
 
 @Index(["organisation", "title", "grade"])
 @Entity()

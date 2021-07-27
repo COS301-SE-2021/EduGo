@@ -11,6 +11,7 @@ import {
 import { Educator } from "./Educator";
 import { Organisation } from "./Organisation";
 import { Student } from "./Student";
+import { Subject } from "./Subject";
 
 @Entity()
 export class User {
@@ -44,6 +45,8 @@ export class User {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
+
+	
 	@JoinColumn()
 	student: Student;
 

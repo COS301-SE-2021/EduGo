@@ -4,7 +4,7 @@ import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import { handleErrors } from "../helper/ErrorCatch";
 import passport from "passport";
-import { isEducator } from "../middleware/validate";
+import { isEducator, RequestObjectWithUserId } from "../middleware/validate";
 
 const router = express.Router();
 const service = new LessonService();
@@ -16,7 +16,7 @@ router.post(
 	"/createLesson",
 	passport.authenticate("jwt", { session: false }),
 	isEducator,
-	async (req, res) => {
+	async (req:RequestObjectWithUserId, res:any) => {
 		//Create lesson
 		service
 			.createLesson(<CreateLessonRequest>req.body)
