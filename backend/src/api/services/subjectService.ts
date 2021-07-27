@@ -16,11 +16,6 @@ import { Student } from "../database/Student";
 
 //import {client} from '../../index'
 
-let statusRes: any = {
-	message: "",
-	type: "fail",
-};
-
 export class SubjectService {
 	async CreateSubject(
 		request: CreateSubjectRequest,
@@ -87,7 +82,6 @@ export class SubjectService {
 			.then(async (user) => {
 				// if user is a educator then return the educators subjects
 				if (user && user.educator) {
-	
 					try {
 						let educatorData = await getRepository(
 							Educator
@@ -100,14 +94,14 @@ export class SubjectService {
 					} catch (error) {
 						throw error;
 					}
-				}
-				else if(user && user.student ){
+				} else if (user && user.student) {
 					try {
-						let studentData = await getRepository(
-							Student
-						).findOne(user.educator.id, {
-							relations: ["subjects"],
-						});
+						let studentData = await getRepository(Student).findOne(
+							user.educator.id,
+							{
+								relations: ["subjects"],
+							}
+						);
 						if (studentData) {
 							return { data: studentData.subjects };
 						}
