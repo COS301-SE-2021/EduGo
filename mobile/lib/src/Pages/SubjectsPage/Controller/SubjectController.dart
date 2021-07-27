@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:mobile/globals.dart';
+import 'package:mobile/src/Exceptions.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectModels.dart';
 
 Future<List<Subject>> getSubjectsByUser(int userId, {required http.Client client}) async {
@@ -15,7 +16,11 @@ Future<List<Subject>> getSubjectsByUser(int userId, {required http.Client client
 
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
-    return json['data'].map((e) => Subject.fromJson(e));
+    if (json['data'] != null) {
+      List<Subject> subjects = (json['data'] as List).map((e) => Subject.fromJson(e)).toList();
+      return subjects;
+    }
+    else throw new BadResponse('No data property');
   }
-  throw Exception('Not a code 200');
+  throw new Exception('Not a code 200');
 }
