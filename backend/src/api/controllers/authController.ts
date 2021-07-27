@@ -1,4 +1,5 @@
 import express from "express";
+import passport from "passport";
 import { handleErrors } from "../helper/ErrorCatch";
 import { isUser, isAdmin, passportJWT } from "../middleware/validate";
 import { LoginRequest } from "../models/auth/LoginRequest";
@@ -13,12 +14,17 @@ router.use((req, res, next) => {
 	next();
 });
 
-router.get("/protected", passportJWT, isUser, (req, res, next) => {
-	res.status(200).json({
-		success: true,
-		msg: "You are successfully authenticated  as a user to this route!",
-	});
-});
+router.get(
+	"/protected",
+	passport.authenticate("jwt", { session: false }),
+	isUser,
+	(req, res, next) => {
+		res.status(200).json({
+			success: true,
+			msg: "You are successfully authenticated  as a user to this route!",
+		});
+	}
+);
 
 router.get("/protectedAdmin", passportJWT, isAdmin, (req, res, next) => {
 	res.status(200).json({

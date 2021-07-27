@@ -18,8 +18,8 @@ interface AuthenticateObject {
 	educator_id: number;
 }
 
-export interface RequestObjectWithUserId extends Request{
-	user_id:number
+export interface RequestObjectWithUserId extends Request {
+	user_id: number;
 }
 
 export async function isUser(req: any, res: any, next: any) {
@@ -37,19 +37,28 @@ export async function isAdmin(req: any, res: any, next: any) {
 	next();
 }
 // TODO add rules
-export async function isEducator(req: any, res: any, next: any) {
-	const token = req.headers.authorization.slice(7);
-	const payload = jwtDecode<MyPayload>(token);
+export async function isEducator(
+	req: RequestObjectWithUserId,
+	res: any,
+	next: any
+) {
+	if (req.headers.authorization) {
+		const token = req.headers.authorization.slice(7);
+		const payload = jwtDecode<MyPayload>(token);
 
-	console.log(payload);
-	try {
-		let user: AuthenticateObject = await getUserDetails(payload.user_id);
-		if (user.isEducator) {
-			next();
-		} else throw new UnauthorizedUserError("User is not an Educator");
-	} catch (err) {
-		handleErrors(err, res);
+		console.log(payload);
+		try {
+			let user: AuthenticateObject = await getUserDetails(
+				payload.user_id
+			);
+			if (user.isEducator) {
+				next();
+			} else throw new UnauthorizedUserError("User is not an Educator");
+		} catch (err) {
+			handleErrors(err, res);
+		}
 	}
+	res.status(500);
 }
 
 async function getUserDetails(id: number): Promise<AuthenticateObject> {
@@ -71,6 +80,6 @@ async function getUserDetails(id: number): Promise<AuthenticateObject> {
 		});
 }
 
-export async function passportJWT() {
+export function passportJWT(req: any, res: any, next: any) {
 	passport.authenticate("jwt", { session: false });
 }

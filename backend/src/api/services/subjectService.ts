@@ -23,6 +23,8 @@ export class SubjectService {
 		request: CreateSubjectRequest,
 		user_id: number
 	): Promise<CreateSubjectResponse> {
+
+		// get user information to use for the request 
 		let userDetails: User;
 		try {
 			userDetails = await getUserDetails(user_id);
@@ -44,9 +46,12 @@ export class SubjectService {
 				if (org) {
 					subject.organisation = org;
 
-					const user = await userRepository.findOne(userDetails.educator.id, {
-						relations: ["educator"],
-					});
+					const user = await userRepository.findOne(
+						userDetails.educator.id,
+						{
+							relations: ["educator"],
+						}
+					);
 					if (user && user.educator) {
 						subject.educators = [user.educator];
 						subject.students = [];
