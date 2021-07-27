@@ -6,4 +6,11 @@
 //   LoginPageModel init() {
 //     return LoginPageModel(this, email: "hello@gmail.com", password: "Test123");
 //   }
+
+   // bool verifyLogin() async{
+   // final url = Uri.parse(///url here///);
+   
+   // 
+   // 
+   // }
 // }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Pages/Login%20Page/Controller/LoginPageController.dart';
+import 'package:mobile/src/Pages/LoginPage/Controller/LoginPageController.dart';
 import 'package:momentum/momentum.dart';
 
 // class LoginPage extends StatelessWidget {
