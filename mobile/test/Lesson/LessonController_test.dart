@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as httpTest;
 import 'package:mobile/src/Exceptions.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
-import 'package:mobile/src/Pages/LessonsPage/Models/LessonModels.dart';
+import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
 import 'package:test/test.dart';
 
 void main() {

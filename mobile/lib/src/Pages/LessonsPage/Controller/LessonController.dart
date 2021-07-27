@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:mobile/src/Exceptions.dart';
-import 'package:mobile/src/Pages/LessonsPage/Models/LessonModels.dart';
+import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:mobile/globals.dart';

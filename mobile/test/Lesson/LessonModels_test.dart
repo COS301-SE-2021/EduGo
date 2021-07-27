@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mobile/src/Pages/LessonsPage/Models/LessonModels.dart';
+import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
 import 'package:test/test.dart';
 
 void main() {
