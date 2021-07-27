@@ -1,6 +1,7 @@
 import {
 	Column,
 	Entity,
+	Index,
 	JoinColumn,
 	ManyToMany,
 	ManyToOne,
@@ -13,6 +14,7 @@ import { Organisation } from "./Organisation";
 import { Student } from "./Student";
 import { UnverifiedUser } from "./UnverifiedUser";
 
+@Index(["organisation", "title", "grade"])
 @Entity()
 export class Subject {
 	@PrimaryGeneratedColumn()
