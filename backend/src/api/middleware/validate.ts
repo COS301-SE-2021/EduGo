@@ -61,18 +61,22 @@ export async function isEducator(
 
 async function getUserDetails(id: number): Promise<AuthenticateObject> {
 	return getRepository(User)
-		.findOne({ id: id })
+		.findOne(id, { relations: ["educator"] })
 		.then((user) => {
 			if (user) {
+				console.log(user.educator);
 				return {
 					id: user.id,
 					isAdmin:
 						user.educator !== undefined
 							? user.educator.admin
 							: false,
-					isEducator: user.educator !== undefined ? true : false
+					isEducator: user.educator != undefined ? true : false,
 				};
-			} else throw new NonExistantItemError("User not found");
+			} else
+				throw new NonExistantItemError(
+					"User not found for get User Details"
+				);
 		});
 }
 

@@ -21,13 +21,11 @@ let statusRes: any = {
 export class AuthService {
 	public async register(request: RegisterRequest) {
 		// Check if parameters are set
-		try{
-			validateRegisterRequest(request)
+		try {
+			validateRegisterRequest(request);
+		} catch (error) {
+			throw error;
 		}
-		
-		catch (error){
-			throw error
-		};
 
 		if (request.userType == "OrganizationAdmin") {
 			// registering the first admin for an organization
@@ -243,17 +241,26 @@ export class AuthService {
 		if (usernameExists == undefined) return true;
 
 		return false;
-		// TODO add exceptions
 	}
 
 	public async firstAdminRegistration(request: RegisterRequest) {
 		let userRepo = getRepository(User);
-
+		let organisation: Organisation;
 		if (
 			!(await this.doesEmailExist(request)) &&
 			!(await this.doesUsernameExist(request))
 		) {
-			let orgRepo = getRepository(Organisation);
+			try {
+				let org = await getRepository(Organisation).findOne(
+					request.organisation_id
+				);
+				if (org) organisation = org;
+				else {
+					throw new NonExistantItemError("Organisation not found");
+				}
+			} catch (error) {
+				throw error;
+			}
 
 			let user = new User();
 			user.email = request.user_email.toLowerCase();
@@ -263,11 +270,10 @@ export class AuthService {
 			const saltHAsh = genPassword(request.password);
 			user.salt = saltHAsh.salt;
 			user.hash = saltHAsh.hash;
-			let userRepo = getRepository(User);
 
 			user.educator = new Educator();
 			user.educator.admin = true;
-
+			user.organisation = organisation;
 			return userRepo
 				.save(user)
 				.then((result) => {
