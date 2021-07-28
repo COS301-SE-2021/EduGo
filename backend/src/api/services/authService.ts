@@ -1,7 +1,7 @@
 import { getConnection, getRepository } from "typeorm";
 import { User } from "../database/User";
 import { genPassword, issueJWT, validPassword } from "../helper/auth/utils";
-import { RegisterRequest } from "../models/auth/RegisterRequest";
+import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
 import { UnverifiedUser } from "../database/UnverifiedUser";
@@ -28,7 +28,7 @@ export class AuthService {
 			throw error;
 		}
 
-		if (request.userType == "OrganizationAdmin") {
+		if (request.userType == userType.firstAdmin) {
 			// registering the first admin for an organization
 			return this.firstAdminRegistration(request);
 		}
@@ -198,7 +198,7 @@ export class AuthService {
 
 				//TODO Test if this works 
 				// add subjects that user was invited to their relation
-				if (request.userType.toLowerCase() == "student") {
+				if (request.userType == userType.student) {
 					user.student = new Student();
 
 					for (let index of invitedUser.subjects) {

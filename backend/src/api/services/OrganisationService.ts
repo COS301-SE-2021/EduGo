@@ -18,7 +18,7 @@ import { DatabaseError } from "../errors/DatabaseError";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 
 import { Subject } from "../database/Subject";
-import { RegisterRequest } from "../models/auth/RegisterRequest";
+import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import { AuthService } from "./AuthService";
 import { DuplicateError } from "../errors/DuplicateError";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
@@ -85,7 +85,7 @@ export class OrganisationService {
 			.save(organisation)
 			.then(async (org) => {
 				// create first admin for organisation
-				request.userType = "OrganizationAdmin";
+				request.userType = userType.firstAdmin;
 				request.organisation_id = org.id;
 				let registerObj: RegisterRequest = {
 					...request,
