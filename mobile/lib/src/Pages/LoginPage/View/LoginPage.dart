@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
 import 'package:mobile/src/Pages/LoginPage/Controller/LoginPageController.dart';
 import 'package:momentum/momentum.dart';
 
@@ -46,13 +47,11 @@ class LoginPage extends StatelessWidget {
                           color: Colors.black,
                           fontSize: 60),
                     ),
-                    Text(
-                      "Login",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 60),
-                    ),
+                    Text("Login",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 60)),
                     Padding(
                       padding: const EdgeInsets.only(top: 100),
                       child: TextField(
@@ -72,7 +71,13 @@ class LoginPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 100),
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (scontext) => BottomBar()),
+                          );
+                        },
                         height: 60,
                         color: Colors.black,
                         child: Row(

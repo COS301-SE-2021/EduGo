@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Side/View/SideBar.dart';
+import 'package:mobile/src/Components/SubjectCard/View/subjectCardView.dart';
 
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
@@ -22,7 +23,8 @@ class _BottomBarState extends State<BottomBar> {
   //all the different pages that will display based on the tab selected
   List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    SubjectsPage(),
+    //SubjectsPage(),
+    SubjectsCardPage(),
     GradesPage(),
     DetectMarkerPage(),
   ];
