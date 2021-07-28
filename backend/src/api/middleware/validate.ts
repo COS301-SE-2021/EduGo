@@ -6,7 +6,7 @@ import { User } from "../database/User";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { UnauthorizedUserError } from "../errors/UnauthorizedUserError";
 import { handleErrors } from "../helper/ErrorCatch";
-// TODO add rules
+
 interface MyPayload {
 	user_id: number;
 }
@@ -24,8 +24,6 @@ export async function isUser(req: RequestObjectWithUserId, res: any, next: any) 
 	if (req.headers.authorization) {
 		const token = req.headers.authorization.slice(7);
 		const payload = jwtDecode<MyPayload>(token);
-
-		console.log(payload);
 		try {
 			let user: AuthenticateObject = await getUserDetails(
 				payload.user_id
@@ -40,14 +38,24 @@ export async function isUser(req: RequestObjectWithUserId, res: any, next: any) 
 	res.status(500);
 }
 
-// TODO add rules
 export async function isAdmin(req: any, res: any, next: any) {
-	const token = req.headers.authorization.slice(7);
-	const payload = jwtDecode(token);
-	console.log(payload);
-	next();
+	if (req.headers.authorization) {
+		const token = req.headers.authorization.slice(7);
+		const payload = jwtDecode<MyPayload>(token);
+		try {
+			let user: AuthenticateObject = await getUserDetails(
+				payload.user_id
+			);
+			if (user.isAdmin) {
+				next();
+			} else throw new UnauthorizedUserError("User is not an admin");
+		} catch (err) {
+			handleErrors(err, res);
+		}
+	}
+	res.status(500);
 }
-// TODO add rules
+
 export async function isEducator(
 	req: RequestObjectWithUserId,
 	res: any,
@@ -57,7 +65,6 @@ export async function isEducator(
 		const token = req.headers.authorization.slice(7);
 		const payload = jwtDecode<MyPayload>(token);
 
-		console.log(payload);
 		try {
 			let user: AuthenticateObject = await getUserDetails(
 				payload.user_id

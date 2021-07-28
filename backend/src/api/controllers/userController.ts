@@ -86,11 +86,11 @@ router.post(
 	"/addEducators",
 	passport.authenticate("jwt", { session: false }),
 	isAdmin,
-	async (req, res) => {
+	async (req: RequestObjectWithUserId, res:any) => {
 		let body: AddEducatorsRequest = <AddEducatorsRequest>req.body;
 
 		educatorService
-			.AddEducators(body)
+			.AddEducators(body,req.user_id)
 			.then(() => {
 				res.status(200).send("ok");
 			})
