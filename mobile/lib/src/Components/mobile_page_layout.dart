@@ -32,6 +32,6 @@ class MobilePageLayout extends StatelessWidget {
     }
 
     //display both side bar and bottom bar
-    return Scaffold();
+    return SideBar();
   }
 }
