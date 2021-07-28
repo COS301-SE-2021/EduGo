@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MobilePageLayout(
-      Container(child: Text("Home")),
+      Text("Home"),
       true,
       true,
     );
