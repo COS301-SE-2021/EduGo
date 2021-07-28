@@ -13,6 +13,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MobilePageLayout(
       Text("Home"),
+      true,
+      true,
     );
   }
 }
