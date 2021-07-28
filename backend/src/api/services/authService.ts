@@ -11,6 +11,7 @@ import { DatabaseError } from "../errors/DatabaseError";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { InvalidParameterError } from "../errors/InvalidParametersError";
 import { validateRegisterRequest } from "./validations/AuthValidate";
+import { Student } from "../database/Student";
 
 let statusRes: any = {
 	message: "",
@@ -157,6 +158,9 @@ export class AuthService {
 		return false;
 	}
 
+	//TODO add subjects of unverified user to users subjects
+	//TODO add instantiation of educator and student
+
 	public async userRegistration(request: RegisterRequest) {
 		// if user name and password don't exist proceed
 
@@ -191,6 +195,22 @@ export class AuthService {
 				user.salt = saltHAsh.salt;
 				user.hash = saltHAsh.hash;
 				user.organisation = org;
+
+				//TODO Test if this works 
+				// add subjects that user was invited to their relation
+				if (request.userType.toLowerCase() == "student") {
+					user.student = new Student();
+
+					for (let index of invitedUser.subjects) {
+						user.student.subjects.push(index);
+					}
+				} else {
+					user.educator = new Educator();
+					for (let index of invitedUser.subjects) {
+						user.educator.subjects.push(index);
+					}
+				}
+
 				return userRepo
 					.save(user)
 					.then((result) => {
