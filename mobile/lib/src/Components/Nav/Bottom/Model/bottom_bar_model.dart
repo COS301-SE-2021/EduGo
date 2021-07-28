@@ -1,7 +1,3 @@
-//TODO SISI, DO NOT USE Momentum, just take your model chosen and display that
-//Oh my days, I was wrong: Use momentum, set child widget as default for
-//So I do need the chld uh ha ha
-
 //This file stores the data: the screens displayed with their relevant content
 import 'package:flutter/material.dart';
 

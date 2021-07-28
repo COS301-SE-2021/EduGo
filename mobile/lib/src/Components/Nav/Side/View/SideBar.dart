@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
+//import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/Controller/Preferences.dart';
@@ -29,8 +29,9 @@ class _SideBarState extends State<SideBar> {
           children: <Widget>[
             //Drawer header onsists of a profile picture, the user's current org, the user's name and surname
             DrawerHeader(
-                child: ProfileWidget(
-                    user: user, isEdit: false, onClicked: () async {})),
+              child: Text("Profile widget was here"),
+            ),
+            //ProfileWidget(user: user, isEdit: false, onClicked: () async {})),
             //All List tiles below have icons and titled tiles that lead to their relevant pages
             ListTile(
               leading: Icon(Icons.summarize_outlined),
