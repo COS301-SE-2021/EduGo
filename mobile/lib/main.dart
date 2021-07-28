@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Color.fromARGB(255, 97, 211, 87),
           primarySwatch: Colors.blue,
           fontFamily: "Montserrat"),
-      home: HomePage(),
+      home: BottomBar(),
     );
   }
 }
