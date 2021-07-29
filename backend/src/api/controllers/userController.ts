@@ -81,7 +81,7 @@ router.post(
 	}
 );
 
-// TODO Add educator to subject is Educator responsibility
+// TODO Test endpoint 
 router.post(
 	"/addEducatorToExistingSubject",
 	passport.authenticate("jwt", { session: false }),

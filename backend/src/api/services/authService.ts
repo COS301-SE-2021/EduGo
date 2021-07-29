@@ -12,6 +12,7 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { InvalidParameterError } from "../errors/InvalidParametersError";
 import { validateRegisterRequest } from "./validations/AuthValidate";
 import { Student } from "../database/Student";
+import { Error400 } from "../errors/Error";
 
 let statusRes: any = {
 	message: "",
@@ -59,25 +60,31 @@ export class AuthService {
 
 				if (isValid) {
 					// issue jwt token for the user
-					statusRes.token = issueJWT(user).token;
-					statusRes.message = "User Logged in";
-					statusRes.type = "success";
-					return statusRes;
+					
+					return { token:issueJWT(user).token }
+				
 				} else {
-					statusRes.message = "Password is invalid";
-					return statusRes;
+					throw new Error400("Incorrect Password"); 
 				}
 			})
 			.catch((err) => {
-				console.log(err);
+				throw err
 			});
 	}
 
 	// User invitation code before registering
 
+	/**
+	 * @description this function is used to verify the invitation code that was sent to user
+	 * 1. check if user is already registered
+	 * 2. Check if email of user is in invitation list
+	 * 3. Check if user verification code is valid
+	 * 4.
+	 * @param {VerifyInvitationRequest} request
+	 * @returns {*}
+	 * @memberof AuthService
+	 */
 	public async verifyInvitation(request: VerifyInvitationRequest) {
-		// check if user is already registered
-
 		let existingUser = await getRepository(User).findOne({
 			where: { email: request.email },
 		});
@@ -87,7 +94,6 @@ export class AuthService {
 			return statusRes;
 		}
 
-		// Check if email of user is in invitation list
 		let invitationRepo = getRepository(UnverifiedUser);
 
 		let user = await invitationRepo.findOne({
@@ -95,26 +101,21 @@ export class AuthService {
 		});
 
 		if (user) {
-			// the user has been invited by educator
-			// now check if user verification code is valid
-
 			if (user.verificationCode == request.verificationCode) {
 				// set user as verified
 				let verified: boolean = await this.setUserToverified(user.id);
 				if (verified) {
-					statusRes.message = "Invitiation code is valid";
-					statusRes.type = "success";
+					return;
 				}
 
 				return statusRes;
 			} else {
-				statusRes.message = "Invitation code is invalid";
-				return statusRes;
+				throw new Error400("Invitation code is invalid");
 			}
 		} else {
-			statusRes.message =
-				"User has not been invited to sign up for EduGo";
-			return statusRes;
+			throw new Error400(
+				"User has not been invited to sign up for EduGo"
+			);
 		}
 	}
 
@@ -173,12 +174,7 @@ export class AuthService {
 			// Only invited users can register
 			if (invitedUser) {
 				if (!invitedUser.verified) {
-					statusRes.message =
-						"User has not verified account using invitation code";
-					statusRes.type = "fail";
-					statusRes.token = undefined;
-
-					return statusRes;
+					throw new NonExistantItemError("User has not been Invited");
 				}
 
 				let org = invitedUser.organisation;
@@ -214,11 +210,7 @@ export class AuthService {
 						// removing user from unverified list after they have registered successfully
 						if (invitedUser)
 							getRepository(UnverifiedUser).delete(invitedUser);
-
-						statusRes.message = "User registered";
-						statusRes.type = "success";
-
-						return statusRes;
+						return;
 					})
 					.catch((err) => {
 						throw new DatabaseError(
@@ -226,14 +218,9 @@ export class AuthService {
 						);
 					});
 			} else {
-				statusRes.message =
-					"Email address that was invited with doesn't match provided email address";
-
-				statusRes.type = "fail";
-				statusRes.token = undefined;
-				console.log(statusRes);
-
-				return statusRes;
+				throw new NonExistantItemError(
+					"Email address that was invited with doesn't match provided email address"
+				);
 			}
 		}
 	}
@@ -294,15 +281,13 @@ export class AuthService {
 			return userRepo
 				.save(user)
 				.then((result) => {
-					statusRes.message = "First admin User registered";
-					statusRes.type = "success";
-					return statusRes;
+					return 
 				})
 				.catch((err) => {
 					throw new DatabaseError("User unable to be saved to DB");
 				});
 		} else {
-			return "username and email already exist";
+			return new Error400("username and email already exist");
 		}
 	}
 }
