@@ -14,7 +14,7 @@ import passport from "passport";
 const router = express.Router();
 
 const service: SubjectService = new SubjectService();
-
+//TODO add upload image for a subject 
 router.post(
 	"/createSubject",
 	passport.authenticate("jwt", { session: false }),

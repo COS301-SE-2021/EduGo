@@ -20,6 +20,9 @@ import passport from "passport";
 const router = express.Router();
 const service: VirtualEntityService = new VirtualEntityService();
 
+//TODO add endpoint to make snapshot of 3d model 
+
+//TODO add new status codes 
 router.post(
 	"/createVirtualEntity",
 	passport.authenticate("jwt", { session: false }),
