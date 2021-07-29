@@ -83,7 +83,6 @@ class LessonsController extends MomentumController<LessonsModel> {
       }
       else throw new BadResponse('No data property');
     }
-    throw Exception('Not a code 200');
+    else throw Exception('Not a code 200');
   }
-
 }

@@ -11,7 +11,7 @@ class LessonsModel extends MomentumModel<LessonsController> {
 
   @override
   void update({List<Lesson>? lessons}) {
-    LessonsModel(controller, lessons: lessons ?? []).updateMomentum();
+    LessonsModel(controller, lessons: lessons ?? this.lessons).updateMomentum();
   }
 
 }
