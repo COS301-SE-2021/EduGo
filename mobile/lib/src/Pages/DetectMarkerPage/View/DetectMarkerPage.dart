@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
+import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/Controller/DetectMarkerController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/View/VirtualEntityPage.dart';
@@ -18,10 +20,12 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(
+    return MobilePageLayout(
+      false,
+      false,
+      Scaffold(
+          body: Column(children: <Widget>[
+        Expanded(
             flex: 5,
             child: QRView(
               key: qrKey,
@@ -34,24 +38,17 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
 
                     try {
                       VirtualEntityData data = validateMarker(result!.code);
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => VirtualEntityView(data: data)));
-                    }
-                    catch (err) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => VirtualEntityView(data: data)));
+                    } catch (err) {
                       //TODO handle error
                     }
                   }
                 });
               },
-            )
-          ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: Text('Scan a marker')
-            )
-          )
-        ]
-      )
+            )),
+        Expanded(flex: 1, child: Center(child: Text('Scan a marker')))
+      ])),
     );
   }
 

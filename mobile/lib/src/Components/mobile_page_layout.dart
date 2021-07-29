@@ -41,7 +41,11 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
     if (!isSideBarVisible & !isBottomBarVisible) {
       return Scaffold(
         appBar: AppBar(
-          leading: Icon(Icons.arrow_back), //Navigator.pop(context);
+          leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
           title: Text('EduGo'),
           backgroundColor: Color.fromARGB(255, 97, 211, 87),
         ),
