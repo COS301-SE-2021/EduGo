@@ -60,15 +60,14 @@ export class AuthService {
 
 				if (isValid) {
 					// issue jwt token for the user
-					
-					return { token:issueJWT(user).token }
-				
+
+					return { token: issueJWT(user).token };
 				} else {
-					throw new Error400("Incorrect Password"); 
+					throw new Error400("Incorrect Password");
 				}
 			})
 			.catch((err) => {
-				throw err
+				throw err;
 			});
 	}
 
@@ -79,7 +78,7 @@ export class AuthService {
 	 * 1. check if user is already registered
 	 * 2. Check if email of user is in invitation list
 	 * 3. Check if user verification code is valid
-	 * 4.
+	 * 4. Set user as verified
 	 * @param {VerifyInvitationRequest} request
 	 * @returns {*}
 	 * @memberof AuthService
@@ -102,13 +101,21 @@ export class AuthService {
 
 		if (user) {
 			if (user.verificationCode == request.verificationCode) {
-				// set user as verified
-				let verified: boolean = await this.setUserToverified(user.id);
-				if (verified) {
-					return;
+				
+				try {
+					let verified: boolean = await this.setUserToverified(
+						user.id
+					);
+					if (verified) {
+						return;
+					} else {
+						throw new NonExistantItemError(
+							"User not found in unverified list"
+						);
+					}
+				} catch (err) {
+					throw err;
 				}
-
-				return statusRes;
 			} else {
 				throw new Error400("Invitation code is invalid");
 			}
@@ -128,9 +135,7 @@ export class AuthService {
 				.where("id = :id", { id: user_id })
 				.execute();
 		} catch (err) {
-			throw new DatabaseError(
-				`Unable to update unverified UserID ${user_id} to true`
-			);
+			throw err;
 		}
 		return true;
 	}
@@ -281,7 +286,7 @@ export class AuthService {
 			return userRepo
 				.save(user)
 				.then((result) => {
-					return 
+					return;
 				})
 				.catch((err) => {
 					throw new DatabaseError("User unable to be saved to DB");
