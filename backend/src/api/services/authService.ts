@@ -14,11 +14,6 @@ import { validateRegisterRequest } from "./validations/AuthValidate";
 import { Student } from "../database/Student";
 import { Error400 } from "../errors/Error";
 
-let statusRes: any = {
-	message: "",
-	type: "fail",
-	token: undefined,
-};
 
 export class AuthService {
 	public async register(request: RegisterRequest) {
@@ -89,8 +84,7 @@ export class AuthService {
 		});
 
 		if (existingUser) {
-			statusRes.message = "Email used already registered";
-			return statusRes;
+			throw new NonExistantItemError("User is already registered")
 		}
 
 		let invitationRepo = getRepository(UnverifiedUser);
