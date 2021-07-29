@@ -8,7 +8,7 @@ import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 
 class SubjectCard extends StatelessWidget {
   final String title;
-  final String grade;
+  final int grade;
   final int id;
   //final *type* subjectImage
 
