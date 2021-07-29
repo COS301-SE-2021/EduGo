@@ -12,6 +12,9 @@ class CreateVirtualEntityView extends StatelessWidget {
       builder: (context, snapshot) {
         return FocusWatcher(
           child: PageLayout(
+            top: 50,
+            left: 150,
+            right: 150,
             child: Stack(children: [
               //* Title Row
               Row(

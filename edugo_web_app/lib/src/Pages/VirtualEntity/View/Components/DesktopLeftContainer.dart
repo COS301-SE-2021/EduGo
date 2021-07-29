@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/VirtualEntityWidgets.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +36,10 @@ class DesktopLeftContainer extends StatelessWidget {
           ),
           VirtualEntityButton(
               elevation: 40,
-              text: "Create Virtual Entity",
-              onPressed: () {},
+              child: Text("Create Virtual Entity"),
+              onPressed: () {
+                MomentumRouter.goto(context, EducatorVirtualEntitiesView);
+              },
               width: 450,
               height: 65),
         ],

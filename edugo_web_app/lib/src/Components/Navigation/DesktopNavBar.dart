@@ -66,24 +66,6 @@ class DesktopNavBar extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
                     //*
-                    //* Lessons Icon
-                    //*
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        child: Icon(Icons.summarize_outlined,
-                            size: 30, color: Colors.white),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LessonsView()),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    //*
                     //* Create VirtualEntity Icon
                     //*
                     MouseRegion(
@@ -123,21 +105,21 @@ class DesktopNavBar extends StatelessWidget {
                     //*
                     //* Grades Icon
                     //*
-                    // MouseRegion(
-                    //   cursor: SystemMouseCursors.click,
-                    //   child: GestureDetector(
-                    //     child: Icon(Icons.school_outlined,
-                    //         size: 30, color: Colors.white),
-                    //     onTap: () {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) =>
-                    //                 UpdateVirtualEntityView()),
-                    //       );
-                    //     },
-                    //   ),
-                    // )
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        child: Icon(Icons.school_outlined,
+                            size: 30, color: Colors.white),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    UpdateVirtualEntityView()),
+                          );
+                        },
+                      ),
+                    )
                   ]),
                   //*
                   //* Settings Icon

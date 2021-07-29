@@ -11,6 +11,7 @@ export 'package:edugo_web_app/src/Pages/Subject/View/SubjectsView.dart';
 export 'package:edugo_web_app/src/Pages/Subject/View/UpdateSubjectView.dart';
 
 // * Virtual Entity View Exports
+export 'package:edugo_web_app/src/Pages/VirtualEntity/View/EducatorVirtualEntitiesView.dart';
 export 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';
 export 'package:edugo_web_app/src/Pages/VirtualEntity/View/ViewVirtualEntityView.dart';
 export 'package:edugo_web_app/src/Pages/VirtualEntity/View/VirtualEntityStoreView.dart';

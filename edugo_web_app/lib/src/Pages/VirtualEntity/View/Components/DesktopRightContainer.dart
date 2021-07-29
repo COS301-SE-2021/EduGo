@@ -13,7 +13,7 @@ class DesktopRightContainer extends StatelessWidget {
                 ? Center(
                     child: VirtualEntityButton(
                         elevation: 40,
-                        text: "Upload 3D Model",
+                        child: Text("Upload 3D Model"),
                         onPressed: () {
                           Momentum.controller<VirtualEntityController>(context)
                               .upload3DModel();
@@ -26,7 +26,7 @@ class DesktopRightContainer extends StatelessWidget {
                       Align(
                         alignment: Alignment.topCenter,
                         child: VirtualEntityButton(
-                            text: "Discard 3D Model",
+                            child: Text("Discard 3D Model"),
                             onPressed: () {
                               Momentum.controller<VirtualEntityController>(
                                       context)

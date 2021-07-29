@@ -39,6 +39,7 @@ dependencies:
   qr_flutter: ^4.0.0
   momentum: ^2.0.1
   catcher: ^0.3.20
+  sticky_headers: ^0.2.0
 
 
 

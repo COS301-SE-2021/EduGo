@@ -17,12 +17,14 @@ void main() {
           [
             //* All pages that the Router is going to use
             Home(),
+            EducatorVirtualEntitiesView(),
             CreateVirtualEntityView(),
             VirtualEntityStoreView(),
             ViewVirtualEntityView(),
             UpdateVirtualEntityView(),
             CreateSubjectView(),
             SubjectsView(),
+            CreateLessonView(),
             UpdateSubjectView(),
             CreateSubjectView(),
             LessonsView(),

@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class VirtualEntityController extends MomentumController<VirtualEntityModel> {
   @override
   VirtualEntityModel init() {
     return VirtualEntityModel(this,
-        virtualEntityName: "Mish the Skeleton",
+        virtualEntityName: "",
         virtualEntityStore: [Text("No entities in the store")],
         virtualEntity3DModelLink: "");
   }
@@ -22,21 +24,58 @@ class VirtualEntityController extends MomentumController<VirtualEntityModel> {
     List<Widget> enitites = <Widget>[];
     for (int i = 0; i < 12; i++) {
       enitites.add(
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            child: Material(
-              borderRadius: BorderRadius.circular(10),
-              elevation: 40,
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                child: const Text('Revolution, they...'),
-              ),
+        Card(
+          elevation: 40,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          shadowColor: Colors.green,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  title: Column(
+                    children: [
+                      Icon(
+                        Icons.view_in_ar_outlined,
+                        size: 60,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Align(
+                          alignment: Alignment.center,
+                          child: Text('Mish the Skeleton',
+                              style: TextStyle(fontSize: 22))),
+                    ],
+                  ),
+                  subtitle: Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Align(
+                          alignment: Alignment.center,
+                          child: Text('Entity by: Mr TN Mafaralala')),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextButton(
+                  child: const Text(
+                    'View Entity',
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 97, 211, 87), fontSize: 18),
+                  ),
+                  onPressed: () {
+                    updateVirtualEntityName("Mish the Astronaut");
+                    MomentumRouter.goto(context, ViewVirtualEntityView);
+                  },
+                ),
+              ],
             ),
-            onTap: () {
-              updateVirtualEntityName("Mish the Astronaut");
-              MomentumRouter.goto(context, ViewVirtualEntityView);
-            },
           ),
         ),
       );
