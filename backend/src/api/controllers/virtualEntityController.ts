@@ -14,49 +14,64 @@ import {
 	AddModelToVirtualEntityRequest,
 } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
+import { isEducator, isUser, RequestObjectWithUserId } from "../middleware/validate";
+import passport from "passport";
 
 const router = express.Router();
 const service: VirtualEntityService = new VirtualEntityService();
 
-router.post("/createVirtualEntity", async (req, res) => {
-	let valid = validateCreateVirtualEntityRequest(req.body);
-	if (valid.ok) {
-		let body = <CreateVirtualEntityRequest>req.body;
-		service
-			.CreateVirtualEntity(body)
-			.then((response) => {
-				res.status(200);
-				res.json(response);
-			})
-			.catch((err) => {
-				res.status(400);
-				res.json({ message: "error", error: err });
-			});
-	} else {
-		res.status(400);
-		res.json(valid);
+router.post(
+	"/createVirtualEntity",
+	passport.authenticate("jwt", { session: false }),
+	isEducator,
+	async (req: RequestObjectWithUserId, res: any) => {
+		let valid = validateCreateVirtualEntityRequest(req.body);
+		if (valid.ok) {
+			let body = <CreateVirtualEntityRequest>req.body;
+			service
+				.CreateVirtualEntity(body)
+				.then((response) => {
+					res.status(200);
+					res.json(response);
+				})
+				.catch((err) => {
+					res.status(400);
+					res.json({ message: "error", error: err });
+				});
+		} else {
+			res.status(400);
+			res.json(valid);
+		}
 	}
-});
+);
 
-router.post("/uploadModel", uploadFile.single("file"), async (req, res) => {
-	const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
+router.post(
+	"/uploadModel",
+	passport.authenticate("jwt", { session: false }),
+	isEducator,
+	uploadFile.single("file"),
+	async (req: RequestObjectWithUserId, res: any) => {
+		const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
 
-	if (file == undefined)
-		res.status(400).json({ message: "Please upload a file" });
+		if (file == undefined)
+			res.status(400).json({ message: "Please upload a file" });
 
-	let response: any = {
-		file_name: file.key,
-		file_size: file.size,
-		file_type: file.key.split(".")[file.key.split(".").length - 1],
-		file_link: file.location,
-	};
-	res.status(200).json(response);
-});
+		let response: any = {
+			file_name: file.key,
+			file_size: file.size,
+			file_type: file.key.split(".")[file.key.split(".").length - 1],
+			file_link: file.location,
+		};
+		res.status(200).json(response);
+	}
+);
 
 router.post(
 	"addToVirtualEntity",
+	passport.authenticate("jwt", { session: false }),
+	isEducator,
 	uploadFile.single("file"),
-	async (req, res) => {
+	async (req: RequestObjectWithUserId, res:any) => {
 		let valid = validateAddModelToVirtualEntityRequest(req.body);
 
 		if (valid.ok) {
@@ -98,26 +113,13 @@ router.post(
 	}
 );
 
-router.post("/getVirtualEntities", async (req, res) => {
-	service
-		.GetVirtualEntities({})
-		.then((response) => {
-			res.status(200);
-			res.json(response);
-		})
-		.catch((err) => {
-			res.status(400);
-			res.json({ message: "error", error: err });
-		});
-});
-
-router.post("/getVirtualEntity", async (req, res) => {
-	let valid = validateGetVirtualEntityRequest(req.body);
-
-	if (valid.ok) {
-		let body = <GetVirtualEntityRequest>req.body;
+router.post(
+	"/getVirtualEntities",
+	passport.authenticate("jwt", { session: false }),
+	isUser,
+	async (req : RequestObjectWithUserId, res: any) => {
 		service
-			.GetVirtualEntity(body)
+			.GetVirtualEntities({})
 			.then((response) => {
 				res.status(200);
 				res.json(response);
@@ -126,9 +128,32 @@ router.post("/getVirtualEntity", async (req, res) => {
 				res.status(400);
 				res.json({ message: "error", error: err });
 			});
-	} else {
-		res.status(400).send(valid.message);
 	}
-});
+);
+
+router.post(
+	"/getVirtualEntity",
+	passport.authenticate("jwt", { session: false }),
+	isUser,
+	async (req: RequestObjectWithUserId, res: any) => {
+		let valid = validateGetVirtualEntityRequest(req.body);
+
+		if (valid.ok) {
+			let body = <GetVirtualEntityRequest>req.body;
+			service
+				.GetVirtualEntity(body)
+				.then((response) => {
+					res.status(200);
+					res.json(response);
+				})
+				.catch((err) => {
+					res.status(400);
+					res.json({ message: "error", error: err });
+				});
+		} else {
+			res.status(400).send(valid.message);
+		}
+	}
+);
 
 export { router };
