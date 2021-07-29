@@ -1,3 +1,4 @@
+import { ok } from "assert/strict";
 import express from "express";
 import passport from "passport";
 import { handleErrors } from "../helper/ErrorCatch";
@@ -34,7 +35,7 @@ router.post("/register", async (req, res) => {
 	service
 		.register(<RegisterRequest>req.body)
 		.then((response) => {
-			res.status(200).json(response);
+			res.status(200).send("ok");
 		})
 		.catch((err) => {
 			handleErrors(err, res);
@@ -45,7 +46,7 @@ router.post("/verifyInvitation", async (req, res) => {
 	service
 		.verifyInvitation(<VerifyInvitationRequest>req.body)
 		.then((response) => {
-			res.status(200).json(response);
+			res.status(200).send("ok");
 		})
 		.catch((err) => {
 			handleErrors(err, res);
