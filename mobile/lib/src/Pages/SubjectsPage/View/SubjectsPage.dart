@@ -23,6 +23,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
         return Container(
           height: MediaQuery.of(context).size.height - 200,
           padding: EdgeInsets.only(top: 75),
+          //grid view puts the cards into a grid
           child: GridView.count(
             childAspectRatio: MediaQuery.of(context).size.height / 1000,
             primary: false,
@@ -31,7 +32,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             mainAxisSpacing: 20,
-            crossAxisCount: 4,
+            crossAxisCount: 2,
             children: //subjects.subjects.map(subject => SubjectCard(subject: subject));
           ),
         );
