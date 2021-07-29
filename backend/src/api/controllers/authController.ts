@@ -1,7 +1,12 @@
 import express from "express";
 import passport from "passport";
 import { handleErrors } from "../helper/ErrorCatch";
-import { isUser, isAdmin, passportJWT, RequestObjectWithUserId } from "../middleware/validate";
+import {
+	isUser,
+	isAdmin,
+	passportJWT,
+	RequestObjectWithUserId,
+} from "../middleware/validate";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
@@ -14,24 +19,6 @@ router.use((req, res, next) => {
 	next();
 });
 
-router.get(
-	"/protected",
-	passport.authenticate("jwt", { session: false }),
-	isUser,
-	(req:RequestObjectWithUserId, res: any) => {
-		res.status(200).json({
-			success: true,
-			msg: "You are successfully authenticated  as a user to this route!",
-		});
-	}
-);
-
-router.get("/protectedAdmin", passportJWT, isAdmin, (req, res, next) => {
-	res.status(200).json({
-		success: true,
-		msg: "You are successfully as an admin to this route!",
-	});
-});
 router.post("/login", async (req, res) => {
 	service
 		.login(<LoginRequest>req.body)
@@ -39,7 +26,7 @@ router.post("/login", async (req, res) => {
 			res.status(200).json(response);
 		})
 		.catch((err) => {
-			console.log(err);
+			handleErrors(err, res);
 		});
 });
 

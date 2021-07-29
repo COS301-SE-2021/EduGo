@@ -15,6 +15,7 @@ import {
 	RequestObjectWithUserId,
 } from "../middleware/validate";
 import { handleErrors } from "../helper/ErrorCatch";
+import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -80,17 +81,36 @@ router.post(
 	}
 );
 
-// TODO Add educator to subject admin responsibility
+// TODO Add educator to subject is Educator responsibility
+router.post(
+	"/addEducatorToExistingSubject",
+	passport.authenticate("jwt", { session: false }),
+	isAdmin,
+	async (req: RequestObjectWithUserId, res: any) => {
+		let body: AddEducatorToExistingSubjectRequest = <
+			AddEducatorToExistingSubjectRequest
+		>req.body;
+
+		educatorService
+			.addEducatorToExistingSubject(body, req.user_id)
+			.then(() => {
+				res.status(200).send("ok");
+			})
+			.catch((err) => {
+				handleErrors(err, res);
+			});
+	}
+);
 
 router.post(
 	"/addEducators",
 	passport.authenticate("jwt", { session: false }),
 	isAdmin,
-	async (req: RequestObjectWithUserId, res:any) => {
+	async (req: RequestObjectWithUserId, res: any) => {
 		let body: AddEducatorsRequest = <AddEducatorsRequest>req.body;
 
 		educatorService
-			.AddEducators(body,req.user_id)
+			.AddEducators(body, req.user_id)
 			.then(() => {
 				res.status(200).send("ok");
 			})

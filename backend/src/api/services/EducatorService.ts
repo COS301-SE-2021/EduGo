@@ -12,6 +12,9 @@ import { EmailList } from "../models/user/SerivceModels";
 import { User } from "../database/User";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
+import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
+import { Error400 } from "../errors/Error";
+import { Subject } from "../database/Subject";
 
 /**
  * A class consisting of the functions that make up the educator service
@@ -25,6 +28,56 @@ export class EducatorService {
 	 */
 	constructor() {
 		this.emailService = new MockEmailService();
+	}
+
+	/**
+	 * @param  {AddEducatorToExistingSubjectRequest} body
+	 * @param  {number} user_id
+	 * @returns Promise
+	 */
+	async addEducatorToExistingSubject(
+		body: AddEducatorToExistingSubjectRequest,
+		user_id: number
+	): Promise<void> {
+		let adminDetails: User;
+		let subjectDetails: Subject | undefined;
+		let educatorDetails: User | undefined;
+		try {
+			adminDetails = await getUserDetails(user_id);
+		} catch (error) {
+			throw error;
+		}
+
+		try {
+			educatorDetails = await getRepository(User).findOne({
+				where: { username: body.username },
+			});
+		} catch (error) {
+			throw new NonExistantItemError("User with not found");
+		}
+
+		try {
+			subjectDetails = await getRepository(Subject).findOne(
+				body.subject_id,
+				{ relations: ["user"] }
+			);
+		} catch (error) {
+			throw new NonExistantItemError("subject with not found");
+		}
+
+		if (adminDetails && educatorDetails && subjectDetails) {
+			if (
+				adminDetails.organisation.id == educatorDetails.organisation.id
+			) {
+				if (educatorDetails.educator != undefined) {
+					educatorDetails.educator.subjects.push(subjectDetails);
+					return;
+				} else throw new Error400("User is not an educator");
+			} else
+				throw new Error400(
+					"Admin doesn't belong to same organisation as educator"
+				);
+		}
 	}
 
 	/**

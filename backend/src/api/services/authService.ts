@@ -158,9 +158,6 @@ export class AuthService {
 		return false;
 	}
 
-	//TODO add subjects of unverified user to users subjects
-	//TODO add instantiation of educator and student
-
 	public async userRegistration(request: RegisterRequest) {
 		// if user name and password don't exist proceed
 
@@ -196,7 +193,7 @@ export class AuthService {
 				user.hash = saltHAsh.hash;
 				user.organisation = org;
 
-				//TODO Test if this works 
+				//TODO Test if this works
 				// add subjects that user was invited to their relation
 				if (request.userType == userType.student) {
 					user.student = new Student();
