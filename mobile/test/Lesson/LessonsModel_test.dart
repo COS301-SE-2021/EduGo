@@ -11,10 +11,10 @@ void main() {
 
       await tester.init();
 
-      final lesson = tester.controller<LessonsController>();
-      expect(lesson != null, true);
-      expect(lesson, isA<LessonsController>());
-      expect(lesson?.model, isA<LessonsModel>());
+      final controller = tester.controller<LessonsController>();
+      expect(controller != null, true);
+      expect(controller, isA<LessonsController>());
+      expect(controller?.model, isA<LessonsModel>());
     });
 
     test('Lessons w/ mock lessons', () async {
@@ -22,15 +22,15 @@ void main() {
 
       await tester.init();
 
-      final lesson = tester.controller<LessonsController>();
-      await lesson?.bootstrapAsync();
-      expect(lesson != null, true);
-      expect(lesson, isA<LessonsController>());
-      expect(lesson?.model, isA<LessonsModel>());
-      expect(lesson?.model.lessons.length, 3);
-      expect(lesson?.model.lessons[0].title, 'Lesson 1');
-      expect(lesson?.model.lessons[1].title, 'Lesson 2');
-      expect(lesson?.model.lessons[2].title, 'Lesson 3');
+      final controller = tester.controller<LessonsController>();
+      await controller?.bootstrapAsync();
+      expect(controller != null, true);
+      expect(controller, isA<LessonsController>());
+      expect(controller?.model, isA<LessonsModel>());
+      expect(controller?.model.lessons.length, 3);
+      expect(controller?.model.lessons[0].title, 'Lesson 1');
+      expect(controller?.model.lessons[1].title, 'Lesson 2');
+      expect(controller?.model.lessons[2].title, 'Lesson 3');
     });
   });
 }
