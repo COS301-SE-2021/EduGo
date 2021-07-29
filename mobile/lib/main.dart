@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
+import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
 import 'package:momentum/momentum.dart';
 
 void main() {
   runApp(
     Momentum(
       child: MyApp(),
-      controllers: [LessonsController()]
+      controllers: [LessonsController(), SubjectsController()]
     )
   );
 }
