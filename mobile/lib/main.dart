@@ -7,9 +7,18 @@ import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
+import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
+import 'package:momentum/momentum.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    Momentum(
+      child: MyApp(),
+      controllers: [LessonsController(), SubjectsController()]
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
