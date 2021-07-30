@@ -22,18 +22,17 @@ class ProfileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     //Widget returned makes for a decent display, despite it's limited attributes
     return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(
-          //remove borders and background color
-          color: Colors.transparent,
-          border: Border.all(color: Colors.transparent)),
-      accountName: Text(user.name), //User's name
-      accountEmail: Text(user.current_organistion), //Current organization
-      currentAccountPicture: CircleAvatar(
-          //profile picture
-          radius: 30.0,
-          //backgroundImage: new AssetImage(user.image_path)),
-          backgroundImage: NetworkImage('https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg')
-      )
-    );
+        decoration: BoxDecoration(
+            //remove borders and background color
+            color: Colors.transparent,
+            border: Border.all(color: Colors.transparent)),
+        accountName: Text(user.name), //User's name
+        accountEmail: Text(user.current_organistion), //Current organization
+        currentAccountPicture: CircleAvatar(
+            //profile picture
+            radius: 30.0,
+            //backgroundImage: new AssetImage(user.image_path)),
+            backgroundImage: NetworkImage(
+                'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg')));
   }
 }
