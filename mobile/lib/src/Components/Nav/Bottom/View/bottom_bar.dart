@@ -23,8 +23,7 @@ class _BottomBarState extends State<BottomBar> {
   //all the different pages that will display based on the tab selected
   List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    //SubjectsPage(),
-    SubjectsCardPage(),
+    SubjectsPage(),
     GradesPage(),
     DetectMarkerPage(),
   ];

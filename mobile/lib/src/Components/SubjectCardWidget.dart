@@ -36,7 +36,7 @@ class SubjectCard extends StatelessWidget {
           },
           child: Column(
             children: [
-              Image.asset("../assets/images/english.jpeg"),
+              //Image.asset("../assets/images/profile.jpg"),
               Container(
                 child: Expanded(
                   child: Row(
