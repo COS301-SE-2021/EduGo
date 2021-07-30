@@ -13,11 +13,16 @@ import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart'
 import 'package:momentum/momentum.dart';
 
 void main() {
-  runApp(
-    Momentum(
-      child: MyApp(),
-      controllers: [LessonsController(), SubjectsController()]
-    )
+  runApp(momentum(mock: true));
+}
+
+Momentum momentum({bool mock = false}) {
+  return Momentum(
+    child: MyApp(),
+    controllers: [
+      LessonsController(mock: mock), 
+      SubjectsController(mock: mock)
+    ],
   );
 }
 
