@@ -7,9 +7,11 @@ import { validateCreateVirtualEntityRequest, validateAddModelToVirtualEntityRequ
 import { uploadFile } from '../../fileUpload';
 import { AddModelToVirtualEntityFileData, AddModelToVirtualEntityRequest } from '../model/AddModelToVirtualEntityRequest';
 import { AddModelToVirtualEntityResponse } from '../model/AddModelToVirtualEntityResponse';
+import { VirtualEntityMockService } from '../service/VirtualEntityMockService';
 
 const router = express.Router();
 const service: VirtualEntityService = new VirtualEntityServiceImplementation();
+const mockService: VirtualEntityMockService = new VirtualEntityMockService();
 
 router.post('/createVirtualEntity', async (req, res) => {
     let valid = validateCreateVirtualEntityRequest(req.body);
@@ -116,5 +118,11 @@ router.post('/getVirtualEntity', async (req, res) => {
     }
     
 })
+
+router.post('/getTestModels', async (req, res) => {
+    res.status(200).json(await mockService.GetTestModels());
+})
+
+//Post endpoint for sending mock data
 
 export {router}
