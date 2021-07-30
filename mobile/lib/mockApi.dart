@@ -37,27 +37,27 @@ final getSubjectsByUserClient = mock.MockClient((request) async {
       "data": [
         {
           "id": 1,
-          "title": "Test subject 1",
+          "title": "Maths",
           "grade": 10
         },
         {
           "id": 2,
-          "title": "Test subject 2",
+          "title": "English",
           "grade": 11
         },
         {
           "id": 3,
-          "title": "Test subject 3",
+          "title": "Life Orientation",
           "grade": 12
         },
         {
           "id": 4,
-          "title": "Test subject 4",
+          "title": "History",
           "grade": 12
         },
         {
           "id": 5,
-          "title": "Test subject 5",
+          "title": "Physical Science",
           "grade": 11
         }
       ]

@@ -25,18 +25,20 @@ class _SubjectsPageState extends State<SubjectsPage> {
         builder: (context, snapshot) {
           final subjects = snapshot<SubjectsModel>();
           return Container(
-            height: MediaQuery.of(context).size.height - 200,
+            height: MediaQuery.of(context).size.height - 100,
             padding: EdgeInsets.only(top: 75),
             //grid view arranges the cards into a grid format to be displayed neatly on the page
             child: GridView.count(
-                childAspectRatio: MediaQuery.of(context).size.height / 1000,
+                //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+                childAspectRatio: MediaQuery.of(context).size.height / 400,
                 primary: false,
                 padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 30,
+                crossAxisSpacing: 0,
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                mainAxisSpacing: 20,
-                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                //makes 1 cards per row
+                crossAxisCount: 1,
                 children: subjects.subjects
                     .map((subject) => SubjectCard(
                         title: subject.title,

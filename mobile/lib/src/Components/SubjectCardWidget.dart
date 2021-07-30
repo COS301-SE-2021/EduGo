@@ -19,10 +19,14 @@ class SubjectCard extends StatelessWidget {
     return Container(
       height: 500,
       width: 280,
-      //width: MediaQuery.of(context).size.width - 100,
-      //height: MediaQuery.of(context).size.height - 200,
+      // width: MediaQuery.of(context).size.width - 100,
+      // height: MediaQuery.of(context).size.height - 200,
       //child: SingleChildScrollView(
       child: Card(
+        semanticContainer: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         clipBehavior: Clip.antiAlias,
         color: Color.fromARGB(255, 97, 211, 87),
         //This allows the card to be clickable so that when clicked,
@@ -36,91 +40,54 @@ class SubjectCard extends StatelessWidget {
           },
           child: Column(
             children: [
-              //Image.asset("../assets/images/profile.jpg"),
               Container(
-                child: Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            'Title: ' + "$title",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            softWrap: false,
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
+                height: 90,
+                width: double.infinity,
+                child: Image.network(
+                    'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
+                    fit: BoxFit.fitWidth),
+              ),
+              Container(
+                //child: Row(
+                //children: <Widget>[
+                // Expanded(
+                //Padding(
+                //padding: const EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: Text(
+                      //'Title: +'
+                      "$title",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: false,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Grade: ' + "$grade",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ),
-              ),
-              // Row(
-              //   children: [
-              //     Align(
-              //       alignment: Alignment.centerRight,
-              //       child: Padding(
-              //         padding: const EdgeInsets.only(bottom: 8.0),
-              //         child: MaterialButton(
-              //           minWidth: 15,
-              //           shape: RoundedRectangleBorder(
-              //               borderRadius: BorderRadius.circular(100)),
-              //           onPressed: () {
-              //             Navigator.push(
-              //               context,
-              //               MaterialPageRoute(
-              //                   builder: (context) => SubjectsPage()),
-              //             );
-              //           },
-              //           child: Icon(
-              //             Icons.delete_outlined,
-              //             color: Colors.white,
-              //           ),
-              //         ),
-              //       ),
+              // ),
+              //],
+              //),
+              //),
+              //),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(16.0),
+              //     child: Text(
+              //       'Grade: ' + "$grade",
+              //       style: TextStyle(
+              //           fontSize: 20,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.white),
               //     ),
-              //     Expanded(
-              //       child: Align(
-              //         alignment: Alignment.centerRight,
-              //         child: Padding(
-              //           padding: const EdgeInsets.only(bottom: 8.0),
-              //           child: MaterialButton(
-              //             shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(100)),
-              //             onPressed: () {
-              //               Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                     builder: (context) => EditSubjectPage()),
-              //               );
-              //             },
-              //             child: Icon(
-              //               Icons.edit_outlined,
-              //               color: Colors.white,
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     )
-              //   ],
+              //   ),
               // ),
             ],
           ),
