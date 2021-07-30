@@ -7,7 +7,6 @@ import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
-import 'package:mobile/src/Pages/VirtualEntityPage/View/VirtualEntityPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,8 +34,6 @@ class MyApp extends StatelessWidget {
           PreferencesPage.id: (context) => PreferencesPage(),
           SettingsPage.id: (context) => SettingsPage(),
           SubjectsPage.id: (context) => SubjectsPage(),
-          //TODO Mish: Query Sthe on what data is passed
-          // VirtualEntityView.id: (context) => VirtualEntityView(),
         });
   }
 }

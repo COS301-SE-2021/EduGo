@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/Nav/Side/View/SideBar.dart';
-import 'package:mobile/src/Components/mobile_page_layout.dart';
 
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
