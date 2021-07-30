@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
+import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
+import 'package:momentum/momentum.dart';
 
 class LessonsPage extends StatefulWidget {
   LessonsPage({Key? key}) : super(key: key);
@@ -15,7 +18,16 @@ class _LessonsPageState extends State<LessonsPage> {
     return MobilePageLayout(
       false,
       true,
-      Container(child: Text("Lessons")),
-    );
+      Container(
+        child: MomentumBuilder(
+        controllers: [LessonsController],
+        builder: (context, snapshot) {
+          final lessons = snapshot<LessonsModel>();
+          return Column(
+            children: lessons.lessons.map((e) => Text(e.title)).toList()
+          );
+        }
+      ))
+    ); 
   }
 }
