@@ -18,14 +18,15 @@ class BottomBar extends StatefulWidget {
 
 class BottomBarState extends State<BottomBar> {
   //destination options: 0.Home, 1.Subjects, 2.Grades, 3.DetectMarker
+
   @override
   Widget build(BuildContext context) {
     //all the different pages that will display based on the tab selected
-    List<Widget> widgetOptions = <Widget>[
-      HomePage(),
-      SubjectsPage(),
-      GradesPage(),
-      DetectMarkerPage(),
+    List<String> widgetOptions = <String>[
+      HomePage.id,
+      SubjectsPage.id,
+      GradesPage.id,
+      DetectMarkerPage.id,
     ];
     //selectedIndex is used to determine which tab was selected in the bottom nav
     int selectedIndex = 0;
@@ -84,12 +85,10 @@ class BottomBarState extends State<BottomBar> {
       ],
       onTap: (index) {
         setState(() {
+          //update selected index based on tab selected
           selectedIndex = index;
-          //Parent widget
-          MobilePageLayoutState? state =
-              context.findAncestorStateOfType<MobilePageLayoutState>();
-          //page content displayed based on tab widget selected in bottom bar
-          state!.refresh(widgetOptions.elementAt(selectedIndex));
+          //display screen of selected tab
+          Navigator.pushNamed(context, widgetOptions.elementAt(selectedIndex));
         });
       },
     );

@@ -4,7 +4,7 @@ import 'package:mobile/src/Components/mobile_page_layout.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
-
+  static String id = "home";
   @override
   _HomePageState createState() => _HomePageState();
 }

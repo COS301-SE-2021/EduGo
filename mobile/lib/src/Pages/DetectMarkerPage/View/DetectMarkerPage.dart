@@ -8,6 +8,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class DetectMarkerPage extends StatefulWidget {
   DetectMarkerPage({Key? key}) : super(key: key);
+  static String id = "detect_marker";
 
   @override
   _DetectMarkerPageState createState() => _DetectMarkerPageState();

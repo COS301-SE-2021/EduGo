@@ -24,15 +24,6 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
   bool isSideBarVisible;
   bool isBottomBarVisible;
 
-  //change screen based on tab clicked on bottom bar
-  void refresh(Widget childValue) {
-    setState(() {
-      this.child = childValue;
-      this.isBottomBarVisible = false;
-      this.isSideBarVisible = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     print(isBottomBarVisible);
