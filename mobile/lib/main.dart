@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+//Imported, custom pages
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
@@ -7,9 +9,10 @@ import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
-import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
+
+//Imported packages
 import 'package:momentum/momentum.dart';
 
 void main() {
@@ -20,7 +23,7 @@ Momentum momentum({bool mock = false}) {
   return Momentum(
     child: MyApp(),
     controllers: [
-      LessonsController(mock: mock), 
+      LessonsController(mock: mock),
       SubjectsController(mock: mock)
     ],
   );
