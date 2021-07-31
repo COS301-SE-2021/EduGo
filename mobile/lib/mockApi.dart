@@ -54,3 +54,24 @@ Future<http.Response> getSubjectsByUserClient(request) async {
     }
   ''', 200);
 }
+
+Future<http.Response> loginClient(request) async {
+  return http.Response('''
+    {
+      "token": "abcdefghijklmopqrstuvwxyz"
+    }
+  ''', 200);
+}
+
+Future<http.Response> loadUserClient(request) async {
+  return http.Response('''
+    {
+      "id": 1,
+      "username": "test",
+      "firstName: "Test",
+      "lastName": "User",
+      "email": "test@test.com",
+      "type": "Student"
+    }
+  ''', 200);
+}

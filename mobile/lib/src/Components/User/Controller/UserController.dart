@@ -1,12 +1,15 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http/testing.dart' as httpMock;
+import 'package:mobile/mockApi.dart' as mockApi;
 import 'package:mobile/globals.dart';
 import 'package:mobile/src/Components/User/Models/UserModel.dart';
 import 'package:mobile/src/Exceptions.dart';
 import 'package:momentum/momentum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+///Momentum controller for the User Controller 
 class UserController extends MomentumController<UserModel> {
   UserController({this.mock = false});
 
@@ -17,7 +20,18 @@ class UserController extends MomentumController<UserModel> {
     return UserModel(this);
   }
 
-  Future<bool> login({required String username, required String password, required http.Client client}) async {
+  Future<bool> login({required String username, required String password}) {
+    return _login(username: username, password: password, client: mock == true ? httpMock.MockClient(mockApi.loginClient) : http.Client());
+  }
+
+  //TODO: Logout
+
+
+  Future<void> loadUser() {
+    return _loadUser(client: mock == true ? httpMock.MockClient(mockApi.loadUserClient) : http.Client());
+  }
+
+  Future<bool> _login({required String username, required String password, required http.Client client}) async {
     final response = await client.post(
       Uri.parse("${baseUrl}auth/login"),
       headers: <String, String>{'Content-Type': 'application/json'},
@@ -41,9 +55,9 @@ class UserController extends MomentumController<UserModel> {
     throw new Exception('Unexpected server error');
   }
 
-  Future<void> getUser({required http.Client client}) async {
+  Future<void> _loadUser({String? user_token, required http.Client client}) async {
     final prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('user_token');
+    final String? token = prefs.getString('user_token') ?? user_token ?? null;
 
     if (token == null) throw NoToken();
 
