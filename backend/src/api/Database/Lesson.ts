@@ -26,11 +26,18 @@ export class Lesson {
 	@Column()
 	date: string;
 
-	@Column()
-	startTime: string;
+	// @Column()
+	// startTime: string;
 
-	@Column()
-	endTime: string;
+	// @Column()
+	// endTime: string;
+
+	//Example: 2021-08-01T14:00:00+00:00
+	@Column({type: 'timestamptz', nullable: true})
+	startTime: Date;
+
+	@Column({type: 'timestamptz', nullable: true})
+	endTime: Date;
 
 	@JoinColumn()
 	@ManyToOne(() => Subject, (subject) => subject.lessons)
