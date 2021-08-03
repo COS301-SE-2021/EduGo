@@ -1,5 +1,5 @@
 import express from "express";
-import { LessonService } from "../services/lessonService";
+import { LessonService } from "../services/LessonService";
 import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import { handleErrors } from "../helper/ErrorCatch";

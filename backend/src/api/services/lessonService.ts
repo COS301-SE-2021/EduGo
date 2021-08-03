@@ -16,7 +16,6 @@ export class LessonService {
 	public async createLesson(request: CreateLessonRequest) {
 		if (
 			request.title == null ||
-			request.date == null ||
 			request.description == null ||
 			request.subjectId == null ||
 			request.startTime == null ||
@@ -32,7 +31,6 @@ export class LessonService {
 			let user: User = new User();
 			lesson.title = request.title;
 			lesson.description = request.description;
-			lesson.date = request.date;
 			lesson.virtualEntities = [];
 			//If the lesson start and end timestamps are invalid, set them to null
 			lesson.startTime = new Date(request.startTime) ?? null;

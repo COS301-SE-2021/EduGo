@@ -23,8 +23,8 @@ export class Lesson {
 	@Column()
 	description: string;
 
-	@Column()
-	date: string;
+	// @Column()
+	// date: string;
 
 	// @Column()
 	// startTime: string;
