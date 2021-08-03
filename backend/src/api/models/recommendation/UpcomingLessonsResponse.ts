@@ -1,4 +1,4 @@
-interface Lesson {
+export interface UpcomingLesson {
     id: number;
     title: string;
     description: string;
@@ -7,5 +7,5 @@ interface Lesson {
 }
 
 export interface UpcomingLessonsResponse {
-    lessons: Lesson[];
+    lessons: UpcomingLesson[];
 }
