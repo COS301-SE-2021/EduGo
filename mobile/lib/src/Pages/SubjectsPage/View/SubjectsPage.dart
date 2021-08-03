@@ -4,6 +4,7 @@
  * to populate the card.
  */
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/SubjectCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
@@ -29,12 +30,12 @@ class _SubjectsPageState extends State<SubjectsPage> {
           builder: (context, snapshot) {
             final subjects = snapshot<SubjectsModel>();
             return Container(
-              height: MediaQuery.of(context).size.height - 100,
-              padding: EdgeInsets.only(top: 75),
+              //height: MediaQuery.of(context).size.height - 100,
+              // padding: EdgeInsets.only(top: 75),
               //grid view arranges the cards into a grid format to be displayed neatly on the page
               child: GridView.count(
                   //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
-                  childAspectRatio: MediaQuery.of(context).size.height / 400,
+                  childAspectRatio: MediaQuery.of(context).size.height / 1000,
                   primary: false,
                   padding: const EdgeInsets.all(20),
                   crossAxisSpacing: 0,

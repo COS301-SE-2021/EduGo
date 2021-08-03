@@ -44,15 +44,11 @@ class SubjectCard extends StatelessWidget {
                 height: 90,
                 width: double.infinity,
                 child: Image.network(
-                    'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
-                    fit: BoxFit.fitWidth),
+                  'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
+                  fit: BoxFit.fitWidth,
+                ),
               ),
               Container(
-                //child: Row(
-                //children: <Widget>[
-                // Expanded(
-                //Padding(
-                //padding: const EdgeInsets.all(16.0),
                 child: Align(
                   alignment: Alignment.center,
                   child: Padding(

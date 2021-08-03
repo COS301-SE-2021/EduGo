@@ -25,54 +25,57 @@ class _SideBarState extends State<SideBar> {
       heightFactor: 1.00,
       widthFactor: 1.00,
       child: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            //Drawer header onsists of a profile picture, the user's current org, the user's name and surname
-            DrawerHeader(
-              //Row
-              child: ProfileWidget(
-                  user: user, isEdit: false, onClicked: () async {}),
-            ),
-            //All List tiles below have icons and titled tiles that lead to their relevant pages
-            ListTile(
-              leading: Icon(Icons.summarize_outlined),
-              title: Text('Lessons'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LessonsPage()),
+        child: Expanded(
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              //Drawer header onsists of a profile picture, the user's current org, the user's name and surname
+              DrawerHeader(
+                //Row
+                child: ProfileWidget(
+                    user: user, isEdit: false, onClicked: () async {}),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('Preferences'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => PreferencesPage()),
+              //All List tiles below have icons and titled tiles that lead to their relevant pages
+              ListTile(
+                leading: Icon(Icons.summarize_outlined),
+                title: Text('Lessons'),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LessonsPage()),
+                ),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SettingsPage()),
+              ListTile(
+                leading: Icon(Icons.verified_user),
+                title: Text('Preferences'),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PreferencesPage()),
+                ),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Toggle Organisations'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => OrganisationsPage()),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text('Settings'),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                ),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('Logout'),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
-          ],
+              ListTile(
+                leading: Icon(Icons.border_color),
+                title: Text('Toggle Organisations'),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => OrganisationsPage()),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Logout'),
+                onTap: () => {Navigator.of(context).pop()},
+              ),
+            ],
+          ),
         ),
       ),
     );

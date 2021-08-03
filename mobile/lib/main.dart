@@ -14,14 +14,14 @@ import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart'
 import 'package:momentum/momentum.dart';
 
 void main() {
-  runApp(momentum(mock: true));
+  runApp(momentum(mock: false));
 }
 
 Momentum momentum({bool mock = false}) {
   return Momentum(
     child: MyApp(),
     controllers: [
-      LessonsController(mock: mock), 
+      LessonsController(mock: mock),
       SubjectsController(mock: mock)
     ],
   );
@@ -32,12 +32,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-      title: 'EduGo',
-      theme: ThemeData(
-          primaryColor: Color.fromARGB(255, 97, 211, 87),
-          primarySwatch: Colors.blue,
-          fontFamily: "Montserrat"),
+        title: 'EduGo',
+        theme: ThemeData(
+            primaryColor: Color.fromARGB(255, 97, 211, 87),
+            primarySwatch: Colors.blue,
+            fontFamily: "Montserrat"),
         //Navigate application using named routes
         initialRoute: HomePage.id,
         routes: {
