@@ -28,7 +28,6 @@ export class LessonService {
 			// Set all attributes of a lesson
 			let conn = getConnection();
 			let lesson: Lesson = new Lesson();
-			let user: User = new User();
 			lesson.title = request.title;
 			lesson.description = request.description;
 			lesson.virtualEntities = [];
@@ -39,10 +38,10 @@ export class LessonService {
 			let subjectRepository = conn.getRepository(Subject);
 			// search for subject with the givem id
 			return subjectRepository
-				.findOne(request.subjectId)
+				.findOne(request.subjectId, {relations: ["lessons"]})
 				.then((subject) => {
 					if (subject) {
-						subject.lessons = [lesson];
+						subject.lessons.push(lesson);
 						// set add the lesson to the subject
 						return subjectRepository
 							.save(subject)

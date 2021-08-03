@@ -11,7 +11,7 @@ import {
 } from "typeorm";
 import { Subject } from "./Subject";
 import { VirtualEntity } from "./VirtualEntity";
-@Index(["subject", "title"], { unique: true })
+@Index(["subject", "title", "startTime"], { unique: true })
 @Entity()
 export class Lesson {
 	@PrimaryGeneratedColumn()
