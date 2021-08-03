@@ -23,6 +23,5 @@ export class Student {
 	subjects: Subject[];
 
 	@OneToMany((type) => Grade, (grade) => grade.student)
-	@JoinTable()
 	grades: Grade[];
 }

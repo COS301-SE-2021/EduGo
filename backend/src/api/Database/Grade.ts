@@ -28,7 +28,6 @@ export class Grade {
 	student: Student;
 
 	@ManyToOne((type) => Quiz, (quiz) => quiz.grades)
-	@JoinTable()
 	quiz: Quiz;
 
 	@OneToMany(type=>Answer , answer=>answer.grade)

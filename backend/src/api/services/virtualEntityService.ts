@@ -1,5 +1,5 @@
 import { VirtualEntity } from "../database/VirtualEntity";
-import { getConnection } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { Model } from "../database/Model";
 import { Quiz } from "../database/Quiz";
@@ -20,6 +20,14 @@ import {
 import { AddModelToVirtualEntityFileData } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityDatabaseResult } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
 import { Lesson } from "../database/Lesson";
+import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
+import { getUserDetails } from "../helper/auth/Userhelper";
+import { User } from "../database/User";
+import { Error400 } from "../errors/Error";
+import { Grade } from "../database/Grade";
+import { Answer } from "../database/Answer";
+import { Student } from "../database/Student";
+import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 
 export class VirtualEntityService {
 	async AddModelToVirtualEntity(
@@ -191,13 +199,67 @@ export class VirtualEntityService {
 					throw new Error("Could not find lesson");
 				}
 			});
-
-			
 	}
+/**
+ * @description This function allows a student to answer a quiz 
+ * 1. get the student object
+ * 2. create the grade object for the student
+ * 3. set the answers given for each question
+ * 4. grade the quiz by checking if correct answer is equivalent to the given answer
+ * @param {AnswerQuizRequest} request
+ * @param {number} user_id
+ * @memberof VirtualEntityService
+ */
+async answerQuiz(request: AnswerQuizRequest, user_id: number) {
+	
+		let user: User;
+		let quiz: Quiz | undefined;
+		try {
+			user = await getUserDetails(user_id);
+			quiz = await getRepository(Quiz).findOne(request.quiz_id);
+		} catch (error) {
+			throw error;
+		}
 
-	async answerQuiz(){
-		// Get the quiz the student is answering 
-		// check if the selected answers match correct answer
-		// grade the quiz  		
+		if (user.student) {
+			if (quiz) {
+				let StudentGrade = new Grade();
+				let score: number = 0;
+				let total: number = quiz.questions.length;
+				StudentGrade.quiz = quiz;
+				for (let value of request.answers) {
+					let question: Question | undefined;
+					try {
+						question = await getRepository(Question).findOne(
+							value.question_id
+						);
+					} catch (error) {
+						throw new error();
+					}
+					if (question) {
+						let answer = new Answer();
+						answer.answer = value.answer;
+						answer.question = question;
+						StudentGrade.answers.push(answer);
+						if (value.answer == question.correctAnswer) {
+							score++;
+						}
+					} else {
+						throw new Error400("Error 400 question not found");
+					}
+				}
+
+				user.student.grades.push(StudentGrade);
+
+				getRepository(User)
+					.save(user)
+					.then((res) => {
+						return;
+					})
+					.catch((error) => {
+						throw handleSavetoDBErrors(error);
+					});
+			} else throw new Error400("Quiz not found");
+		} else throw new Error400("User is not an educator");
 	}
 }

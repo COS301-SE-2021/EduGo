@@ -1,6 +1,7 @@
 import {
 	Column,
 	Entity,
+	JoinTable,
 	ManyToOne,
 	OneToOne,
 	PrimaryGeneratedColumn,
@@ -17,7 +18,7 @@ export class Answer {
 	question: Question;
 
 	@Column()
-	givenAnswer: String;
+	answer: String;
 
 	@ManyToOne((type) => Grade, (grade) => grade.answers)
 	grade: Grade;
