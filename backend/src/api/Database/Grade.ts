@@ -1,3 +1,4 @@
+import { Answer } from "aws-sdk/clients/kinesisvideosignalingchannels";
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Quiz } from "./Quiz";
 import { Student } from "./Student";
@@ -20,4 +21,7 @@ export class Grade {
     @ManyToOne((type)=> Quiz,(quiz) => quiz.grades)
     @JoinTable()
     quiz: Quiz
+
+    @Column()
+    givenAnswers: Answer []
 }

@@ -191,5 +191,13 @@ export class VirtualEntityService {
 					throw new Error("Could not find lesson");
 				}
 			});
+
+			
+	}
+
+	async answerQuiz(){
+		// Get the quiz the student is answering 
+		// check if the selected answers match correct answer
+		// grade the quiz  		
 	}
 }
