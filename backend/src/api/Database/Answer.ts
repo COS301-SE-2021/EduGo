@@ -1,4 +1,11 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	Entity,
+	ManyToOne,
+	OneToOne,
+	PrimaryGeneratedColumn,
+} from "typeorm";
+import { Grade } from "./Grade";
 import { Question } from "./Question";
 
 @Entity()
@@ -11,4 +18,7 @@ export class Answer {
 
 	@Column()
 	givenAnswer: String;
+
+	@ManyToOne((type) => Grade, (grade) => grade.answers)
+	grade: Grade;
 }

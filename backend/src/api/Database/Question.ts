@@ -22,20 +22,13 @@ export class Question {
     @Column()
     question: string;
 
-    @Column({
-        nullable: true
-    })
-    correctAnswer?: string;
+    @Column()
+    correctAnswer: string;
 
-    // @Column('string', {
-    //     nullable: true,
-    //     array: true
-    // })
     @Column('character varying', {
-        nullable: true,
         array: true
     })
-    options?: string[];
+    options: string[];
 
     @ManyToOne(type => Quiz, quiz => quiz.questions)
     quiz: Quiz;

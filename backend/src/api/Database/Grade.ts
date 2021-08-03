@@ -1,5 +1,14 @@
-import { Answer } from "aws-sdk/clients/kinesisvideosignalingchannels";
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+	Column,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	ManyToOne,
+	OneToMany,
+	OneToOne,
+	PrimaryGeneratedColumn,
+} from "typeorm";
+import { Answer } from "./Answer";
 import { Quiz } from "./Quiz";
 import { Student } from "./Student";
 
@@ -14,14 +23,14 @@ export class Grade {
 	@Column()
 	score: number;
 
-    @ManyToOne((type) => Student, (student) => student.grades)
+	@ManyToOne((type) => Student, (student) => student.grades)
 	@JoinTable()
 	student: Student;
 
-    @ManyToOne((type)=> Quiz,(quiz) => quiz.grades)
-    @JoinTable()
-    quiz: Quiz
+	@ManyToOne((type) => Quiz, (quiz) => quiz.grades)
+	@JoinTable()
+	quiz: Quiz;
 
-    @Column()
-    givenAnswers: Answer []
+	@OneToMany(type=>Answer , answer=>answer.grade)
+	answers: Answer[];
 }

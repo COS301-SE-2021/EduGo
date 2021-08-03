@@ -1,8 +1,8 @@
 export interface Question {
     type: string;
     question: string;
-    options?: string[];
-    correctAnswer?: string;
+    options: string[];
+    correctAnswer: string;
 }
 
 export interface Quiz {
