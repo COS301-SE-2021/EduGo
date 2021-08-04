@@ -71,15 +71,20 @@ class _RegistrationVerificationPageState
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           fontSize: 60)),
-                  //Email input field
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
+                    //Email input field
                     child: TextFormField(
+                      //Controller is notified when the text changes
                       controller: email_text_controller,
+                      //Control when the auto validation should happen
+                      autovalidateMode: AutovalidateMode.always,
+                      //Email is required and must be valid
                       validator: MultiValidator([
                         RequiredValidator(errorText: "* Required"),
                         EmailValidator(errorText: "Invalid email address"),
                       ]),
+                      //Input field UI
                       style: TextStyle(),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(), hintText: "Email"),
@@ -88,8 +93,23 @@ class _RegistrationVerificationPageState
                   //Code input field
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
-                    child: TextField(
+                    //Code input field
+                    child: TextFormField(
+                      //Controller is notified when the text changes
                       controller: code_text_controller,
+                      //Control when the auto validation should happen
+                      autovalidateMode: AutovalidateMode.always,
+                      //Code is required, must be 6 digits long and must be numeric
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "* Required"),
+                        LengthRangeValidator(
+                            min: 6,
+                            max: 6,
+                            errorText: "Invalid Activation Code"),
+                        PatternValidator("[0-9]{6}",
+                            errorText: "Invalid Activation Code"), //Digits only
+                      ]),
+                      //Input field UI
                       style: TextStyle(),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
