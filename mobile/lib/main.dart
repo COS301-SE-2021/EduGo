@@ -3,6 +3,8 @@ import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/User/Service/UserService.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
+import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
+import 'package:mobile/src/Pages/HomePage/Service/HomeService.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
@@ -25,9 +27,11 @@ Momentum momentum({bool mock = false}) {
       LessonsController(mock: mock), 
       SubjectsController(mock: mock),
       UserController(mock: mock),
+      HomeController(mock: mock)
     ],
     services: [
       UserApiService(),
+      HomeService()
     ],
   );
 }
