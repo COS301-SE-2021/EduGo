@@ -76,6 +76,14 @@ Future<http.Response> loadUserClient(request) async {
   ''', 200);
 }
 
+Future<http.Response> verify(request) async {
+  return http.Response('ok', 200);
+}
+
+Future<http.Response> register(request) async {
+  return http.Response('ok', 200);
+}
+
 Future<http.Response> getUpcomingLessons(request) async {
   return http.Response('''
     {

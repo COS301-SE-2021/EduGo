@@ -51,4 +51,50 @@ class UserApiService extends MomentumService {
     else if (response.statusCode == 401) throw new BadResponse('Unauthorized');
     throw new Exception('Unexpected server error');
   }
+
+  Future<bool> verify({required String email, required String code, required http.Client client}) async {
+    final response = await client.post(
+      Uri.parse("${baseUrl}auth/verifyInvitation"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'verificationCode': code
+      })
+    );
+
+    if (response.statusCode == 200) return true;
+    return false;
+  }
+
+  Future<bool> register({
+    required String username, 
+    required String password, 
+    required String email, 
+    required String firstName,
+    required String lastName,
+    required String organisation_id,
+    required String type,
+    required http.Client client
+    }) async {
+      final response = await client.post(
+        Uri.parse("${baseUrl}auth/register"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, String>{
+          'username': username,
+          'password': password,
+          'user_email': email,
+          'user_firstName': firstName,
+          'user_lastName': lastName,
+          'userType': type,
+          'organisation_id': organisation_id
+        })
+      );
+
+      if (response.statusCode == 200) return true;
+      return false;
+  }
 }
