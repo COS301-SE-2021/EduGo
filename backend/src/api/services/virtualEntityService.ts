@@ -200,18 +200,17 @@ export class VirtualEntityService {
 				}
 			});
 	}
-/**
- * @description This function allows a student to answer a quiz 
- * 1. get the student object
- * 2. create the grade object for the student
- * 3. set the answers given for each question
- * 4. grade the quiz by checking if correct answer is equivalent to the given answer
- * @param {AnswerQuizRequest} request
- * @param {number} user_id
- * @memberof VirtualEntityService
- */
-async answerQuiz(request: AnswerQuizRequest, user_id: number) {
-	
+	/**
+	 * @description This function allows a student to answer a quiz
+	 * 1. get the student object
+	 * 2. create the grade object for the student
+	 * 3. set the answers given for each question
+	 * 4. grade the quiz by checking if correct answer is equivalent to the given answer
+	 * @param {AnswerQuizRequest} request
+	 * @param {number} user_id
+	 * @memberof VirtualEntityService
+	 */
+	async answerQuiz(request: AnswerQuizRequest, user_id: number) {
 		let user: User;
 		let quiz: Quiz | undefined;
 		try {
@@ -248,7 +247,8 @@ async answerQuiz(request: AnswerQuizRequest, user_id: number) {
 						throw new Error400("Error 400 question not found");
 					}
 				}
-
+				StudentGrade.score = score;
+				StudentGrade.total = total;
 				user.student.grades.push(StudentGrade);
 
 				getRepository(User)
@@ -260,6 +260,6 @@ async answerQuiz(request: AnswerQuizRequest, user_id: number) {
 						throw handleSavetoDBErrors(error);
 					});
 			} else throw new Error400("Quiz not found");
-		} else throw new Error400("User is not an educator");
+		} else throw new Error400("User is not an Student");
 	}
 }

@@ -22,6 +22,6 @@ export class Student {
 	@JoinTable()
 	subjects: Subject[];
 
-	@OneToMany((type) => Grade, (grade) => grade.student)
+	@OneToMany((type) => Grade, (grade) => grade.student,{cascade:true})
 	grades: Grade[];
 }

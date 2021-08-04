@@ -16,6 +16,8 @@ import {
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
 import { isEducator, isUser, RequestObjectWithUserId } from "../middleware/validate";
 import passport from "passport";
+import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
+import { handleErrors } from "../helper/ErrorCatch";
 
 const router = express.Router();
 const service: VirtualEntityService = new VirtualEntityService();
@@ -158,6 +160,24 @@ router.post(
 		} else {
 			res.status(400).send(valid.message);
 		}
+	}
+);
+// TODO get virtual entities by lesson 
+
+router.post(
+	"/answerQuiz",
+	passport.authenticate("jwt", { session: false }),
+	isUser,
+	async (req: RequestObjectWithUserId, res:any) => {
+		let body: AnswerQuizRequest = <AnswerQuizRequest>req.body;
+		service
+			.answerQuiz(body, req.user_id)
+			.then(() => {
+				res.status(200).send("ok");
+			})
+			.catch((err) => {
+				handleErrors(err, res);
+			});
 	}
 );
 
