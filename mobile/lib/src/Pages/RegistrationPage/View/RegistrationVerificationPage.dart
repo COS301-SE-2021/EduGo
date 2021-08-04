@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/mockApi.dart';
-import 'package:mobile/src/Components/User/Controller/UserController.dart';
-import 'package:mobile/src/Components/User/Models/UserModel.dart';
 
 //Imported custom components, pages and packages
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Components/User/Controller/UserController.dart';
+import 'package:mobile/src/Components/User/Models/UserModel.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:momentum/momentum.dart';
 //import 'package:momentum/momentum.dart';
 //controller
@@ -25,7 +25,10 @@ class _RegistrationVerificationPageState
   // Text controllers used to retrieve the current value of the input fields
   final email_text_controller = TextEditingController();
   final code_text_controller = TextEditingController();
-//loginController;
+
+  //Global key that is going to tell us about any change in Form() widget.
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     // Clean up the controllers when the widget is disposed.
@@ -71,8 +74,12 @@ class _RegistrationVerificationPageState
                   //Email input field
                   Padding(
                     padding: const EdgeInsets.only(top: 100),
-                    child: TextField(
+                    child: TextFormField(
                       controller: email_text_controller,
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "* Required"),
+                        EmailValidator(errorText: "Invalid email address"),
+                      ]),
                       style: TextStyle(),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(), hintText: "Email"),
