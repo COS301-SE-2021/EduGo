@@ -32,7 +32,7 @@ export class UnverifiedUser {
 	@ManyToOne(
 		(type) => Organisation,
 		(organisation) => organisation.unverifiedUsers,
-		{ cascade: true, onDelete: "CASCADE" }
+		{ cascade: true }
 	)
 	organisation: Organisation;
 

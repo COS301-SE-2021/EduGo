@@ -62,6 +62,7 @@ import { MailgunEmailService } from "./api/helper/email/MailgunEmailService";
 import { router as AuthController } from "./api/controllers/AuthController";
 import { router as UserController } from "./api/controllers/UserController";
 import { router as SeedController } from "./api/controllers/SeedController";
+import { router as RecommenderController } from './api/controllers/RecommendationController';
 
 export const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -74,6 +75,7 @@ app.use("/organisation", OrganisationController);
 app.use("/auth", AuthController);
 app.use("/user", UserController);
 app.use("/", SeedController);
+app.use("/recommender", RecommenderController);
 
 /*
  * Look, it's a comment
