@@ -27,7 +27,10 @@ class _RegistrationVerificationPageState
   final code_text_controller = TextEditingController();
 
   //Global key that is going to tell us about any change in Form() widget.
-  GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  // "Next" button is disabled until the user completes the form
+  bool _isButtonEnabled = false;
 
   @override
   void dispose() {
@@ -37,126 +40,145 @@ class _RegistrationVerificationPageState
     super.dispose();
   }
 
+  //empty the input fields
+  void clearTextInput() {
+    email_text_controller.clear();
+    code_text_controller.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     //Get a specific controller (UserController) to call needed functions (verify)
     UserController userController = Momentum.of<UserController>(context);
 
-    Widget child = Stack(
-      children: <Widget>[
-        Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            border: Border.all(
-              style: BorderStyle.solid,
-              color: Colors.green,
+    //When the form is s
+    void _submitForm() {
+      if (_formkey.currentState!.validate()) {
+        if (userController.verify(
+                email: email_text_controller.text,
+                code: code_text_controller.text) ==
+            true) {
+          //Leads to home page
+          Navigator.pushNamed(context, RegistrationPage.id);
+        } else {
+          print("unsuccessful");
+          clearTextInput();
+        }
+      }
+    }
+
+    //page to be displayed
+    Widget child = Form(
+      key: _formkey,
+      onChanged: () =>
+          //enable or disable button depending on whether or not all input fieldshave been filled in
+          setState(
+        () => _isButtonEnabled = _formkey.currentState!.validate(),
+      ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              border: Border.all(
+                style: BorderStyle.solid,
+                color: Colors.green,
+              ),
             ),
-          ),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 60),
-              child: Column(
-                children: [
-                  //Page title: User Registration
-                  Text(
-                    "User",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 60),
-                  ),
-                  Text("Verification",
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 60),
+                child: Column(
+                  children: [
+                    //Page title: User Registration
+                    Text(
+                      "User",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
-                          fontSize: 60)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    //Email input field
-                    child: TextFormField(
-                      //Controller is notified when the text changes
-                      controller: email_text_controller,
-                      //Control when the auto validation should happen
-                      autovalidateMode: AutovalidateMode.always,
-                      //Email is required and must be valid
-                      validator: MultiValidator([
-                        RequiredValidator(errorText: "* Required"),
-                        EmailValidator(errorText: "Invalid email address"),
-                      ]),
-                      //Input field UI
-                      style: TextStyle(),
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(), hintText: "Email"),
+                          fontSize: 60),
                     ),
-                  ),
-                  //Code input field
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    //Code input field
-                    child: TextFormField(
-                      //Controller is notified when the text changes
-                      controller: code_text_controller,
-                      //Control when the auto validation should happen
-                      autovalidateMode: AutovalidateMode.always,
-                      //Code is required, must be 6 digits long and must be numeric
-                      validator: MultiValidator([
-                        RequiredValidator(errorText: "* Required"),
-                        LengthRangeValidator(
-                            min: 6,
-                            max: 6,
-                            errorText: "Invalid Activation Code"),
-                        PatternValidator("[0-9]{6}",
-                            errorText: "Invalid Activation Code"), //Digits only
-                      ]),
-                      //Input field UI
-                      style: TextStyle(),
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Activation Code"),
-                    ),
-                  ),
-                  //TODO button should send request: RegistrationVerificationModel(this.email, this.activation_code);
-                  //Next button that leads to Registration Page
-                  Padding(
-                    padding: const EdgeInsets.only(top: 100),
-                    child: MaterialButton(
-                      onPressed: () {
-                        if (userController.verify(
-                                email: email_text_controller.text,
-                                code: code_text_controller.text) ==
-                            true) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (scontext) => RegistrationPage()),
-                          );
-                        } else {
-                          print("unsuccessful");
-                        }
-                      },
-                      height: 60,
-                      color: Colors.black,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              "Next",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          ),
-                          Icon(Icons.login_outlined, color: Colors.white),
-                        ],
+                    Text("Verification",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 60)),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 100),
+                      //Email input field
+                      child: TextFormField(
+                        //Controller is notified when the text changes
+                        controller: email_text_controller,
+                        //Control when the auto validation should happen
+                        autovalidateMode: AutovalidateMode.always,
+                        //Email is required and must be valid
+                        validator: MultiValidator([
+                          RequiredValidator(errorText: "* Required"),
+                          EmailValidator(errorText: "Invalid email address"),
+                        ]),
+                        //Input field UI
+                        style: TextStyle(),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(), hintText: "Email"),
                       ),
                     ),
-                  )
-                ],
+                    //Code input field
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      //Code input field
+                      child: TextFormField(
+                        //Controller is notified when the text changes
+                        controller: code_text_controller,
+                        //Control when the auto validation should happen
+                        autovalidateMode: AutovalidateMode.always,
+                        //Code is required, must be 6 digits long and must be numeric
+                        validator: MultiValidator([
+                          RequiredValidator(errorText: "* Required"),
+                          LengthRangeValidator(
+                              min: 6,
+                              max: 6,
+                              errorText: "Invalid Activation Code"),
+                          PatternValidator("[0-9]{6}",
+                              errorText:
+                                  "Invalid Activation Code"), //Digits only
+                        ]),
+                        //Input field UI
+                        style: TextStyle(),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: "Activation Code"),
+                      ),
+                    ),
+                    //Next button that leads to Registration Page
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: MaterialButton(
+                        onPressed:
+                            _isButtonEnabled ? () => _submitForm() : null,
+                        height: 60,
+                        color: Colors.black,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text(
+                                "Next",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                            ),
+                            Icon(Icons.login_outlined, color: Colors.white),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
     //return view
     return MobilePageLayout(
