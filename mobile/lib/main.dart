@@ -5,9 +5,10 @@ import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
+import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
+import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
-import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
 import 'package:momentum/momentum.dart';
@@ -20,7 +21,7 @@ Momentum momentum({bool mock = false}) {
   return Momentum(
     child: MyApp(),
     controllers: [
-      LessonsController(mock: mock), 
+      LessonsController(mock: mock),
       SubjectsController(mock: mock)
     ],
   );
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
             fontFamily: "Montserrat"),
 
         //Navigate application using named routes
-        initialRoute: HomePage.id,
+        initialRoute: RegistrationVerificationPage.id,
         routes: {
           DetectMarkerPage.id: (context) => DetectMarkerPage(),
           GradesPage.id: (context) => GradesPage(),
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
           LessonsPage.id: (context) => LessonsPage(),
           OrganisationsPage.id: (context) => OrganisationsPage(),
           PreferencesPage.id: (context) => PreferencesPage(),
+          RegistrationPage.id: (context) => RegistrationPage(),
+          RegistrationVerificationPage.id: (context) =>
+              RegistrationVerificationPage(),
           SettingsPage.id: (context) => SettingsPage(),
           SubjectsPage.id: (context) => SubjectsPage(),
         });
