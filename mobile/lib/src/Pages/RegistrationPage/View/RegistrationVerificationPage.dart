@@ -48,7 +48,7 @@ class _RegistrationVerificationPageState
                           color: Colors.black,
                           fontSize: 60),
                     ),
-                    Text("Registration",
+                    Text("Verification",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
