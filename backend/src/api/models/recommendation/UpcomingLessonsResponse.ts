@@ -4,6 +4,7 @@ export interface UpcomingLesson {
     description: string;
     startTime: string;
     endTime: string;
+    subject: string;
 }
 
 export interface UpcomingLessonsResponse {
