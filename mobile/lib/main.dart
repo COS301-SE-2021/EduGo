@@ -10,7 +10,7 @@ import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart'
 import 'package:momentum/momentum.dart';
 
 void main() {
-  runApp(momentum(mock: true));
+  runApp(momentum(mock: false));
 }
 
 Momentum momentum({bool mock = false}) {
