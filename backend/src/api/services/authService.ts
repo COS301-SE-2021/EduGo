@@ -14,7 +14,6 @@ import { validateRegisterRequest } from "./validations/AuthValidate";
 import { Student } from "../database/Student";
 import { Error400 } from "../errors/Error";
 
-
 export class AuthService {
 	public async register(request: RegisterRequest) {
 		// Check if parameters are set
@@ -84,7 +83,7 @@ export class AuthService {
 		});
 
 		if (existingUser) {
-			throw new NonExistantItemError("User is already registered")
+			throw new NonExistantItemError("User is already registered");
 		}
 
 		let invitationRepo = getRepository(UnverifiedUser);
@@ -95,7 +94,6 @@ export class AuthService {
 
 		if (user) {
 			if (user.verificationCode == request.verificationCode) {
-				
 				try {
 					let verified: boolean = await this.setUserToverified(
 						user.id
@@ -160,15 +158,16 @@ export class AuthService {
 
 	public async userRegistration(request: RegisterRequest) {
 		// if user name and password don't exist proceed
-
+		let unverifiedUserRepo = getRepository(UnverifiedUser);
 		let userRepo = getRepository(User);
 		if (
 			!(await this.doesEmailExist(request)) &&
 			!(await this.doesUsernameExist(request))
 		) {
 			// check if user did verify their number
-			let invitedUser = await getRepository(UnverifiedUser).findOne({
+			let invitedUser = await unverifiedUserRepo.findOne({
 				where: { email: request.user_email },
+				relations: ['subjects', 'organisation']
 			});
 			// Only invited users can register
 			if (invitedUser) {
@@ -190,7 +189,7 @@ export class AuthService {
 
 				//TODO Test if this works
 				// add subjects that user was invited to their relation
-				if (request.userType == userType.student) {
+				if (invitedUser.type == userType.student) {
 					user.student = new Student();
 
 					for (let index of invitedUser.subjects) {

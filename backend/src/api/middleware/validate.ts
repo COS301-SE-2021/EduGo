@@ -88,7 +88,7 @@ async function getUserDetails(id: number): Promise<AuthenticateObject> {
 				return {
 					id: user.id,
 					isAdmin:
-						user.educator !== undefined
+						user.educator !== null
 							? user.educator.admin
 							: false,
 					isEducator: user.educator != undefined ? true : false,
