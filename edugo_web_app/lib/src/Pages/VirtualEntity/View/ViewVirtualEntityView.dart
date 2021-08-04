@@ -1,6 +1,3 @@
-import 'package:edugo_web_app/src/Components/Components.dart';
-import 'package:edugo_web_app/src/Controller.dart';
-import 'package:edugo_web_app/src/Model.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class ViewVirtualEntityView extends StatelessWidget {

@@ -40,6 +40,8 @@ dependencies:
   momentum: ^2.0.1
   catcher: ^0.3.20
   sticky_headers: ^0.2.0
+  syncfusion_flutter_datepicker: ^19.2.51
+  time_range: ^1.0.0
 
 
 

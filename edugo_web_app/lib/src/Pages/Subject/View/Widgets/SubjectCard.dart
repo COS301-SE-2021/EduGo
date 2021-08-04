@@ -54,7 +54,7 @@ class SubjectCard extends StatelessWidget {
                           color: Colors.white),
                     ),
                   ),
-                  //! End of Subject Card Grade
+                  //! End of Subject Card Image
                   //* Subject Card Grade
                   Padding(
                     padding: const EdgeInsets.all(5.0),
@@ -100,7 +100,9 @@ class SubjectCard extends StatelessWidget {
                 child: MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
-                  onPressed: () {},
+                  onPressed: () {
+                    MomentumRouter.goto(context, UpdateSubjectView);
+                  },
                   child: Icon(
                     Icons.edit_outlined,
                     color: Colors.white,

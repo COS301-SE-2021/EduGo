@@ -11,6 +11,8 @@ void main() {
       //* controllers used withing the application
       controllers: [
         VirtualEntityController(),
+        SubjectController(),
+        LessonController()
       ],
       services: [
         MomentumRouter(
