@@ -28,18 +28,33 @@ export class RecommendationService {
             //.andWhere("lessons.startTime > :start", { start: new Date("2021-08-31T11:45:00+00:00") })
             //.orderBy("lessons.startTime")
             .getOne()
-            .then(user => user ? user.educator.subjects.map(subject => subject.lessons) : []))
+            .then(user => {
+                if (user) {
+                    return user.educator.subjects.map(subject => subject.lessons.map(lesson => {
+                        return {
+                            id: lesson.id,
+                            title: lesson.title,
+                            description: lesson.description,
+                            startTime: lesson.startTime,
+                            endTime: lesson.endTime,
+                            subject: subject.title,
+                        };
+                    }));
+                }
+                return [];
+            }))
             .reduce((acc, next) => acc.concat(next), [])
-            .map(lesson => {
+            .map((lesson) => {
                 return <UpcomingLesson>{
                     id: lesson.id,
                     title: lesson.title,
                     startTime: lesson.startTime.toISOString(),
                     endTime: lesson.endTime.toISOString(),
-                    description: lesson.description
+                    description: lesson.description,
+                    subject: lesson.subject
                 }
             })
-            .sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
+            .sort((a: any, b: any) => (a.startTime > b.startTime ? 1 : -1));
         return {lessons: lessons}
     }
 }
