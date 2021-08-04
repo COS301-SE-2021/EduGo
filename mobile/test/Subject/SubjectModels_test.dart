@@ -1,36 +1,52 @@
-import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
+import 'dart:convert';
+
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mobile/src/Pages/SubjectsPage/Models/Subject.dart';
 import 'package:test/test.dart';
-import 'package:mobile/main.dart';
-import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
-import 'package:momentum/momentum.dart';
 
 void main() {
-  group('Momentum Tester Tool: ', () {
-    test('Subjects', () async {
-      final tester = MomentumTester(momentum());
-
-      await tester.init();
-
-      final controller = tester.controller<SubjectsController>();
-      expect(controller != null, true);
-      expect(controller, isA<SubjectsController>());
-      expect(controller?.model, isA<SubjectsModel>());
+  group('Subject', () {
+    test('should correctly instantiate a subject object from a json string', () {
+      String json = '''
+        {
+          "id": 1,
+          "title": "Test Subject",
+          "grade": 9
+        }
+      ''';
+      Subject subject = Subject.fromJson(jsonDecode(json));
+      expect(subject.id, 1);
+      expect(subject.title, 'Test Subject');
+      expect(subject.grade, 9);
     });
 
-    test('Subjects w/ mock lessons', () async {
-      final tester = MomentumTester(momentum(mock: true));
+    test('should set grade to 0 when grade is omitted', () {
+      String json = '''
+        {
+          "id": 1,
+          "title": "Test Subject"
+        }
+      ''';
+      Subject subject = Subject.fromJson(jsonDecode(json));
+      expect(subject.grade, 0);
+    });
 
-      await tester.init();
+    test('should throw an exception if title is missing', () {
+      String json = '''
+        {
+          "id": 1
+        }
+      ''';
+      expect(() => Subject.fromJson(jsonDecode(json)), throwsA(isA<MissingRequiredKeysException>()));
+    });
 
-      final controller = tester.controller<SubjectsController>();
-      await controller?.bootstrapAsync();
-      expect(controller != null, true);
-      expect(controller, isA<SubjectsController>());
-      expect(controller?.model, isA<SubjectsModel>());
-      expect(controller?.model.subjects.length, 3);
-      expect(controller?.model.subjects[0].title, 'Test subject 1');
-      expect(controller?.model.subjects[1].title, 'Test subject 2');
-      expect(controller?.model.subjects[2].title, 'Test subject 3');
+    test('should throw an exception if the id is missing', () {
+      String json = '''
+        {
+          "title": "Test Subject"
+        }
+      ''';
+      expect(() => Subject.fromJson(jsonDecode(json)), throwsA(isA<MissingRequiredKeysException>()));
     });
   });
 }

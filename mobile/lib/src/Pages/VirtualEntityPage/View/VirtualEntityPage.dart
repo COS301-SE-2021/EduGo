@@ -8,7 +8,6 @@ class VirtualEntityView extends StatefulWidget {
   final VirtualEntityData data;
 
   VirtualEntityView({required this.data});
-  static String id = "virtual_entity";
 
   @override
   State<StatefulWidget> createState() {
@@ -30,35 +29,41 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<VirtualEntity>(
-        future: entity,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text(snapshot.data!.model!.name),
-                ),
-                body: ModelViewer(
-                  backgroundColor: Colors.teal[50],
-                  src: snapshot.data!.model!.file_link,
-                  alt: snapshot.data!.model!.name,
-                  ar: true,
-                  arScale: 'auto',
-                  autoRotate: true,
-                  cameraControls: true,
-                ));
-          } else if (snapshot.hasError) {
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text('Virtual Entity'),
-                ),
-                body: Center(
-                  child: Text('There was an error loadinng the virtual entity'),
-                ));
-          } else {
-            return Scaffold(
-                appBar: AppBar(title: Text('Loading...')),
-                body: Center(child: CircularProgressIndicator()));
-          }
-        });
+      future: entity,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(snapshot.data!.model!.name),
+            ),
+            body: ModelViewer(
+              backgroundColor: Colors.teal[50],
+              src: snapshot.data!.model!.file_link,
+              alt: snapshot.data!.model!.name,
+              ar: true,
+              arScale: 'auto',
+              autoRotate: true,
+              cameraControls: true,
+            )
+          );
+        }
+        else if (snapshot.hasError) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Virtual Entity'),
+            ),
+            body: Center(child: Text('There was an error loadinng the virtual entity'),)
+          );
+        }
+        else {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Loading...')
+            ),
+            body: Center(child: CircularProgressIndicator())
+          );
+        }
+      }
+    );
   }
 }

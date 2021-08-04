@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:http/testing.dart' as httpMock;
-import 'package:mobile/mockApi.dart' as mockApi;
+import 'package:mobile/mockApi.dart' as mock;
 import 'package:mobile/globals.dart';
 import 'package:mobile/src/Exceptions.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/Subject.dart';
@@ -33,10 +32,6 @@ Future<List<Subject>> getSubjectsByUser(int userId,
 }
 
 class SubjectsController extends MomentumController<SubjectsModel> {
-  SubjectsController({this.mock = false});
-
-  bool mock;
-
   @override
   SubjectsModel init() {
     return SubjectsModel(this, subjects: []);
@@ -51,6 +46,8 @@ class SubjectsController extends MomentumController<SubjectsModel> {
                 ? httpMock.MockClient(mockApi.getSubjectsByUserClient)
                 : http.Client())
         .then((value) {
+  void bootstrap() {
+    getSubjectsByUser(1, client: mock.getSubjectsByUserClient).then((value) {
       model.update(subjects: value);
     });
   }

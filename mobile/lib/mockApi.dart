@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as mock;
 
-Future<http.Response> getLessonsBySubjectClient(request) async {
+final getLessonsBySubjectClient = mock.MockClient((request) async {
   return http.Response('''
     {
       "data": [
@@ -29,9 +29,9 @@ Future<http.Response> getLessonsBySubjectClient(request) async {
       ]
     }
   ''', 200);
-}
+});
 
-Future<http.Response> getSubjectsByUserClient(request) async {
+final getSubjectsByUserClient = mock.MockClient((request) async {
   return http.Response('''
     {
       "data": [
@@ -63,4 +63,4 @@ Future<http.Response> getSubjectsByUserClient(request) async {
       ]
     }
   ''', 200);
-}
+});

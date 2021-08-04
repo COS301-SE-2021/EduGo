@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
-//import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/Controller/Preferences.dart';

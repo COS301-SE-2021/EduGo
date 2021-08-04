@@ -1,0 +1,5 @@
+{
+   "liveServer.settings.port": 5501,
+   "dart.flutterRunAdditionalArgs": ["--no-sound-null-safety"],
+   "dart.flutterTestAdditionalArgs": ["--no-sound-null-safety"]
+}

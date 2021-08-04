@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:mobile/src/Exceptions.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
-import 'package:mobile/mockApi.dart' as mockApi;
+import 'package:mobile/mockApi.dart' as mock;
 
 import 'package:http/http.dart' as http;
-import 'package:http/testing.dart' as httpMock;
 import 'package:mobile/globals.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
 import 'package:momentum/momentum.dart';
@@ -29,18 +28,14 @@ Future<List<Lesson>> getLessonsBySubject(int subject_id, {required http.Client c
 }
 
 class LessonsController extends MomentumController<LessonsModel> {
-  LessonsController({this.mock = false});
-
-  bool mock;
-
   @override
   LessonsModel init() {
     return LessonsModel(this, lessons: []);
   }
 
   @override
-  Future<void> bootstrapAsync() {
-    return getLessonsBySubject(1, client: mock ? httpMock.MockClient(mockApi.getLessonsBySubjectClient) : http.Client()).then((value) {
+  void bootstrap() {
+    getLessonsBySubject(1, client: mock.getLessonsBySubjectClient).then((value) {
       model.update(lessons: value);
     });
   }
