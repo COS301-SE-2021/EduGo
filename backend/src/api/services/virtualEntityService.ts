@@ -219,8 +219,8 @@ export class VirtualEntityService {
 		} catch (error) {
 			throw error;
 		}
-
-		if (user.student) {
+		//console.log(user);
+		if (user.student != null) {
 			if (quiz) {
 				let StudentGrade = new Grade();
 				let score: number = 0;
