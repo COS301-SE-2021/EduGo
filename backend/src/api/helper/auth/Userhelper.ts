@@ -1,4 +1,4 @@
-import { User } from "../../../api/database/User";
+import { User } from "../../database/User";
 import { getRepository } from "typeorm";
 import { NonExistantItemError } from "../../../api/errors/NonExistantItemError";
 import { DatabaseError } from "pg";
