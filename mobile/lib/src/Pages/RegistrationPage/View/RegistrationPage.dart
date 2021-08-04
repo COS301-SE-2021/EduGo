@@ -15,9 +15,20 @@ class RegistrationPage extends StatefulWidget {
 
 */
 class _RegistrationPageState extends State<RegistrationPage> {
-  String selectedOrganisation = 'Select an organisation';
-  final List<String> organisations = <String>['UP', 'WITS', 'UCT'];
-  final List<String> user_types = <String>['educator', 'student'];
+  String selected_organisation = 'Select an organisation';
+  final List<String> organisations = <String>[
+    'Select an organisation',
+    'UP',
+    'WITS',
+    'UCT'
+  ];
+
+  String selected_user_type = 'Select a user type';
+  final List<String> user_types = <String>[
+    'Select a user type',
+    'educator',
+    'student'
+  ];
 
 //User Type
 //Username
@@ -39,13 +50,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   fontSize: 60)),
           //TODO dropdown
           //UserType input field
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: TextField(
-              style: TextStyle(),
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: "UserType"),
+          DropdownButton<String>(
+            value: selected_user_type,
+            icon: const Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: const TextStyle(color: Colors.black),
+            underline: Container(
+              height: 2,
+              color: Colors.deepPurpleAccent,
             ),
+            onChanged: (String? newValue) {
+              setState(() {
+                selected_user_type = newValue!;
+              });
+            },
+            items: user_types.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
           ),
           //Username input field
           Padding(
