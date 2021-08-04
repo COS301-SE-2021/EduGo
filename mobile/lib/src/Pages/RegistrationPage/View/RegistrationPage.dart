@@ -17,6 +17,7 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   String selectedOrganisation = 'Select an organisation';
   final List<String> organisations = <String>['UP', 'WITS', 'UCT'];
+  final List<String> user_types = <String>['educator', 'student'];
 
 //User Type
 //Username
@@ -91,6 +92,36 @@ class _RegistrationPageState extends State<RegistrationPage> {
               style: TextStyle(),
               decoration: InputDecoration(
                   border: OutlineInputBorder(), hintText: "Organisation"),
+            ),
+          ),
+          //Registration button
+          //Navigator.pushNamed(context, widgetOptions.elementAt(selectedIndex));
+
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 30,
+              bottom: 30,
+            ),
+            child: MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (scontext) => RegistrationPage()),
+                );
+              },
+              height: 60,
+              color: Colors.black,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      "Register",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                  Icon(Icons.login_outlined, color: Colors.white),
+                ],
+              ),
             ),
           ),
         ],
