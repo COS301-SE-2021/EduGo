@@ -14,15 +14,12 @@ class _LessonsPageState extends State<LessonsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: MomentumBuilder(
-        controllers: [LessonsController],
-        builder: (context, snapshot) {
-          final lessons = snapshot<LessonsModel>();
-          return Column(
-            children: lessons.lessons.map((e) => Text(e.title)).toList()
-          );
-        }
-      )
-    );
+        child: MomentumBuilder(
+            controllers: [LessonsController],
+            builder: (context, snapshot) {
+              final lessons = snapshot<LessonsModel>();
+              return Column(
+                  children: lessons.lessons.map((e) => Text(e.title)).toList());
+            }));
   }
 }
