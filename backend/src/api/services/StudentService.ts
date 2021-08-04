@@ -146,7 +146,7 @@ export class StudentService {
         let userRepository = getRepository(UnverifiedUser)
 
         subjectRepository.findOne(id, {
-            relations: ["unverifiedUsers"]
+            relations: ["unverifiedUsers", "organisation"]
         }).then(subject => {
             if(!subject)
                 throw new DatabaseError('Could not find subject')
