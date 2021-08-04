@@ -1,5 +1,9 @@
 import { VirtualEntity } from "../database/VirtualEntity";
-import { getConnection, getRepository } from "typeorm";
+import {
+	getConnection,
+	getRepository,
+	NoNeedToReleaseEntityManagerError,
+} from "typeorm";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { Model } from "../database/Model";
 import { Quiz } from "../database/Quiz";
@@ -28,6 +32,7 @@ import { Grade } from "../database/Grade";
 import { Answer } from "../database/Answer";
 import { Student } from "../database/Student";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
+import { NonExistantItemError } from "../errors/NonExistantItemError";
 
 export class VirtualEntityService {
 	async AddModelToVirtualEntity(
@@ -215,7 +220,9 @@ export class VirtualEntityService {
 		let quiz: Quiz | undefined;
 		try {
 			user = await getUserDetails(user_id);
-			quiz = await getRepository(Quiz).findOne(request.quiz_id);
+			quiz = await getRepository(Quiz).findOne(request.quiz_id, {
+				relations: ["questions"],
+			});
 		} catch (error) {
 			throw error;
 		}
@@ -226,6 +233,7 @@ export class VirtualEntityService {
 				let score: number = 0;
 				let total: number = quiz.questions.length;
 				StudentGrade.quiz = quiz;
+				StudentGrade.answers = [];
 				for (let value of request.answers) {
 					let question: Question | undefined;
 					try {
@@ -249,7 +257,26 @@ export class VirtualEntityService {
 				}
 				StudentGrade.score = score;
 				StudentGrade.total = total;
-				user.student.grades.push(StudentGrade);
+				let studentRepo = getRepository(Student);
+				let student;
+				try {
+					student = await studentRepo.findOne(user.student.id, {
+						relations: ["grades"],
+					});
+
+					if (!student)
+						throw new NonExistantItemError(
+							"Student info not found"
+						);
+
+					student.grades.push(StudentGrade);
+
+					await studentRepo.save(student).catch(err=>{
+						throw handleSavetoDBErrors(err)
+					});
+				} catch (error) {
+					throw error;
+				}
 
 				getRepository(User)
 					.save(user)
