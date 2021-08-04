@@ -3,17 +3,26 @@ class Lesson {
   String _description;
   String _imageLink;
   String _date;
-  String _time;
+  String _endTime;
   String _virtualEntityId;
   String _subjectId;
+  String _startTime;
 
   Lesson(
-      {imageLink, title, description, date, time, virtualEntityId, subjectId})
+      {imageLink,
+      title,
+      description,
+      date,
+      startTime,
+      endTime,
+      virtualEntityId,
+      subjectId})
       : _description = description,
         _imageLink = imageLink,
         _title = title,
         _date = date,
-        _time = time,
+        _startTime = startTime,
+        _endTime = endTime,
         _virtualEntityId = virtualEntityId,
         _subjectId = subjectId;
 
@@ -29,8 +38,12 @@ class Lesson {
     _imageLink = imageLink;
   }
 
-  void setLessonTime(String time) {
-    _time = time;
+  void setLessonStartTime(String startTime) {
+    _startTime = startTime;
+  }
+
+  void setLessonEndTime(String endTime) {
+    _endTime = endTime;
   }
 
   void setLessonDate(String date) {
@@ -69,7 +82,11 @@ class Lesson {
     return _date;
   }
 
-  String getLessonTime() {
-    return _time;
+  String getLessonStartTime() {
+    return _startTime;
+  }
+
+  String getLessonEndTime() {
+    return _endTime;
   }
 }

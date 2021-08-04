@@ -33,25 +33,36 @@ class LessonController extends MomentumController<LessonModel> {
         lessonDate: args.value.toString().substring(0, 10));
   }
 
+  void setViewBoundLessonTime(TimeRangeResult range) {
+    model.setViewBoundLessonTime(
+        lessonStartTime: range.start.toString(),
+        lessonEndTime: range.end.toString());
+  }
+
   Future<String> createLesson(context) async {
-    var url = Uri.parse('http://localhost:8080/Lesson/createLesson');
-    var response = await post(url, headers: {
-      'contentType': 'application/json',
-      'Authorization':
-          'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2Mjc2ODEyMTAsImV4cCI6MTYyNzc2NzYxMH0.vqeTH7sNa74lr4wP5IUgWS5s_9y_RgOoVYBkUroA0XtftPHhlDSfrSgHB8UINIfhOsvQ9Y8VCPHbJ66GuD2B1G5aEEcs6ea0zBwYv5XHlOU1elT_S05v9kMuXba6FzXkI4EUvgBVs3zxlCEgpswDLRX7GHsYvXb_9cN-O2pHUVgexB3-F1ZX2tiXKt20wj9HX5wdagm3BcdIrxJTTz2is5OtB2LwvXaT5OH81lIiV9nTLzWW0-JyBd0iU9ux_on01TZ9bxNLmSDt6k_de7P30MV0gDruA1FL6UpQY8zivdkUPnWFecBMRYeZU7EaBBzP1qpvu_uGaTfo0eE252En5BzWEcj1kno1ki0DO7YGfFVQd1gFL8Ez_UekCttqD-Uk86zW6OhHHeiy1dX9yowsNNHyeez2UKjQSznS0NQHPr6HRluEDNxc4gonmdjgo1VbEMWbmw8BQepTurY7_q9uKGH8N2_qSmx_9phL9BiZCYiHDfOe15Ze2lgfnkAohr7WNX-PPTlM8wpCtJZfkfrtXasJ4UWUR0tEz8yOXio4dD9bgS4d1wlOs9yzp04KYj6_Rp9OU5khVImvpQlg24J5lMvJgrmw86qn4e_aJIruDp80PE3z81na6yNsv14JIiofq6F1eFAqKsDuERi2zqYhPuMYZ_4486Cx-7VETH9Z4No',
-    }, body: {
-      'title': model.viewBoundLesson.getLessonTitle(),
-      'description': model.viewBoundLesson.getLessonDescription(),
-      'subjectId': "1",
-      'date': model.viewBoundLesson.getLessonDate(),
-    });
-    if (response.statusCode == 200) {
-      MomentumRouter.goto(context, LessonsView);
-      return "Lesson Created";
-    } else {
-      print(response.body);
-      return "Lesson Could not be created";
-    }
+    print("Lesson title : " + model.getViewBoundLessonTitle());
+    print("Lesson description : " + model.getViewBoundLessonDescription());
+    print("Lesson date : " + model.getViewBoundLessonDate());
+    //print("Lesson start time : " + model.getViewBoundLessonStartTime());
+    // print("Lesson end time : " + model.getViewBoundLessonEndTime());
+    // var url = Uri.parse('http://localhost:8080/lesson/createLesson');
+    // var response = await post(url, headers: {
+    //   'contentType': 'application/json',
+    //   'Authorization':
+    //       'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2MjgwNzUxOTIsImV4cCI6MTYyODE2MTU5Mn0.QptEfIWGJY8KqzPQ8ZjifxKSFxhnPIj-1SRf8N-am5l5VmrJt9m1CLEBuId1xFCUAvpzPS2O7dlDiOXcBKRMs2fsUt8fRCwujkb3HbSTCFYiqNCInJCoLlE3GnLzjhbG3q2Y1wdgX9ppk1ZCA2AcOpIhWqn0HbnMoj1d43bezi3DLXuE-2Wplvyk7c1tdY589G3gZ8T5lz28x-ymTCnfvssWUtls_Yf_XFwVdZYyc3Kpf_ltWwHCZBlB8B-4QewNxkjUnB-RdNtLeUa0jR6ODebnyOiu8PftZC_eGSnmz-biJEYqJop6orBATkgBvUHQPTiq8_Di3zq-GRhiow32j12bfaq9mY-iyYXErI_1l1bY_UKnTL05FPumDWdHCIIpFXZbfdr57ySnQmW4JW1G4Ia-uH6AAbKJ0qqyC_pkvIyXwyLYym3s92u7mzp0zn176I6c5f1VGMZMieyW_0l493fsdRHafKbNDkOE49nU0AkzydcHOhjWHsd277w3VLUXaLkCIX_aeCFaRksAu_EwrHTqcwkSeHod02_hhckdGe1QZGYx_BE0ePOvZ2sutYAZZK9stYBrDjxTPAxhts5_2I-sPUrv-C6xs0q4Tmu5gR6XIH0M-ub8LIb0d9BBpBhIgHvH1J5mlAit2woRLuLLaYrphR42uK0OwXJGe8S5pno',
+    // }, body: {
+    //   //'title': model.viewBoundLesson.getLessonTitle(),
+    //   // 'description': model.viewBoundLesson.getLessonDescription(),
+    //   // 'subjectId': "1",
+    //   //'date': model.viewBoundLesson.getLessonDate(),
+    // });
+    // if (response.statusCode == 200) {
+    //   MomentumRouter.goto(context, LessonsView);
+    //   return "Lesson Created";
+    // } else {
+    //   print(response.body);
+    //   return "Lesson Could not be created";
+    // }
   }
 
 //***************************************************************************************

@@ -5,7 +5,7 @@ class LessonCard extends StatelessWidget {
 
   LessonCard({
     this.title,
-  }) {}
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,9 @@ class LessonCard extends StatelessWidget {
                 child: MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
-                  onPressed: () {},
+                  onPressed: () {
+                    MomentumRouter.goto(context, UpdateLessonView);
+                  },
                   child: Icon(
                     Icons.edit_outlined,
                     color: Colors.white,

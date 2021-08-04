@@ -10,7 +10,7 @@ class CreateLessonView extends StatelessWidget {
       left: 100,
       right: 100,
       child: ListView(
-        padding: EdgeInsets.only(top: 50, bottom: 70, left: 40, right: 40),
+        padding: EdgeInsets.only(top: 50, bottom: 100, left: 40, right: 40),
         children: [
           Column(
             children: [
@@ -28,6 +28,9 @@ class CreateLessonView extends StatelessWidget {
                 height: 20,
               ),
               CreateLessonDesktopTopContainer(),
+              SizedBox(
+                height: 40,
+              ),
               CreateLessonDesktopBottomContainer(),
             ],
           )

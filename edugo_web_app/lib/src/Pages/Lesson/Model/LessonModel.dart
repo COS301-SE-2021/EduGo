@@ -43,9 +43,10 @@ class LessonModel extends MomentumModel<LessonController> {
     update(viewBoundLesson: temporaryLesson);
   }
 
-  void setViewBoundLessonTime({String lessonTime}) {
+  void setViewBoundLessonTime({String lessonStartTime, String lessonEndTime}) {
     Lesson temporaryLesson = viewBoundLesson;
-    temporaryLesson.setLessonTime(lessonTime);
+    temporaryLesson.setLessonEndTime(lessonEndTime);
+    temporaryLesson.setLessonEndTime(lessonStartTime);
     update(viewBoundLesson: temporaryLesson);
   }
 
@@ -85,7 +86,11 @@ class LessonModel extends MomentumModel<LessonController> {
     return viewBoundLesson.getLessonDate();
   }
 
-  String getViewBoundLessonTime() {
-    return viewBoundLesson.getLessonTime();
+  String getViewBoundLessonStartTime() {
+    return viewBoundLesson.getLessonStartTime();
+  }
+
+  String getViewBoundLessonEndTime() {
+    return viewBoundLesson.getLessonEndTime();
   }
 }
