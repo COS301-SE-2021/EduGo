@@ -24,6 +24,8 @@ export class RecommendationService {
             .leftJoinAndSelect("educator.subjects", "subjects")
             .leftJoinAndSelect("subjects.lessons", "lessons")
             .where("user.id = :id", { id: id })
+            .andWhere("lessons.startTime > :start", { start: new Date() })
+            //.andWhere("lessons.startTime > :start", { start: new Date("2021-08-31T11:45:00+00:00") })
             //.orderBy("lessons.startTime")
             .getOne()
             .then(user => user ? user.educator.subjects.map(subject => subject.lessons) : []))
