@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 
-//Imported custom components and pages
-import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
+//Imported custom components, pages and packages
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 //import 'package:momentum/momentum.dart';
 //controller
 
 //Verify if student is already allocated to an organization by an educator
-class RegistrationVerificationPage extends StatelessWidget {
+class RegistrationVerificationPage extends StatefulWidget {
+  RegistrationVerificationPage();
   static String id = "registration_verification";
+
+  @override
+  _RegistrationVerificationPageState createState() =>
+      _RegistrationVerificationPageState();
+}
+
+class _RegistrationVerificationPageState
+    extends State<RegistrationVerificationPage> {
   @override
   Widget build(BuildContext context) {
     //return view
@@ -64,7 +72,7 @@ class RegistrationVerificationPage extends StatelessWidget {
                             hintText: "Activation Code"),
                       ),
                     ),
-                    //TODO button should send request
+                    //TODO button should send request: RegistrationVerificationModel(this.email, this.activation_code);
                     //Next button that leads to Registration Page
                     Padding(
                       padding: const EdgeInsets.only(top: 100),

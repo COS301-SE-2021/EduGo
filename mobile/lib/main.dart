@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             fontFamily: "Montserrat"),
 
         //Navigate application using named routes
-        initialRoute: RegistrationVerificationPage.id,
+        initialRoute: RegistrationVerificationPage.id, //Home.id
         routes: {
           DetectMarkerPage.id: (context) => DetectMarkerPage(),
           GradesPage.id: (context) => GradesPage(),
