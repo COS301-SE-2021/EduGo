@@ -26,8 +26,6 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
 
   @override
   Widget build(BuildContext context) {
-    print(isBottomBarVisible);
-    print(isSideBarVisible);
     //bottom and side nav not displayed
     if (!isSideBarVisible & !isBottomBarVisible) {
       return Scaffold(
