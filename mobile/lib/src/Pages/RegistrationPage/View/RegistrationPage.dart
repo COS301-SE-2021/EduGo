@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 
 class RegistrationPage extends StatefulWidget {
   RegistrationPage();
@@ -48,24 +49,51 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                   fontSize: 60)),
-          //TODO dropdown
           //UserType input field
-          DropdownButton<String>(
+          DropdownButtonFormField<String>(
             value: selected_user_type,
             icon: const Icon(Icons.arrow_downward),
             iconSize: 24,
             elevation: 16,
             style: const TextStyle(color: Colors.black),
-            underline: Container(
-              height: 2,
-              color: Colors.deepPurpleAccent,
-            ),
+            //TODO controller MVC state change?
             onChanged: (String? newValue) {
               setState(() {
                 selected_user_type = newValue!;
               });
             },
+            onSaved: (String? newValue) {
+              setState(() {
+                selected_user_type = newValue!;
+              });
+            },
             items: user_types.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          //TODO getOrganisations
+          //Organisations input field
+          DropdownButtonFormField<String>(
+            value: selected_organisation,
+            icon: const Icon(Icons.arrow_downward),
+            iconSize: 24,
+            elevation: 16,
+            style: const TextStyle(color: Colors.black),
+            //TODO controller MVC state change?
+            onChanged: (String? newValue) {
+              setState(() {
+                selected_organisation = newValue!;
+              });
+            },
+            onSaved: (String? newValue) {
+              setState(() {
+                selected_organisation = newValue!;
+              });
+            },
+            items: organisations.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
@@ -108,20 +136,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   border: OutlineInputBorder(), hintText: "Email"),
             ),
           ),
-          //TODO getOrganisations
-          //TODO dropdown button
-          //Organisations input field
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: TextField(
-              style: TextStyle(),
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(), hintText: "Organisation"),
-            ),
-          ),
-          //Registration button
-          //Navigator.pushNamed(context, widgetOptions.elementAt(selectedIndex));
 
+          //Register button
           Padding(
             padding: const EdgeInsets.only(
               top: 30,
@@ -129,10 +145,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             child: MaterialButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (scontext) => RegistrationPage()),
-                );
+                //Leads to home page
+                Navigator.pushNamed(context, HomePage.id);
               },
               height: 60,
               color: Colors.black,
