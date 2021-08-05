@@ -1,41 +1,53 @@
-import 'package:edugo_web_app/src/Controller.dart';
-import 'package:flutter/cupertino.dart';
-
-import 'package:momentum/momentum.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class VirtualEntityModel extends MomentumModel<VirtualEntityController> {
-  final String virtualEntityName;
-  final String virtualEntity3DModelLink;
-  final List<Widget> virtualEntityStore;
+  final VirtualEntity currentVirtualEntity;
+  final VirtualEntity viewBoundVirtualEntity;
   VirtualEntityModel(VirtualEntityController controller,
-      {this.virtualEntityName,
-      this.virtualEntityStore,
-      this.virtualEntity3DModelLink})
+      {this.currentVirtualEntity, this.viewBoundVirtualEntity})
       : super(controller);
 
   @override
   void update({
-    String virtualEntityName,
-    String virtualEntity3DModelLink,
-    List<Widget> virtualEntityStore,
+    VirtualEntity viewBoundVirtualEntity,
+    VirtualEntity currentVirtualEntity,
   }) {
-    VirtualEntityModel(controller,
-            virtualEntityName: virtualEntityName ?? this.virtualEntityName,
-            virtualEntity3DModelLink:
-                virtualEntity3DModelLink ?? this.virtualEntity3DModelLink,
-            virtualEntityStore: virtualEntityStore ?? this.virtualEntityStore)
-        .updateMomentum();
+    VirtualEntityModel(
+      controller,
+      viewBoundVirtualEntity: currentVirtualEntity ?? this.currentVirtualEntity,
+      currentVirtualEntity: currentVirtualEntity ?? this.currentVirtualEntity,
+    ).updateMomentum();
   }
 
-  void updateVirtualEntityName({String virtualEntityName}) {
-    update(virtualEntityName: virtualEntityName);
+  void setViewBoundVirtualEntityName({String virtualEntityName}) {
+    VirtualEntity temporaryVirtualEntity = viewBoundVirtualEntity;
+    temporaryVirtualEntity.setVirtualEntityName(virtualEntityName);
+    update(viewBoundVirtualEntity: temporaryVirtualEntity);
   }
 
-  void updateVirtualEntityStore({List<Widget> virtualEntities}) {
-    update(virtualEntityStore: virtualEntities);
+  void setViewBoundVirtualEntityDescription({String virtualEntityDescription}) {
+    VirtualEntity temporaryVirtualEntity = viewBoundVirtualEntity;
+    temporaryVirtualEntity
+        .setVirtualEntityDescription(virtualEntityDescription);
+    update(viewBoundVirtualEntity: temporaryVirtualEntity);
   }
 
-  void updateVirtualEntity3DModelLink({String virtualEntity3DModelLink}) {
-    update(virtualEntity3DModelLink: virtualEntity3DModelLink);
+  void setViewBoundVirtualEntity3dModelLink({String virtualEntity3dModelLink}) {
+    VirtualEntity temporaryVirtualEntity = viewBoundVirtualEntity;
+    temporaryVirtualEntity
+        .setVirtualEntity3dModelLink(virtualEntity3dModelLink);
+    update(viewBoundVirtualEntity: temporaryVirtualEntity);
+  }
+
+  String getViewBoundVirtualEntityName() {
+    return viewBoundVirtualEntity.getVirtualEntityName();
+  }
+
+  String getViewBoundVirtualEntityDescription() {
+    return viewBoundVirtualEntity.getVirtualEntityDescription();
+  }
+
+  String getViewBoundVirtualEntity3dModelLink() {
+    return viewBoundVirtualEntity.getVirtualEntity3dModelLink();
   }
 }

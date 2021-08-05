@@ -36,7 +36,10 @@ class DesktopLeftContainer extends StatelessWidget {
           ),
           VirtualEntityButton(
               elevation: 40,
-              child: Text("Create Virtual Entity"),
+              child: Text(
+                "Create Virtual Entity",
+                style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
                 MomentumRouter.goto(context, EducatorVirtualEntitiesView);
               },

@@ -5,10 +5,10 @@ class VirtualEntityStoreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //* Controller loading virtual entities on build on the VirtualEntityStoreView
-    Momentum.controller<VirtualEntityController>(context)
-        .getVirtualEntities(context);
-    //*
+    // //* Controller loading virtual entities on build on the VirtualEntityStoreView
+    // Momentum.controller<VirtualEntityController>(context)
+    //     .getVirtualEntities(context);
+    // //*
     return MomentumBuilder(
       controllers: [VirtualEntityController],
       builder: (context, snapshot) {
@@ -153,7 +153,7 @@ class VirtualEntityStoreView extends StatelessWidget {
                               crossAxisSpacing: 40,
                               mainAxisSpacing: 40,
                               crossAxisCount: 4,
-                              children: entity.virtualEntityStore,
+                              children: [],
                             )
                           : GridView.count(
                               physics: NeverScrollableScrollPhysics(),
@@ -164,7 +164,7 @@ class VirtualEntityStoreView extends StatelessWidget {
                               crossAxisSpacing: 40,
                               mainAxisSpacing: 40,
                               crossAxisCount: 4,
-                              children: entity.virtualEntityStore,
+                              children: [],
                             ),
                     ),
                   ],

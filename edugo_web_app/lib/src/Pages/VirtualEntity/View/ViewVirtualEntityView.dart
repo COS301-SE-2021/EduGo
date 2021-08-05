@@ -53,7 +53,7 @@ class ViewVirtualEntityView extends StatelessWidget {
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  '${entity.virtualEntityName}',
+                                  '${entity.currentVirtualEntity.getVirtualEntityName()}',
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 97, 211, 87),
                                     fontSize: 34,

@@ -5,10 +5,10 @@ class EducatorVirtualEntitiesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //* Controller loading virtual entities on build on the VirtualEntityStoreView
-    Momentum.controller<VirtualEntityController>(context).getVirtualEntities(
-        context); //Todo :  implement a variation of this function that gets allvirtual entities associated with an educator ID
-    //*
+    // //* Controller loading virtual entities on build on the VirtualEntityStoreView
+    // Momentum.controller<VirtualEntityController>(context).getVirtualEntities(
+    //     context); //Todo :  implement a variation of this function that gets allvirtual entities associated with an educator ID
+    // //*
     return MomentumBuilder(
       controllers: [VirtualEntityController],
       builder: (context, snapshot) {
@@ -57,7 +57,7 @@ class EducatorVirtualEntitiesView extends StatelessWidget {
                       crossAxisSpacing: 40,
                       mainAxisSpacing: 40,
                       crossAxisCount: 4,
-                      children: entity.virtualEntityStore,
+                      children: [],
                     ),
                   ],
                 ),
