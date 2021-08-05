@@ -9,11 +9,12 @@ import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
 import { VirtualEntity } from "../database/VirtualEntity";
+import { Service } from 'typedi'
 let statusRes: any = {
 	message: "",
 	type: "fail",
 };
-
+@Service()
 export class LessonService {
 	public async createLesson(request: CreateLessonRequest) {
 		if (

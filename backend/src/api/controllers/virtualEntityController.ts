@@ -18,9 +18,11 @@ import { isEducator, isUser, RequestObjectWithUserId } from "../middleware/valid
 import passport from "passport";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { handleErrors } from "../helper/ErrorCatch";
+import { Container } from "typedi";
+
 
 const router = express.Router();
-const service: VirtualEntityService = new VirtualEntityService();
+const service: VirtualEntityService = Container.get(VirtualEntityService);
 
 //TODO add endpoint to make snapshot of 3d model 
 

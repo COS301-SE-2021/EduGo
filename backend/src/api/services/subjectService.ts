@@ -13,9 +13,12 @@ import { handleErrors, handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { Educator } from "../database/Educator";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { Student } from "../database/Student";
+import { Service } from "typedi";
+
 
 //import {client} from '../../index'
 
+@Service()
 export class SubjectService {
 	async CreateSubject(
 		request: CreateSubjectRequest,

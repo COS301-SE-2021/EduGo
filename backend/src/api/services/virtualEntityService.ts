@@ -34,7 +34,10 @@ import { Student } from "../database/Student";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { DatabaseError } from "../errors/DatabaseError";
+import { Service } from "typedi";
 
+
+@Service()
 export class VirtualEntityService {
 	async AddModelToVirtualEntity(
 		request: AddModelToVirtualEntityFileData

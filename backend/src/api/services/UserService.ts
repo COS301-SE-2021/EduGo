@@ -6,7 +6,10 @@ import { DatabaseError } from "../errors/DatabaseError";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { InvalidParameterError } from "../errors/InvalidParametersError";
+import { Service } from "typedi";
 
+
+@Service()
 export class UserService {
 	public async setUserToAdmin(request: SetUserToAdminRequest) {
 		if (request.username == null) {

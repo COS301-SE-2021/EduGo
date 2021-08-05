@@ -15,11 +15,14 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
 import { Error400 } from "../errors/Error";
 import { Subject } from "../database/Subject";
+import { Service } from "typedi";
+
 
 /**
  * A class consisting of the functions that make up the educator service
  * @class EducatorService
  */
+@Service()
 export class EducatorService {
 	emailService: EmailService;
 

@@ -13,7 +13,9 @@ import { InvalidParameterError } from "../errors/InvalidParametersError";
 import { validateRegisterRequest } from "./validations/AuthValidate";
 import { Student } from "../database/Student";
 import { Error400 } from "../errors/Error";
+import { Service } from "typedi";
 
+@Service()
 export class AuthService {
 	public async register(request: RegisterRequest) {
 		// Check if parameters are set

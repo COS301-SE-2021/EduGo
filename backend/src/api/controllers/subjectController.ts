@@ -11,10 +11,12 @@ import {
 import { handleErrors } from "../helper/ErrorCatch";
 import passport from "passport";
 import { uploadFile } from "../helper/aws/fileUpload";
+import { Container } from "typedi";
+
 
 const router = express.Router();
 
-const service: SubjectService = new SubjectService();
+const service: SubjectService = Container.get(SubjectService);
 router.post(
 	"/createSubject",
 	passport.authenticate("jwt", { session: false }),

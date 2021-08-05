@@ -11,11 +11,14 @@ import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail"
 import { VerificationEmail } from "../helper/email/models/VerificationEmail";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { EmailList } from "../models/user/SerivceModels";
+import { Service } from "typedi";
+
 
 /**
  * A class consisting of the functions that make up the student service
  * @class StudentService
  */
+@Service()
 export class StudentService {
     emailService: EmailService;
 

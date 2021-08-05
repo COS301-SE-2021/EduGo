@@ -6,9 +6,11 @@ import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisa
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import { OrganisationService } from "../services/OrganisationService";
 import { handleErrors } from "../helper/ErrorCatch";
+import { Container } from "typedi";
+
 
 export const router = express.Router();
-const service: OrganisationService = new OrganisationService();
+const service: OrganisationService = Container.get(OrganisationService);
 
 router.post("/createOrganisation", async (req, res) => {
 	let body = <CreateOrganisationRequest>req.body;

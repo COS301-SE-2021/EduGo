@@ -16,14 +16,11 @@ import {
 } from "../middleware/validate";
 import { handleErrors } from "../helper/ErrorCatch";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
+import { Container } from "typedi";
+
 const router = express.Router();
-
-router.use((req, res, next) => {
-	next();
-});
-
-const studentService: StudentService = new StudentService();
-const educatorService: EducatorService = new EducatorService();
+const studentService: StudentService = Container.get(StudentService);
+const educatorService: EducatorService = Container.get(EducatorService);
 const userService = new UserService();
 
 //TODO add endpoint to upload profile picture

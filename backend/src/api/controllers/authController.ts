@@ -6,8 +6,9 @@ import { LoginRequest } from "../models/auth/LoginRequest";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
 import { AuthService } from "../services/AuthService";
+import { Container } from "typedi";
 
-const service = new AuthService();
+const service = Container.get(AuthService);
 const router = express.Router();
 
 router.use((req, res, next) => {

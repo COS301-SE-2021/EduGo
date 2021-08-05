@@ -22,8 +22,10 @@ import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import { AuthService } from "./AuthService";
 import { DuplicateError } from "../errors/DuplicateError";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
+import { Service } from "typedi";
 
 
+@Service()
 export class OrganisationService {
 	async AddSubjectToOrganisation(
 		request: AddSubjectToOrganisationRequest

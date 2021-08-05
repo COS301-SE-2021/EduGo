@@ -6,9 +6,10 @@ import { handleErrors } from "../helper/ErrorCatch";
 import passport from "passport";
 import { isEducator, RequestObjectWithUserId } from "../middleware/validate";
 import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
+import { Container } from "typedi";
 
 const router = express.Router();
-const service = new LessonService();
+const service = Container.get(LessonService);
 router.use((req, res, next) => {
 	next();
 });
