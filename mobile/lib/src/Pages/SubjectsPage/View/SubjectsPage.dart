@@ -23,39 +23,41 @@ class _SubjectsPageState extends State<SubjectsPage> {
   @override
   Widget build(BuildContext context) {
     return MobilePageLayout(
-        true,
-        true,
-        //Container(
-        MomentumBuilder(
-          controllers: [SubjectsController],
-          builder: (context, snapshot) {
-            final subjects = snapshot<SubjectsModel>();
-            //Get the number of subjects
-            int subjectsCount = subjects.subjects.length;
-            //return Container(
-            //height: MediaQuery.of(context).size.height - 100,
-            //padding: EdgeInsets.only(top: 75),
-            //grid view arranges the cards into a grid format to be displayed neatly on the page
-            return GridView.count(
-              //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
-              childAspectRatio: MediaQuery.of(context).size.height / 400,
-              primary: false,
-              padding: const EdgeInsets.all(20),
-              crossAxisSpacing: 0,
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              mainAxisSpacing: 10,
-              //makes 1 cards per row
-              crossAxisCount: 1,
-              children: subjects.subjects
-                  .map((subject) => SubjectCard(
-                      title: subject.title,
-                      grade: subject.grade,
-                      id: subject.id,
-                      count: subjectsCount))
-                  .toList(),
-            );
-          },
-        ));
+      true,
+      true,
+      //Container(
+      MomentumBuilder(
+        controllers: [SubjectsController],
+        builder: (context, snapshot) {
+          //Used for momentum mvc model
+          final subjects = snapshot<SubjectsModel>();
+          //Get the number of subjects for a particulat student
+          int subjectsCount = subjects.subjects.length;
+          //return Container(
+          //height: MediaQuery.of(context).size.height - 100,
+          //padding: EdgeInsets.only(top: 75),
+          //grid view arranges the cards into a grid format to be displayed neatly on the page
+          return GridView.count(
+            //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+            childAspectRatio: MediaQuery.of(context).size.height / 400,
+            primary: false,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 0,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            mainAxisSpacing: 10,
+            //makes 1 cards per row
+            crossAxisCount: 1,
+            children: subjects.subjects
+                .map((subject) => SubjectCard(
+                    title: subject.title,
+                    grade: subject.grade,
+                    id: subject.id,
+                    count: subjectsCount))
+                .toList(),
+          );
+        },
+      ),
+    );
   }
 }

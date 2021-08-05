@@ -47,10 +47,10 @@ class SubjectCard extends StatelessWidget {
               Container(
                 height: 90,
                 width: double.infinity,
-                child: Image.network(
-                  'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
-                  fit: BoxFit.fitWidth,
-                ),
+                // child: Image.network(
+                //   'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
+                //   fit: BoxFit.fitWidth,
+                // ),
               ),
               Container(
                 child: Align(

@@ -13,7 +13,7 @@ import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart'
 import 'package:momentum/momentum.dart';
 
 void main() {
-  runApp(momentum(mock: true));
+  runApp(momentum(mock: false));
 }
 
 Momentum momentum({bool mock = false}) {
@@ -51,17 +51,3 @@ class MyApp extends StatelessWidget {
         });
   }
 }
-/*
-MaterialApp(
-  title: 'Named Routes Demo',
-  // Start the app with the "/" named route. In this case, the app starts
-  // on the FirstScreen widget.
-  initialRoute: '/',
-  routes: {
-    // When navigating to the "/" route, build the FirstScreen widget.
-    '/': (context) => const FirstScreen(),
-    // When navigating to the "/second" route, build the SecondScreen widget.
-    '/second': (context) => const SecondScreen(),
-  },
-)
- */
