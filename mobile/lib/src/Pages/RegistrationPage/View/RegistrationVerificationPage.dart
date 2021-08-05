@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 //Imported custom components, pages and packages
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
-import 'package:mobile/src/Components/User/Models/UserModel.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:momentum/momentum.dart';
@@ -46,7 +45,8 @@ class _RegistrationVerificationPageState
   Widget build(BuildContext context) {
     ///////////////////////  VARIABLES & FUNCTIONS  ////////////////////////////
     //Get a specific controller (UserController) to call needed functions (verify)
-    UserController userController = Momentum.of<UserController>(context);
+    UserController userController =
+        Momentum.controller<UserController>(context);
 
     //When the form is submitted
     void _submitForm() {
@@ -75,6 +75,7 @@ class _RegistrationVerificationPageState
       padding: const EdgeInsets.only(top: 100),
       //Email input field
       child: TextFormField(
+        key: Key('email_input_field'),
         //Controller is notified when the text changes
         controller: email_text_controller,
         //Control when the auto validation should happen
@@ -96,6 +97,7 @@ class _RegistrationVerificationPageState
       padding: const EdgeInsets.only(top: 30),
       //Code input field
       child: TextFormField(
+        key: Key('code_input_field'),
         //Controller is notified when the text changes
         controller: code_text_controller,
         //Control when the auto validation should happen
@@ -104,8 +106,8 @@ class _RegistrationVerificationPageState
         validator: MultiValidator([
           RequiredValidator(errorText: "* Required"),
           LengthRangeValidator(
-              min: 6, max: 6, errorText: "Invalid Activation Code"),
-          PatternValidator("[0-9]{6}",
+              min: 5, max: 5, errorText: "Invalid Activation Code"),
+          PatternValidator("[0-9]{5}",
               errorText: "Invalid Activation Code"), //Digits only
         ]),
         //Input field UI
@@ -117,6 +119,7 @@ class _RegistrationVerificationPageState
 
     Widget next_button_widget = //Next button that leads to Registration Page
         Padding(
+      key: Key('next_button'),
       padding: const EdgeInsets.only(top: 50),
       child: MaterialButton(
         onPressed: () => _submitForm(),
@@ -189,7 +192,6 @@ class _RegistrationVerificationPageState
         MomentumBuilder(
             controllers: [UserController],
             builder: (context, snapshot) {
-              //var user = snapshot<UserModel>();
               return child;
             }));
     ////////////////////////////////////////////////////////////////////////////
