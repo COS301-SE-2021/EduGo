@@ -1,6 +1,7 @@
+import 'reflect-metadata';
 import express from "express";
 import cors from "cors";
-import { createConnection, ConnectionOptions, QueryFailedError } from "typeorm";
+import { createConnection, ConnectionOptions } from "typeorm";
 import dotenv from "dotenv";
 import passport from "passport";
 

@@ -33,6 +33,7 @@ import { Answer } from "../database/Answer";
 import { Student } from "../database/Student";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
+import { DatabaseError } from "../errors/DatabaseError";
 
 export class VirtualEntityService {
 	async AddModelToVirtualEntity(
@@ -145,65 +146,49 @@ export class VirtualEntityService {
 	async CreateVirtualEntity(
 		request: CreateVirtualEntityRequest
 	): Promise<CreateVirtualEntityResponse> {
-		let conn = getConnection();
-		let lessonRepo = conn.getRepository(Lesson);
+		let virtualEntityRepo = getRepository(VirtualEntity);
+		
+		let ve: VirtualEntity = new VirtualEntity();
+		ve.title = request.title;
+		ve.description = request.description;
 
-		return lessonRepo
-			.findOne(request.lesson_id, {
-				relations: ["virtualEntities"],
-			})
-			.then((lesson) => {
-				if (lesson) {
-					let ve: VirtualEntity = new VirtualEntity();
-					ve.title = request.title;
-					ve.description = request.description;
+		if (request.model !== undefined) {
+			let model: Model = new Model();
+			model.name = request.model.name;
+			model.description = request.model.description;
+			model.file_link = request.model.file_link;
+			model.file_name = request.model.file_name;
+			model.file_size = request.model.file_size;
+			model.file_type = request.model.file_type;
+			model.preview_img = request.model.preview_img;
+			ve.model = model;
+		}
 
-					if (request.model !== undefined) {
-						let model: Model = new Model();
-						model.name = request.model.name;
-						model.description = request.model.description;
-						model.file_link = request.model.file_link;
-						model.file_name = request.model.file_name;
-						model.file_size = request.model.file_size;
-						model.file_type = request.model.file_type;
-						model.preview_img = request.model.preview_img;
-						ve.model = model;
-					}
-
-					if (request.quiz !== undefined) {
-						let quiz: Quiz = new Quiz();
-						quiz.title = request.quiz.title;
-						quiz.description = request.quiz.description;
-						quiz.questions = request.quiz.questions.map((value) => {
-							let question: Question = new Question();
-							question.question = value.question;
-							question.type = <QuestionType>value.type;
-							question.options = value.options;
-							question.correctAnswer = value.correctAnswer;
-							return question;
-						});
-						ve.quiz = quiz;
-					}
-					lesson.virtualEntities.push(ve);
-
-					return lessonRepo
-						.save(lesson)
-						.then((result) => {
-							let response: CreateVirtualEntityResponse = {
-								id: ve.id,
-								message:
-									"Successfully added virtual entity and updated lesson",
-							};
-							return response;
-						})
-						.catch((err) => {
-							console.log(err);
-							throw err;
-						});
-				} else {
-					throw new Error("Could not find lesson");
-				}
+		if (request.quiz !== undefined) {
+			let quiz: Quiz = new Quiz();
+			quiz.title = request.quiz.title;
+			quiz.description = request.quiz.description;
+			quiz.questions = request.quiz.questions.map((value) => {
+				let question: Question = new Question();
+				question.question = value.question;
+				question.type = <QuestionType>value.type;
+				question.options = value.options;
+				question.correctAnswer = value.correctAnswer;
+				return question;
 			});
+			ve.quiz = quiz;
+		}
+
+		return virtualEntityRepo.save(ve).then((result) => {
+			let response: CreateVirtualEntityResponse = {
+				id: result.id,
+				message: "Successfully added virtual entity"
+			};
+			return response;
+		})
+		.catch((err) => {
+			throw new DatabaseError('Could not add virtual entity');
+		});
 	}
 	/**
 	 * @description This function allows a student to answer a quiz
