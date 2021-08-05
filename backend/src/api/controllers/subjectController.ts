@@ -23,7 +23,7 @@ router.post(
 	uploadFile.single("file"),
 	(req: RequestObjectWithUserId, res: any) => {
 		let imageLink =
-			"https://edugo-files.s3.af-south-1.amazonaws.com/students_computer_young_boy_education_learning_pc_internet_learn-1132526.jpghttps://edugo-files.s3.af-south-1.amazonaws.com/students_computer_young_boy_education_learning_pc_internet_learn-1132526.jpg";
+			"https://edugo-files.s3.af-south-1.amazonaws.com/students_computer_young_boy_education_learning_pc_internet_learn-1132526.jpg";
 		const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
 		if (file != undefined) imageLink = file.location;
 
