@@ -30,6 +30,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
           controllers: [SubjectsController],
           builder: (context, snapshot) {
             final subjects = snapshot<SubjectsModel>();
+            //Get the number of subjects
+            int subjectsCount = subjects.subjects.length;
             //return Container(
             //height: MediaQuery.of(context).size.height - 100,
             //padding: EdgeInsets.only(top: 75),
@@ -49,7 +51,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
                   .map((subject) => SubjectCard(
                       title: subject.title,
                       grade: subject.grade,
-                      id: subject.id))
+                      id: subject.id,
+                      count: subjectsCount))
                   .toList(),
             );
           },

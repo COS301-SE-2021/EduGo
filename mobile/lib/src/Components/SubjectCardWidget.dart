@@ -10,18 +10,21 @@ class SubjectCard extends StatelessWidget {
   final String title;
   final int grade;
   final int id;
+  final int count;
   //final *type* subjectImage
 
-  SubjectCard({required this.title, required this.grade, required this.id});
+  SubjectCard(
+      {required this.title,
+      required this.grade,
+      required this.id,
+      required this.count});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 500,
       width: 280,
-      // width: MediaQuery.of(context).size.width - 100,
-      // height: MediaQuery.of(context).size.height - 200,
-      //child: SingleChildScrollView(
+
       child: Card(
         semanticContainer: true,
         shape: RoundedRectangleBorder(
@@ -68,24 +71,6 @@ class SubjectCard extends StatelessWidget {
                   ),
                 ),
               ),
-              // ),
-              //],
-              //),
-              //),
-              //),
-              // Align(
-              //   alignment: Alignment.centerLeft,
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(16.0),
-              //     child: Text(
-              //       'Grade: ' + "$grade",
-              //       style: TextStyle(
-              //           fontSize: 20,
-              //           fontWeight: FontWeight.bold,
-              //           color: Colors.white),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
