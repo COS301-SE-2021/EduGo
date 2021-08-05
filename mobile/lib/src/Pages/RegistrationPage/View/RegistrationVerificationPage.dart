@@ -56,10 +56,16 @@ class _RegistrationVerificationPageState
           true) {
         //Leads to home page
         Navigator.pushNamed(context, RegistrationPage.id);
-      } else {
-        print("unsuccessful");
-        clearTextInput();
+        return;
       }
+
+      clearTextInput();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Unsuccessful Registration: unverified user"),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
     ////////////////////////////////////////////////////////////////////////////
 
@@ -72,7 +78,7 @@ class _RegistrationVerificationPageState
         //Controller is notified when the text changes
         controller: email_text_controller,
         //Control when the auto validation should happen
-        //autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.always,
         //Email is required and must be valid
         validator: MultiValidator([
           RequiredValidator(errorText: "* Required"),
@@ -93,7 +99,7 @@ class _RegistrationVerificationPageState
         //Controller is notified when the text changes
         controller: code_text_controller,
         //Control when the auto validation should happen
-        //autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.always,
         //Code is required, must be 6 digits long and must be numeric
         validator: MultiValidator([
           RequiredValidator(errorText: "* Required"),
