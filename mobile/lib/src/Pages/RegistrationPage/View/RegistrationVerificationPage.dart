@@ -7,10 +7,9 @@ import 'package:mobile/src/Components/User/Models/UserModel.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:momentum/momentum.dart';
-//import 'package:momentum/momentum.dart';
-//controller
 
-//Verify if student is already allocated to an organization by an educator
+//This page is used to verify if student is already allocated to an
+//organization by an educator
 class RegistrationVerificationPage extends StatefulWidget {
   RegistrationVerificationPage();
   static String id = "registration_verification";
@@ -29,9 +28,6 @@ class _RegistrationVerificationPageState
   //Global key that is going to tell us about any change in Form() widget.
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
-  // "Next" button is disabled until the user completes the form
-  bool _isButtonEnabled = false;
-
   @override
   void dispose() {
     // Clean up the controllers when the widget is disposed.
@@ -48,24 +44,94 @@ class _RegistrationVerificationPageState
 
   @override
   Widget build(BuildContext context) {
+    ///////////////////////  VARIABLES & FUNCTIONS  ////////////////////////////
     //Get a specific controller (UserController) to call needed functions (verify)
     UserController userController = Momentum.of<UserController>(context);
 
-    //When the form is s
+    // "Next" button is disabled until the user completes the form
+    bool _isButtonEnabled = false;
+
+    //When the form is submitted
     void _submitForm() {
-      if (_formkey.currentState!.validate()) {
-        if (userController.verify(
-                email: email_text_controller.text,
-                code: code_text_controller.text) ==
-            true) {
-          //Leads to home page
-          Navigator.pushNamed(context, RegistrationPage.id);
-        } else {
-          print("unsuccessful");
-          clearTextInput();
-        }
+      if (userController.verify(
+              email: email_text_controller.text,
+              code: code_text_controller.text) ==
+          true) {
+        //Leads to home page
+        Navigator.pushNamed(context, RegistrationPage.id);
+      } else {
+        print("unsuccessful");
+        clearTextInput();
       }
     }
+    ////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////  WIDGETS  /////////////////////////////////
+    //These may include the following widgets: input fields, buttons, forms
+    Widget email_input_widget = Padding(
+      padding: const EdgeInsets.only(top: 100),
+      //Email input field
+      child: TextFormField(
+        //Controller is notified when the text changes
+        controller: email_text_controller,
+        //Control when the auto validation should happen
+        //autovalidateMode: AutovalidateMode.always,
+        //Email is required and must be valid
+        validator: MultiValidator([
+          RequiredValidator(errorText: "* Required"),
+          EmailValidator(errorText: "Invalid email address"),
+        ]),
+        //Input field UI
+        style: TextStyle(),
+        decoration:
+            InputDecoration(border: OutlineInputBorder(), hintText: "Email"),
+      ),
+    );
+
+    Widget code_input_widget = //Code input field
+        Padding(
+      padding: const EdgeInsets.only(top: 30),
+      //Code input field
+      child: TextFormField(
+        //Controller is notified when the text changes
+        controller: code_text_controller,
+        //Control when the auto validation should happen
+        //autovalidateMode: AutovalidateMode.always,
+        //Code is required, must be 6 digits long and must be numeric
+        validator: MultiValidator([
+          RequiredValidator(errorText: "* Required"),
+          LengthRangeValidator(
+              min: 6, max: 6, errorText: "Invalid Activation Code"),
+          PatternValidator("[0-9]{6}",
+              errorText: "Invalid Activation Code"), //Digits only
+        ]),
+        //Input field UI
+        style: TextStyle(),
+        decoration: InputDecoration(
+            border: OutlineInputBorder(), hintText: "Activation Code"),
+      ),
+    );
+
+    Widget next_button_widget = //Next button that leads to Registration Page
+        Padding(
+      padding: const EdgeInsets.only(top: 50),
+      child: MaterialButton(
+        onPressed: _isButtonEnabled ? () => _submitForm() : null,
+        height: 60,
+        color: Colors.black,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                "Next",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            Icon(Icons.login_outlined, color: Colors.white),
+          ],
+        ),
+      ),
+    );
 
     //page to be displayed
     Widget child = Form(
@@ -104,74 +170,9 @@ class _RegistrationVerificationPageState
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                             fontSize: 60)),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 100),
-                      //Email input field
-                      child: TextFormField(
-                        //Controller is notified when the text changes
-                        controller: email_text_controller,
-                        //Control when the auto validation should happen
-                        autovalidateMode: AutovalidateMode.always,
-                        //Email is required and must be valid
-                        validator: MultiValidator([
-                          RequiredValidator(errorText: "* Required"),
-                          EmailValidator(errorText: "Invalid email address"),
-                        ]),
-                        //Input field UI
-                        style: TextStyle(),
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(), hintText: "Email"),
-                      ),
-                    ),
-                    //Code input field
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      //Code input field
-                      child: TextFormField(
-                        //Controller is notified when the text changes
-                        controller: code_text_controller,
-                        //Control when the auto validation should happen
-                        autovalidateMode: AutovalidateMode.always,
-                        //Code is required, must be 6 digits long and must be numeric
-                        validator: MultiValidator([
-                          RequiredValidator(errorText: "* Required"),
-                          LengthRangeValidator(
-                              min: 6,
-                              max: 6,
-                              errorText: "Invalid Activation Code"),
-                          PatternValidator("[0-9]{6}",
-                              errorText:
-                                  "Invalid Activation Code"), //Digits only
-                        ]),
-                        //Input field UI
-                        style: TextStyle(),
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Activation Code"),
-                      ),
-                    ),
-                    //Next button that leads to Registration Page
-                    Padding(
-                      padding: const EdgeInsets.only(top: 50),
-                      child: MaterialButton(
-                        onPressed:
-                            _isButtonEnabled ? () => _submitForm() : null,
-                        height: 60,
-                        color: Colors.black,
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Text(
-                                "Next",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                            ),
-                            Icon(Icons.login_outlined, color: Colors.white),
-                          ],
-                        ),
-                      ),
-                    )
+                    email_input_widget,
+                    code_input_widget,
+                    next_button_widget,
                   ],
                 ),
               ),
@@ -180,6 +181,9 @@ class _RegistrationVerificationPageState
         ],
       ),
     );
+    ////////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////  VIEW RETURNED  ////////////////////////////////
     //return view
     return MobilePageLayout(
         false, //no side bar
@@ -190,5 +194,6 @@ class _RegistrationVerificationPageState
               var user = snapshot<UserModel>();
               return child;
             }));
+    ////////////////////////////////////////////////////////////////////////////
   }
 }
