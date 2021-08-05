@@ -35,14 +35,14 @@ class _SideBarState extends State<SideBar> {
                   user: user, isEdit: false, onClicked: () async {}),
             ),
             //All List tiles below have icons and titled tiles that lead to their relevant pages
-            ListTile(
-              leading: Icon(Icons.summarize_outlined),
-              title: Text('Lessons'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LessonsPage()),
-              ),
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.summarize_outlined),
+            //   title: Text('Lessons'),
+            //   onTap: () => Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => LessonsPage()),
+            //   ),
+            // ),
             ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('Preferences'),

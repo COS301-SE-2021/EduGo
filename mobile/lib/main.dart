@@ -20,7 +20,7 @@ Momentum momentum({bool mock = false}) {
   return Momentum(
     child: MyApp(),
     controllers: [
-      LessonsController(mock: mock), 
+      LessonsController(mock: mock),
       SubjectsController(mock: mock)
     ],
   );
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           DetectMarkerPage.id: (context) => DetectMarkerPage(),
           GradesPage.id: (context) => GradesPage(),
           HomePage.id: (context) => HomePage(),
-          LessonsPage.id: (context) => LessonsPage(),
+          //LessonsPage.id: (context) => LessonsPage(),
           OrganisationsPage.id: (context) => OrganisationsPage(),
           PreferencesPage.id: (context) => PreferencesPage(),
           SettingsPage.id: (context) => SettingsPage(),
