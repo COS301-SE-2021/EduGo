@@ -43,8 +43,9 @@ class LessonsCard extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 "$title",
+                textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+                maxLines: 3,
                 softWrap: false,
                 style: TextStyle(
                     fontSize: 20,

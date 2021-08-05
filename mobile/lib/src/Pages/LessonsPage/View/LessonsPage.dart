@@ -39,46 +39,48 @@ class _LessonsPageState extends State<LessonsPage> {
           int lessonsCount = lessons.lessons.length;
           return Container(
             decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-            // children: lessons.lessons.map((e) => Text(e.title)).toList());
-            //'${widget.title}');
-            child: Column(
-              children: [
-                Align(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: Text(
-                      //'Title: +'
-                      widget.title,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: false,
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+            child: SingleChildScrollView(
+              // children: lessons.lessons.map((e) => Text(e.title)).toList());
+              //'${widget.title}');
+              child: Column(
+                children: [
+                  Align(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: Text(
+                        //'Title: +'
+                        widget.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: false,
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
                     ),
                   ),
-                ),
-                GridView.count(
-                  //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
-                  childAspectRatio: MediaQuery.of(context).size.height / 200,
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 0,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  mainAxisSpacing: 10,
-                  //makes 1 cards per row
-                  crossAxisCount: 1,
-                  children: lessons.lessons
-                      .map(
-                        (lesson) => LessonsCard(
-                          title: lesson.title,
-                        ),
-                      )
-                      .toList(),
-                ),
-              ],
+                  GridView.count(
+                    //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+                    childAspectRatio: MediaQuery.of(context).size.height / 200,
+                    primary: false,
+                    padding: const EdgeInsets.all(20),
+                    crossAxisSpacing: 0,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    mainAxisSpacing: 10,
+                    //makes 1 cards per row
+                    crossAxisCount: 1,
+                    children: lessons.lessons
+                        .map(
+                          (lesson) => LessonsCard(
+                            title: lesson.title,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ],
+              ),
             ),
           );
         },
