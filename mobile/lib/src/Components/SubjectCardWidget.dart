@@ -39,7 +39,8 @@ class SubjectCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => LessonsPage(title: this.title)),
+                  builder: (context) =>
+                      LessonsPage(title: this.title, subjectID: this.id)),
             );
           },
           child: Column(

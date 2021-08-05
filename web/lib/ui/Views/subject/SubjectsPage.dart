@@ -1,5 +1,3 @@
-import 'dart:html';
-import 'dart:js_util';
 import 'package:edugo_web_app/ui/Views/subject/CreateSubjectPage.dart';
 import 'package:edugo_web_app/ui/widgets/EduGoNav/NavBar.dart';
 import 'package:edugo_web_app/ui/widgets/SubjectCard.dart';
@@ -15,6 +13,7 @@ class Subject {
 
   Subject.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
+      // ignore: deprecated_member_use
       data = new List<Data>();
       json['data'].forEach((v) {
         data.add(new Data.fromJson(v));

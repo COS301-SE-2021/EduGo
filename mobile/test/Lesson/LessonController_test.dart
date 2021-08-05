@@ -9,7 +9,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('Lesson', () {
-    test('should fetch lessons if the http call completes successfully', () async {
+    test('should fetch lessons if the http call completes successfully',
+        () async {
       int id = 1;
       final client = httpTest.MockClient((request) async {
         Map<String, dynamic> body = jsonDecode(request.body);
@@ -57,7 +58,8 @@ void main() {
         return http.Response('{}', 200);
       });
 
-      expect(await () => getLessonsBySubject(1, client: client), throwsA(isA<BadResponse>()));
+      expect(await () => getLessonsBySubject(1, client: client),
+          throwsA(isA<BadResponse>()));
     });
 
     test('should throw an exception on 400 response', () async {
@@ -65,7 +67,8 @@ void main() {
         return http.Response('', 400);
       });
 
-      expect(await () => getLessonsBySubject(1, client: client), throwsException);
+      expect(
+          await () => getLessonsBySubject(1, client: client), throwsException);
     });
   });
 }

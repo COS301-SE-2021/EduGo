@@ -43,9 +43,8 @@ class LessonsController extends MomentumController<LessonsModel> {
     return LessonsModel(this, lessons: []);
   }
 
-  @override
-  Future<void> bootstrapAsync() {
-    return getLessonsBySubject(1,
+  Future<void> getLessons(int subjectID) {
+    return getLessonsBySubject(subjectID,
             client: mock
                 ? httpMock.MockClient(mockApi.getLessonsBySubjectClient)
                 : http.Client())

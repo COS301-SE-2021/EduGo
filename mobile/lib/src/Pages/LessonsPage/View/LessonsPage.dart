@@ -13,17 +13,25 @@ import 'package:momentum/momentum.dart';
 class LessonsPage extends StatefulWidget {
   //This title variable holds the subject title of the card that was clicked on
   final String title;
+  final int subjectID;
   //This title variable holds the subject count of the card that was clicked on
   //final int SubjectCount;
   //LessonPage constructor
-  LessonsPage({Key? key, required this.title}) : super(key: key);
+  LessonsPage({Key? key, required this.title, required this.subjectID})
+      : super(key: key);
   static String id = "lessons";
 
   @override
-  _LessonsPageState createState() => _LessonsPageState();
+  _LessonsPageState createState() =>
+      _LessonsPageState(title: this.title, subjectID: this.subjectID);
 }
 
 class _LessonsPageState extends State<LessonsPage> {
+  String title;
+  int subjectID;
+
+  _LessonsPageState({required this.subjectID, required this.title});
+
   @override
   Widget build(BuildContext context) {
     return MobilePageLayout(
@@ -33,8 +41,16 @@ class _LessonsPageState extends State<LessonsPage> {
       MomentumBuilder(
         controllers: [LessonsController],
         builder: (context, snapshot) {
-          //Used for momentum mvc model
+          //Used by momentum mvc model
+          //Used to get the list of lessons
           final lessons = snapshot<LessonsModel>();
+          //Used to call the specific function in the controller called getLessons
+          //This requires the subjectID to be passed in
+          final lessonController =
+              Momentum.controller<LessonsController>(context);
+
+          lessonController.getLessons(subjectID);
+
           //Get the number of lessons for a particular subject
           int lessonsCount = lessons.lessons.length;
           return Container(
@@ -49,7 +65,8 @@ class _LessonsPageState extends State<LessonsPage> {
                       padding: const EdgeInsets.only(top: 25),
                       child: Text(
                         //'Title: +'
-                        widget.title,
+                        //widget.title,
+                        title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         softWrap: false,
@@ -78,7 +95,7 @@ class _LessonsPageState extends State<LessonsPage> {
                   ),
                   GridView.count(
                     //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
-                    childAspectRatio: MediaQuery.of(context).size.height / 200,
+                    childAspectRatio: MediaQuery.of(context).size.height / 180,
                     primary: false,
                     padding: const EdgeInsets.all(20),
                     crossAxisSpacing: 0,

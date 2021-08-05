@@ -4,7 +4,6 @@
    * into the constructor when displaying the subjects
    */
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 
 class LessonsCard extends StatelessWidget {
   final String title;
@@ -18,8 +17,8 @@ class LessonsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 280,
-      width: 280,
+      height: 250,
+      width: 250,
 
       child: Card(
         semanticContainer: true,
