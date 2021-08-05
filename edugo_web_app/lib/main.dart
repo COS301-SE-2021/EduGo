@@ -10,9 +10,10 @@ void main() {
     Momentum(
       //* controllers used withing the application
       controllers: [
-        VirtualEntityController(),
+        VirtualEntityApiController(),
         SubjectController(),
-        LessonController()
+        LessonController(),
+        ViewBoundVirtualEntityController()
       ],
       services: [
         MomentumRouter(

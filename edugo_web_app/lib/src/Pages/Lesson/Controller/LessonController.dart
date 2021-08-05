@@ -15,34 +15,19 @@ class LessonController extends MomentumController<LessonModel> {
     model.setViewBoundLessonDescription(lessonDescription: lessonDescription);
   }
 
-  void setViewBoundLessonImageLink(String lessonDescription) {
-    model.setViewBoundLessonDescription(lessonDescription: lessonDescription);
-  }
-
-  void setViewBoundLessonVirtualEntityId(String lessonVirtualEntityId) {
-    model.setViewBoundLessonVirtualEntityId(
-        lessonVirtualEntityID: lessonVirtualEntityId);
-  }
+  // void addViewBoundLessonVirtualEntity(
+  //     ViewBoundVirtualEntity lessonVirtualEntity) {
+  //   model.addViewBoundLessonVirtualEntityId(
+  //       lessonVirtualEntity: lessonVirtualEntity);
+  // }
 
   void setViewBoundLessonSubjectId(String lessonSubjectId) {
     model.setViewBoundLessonSubjectId(lessonSubjectID: lessonSubjectId);
   }
 
-  void setViewBoundLessonDate(DateRangePickerSelectionChangedArgs args) {
-    model.setViewBoundLessonDate(
-        lessonDate: args.value.toString().substring(0, 10));
-  }
-
-  void setViewBoundLessonTime(TimeRangeResult range) {
-    model.setViewBoundLessonTime(
-        lessonStartTime: range.start.toString(),
-        lessonEndTime: range.end.toString());
-  }
-
-  Future<String> createLesson(context) async {
+  void createLesson(context) async {
     print("Lesson title : " + model.getViewBoundLessonTitle());
     print("Lesson description : " + model.getViewBoundLessonDescription());
-    print("Lesson date : " + model.getViewBoundLessonDate());
     //print("Lesson start time : " + model.getViewBoundLessonStartTime());
     // print("Lesson end time : " + model.getViewBoundLessonEndTime());
     // var url = Uri.parse('http://localhost:8080/lesson/createLesson');
@@ -153,60 +138,4 @@ class LessonController extends MomentumController<LessonModel> {
   //   model.updateVirtualEntity3DModelLink(virtualEntity3DModelLink: "");
   // }
 
-//! Virtual Entity Controller Helper Methods and Attributes
-//*********************************************************************************************
-//*                                                                                           *
-//*       Pick file from local storage                                                        *
-//*                                                                                           *
-//*********************************************************************************************
-  List<int> _selectedFile;
-  Uint8List _bytesData;
-  String filename = "";
-  void startWebFilePicker() async {
-    InputElement uploadInput = FileUploadInputElement();
-    uploadInput.multiple = true;
-    uploadInput.draggable = true;
-    uploadInput.click();
-
-    uploadInput.onChange.listen((e) {
-      final files = uploadInput.files;
-      final file = files[0];
-      final reader = new FileReader();
-
-      reader.onLoadEnd.listen((e) {
-        _handleResult(reader.result);
-
-        filename = file.name;
-      });
-      reader.readAsDataUrl(file);
-    });
-  }
-
-  void _handleResult(Object result) {
-    _bytesData = Base64Decoder().convert(result.toString().split(",").last);
-    _selectedFile = _bytesData;
-  }
-
-  Future<String> send3DModelToStorage() async {
-    Future<String> linkTo3DModel;
-    var url =
-        Uri.parse("http://localhost:8080/virtualEntity/model/uploadModel");
-    var request = new MultipartRequest("POST", url);
-    request.files.add(MultipartFile.fromBytes('file', _selectedFile,
-        contentType: new MediaType('application', 'octet-stream'),
-        filename: filename));
-    request
-        .send()
-        .then((result) async {
-          Response.fromStream(result).then((response) async {
-            if (response.statusCode == 200) {
-              Map<String, dynamic> _3DModel = jsonDecode(response.body);
-              linkTo3DModel = _3DModel['file_link'];
-            }
-          });
-        })
-        .catchError((err) => print('error : ' + err.toString()))
-        .whenComplete(() {});
-    return linkTo3DModel;
-  }
 }

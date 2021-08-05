@@ -4,9 +4,9 @@ class CreateSubjectDesktopRightContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityController],
+      controllers: [VirtualEntityApiController],
       builder: (context, snapshot) {
-        var entity = snapshot<VirtualEntityModel>();
+        var entity = snapshot<VirtualEntityApiModel>();
         return Container(
           width: ScreenUtil().setWidth(230),
           child: Column(

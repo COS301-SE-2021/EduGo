@@ -8,9 +8,9 @@ class Viewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-        controllers: [VirtualEntityController],
+        controllers: [VirtualEntityApiController],
         builder: (context, snapshot) {
-          var entity = snapshot<VirtualEntityModel>();
+          var entity = snapshot<VirtualEntityApiModel>();
           String modelview = "<html>" +
               "   <head>" +
               "        <meta charset=\"UTF-8\">" +
@@ -22,7 +22,7 @@ class Viewer extends StatelessWidget {
               "<body>" +
               "" +
               "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
-              '${entity.virtualEntity3DModelLink}' +
+              'link' +
               "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
               "" +
               "</body>" +

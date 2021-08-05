@@ -1,11 +1,29 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class VirtualEntityController extends MomentumController<VirtualEntityModel> {
+class VirtualEntityApiController
+    extends MomentumController<VirtualEntityApiModel> {
   @override
-  VirtualEntityModel init() {
-    return VirtualEntityModel(this,
-        viewBoundVirtualEntity: VirtualEntity(),
-        currentVirtualEntity: VirtualEntity());
+  VirtualEntityApiModel init() {
+    return VirtualEntityApiModel(
+      this,
+    );
+  }
+
+  void createVirtualEntity(context) async {
+    var url =
+        Uri.parse('http://localhost:8080/virtualEntity/createVirtualEntity');
+    var response = await post(url, headers: {
+      'contentType': 'application/json',
+      'Authorization':
+          'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2Mjc2ODEyMTAsImV4cCI6MTYyNzc2NzYxMH0.vqeTH7sNa74lr4wP5IUgWS5s_9y_RgOoVYBkUroA0XtftPHhlDSfrSgHB8UINIfhOsvQ9Y8VCPHbJ66GuD2B1G5aEEcs6ea0zBwYv5XHlOU1elT_S05v9kMuXba6FzXkI4EUvgBVs3zxlCEgpswDLRX7GHsYvXb_9cN-O2pHUVgexB3-F1ZX2tiXKt20wj9HX5wdagm3BcdIrxJTTz2is5OtB2LwvXaT5OH81lIiV9nTLzWW0-JyBd0iU9ux_on01TZ9bxNLmSDt6k_de7P30MV0gDruA1FL6UpQY8zivdkUPnWFecBMRYeZU7EaBBzP1qpvu_uGaTfo0eE252En5BzWEcj1kno1ki0DO7YGfFVQd1gFL8Ez_UekCttqD-Uk86zW6OhHHeiy1dX9yowsNNHyeez2UKjQSznS0NQHPr6HRluEDNxc4gonmdjgo1VbEMWbmw8BQepTurY7_q9uKGH8N2_qSmx_9phL9BiZCYiHDfOe15Ze2lgfnkAohr7WNX-PPTlM8wpCtJZfkfrtXasJ4UWUR0tEz8yOXio4dD9bgS4d1wlOs9yzp04KYj6_Rp9OU5khVImvpQlg24J5lMvJgrmw86qn4e_aJIruDp80PE3z81na6yNsv14JIiofq6F1eFAqKsDuERi2zqYhPuMYZ_4486Cx-7VETH9Z4No',
+    }, body: {
+      'title': "",
+      'description': "",
+      'modelLink': ""
+    });
+    if (response.statusCode == 200) {
+      MomentumRouter.goto(context, EducatorVirtualEntitiesView);
+    }
   }
 
 //*********************************************************************************************
@@ -13,8 +31,8 @@ class VirtualEntityController extends MomentumController<VirtualEntityModel> {
 //*       Pick file from local storage and send to API and store the link to the model        *
 //*                                                                                           *
 //*********************************************************************************************
-  void upload3DModel() {
-    startWebFilePicker();
+  Future<void> upload3DModel() async {
+    await startWebFilePicker().then((value) => {});
   }
 
   void preview3DModel() async {}
@@ -32,22 +50,21 @@ class VirtualEntityController extends MomentumController<VirtualEntityModel> {
   List<int> _selectedFile;
   Uint8List _bytesData;
   String filename = "";
-  void startWebFilePicker() async {
+  Future<void> startWebFilePicker() async {
     InputElement uploadInput = FileUploadInputElement();
     uploadInput.multiple = true;
     uploadInput.draggable = true;
     uploadInput.click();
 
-    uploadInput.onChange.listen((e) {
+    return uploadInput.onChange.listen((e) {
       final files = uploadInput.files;
       final file = files[0];
       final reader = new FileReader();
 
-      reader.onLoadEnd.listen((e) {
+      reader.onLoadEnd.listen((e) async {
         _handleResult(reader.result);
-
         filename = file.name;
-        send3DModelToStorage();
+        await send3DModelToStorage().then((value) {});
       });
 
       reader.readAsDataUrl(file);
@@ -78,20 +95,20 @@ class VirtualEntityController extends MomentumController<VirtualEntityModel> {
           filename: filename),
     );
 
-    request
-        .send()
-        .then((result) async {
-          Response.fromStream(result).then((response) async {
+    await request.send().then(
+      (value) async {
+        await Response.fromStream(value).then(
+          (response) {
             if (response.statusCode == 200) {
               Map<String, dynamic> _decoded3DModel = jsonDecode(response.body);
               linkTo3DModel = _decoded3DModel['file_link'];
-              model.setViewBoundVirtualEntity3dModelLink(
-                  virtualEntity3dModelLink: linkTo3DModel);
+              // model.viewBoundVirtualEntity
+              //     .setVirtualEntity3dModelLink(linkTo3DModel);
             }
-          });
-        })
-        .catchError((err) => print('error : ' + err.toString()))
-        .whenComplete(() {});
+          },
+        );
+      },
+    );
   }
 }
 
@@ -167,3 +184,4 @@ class VirtualEntityController extends MomentumController<VirtualEntityModel> {
   //   }
   //   model.updateVirtualEntityStore(virtualEntities: enitites);
   // }
+

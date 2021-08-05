@@ -5,7 +5,7 @@ class UpdateVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityController],
+      controllers: [VirtualEntityApiController],
       builder: (context, snapshot) {
         return PageLayout(
           top: 50,

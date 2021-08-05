@@ -6,13 +6,13 @@ class VirtualEntityStoreView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // //* Controller loading virtual entities on build on the VirtualEntityStoreView
-    // Momentum.controller<VirtualEntityController>(context)
+    // Momentum.controller<VirtualEntityApiController>(context)
     //     .getVirtualEntities(context);
     // //*
     return MomentumBuilder(
-      controllers: [VirtualEntityController],
+      controllers: [VirtualEntityApiController],
       builder: (context, snapshot) {
-        var entity = snapshot<VirtualEntityModel>();
+        var entity = snapshot<VirtualEntityApiModel>();
         bool public = true;
         return PageLayout(
           top: 0,

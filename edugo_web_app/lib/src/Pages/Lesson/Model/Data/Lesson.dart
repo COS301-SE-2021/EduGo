@@ -1,29 +1,17 @@
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
+
 class Lesson {
   String _title;
   String _description;
   String _imageLink;
-  String _date;
-  String _endTime;
-  String _virtualEntityId;
+  // List<VirtualEntity> _virtualEntities;
   String _subjectId;
-  String _startTime;
 
-  Lesson(
-      {imageLink,
-      title,
-      description,
-      date,
-      startTime,
-      endTime,
-      virtualEntityId,
-      subjectId})
+  Lesson({imageLink, title, description, virtualEntities, subjectId})
       : _description = description,
         _imageLink = imageLink,
         _title = title,
-        _date = date,
-        _startTime = startTime,
-        _endTime = endTime,
-        _virtualEntityId = virtualEntityId,
+        // _virtualEntities = virtualEntities,
         _subjectId = subjectId;
 
   void setLessonTitle(String title) {
@@ -38,21 +26,9 @@ class Lesson {
     _imageLink = imageLink;
   }
 
-  void setLessonStartTime(String startTime) {
-    _startTime = startTime;
-  }
-
-  void setLessonEndTime(String endTime) {
-    _endTime = endTime;
-  }
-
-  void setLessonDate(String date) {
-    _date = date;
-  }
-
-  void setLessonVirtualEntityId(String virtualEntityID) {
-    _virtualEntityId = virtualEntityID;
-  }
+  // void addLessonVirtualEntity(VirtualEntity virtualEntity) {
+  //   _virtualEntities.add(virtualEntity);
+  // }
 
   void setLessonSubjectId(String subjectId) {
     _subjectId = subjectId;
@@ -74,19 +50,7 @@ class Lesson {
     return _imageLink;
   }
 
-  String getLessonVirtualEntityID() {
-    return _virtualEntityId;
-  }
-
-  String getLessonDate() {
-    return _date;
-  }
-
-  String getLessonStartTime() {
-    return _startTime;
-  }
-
-  String getLessonEndTime() {
-    return _endTime;
-  }
+  // List<VirtualEntity> getLessonVirtualEntities() {
+  //   return _virtualEntities;
+  // }
 }

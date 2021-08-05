@@ -3,11 +3,11 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class ViewVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Momentum.controller<VirtualEntityController>(context).preview3DModel();
+    Momentum.controller<VirtualEntityApiController>(context).preview3DModel();
     return MomentumBuilder(
-      controllers: [VirtualEntityController],
+      controllers: [VirtualEntityApiController],
       builder: (context, snapshot) {
-        var entity = snapshot<VirtualEntityModel>();
+        var entity = snapshot<VirtualEntityApiModel>();
         return PageLayout(
           top: 50,
           left: 150,
@@ -53,7 +53,7 @@ class ViewVirtualEntityView extends StatelessWidget {
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  '${entity.currentVirtualEntity.getVirtualEntityName()}',
+                                  'name',
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 97, 211, 87),
                                     fontSize: 34,

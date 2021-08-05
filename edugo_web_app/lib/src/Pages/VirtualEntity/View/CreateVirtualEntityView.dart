@@ -6,58 +6,56 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class CreateVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Momentum.controller<VirtualEntityController>(context).reset();
-    return MomentumBuilder(
-      controllers: [VirtualEntityController],
-      builder: (context, snapshot) {
-        return FocusWatcher(
-          child: PageLayout(
-            top: 50,
-            left: 150,
-            right: 150,
-            child: Stack(children: [
-              //* Title Row
-              Row(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Create Virtual Entity",
-                      style: TextStyle(
-                        fontSize: 32,
-                      ),
+    return FocusWatcher(
+      child: PageLayout(
+        top: 0,
+        left: 150,
+        right: 150,
+        child:
+            //* Content Container
+            ListView(
+          padding: EdgeInsets.only(bottom: 30, top: 20),
+          children: [
+            //* Title Row
+            Row(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Create Virtual Entity",
+                    style: TextStyle(
+                      fontSize: 32,
                     ),
                   ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(100),
-                  )
-                ],
-              ),
-              //* Content Container
-              Container(
-                padding: EdgeInsets.only(top: 75),
-                child: ListView(
-                  padding: EdgeInsets.only(bottom: 30),
+                ),
+                SizedBox(
+                  height: 120,
+                )
+              ],
+            ),
+            Column(
+              children: [
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: ScreenUtil().setHeight(200),
-                        ),
-                        DesktopLeftContainer(),
-                        SizedBox(
-                          width: ScreenUtil().setWidth(270),
-                        ),
-                        DesktopRightContainer(),
-                      ],
-                    )
+                    SizedBox(
+                      height: 100,
+                    ),
+                    DesktopLeftContainer(),
+                    SizedBox(
+                      width: ScreenUtil().setWidth(270),
+                    ),
+                    DesktopRightContainer(),
                   ],
                 ),
-              ),
-            ]),
-          ),
-        );
-      },
+                SizedBox(
+                  height: 100,
+                ),
+                QuizBuilder(),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

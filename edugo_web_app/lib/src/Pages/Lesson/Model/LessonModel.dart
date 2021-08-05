@@ -37,24 +37,11 @@ class LessonModel extends MomentumModel<LessonController> {
     update(viewBoundLesson: temporaryLesson);
   }
 
-  void setViewBoundLessonDate({String lessonDate}) {
-    Lesson temporaryLesson = viewBoundLesson;
-    temporaryLesson.setLessonDate(lessonDate);
-    update(viewBoundLesson: temporaryLesson);
-  }
-
-  void setViewBoundLessonTime({String lessonStartTime, String lessonEndTime}) {
-    Lesson temporaryLesson = viewBoundLesson;
-    temporaryLesson.setLessonEndTime(lessonEndTime);
-    temporaryLesson.setLessonEndTime(lessonStartTime);
-    update(viewBoundLesson: temporaryLesson);
-  }
-
-  void setViewBoundLessonVirtualEntityId({String lessonVirtualEntityID}) {
-    Lesson temporaryLesson = viewBoundLesson;
-    temporaryLesson.setLessonVirtualEntityId(lessonVirtualEntityID);
-    update(viewBoundLesson: temporaryLesson);
-  }
+  // void addViewBoundLessonVirtualEntityId({VirtualEntity lessonVirtualEntity}) {
+  //   Lesson temporaryLesson = viewBoundLesson;
+  //   temporaryLesson.addLessonVirtualEntity(lessonVirtualEntity);
+  //   update(viewBoundLesson: temporaryLesson);
+  // }
 
   void setViewBoundLessonSubjectId({String lessonSubjectID}) {
     Lesson temporaryLesson = viewBoundLesson;
@@ -66,9 +53,9 @@ class LessonModel extends MomentumModel<LessonController> {
     return viewBoundLesson.getLessonTitle();
   }
 
-  String getViewBoundLessonVirtualEntityId() {
-    return viewBoundLesson.getLessonVirtualEntityID();
-  }
+  // List<VirtualEntity> getViewBoundLessonVirtualEntities() {
+  //   return viewBoundLesson.getLessonVirtualEntities();
+  // }
 
   String getViewBoundLessonSubjectId() {
     return viewBoundLesson.getLessonSubjectId();
@@ -80,17 +67,5 @@ class LessonModel extends MomentumModel<LessonController> {
 
   String getViewBoundLessonImageLink() {
     return viewBoundLesson.getLessonImageLink();
-  }
-
-  String getViewBoundLessonDate() {
-    return viewBoundLesson.getLessonDate();
-  }
-
-  String getViewBoundLessonStartTime() {
-    return viewBoundLesson.getLessonStartTime();
-  }
-
-  String getViewBoundLessonEndTime() {
-    return viewBoundLesson.getLessonEndTime();
   }
 }

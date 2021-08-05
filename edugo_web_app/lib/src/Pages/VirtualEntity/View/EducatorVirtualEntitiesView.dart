@@ -6,13 +6,13 @@ class EducatorVirtualEntitiesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // //* Controller loading virtual entities on build on the VirtualEntityStoreView
-    // Momentum.controller<VirtualEntityController>(context).getVirtualEntities(
+    // Momentum.controller<VirtualEntityApiController>(context).getVirtualEntities(
     //     context); //Todo :  implement a variation of this function that gets allvirtual entities associated with an educator ID
     // //*
     return MomentumBuilder(
-      controllers: [VirtualEntityController],
+      controllers: [VirtualEntityApiController],
       builder: (context, snapshot) {
-        var entity = snapshot<VirtualEntityModel>();
+        var entity = snapshot<VirtualEntityApiModel>();
         return PageLayout(
           top: 0,
           left: 0,
