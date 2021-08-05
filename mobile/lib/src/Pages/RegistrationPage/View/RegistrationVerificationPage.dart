@@ -48,9 +48,6 @@ class _RegistrationVerificationPageState
     //Get a specific controller (UserController) to call needed functions (verify)
     UserController userController = Momentum.of<UserController>(context);
 
-    // "Next" button is disabled until the user completes the form
-    bool _isButtonEnabled = false;
-
     //When the form is submitted
     void _submitForm() {
       if (userController.verify(
@@ -116,7 +113,7 @@ class _RegistrationVerificationPageState
         Padding(
       padding: const EdgeInsets.only(top: 50),
       child: MaterialButton(
-        onPressed: _isButtonEnabled ? () => _submitForm() : null,
+        onPressed: () => _submitForm(),
         height: 60,
         color: Colors.black,
         child: Row(
@@ -136,11 +133,6 @@ class _RegistrationVerificationPageState
     //page to be displayed
     Widget child = Form(
       key: _formkey,
-      onChanged: () =>
-          //enable or disable button depending on whether or not all input fieldshave been filled in
-          setState(
-        () => _isButtonEnabled = _formkey.currentState!.validate(),
-      ),
       child: Stack(
         children: <Widget>[
           Container(
@@ -191,7 +183,7 @@ class _RegistrationVerificationPageState
         MomentumBuilder(
             controllers: [UserController],
             builder: (context, snapshot) {
-              var user = snapshot<UserModel>();
+              //var user = snapshot<UserModel>();
               return child;
             }));
     ////////////////////////////////////////////////////////////////////////////
