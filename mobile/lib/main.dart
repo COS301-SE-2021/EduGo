@@ -7,6 +7,7 @@ import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
 import 'package:mobile/src/Pages/HomePage/Service/HomeService.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
+import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
@@ -46,12 +47,13 @@ class MyApp extends StatelessWidget {
             fontFamily: "Montserrat"),
 
         //Navigate application using named routes
-        initialRoute: RegistrationVerificationPage.id, //Home.id
+        initialRoute: LoginPage.id,
         routes: {
           DetectMarkerPage.id: (context) => DetectMarkerPage(),
           GradesPage.id: (context) => GradesPage(),
           HomePage.id: (context) => HomePage(),
           LessonsPage.id: (context) => LessonsPage(),
+          LoginPage.id: (context) => LoginPage(),
           OrganisationsPage.id: (context) => OrganisationsPage(),
           PreferencesPage.id: (context) => PreferencesPage(),
           RegistrationPage.id: (context) => RegistrationPage(),

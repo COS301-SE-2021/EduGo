@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 //email, password
 class LoginPage extends StatefulWidget {
@@ -10,27 +11,88 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  /////////////////////////////////  VARIABLES  ////////////////////////////////
   //Global key that is going to tell us about any change in Form() widget.
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  // Text controllers used to retrieve the current value of the input fields
+  final email_text_controller = TextEditingController();
+  final code_text_controller = TextEditingController();
 
-  ////////////////////////////////  WIDGETS  /////////////////////////////////
-  Widget page_heading_user = Text(
-    "User",
-    style: const TextStyle(
-        fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
-  );
+  //Global key that is going to tell us about any change in Form() widget.
+  GlobalKey<FormState> _login_form_key = GlobalKey<FormState>();
+  //////////////////////////////////////////////////////////////////////////////
 
-  Widget page_heading_registration = Text("Registration",
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60));
-
-  ////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////  FUNCTIONS  ////////////////////////////////
+  @override
+  void dispose() {
+    // Clean up the controllers when the widget is disposed.
+    email_text_controller.dispose();
+    code_text_controller.dispose();
+    super.dispose();
+  }
+  //////////////////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
+    ////////////////////////////////  WIDGETS  /////////////////////////////////
+    Widget page_heading_user = Text(
+      "User",
+      style: const TextStyle(
+          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+    );
+
+    Widget page_heading_registration = Text("Registration",
+        style: const TextStyle(
+            fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60));
+
+    Widget email_input_widget = Padding(
+      padding: const EdgeInsets.only(top: 100),
+      //Email input field
+      child: TextFormField(
+        key: Key('login_email'),
+        //Controller is notified when the text changes
+        controller: email_text_controller,
+        //Control when the auto validation should happen
+        autovalidateMode: AutovalidateMode.always,
+        //Email is required and must be valid
+        validator: MultiValidator([
+          RequiredValidator(errorText: "* Required"),
+          EmailValidator(errorText: "Invalid email address"),
+        ]),
+        //type of keyboard to use for editing the text.
+        keyboardType: TextInputType.emailAddress,
+        //Input field UI
+        style: TextStyle(),
+        decoration:
+            InputDecoration(border: OutlineInputBorder(), hintText: "Email"),
+      ),
+    );
+
+    Widget login_button_widget = Padding(
+      key: Key('login_button'),
+      padding: const EdgeInsets.only(top: 50),
+      child: MaterialButton(
+        onPressed: () => null,
+        height: 60,
+        color: Colors.black,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                "Login",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            Icon(Icons.login_outlined, color: Colors.white),
+          ],
+        ),
+      ),
+    );
+    ////////////////////////////////////////////////////////////////////////////
+
     //page to be displayed
     Widget child = Form(
-        key: _formkey,
+        key: _login_form_key,
         child: Stack(
           children: <Widget>[
             //Align form
