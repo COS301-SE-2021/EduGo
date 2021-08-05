@@ -22,10 +22,10 @@ router.post(
 	isEducator,
 	uploadFile.single("file"),
 	(req: RequestObjectWithUserId, res: any) => {
-		let imageLink =
-			"https://edugo-files.s3.af-south-1.amazonaws.com/students_computer_young_boy_education_learning_pc_internet_learn-1132526.jpghttps://edugo-files.s3.af-south-1.amazonaws.com/students_computer_young_boy_education_learning_pc_internet_learn-1132526.jpg";
+		let imageLink = ""; 
 		const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
-		if (file != undefined) imageLink = file.location;
+		console.log(req)
+		if (file == undefined) imageLink =  "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
 
 		//Create subject
 		service
