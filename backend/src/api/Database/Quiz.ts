@@ -1,4 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Grade } from "./Grade";
 import { Question } from "./Question";
 
 @Entity()
@@ -16,4 +17,8 @@ export class Quiz {
         cascade: true
     })
     questions: Question[];
+
+    @OneToMany((type)=> Grade,(grade) => grade.quiz, {cascade:true})
+    @JoinTable()
+    grades: Grade[]
 }

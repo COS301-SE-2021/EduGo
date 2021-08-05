@@ -20,7 +20,11 @@ export interface RequestObjectWithUserId extends Request {
 	user_id: number;
 }
 
-export async function isUser(req: RequestObjectWithUserId, res: any, next: any) {
+export async function isUser(
+	req: RequestObjectWithUserId,
+	res: any,
+	next: any
+) {
 	if (req.headers.authorization) {
 		const token = req.headers.authorization.slice(7);
 		const payload = jwtDecode<MyPayload>(token);
@@ -29,6 +33,7 @@ export async function isUser(req: RequestObjectWithUserId, res: any, next: any) 
 				payload.user_id
 			);
 			if (user) {
+				req.user_id = payload.user_id;
 				next();
 			} else throw new UnauthorizedUserError("User is not authorized");
 		} catch (err) {
@@ -47,6 +52,7 @@ export async function isAdmin(req: any, res: any, next: any) {
 				payload.user_id
 			);
 			if (user.isAdmin) {
+				req.user_id = payload.user_id;
 				next();
 			} else throw new UnauthorizedUserError("User is not an admin");
 		} catch (err) {
@@ -70,6 +76,7 @@ export async function isEducator(
 				payload.user_id
 			);
 			if (user.isEducator) {
+				req.user_id = payload.user_id;
 				next();
 			} else throw new UnauthorizedUserError("User is not an Educator");
 		} catch (err) {
@@ -88,9 +95,7 @@ async function getUserDetails(id: number): Promise<AuthenticateObject> {
 				return {
 					id: user.id,
 					isAdmin:
-						user.educator !== undefined
-							? user.educator.admin
-							: false,
+						user.educator !== null ? user.educator.admin : false,
 					isEducator: user.educator != undefined ? true : false,
 				};
 			} else
