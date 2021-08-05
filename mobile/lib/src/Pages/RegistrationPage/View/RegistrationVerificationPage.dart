@@ -85,6 +85,8 @@ class _RegistrationVerificationPageState
           RequiredValidator(errorText: "* Required"),
           EmailValidator(errorText: "Invalid email address"),
         ]),
+        //type of keyboard to use for editing the text.
+        keyboardType: TextInputType.emailAddress,
         //Input field UI
         style: TextStyle(),
         decoration:
@@ -92,8 +94,7 @@ class _RegistrationVerificationPageState
       ),
     );
 
-    Widget code_input_widget = //Code input field
-        Padding(
+    Widget code_input_widget = Padding(
       padding: const EdgeInsets.only(top: 30),
       //Code input field
       child: TextFormField(
@@ -110,6 +111,8 @@ class _RegistrationVerificationPageState
           PatternValidator("[0-9]{5}",
               errorText: "Invalid Activation Code"), //Digits only
         ]),
+        //type of keyboard to use for editing the text.
+        keyboardType: TextInputType.number,
         //Input field UI
         style: TextStyle(),
         decoration: InputDecoration(
