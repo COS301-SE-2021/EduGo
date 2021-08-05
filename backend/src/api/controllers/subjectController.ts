@@ -10,19 +10,30 @@ import {
 } from "../middleware/validate";
 import { handleErrors } from "../helper/ErrorCatch";
 import passport from "passport";
+import { uploadFile } from "../helper/aws/fileUpload";
 
 const router = express.Router();
 
 const service: SubjectService = new SubjectService();
-//TODO add upload image for a subject 
+//TODO add upload image for a subject
 router.post(
 	"/createSubject",
 	passport.authenticate("jwt", { session: false }),
 	isEducator,
+	uploadFile.single("file"),
 	(req: RequestObjectWithUserId, res: any) => {
+		let imageLink =
+			"https://edugo-files.s3.af-south-1.amazonaws.com/students_computer_young_boy_education_learning_pc_internet_learn-1132526.jpghttps://edugo-files.s3.af-south-1.amazonaws.com/students_computer_young_boy_education_learning_pc_internet_learn-1132526.jpg";
+		const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
+		if (file != undefined) imageLink = file.location;
+
 		//Create subject
 		service
-			.CreateSubject(<CreateSubjectRequest>req.body, req.user_id)
+			.CreateSubject(
+				<CreateSubjectRequest>req.body,
+				req.user_id,
+				imageLink
+			)
 			.then((subjectResponse) => {
 				res.status(200).json(subjectResponse);
 			})

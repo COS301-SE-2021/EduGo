@@ -187,7 +187,7 @@ export class AuthService {
 				user.hash = saltHAsh.hash;
 				user.organisation = org;
 
-				//TODO Test if this works
+				
 				// add subjects that user was invited to their relation
 				if (invitedUser.type == userType.student) {
 					user.student = new Student();
