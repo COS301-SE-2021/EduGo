@@ -37,11 +37,10 @@ router.post(
 				.CreateVirtualEntity(body)
 				.then((response) => {
 					res.status(200);
-					res.json(response);
+					res.send("ok");
 				})
 				.catch((err) => {
-					res.status(400);
-					res.json({ message: "error", error: err });
+					handleErrors(err, res)
 				});
 		} else {
 			res.status(400);
@@ -111,6 +110,8 @@ router.post(
 					...baseFile,
 				};
 				res.status(200).json(resp);
+			}).catch(err=>{
+				handleErrors(err,res)
 			});
 			return;
 		}
@@ -118,7 +119,7 @@ router.post(
 	}
 );
 
-router.post(
+router.get(
 	"/getVirtualEntities",
 	passport.authenticate("jwt", { session: false }),
 	isUser,
@@ -130,8 +131,7 @@ router.post(
 				res.json(response);
 			})
 			.catch((err) => {
-				res.status(400);
-				res.json({ message: "error", error: err });
+				handleErrors(err, res)
 			});
 	}
 );
@@ -154,8 +154,7 @@ router.post(
 					res.json(response);
 				})
 				.catch((err) => {
-					res.status(400);
-					res.json({ message: "error", error: err });
+					handleErrors(err, res)
 				});
 		} else {
 			res.status(400).send(valid.message);

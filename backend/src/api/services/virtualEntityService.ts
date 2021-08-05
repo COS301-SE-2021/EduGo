@@ -33,6 +33,7 @@ import { Answer } from "../database/Answer";
 import { Student } from "../database/Student";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
+import { DuplicateError } from "../errors/DuplicateError";
 
 export class VirtualEntityService {
 	async AddModelToVirtualEntity(
@@ -68,13 +69,13 @@ export class VirtualEntityService {
 								};
 							return response;
 						} else {
-							throw new Error(
+							throw new DuplicateError(
 								"There was an error adding to the DB"
 							);
 						}
 					});
 				} else {
-					throw new Error("There was an error");
+					throw new NonExistantItemError("Entity doesn't exixt");
 				}
 			});
 	}
@@ -106,7 +107,7 @@ export class VirtualEntityService {
 					}
 					return response;
 				} else {
-					throw new Error(
+					throw new NonExistantItemError(
 						`Could not find entity with id ${request.id}`
 					);
 				}
@@ -142,9 +143,7 @@ export class VirtualEntityService {
 			});
 	}
 
-	async CreateVirtualEntity(
-		request: CreateVirtualEntityRequest
-	): Promise<CreateVirtualEntityResponse> {
+	async CreateVirtualEntity(request: CreateVirtualEntityRequest) {
 		let conn = getConnection();
 		let lessonRepo = conn.getRepository(Lesson);
 
@@ -189,19 +188,13 @@ export class VirtualEntityService {
 					return lessonRepo
 						.save(lesson)
 						.then((result) => {
-							let response: CreateVirtualEntityResponse = {
-								id: ve.id,
-								message:
-									"Successfully added virtual entity and updated lesson",
-							};
-							return response;
+							return;
 						})
 						.catch((err) => {
-							console.log(err);
-							throw err;
+							throw handleSavetoDBErrors(err);
 						});
 				} else {
-					throw new Error("Could not find lesson");
+					throw new NonExistantItemError("Could not find lesson");
 				}
 			});
 	}
