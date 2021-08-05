@@ -161,7 +161,6 @@ export class AuthService {
 		let unverifiedUserRepo = getRepository(UnverifiedUser);
 		let userRepo = getRepository(User);
 
-		let unverifiedUserRepo = getRepository(UnverifiedUser);
 		if (!(await this.doesEmailExist(request))) {
 			if (!(await this.doesUsernameExist(request))) {
 				// check if user did verify their number
