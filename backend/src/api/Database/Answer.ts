@@ -1,6 +1,8 @@
 import {
 	Column,
 	Entity,
+	Index,
+	JoinColumn,
 	JoinTable,
 	ManyToOne,
 	OneToOne,
@@ -8,13 +10,13 @@ import {
 } from "typeorm";
 import { Grade } from "./Grade";
 import { Question } from "./Question";
-
+@Index(["question","grade"],{unique:true})
 @Entity()
 export class Answer {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@OneToOne((type) => Question, (question) => question.id)
+	@ManyToOne((type) => Question, question=>question.answers)
 	question: Question;
 
 	@Column()

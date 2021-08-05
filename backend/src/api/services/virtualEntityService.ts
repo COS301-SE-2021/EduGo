@@ -271,8 +271,8 @@ export class VirtualEntityService {
 
 					student.grades.push(StudentGrade);
 
-					await studentRepo.save(student).catch(err=>{
-						throw handleSavetoDBErrors(err)
+					await studentRepo.save(student).catch((err) => {
+						throw handleSavetoDBErrors(err);
 					});
 				} catch (error) {
 					throw error;

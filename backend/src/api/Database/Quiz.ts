@@ -18,7 +18,7 @@ export class Quiz {
     })
     questions: Question[];
 
-    @OneToMany((type)=> Grade,(grade) => grade.quiz)
+    @OneToMany((type)=> Grade,(grade) => grade.quiz, {cascade:true})
     @JoinTable()
     grades: Grade[]
 }

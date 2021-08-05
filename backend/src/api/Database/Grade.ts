@@ -1,6 +1,8 @@
+import { truncate } from "fs/promises";
 import {
 	Column,
 	Entity,
+	Index,
 	JoinTable,
 	ManyToMany,
 	ManyToOne,
@@ -11,7 +13,7 @@ import {
 import { Answer } from "./Answer";
 import { Quiz } from "./Quiz";
 import { Student } from "./Student";
-
+@Index(["student", "quiz"],{unique:true})
 @Entity()
 export class Grade {
 	@PrimaryGeneratedColumn()
@@ -30,6 +32,6 @@ export class Grade {
 	@ManyToOne((type) => Quiz, (quiz) => quiz.grades)
 	quiz: Quiz;
 
-	@OneToMany(type=>Answer , answer=>answer.grade)
+	@OneToMany(type=>Answer , answer=>answer.grade,{cascade:true})
 	answers: Answer[];
 }
