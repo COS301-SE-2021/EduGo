@@ -52,8 +52,6 @@ export const validateCreateVirtualEntityRequest = (
 		}
 	}
 
-	if (typeof body.lesson_id !== "number" || body.lesson_id <= 0)
-		return invalid("lesson_id");
 	return { ok: true, message: "" };
 };
 
