@@ -15,17 +15,18 @@ import { uploadFile } from "../helper/aws/fileUpload";
 const router = express.Router();
 
 const service: SubjectService = new SubjectService();
-//TODO add upload image for a subject
 router.post(
 	"/createSubject",
 	passport.authenticate("jwt", { session: false }),
 	isEducator,
 	uploadFile.single("file"),
 	(req: RequestObjectWithUserId, res: any) => {
-		let imageLink = ""; 
+		let imageLink = "";
 		const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
-		console.log(req)
-		if (file == undefined) imageLink =  "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
+		console.log(req);
+		if (file == undefined)
+			imageLink =
+				"https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
 
 		//Create subject
 		service
