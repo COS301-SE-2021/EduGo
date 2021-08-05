@@ -21,10 +21,14 @@ export class UserService {
 
 		if (user) {
 			let response: GetUserDetailsResponse = {
-				...user,
+				email: user.email,
+				firstName: user.email,
+				lastName: user.lastName,
+				username: user.username,
 				organisation_id: user.organisation.id,
 				userType: user.educator ? userType.educator : userType.student,
 			};
+			return response;
 		}
 	}
 	public async setUserToAdmin(request: SetUserToAdminRequest) {

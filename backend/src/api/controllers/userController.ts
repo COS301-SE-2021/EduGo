@@ -107,12 +107,10 @@ router.get(
 	passport.authenticate("jwt", { session: false }),
 	isAdmin,
 	async (req: RequestObjectWithUserId, res: any) => {
-		
-
 		userService
-			.getUserDetails( req.user_id)
-			.then(() => {
-				res.status(200).send("ok");
+			.getUserDetails(req.user_id)
+			.then((response) => {
+				res.status(200).send(response);
 			})
 			.catch((err) => {
 				handleErrors(err, res);
