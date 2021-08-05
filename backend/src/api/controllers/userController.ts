@@ -82,7 +82,6 @@ router.post(
 	}
 );
 
-// TODO Test endpoint
 router.post(
 	"/addEducatorToExistingSubject",
 	passport.authenticate("jwt", { session: false }),
@@ -94,6 +93,24 @@ router.post(
 
 		educatorService
 			.addEducatorToExistingSubject(body, req.user_id)
+			.then(() => {
+				res.status(200).send("ok");
+			})
+			.catch((err) => {
+				handleErrors(err, res);
+			});
+	}
+);
+
+router.get(
+	"/getUserDetails",
+	passport.authenticate("jwt", { session: false }),
+	isAdmin,
+	async (req: RequestObjectWithUserId, res: any) => {
+		
+
+		userService
+			.getUserDetails( req.user_id)
 			.then(() => {
 				res.status(200).send("ok");
 			})
