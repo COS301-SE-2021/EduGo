@@ -1,18 +1,64 @@
 import 'package:flutter/material.dart';
 
+//email, password
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  LoginPage();
+  static String id = "login";
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  //Global key that is going to tell us about any change in Form() widget.
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  ////////////////////////////////  WIDGETS  /////////////////////////////////
+  Widget page_heading_user = Text(
+    "User",
+    style: const TextStyle(
+        fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+  );
+
+  Widget page_heading_registration = Text("Registration",
+      style: const TextStyle(
+          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60));
+
+  ////////////////////////////////////////////////////////////////////////////
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: null,
-    );
+    //page to be displayed
+    Widget child = Form(
+        key: _formkey,
+        child: Stack(
+          children: <Widget>[
+            //Align form
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  style: BorderStyle.solid,
+                  color: Colors.green,
+                ),
+              ),
+              child: SingleChildScrollView(
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 60),
+                      child: Column(
+                        children: [
+                          //Page title: User Registration
+                          page_heading_user,
+                          page_heading_registration,
+                          email_input_widget,
+                        ],
+                      ))),
+            )
+          ],
+        ));
+    //page returned
+    return child;
   }
 }
 /*import 'package:flutter/material.dart';
