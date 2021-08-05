@@ -6,8 +6,31 @@ import { DatabaseError } from "../errors/DatabaseError";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { InvalidParameterError } from "../errors/InvalidParametersError";
+import { getUserDetails } from "../helper/auth/Userhelper";
+import { GetUserDetailsResponse } from "../models/user/GetUserDetailsResponse";
+import { userType } from "../models/auth/RegisterRequest";
 
 export class UserService {
+	async getUserDetails(user_id: number) {
+		let user: User;
+		try {
+			user = await getUserDetails(user_id);
+		} catch (error) {
+			throw error;
+		}
+
+		if (user) {
+			let response: GetUserDetailsResponse = {
+				email: user.email,
+				firstName: user.email,
+				lastName: user.lastName,
+				username: user.username,
+				organisation_id: user.organisation.id,
+				userType: user.educator ? userType.educator : userType.student,
+			};
+			return response;
+		}
+	}
 	public async setUserToAdmin(request: SetUserToAdminRequest) {
 		if (request.username == null) {
 			throw new InvalidParameterError("Username not provided");
