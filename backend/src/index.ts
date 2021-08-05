@@ -59,15 +59,16 @@ if (process.env.NODE_ENV !== 'test') {
     })
 }
 
-import {router as LessonController} from './lesson/api/lessonController';
-import {router as SubjectController} from './subject/api/subjectController';
-import {router as VirtualEntityController} from './virtualEntity/api/virtualEntityController';
-import {router as OrganisationController} from './organisation/api/OrganisationController';
-import { EmailService } from './email/EmailService';
-import { MailgunEmailService } from './email/MailgunEmailService';
-import { router as AuthController } from "./auth/api/authController";
-import { router as UserController } from './user/api/userController';
-import { router as SeedController} from './SeedController'
+import { router as LessonController } from "./api/controllers/LessonController";
+import { router as SubjectController } from "./api/controllers/SubjectController";
+import { router as VirtualEntityController } from "./api/controllers/VirtualEntityController";
+import { router as OrganisationController } from "./api/controllers/OrganisationController";
+import { EmailService } from "./api/helper/email/EmailService";
+import { MailgunEmailService } from "./api/helper/email/MailgunEmailService";
+import { router as AuthController } from "./api/controllers/AuthController";
+import { router as UserController } from "./api/controllers/UserController";
+import { router as SeedController } from "./api/controllers/SeedController";
+import { router as RecommenderController } from './api/controllers/RecommendationController';
 
 export const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -78,9 +79,9 @@ app.use('/subject', SubjectController)
 app.use('/virtualEntity', VirtualEntityController)
 app.use('/organisation', OrganisationController)
 app.use("/auth", AuthController);
-app.use('/user', UserController);
-app.use('/', SeedController);
-
+app.use("/user", UserController);
+app.use("/", SeedController);
+app.use("/recommender", RecommenderController);
 
 /*
  * Look, it's a comment
