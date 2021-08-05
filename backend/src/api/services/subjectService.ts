@@ -9,7 +9,7 @@ import { User } from "../database/User";
 import { DatabaseError } from "../errors/DatabaseError";
 import { Subject as GSBE_Subject } from "../models/subject/Default";
 import { getUserDetails } from "../helper/auth/Userhelper";
-import { handleErrors } from "../helper/ErrorCatch";
+import { handleErrors, handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { Educator } from "../database/Educator";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { Student } from "../database/Student";
@@ -63,6 +63,9 @@ export class SubjectService {
 									id: subject.id,
 								};
 								return response;
+							})
+							.catch(err => {
+								throw handleSavetoDBErrors(err);
 							});
 					}
 					throw new DatabaseError("Could not find educator user");

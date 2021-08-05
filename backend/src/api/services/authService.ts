@@ -156,71 +156,74 @@ export class AuthService {
 		return false;
 	}
 
-	public async userRegistration(request: RegisterRequest) {
+	public async userRegistration(request: RegisterRequest): Promise<void> {
 		// if user name and password don't exist proceed
 		let unverifiedUserRepo = getRepository(UnverifiedUser);
 		let userRepo = getRepository(User);
-		if (
-			!(await this.doesEmailExist(request)) &&
-			!(await this.doesUsernameExist(request))
-		) {
-			// check if user did verify their number
-			let invitedUser = await unverifiedUserRepo.findOne({
-				where: { email: request.user_email },
-				relations: ['subjects', 'organisation']
-			});
-			// Only invited users can register
-			if (invitedUser) {
-				if (!invitedUser.verified) {
-					throw new NonExistantItemError("User has not been Invited");
-				}
 
-				let org = invitedUser.organisation;
-
-				let user = new User();
-				user.email = request.user_email.toLowerCase();
-				user.firstName = request.user_firstName;
-				user.lastName = request.user_lastName;
-				user.username = request.username.toLowerCase();
-				const saltHAsh = genPassword(request.password);
-				user.salt = saltHAsh.salt;
-				user.hash = saltHAsh.hash;
-				user.organisation = org;
-
-				
-				// add subjects that user was invited to their relation
-				if (invitedUser.type == userType.student) {
-					user.student = new Student();
-
-					for (let index of invitedUser.subjects) {
-						user.student.subjects.push(index);
+		let unverifiedUserRepo = getRepository(UnverifiedUser);
+		if (!(await this.doesEmailExist(request))) {
+			if (!(await this.doesUsernameExist(request))) {
+				// check if user did verify their number
+				let invitedUser = await unverifiedUserRepo.findOne({
+					where: { email: request.user_email },
+					relations: ['subjects', 'organisation']
+				});
+				// Only invited users can register
+				if (invitedUser) {
+					if (!invitedUser.verified) {
+						throw new NonExistantItemError("User has not been Invited");
 					}
-				} else {
-					user.educator = new Educator();
-					for (let index of invitedUser.subjects) {
-						user.educator.subjects.push(index);
-					}
-				}
 
-				return userRepo
-					.save(user)
-					.then((result) => {
-						// removing user from unverified list after they have registered successfully
-						if (invitedUser)
-							getRepository(UnverifiedUser).delete(invitedUser);
-						return;
-					})
-					.catch((err) => {
+					let org = invitedUser.organisation;
+
+					let user = new User();
+					user.email = request.user_email.toLowerCase();
+					user.firstName = request.user_firstName;
+					user.lastName = request.user_lastName;
+					user.username = request.username.toLowerCase();
+
+					const saltHAsh = genPassword(request.password);
+					user.salt = saltHAsh.salt;
+					user.hash = saltHAsh.hash;
+					user.organisation = org;
+
+					//TODO Test if this works
+					// add subjects that user was invited to their relation
+					if (request.userType == userType.student) {
+						user.student = new Student();
+
+						for (let index of invitedUser.subjects) {
+							user.student.subjects.push(index);
+						}
+					} else {
+						user.educator = new Educator();
+						for (let index of invitedUser.subjects) {
+							user.educator.subjects.push(index);
+						}
+					}
+
+					try {
+						await userRepo.save(user)
+					}
+					catch (err) {
 						throw new DatabaseError(
 							"User unable to be saved to DB"
 						);
-					});
-			} else {
-				throw new NonExistantItemError(
-					"Email address that was invited with doesn't match provided email address"
-				);
+					}
+					// removing user from unverified list after they have registered successfully
+					//TODO figure out what is wrong with the delete function for unverified user
+					//await unverifiedUserRepo.delete(invitedUser);
+					return;
+				} else {
+					throw new NonExistantItemError(
+						"Email address that was invited with doesn't match provided email address"
+					);
+				}
 			}
+			else throw new Error400("Username already exists");
 		}
+		else throw new Error400("Email already exists");
 	}
 
 	public async emailExists(request: RegisterRequest) {

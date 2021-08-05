@@ -16,7 +16,6 @@ export class LessonService {
 	public async createLesson(request: CreateLessonRequest) {
 		if (
 			request.title == null ||
-			request.date == null ||
 			request.description == null ||
 			request.subjectId == null ||
 			request.startTime == null ||
@@ -29,21 +28,20 @@ export class LessonService {
 			// Set all attributes of a lesson
 			let conn = getConnection();
 			let lesson: Lesson = new Lesson();
-			let user: User = new User();
 			lesson.title = request.title;
 			lesson.description = request.description;
-			lesson.date = request.date;
 			lesson.virtualEntities = [];
-			lesson.startTime = request.startTime;
-			lesson.endTime = request.endTime;
+			//If the lesson start and end timestamps are invalid, set them to null
+			lesson.startTime = new Date(request.startTime) ?? null;
+			lesson.endTime = new Date(request.endTime) ?? null;
 
 			let subjectRepository = conn.getRepository(Subject);
 			// search for subject with the givem id
 			return subjectRepository
-				.findOne(request.subjectId)
+				.findOne(request.subjectId, {relations: ["lessons"]})
 				.then((subject) => {
 					if (subject) {
-						subject.lessons = [lesson];
+						subject.lessons.push(lesson);
 						// set add the lesson to the subject
 						return subjectRepository
 							.save(subject)
