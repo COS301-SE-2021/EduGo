@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 
 //Automated tests help guarantee that your application performs accurately before you publish it while holding your feature and bug-fix velocity
@@ -9,7 +10,6 @@ import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationP
 void main() {
   //NUMBER OF TESTS SO FAR: 5
   List<TextField> input_fields = [];
-  var email_input_field;
   var code_input_field;
 
   // Widget tests that test each widget's response to user interaction.
@@ -55,7 +55,12 @@ void main() {
 
 void test_email() {
   group('Email', () {
-    test('should be invalid and return an error string', () {
+    //Key used to identify TextFormField widget
+    Key _email_input_field = Key('email_input_field');
+    testWidgets(
+        'should be invalid (missing the "@" symbol) and return an error string',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MyApp());
       var result = EmailValidator(errorText: "Invalid email address").errorText;
       expect(result, "Invalid email address");
     });
@@ -95,8 +100,9 @@ void test_code() {
 
 
 //TODO test error messages: https://stackoverflow.com/questions/58419336/in-a-flutter-widget-test-how-can-i-verify-a-field-validation-error-message
-//TODO group tests
-
+//TODO redo group tests
+// https://stackoverflow.com/questions/58419336/in-a-flutter-widget-test-how-can-i-verify-a-field-validation-error-message
+//https://github.com/flutter/flutter/blob/master/packages/flutter/test/widgets/form_test.dart
       /*testWidgets('Successfully enter text into input field',
       (WidgetTester tester) async {
     
