@@ -11,7 +11,7 @@ const service = new LessonService();
 router.use((req, res, next) => {
 	next();
 });
-
+//TODO add validate for all services 
 router.post(
 	"/createLesson",
 	passport.authenticate("jwt", { session: false }),

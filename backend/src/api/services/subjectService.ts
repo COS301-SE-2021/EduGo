@@ -19,7 +19,8 @@ import { Student } from "../database/Student";
 export class SubjectService {
 	async CreateSubject(
 		request: CreateSubjectRequest,
-		user_id: number
+		user_id: number,
+		imageLink: string
 	): Promise<CreateSubjectResponse> {
 		// get user information to use for the request
 		let userDetails: User;
@@ -36,7 +37,7 @@ export class SubjectService {
 		let subject: Subject = new Subject();
 		subject.title = request.title;
 		subject.grade = request.grade;
-
+		subject.image = imageLink;
 		return organisationRepository
 			.findOne(userDetails.organisation.id)
 			.then(async (org) => {
