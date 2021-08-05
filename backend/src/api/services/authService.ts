@@ -158,6 +158,7 @@ export class AuthService {
 
 	public async userRegistration(request: RegisterRequest): Promise<void> {
 		// if user name and password don't exist proceed
+		let unverifiedUserRepo = getRepository(UnverifiedUser);
 		let userRepo = getRepository(User);
 
 		let unverifiedUserRepo = getRepository(UnverifiedUser);
@@ -166,14 +167,12 @@ export class AuthService {
 				// check if user did verify their number
 				let invitedUser = await unverifiedUserRepo.findOne({
 					where: { email: request.user_email },
-					relations: ["subjects", "organisation"],
+					relations: ['subjects', 'organisation']
 				});
 				// Only invited users can register
 				if (invitedUser) {
 					if (!invitedUser.verified) {
-						throw new NonExistantItemError(
-							"User has not been Invited"
-						);
+						throw new NonExistantItemError("User has not been Invited");
 					}
 
 					let org = invitedUser.organisation;
@@ -205,8 +204,9 @@ export class AuthService {
 					}
 
 					try {
-						await userRepo.save(user);
-					} catch (err) {
+						await userRepo.save(user)
+					}
+					catch (err) {
 						throw new DatabaseError(
 							"User unable to be saved to DB"
 						);
@@ -220,8 +220,10 @@ export class AuthService {
 						"Email address that was invited with doesn't match provided email address"
 					);
 				}
-			} else throw new Error400("Username already exists");
-		} else throw new Error400("Email already exists");
+			}
+			else throw new Error400("Username already exists");
+		}
+		else throw new Error400("Email already exists");
 	}
 
 	public async emailExists(request: RegisterRequest) {
