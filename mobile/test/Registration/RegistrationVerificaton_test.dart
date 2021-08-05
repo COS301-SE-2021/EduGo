@@ -51,7 +51,6 @@ void main() {
     });
   });
   */
-  //TODO validator tests
 }
 
 void test_email() {
@@ -61,6 +60,10 @@ void test_email() {
       expect(result, "Invalid email address");
     });
     test('should be empty and return an error string', () {
+      var result = RequiredValidator(errorText: "* Required").errorText;
+      expect(result, "* Required");
+    });
+    test('should be invalid and return an error string', () {
       var result = RequiredValidator(errorText: "* Required").errorText;
       expect(result, "* Required");
     });
