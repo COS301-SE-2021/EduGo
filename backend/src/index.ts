@@ -1,9 +1,14 @@
 import 'reflect-metadata';
-import express from "express";
-import cors from "cors";
-import { createConnection, ConnectionOptions } from "typeorm";
 import dotenv from "dotenv";
 import passport from "passport";
+import { createConnection, ConnectionOptions, useContainer as orm_useContainer } from "typeorm";
+import { Container as orm_Container} from "typeorm-typedi-extensions";
+import { Container as di_Container} from "typedi";
+import { createExpressServer, useContainer as rc_useContainer } from 'routing-controllers';
+import { LessonController } from './api/controllers/lessonController';
+
+rc_useContainer(di_Container);
+orm_useContainer(orm_Container);
 
 dotenv.config();
 
@@ -40,70 +45,48 @@ let options: ConnectionOptions = {
 	},
 };
 
-if (process.env.NODE_ENV !== "test") {
-	createConnection(options)
-		.then((conn) => {
-			if (conn.isConnected) {
-				console.log("Database connection established");
-			} else {
-				throw new Error("Database connection failed");
-			}
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-}
-
-import { router as LessonController } from "./api/controllers/LessonController";
-import { router as SubjectController } from "./api/controllers/SubjectController";
-import { router as VirtualEntityController } from "./api/controllers/VirtualEntityController";
-import { router as OrganisationController } from "./api/controllers/OrganisationController";
-import { EmailService } from "./api/helper/email/EmailService";
-import { MailgunEmailService } from "./api/helper/email/MailgunEmailService";
-import { router as AuthController } from "./api/controllers/AuthController";
-import { router as UserController } from "./api/controllers/UserController";
-import { router as SeedController } from "./api/controllers/SeedController";
-import { router as RecommenderController } from './api/controllers/RecommendationController';
-
-export const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
-app.use("/lesson", LessonController);
-app.use("/subject", SubjectController);
-app.use("/virtualEntity", VirtualEntityController);
-app.use("/organisation", OrganisationController);
-app.use("/auth", AuthController);
-app.use("/user", UserController);
-app.use("/", SeedController);
-app.use("/recommender", RecommenderController);
-
-/*
- * Look, it's a comment
- * TODO Fix this
- */
-
-// app.use((req, res, next) => {
-//     express.json()(req, res, err => {
-//         if (err) {
-//             if (err instanceof SyntaxError) {
-
-//             }
-//         }
-//     })
-// })
-
-app.get("/", (req, res) => {
-	res.send("hey there");
+createConnection(options).then((conn) => {
+	if (conn.isConnected) {
+		console.log("Database connection established");
+	} else {
+		throw new Error("Database connection failed");
+	}
+}).catch((err) => {
+	console.log(err);
 });
 
-app.post("/email", (req, res) => {
-	let { to, name, code } = req.body;
-
-	let emailService: EmailService = new MailgunEmailService();
-	emailService.sendOneEmail(to, name, code);
-	res.status(200).send();
+const app = createExpressServer({
+	cors: true,
+	controllers: [
+		LessonController,
+	]
 });
 
-if (process.env.NODE_ENV !== "test")
-	app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+
+// import { router as LessonController } from "./api/controllers/LessonController";
+// import { router as SubjectController } from "./api/controllers/SubjectController";
+// import { router as VirtualEntityController } from "./api/controllers/VirtualEntityController";
+// import { router as OrganisationController } from "./api/controllers/OrganisationController";
+// import { EmailService } from "./api/helper/email/EmailService";
+// import { MailgunEmailService } from "./api/helper/email/MailgunEmailService";
+// import { router as AuthController } from "./api/controllers/AuthController";
+// import { router as UserController } from "./api/controllers/UserController";
+// import { router as SeedController } from "./api/controllers/SeedController";
+// import { router as RecommenderController } from './api/controllers/RecommendationController';
+
+// export const app = express();
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(cors());
+// app.use("/lesson", LessonController);
+// app.use("/subject", SubjectController);
+// app.use("/virtualEntity", VirtualEntityController);
+// app.use("/organisation", OrganisationController);
+// app.use("/auth", AuthController);
+// app.use("/user", UserController);
+// app.use("/", SeedController);
+// app.use("/recommender", RecommenderController);
+
+// if (process.env.NODE_ENV !== "test")
+// 	app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
