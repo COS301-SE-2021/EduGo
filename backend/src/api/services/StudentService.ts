@@ -19,7 +19,6 @@ import { Answer } from "../database/Answer";
 import {
 	GetStudentGradesResponse,
 	QuizGrade,
-	studentAnswer,
 } from "../models/user/GetStudentGradesResponse";
 
 /**
