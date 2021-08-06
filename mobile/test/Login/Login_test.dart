@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 1
+//TOTAL NUMBER OF TESTS: 11
 void main() {
   _test_alignment();
   _test_form();
@@ -62,7 +62,6 @@ void _test_email() {
       expect(find.byKey(Key('login_email')), findsOneWidget);
     });
 
-    //TODO valid email address
     testWidgets(
         'input text form field successfully responds to user interaction: entering text', //is successfully entered into the input text form filed
         (WidgetTester tester) async {
