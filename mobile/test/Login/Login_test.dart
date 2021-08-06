@@ -95,39 +95,24 @@ void _test_email() {
       await tester.enterText(emailInputFinder, 'Mihlali');
     });
 
-    //TODO integration test
     testWidgets(' entered in the text form field is displayed successfully',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
+      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
+      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      //repeatedly triggers a rebuild of the widget when the state changes.
+      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      //find email input
+      // find email input
       final emailInputFinder = find.byKey(Key('login_email'));
       //Aquire focus in the TextFormField
-      // verify text appears on UI
-      /*
-      Now, we will write a script to enter a text in input field, validate that 
-      the entered text is displayed in the field, update the input field with 
-      new text and then validate that the first text entered is not present, 
-      followed by tapping on the button and then scrolling to the widget present 
-      at the bottom of the screen. For this test, we’ll make use of following 
-      methods:await driver.tap(find.byValueKey('inputKeyString'));
-
-      await driver.enterText('Hello !');
-      await driver.waitFor(find.text('Hello !'));
-      await driver.enterText('World');
-      await driver.waitForAbsent(find.text('Hello !'));
-      print('World');
-      await driver.waitFor(find.byValueKey('button'));
-      await driver.tap(find.byValueKey('button'));
-      print('Button clicked');
-      await driver.waitFor(find.byValueKey('text'));
-      await driver.scrollIntoView(find.byValueKey('text'));
-      await driver.waitFor(find.text('Scroll till here'));
-      print('I found you buddy !');*/
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali');
+      // retrieve TextField Widget from Finder
+      TextFormField emailTextField = tester.widget(emailInputFinder);
+      // test result: confirm TextField is empty
+      expect(emailTextField.controller!.text, equals("Mihlali"));
     });
 
     //TODO integration test
