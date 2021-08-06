@@ -54,7 +54,7 @@ class _LessonsPageState extends State<LessonsPage> {
           //Get the number of lessons for a particular subject
           int lessonsCount = lessons.lessons.length;
           return Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+            //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
             child: SingleChildScrollView(
               // children: lessons.lessons.map((e) => Text(e.title)).toList());
               //'${widget.title}');
