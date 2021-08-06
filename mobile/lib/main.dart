@@ -31,7 +31,23 @@ Momentum momentum({bool mock = false}) {
       UserController(mock: mock),
       HomeController(mock: mock)
     ],
-    services: [UserApiService(), HomeService()],
+    services: [
+      UserApiService(), HomeService(),
+      //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
+      MomentumRouter([
+        LoginPage(),
+        DetectMarkerPage(),
+        GradesPage(),
+        HomePage(),
+        LessonsPage(),
+        OrganisationsPage(),
+        PreferencesPage(),
+        RegistrationPage(),
+        RegistrationVerificationPage(),
+        SettingsPage(),
+        SubjectsPage(),
+      ]),
+    ],
   );
 }
 
@@ -40,41 +56,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'EduGo',
-        theme: ThemeData(
-            primaryColor: Color.fromARGB(255, 97, 211, 87),
-            primarySwatch: Colors.blue,
-            fontFamily: "Montserrat"),
-
-        //Navigate application using named routes
-        initialRoute: LoginPage.id,
-        routes: {
-          DetectMarkerPage.id: (context) => DetectMarkerPage(),
-          GradesPage.id: (context) => GradesPage(),
-          HomePage.id: (context) => HomePage(),
-          LessonsPage.id: (context) => LessonsPage(),
-          LoginPage.id: (context) => LoginPage(),
-          OrganisationsPage.id: (context) => OrganisationsPage(),
-          PreferencesPage.id: (context) => PreferencesPage(),
-          RegistrationPage.id: (context) => RegistrationPage(),
-          RegistrationVerificationPage.id: (context) =>
-              RegistrationVerificationPage(),
-          SettingsPage.id: (context) => SettingsPage(),
-          SubjectsPage.id: (context) => SubjectsPage(),
-        });
+      title: 'EduGo',
+      theme: ThemeData(
+          primaryColor: Color.fromARGB(255, 97, 211, 87),
+          primarySwatch: Colors.blue,
+          fontFamily: "Montserrat"),
+      //Get the active widget from the router. This is the initial widget when the app starts.
+      home: MomentumRouter.getActivePage(context),
+    );
   }
 }
-/*
-MaterialApp(
-  title: 'Named Routes Demo',
-  // Start the app with the "/" named route. In this case, the app starts
-  // on the FirstScreen widget.
-  initialRoute: '/',
-  routes: {
-    // When navigating to the "/" route, build the FirstScreen widget.
-    '/': (context) => const FirstScreen(),
-    // When navigating to the "/second" route, build the SecondScreen widget.
-    '/second': (context) => const SecondScreen(),
-  },
-)
- */
