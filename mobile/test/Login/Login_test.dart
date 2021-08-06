@@ -170,20 +170,40 @@ void _test_email() {
       //test result: invalid email error
       expect(emailErrorFinder, findsOneWidget);
     });
-  });
-  //TODO valid email address
-  testWidgets('should be invalid (missing the "@") and return an error string',
-      (WidgetTester tester) async {});
 
-  //TODO valid email address
-  testWidgets('should be invalid (".com" symbol) and return an error string',
-      (WidgetTester tester) async {
-    //.only
-  });
-  //TODO valid email address
-  testWidgets('should be invalid (".com" symbol) and return an error string',
-      (WidgetTester tester) async {
-    //com without dot
+    testWidgets(
+        'should be invalid (missing the "@") and return an error string',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali"gmail.com');
+      // find error message
+      final emailErrorFinder = find.text('Invalid email address'); //* Required
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid email error
+      expect(emailErrorFinder, findsOneWidget);
+    });
+
+    //TODO valid email address
+    testWidgets('should be invalid (".com" symbol) and return an error string',
+        (WidgetTester tester) async {
+      //.only
+    });
+    //TODO valid email address
+    testWidgets('should be invalid (".com" symbol) and return an error string',
+        (WidgetTester tester) async {
+      //com without dot
+    });
   });
 }
 
