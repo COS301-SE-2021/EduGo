@@ -11,6 +11,7 @@ import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail"
 import { VerificationEmail } from "../helper/email/models/VerificationEmail";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { EmailList } from "../models/user/SerivceModels";
+import { generateCode } from "../helper/auth/Userhelper";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -156,7 +157,7 @@ export class StudentService {
             let unverifiedUsers: UnverifiedUser[] = emails.map(value => {
                 let user: UnverifiedUser = new UnverifiedUser()
                 user.email = value
-                user.verificationCode = this.generateCode(5)
+                user.verificationCode = generateCode(5)
                 user.organisation = subject.organisation
                 user.type = 'student'
                 return user
@@ -198,12 +199,7 @@ export class StudentService {
         })
     }
 
-    private generateCode(length: number): string {
-		let charset = '0123456789';
-		let result = '';
-		for (let i = 0; i < length; i++) result += charset[Math.floor(Math.random() * charset.length)];
-		return result;
-	}
+   
 
 
     
