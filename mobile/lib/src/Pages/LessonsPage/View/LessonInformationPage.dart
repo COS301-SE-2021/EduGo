@@ -61,7 +61,30 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
     return MobilePageLayout(
       false,
       true,
-      Container(),
+      Container(
+        decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Align(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: Text(
+                    lessonTitle,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    softWrap: false,
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

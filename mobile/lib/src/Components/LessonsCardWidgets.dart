@@ -44,13 +44,14 @@ class LessonsCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => LessonInformationPage(
-                        lessonTitle: this.lessonTitle,
-                        lessonDescription: this.lessonDescription,
-                        lessonID: this.lessonID,
-                        lessonStartTime: this.lessonStartTime,
-                        lessonEndTime: this.lessonEndTime,
-                      )),
+                builder: (context) => LessonInformationPage(
+                  lessonTitle: this.lessonTitle,
+                  lessonDescription: this.lessonDescription,
+                  lessonID: this.lessonID,
+                  lessonStartTime: this.lessonStartTime,
+                  lessonEndTime: this.lessonEndTime,
+                ),
+              ),
             );
           },
           child: Container(
