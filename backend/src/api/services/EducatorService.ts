@@ -15,7 +15,7 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
 import { Error400 } from "../errors/Error";
 import { Subject } from "../database/Subject";
-import { Service } from "typedi";
+import { Service, Inject } from "typedi";
 
 
 /**
@@ -24,14 +24,9 @@ import { Service } from "typedi";
  */
 @Service()
 export class EducatorService {
+	//TODO check error regarding mockEmailService injectable
+	@Inject('mailgunEmailService')
 	emailService: EmailService;
-
-	/**
-	 * Create an educator service
-	 */
-	constructor() {
-		this.emailService = new MockEmailService();
-	}
 
 	/**
 	 * @param  {AddEducatorToExistingSubjectRequest} body

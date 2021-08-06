@@ -11,7 +11,7 @@ import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail"
 import { VerificationEmail } from "../helper/email/models/VerificationEmail";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { EmailList } from "../models/user/SerivceModels";
-import { Service } from "typedi";
+import { Service, Inject } from "typedi";
 
 
 /**
@@ -20,14 +20,9 @@ import { Service } from "typedi";
  */
 @Service()
 export class StudentService {
+    //TODO check error regarding mockEmailService injectable
+    @Inject('mailgunEmailService')
     emailService: EmailService;
-
-    /**
-     * Create a student service
-     */
-    constructor() {
-        this.emailService = new MockEmailService();
-    }
 
     /**
      * @param {request} request - A request consisting of the organisation id and an array of email strings
