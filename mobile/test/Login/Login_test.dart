@@ -1,6 +1,7 @@
-//this file contains the actual test scripts that we are going to write by using tester and driver methods
+//this file contains the actual test scripts that we are going to write by using
+//tester methods
+
 import 'package:flutter/material.dart';
-//import 'package:flutter_driver/flutter_driver.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
@@ -38,7 +39,6 @@ void _integration_tests() {
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
 //TODO implement
 void _test_form_widget() {
-  //TODO
   testWidgets('All text form fields initialise and render successfully',
       (WidgetTester tester) async {
     await tester.pumpWidget(LoginPage());
@@ -69,7 +69,6 @@ void _test_text_widget() {
   });
 }
 
-//TODO implement
 void _test_email_widget() {
   //10 tests
   group('Email', () {
@@ -250,6 +249,28 @@ void _test_email_widget() {
       await tester.pump(const Duration(milliseconds: 100));
       //test result: invalid email error
       expect(emailErrorFinder, findsOneWidget);
+    });
+
+    testWidgets(
+        'should be autovalidated as it is typed into input text form field',
+        (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'M');
+      // retrieve TextField Widget from Finder
+      TextFormField emailTextField = tester.widget(emailInputFinder);
+      //TODO maybe loop through all characters?
+      // test result: confirm auto validation with each character inputted
+      expect(emailTextField.autovalidateMode.index, 1);
     });
   }); //group email
 }
