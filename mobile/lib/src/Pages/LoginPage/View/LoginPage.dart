@@ -18,13 +18,13 @@ class _LoginPageState extends State<LoginPage> {
 
   // Text controllers used to retrieve the current value of the input fields
   final email_text_controller = TextEditingController();
-  final code_text_controller = TextEditingController();
+  final password_text_controller = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controllers when the widget is disposed.
     email_text_controller.dispose();
-    code_text_controller.dispose();
+    password_text_controller.dispose();
     super.dispose();
   }
   //////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,11 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     Widget email_input_widget = Padding(
-      padding: const EdgeInsets.only(top: 100),
+      padding: const EdgeInsets.only(
+        top: 100,
+        left: 20,
+        right: 20,
+      ),
       //Email input field
       child: new TextFormField(
         key: Key('login_email'),
@@ -73,6 +77,35 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
+    Widget password_input_widget = Padding(
+      padding: const EdgeInsets.only(
+        top: 30,
+        left: 20,
+        right: 20,
+      ),
+      //password input field
+      child: TextFormField(
+        key: Key('password_input_field'),
+        //Controller is notified when the text changes
+        controller: password_text_controller,
+        //Control when the auto validation should happen
+        autovalidateMode: AutovalidateMode.always,
+        //password is required, must be 6 digits long and must be numeric
+        validator: MultiValidator([
+          RequiredValidator(errorText: "* Required"),
+          LengthRangeValidator(min: 5, max: 5, errorText: "Invalid password"),
+          PatternValidator("[0-9]{5}",
+              errorText: "Invalid password"), //Digits only
+        ]),
+        //type of keyboard to use for editing the text.
+        keyboardType: TextInputType.number,
+        //Input field UI
+        style: TextStyle(),
+        decoration:
+            InputDecoration(border: OutlineInputBorder(), hintText: "Password"),
+      ),
+    );
+
     Widget child = Scaffold(
         body: Form(
             key: _loginFormkey,
@@ -88,13 +121,16 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: SingleChildScrollView(
                       child: Padding(
-                          padding: const EdgeInsets.only(top: 60),
+                          padding: const EdgeInsets.only(
+                            top: 60,
+                          ),
                           child: Column(
                             textDirection: TextDirection.ltr,
                             children: [
                               login_user_heading,
                               login_registration_heading,
                               email_input_widget,
+                              password_input_widget,
                             ],
                           ))))
             ])));
