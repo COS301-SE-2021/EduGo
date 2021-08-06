@@ -348,12 +348,14 @@ class _RegistrationVerificationPageState
                     //Page title: User Registration
                     Text(
                       "User",
+        textDirection: TextDirection.ltr,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           fontSize: 60),
                     ),
                     Text("Verification",
+        textDirection: TextDirection.ltr,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,

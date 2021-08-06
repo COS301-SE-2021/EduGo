@@ -25,7 +25,7 @@ void _test_text() {
     testWidgets('renders successfully', (WidgetTester tester) async {
       await tester.pumpWidget(LoginPage());
       expect(find.text('User'), findsOneWidget);
-      //expect(find.text('Registration'), findsOneWidget);
+      expect(find.text('Registration'), findsOneWidget);
     });
   });
 }
