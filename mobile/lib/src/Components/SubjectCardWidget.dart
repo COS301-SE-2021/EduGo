@@ -21,62 +21,63 @@ class SubjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 500,
-      width: 280,
+    // return Container(
+    //   height: 500,
+    //   width: 280,
 
-      child: Card(
-        semanticContainer: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        clipBehavior: Clip.antiAlias,
-        color: Color.fromARGB(255, 97, 211, 87),
-        //This allows the card to be clickable so that when clicked,
-        // it will go to the lessons for that subject
-        child: new InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      LessonsPage(title: this.title, subjectID: this.id)),
-            );
-          },
-          child: Column(
-            children: [
-              Container(
-                height: 90,
-                width: double.infinity,
-                // child: Image.network(
-                //   'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
-                //   fit: BoxFit.fitWidth,
-                // ),
-              ),
-              Container(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: Text(
-                      //'Title: +'
-                      "$title",
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: false,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+    return Card(
+      semanticContainer: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      clipBehavior: Clip.antiAlias,
+      color: Color.fromARGB(255, 97, 211, 87),
+      //This allows the card to be clickable so that when clicked,
+      // it will go to the lessons for that subject
+      child: new InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    LessonsPage(title: this.title, subjectID: this.id)),
+          );
+        },
+        //child: Column(
+        //children: [
+        child: Container(
+          height: 90,
+          width: double.infinity,
+          child: Image.network(
+            'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
+            fit: BoxFit.fitWidth,
           ),
         ),
+
+        // Container(
+        //   child: Align(
+        //     alignment: Alignment.center,
+        //     child: Padding(
+        //       padding: const EdgeInsets.only(top: 25),
+        //       child: Text(
+        //         //'Title: +'
+        //         "$title",
+        //         textAlign: TextAlign.center,
+        //         overflow: TextOverflow.ellipsis,
+        //         maxLines: 2,
+        //         softWrap: false,
+        //         style: TextStyle(
+        //             fontSize: 20,
+        //             fontWeight: FontWeight.bold,
+        //             color: Colors.black),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        //],
       ),
+      //),
+      // ),
       //),
     );
   }
