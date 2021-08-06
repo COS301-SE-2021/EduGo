@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 11
+//TOTAL NUMBER OF TESTS: 13
 void main() {
   _test_alignment();
   _test_form();
@@ -127,6 +127,27 @@ void _test_email() {
       //TODO implement integration test version of this unit test: https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
     });
 
+    testWidgets('input field should be empty and return an error string',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      // retrieve TextField Widget from Finder
+      TextFormField emailTextField = tester.widget(emailInputFinder);
+      // test result: confirm TextField is empty
+      expect(emailTextField.controller!.text, equals(""));
+      // find error message
+      final emailErrorFinder = find.text('* Required');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid email error
+      expect(emailErrorFinder, findsOneWidget);
+    });
     testWidgets(
         'should be invalid (missing the "@" AND ".com" symbol) and return an error string',
         (WidgetTester tester) async {
@@ -149,7 +170,6 @@ void _test_email() {
       //test result: invalid email error
       expect(emailErrorFinder, findsOneWidget);
     });
-    //TODO not empty
   });
   //TODO valid email address
   testWidgets('should be invalid (missing the "@") and return an error string',
