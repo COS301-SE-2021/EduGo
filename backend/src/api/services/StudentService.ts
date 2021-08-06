@@ -16,6 +16,11 @@ import { Error403 } from "../errors/Error";
 import { Grade } from "../database/Grade";
 import { Student } from "../database/Student";
 import { Answer } from "../database/Answer";
+import {
+	GetStudentGradesResponse,
+	QuizGrade,
+	studentAnswer,
+} from "../models/user/GetStudentGradesResponse";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -265,7 +270,9 @@ export class StudentService {
 			});
 	}
 
-	private async getStudentGrades(user_id: number) {
+	private async getStudentGrades(
+		user_id: number
+	): Promise<GetStudentGradesResponse> {
 		let user: User;
 
 		try {
@@ -281,15 +288,20 @@ export class StudentService {
 					{ relations: ["grades"] }
 				);
 				if (student) {
-					let quizGrades = student.grades.map((grade) => {
-						return {
+					let grades = student.grades.map((grade) => {
+						let quizGra: QuizGrade = {
 							quiz_id: grade.quiz.id,
 							quiz_total: grade.total,
 							student_score: grade.score,
-							studentAnswers: grade.answers,
 						};
+
+						return quizGra;
 					});
-					return quizGrades;
+
+					let StudentGrades: GetStudentGradesResponse = {
+						grades: grades,
+					};
+					return StudentGrades;
 				} else throw Error("Student not found ");
 			} catch (err) {
 				throw err;
