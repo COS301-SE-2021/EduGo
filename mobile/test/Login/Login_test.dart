@@ -50,7 +50,7 @@ void _test_text() {
 
 void _test_email() {
   group('Email', () {
-    testWidgets('input field renders successfully',
+    testWidgets('input field renders successfully.',
         (WidgetTester tester) async {
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -58,10 +58,26 @@ void _test_email() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+      //find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
       //test result
-      expect(find.byKey(Key('login_email')), findsOneWidget);
+      expect(emailInputFinder, findsOneWidget);
     });
 
+    testWidgets('input field should be empty.', (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      // retrieve TextField Widget from Finder
+      TextFormField emailTextField = tester.widget(emailInputFinder);
+      // test result: confirm TextField is empty
+      expect(emailTextField.controller!.text, equals(""));
+    });
     testWidgets(
         'input text form field successfully responds to user interaction: entering text', //is successfully entered into the input text form filed
         (WidgetTester tester) async {
@@ -71,6 +87,7 @@ void _test_email() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+      //find email input
       final emailInputFinder = find.byKey(Key('login_email'));
       //Aquire focus in the TextFormField
       await tester.tap(emailInputFinder);
@@ -81,6 +98,15 @@ void _test_email() {
     //TODO integration test
     testWidgets(' entered in the text form field is displayed successfully',
         (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
       // verify text appears on UI
       /*
       Now, we will write a script to enter a text in input field, validate that 
