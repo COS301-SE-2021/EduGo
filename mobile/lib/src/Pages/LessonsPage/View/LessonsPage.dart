@@ -107,8 +107,11 @@ class _LessonsPageState extends State<LessonsPage> {
                     children: lessons.lessons
                         .map(
                           (lesson) => LessonsCard(
-                            title: lesson.title,
-                          ),
+                              lessonTitle: lesson.title,
+                              lessonID: lesson.id,
+                              lessonDescription: lesson.description,
+                              lessonStartTime: lesson.startTime,
+                              lessonEndTime: lesson.endTime),
                         )
                         .toList(),
                   ),

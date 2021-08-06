@@ -7,13 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 
 class LessonsCard extends StatelessWidget {
-  final String title;
+  final String lessonTitle;
+  final int lessonID;
+  final String lessonDescription;
+  //This holds the start time of the lesson
+  final String lessonStartTime;
+  //This holds the end time of the lesson
+  final String lessonEndTime;
 
   //final *type* subjectImage
 
-  LessonsCard({
-    required this.title,
-  });
+  LessonsCard(
+      {required this.lessonTitle,
+      required this.lessonID,
+      required this.lessonDescription,
+      required this.lessonStartTime,
+      required this.lessonEndTime});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +50,7 @@ class LessonsCard extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                "$title",
+                "$lessonTitle",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
