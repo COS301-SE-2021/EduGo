@@ -78,6 +78,7 @@ void _test_email() {
       // test result: confirm TextField is empty
       expect(emailTextField.controller!.text, equals(""));
     });
+//TODO when tap node should focus: https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/text_field_focus_test.dart
     testWidgets(
         'input text form field successfully responds to user interaction: entering text', //is successfully entered into the input text form filed
         (WidgetTester tester) async {
@@ -115,16 +116,17 @@ void _test_email() {
       expect(emailTextField.controller!.text, equals("Mihlali"));
     });
 
-    //TODO integration test
     testWidgets(
         'input text form field successfully responds to user interaction: re-entering text',
-        (WidgetTester tester) async {});
+        (WidgetTester tester) async {
+      //TODO implement integration test version of this unit test: https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
+    });
 
-    //TODO integration test
     testWidgets('re-entered in the text form field is displayed successfully',
-        (WidgetTester tester) async {});
+        (WidgetTester tester) async {
+      //TODO implement integration test version of this unit test: https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
+    });
 
-    //TODO valid email address
     testWidgets(
         'should be invalid (missing the "@" AND ".com" symbol) and return an error string',
         (WidgetTester tester) async {
@@ -134,8 +136,18 @@ void _test_email() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      //test result
-      await tester.enterText(find.byKey(Key('login_email')), "m");
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali');
+      // find error message
+      final emailErrorFinder = find.text('Invalid email address'); //* Required
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid email error
+      expect(emailErrorFinder, findsOneWidget);
     });
     //TODO not empty
   });
