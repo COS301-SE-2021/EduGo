@@ -1,7 +1,7 @@
 import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectResponse } from "../models/lesson/GetLessonsBySubjectResponse";
 import { Lesson } from "../database/Lesson";
-import { getConnection, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import { Subject } from "../database/Subject";
 import { User } from "../database/User";
@@ -29,7 +29,6 @@ export class LessonService {
 			return statusRes;
 		} else {
 			// Set all attributes of a lesson
-			let conn = getConnection();
 			let lesson: Lesson = new Lesson();
 			lesson.title = request.title;
 			lesson.description = request.description;
@@ -38,7 +37,7 @@ export class LessonService {
 			lesson.startTime = new Date(request.startTime) ?? null;
 			lesson.endTime = new Date(request.endTime) ?? null;
 
-			let subjectRepository = conn.getRepository(Subject);
+			let subjectRepository = getRepository(Subject);
 			// search for subject with the givem id
 			return subjectRepository
 				.findOne(request.subjectId, {relations: ["lessons"]})
@@ -67,8 +66,7 @@ export class LessonService {
 				"SubjectId not provided" + JSON.stringify(request);
 			return statusRes;
 		} else {
-			let conn = getConnection();
-			let subjectRepository = conn.getRepository(Subject);
+			let subjectRepository = getRepository(Subject);
 			return subjectRepository
 				.findOne(request.subjectId, { relations: ["lessons"] })
 				.then((subject) => {
