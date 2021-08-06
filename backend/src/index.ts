@@ -4,8 +4,10 @@ import passport from "passport";
 import { createConnection, ConnectionOptions, useContainer as orm_useContainer } from "typeorm";
 import { Container as orm_Container} from "typeorm-typedi-extensions";
 import { Container as di_Container} from "typedi";
-import { createExpressServer, useContainer as rc_useContainer } from 'routing-controllers';
+import { Action, createExpressServer, useContainer as rc_useContainer } from 'routing-controllers';
+
 import { LessonController } from './api/controllers/lessonController';
+import { SubjectController } from './api/controllers/subjectController';
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
@@ -59,7 +61,9 @@ const app = createExpressServer({
 	cors: true,
 	controllers: [
 		LessonController,
-	]
+		SubjectController,
+	],
+	currentUserChecker: (action: Action) => action.request.user
 });
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
