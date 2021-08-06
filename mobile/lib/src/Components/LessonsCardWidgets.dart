@@ -4,6 +4,7 @@
    * into the constructor when displaying the subjects
    */
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 
 class LessonsCard extends StatelessWidget {
   final String title;
@@ -31,11 +32,10 @@ class LessonsCard extends StatelessWidget {
         // it will go to the lessons for that subject
         child: new InkWell(
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //       builder: (context) => LessonsPage()),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LessonInformationPage()),
+            );
           },
           child: Container(
             child: Align(

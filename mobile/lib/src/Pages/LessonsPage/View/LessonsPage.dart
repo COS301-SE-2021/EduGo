@@ -45,7 +45,7 @@ class _LessonsPageState extends State<LessonsPage> {
           //Used to get the list of lessons
           final lessons = snapshot<LessonsModel>();
           //Used to call the specific function in the controller called getLessons
-          //This requires the subjectID to be passed in
+          //This requires the subjectID to be passed
           final lessonController =
               Momentum.controller<LessonsController>(context);
 
