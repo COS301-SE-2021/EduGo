@@ -1,4 +1,6 @@
+//this file contains the actual test scripts that we are going to write by using tester and driver methods
 import 'package:flutter/material.dart';
+//import 'package:flutter_driver/flutter_driver.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
@@ -29,7 +31,8 @@ void _unit_tests() {
 void _integration_tests() {
   //user interaction test: https://flutter.dev/docs/cookbook/testing/widget/tap-drag
   //flutter driver (more complex integretion testing): https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
-  _test_email_integration();
+  //_connection_to_driver();
+  //_test_email_integration();
 }
 
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
@@ -273,5 +276,24 @@ void _test_password_widget() {
 ////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////// INTEGRATION TESTS //////////////////////////////////
+void _connection_to_driver() {
+  /*
+  group('Connection to driver', () {
+    FlutterDriver driver;
+
+    //method to connect to Flutter driver
+    setUpAll(() async {
+      driver = await FlutterDriver.connect();
+    });
+
+    tearDownAll(() async {
+      if (driver != null) {
+        await driver.close();
+      }
+    });
+  }); //group
+  */
+}
+
 void _test_email_integration() {}
 ////////////////////////////////////////////////////////////////////////////////
