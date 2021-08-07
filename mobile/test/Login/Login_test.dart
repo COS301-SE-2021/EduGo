@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 28
+//TOTAL NUMBER OF TESTS: 29
 void main() {
   _widget_tests();
 
@@ -652,6 +652,35 @@ void _test_login_button_widget() {
       expect(textErrorFinder, findsNWidgets(2));
     });
   }); //group 'login button'
+
+  testWidgets(
+      'successfully responds to user interaction (tap button) but fails to navigate to next page (only email form field was incorrectly filled, password left empty) and returns error strings.',
+      (WidgetTester tester) async {
+    // returns an instance of Momentum i.e. the app
+    final widget = momentum();
+    // builds and renders the provided widget
+    await tester.pumpWidget(widget);
+    // repeatedly triggers a rebuild of the widget when the state changes.
+    await tester.pumpAndSettle();
+    // Tap the login button.
+    await tester.tap(find.byKey(Key('login_button')));
+    // find email input
+    final emailInputFinder = find.byKey(Key('login_email'));
+    //Aquire focus in the TextFormField
+    await tester.tap(emailInputFinder);
+    // Enter 'Mihlali' into the TextFormField.
+    await tester.enterText(emailInputFinder, 'invalid email');
+    // find error message
+    final emailErrorFinder = find.text('Invalid email address');
+    // add delay
+    await tester.pump(const Duration(milliseconds: 100));
+    // find error message
+    final pswdErrorFinder = find.text('* Required');
+    // Expect to find 1 error message for invalid email
+    expect(emailErrorFinder, findsOneWidget);
+    // Expect to find 1 error message for empty password input field
+    expect(pswdErrorFinder, findsOneWidget);
+  });
 }
 ////////////////////////////////////////////////////////////////////////////////
 
