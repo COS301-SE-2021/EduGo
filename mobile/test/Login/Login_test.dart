@@ -178,7 +178,6 @@ void _test_email_widget() {
       await tester.pump(const Duration(milliseconds: 100));
       // test result: confirm TextField is empty
       expect(emailTextField.controller!.text, equals(""));
-
       //test result: invalid email error
       expect(emailErrorFinder, findsWidgets);
     });
@@ -366,7 +365,7 @@ void _test_password_widget() {
       // test result: confirm TextField is empty
       expect(pswdTextField.controller!.text, equals("Sshhh"));
     });
-/*
+
     testWidgets('input field should be empty and return an error string',
         (WidgetTester tester) async {
       //returns an instance of Momentum i.e. the app
@@ -375,20 +374,20 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
       // retrieve TextField Widget from Finder
-      TextFormField emailTextField = tester.widget(emailInputFinder);
+      TextFormField pswdTextField = tester.widget(passowrdInputFinder);
       // find error message
-      final emailErrorFinder = find.text('* Required');
+      final pswdErrorFinder = find.text('* Required');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
       // test result: confirm TextField is empty
-      expect(emailTextField.controller!.text, equals(""));
-
+      expect(pswdTextField.controller!.text, equals(""));
       //test result: invalid email error
-      expect(emailErrorFinder, findsOneWidget);
+      expect(pswdErrorFinder, findsWidgets);
     });
+    /*
     testWidgets(
         'should be invalid (missing the "@" AND ".com" symbol) and return an error string',
         (WidgetTester tester) async {
