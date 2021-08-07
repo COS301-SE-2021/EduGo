@@ -29,4 +29,5 @@ export class RegisterRequest {
 	@IsNotEmpty()
 	@IsString()
 	username: string;
+	organisation_id: string | number | Date | ObjectID | undefined;
 }

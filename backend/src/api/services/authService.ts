@@ -1,4 +1,4 @@
-import { getConnection, getRepository } from "typeorm";
+import { Repository } from "typeorm";
 import { User } from "../database/User";
 import { genPassword, issueJWT, validPassword } from "../helper/auth/utils";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
@@ -14,10 +14,17 @@ import { validateRegisterRequest } from "./validations/AuthValidate";
 import { Student } from "../database/Student";
 import { Error400 } from "../errors/Error";
 import { Service } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
 
 @Service()
 export class AuthService {
+
+	@InjectRepository(User) private userRepository: Repository<User>; 
+	@InjectRepository(UnverifiedUser) private unverifiedUserRepository: Repository<UnverifiedUser>; 
+	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>; 
+
 	public async register(request: RegisterRequest) {
+
 		// Check if parameters are set
 		try {
 			validateRegisterRequest(request);
@@ -36,10 +43,10 @@ export class AuthService {
 	}
 
 	public async login(request: LoginRequest) {
-		let UserRepo = getRepository(User);
+	
 
 		// Find user with given Username
-		return UserRepo.findOne({ where: { username: request.username } })
+		return this.userRepository.findOne({ where: { username: request.username } })
 			.then((user) => {
 				if (!user) {
 					throw new NonExistantItemError(
@@ -80,7 +87,7 @@ export class AuthService {
 	 * @memberof AuthService
 	 */
 	public async verifyInvitation(request: VerifyInvitationRequest) {
-		let existingUser = await getRepository(User).findOne({
+		let existingUser = await this.userRepository.findOne({
 			where: { email: request.email },
 		});
 
@@ -88,9 +95,8 @@ export class AuthService {
 			throw new NonExistantItemError("User is already registered");
 		}
 
-		let invitationRepo = getRepository(UnverifiedUser);
 
-		let user = await invitationRepo.findOne({
+		let user = await this.unverifiedUserRepository.findOne({
 			where: { email: request.email },
 		});
 
@@ -122,7 +128,7 @@ export class AuthService {
 
 	public async setUserToverified(user_id: number) {
 		try {
-			await getConnection()
+			await this.unverifiedUserRepository
 				.createQueryBuilder()
 				.update(UnverifiedUser)
 				.set({ verified: true })
@@ -135,9 +141,8 @@ export class AuthService {
 	}
 
 	public async doesEmailExist(request: RegisterRequest) {
-		let userRepo = getRepository(User);
 		// check if username and password exist
-		let emailExists = await userRepo.findOne({
+		let emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
 
@@ -147,9 +152,8 @@ export class AuthService {
 	}
 
 	public async doesUsernameExist(request: RegisterRequest) {
-		let userRepo = getRepository(User);
 		// check if username and password exist
-		let usernameExists = await userRepo.findOne({
+		let usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
 		});
 
@@ -160,13 +164,12 @@ export class AuthService {
 
 	public async userRegistration(request: RegisterRequest): Promise<void> {
 		// if user name and password don't exist proceed
-		let unverifiedUserRepo = getRepository(UnverifiedUser);
-		let userRepo = getRepository(User);
+	
 
 		if (!(await this.doesEmailExist(request))) {
 			if (!(await this.doesUsernameExist(request))) {
 				// check if user did verify their number
-				let invitedUser = await unverifiedUserRepo.findOne({
+				let invitedUser = await this.unverifiedUserRepository.findOne({
 					where: { email: request.user_email },
 					relations: ['subjects', 'organisation']
 				});
@@ -205,7 +208,7 @@ export class AuthService {
 					}
 
 					try {
-						await userRepo.save(user)
+						await this.userRepository.save(user)
 					}
 					catch (err) {
 						throw new DatabaseError(
@@ -228,9 +231,8 @@ export class AuthService {
 	}
 
 	public async emailExists(request: RegisterRequest) {
-		let userRepo = getRepository(User);
 		//Check if user exists with specified username and email address
-		let emailExists = await userRepo.findOne({
+		let emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
 		if (emailExists == undefined) return true;
@@ -238,9 +240,8 @@ export class AuthService {
 		return false;
 	}
 	public async usernameExists(request: RegisterRequest) {
-		let userRepo = getRepository(User);
 
-		let usernameExists = await userRepo.findOne({
+		let usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
 		});
 		console.log(usernameExists);
@@ -250,14 +251,13 @@ export class AuthService {
 	}
 
 	public async firstAdminRegistration(request: RegisterRequest) {
-		let userRepo = getRepository(User);
 		let organisation: Organisation;
 		if (
 			!(await this.doesEmailExist(request)) &&
 			!(await this.doesUsernameExist(request))
 		) {
 			try {
-				let org = await getRepository(Organisation).findOne(
+				let org = await this.organisationRepository.findOne(
 					request.organisation_id
 				);
 				if (org) organisation = org;
@@ -280,7 +280,7 @@ export class AuthService {
 			user.educator = new Educator();
 			user.educator.admin = true;
 			user.organisation = organisation;
-			return userRepo
+			return this.userRepository
 				.save(user)
 				.then((result) => {
 					return;
