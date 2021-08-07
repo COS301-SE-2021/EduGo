@@ -62,6 +62,7 @@ const app = createExpressServer({
 	controllers: [
 		LessonController,
 		SubjectController,
+		AuthController, 
 	],
 	currentUserChecker: (action: Action) => action.request.user
 });
