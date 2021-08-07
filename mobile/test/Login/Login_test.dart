@@ -368,6 +368,8 @@ void _test_password_widget() {
 
     testWidgets('input field should be empty and return an error string',
         (WidgetTester tester) async {
+      //test the RequiredValidator
+
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
       //builds and renders the provided widget
@@ -388,29 +390,36 @@ void _test_password_widget() {
       expect(pswdErrorFinder, findsWidgets);
     });
     /*
+    LengthRangeValidator(min: 5, max: 5, errorText: "Invalid password"),
+    PatternValidator("[0-9]{5}",
+          errorText: "Invalid password"), //Digits only    
+    */
+
     testWidgets(
-        'should be invalid (missing the "@" AND ".com" symbol) and return an error string',
+        'should be invalid (smaller than 5 digits in length) and return an error string',
         (WidgetTester tester) async {
+      //test the LengthRangeValidator
+
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
       //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
-      // Enter 'Mihlali' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'Mihlali');
+      await tester.tap(passowrdInputFinder);
+      // Enter '1234' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '1234');
       // find error message
-      final emailErrorFinder = find.text('Invalid email address'); 
+      final pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid email error
-      expect(emailErrorFinder, findsOneWidget);
+      //test result: invalid password
+      expect(pswdErrorFinder, findsOneWidget);
     });
-
+/*
     testWidgets(
         'should be invalid (missing the "@") and return an error string',
         (WidgetTester tester) async {
