@@ -8,6 +8,7 @@ import { Action, createExpressServer, useContainer as rc_useContainer } from 'ro
 
 import { LessonController } from './api/controllers/lessonController';
 import { SubjectController } from './api/controllers/subjectController';
+import { AuthController } from './api/controllers/authController';
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);

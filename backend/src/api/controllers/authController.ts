@@ -21,13 +21,12 @@ export class AuthController {
 	}
 
 	@Post("/register")
-	Register(@Body({required:true})body:RegisterRequest){
-		return this.service.register(body)
+	Register(@Body({ required: true }) body: RegisterRequest) {
+		return this.service.register(body);
 	}
 
 	@Post("/verifyInvitation")
-	VerifyInvitation(@Body({required:true})body:VerifyInvitationRequest){
-		return this.service.verifyInvitation(body)
-
+	VerifyInvitation(@Body({ required: true }) body: VerifyInvitationRequest) {
+		return this.service.verifyInvitation(body);
 	}
 }
