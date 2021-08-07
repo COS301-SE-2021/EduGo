@@ -107,6 +107,28 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
+    Widget login_button_widget = //Next button that leads to Registration Page
+        Padding(
+      key: Key('login_button'),
+      padding: const EdgeInsets.only(top: 50),
+      child: MaterialButton(
+        onPressed: () => null, //TODO _submitForm(),
+        height: 60,
+        color: Colors.black,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(
+                "Login",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+            Icon(Icons.login_outlined, color: Colors.white),
+          ],
+        ),
+      ),
+    );
+
     Widget child = Scaffold(
         body: Form(
             key: _loginFormkey,
@@ -132,6 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                               login_registration_heading,
                               email_input_widget,
                               password_input_widget,
+                              login_button_widget,
                             ],
                           ))))
             ])));

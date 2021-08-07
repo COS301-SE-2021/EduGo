@@ -620,6 +620,22 @@ void _test_login_button_widget() {
   //TODO test tap
   //TODO test submit form function
   //TODO test clear input function
+
+  group('Login Button', () {
+    testWidgets('initiates and renders successfully.',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find email input
+      final loginButtonFinder = find.byKey(Key('login_button'));
+      //test result
+      expect(loginButtonFinder, findsOneWidget);
+    });
+  });
 }
 ////////////////////////////////////////////////////////////////////////////////
 
