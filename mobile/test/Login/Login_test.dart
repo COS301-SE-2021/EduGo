@@ -453,6 +453,43 @@ void _test_password_widget() {
       //test result: invalid password as the text in the textfield is now "1234"
       expect(pswdErrorFinder, findsOneWidget);
     });
+
+    testWidgets(
+        'should be invalid (more than 5 digits in length) and return an error string',
+        (WidgetTester tester) async {
+      //test the LengthRangeValidator
+
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '123456' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '123456');
+      // find error message
+      var pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now "123456"
+      expect(pswdErrorFinder, findsOneWidget);
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '10000000000000000' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '10000000000000000');
+      // find error message
+      pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now "10000000000000000"
+      expect(pswdErrorFinder, findsOneWidget);
+    });
 /*
     testWidgets(
         'should be invalid (missing the "@") and return an error string',
