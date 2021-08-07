@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 13
+//TOTAL NUMBER OF TESTS: 10
 void main() {
   _widget_tests();
 
@@ -150,12 +150,13 @@ void _test_email_widget() {
       final emailInputFinder = find.byKey(Key('login_email'));
       // retrieve TextField Widget from Finder
       TextFormField emailTextField = tester.widget(emailInputFinder);
-      // test result: confirm TextField is empty
-      expect(emailTextField.controller!.text, equals(""));
       // find error message
       final emailErrorFinder = find.text('* Required');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
+      // test result: confirm TextField is empty
+      expect(emailTextField.controller!.text, equals(""));
+
       //test result: invalid email error
       expect(emailErrorFinder, findsOneWidget);
     });
@@ -277,18 +278,210 @@ void _test_email_widget() {
 
 //TODO implement
 void _test_password_widget() {
-  group('Email', () {
-    testWidgets(
-        'input text form field successfully responds to user interaction: re-entering text',
+  group('Password', () {
+    testWidgets('input field renders successfully.',
         (WidgetTester tester) async {
-      //TODO implement integration test version of this unit test: https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find email input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
+      //test result
+      expect(passowrdInputFinder, findsOneWidget);
+    });
+/*
+    testWidgets('input field should be empty.', (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      // retrieve TextField Widget from Finder
+      TextFormField emailTextField = tester.widget(emailInputFinder);
+      // test result: confirm TextField is empty
+      expect(emailTextField.controller!.text, equals(""));
+    });
+//TODO when tap node should focus: https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/text_field_focus_test.dart
+    testWidgets(
+        'input text form field successfully responds to user interaction: entering text', //is successfully entered into the input text form filed
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali');
     });
 
-    testWidgets('re-entered in the text form field is displayed successfully',
+    testWidgets(' entered in the text form field is displayed successfully',
         (WidgetTester tester) async {
-      //TODO implement integration test version of this unit test: https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali');
+      // retrieve TextField Widget from Finder
+      TextFormField emailTextField = tester.widget(emailInputFinder);
+      // test result: confirm TextField is empty
+      expect(emailTextField.controller!.text, equals("Mihlali"));
     });
-  }); //group email
+
+    testWidgets('input field should be empty and return an error string',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      // retrieve TextField Widget from Finder
+      TextFormField emailTextField = tester.widget(emailInputFinder);
+      // find error message
+      final emailErrorFinder = find.text('* Required');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      // test result: confirm TextField is empty
+      expect(emailTextField.controller!.text, equals(""));
+
+      //test result: invalid email error
+      expect(emailErrorFinder, findsOneWidget);
+    });
+    testWidgets(
+        'should be invalid (missing the "@" AND ".com" symbol) and return an error string',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali');
+      // find error message
+      final emailErrorFinder = find.text('Invalid email address'); 
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid email error
+      expect(emailErrorFinder, findsOneWidget);
+    });
+
+    testWidgets(
+        'should be invalid (missing the "@") and return an error string',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali"gmail.com');
+      // find error message
+      final emailErrorFinder = find.text('Invalid email address'); 
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid email error
+      expect(emailErrorFinder, findsOneWidget);
+    });
+
+    testWidgets(
+        'should be invalid (missing "com" of the ".com" symbol) and return an error string',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali@gmail.');
+      // find error message
+      final emailErrorFinder = find.text('Invalid email address');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid email error
+      expect(emailErrorFinder, findsOneWidget);
+    });
+
+    testWidgets(
+        'should be invalid (missing "com" of the ".com" symbol) and return an error string',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'Mihlali@gmail_com');
+      // find error message
+      final emailErrorFinder = find.text('Invalid email address'); 
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid email error
+      expect(emailErrorFinder, findsOneWidget);
+    });
+
+    testWidgets(
+        'should be autovalidated as it is typed into input text form field',
+        (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find email input
+      final emailInputFinder = find.byKey(Key('login_email'));
+      //Aquire focus in the TextFormField
+      await tester.tap(emailInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(emailInputFinder, 'M');
+      // retrieve TextField Widget from Finder
+      TextFormField emailTextField = tester.widget(emailInputFinder);
+      //TODO maybe loop through all characters?
+      // test result: confirm auto validation with each character inputted
+      expect(emailTextField.autovalidateMode.index, 1);
+    });
+    */
+  }); //group password
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -316,5 +509,20 @@ void _connection_to_driver() {
   */
 }
 
-void _test_email_integration() {}
+void _test_email_integration() {
+  /*
+  group('Email', () {
+    testWidgets(
+        'input text form field successfully responds to user interaction: re-entering text',
+        (WidgetTester tester) async {
+      //TODO implement integration test version of this unit test: https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
+    });
+
+    testWidgets('re-entered in the text form field is displayed successfully',
+        (WidgetTester tester) async {
+      //TODO implement integration test version of this unit test: https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
+    });
+  }); 
+  */
+}
 ////////////////////////////////////////////////////////////////////////////////

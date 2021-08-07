@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       //password input field
       child: TextFormField(
-        key: Key('password_input_field'),
+        key: Key('login_password'),
         //Controller is notified when the text changes
         controller: password_text_controller,
         //Control when the auto validation should happen
