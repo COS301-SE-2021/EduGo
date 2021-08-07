@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
     Widget child = Scaffold(
         body: Form(
             key: _loginFormkey,
-            child: Stack(children: <Widget>[
+            child: Stack(key: Key('login_form'), children: <Widget>[
               Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,

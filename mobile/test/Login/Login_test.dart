@@ -40,7 +40,28 @@ void _integration_tests() {
 
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
 void _test_form_widget() {
-  //2 tests
+  //1 test
+  group('Form', () {
+    //1 test
+    testWidgets('should initialise and render successfully.',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find all input fields
+      final formFinder = find.byKey(Key('login_form'));
+      //test result: finds both
+      expect(formFinder, findsOneWidget);
+    });
+  });
+}
+
+void _test_text_widget() {
+  //2 test
+
   group('Text Form Field inputs ', () {
     testWidgets('should both be empty and return an error string',
         (WidgetTester tester) async {
@@ -71,29 +92,6 @@ void _test_form_widget() {
       expect(textInputFinder, findsNWidgets(2));
     });
   }); //group
-}
-
-//TODO implement
-void _test_text_widget() {
-  group('Text', () {
-    testWidgets('initialises and renders successfully',
-        (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
-      final widget = momentum();
-      //builds and renders the provided widget
-      await tester.pumpWidget(widget);
-      //repeatedly triggers a rebuild of the widget when the state changes.
-      await tester.pumpAndSettle();
-
-      //find page title "User Registration"
-      final userHeadingFinder = find.byKey(Key('login_registration_heading'));
-      final registrationHeadingFinder = find.byKey(Key('login_user_heading'));
-
-      //test results
-      expect(userHeadingFinder, findsOneWidget);
-      expect(registrationHeadingFinder, findsOneWidget);
-    });
-  });
 }
 
 void _test_email_widget() {
