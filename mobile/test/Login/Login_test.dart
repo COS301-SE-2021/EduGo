@@ -39,10 +39,25 @@ void _integration_tests() {
 }
 
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
-//TODO implement
 void _test_form_widget() {
-  group('All Text Form Field inputs ', () {
-    testWidgets('should be empty and return an error string',
+  //2 tests
+  group('Text Form Field inputs ', () {
+    testWidgets('should both be empty and return an error string',
+        (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find error message
+      final textErrorFinder = find.text('* Required');
+      //test result: invalid email error
+      expect(textErrorFinder, findsNWidgets(2));
+      //TODO check that it's empty
+    });
+
+    testWidgets('should both render successfully.',
         (WidgetTester tester) async {
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -52,16 +67,8 @@ void _test_form_widget() {
       await tester.pumpAndSettle();
       // find all input fields
       final textInputFinder = find.byType(TextFormField);
-      // retrieve TextField Widget from Finder
-      TextFormField textFormField = tester.widget(textInputFinder);
-      // find error message
-      final emailErrorFinder = find.text('* Required');
-      // add delay
-      await tester.pump(const Duration(milliseconds: 100));
-      // test result: confirm TextField is empty
-      expect(textFormField.controller!.text, equals(""));
-      //test result: invalid email error
-      expect(emailErrorFinder, findsNWidgets(2));
+      //test result: finds both
+      expect(textInputFinder, findsNWidgets(2));
     });
   }); //group
 }
