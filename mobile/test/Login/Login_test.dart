@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
+//TODO update tests to remove email
 //TOTAL NUMBER OF TESTS: 33
 void main() {
   _widget_tests();
@@ -55,6 +56,20 @@ void _test_form_widget() {
       final formFinder = find.byKey(Key('login_form'));
       //test result: finds both
       expect(formFinder, findsOneWidget);
+    });
+
+    testWidgets('input fields should initialise and render successfully.',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find all input fields
+      final fieldFinder = find.byType(TextFormField);
+      //test result: finds both
+      expect(fieldFinder, findsNWidgets(2));
     });
   });
 }
