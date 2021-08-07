@@ -41,14 +41,17 @@ export class AuthService {
 
 		return this.userRegistration(request);
 	}
+
 /**
- * @description
+ * @description This endpoint allows for login in and returns a the JWT token 
+ * 1. Check if user with given username exists 
+ * 2. Validate the password entered 
+ * 3. Issue the JWT Token 
  * @param {LoginRequest} request
- * @returns {*} 
+ * @returns {Promise<LoginResponse>}
  * @memberof AuthService
  */
 public async login(request: LoginRequest) :Promise<LoginResponse>{
-		// Find user with given Username
 		return this.userRepository
 			.findOne({ where: { username: request.username } })
 			.then((user) => {
@@ -58,7 +61,6 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 					);
 				}
 
-				// validate password of user
 				let isValid = validPassword(
 					request.password,
 					user.hash,
@@ -66,7 +68,6 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 				);
 
 				if (isValid) {
-					// issue jwt token for the user
 
 					 let response:LoginResponse ={ token: issueJWT(user).token };
 					return response
@@ -88,10 +89,10 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 	 * 3. Check if user verification code is valid
 	 * 4. Set user as verified
 	 * @param {VerifyInvitationRequest} request
-	 * @returns {*}
+	 * @returns {Promise<void>}
 	 * @memberof AuthService
 	 */
-	public async verifyInvitation(request: VerifyInvitationRequest) {
+	public async verifyInvitation(request: VerifyInvitationRequest) : Promise<void>{
 		let existingUser = await this.userRepository.findOne({
 			where: { email: request.email },
 		});
@@ -129,8 +130,13 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 			);
 		}
 	}
-
-	public async setUserToverified(user_id: number) {
+/**
+ * @description This function is a helper function to set the user to a verified user 
+ * @param {number} user_id
+ * @returns {*} 
+ * @memberof AuthService
+ */
+public async setUserToverified(user_id: number) {
 		try {
 			await this.unverifiedUserRepository
 				.createQueryBuilder()
@@ -143,9 +149,13 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 		}
 		return true;
 	}
-
-	public async doesEmailExist(request: RegisterRequest) {
-		// check if username and password exist
+/**
+ * @description Helper function to check if given email exists 
+ * @param {RegisterRequest} request
+ * @returns {*} 
+ * @memberof AuthService
+ */
+public async doesEmailExist(request: RegisterRequest) {
 		let emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
@@ -154,8 +164,13 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 
 		return false;
 	}
-
-	public async doesUsernameExist(request: RegisterRequest) {
+/**
+ * @description Helper function to check if Username exists 
+ * @param {RegisterRequest} request
+ * @returns {*} 
+ * @memberof AuthService
+ */
+public async doesUsernameExist(request: RegisterRequest) {
 		// check if username and password exist
 		let usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
@@ -165,8 +180,18 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 
 		return false;
 	}
-
-	public async userRegistration(request: RegisterRequest): Promise<void> {
+/**
+ * @description This function is for educators and student registration 
+ * 1. Check if email and username exists 
+ * 2. check if the user has been invited to an organisation 
+ * 3. set the user details 
+ * 4. add subjects that user was invited to their relation
+ * 4. Remove user from invited list 
+ * @param {RegisterRequest} request
+ * @returns  {Promise<void>}
+ * @memberof AuthService
+ */
+public async userRegistration(request: RegisterRequest): Promise<void> {
 		// if user name and password don't exist proceed
 
 		if (!(await this.doesEmailExist(request))) {
@@ -196,10 +221,7 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 					user.salt = saltHAsh.salt;
 					user.hash = saltHAsh.hash;
 					user.organisation = org;
-
-					//TODO Test if this works
-					// add subjects that user was invited to their relation
-					if (request.userType == userType.student) {
+					if (invitedUser.type == userType.student) {
 						user.student = new Student();
 
 						for (let index of invitedUser.subjects) {
@@ -231,9 +253,14 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 			} else throw new Error400("Username already exists");
 		} else throw new Error400("Email already exists");
 	}
-
-	public async emailExists(request: RegisterRequest) {
-		//Check if user exists with specified username and email address
+/**
+ * @description helper function to Check if user exists with specified email address
+ * @param {RegisterRequest} request
+ * @returns  {Promise<Boolean>}
+ * @memberof AuthService
+ */
+public async emailExists(request: RegisterRequest): Promise<Boolean> {
+		
 		let emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
@@ -241,17 +268,31 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 
 		return false;
 	}
-	public async usernameExists(request: RegisterRequest) {
+	/**
+	 * @description Helper function to Check if user exists with specified email address
+	 * @param {RegisterRequest} request
+	 * @returns  {Promise<Boolean>}
+	 * @memberof AuthService
+	 */
+	public async usernameExists(request: RegisterRequest) : Promise<Boolean>{
 		let usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
 		});
-		console.log(usernameExists);
 		if (usernameExists == undefined) return true;
 
 		return false;
 	}
-
-	public async firstAdminRegistration(request: RegisterRequest) {
+/**
+ * @description The purpose of this function is to register the first admin user of an organisation 
+ * Check if username and email exists 
+ * Check if organisationid givin exists 
+ * Set user details 
+ * 
+ * @param {RegisterRequest} request
+ * @returns   {Promise<void>}
+ * @memberof AuthService
+ */
+public async firstAdminRegistration(request: RegisterRequest): Promise<void> {
 		let organisation: Organisation;
 		if (
 			!(await this.doesEmailExist(request)) &&
@@ -290,7 +331,7 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 					throw new DatabaseError("User unable to be saved to DB");
 				});
 		} else {
-			return new Error400("username and email already exist");
+			throw new Error400("username and email already exist");
 		}
 	}
 }
