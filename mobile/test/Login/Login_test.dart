@@ -172,6 +172,26 @@ void _test_username_widget() {
       // Enter 'Mihlali' into the TextFormField.
       await tester.enterText(usernameInputFinder, 'Mihlali');
     });
+
+    testWidgets(' entered in the text form field is displayed successfully',
+        (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find username input
+      final usernameInputFinder = find.byKey(Key('login_username'));
+      //Aquire focus in the TextFormField
+      await tester.tap(usernameInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(usernameInputFinder, 'Mihlali');
+      // retrieve TextField Widget from Finder
+      TextFormField usernameTextField = tester.widget(usernameInputFinder);
+      // test result: confirm TextField is empty
+      expect(usernameTextField.controller!.text, equals("Mihlali"));
+    });
   });
 }
 
