@@ -25,11 +25,6 @@ import { Student } from "../database/Student";
 export class StudentService {
 	@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
 	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(Organisation)
-	private organisationRepository: Repository<Organisation>;
-	@InjectRepository(Educator)
-	private educatorRepository: Repository<Educator>;
-	@InjectRepository(Student) private studentRepository: Repository<Student>;
 	@InjectRepository(UnverifiedUser)
 	private unverifiedUserRepository: Repository<UnverifiedUser>;
 
