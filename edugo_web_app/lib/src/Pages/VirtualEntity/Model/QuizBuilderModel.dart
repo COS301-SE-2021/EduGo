@@ -17,9 +17,12 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
     List<QuestionObject> tempQuestions = questions;
     tempQuestions[id].type = questionType;
     tempQuestions[id].options.clear();
+    tempQuestions[id].correctAnswer = "";
     if (questionType == "True or False") {
       tempQuestions[id].options.add("True");
       tempQuestions[id].options.add("False");
+      tempQuestions[id].type = "True or False";
+      tempQuestions[id].correctAnswer = "True";
     }
     update(questions: tempQuestions);
   }
@@ -28,17 +31,16 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
     if (optionValue != null && optionValue != "") {
       List<QuestionObject> tempQuestions = questions;
       tempQuestions[questionId].options.add(optionValue);
-      tempQuestions[questionId].currentOptionInput = "";
+      tempQuestions[questionId].correctAnswer =
+          tempQuestions[questionId].options.elementAt(0);
       update(questions: tempQuestions);
-      getOptionsView(questionId);
     }
   }
 
   void editOption({int questionId, String optionValue}) {
     List<QuestionObject> tempQuestions = questions;
     tempQuestions[questionId].currentOptionInput = optionValue;
-    if (optionValue == null || optionValue == "")
-      tempQuestions[questionId].currentOptionInput = "Enter answer option...";
+    if (optionValue == null || optionValue == "") return;
     update(questions: tempQuestions);
     getOptionsView(questionId);
   }
@@ -46,8 +48,10 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
   void newQuestion() {
     List<QuestionObject> tempQuestions = questions;
     tempQuestions.add(new QuestionObject());
+    tempQuestions[tempQuestions.length - 1].type = "True or False";
     tempQuestions[tempQuestions.length - 1].options.add("True");
     tempQuestions[tempQuestions.length - 1].options.add("False");
+    tempQuestions[tempQuestions.length - 1].correctAnswer = "True";
     update(questions: tempQuestions);
     getQuizBuilderView();
   }
@@ -110,14 +114,23 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
 
   String getQuizBuilderResult() {
     List<String> quizBuilderResult = [];
-    questions.forEach(
-      (question) {
-        quizBuilderResult.add(
-          question.questionToString(),
-        );
-      },
-    );
-    return quizBuilderResult.toString();
+    String retString;
+    if (questions.isNotEmpty) {
+      questions.forEach(
+        (question) {
+          if (question.questionToString() != "Quiz is not valid") {
+            quizBuilderResult.add(
+              question.questionToString(),
+            );
+          } else
+            retString = "Quiz is not valid";
+          return retString;
+        },
+      );
+      if (retString == "Quiz is not valid") return retString;
+      return '{"questions:"' + quizBuilderResult.toString() + "}";
+    } else
+      return "Quiz is not valid";
   }
 
   List<Widget> getQuizBuilderView() {

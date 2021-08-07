@@ -22,8 +22,8 @@ class QuizBuilderController extends MomentumController<QuizBuilderModel> {
     return Column(children: model.getOptionsView(questionId));
   }
 
-  void inputQuestion(String question, int id) {
-    model.setQuestion(question, id);
+  void inputQuestion({String question, int questionId}) {
+    model.setQuestion(question, questionId);
   }
 
   void newQuestion() {

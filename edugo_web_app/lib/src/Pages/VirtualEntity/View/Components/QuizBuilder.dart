@@ -58,8 +58,11 @@ class QuizBuilder extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    print(Momentum.controller<QuizBuilderController>(context)
-                        .getQuizBuilderResult());
+                    if (Momentum.controller<QuizBuilderController>(context)
+                            .getQuizBuilderResult() !=
+                        "Quiz is not valid") {
+                      MomentumRouter.goto(context, EducatorVirtualEntitiesView);
+                    }
                   },
                   width: 450,
                   height: 65),

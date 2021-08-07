@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/QuestionInputCard.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/QuestionOptionInputCard.dart';
 
 class QuestionCard extends StatelessWidget {
@@ -6,6 +7,7 @@ class QuestionCard extends StatelessWidget {
   final String question;
   final String questionType;
   final List<String> questionOptions;
+
   const QuestionCard(
       {Key key,
       this.questionId,
@@ -81,20 +83,7 @@ class QuestionCard extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
-                Material(
-                  elevation: 40,
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: 1000,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    child: VirtualEntityInputBox(
-                      text: "Question...",
-                      onChanged:
-                          Momentum.controller<QuizBuilderController>(context)
-                              .inputQuestion,
-                    ),
-                  ),
-                ),
+                QuestionInputCard(questionId: questionId),
                 SizedBox(
                   height: 40,
                 ),
