@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TODO update tests to remove email
+//TODO update tests to remove username
 //TOTAL NUMBER OF TESTS: 33
 void main() {
   _widget_tests();
@@ -37,7 +37,7 @@ void _integration_tests() {
   //user interaction test: https://flutter.dev/docs/cookbook/testing/widget/tap-drag
   //flutter driver (more complex integretion testing): https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
   //_connection_to_driver();
-  //_test_email_integration();
+  //_test_username_integration();
 }
 
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
@@ -91,7 +91,7 @@ void _test_text_widget() {
       final textErrorFinder = find.text('* Required');
       //test result: empty text form fields
       expect(textFinder, findsNWidgets(2));
-      //test result: invalid email error
+      //test result: invalid username error
       expect(textErrorFinder, findsNWidgets(2));
     });
 
@@ -111,7 +111,39 @@ void _test_text_widget() {
   }); //group
 }
 
-void _test_username_widget() {}
+void _test_username_widget() {
+  group('Username', () {
+    testWidgets('input field renders successfully.',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find username input field
+      final usernameInputFinder = find.byKey(Key('login_username'));
+      //test result
+      expect(usernameInputFinder, findsOneWidget);
+    });
+
+    testWidgets('input field renders successfully with hint text.',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find username input field
+      final usernameInputFinder = find.byKey(Key('login_username'));
+      //find username input field
+      final usernameTextFinder = find.text('Username');
+      //test result
+      expect(usernameTextFinder, findsOneWidget);
+    });
+  });
+}
 
 void _test_password_widget() {
   group('Password', () {
@@ -201,7 +233,7 @@ void _test_password_widget() {
       await tester.pump(const Duration(milliseconds: 100));
       // test result: confirm TextField is empty
       expect(pswdTextField.controller!.text, equals(""));
-      //test result: invalid email error
+      //test result: invalid username error
       expect(pswdErrorFinder, findsWidgets);
     });
 
@@ -445,7 +477,7 @@ void _test_login_button_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      //find email input
+      //find username input
       final loginButtonFinder = find.byKey(Key('login_button'));
       //test result
       expect(loginButtonFinder, findsOneWidget);
@@ -469,7 +501,7 @@ void _test_login_button_widget() {
     });
 
     testWidgets(
-        'successfully responds to user interaction (tap button) but fails to navigate to next page (only email form field was incorrectly filled, password left empty) and returns error strings.',
+        'successfully responds to user interaction (tap button) but fails to navigate to next page (only username form field was incorrectly filled, password left empty) and returns error strings.',
         (WidgetTester tester) async {
       // returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -479,26 +511,26 @@ void _test_login_button_widget() {
       await tester.pumpAndSettle();
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      // find username input
+      final usernameInputFinder = find.byKey(Key('login_username'));
       //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
-      // Enter 'invalid email' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'invalid email');
+      await tester.tap(usernameInputFinder);
+      // Enter 'invalid username' into the TextFormField.
+      await tester.enterText(usernameInputFinder, 'invalid username');
       // find error message
-      final emailErrorFinder = find.text('Invalid email address');
+      final usernameErrorFinder = find.text('Invalid username address');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
       // find error message
       final pswdErrorFinder = find.text('* Required');
-      // Expect to find 1 error message for invalid email
-      expect(emailErrorFinder, findsOneWidget);
+      // Expect to find 1 error message for invalid username
+      expect(usernameErrorFinder, findsOneWidget);
       // Expect to find 1 error message for empty password input field
       expect(pswdErrorFinder, findsOneWidget);
     });
 
     testWidgets(
-        'successfully responds to user interaction (tap button) but fails to navigate to next page (only password form field was incorrectly filled, email left empty) and returns error strings.',
+        'successfully responds to user interaction (tap button) but fails to navigate to next page (only password form field was incorrectly filled, username left empty) and returns error strings.',
         (WidgetTester tester) async {
       // returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -519,9 +551,9 @@ void _test_login_button_widget() {
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
       // find error message
-      final emailErrorFinder = find.text('* Required');
-      // Expect to find 1 error message for empty email input field
-      expect(emailErrorFinder, findsOneWidget);
+      final usernameErrorFinder = find.text('* Required');
+      // Expect to find 1 error message for empty username input field
+      expect(usernameErrorFinder, findsOneWidget);
       // Expect to find 1 error message for invalid password
       expect(pswdErrorFinder, findsOneWidget);
     });
@@ -537,14 +569,14 @@ void _test_login_button_widget() {
       await tester.pumpAndSettle();
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      // find username input
+      final usernameInputFinder = find.byKey(Key('login_username'));
       //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
-      // Enter 'invalid email' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'invalid email');
+      await tester.tap(usernameInputFinder);
+      // Enter 'invalid username' into the TextFormField.
+      await tester.enterText(usernameInputFinder, 'invalid username');
       // find error message
-      final emailErrorFinder = find.text('Invalid email address');
+      final usernameErrorFinder = find.text('Invalid username address');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
       //find password input
@@ -557,8 +589,8 @@ void _test_login_button_widget() {
       final pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      // Expect to find 1 error message for invalid email
-      expect(emailErrorFinder, findsOneWidget);
+      // Expect to find 1 error message for invalid username
+      expect(usernameErrorFinder, findsOneWidget);
       // Expect to find 1 error message for invalid password
       expect(pswdErrorFinder, findsOneWidget);
     });
@@ -574,14 +606,14 @@ void _test_login_button_widget() {
       await tester.pumpAndSettle();
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      // find username input
+      final usernameInputFinder = find.byKey(Key('login_username'));
       //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
+      await tester.tap(usernameInputFinder);
       // Enter 'Sime' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'invalid email');
+      await tester.enterText(usernameInputFinder, 'invalid username');
       // find error message
-      final emailErrorFinder = find.text('Invalid email address');
+      final usernameErrorFinder = find.text('Invalid username address');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
       //find password input
@@ -594,8 +626,8 @@ void _test_login_button_widget() {
       final pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      // Expect to find 1 error message for invalid email
-      expect(emailErrorFinder, findsOneWidget);
+      // Expect to find 1 error message for invalid username
+      expect(usernameErrorFinder, findsOneWidget);
       // Expect to find 1 error message for invalid password
       expect(pswdErrorFinder, findsOneWidget);
     });
@@ -627,9 +659,9 @@ void _connection_to_driver() {
   */
 }
 
-void _test_email_integration() {
+void _test_username_integration() {
   /*
-  group('Email', () {
+  group('username', () {
     testWidgets(
         'input text form field successfully responds to user interaction: re-entering text',
         (WidgetTester tester) async {

@@ -17,13 +17,13 @@ class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> _loginFormkey = GlobalKey<FormState>();
 
   // Text controllers used to retrieve the current value of the input fields
-  final email_text_controller = TextEditingController();
+  final username_text_controller = TextEditingController();
   final password_text_controller = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controllers when the widget is disposed.
-    email_text_controller.dispose();
+    username_text_controller.dispose();
     password_text_controller.dispose();
     super.dispose();
   }
@@ -50,30 +50,30 @@ class _LoginPageState extends State<LoginPage> {
           fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
     );
 
-    Widget email_input_widget = Padding(
+    Widget username_input_widget = Padding(
       padding: const EdgeInsets.only(
         top: 100,
         left: 20,
         right: 20,
       ),
-      //Email input field
+      //username input field
       child: new TextFormField(
-        key: Key('login_email'),
+        key: Key('login_username'),
         //Controller is notified when the text changes
-        controller: email_text_controller,
+        controller: username_text_controller,
         //Control when the auto validation should happen
         autovalidateMode: AutovalidateMode.always,
-        //Email is required and must be valid
+        //username is required
         validator: MultiValidator([
           RequiredValidator(errorText: "* Required"),
-          EmailValidator(errorText: "Invalid email address"),
         ]),
+        //TODO update accoriding to what Sthe says for username validation
         //type of keyboard to use for editing the text.
-        keyboardType: TextInputType.emailAddress,
+        //keyboardType: TextInputType.name,
         //Input field UI
         style: TextStyle(),
         decoration:
-            InputDecoration(border: OutlineInputBorder(), hintText: "Email"),
+            InputDecoration(border: OutlineInputBorder(), hintText: "Username"),
       ),
     );
 
@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               login_user_heading,
                               login_registration_heading,
-                              email_input_widget,
+                              username_input_widget,
                               password_input_widget,
                               login_button_widget,
                             ],
