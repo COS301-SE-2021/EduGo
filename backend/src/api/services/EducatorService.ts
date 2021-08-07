@@ -125,7 +125,7 @@ export class EducatorService {
 	/**
 	 * @param {string[]} emails - An array of emails of unverified educators
 	 * @throws {EmailError} Not all of the emails could be sent
-	 * @description Will receive the already categorised unverified email addresses and:
+	 * @description Will receive the already categorized unverified email addresses and:
 	 * 1. Find all the UnverifiedUser objects for each email
 	 * 2. Create VerificationEmail objects from each UnverifiedUser
 	 * 3. Send the emails by invoking the SendBulkVerificationReminderEmails function from the email service

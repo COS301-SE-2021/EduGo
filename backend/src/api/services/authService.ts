@@ -25,33 +25,30 @@ export class AuthService {
 	private organisationRepository: Repository<Organisation>;
 	/**
 	 * @description This function allows for a user to register onto the platform
-	 * 1. If User Type is the first admin for an organisation firstAdminRegistration will be used 
-	 * 2. If the user type is a student or an educator then userRegistration will be used 
+	 * 1. If User Type is the first admin for an organisation firstAdminRegistration will be used
+	 * 2. If the user type is a student or an educator then userRegistration will be used
 	 * @param {RegisterRequest} request
 	 * @returns {*}
 	 * @memberof AuthService
 	 */
 	public async register(request: RegisterRequest) {
 		if (request.userType == userType.firstAdmin) {
-			// registering the first admin for an organization
 			return this.firstAdminRegistration(request);
 		}
-
-		// educator or student registration
 
 		return this.userRegistration(request);
 	}
 
-/**
- * @description This endpoint allows for login in and returns a the JWT token 
- * 1. Check if user with given username exists 
- * 2. Validate the password entered 
- * 3. Issue the JWT Token 
- * @param {LoginRequest} request
- * @returns {Promise<LoginResponse>}
- * @memberof AuthService
- */
-public async login(request: LoginRequest) :Promise<LoginResponse>{
+	/**
+	 * @description This endpoint allows for login in and returns a the JWT token
+	 * 1. Check if user with given username exists
+	 * 2. Validate the password entered
+	 * 3. Issue the JWT Token
+	 * @param {LoginRequest} request
+	 * @returns {Promise<LoginResponse>}
+	 * @memberof AuthService
+	 */
+	public async login(request: LoginRequest): Promise<LoginResponse> {
 		return this.userRepository
 			.findOne({ where: { username: request.username } })
 			.then((user) => {
@@ -68,9 +65,10 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 				);
 
 				if (isValid) {
-
-					 let response:LoginResponse ={ token: issueJWT(user).token };
-					return response
+					let response: LoginResponse = {
+						token: issueJWT(user).token,
+					};
+					return response;
 				} else {
 					throw new Error400("Incorrect Password");
 				}
@@ -92,7 +90,9 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 	 * @returns {Promise<void>}
 	 * @memberof AuthService
 	 */
-	public async verifyInvitation(request: VerifyInvitationRequest) : Promise<void>{
+	public async verifyInvitation(
+		request: VerifyInvitationRequest
+	): Promise<void> {
 		let existingUser = await this.userRepository.findOne({
 			where: { email: request.email },
 		});
@@ -130,13 +130,13 @@ public async login(request: LoginRequest) :Promise<LoginResponse>{
 			);
 		}
 	}
-/**
- * @description This function is a helper function to set the user to a verified user 
- * @param {number} user_id
- * @returns {*} 
- * @memberof AuthService
- */
-public async setUserToverified(user_id: number) {
+	/**
+	 * @description This function is a helper function to set the user to a verified user
+	 * @param {number} user_id
+	 * @returns {*}
+	 * @memberof AuthService
+	 */
+	public async setUserToverified(user_id: number) {
 		try {
 			await this.unverifiedUserRepository
 				.createQueryBuilder()
@@ -149,13 +149,13 @@ public async setUserToverified(user_id: number) {
 		}
 		return true;
 	}
-/**
- * @description Helper function to check if given email exists 
- * @param {RegisterRequest} request
- * @returns {*} 
- * @memberof AuthService
- */
-public async doesEmailExist(request: RegisterRequest) {
+	/**
+	 * @description Helper function to check if given email exists
+	 * @param {RegisterRequest} request
+	 * @returns {*}
+	 * @memberof AuthService
+	 */
+	public async doesEmailExist(request: RegisterRequest) {
 		let emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
@@ -164,13 +164,13 @@ public async doesEmailExist(request: RegisterRequest) {
 
 		return false;
 	}
-/**
- * @description Helper function to check if Username exists 
- * @param {RegisterRequest} request
- * @returns {*} 
- * @memberof AuthService
- */
-public async doesUsernameExist(request: RegisterRequest) {
+	/**
+	 * @description Helper function to check if Username exists
+	 * @param {RegisterRequest} request
+	 * @returns {*}
+	 * @memberof AuthService
+	 */
+	public async doesUsernameExist(request: RegisterRequest) {
 		// check if username and password exist
 		let usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
@@ -180,18 +180,18 @@ public async doesUsernameExist(request: RegisterRequest) {
 
 		return false;
 	}
-/**
- * @description This function is for educators and student registration 
- * 1. Check if email and username exists 
- * 2. check if the user has been invited to an organisation 
- * 3. set the user details 
- * 4. add subjects that user was invited to their relation
- * 4. Remove user from invited list 
- * @param {RegisterRequest} request
- * @returns  {Promise<void>}
- * @memberof AuthService
- */
-public async userRegistration(request: RegisterRequest): Promise<void> {
+	/**
+	 * @description This function is for educators and student registration
+	 * 1. Check if email and username exists
+	 * 2. check if the user has been invited to an organisation
+	 * 3. set the user details
+	 * 4. add subjects that user was invited to their relation
+	 * 4. Remove user from invited list
+	 * @param {RegisterRequest} request
+	 * @returns  {Promise<void>}
+	 * @memberof AuthService
+	 */
+	public async userRegistration(request: RegisterRequest): Promise<void> {
 		// if user name and password don't exist proceed
 
 		if (!(await this.doesEmailExist(request))) {
@@ -253,14 +253,13 @@ public async userRegistration(request: RegisterRequest): Promise<void> {
 			} else throw new Error400("Username already exists");
 		} else throw new Error400("Email already exists");
 	}
-/**
- * @description helper function to Check if user exists with specified email address
- * @param {RegisterRequest} request
- * @returns  {Promise<Boolean>}
- * @memberof AuthService
- */
-public async emailExists(request: RegisterRequest): Promise<Boolean> {
-		
+	/**
+	 * @description helper function to Check if user exists with specified email address
+	 * @param {RegisterRequest} request
+	 * @returns  {Promise<Boolean>}
+	 * @memberof AuthService
+	 */
+	public async emailExists(request: RegisterRequest): Promise<Boolean> {
 		let emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
@@ -274,7 +273,7 @@ public async emailExists(request: RegisterRequest): Promise<Boolean> {
 	 * @returns  {Promise<Boolean>}
 	 * @memberof AuthService
 	 */
-	public async usernameExists(request: RegisterRequest) : Promise<Boolean>{
+	public async usernameExists(request: RegisterRequest): Promise<Boolean> {
 		let usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
 		});
@@ -282,17 +281,19 @@ public async emailExists(request: RegisterRequest): Promise<Boolean> {
 
 		return false;
 	}
-/**
- * @description The purpose of this function is to register the first admin user of an organisation 
- * Check if username and email exists 
- * Check if organisationid givin exists 
- * Set user details 
- * 
- * @param {RegisterRequest} request
- * @returns   {Promise<void>}
- * @memberof AuthService
- */
-public async firstAdminRegistration(request: RegisterRequest): Promise<void> {
+	/**
+	 * @description The purpose of this function is to register the first admin user of an organisation
+	 * Check if username and email exists
+	 * Check if organisationid givin exists
+	 * Set user details
+	 *
+	 * @param {RegisterRequest} request
+	 * @returns   {Promise<void>}
+	 * @memberof AuthService
+	 */
+	public async firstAdminRegistration(
+		request: RegisterRequest
+	): Promise<void> {
 		let organisation: Organisation;
 		if (
 			!(await this.doesEmailExist(request)) &&
