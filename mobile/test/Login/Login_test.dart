@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 10
+//TOTAL NUMBER OF TESTS: 13
 void main() {
   _widget_tests();
 
@@ -20,10 +20,12 @@ void main() {
 void _widget_tests() {
   //"widget testing" https://www.xamantra.dev/momentum/#/testing?id=widget-test
   //tester (single widget unit testing): https://stackoverflow.com/questions/62635696/flutter-widget-vs-flutter-driver
+  //"pump()" https://medium.com/flutter/event-loop-in-widget-tester-50b3ca5e9fc5
   _test_form_widget();
   _test_text_widget();
   _test_email_widget();
   _test_password_widget();
+  _test_login_button_widget();
 }
 
 void _unit_tests() {
@@ -39,11 +41,29 @@ void _integration_tests() {
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
 //TODO implement
 void _test_form_widget() {
-  testWidgets('All text form fields initialise and render successfully',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(LoginPage());
-    expect(find.byType(TextFormField), findsNWidgets(2));
-  });
+  group('All Text Form Field inputs ', () {
+    testWidgets('should be empty and return an error string',
+        (WidgetTester tester) async {
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find all input fields
+      final textInputFinder = find.byType(TextFormField);
+      // retrieve TextField Widget from Finder
+      TextFormField textFormField = tester.widget(textInputFinder);
+      // find error message
+      final emailErrorFinder = find.text('* Required');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      // test result: confirm TextField is empty
+      expect(textFormField.controller!.text, equals(""));
+      //test result: invalid email error
+      expect(emailErrorFinder, findsNWidgets(2));
+    });
+  }); //group
 }
 
 //TODO implement
@@ -158,7 +178,7 @@ void _test_email_widget() {
       expect(emailTextField.controller!.text, equals(""));
 
       //test result: invalid email error
-      expect(emailErrorFinder, findsOneWidget);
+      expect(emailErrorFinder, findsWidgets);
     });
     testWidgets(
         'should be invalid (missing the "@" AND ".com" symbol) and return an error string',
@@ -482,6 +502,15 @@ void _test_password_widget() {
     });
     */
   }); //group password
+}
+
+void _test_login_button_widget() {
+  //TODO test login API function
+  //TODO test naviagtion
+  //TODO test render
+  //TODO test tap
+  //TODO test submit form function
+  //TODO test clear input function
 }
 ////////////////////////////////////////////////////////////////////////////////
 
