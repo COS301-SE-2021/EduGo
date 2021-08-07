@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class VirtualEntityInputBox extends StatelessWidget {
   final String text;
+  final double width;
   final Function onChanged;
-  const VirtualEntityInputBox({Key key, this.onChanged, this.text})
+  const VirtualEntityInputBox({Key key, this.onChanged, this.width, this.text})
       : super(key: key);
 
   @override

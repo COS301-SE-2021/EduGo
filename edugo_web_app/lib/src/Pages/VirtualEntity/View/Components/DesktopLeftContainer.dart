@@ -19,7 +19,8 @@ class DesktopLeftContainer extends StatelessWidget {
                       text: "Entity Name...",
                       onChanged:
                           Momentum.controller<ViewBoundVirtualEntityController>(
-                              context).,
+                                  context)
+                              .inputName,
                     ),
                   )),
               SizedBox(
@@ -32,23 +33,13 @@ class DesktopLeftContainer extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: VirtualEntityMultiLine(
                     text: "Entity description...",
+                    onChanged:
+                        Momentum.controller<ViewBoundVirtualEntityController>(
+                                context)
+                            .inputDescription,
                   ),
                 ),
               ),
-              // SizedBox(
-              //   height: 40,
-              // ),
-              // VirtualEntityButton(
-              //     elevation: 40,
-              //     child: Text(
-              //       "Create Virtual Entity",
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //     onPressed: () {
-              //       MomentumRouter.goto(context, EducatorVirtualEntitiesView);
-              //     },
-              //     width: 450,
-              //     height: 65),
             ],
           ),
         );

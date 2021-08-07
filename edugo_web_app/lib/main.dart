@@ -13,7 +13,8 @@ void main() {
         VirtualEntityApiController(),
         SubjectController(),
         LessonController(),
-        ViewBoundVirtualEntityController()
+        ViewBoundVirtualEntityController(),
+        QuizBuilderController()
       ],
       services: [
         MomentumRouter(
