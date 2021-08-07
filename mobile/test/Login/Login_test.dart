@@ -343,10 +343,10 @@ void _test_password_widget() {
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
       await tester.tap(passowrdInputFinder);
-      // Enter 'Mihlali' into the TextFormField.
+      // Enter 'Sshhh' into the TextFormField.
       await tester.enterText(passowrdInputFinder, 'Sshhh');
     });
-/*    
+
     testWidgets(' entered in the text form field is displayed successfully',
         (WidgetTester tester) async {
       // returns an instance of Momentum i.e. the app
@@ -355,18 +355,18 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
-      // Enter 'Mihlali' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'Mihlali');
+      await tester.tap(passowrdInputFinder);
+      // Enter 'Sshhh' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, 'Sshhh');
       // retrieve TextField Widget from Finder
-      TextFormField emailTextField = tester.widget(emailInputFinder);
+      TextFormField pswdTextField = tester.widget(passowrdInputFinder);
       // test result: confirm TextField is empty
-      expect(emailTextField.controller!.text, equals("Mihlali"));
+      expect(pswdTextField.controller!.text, equals("Sshhh"));
     });
-
+/*
     testWidgets('input field should be empty and return an error string',
         (WidgetTester tester) async {
       //returns an instance of Momentum i.e. the app
