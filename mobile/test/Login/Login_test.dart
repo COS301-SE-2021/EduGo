@@ -136,11 +136,24 @@ void _test_username_widget() {
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
       //find username input field
-      final usernameInputFinder = find.byKey(Key('login_username'));
-      //find username input field
       final usernameTextFinder = find.text('Username');
       //test result
       expect(usernameTextFinder, findsOneWidget);
+    });
+
+    testWidgets('input field should be empty.', (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find username input
+      final usernameInputFinder = find.byKey(Key('login_username'));
+      // retrieve TextField Widget from Finder
+      TextFormField usernameTextField = tester.widget(usernameInputFinder);
+      // test result: confirm TextField is empty
+      expect(usernameTextField.controller!.text, equals(""));
     });
   });
 }
