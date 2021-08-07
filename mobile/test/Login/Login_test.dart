@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 13
+//TOTAL NUMBER OF TESTS: 14
 void main() {
   _widget_tests();
 
@@ -42,7 +42,6 @@ void _integration_tests() {
 void _test_form_widget() {
   //1 test
   group('Form', () {
-    //1 test
     testWidgets('should initialise and render successfully.',
         (WidgetTester tester) async {
       //returns an instance of Momentum i.e. the app
@@ -61,7 +60,6 @@ void _test_form_widget() {
 
 void _test_text_widget() {
   //2 test
-
   group('Text Form Field inputs ', () {
     testWidgets('should both be empty and return an error string',
         (WidgetTester tester) async {
@@ -125,7 +123,6 @@ void _test_email_widget() {
       // test result: confirm TextField is empty
       expect(emailTextField.controller!.text, equals(""));
     });
-//TODO when tap node should focus: https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/text_field_focus_test.dart
     testWidgets(
         'input text form field successfully responds to user interaction: entering text', //is successfully entered into the input text form filed
         (WidgetTester tester) async {
@@ -312,12 +309,12 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      //find email input
+      //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //test result
       expect(passowrdInputFinder, findsOneWidget);
     });
-/*
+
     testWidgets('input field should be empty.', (WidgetTester tester) async {
       // returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -325,14 +322,14 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
       // retrieve TextField Widget from Finder
-      TextFormField emailTextField = tester.widget(emailInputFinder);
+      TextFormField pswdTextField = tester.widget(passowrdInputFinder);
       // test result: confirm TextField is empty
-      expect(emailTextField.controller!.text, equals(""));
+      expect(pswdTextField.controller!.text, equals(""));
     });
-//TODO when tap node should focus: https://github.com/flutter/flutter/blob/master/packages/flutter/test/material/text_field_focus_test.dart
+
     testWidgets(
         'input text form field successfully responds to user interaction: entering text', //is successfully entered into the input text form filed
         (WidgetTester tester) async {
@@ -342,14 +339,14 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      //find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
+      await tester.tap(passowrdInputFinder);
       // Enter 'Mihlali' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'Mihlali');
+      await tester.enterText(passowrdInputFinder, 'Sshhh');
     });
-
+/*    
     testWidgets(' entered in the text form field is displayed successfully',
         (WidgetTester tester) async {
       // returns an instance of Momentum i.e. the app
