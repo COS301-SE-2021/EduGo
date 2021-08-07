@@ -93,8 +93,9 @@ class _LoginPageState extends State<LoginPage> {
         //password is required, must be 6 digits long and must be numeric
         validator: MultiValidator([
           RequiredValidator(errorText: "* Required"),
-          LengthRangeValidator(min: 5, max: 5, errorText: "Invalid password"),
-          PatternValidator("[0-9]{5}",
+          MinLengthValidator(8, errorText: "Invalid password"),
+          PatternValidator(
+              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
               errorText: "Invalid password"), //Digits only
         ]),
         //type of keyboard to use for editing the text.

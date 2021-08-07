@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 14
+//TOTAL NUMBER OF TESTS: 21
 void main() {
   _widget_tests();
 
@@ -389,16 +389,11 @@ void _test_password_widget() {
       //test result: invalid email error
       expect(pswdErrorFinder, findsWidgets);
     });
-    /*
-    LengthRangeValidator(min: 5, max: 5, errorText: "Invalid password"),
-    PatternValidator("[0-9]{5}",
-          errorText: "Invalid password"), //Digits only    
-    */
 
     testWidgets(
-        'should be invalid (smaller than 5 digits in length) and return an error string',
+        'should be invalid (smaller than 8 digits in length) and return an error string',
         (WidgetTester tester) async {
-      //test the LengthRangeValidator
+      //test the MinLengthValidator
 
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -417,7 +412,8 @@ void _test_password_widget() {
       var pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password as the text in the textfield is now "1"
+      //test result: invalid password as the text in the textfield is now
+      //1 characters in length
       expect(pswdErrorFinder, findsOneWidget);
 
       //Aquire focus in the TextFormField
@@ -428,7 +424,8 @@ void _test_password_widget() {
       pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password as the text in the textfield is now "12"
+      //test result: invalid password as the text in the textfield is now
+      //2 characters in length
       expect(pswdErrorFinder, findsOneWidget);
 
       //Aquire focus in the TextFormField
@@ -439,7 +436,8 @@ void _test_password_widget() {
       pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password as the text in the textfield is now "123"
+      //test result: invalid password as the text in the textfield is now
+      //3 characters in length
       expect(pswdErrorFinder, findsOneWidget);
 
       //Aquire focus in the TextFormField
@@ -450,7 +448,44 @@ void _test_password_widget() {
       pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password as the text in the textfield is now "1234"
+      //test result: invalid password as the text in the textfield is now
+      //4 characters in length
+      expect(pswdErrorFinder, findsOneWidget);
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '12345' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '12345');
+      // find error message
+      pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now
+      //5 characters in length
+      expect(pswdErrorFinder, findsOneWidget);
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '123456' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '123456');
+      // find error message
+      pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now
+      //6 characters in length
+      expect(pswdErrorFinder, findsOneWidget);
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '1234567' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '1234567');
+      // find error message
+      pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now
+      //7 characters in length
       expect(pswdErrorFinder, findsOneWidget);
     });
 
@@ -490,6 +525,44 @@ void _test_password_widget() {
       //test result: invalid password as the text in the textfield is now "10000000000000000"
       expect(pswdErrorFinder, findsOneWidget);
     });
+
+    testWidgets(
+        'should be invalid (more than 5 digits in length) and return an error string',
+        (WidgetTester tester) async {
+      //test the LengthRangeValidator
+
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '123456' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '123456');
+      // find error message
+      var pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now "123456"
+      expect(pswdErrorFinder, findsOneWidget);
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '10000000000000000' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '10000000000000000');
+      // find error message
+      pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now "10000000000000000"
+      expect(pswdErrorFinder, findsOneWidget);
+    });
+
 /*
     testWidgets(
         'should be invalid (missing the "@") and return an error string',
