@@ -214,7 +214,30 @@ void _test_username_widget() {
       // test result: confirm TextField is empty
       expect(usernameTextField.controller!.text, equals("Mihlali"));
     });
-  });
+
+    testWidgets(
+        'should be autovalidated as it is typed into input text form field',
+        (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // find username input
+      final usernameInputFinder = find.byKey(Key('login_username'));
+      //Aquire focus in the TextFormField
+      await tester.tap(usernameInputFinder);
+      // Enter 'Mihlali' into the TextFormField.
+      await tester.enterText(usernameInputFinder, 'M');
+      // retrieve TextField Widget from Finder
+      TextFormField usernameTextField = tester.widget(usernameInputFinder);
+      //TODO maybe loop through all characters.
+
+      // test result: confirm auto validation with each character inputted
+      expect(usernameTextField.autovalidateMode.index, 1);
+    });
+  }); //group "Username"
 }
 
 void _test_password_widget() {
