@@ -82,8 +82,10 @@ async AddSubjectToOrganisation(
 	}
 /**
  * @description The creation of an organisation 
+ * First create the Orgainisation object 
+ * Call the register function that will register the first admin user for the organisation 
  * @param {CreateOrganisationRequest} request
- * @returns {*}  {Promise<CreateOrganisationResponse>}
+ * @returns   {Promise<CreateOrganisationResponse>}
  * @memberof OrganisationService
  */
 async CreateOrganisation(
@@ -95,12 +97,10 @@ async CreateOrganisation(
 		organisation.phone = request.organisation_phone;
 		organisation.subjects = [];
 
-		// create organization
 
 		return this.organisationRepository
 			.save(organisation)
 			.then(async (org) => {
-				// create first admin for organisation
 				request.userType = userType.firstAdmin;
 				request.organisation_id = org.id;
 				let registerObj: RegisterRequest = {
