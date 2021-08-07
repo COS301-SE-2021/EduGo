@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 26
+//TOTAL NUMBER OF TESTS: 27
 void main() {
   _widget_tests();
 
@@ -616,7 +616,6 @@ void _test_password_widget() {
 void _test_login_button_widget() {
   //TODO test login API function
   //TODO test naviagtion
-  //TODO test render
   //TODO test tap
   //TODO test submit form function
   //TODO test clear input function
