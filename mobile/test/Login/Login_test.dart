@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 21
+//TOTAL NUMBER OF TESTS: 26
 void main() {
   _widget_tests();
 
@@ -490,9 +490,9 @@ void _test_password_widget() {
     });
 
     testWidgets(
-        'should be invalid (more than 5 digits in length) and return an error string',
+        'should be invalid (no uppercase characters) and return an error string',
         (WidgetTester tester) async {
-      //test the LengthRangeValidator
+      //test the PatternValidator
 
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -502,34 +502,22 @@ void _test_password_widget() {
       await tester.pumpAndSettle();
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
-
       //Aquire focus in the TextFormField
       await tester.tap(passowrdInputFinder);
-      // Enter '123456' into the TextFormField.
-      await tester.enterText(passowrdInputFinder, '123456');
+      // Enter 'simekani@1' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, 'simekani@1');
       // find error message
       var pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password as the text in the textfield is now "123456"
-      expect(pswdErrorFinder, findsOneWidget);
-
-      //Aquire focus in the TextFormField
-      await tester.tap(passowrdInputFinder);
-      // Enter '10000000000000000' into the TextFormField.
-      await tester.enterText(passowrdInputFinder, '10000000000000000');
-      // find error message
-      pswdErrorFinder = find.text('Invalid password');
-      // add delay
-      await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password as the text in the textfield is now "10000000000000000"
+      //test result: invalid password
       expect(pswdErrorFinder, findsOneWidget);
     });
 
     testWidgets(
-        'should be invalid (more than 5 digits in length) and return an error string',
+        'should be invalid (no lowercase characters) and return an error string',
         (WidgetTester tester) async {
-      //test the LengthRangeValidator
+      //test the PatternValidator
 
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -539,98 +527,66 @@ void _test_password_widget() {
       await tester.pumpAndSettle();
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
-
       //Aquire focus in the TextFormField
       await tester.tap(passowrdInputFinder);
-      // Enter '123456' into the TextFormField.
-      await tester.enterText(passowrdInputFinder, '123456');
+      // Enter 'SIMEKANI@1' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, 'SIMEKANI@1');
       // find error message
       var pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password as the text in the textfield is now "123456"
+      //test result: invalid password
       expect(pswdErrorFinder, findsOneWidget);
+    });
 
+    testWidgets(
+        'should be invalid (no numeric characters) and return an error string',
+        (WidgetTester tester) async {
+      //test the PatternValidator
+
+      //returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      //builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      //repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
       await tester.tap(passowrdInputFinder);
-      // Enter '10000000000000000' into the TextFormField.
-      await tester.enterText(passowrdInputFinder, '10000000000000000');
+      // Enter 'Simekani@' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, 'Simekani@');
       // find error message
-      pswdErrorFinder = find.text('Invalid password');
+      var pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password as the text in the textfield is now "10000000000000000"
+      //test result: invalid password
       expect(pswdErrorFinder, findsOneWidget);
     });
 
-/*
     testWidgets(
-        'should be invalid (missing the "@") and return an error string',
+        'should be invalid (no special characters) and return an error string',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
-      final widget = momentum();
-      //builds and renders the provided widget
-      await tester.pumpWidget(widget);
-      //repeatedly triggers a rebuild of the widget when the state changes.
-      await tester.pumpAndSettle();
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
-      //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
-      // Enter 'Mihlali' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'Mihlali"gmail.com');
-      // find error message
-      final emailErrorFinder = find.text('Invalid email address'); 
-      // add delay
-      await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid email error
-      expect(emailErrorFinder, findsOneWidget);
-    });
+      //test the PatternValidator. Special characters include ! @ # $ & * ~.
 
-    testWidgets(
-        'should be invalid (missing "com" of the ".com" symbol) and return an error string',
-        (WidgetTester tester) async {
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
       //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
-      // Enter 'Mihlali' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'Mihlali@gmail.');
+      await tester.tap(passowrdInputFinder);
+      // Enter 'Simekani1' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, 'Simekani1');
       // find error message
-      final emailErrorFinder = find.text('Invalid email address');
+      var pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid email error
-      expect(emailErrorFinder, findsOneWidget);
-    });
-
-    testWidgets(
-        'should be invalid (missing "com" of the ".com" symbol) and return an error string',
-        (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
-      final widget = momentum();
-      //builds and renders the provided widget
-      await tester.pumpWidget(widget);
-      //repeatedly triggers a rebuild of the widget when the state changes.
-      await tester.pumpAndSettle();
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
-      //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
-      // Enter 'Mihlali' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'Mihlali@gmail_com');
-      // find error message
-      final emailErrorFinder = find.text('Invalid email address'); 
-      // add delay
-      await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid email error
-      expect(emailErrorFinder, findsOneWidget);
+      //test result: invalid password
+      expect(pswdErrorFinder, findsOneWidget);
     });
 
     testWidgets(
@@ -642,19 +598,18 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      // find email input
-      final emailInputFinder = find.byKey(Key('login_email'));
+      //find password input
+      final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
-      await tester.tap(emailInputFinder);
-      // Enter 'Mihlali' into the TextFormField.
-      await tester.enterText(emailInputFinder, 'M');
+      await tester.tap(passowrdInputFinder);
+      // Enter 'M' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, 'M');
       // retrieve TextField Widget from Finder
-      TextFormField emailTextField = tester.widget(emailInputFinder);
+      TextFormField pswdTextField = tester.widget(passowrdInputFinder);
       //TODO maybe loop through all characters?
-      // test result: confirm auto validation with each character inputted
-      expect(emailTextField.autovalidateMode.index, 1);
+      //test result: confirm auto validation with each character inputted
+      expect(pswdTextField.autovalidateMode.index, 1);
     });
-    */
   }); //group password
 }
 
