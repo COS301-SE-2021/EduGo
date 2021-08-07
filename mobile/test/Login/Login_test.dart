@@ -85,11 +85,14 @@ void _test_text_widget() {
       await tester.pumpWidget(widget);
       // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+      // find emoty text
+      final textFinder = find.text('');
       // find error message
       final textErrorFinder = find.text('* Required');
+      //test result: empty text form fields
+      expect(textFinder, findsNWidgets(2));
       //test result: invalid email error
       expect(textErrorFinder, findsNWidgets(2));
-      //TODO check that it's empty
     });
 
     testWidgets('should both render successfully.',
