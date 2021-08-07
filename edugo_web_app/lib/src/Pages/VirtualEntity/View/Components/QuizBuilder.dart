@@ -61,7 +61,8 @@ class QuizBuilder extends StatelessWidget {
                     if (Momentum.controller<QuizBuilderController>(context)
                             .getQuizBuilderResult() !=
                         "Quiz is not valid") {
-                      MomentumRouter.goto(context, EducatorVirtualEntitiesView);
+                      Momentum.controller<VirtualEntityApiController>(context)
+                          .createVirtualEntity(context);
                     }
                   },
                   width: 450,
