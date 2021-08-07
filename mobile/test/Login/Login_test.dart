@@ -408,15 +408,49 @@ void _test_password_widget() {
       await tester.pumpAndSettle();
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '1' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '1');
+      // find error message
+      var pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now "1"
+      expect(pswdErrorFinder, findsOneWidget);
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '12' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '12');
+      // find error message
+      pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now "12"
+      expect(pswdErrorFinder, findsOneWidget);
+
+      //Aquire focus in the TextFormField
+      await tester.tap(passowrdInputFinder);
+      // Enter '123' into the TextFormField.
+      await tester.enterText(passowrdInputFinder, '123');
+      // find error message
+      pswdErrorFinder = find.text('Invalid password');
+      // add delay
+      await tester.pump(const Duration(milliseconds: 100));
+      //test result: invalid password as the text in the textfield is now "123"
+      expect(pswdErrorFinder, findsOneWidget);
+
       //Aquire focus in the TextFormField
       await tester.tap(passowrdInputFinder);
       // Enter '1234' into the TextFormField.
       await tester.enterText(passowrdInputFinder, '1234');
       // find error message
-      final pswdErrorFinder = find.text('Invalid password');
+      pswdErrorFinder = find.text('Invalid password');
       // add delay
       await tester.pump(const Duration(milliseconds: 100));
-      //test result: invalid password
+      //test result: invalid password as the text in the textfield is now "1234"
       expect(pswdErrorFinder, findsOneWidget);
     });
 /*
