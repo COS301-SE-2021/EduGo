@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TOTAL NUMBER OF TESTS: 27
+//TOTAL NUMBER OF TESTS: 28
 void main() {
   _widget_tests();
 
@@ -21,6 +21,7 @@ void _widget_tests() {
   //"widget testing" https://www.xamantra.dev/momentum/#/testing?id=widget-test
   //tester (single widget unit testing): https://stackoverflow.com/questions/62635696/flutter-widget-vs-flutter-driver
   //"pump()" https://medium.com/flutter/event-loop-in-widget-tester-50b3ca5e9fc5
+  //"side bar" https://stackoverflow.com/questions/55628369/flutter-automatic-testing-tap-on-a-button-dont-work-in-drawer
   _test_form_widget();
   _test_text_widget();
   _test_email_widget();
@@ -297,7 +298,6 @@ void _test_email_widget() {
   }); //group email
 }
 
-//TODO implement
 void _test_password_widget() {
   group('Password', () {
     testWidgets('input field renders successfully.',
@@ -634,7 +634,24 @@ void _test_login_button_widget() {
       //test result
       expect(loginButtonFinder, findsOneWidget);
     });
-  });
+
+    testWidgets(
+        'successfully responds to user interaction (tap button) but fails to navigate to next page (as no form fields were filled) and returns error strings.',
+        (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // Tap the login button.
+      await tester.tap(find.byKey(Key('login_button')));
+      // find error message
+      final textErrorFinder = find.text('* Required');
+      // Expect to find 2 error messages for both unfilled form fields.
+      expect(textErrorFinder, findsNWidgets(2));
+    });
+  }); //group 'login button'
 }
 ////////////////////////////////////////////////////////////////////////////////
 
