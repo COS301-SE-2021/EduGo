@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       new SnackBar(
           content: Text(msg),
-          backgroundColor: Color.fromARGB(255, 97, 211, 87),
+          backgroundColor: Colors.red, //Color.fromARGB(255, 97, 211, 87),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
         Padding(
       key: Key('login_button'),
       padding: const EdgeInsets.only(
-        top: 50,
+        top: 30,
         left: 20,
         right: 20,
       ),
@@ -196,6 +196,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+    Widget padding_widget = Padding(padding: const EdgeInsets.only(top: 50));
 
     Widget child = Scaffold(
         body: Form(
@@ -223,6 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                               username_input_widget,
                               password_input_widget,
                               login_button_widget,
+                              padding_widget,
                             ],
                           ))))
             ])));
