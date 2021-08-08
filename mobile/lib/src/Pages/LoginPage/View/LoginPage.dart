@@ -24,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   final username_text_controller = TextEditingController();
   final password_text_controller = TextEditingController();
 
+  late SnackBar error_snackbar;
+
   void _submitForm(userController) {
     bool mock_verification = false;
     if (username_text_controller.text == 'Simekani' &&
@@ -53,31 +55,7 @@ class _LoginPageState extends State<LoginPage> {
 
   //snackbar to show error messages
   void _showSnackbar(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      new SnackBar(
-          content: Text(msg),
-          backgroundColor: Colors.red, //Color.fromARGB(255, 97, 211, 87),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(
-              color: Colors.black,
-              width: 2,
-            ),
-          ),
-          action: SnackBarAction(
-            label: 'Verify registration.',
-            onPressed: () =>
-                //Leads to registration verification page
-                MomentumRouter.goto(context, RegistrationVerificationPage,
-                    transition: (context, page) {
-              // TODO MaterialPageRoute is not the one you need here :). use any route animation from flutter or from pub.dev
-              return MaterialPageRoute(builder: (context) => page);
-            }),
-            //disabledTextColor: Colors.yellow,
-            textColor: Colors.white,
-          )),
-    );
+    ScaffoldMessenger.of(context).showSnackBar(error_snackbar);
   }
 
   @override
@@ -196,8 +174,33 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
     Widget padding_widget = Padding(padding: const EdgeInsets.only(top: 50));
 
+    error_snackbar = SnackBar(
+        key: Key('login_snackbar'),
+        content: Text('Unverified'),
+        backgroundColor: Colors.red, //Color.fromARGB(255, 97, 211, 87),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(
+            color: Colors.black,
+            width: 2,
+          ),
+        ),
+        action: SnackBarAction(
+          label: 'Verify registration.',
+          onPressed: () =>
+              //Leads to registration verification page
+              MomentumRouter.goto(context, RegistrationVerificationPage,
+                  transition: (context, page) {
+            // TODO MaterialPageRoute is not the one you need here :). use any route animation from flutter or from pub.dev
+            return MaterialPageRoute(builder: (context) => page);
+          }),
+          //disabledTextColor: Colors.yellow,
+          textColor: Colors.white,
+        ));
     Widget child = Scaffold(
         body: Form(
             key: _scaffoldKey,

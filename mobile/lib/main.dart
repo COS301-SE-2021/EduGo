@@ -43,7 +43,7 @@ Momentum momentum({bool mock = false}) {
         OrganisationsPage(),
         PreferencesPage(),
         RegistrationPage(),
-        RegistrationVerificationPage(),
+        RegistrationVerificationPage(Key('registration_verification')),
         SettingsPage(),
         SubjectsPage(),
       ]),

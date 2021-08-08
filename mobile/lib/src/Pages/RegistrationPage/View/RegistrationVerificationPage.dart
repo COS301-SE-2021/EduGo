@@ -10,9 +10,9 @@ import 'package:momentum/momentum.dart';
 //This page is used to verify if student is already allocated to an
 //organization by an educator
 class RegistrationVerificationPage extends StatefulWidget {
-  RegistrationVerificationPage();
+  RegistrationVerificationPage(this.key) : super(key: key);
   static String id = "registration_verification";
-
+  Key key = Key('registration_verification');
   @override
   _RegistrationVerificationPageState createState() =>
       _RegistrationVerificationPageState();

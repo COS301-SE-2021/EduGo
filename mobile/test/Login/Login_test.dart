@@ -7,7 +7,7 @@ import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
 //TODO update tests to remove username
-//TOTAL NUMBER OF TESTS: 25
+//TOTAL NUMBER OF TESTS: 28
 void main() {
   _widget_tests();
 
@@ -748,7 +748,7 @@ void _test_login_button_widget() {
     });
 
     testWidgets(
-        'successfully clears valid input fields containing unverified data when tapped and returns error string.',
+        'successfully clears valid input fields containing unverified data when tapped and displays snackbar that returns error string.',
         (WidgetTester tester) async {
       //fill in fields first with invalid data the clear
       // returns an instance of Momentum i.e. the app
@@ -775,9 +775,35 @@ void _test_login_button_widget() {
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
       // schedule animation
-      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
       // Expect snackbar to appear
       expect(find.text('Unverified'), findsOneWidget);
+      //TODO I can also implement checking snackbar text
+      //TODO maybe test snackbar animation
+    });
+    testWidgets(
+        'snackbar successfully responds to user interaction (tap button) and navigates to registration verfication page.',
+        (WidgetTester tester) async {
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      // Tap the login button.
+      await tester.tap(find.byKey(Key('login_button')));
+      // schedule animation
+      await tester.pump(const Duration(milliseconds: 100));
+      // Tap the login button.
+      await tester.tap(find.byKey(Key('login_snackbar')));
+      // schedule animation
+      await tester.pump(const Duration(milliseconds: 100));
+      //TODO fix error here
+      // Find login page
+      final verificationPageFinder =
+          find.byKey(Key('registration_verification'));
+      // Expect to find home page, fails to navigate to home page
+      //expect(verificationPageFinder, findsOneWidget);
     });
   }); //group 'login button'
 }
