@@ -16,8 +16,8 @@ class Destination {
 //list of different tabs (of the bottom bar) constructed. This list allows for agile development as more icons can be added anytime.
 List<Destination> allDestinations = <Destination>[
   //tabs
-  Destination(
-      HomePage(), Icons.cottage_rounded, Color.fromARGB(255, 97, 211, 87)),
+  Destination(HomePage(Key('home_page')), Icons.cottage_rounded,
+      Color.fromARGB(255, 97, 211, 87)),
   Destination(SubjectsPage(), Icons.library_books_rounded,
       Color.fromARGB(255, 97, 211, 87)),
   Destination(GradesPage(), Icons.checklist_rtl_outlined,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
+import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:momentum/momentum.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
+  final key = Key('login_page');
   static String id = 'login';
 
   @override
@@ -19,6 +21,13 @@ class _LoginPageState extends State<LoginPage> {
   // Text controllers used to retrieve the current value of the input fields
   final username_text_controller = TextEditingController();
   final password_text_controller = TextEditingController();
+
+  void _submitForm() {
+    MomentumRouter.goto(context, HomePage, transition: (context, page) {
+      // TODO MaterialPageRoute is not the one you need here :). use any route animation from flutter or from pub.dev
+      return MaterialPageRoute(builder: (context) => page);
+    });
+  }
 
   @override
   void dispose() {
@@ -112,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
       key: Key('login_button'),
       padding: const EdgeInsets.only(top: 50),
       child: MaterialButton(
-        onPressed: () => null, //TODO _submitForm(),
+        onPressed: () => _submitForm(),
         height: 60,
         color: Colors.black,
         child: Row(

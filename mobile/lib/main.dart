@@ -38,7 +38,7 @@ Momentum momentum({bool mock = false}) {
         LoginPage(),
         DetectMarkerPage(),
         GradesPage(),
-        HomePage(),
+        HomePage(Key('home_page')),
         LessonsPage(),
         OrganisationsPage(),
         PreferencesPage(),
