@@ -86,7 +86,7 @@ void _test_text_widget() {
       await tester.pumpWidget(widget);
       // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
-      // find emoty text
+      // find empty text
       final textFinder = find.text('');
       // find error message
       final textErrorFinder = find.text('* Required');

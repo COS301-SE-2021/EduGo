@@ -22,11 +22,53 @@ void main() {
   _integration_tests();
 }
 
+//testWidgets('successfully.', (WidgetTester tester) async {});
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
 void _widget_tests() {
   //TODO implement test
   group('Text', () {
-    //testWidgets('should render successfully.', (WidgetTester tester) async {});
+    testWidgets('form fields should render successfully.',
+        (WidgetTester tester) async {
+      final widget = momentum();
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+      // Find text form fields
+      final textFieldFinder = find.byType(TextFormField);
+      // Expect 2 rendered text form fields
+      expect(textFieldFinder, findsNWidgets(2));
+    });
+    testWidgets('form fields should be empty and display an error string.',
+        (WidgetTester tester) async {
+      final widget = momentum();
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+      // find empty text
+      final textFinder = find.text('');
+      // Find error message
+      final textErrorFinder = find.text('* Required');
+      // Expect 2 empty text form fields
+      expect(textFinder, findsNWidgets(2));
+      // Expect 2 error messages, one for each empty text form fields
+      expect(textErrorFinder, findsNWidgets(2));
+    });
+
+    testWidgets('headings for page should render successfully.',
+        (WidgetTester tester) async {
+      final widget = momentum();
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
+
+      // find "Registration" text
+      final regHeadingFinder = find.byKey(Key('rv_registration_heading'));
+      // find "Verification" text
+      final verHeadingFinder = find.byKey(Key('rv_verification_heading'));
+      //TODO fix test
+      // Expect to find headings
+      //expect(regHeadingFinder, findsOneWidget);
+      //xpect(verHeadingFinder, findsOneWidget);
+    });
   }); //group Text
   //TODO implement test
   group('Email', () {}); //group Email

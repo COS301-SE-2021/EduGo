@@ -71,6 +71,23 @@ class _RegistrationVerificationPageState
 
     ////////////////////////////////  WIDGETS  /////////////////////////////////
     //These may include the following widgets: input fields, buttons, forms
+    //Page title: User Registration
+    Widget registration_heading_widget = Text(
+      "Registration",
+      key: Key('rv_registration_heading'),
+      style: const TextStyle(
+          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+      textDirection: TextDirection.ltr,
+    );
+
+    Widget verification_heading_widget = Text(
+      "Verification",
+      key: Key('rv_verification_heading'),
+      style: const TextStyle(
+          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+      textDirection: TextDirection.ltr,
+    );
+
     Widget email_input_widget = Padding(
       padding: const EdgeInsets.only(top: 100),
       //Email input field
@@ -161,19 +178,8 @@ class _RegistrationVerificationPageState
                 padding: const EdgeInsets.only(top: 60),
                 child: Column(
                   children: [
-                    //Page title: User Registration
-                    Text(
-                      "User",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 60),
-                    ),
-                    Text("Verification",
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 60)),
+                    registration_heading_widget,
+                    verification_heading_widget,
                     email_input_widget,
                     code_input_widget,
                     next_button_widget,
