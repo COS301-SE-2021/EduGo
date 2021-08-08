@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
 
     Widget username_input_widget = Padding(
       padding: const EdgeInsets.only(
-        top: 100,
+        top: 60,
         left: 20,
         right: 20,
       ),
@@ -217,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: SingleChildScrollView(
                       child: Padding(
                           padding: const EdgeInsets.only(
-                            top: 60,
+                            top: 30,
                           ),
                           child: Column(
                             textDirection: TextDirection.ltr,
