@@ -26,7 +26,6 @@ import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEnt
 export class VirtualEntityController {
 	@Inject()
 	private service: VirtualEntityService;
-
 	@Post("/createVirtualEntity")
 	@UseBefore(isUser)
 	CreateVirtualEntity(

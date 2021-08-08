@@ -15,6 +15,7 @@ import { Error400 } from "../errors/Error";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { LoginResponse } from "../models/auth/LoginResponse";
+import { BadRequestError } from "routing-controllers";
 
 @Service()
 export class AuthService {
@@ -49,33 +50,30 @@ export class AuthService {
 	 * @memberof AuthService
 	 */
 	public async login(request: LoginRequest): Promise<LoginResponse> {
-		return this.userRepository
-			.findOne({ where: { username: request.username } })
-			.then((user) => {
-				if (!user) {
-					throw new NonExistantItemError(
-						`User with username ${request.username} not found`
-					);
-				}
-
-				let isValid = validPassword(
-					request.password,
-					user.hash,
-					user.salt
-				);
-
-				if (isValid) {
-					let response: LoginResponse = {
-						token: issueJWT(user).token,
-					};
-					return response;
-				} else {
-					throw new Error400("Incorrect Password");
-				}
-			})
-			.catch((err) => {
-				throw err;
+		try {
+			let user = await this.userRepository.findOne({
+				where: { username: request.username },
 			});
+
+			if (user == undefined) {
+				throw new NonExistantItemError(
+					`User with username ${request.username} not found`
+				);
+			}
+
+			let isValid = validPassword(request.password, user.hash, user.salt);
+
+			if (isValid) {
+				let response: LoginResponse = {
+					token: issueJWT(user).token,
+				};
+				return response;
+			} else {
+				throw new BadRequestError("Incorrect Password");
+			}
+		} catch (err) {
+			throw err;
+		}
 	}
 
 	// User invitation code before registering
@@ -93,41 +91,45 @@ export class AuthService {
 	public async verifyInvitation(
 		request: VerifyInvitationRequest
 	): Promise<void> {
-		let existingUser = await this.userRepository.findOne({
-			where: { email: request.email },
-		});
+		try {
+			let existingUser = await this.userRepository.findOne({
+				where: { email: request.email },
+			});
 
-		if (existingUser) {
-			throw new NonExistantItemError("User is already registered");
-		}
+			if (existingUser) {
+				throw new NonExistantItemError("User is already registered");
+			}
 
-		let user = await this.unverifiedUserRepository.findOne({
-			where: { email: request.email },
-		});
+			let user = await this.unverifiedUserRepository.findOne({
+				where: { email: request.email },
+			});
 
-		if (user) {
-			if (user.verificationCode == request.verificationCode) {
-				try {
-					let verified: boolean = await this.setUserToverified(
-						user.id
-					);
-					if (verified) {
-						return;
-					} else {
-						throw new NonExistantItemError(
-							"User not found in unverified list"
+			if (user) {
+				if (user.verificationCode == request.verificationCode) {
+					try {
+						let verified: boolean = await this.setUserToverified(
+							user.id
 						);
+						if (verified) {
+							return;
+						} else {
+							throw new NonExistantItemError(
+								"User not found in unverified list"
+							);
+						}
+					} catch (err) {
+						throw err;
 					}
-				} catch (err) {
-					throw err;
+				} else {
+					throw new Error400("Invitation code is invalid");
 				}
 			} else {
-				throw new Error400("Invitation code is invalid");
+				throw new Error400(
+					"User has not been invited to sign up for EduGo"
+				);
 			}
-		} else {
-			throw new Error400(
-				"User has not been invited to sign up for EduGo"
-			);
+		} catch (err) {
+			throw err;
 		}
 	}
 	/**
@@ -323,14 +325,14 @@ export class AuthService {
 			user.educator = new Educator();
 			user.educator.admin = true;
 			user.organisation = organisation;
-			return this.userRepository
-				.save(user)
-				.then((result) => {
+			try {
+				let savedUser = await this.userRepository.save(user);
+				if (savedUser) {
 					return;
-				})
-				.catch((err) => {
-					throw new DatabaseError("User unable to be saved to DB");
-				});
+				}
+			} catch (err) {
+				throw new DatabaseError("User unable to be saved to DB");
+			}
 		} else {
 			throw new Error400("username and email already exist");
 		}
