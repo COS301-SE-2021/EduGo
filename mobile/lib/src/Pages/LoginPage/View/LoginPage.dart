@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
+import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:momentum/momentum.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,17 +17,67 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   /////////////////////////  VARIABLES & FUNCTIONS  ////////////////////////////
   //Global key that is going to tell us about any change in Form() widget.
-  GlobalKey<FormState> _loginFormkey = GlobalKey<FormState>();
-
+  GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  //Scaffold of login page
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   // Text controllers used to retrieve the current value of the input fields
   final username_text_controller = TextEditingController();
   final password_text_controller = TextEditingController();
 
-  void _submitForm() {
-    MomentumRouter.goto(context, HomePage, transition: (context, page) {
-      // TODO MaterialPageRoute is not the one you need here :). use any route animation from flutter or from pub.dev
-      return MaterialPageRoute(builder: (context) => page);
-    });
+  void _submitForm(userController) {
+    bool mock_verification = false;
+    if (username_text_controller.text == 'Simekani' &&
+        password_text_controller.text == "Simekani@1") {
+      mock_verification = true;
+    }
+    if (/*userController.verify(
+            email: username_text_controller.text,
+            code: password_text_controller.text) ==
+        true*/
+        mock_verification == true) {
+      //Leads to home page
+      MomentumRouter.goto(context, HomePage, transition: (context, page) {
+        // TODO MaterialPageRoute is not the one you need here :). use any route animation from flutter or from pub.dev
+        return MaterialPageRoute(builder: (context) => page);
+      });
+      return;
+    }
+    _clearInputFields();
+    _showSnackbar('Unverified');
+  }
+
+  void _clearInputFields() {
+    username_text_controller.clear();
+    password_text_controller.clear();
+  }
+
+  //snackbar to show error messages
+  void _showSnackbar(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      new SnackBar(
+          content: Text(msg),
+          backgroundColor: Color.fromARGB(255, 97, 211, 87),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(
+              color: Colors.black,
+              width: 2,
+            ),
+          ),
+          action: SnackBarAction(
+            label: 'Verify registration.',
+            onPressed: () =>
+                //Leads to registration verification page
+                MomentumRouter.goto(context, RegistrationVerificationPage,
+                    transition: (context, page) {
+              // TODO MaterialPageRoute is not the one you need here :). use any route animation from flutter or from pub.dev
+              return MaterialPageRoute(builder: (context) => page);
+            }),
+            //disabledTextColor: Colors.yellow,
+            textColor: Colors.white,
+          )),
+    );
   }
 
   @override
@@ -40,6 +91,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    //Get a specific controller (UserController) to call needed functions (verify)
+    UserController userController =
+        Momentum.controller<UserController>(context);
+
     //////////////////////////////////  WIDGETS  /////////////////////////////////
     //These may include the following widgets: input fields, buttons, forms
 
@@ -51,9 +106,9 @@ class _LoginPageState extends State<LoginPage> {
           fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
     );
 
-    Widget login_registration_heading = new Text(
-      'Registration',
-      key: Key('login_registration_heading'),
+    Widget login_login_heading = new Text(
+      'Login',
+      key: Key('login_login_heading'),
       textDirection: TextDirection.ltr,
       style: const TextStyle(
           fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
@@ -119,9 +174,13 @@ class _LoginPageState extends State<LoginPage> {
     Widget login_button_widget = //Next button that leads to Registration Page
         Padding(
       key: Key('login_button'),
-      padding: const EdgeInsets.only(top: 50),
+      padding: const EdgeInsets.only(
+        top: 50,
+        left: 20,
+        right: 20,
+      ),
       child: MaterialButton(
-        onPressed: () => _submitForm(),
+        onPressed: () => _submitForm(userController),
         height: 60,
         color: Colors.black,
         child: Row(
@@ -140,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
 
     Widget child = Scaffold(
         body: Form(
-            key: _loginFormkey,
+            key: _scaffoldKey,
             child: Stack(key: Key('login_form'), children: <Widget>[
               Container(
                   height: MediaQuery.of(context).size.height,
@@ -160,7 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                             textDirection: TextDirection.ltr,
                             children: [
                               login_user_heading,
-                              login_registration_heading,
+                              login_login_heading,
                               username_input_widget,
                               password_input_widget,
                               login_button_widget,

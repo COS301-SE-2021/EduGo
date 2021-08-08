@@ -7,7 +7,7 @@ import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
 //TODO update tests to remove username
-//TOTAL NUMBER OF TESTS: 26
+//TOTAL NUMBER OF TESTS: 25
 void main() {
   _widget_tests();
 
@@ -42,7 +42,7 @@ void _integration_tests() {
 
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
 void _test_form_widget() {
-  //1 test
+  //2 tests
   group('Form', () {
     testWidgets('should initialise and render successfully.',
         (WidgetTester tester) async {
@@ -76,8 +76,9 @@ void _test_form_widget() {
 
 void _test_text_widget() {
   //2 test
-  group('Text Form Field inputs ', () {
-    testWidgets('should both be empty and return an error string',
+  group('Text', () {
+    testWidgets(
+        'Form Field inputs should both be empty and return an error string',
         (WidgetTester tester) async {
       // returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -95,7 +96,7 @@ void _test_text_widget() {
       expect(textErrorFinder, findsNWidgets(2));
     });
 
-    testWidgets('should both render successfully.',
+    testWidgets('Form Field inputs should both render successfully.',
         (WidgetTester tester) async {
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
@@ -108,6 +109,7 @@ void _test_text_widget() {
       //test result: finds both
       expect(textInputFinder, findsNWidgets(2));
     });
+    //TODO rendering of headings
   }); //group
 }
 
@@ -557,8 +559,6 @@ void _test_password_widget() {
 
 void _test_login_button_widget() {
   //TODO test login API function
-  //TODO test naviagtion
-  //TODO test tap (leads to new screen)
   //TODO test submit form function
   //TODO test clear input function
 
@@ -724,6 +724,61 @@ void _test_login_button_widget() {
       expect(HomePageFinder, findsOneWidget);
     });
     */
+
+    testWidgets('successfully clears invalid input fields when tapped.',
+        (WidgetTester tester) async {
+      //fill in fields first with invalid data the clear
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //TODO impement invalid username
+      //find password input
+      final pswdInputFinder = find.byKey(Key('login_password'));
+      //Attach keyboard to acquire focus
+      await tester.showKeyboard(pswdInputFinder);
+      // Enter 'invalid password' into the TextFormField.
+      await tester.enterText(pswdInputFinder, 'invalid password');
+      // Tap the login button.
+      await tester.tap(find.byKey(Key('login_button')));
+      // Expect input fields to be empty
+      expect(find.text(''), findsNWidgets(2));
+    });
+
+    testWidgets(
+        'successfully clears valid input fields containing unverified data when tapped and returns error string.',
+        (WidgetTester tester) async {
+      //fill in fields first with invalid data the clear
+      // returns an instance of Momentum i.e. the app
+      final widget = momentum();
+      // builds and renders the provided widget
+      await tester.pumpWidget(widget);
+      // repeatedly triggers a rebuild of the widget when the state changes.
+      await tester.pumpAndSettle();
+      //TODO impement invalid username
+      //find username input
+      final usernameInputFinder = find.byKey(Key('login_username'));
+      //Attach keyboard to acquire focus
+      await tester.showKeyboard(usernameInputFinder);
+      // Enter 'valid username' into the TextFormField.
+      await tester.enterText(usernameInputFinder, 'Mihlali');
+      //find password input
+      final pswdInputFinder = find.byKey(Key('login_password'));
+      //Attach keyboard to acquire focus
+      await tester.showKeyboard(pswdInputFinder);
+      // Enter 'invalid password' into the TextFormField.
+      await tester.enterText(pswdInputFinder, 'Me@11111');
+      // Expect snackbar to not appear yet
+      expect(find.text('Unverified'), findsNothing);
+      // Tap the login button.
+      await tester.tap(find.byKey(Key('login_button')));
+      // schedule animation
+      await tester.pump();
+      // Expect snackbar to appear
+      expect(find.text('Unverified'), findsOneWidget);
+    });
   }); //group 'login button'
 }
 ////////////////////////////////////////////////////////////////////////////////
