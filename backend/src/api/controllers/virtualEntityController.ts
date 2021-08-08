@@ -1,28 +1,16 @@
-import express from "express";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import { VirtualEntityService } from "../services/VirtualEntityService";
 
-import {
-	validateCreateVirtualEntityRequest,
-	validateAddModelToVirtualEntityRequest,
-	validateGetVirtualEntityRequest,
-} from "../services/validations/VirtualEntityValidate";
 import { uploadFile } from "../helper/aws/fileUpload";
 import {
 	AddModelToVirtualEntityFileData,
 	AddModelToVirtualEntityRequest,
 } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
-import {
-	isEducator,
-	isUser,
-	RequestObjectWithUserId,
-} from "../middleware/validate";
-import passport from "passport";
+import { isEducator, isUser } from "../middleware/validate";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
-import { handleErrors } from "../helper/ErrorCatch";
-import { Container, Inject } from "typedi";
+import { Inject } from "typedi";
 import {
 	BadRequestError,
 	Body,
@@ -102,7 +90,6 @@ export class VirtualEntityController {
 		} else throw new BadRequestError("User is invalid");
 	}
 
-	
 	@Post("/getVirtualEntities")
 	@UseBefore(isUser)
 	GetVirtualEntities(
@@ -112,23 +99,19 @@ export class VirtualEntityController {
 	}
 	@Post("/getVirtualEntity")
 	@UseBefore(isUser)
-	GetVirtualEntity(
-		@Body({ required: true }) body: GetVirtualEntityRequest
-	) {
+	GetVirtualEntity(@Body({ required: true }) body: GetVirtualEntityRequest) {
 		return this.service.GetVirtualEntity(body);
 	}
 	@Post("/answerQuiz")
 	@UseBefore(isUser)
 	AnswerQuiz(
-		@Body({ required: true }) body: AnswerQuizRequest, @CurrentUser({required: true}) user: User
+		@Body({ required: true }) body: AnswerQuizRequest,
+		@CurrentUser({ required: true }) user: User
 	) {
-		return this.service.answerQuiz(body,user.id);
+		return this.service.answerQuiz(body, user.id);
 	}
-
-
 }
 
 //TODO add endpoint to make snapshot of 3d model
-
 
 // TODO get virtual entities by lesson
