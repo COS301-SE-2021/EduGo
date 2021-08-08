@@ -40,6 +40,9 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 
 @Service()
 export class VirtualEntityService {
+	GetSubjectsByUser(arg0: { user_id: any; }) {
+		throw new Error("Method not implemented.");
+	}
 
 	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
 	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
