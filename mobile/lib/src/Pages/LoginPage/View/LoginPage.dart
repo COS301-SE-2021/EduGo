@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
+import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:momentum/momentum.dart';
 
@@ -192,9 +193,9 @@ class _LoginPageState extends State<LoginPage> {
           label: 'Verify registration.',
           onPressed: () =>
               //Leads to registration verification page
-              MomentumRouter.goto(context, RegistrationVerificationPage,
+              MomentumRouter.goto(
+                  context, RegistrationPage /*RegistrationVerificationPage*/,
                   transition: (context, page) {
-            // TODO MaterialPageRoute is not the one you need here :). use any route animation from flutter or from pub.dev
             return MaterialPageRoute(builder: (context) => page);
           }),
           //disabledTextColor: Colors.yellow,
@@ -232,7 +233,7 @@ class _LoginPageState extends State<LoginPage> {
             ])));
     //////////////////////////////////////////////////////////////////////////////
 
-    /////////////////////////////  VIEW RETURNED  ////////////////////////////////
+    /////////////////////////////  VIEW RETURNED  //////////////////////////////
     //return view
     return MomentumBuilder(
         controllers: [UserController],

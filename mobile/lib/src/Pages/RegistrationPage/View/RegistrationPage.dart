@@ -1,7 +1,9 @@
 //https://pub.dev/packages/reactive_forms
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
+import 'package:momentum/momentum.dart';
 
 class RegistrationPage extends StatefulWidget {
   RegistrationPage();
@@ -147,7 +149,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
             child: MaterialButton(
               onPressed: () {
                 //Leads to home page
-                Navigator.pushNamed(context, HomePage.id);
+                MomentumRouter.goto(context, HomePage,
+                    transition: (context, page) {
+                  return MaterialPageRoute(builder: (context) => page);
+                });
               },
               height: 60,
               color: Colors.black,
@@ -167,8 +172,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ],
       ),
     );
-    //Containerization of page
-    return MobilePageLayout(false, false, child);
+    /////////////////////////////  VIEW RETURNED  ////////////////////////////////
+    //return view
+    return MomentumBuilder(
+        controllers: [UserController],
+        builder: (context, snapshot) {
+          return child;
+        });
+    ////////////////////////////////////////////////////////////////////////////
   }
 }
 /*
