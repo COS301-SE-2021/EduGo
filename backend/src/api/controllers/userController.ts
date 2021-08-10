@@ -26,7 +26,6 @@ const studentService: StudentService = new StudentService();
 const educatorService: EducatorService = new EducatorService();
 const userService = new UserService();
 
-//TODO add endpoint to upload profile picture
 router.post(
 	"/setUserToAdmin",
 	passport.authenticate("jwt", { session: false }),
@@ -82,7 +81,7 @@ router.post(
 	}
 );
 
-// TODO Test endpoint
+// TODO Test endpoint 
 router.post(
 	"/addEducatorToExistingSubject",
 	passport.authenticate("jwt", { session: false }),

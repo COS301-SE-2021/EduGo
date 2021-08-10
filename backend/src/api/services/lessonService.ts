@@ -1,14 +1,12 @@
 import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectResponse } from "../models/lesson/GetLessonsBySubjectResponse";
 import { Lesson } from "../database/Lesson";
-import { getConnection, getRepository } from "typeorm";
+import { getConnection } from "typeorm";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import { Subject } from "../database/Subject";
 import { User } from "../database/User";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
-import { VirtualEntity } from "../database/VirtualEntity";
 let statusRes: any = {
 	message: "",
 	type: "fail",
@@ -91,23 +89,5 @@ export class LessonService {
 					return statusRes;
 				});
 		}
-	}
-
-	async AddVirtualEntityToLesson(request: AddVirtualEntityToLessonRequest) {
-		let lesson = await getRepository(Lesson).findOne(request.lessonId, {relations: ["virtualEntities"]});
-		let virtualEntity = await getRepository(VirtualEntity).findOne(request.virtualEntityId);
-		if (lesson) {
-			if (virtualEntity) {
-				lesson.virtualEntities.push(virtualEntity);
-				getRepository(Lesson).save(lesson).then(() => {
-					return true;
-				})
-				.catch((err) => {
-					throw handleSavetoDBErrors(err);
-				});
-			}
-			else throw new NonExistantItemError('Virtual Entity does not exist');
-		}
-		else throw new NonExistantItemError('Lesson does not exist');
 	}
 }

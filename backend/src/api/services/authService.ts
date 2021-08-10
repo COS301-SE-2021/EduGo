@@ -14,6 +14,7 @@ import { validateRegisterRequest } from "./validations/AuthValidate";
 import { Student } from "../database/Student";
 import { Error400 } from "../errors/Error";
 
+
 export class AuthService {
 	public async register(request: RegisterRequest) {
 		// Check if parameters are set
@@ -83,7 +84,7 @@ export class AuthService {
 		});
 
 		if (existingUser) {
-			throw new NonExistantItemError("User is already registered");
+			throw new NonExistantItemError("User is already registered")
 		}
 
 		let invitationRepo = getRepository(UnverifiedUser);
@@ -94,6 +95,7 @@ export class AuthService {
 
 		if (user) {
 			if (user.verificationCode == request.verificationCode) {
+				
 				try {
 					let verified: boolean = await this.setUserToverified(
 						user.id
@@ -158,9 +160,8 @@ export class AuthService {
 
 	public async userRegistration(request: RegisterRequest): Promise<void> {
 		// if user name and password don't exist proceed
-		let unverifiedUserRepo = getRepository(UnverifiedUser);
-		let userRepo = getRepository(User);
 
+		let userRepo = getRepository(User);
 		let unverifiedUserRepo = getRepository(UnverifiedUser);
 		if (!(await this.doesEmailExist(request))) {
 			if (!(await this.doesUsernameExist(request))) {

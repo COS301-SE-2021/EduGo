@@ -8,6 +8,7 @@ export const validateRegisterRequest = (body: any): validationResult => {
 		"user_firstName",
 		"user_lastName",
 		"username",
+		"userType",
 		"password",
 		"organisation_id",
 	];

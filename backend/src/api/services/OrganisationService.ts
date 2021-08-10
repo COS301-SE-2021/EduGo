@@ -23,7 +23,6 @@ import { AuthService } from "./AuthService";
 import { DuplicateError } from "../errors/DuplicateError";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 
-
 export class OrganisationService {
 	async AddSubjectToOrganisation(
 		request: AddSubjectToOrganisationRequest
@@ -113,7 +112,7 @@ export class OrganisationService {
 	): Promise<GetOrganisationResponse> {
 		let organisationRepo = getRepository(Organisation);
 		return organisationRepo
-			.findOne(request.id, { relations: ["subjects"] })
+			.findOne(request.id)
 			.then((organisation) => {
 				if (organisation) {
 					let response: GetOrganisationResponse = {
@@ -121,7 +120,6 @@ export class OrganisationService {
 						organisation_name: organisation.name,
 						organisation_phone: organisation.phone,
 						id: organisation.id,
-						subjects: organisation.subjects,
 					};
 
 					return response;
