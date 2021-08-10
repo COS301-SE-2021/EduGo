@@ -1,7 +1,7 @@
 import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectResponse } from "../models/lesson/GetLessonsBySubjectResponse";
 import { Lesson } from "../database/Lesson";
-import { getConnection, getRepository } from "typeorm";
+import { Repository} from "typeorm";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import { Subject } from "../database/Subject";
 import { User } from "../database/User";
@@ -9,55 +9,49 @@ import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
 import { VirtualEntity } from "../database/VirtualEntity";
+import { Service } from 'typedi'
+import { InjectRepository } from "typeorm-typedi-extensions";
+import { BadRequestError, InternalServerError } from "routing-controllers";
 let statusRes: any = {
 	message: "",
 	type: "fail",
 };
-
+@Service()
 export class LessonService {
-	public async createLesson(request: CreateLessonRequest) {
-		if (
-			request.title == null ||
-			request.description == null ||
-			request.subjectId == null ||
-			request.startTime == null ||
-			request.endTime == null
-		) {
-			statusRes.message = "Missing parameters";
-			statusRes.type = "fail";
-			return statusRes;
-		} else {
-			// Set all attributes of a lesson
-			let conn = getConnection();
-			let lesson: Lesson = new Lesson();
-			lesson.title = request.title;
-			lesson.description = request.description;
-			lesson.virtualEntities = [];
-			//If the lesson start and end timestamps are invalid, set them to null
-			lesson.startTime = new Date(request.startTime) ?? null;
-			lesson.endTime = new Date(request.endTime) ?? null;
+	@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>;
+	@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
+	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
 
-			let subjectRepository = conn.getRepository(Subject);
-			// search for subject with the givem id
-			return subjectRepository
-				.findOne(request.subjectId, {relations: ["lessons"]})
-				.then((subject) => {
-					if (subject) {
-						subject.lessons.push(lesson);
-						// set add the lesson to the subject
-						return subjectRepository
-							.save(subject)
-							.then((value) => {
-								return { id: lesson.id };
-							})
-							.catch((err) => {
-								throw handleSavetoDBErrors(err);
-							});
-					} else {
-						throw new NonExistantItemError("Subject Doesn't exixt");
-					}
-				});
-		}
+	public async createLesson(request: CreateLessonRequest) {
+		// Set all attributes of a lesson
+		let lesson: Lesson = new Lesson();
+		lesson.title = request.title;
+		lesson.description = request.description;
+		lesson.virtualEntities = [];
+		//If the lesson start and end timestamps are invalid, set them to null
+		lesson.startTime = new Date(request.startTime) ?? null;
+		lesson.endTime = new Date(request.endTime) ?? null;
+
+		//let subjectRepository = getRepository(Subject);
+		// search for subject with the givem id
+		return this.subjectRepository
+			.findOne(request.subjectId, {relations: ["lessons"]})
+			.then((subject) => {
+				if (subject) {
+					subject.lessons.push(lesson);
+					// set add the lesson to the subject
+					return this.subjectRepository
+						.save(subject)
+						.then((value) => {
+							return { id: lesson.id };
+						})
+						.catch((err) => {
+							throw handleSavetoDBErrors(err);
+						});
+				} else {
+					throw new BadRequestError('Subject does not exist')
+				}
+		});
 	}
 
 	public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
@@ -66,9 +60,8 @@ export class LessonService {
 				"SubjectId not provided" + JSON.stringify(request);
 			return statusRes;
 		} else {
-			let conn = getConnection();
-			let subjectRepository = conn.getRepository(Subject);
-			return subjectRepository
+			//let subjectRepository = getRepository(Subject);
+			return this.subjectRepository
 				.findOne(request.subjectId, { relations: ["lessons"] })
 				.then((subject) => {
 					if (subject) {
@@ -78,36 +71,29 @@ export class LessonService {
 							statusMessage: "Successful",
 						};
 						return LessonsData;
-					} else {
-						statusRes.message = "The Subject doesn't exist";
-						statusRes.type = "fail";
-						return statusRes;
-					}
+					} else throw new BadRequestError('Subject does not exist');
 				})
 				.catch(() => {
-					statusRes.message =
-						"There was an error getting lessons for subjectId provided";
-					statusRes.type = "fail";
-					return statusRes;
+					throw new BadRequestError('Subject does not exist');
 				});
 		}
 	}
 
 	async AddVirtualEntityToLesson(request: AddVirtualEntityToLessonRequest) {
-		let lesson = await getRepository(Lesson).findOne(request.lessonId, {relations: ["virtualEntities"]});
-		let virtualEntity = await getRepository(VirtualEntity).findOne(request.virtualEntityId);
+		let lesson = await this.lessonRepository.findOne(request.lessonId, {relations: ["virtualEntities"]});
+		let virtualEntity = await this.virtualEntityRepository.findOne(request.virtualEntityId);
 		if (lesson) {
 			if (virtualEntity) {
 				lesson.virtualEntities.push(virtualEntity);
-				getRepository(Lesson).save(lesson).then(() => {
+				this.lessonRepository.save(lesson).then(() => {
 					return true;
 				})
 				.catch((err) => {
 					throw handleSavetoDBErrors(err);
 				});
 			}
-			else throw new NonExistantItemError('Virtual Entity does not exist');
+			else throw new BadRequestError('Virtual Entity does not exist');
 		}
-		else throw new NonExistantItemError('Lesson does not exist');
+		else throw new BadRequestError('Lesson does not exist');
 	}
 }

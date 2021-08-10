@@ -1,8 +1,8 @@
 import { VirtualEntity } from "../database/VirtualEntity";
 import {
 	getConnection,
-	getRepository,
 	NoNeedToReleaseEntityManagerError,
+	Repository,
 } from "typeorm";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { Model } from "../database/Model";
@@ -34,15 +34,29 @@ import { Student } from "../database/Student";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { DatabaseError } from "../errors/DatabaseError";
+import { Service } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
 
+
+@Service()
 export class VirtualEntityService {
+	GetSubjectsByUser(arg0: { user_id: any; }) {
+		throw new Error("Method not implemented.");
+	}
+
+	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
+	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
+	@InjectRepository(Question) private questionRepository: Repository<Question>;
+	@InjectRepository(User) private userRepository: Repository<User>;
+
+	@InjectRepository(Student) private studentRepository: Repository<Student>;
+
 	async AddModelToVirtualEntity(
 		request: AddModelToVirtualEntityFileData
 	): Promise<AddModelToVirtualEntityDatabaseResult> {
 		let conn = getConnection();
-		let virtualEntityRepo = conn.getRepository(VirtualEntity);
 
-		return virtualEntityRepo
+		return this.virtualEntityRepository
 			.findOne(request.id, {
 				relations: ["model", "quiz", "quiz.questions"],
 			})
@@ -61,7 +75,7 @@ export class VirtualEntityService {
 						);
 					}
 					entity.model = model;
-					return virtualEntityRepo.save(entity).then((result) => {
+					return this.virtualEntityRepository.save(entity).then((result) => {
 						if (result.model) {
 							let response: AddModelToVirtualEntityDatabaseResult =
 								{
@@ -84,9 +98,9 @@ export class VirtualEntityService {
 		request: GetVirtualEntityRequest
 	): Promise<GetVirtualEntityResponse> {
 		let conn = getConnection();
-		let virtualEntityRepo = conn.getRepository(VirtualEntity);
+	
 
-		return virtualEntityRepo
+		return this.virtualEntityRepository
 			.findOne(request.id, {
 				relations: ["model", "quiz", "quiz.questions"],
 			})
@@ -146,7 +160,6 @@ export class VirtualEntityService {
 	async CreateVirtualEntity(
 		request: CreateVirtualEntityRequest
 	): Promise<CreateVirtualEntityResponse> {
-		let virtualEntityRepo = getRepository(VirtualEntity);
 		
 		let ve: VirtualEntity = new VirtualEntity();
 		ve.title = request.title;
@@ -179,7 +192,7 @@ export class VirtualEntityService {
 			ve.quiz = quiz;
 		}
 
-		return virtualEntityRepo.save(ve).then((result) => {
+		return this.virtualEntityRepository.save(ve).then((result) => {
 			let response: CreateVirtualEntityResponse = {
 				id: result.id,
 				message: "Successfully added virtual entity"
@@ -205,7 +218,7 @@ export class VirtualEntityService {
 		let quiz: Quiz | undefined;
 		try {
 			user = await getUserDetails(user_id);
-			quiz = await getRepository(Quiz).findOne(request.quiz_id, {
+			quiz = await this.quizRepository.findOne(request.quiz_id, {
 				relations: ["questions"],
 			});
 		} catch (error) {
@@ -222,7 +235,7 @@ export class VirtualEntityService {
 				for (let value of request.answers) {
 					let question: Question | undefined;
 					try {
-						question = await getRepository(Question).findOne(
+						question = await this.questionRepository.findOne(
 							value.question_id
 						);
 					} catch (error) {
@@ -242,10 +255,9 @@ export class VirtualEntityService {
 				}
 				StudentGrade.score = score;
 				StudentGrade.total = total;
-				let studentRepo = getRepository(Student);
 				let student;
 				try {
-					student = await studentRepo.findOne(user.student.id, {
+					student = await this.studentRepository.findOne(user.student.id, {
 						relations: ["grades"],
 					});
 
@@ -256,14 +268,14 @@ export class VirtualEntityService {
 
 					student.grades.push(StudentGrade);
 
-					await studentRepo.save(student).catch((err) => {
+					await this.studentRepository.save(student).catch((err) => {
 						throw handleSavetoDBErrors(err);
 					});
 				} catch (error) {
 					throw error;
 				}
 
-				getRepository(User)
+				this.userRepository
 					.save(user)
 					.then((res) => {
 						return;

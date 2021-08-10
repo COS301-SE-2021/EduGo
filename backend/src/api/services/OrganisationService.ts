@@ -7,7 +7,7 @@ import { GetOrganisationResponse } from "../models/organisation/GetOrganisationR
 import { GetOrganisationsRequest } from "../models/organisation/GetOrganisationsRequest";
 
 import { Organisation } from "../database/Organisation";
-import { getRepository } from "typeorm";
+import { Repository } from "typeorm";
 
 import {
 	GetOrganisationsResponse,
@@ -20,27 +20,38 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { Subject } from "../database/Subject";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import { AuthService } from "./AuthService";
-import { DuplicateError } from "../errors/DuplicateError";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
+import { Service } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
 
-
+@Service()
 export class OrganisationService {
-	async AddSubjectToOrganisation(
+
+	@InjectRepository(Organisation)
+	private organisationRepository: Repository<Organisation>;
+
+	@InjectRepository(Subject) 
+	private subjectRepository: Repository<Subject>;
+
+/**
+ * @description Subjects that have already been created can be added to an  new organisation 
+ * @param {AddSubjectToOrganisationRequest} request
+ * @returns   {Promise<AddSubjectToOrganisationResponse>}
+ * @memberof OrganisationService
+ */
+async AddSubjectToOrganisation(
 		request: AddSubjectToOrganisationRequest
 	): Promise<AddSubjectToOrganisationResponse> {
-		let subjectRepo = getRepository(Subject);
-		let organisationRepo = getRepository(Organisation);
-
-		return organisationRepo
+		return this.organisationRepository
 			.findOne(request.organisation_id, { relations: ["subjects"] })
 			.then((organisation) => {
 				if (organisation) {
-					return subjectRepo
+					return this.subjectRepository
 						.findOne(request.subject_id)
 						.then((subject) => {
 							if (subject) {
 								organisation.subjects.push(subject);
-								organisationRepo
+								this.organisationRepository
 									.save(organisation)
 									.then((result) => {
 										let response: AddSubjectToOrganisationResponse =
@@ -50,7 +61,7 @@ export class OrganisationService {
 											};
 										return response;
 									})
-									.catch((err) => {
+									.catch(() => {
 										throw new DatabaseError(
 											`Could not add subject ID ${request.subject_id} to organisation ID ${request.organisation_id}`
 										);
@@ -69,8 +80,15 @@ export class OrganisationService {
 				throw new DatabaseError(err.message);
 			});
 	}
-
-	async CreateOrganisation(
+/**
+ * @description The creation of an organisation 
+ * First create the Orgainisation object 
+ * Call the register function that will register the first admin user for the organisation 
+ * @param {CreateOrganisationRequest} request
+ * @returns   {Promise<CreateOrganisationResponse>}
+ * @memberof OrganisationService
+ */
+async CreateOrganisation(
 		request: CreateOrganisationRequest
 	): Promise<CreateOrganisationResponse> {
 		let organisation: Organisation = new Organisation();
@@ -79,13 +97,10 @@ export class OrganisationService {
 		organisation.phone = request.organisation_phone;
 		organisation.subjects = [];
 
-		// create organization
-		let organisationRepo = getRepository(Organisation);
 
-		return organisationRepo
+		return this.organisationRepository
 			.save(organisation)
 			.then(async (org) => {
-				// create first admin for organisation
 				request.userType = userType.firstAdmin;
 				request.organisation_id = org.id;
 				let registerObj: RegisterRequest = {
@@ -107,12 +122,16 @@ export class OrganisationService {
 				throw handleSavetoDBErrors(err);
 			});
 	}
-
-	async GetOrganisation(
+/**
+ * @description Get information about an organisation just by providing the organisation id  
+ * @param {GetOrganisationRequest} request
+ * @returns   {Promise<GetOrganisationResponse>}
+ * @memberof OrganisationService
+ */
+async GetOrganisation(
 		request: GetOrganisationRequest
 	): Promise<GetOrganisationResponse> {
-		let organisationRepo = getRepository(Organisation);
-		return organisationRepo
+		return this.organisationRepository
 			.findOne(request.id, { relations: ["subjects"] })
 			.then((organisation) => {
 				if (organisation) {
@@ -134,12 +153,16 @@ export class OrganisationService {
 				throw new DatabaseError(err.message);
 			});
 	}
-
-	async GetOrganisations(
+/**
+ * @description Returns basic information about all the organisations on the platform 
+ * @param {GetOrganisationsRequest} request
+ * @returns {Promise<GetOrganisationsResponse>}
+ * @memberof OrganisationService
+ */
+async GetOrganisations(
 		request: GetOrganisationsRequest
 	): Promise<GetOrganisationsResponse> {
-		let organisationRepo = getRepository(Organisation);
-		return organisationRepo
+		return this.organisationRepository
 			.find()
 			.then((organisations) => {
 				let response: GetOrganisationsResponse = {
@@ -155,7 +178,7 @@ export class OrganisationService {
 				};
 				return response;
 			})
-			.catch((err) => {
+			.catch(() => {
 				throw new DatabaseError();
 			});
 	}

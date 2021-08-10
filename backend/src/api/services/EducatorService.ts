@@ -1,4 +1,4 @@
-import { getRepository, In } from "typeorm";
+import { In, Repository } from "typeorm";
 import { validateEmails } from "./validations/EmailValidate";
 import { Organisation } from "../database/Organisation";
 import { UnverifiedUser } from "../database/UnverifiedUser";
@@ -15,20 +15,24 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
 import { Error400 } from "../errors/Error";
 import { Subject } from "../database/Subject";
+import { Service, Inject } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
 
 /**
  * A class consisting of the functions that make up the educator service
  * @class EducatorService
  */
+@Service()
 export class EducatorService {
+	@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
+	@InjectRepository(User) private userRepository: Repository<User>;
+	@InjectRepository(Organisation)
+	private organisationRepository: Repository<Organisation>;
+	@InjectRepository(UnverifiedUser)
+	private unverifiedUserRepository: Repository<UnverifiedUser>;
+	//TODO check error regarding mockEmailService injectable
+	@Inject("mailgunEmailService")
 	emailService: EmailService;
-
-	/**
-	 * Create an educator service
-	 */
-	constructor() {
-		this.emailService = new MockEmailService();
-	}
 
 	/**
 	 * @param  {AddEducatorToExistingSubjectRequest} body
@@ -49,7 +53,7 @@ export class EducatorService {
 		}
 
 		try {
-			educatorDetails = await getRepository(User).findOne({
+			educatorDetails = await this.userRepository.findOne({
 				where: { username: body.username },
 			});
 		} catch (error) {
@@ -57,7 +61,7 @@ export class EducatorService {
 		}
 
 		try {
-			subjectDetails = await getRepository(Subject).findOne(
+			subjectDetails = await this.subjectRepository.findOne(
 				body.subject_id,
 				{ relations: ["user"] }
 			);
@@ -97,7 +101,6 @@ export class EducatorService {
 		user_id: number
 	): Promise<void> {
 		let emails: string[] = request.educators;
-		let organisationRepository = getRepository(Organisation);
 
 		let user: User;
 		try {
@@ -107,7 +110,7 @@ export class EducatorService {
 		}
 
 		if (user && user.organisation && validateEmails(emails)) {
-			organisationRepository
+			this.organisationRepository
 				.findOne(user.organisation.id, {
 					relations: ["users", "unverifiedUsers"],
 				})
@@ -127,13 +130,13 @@ export class EducatorService {
 	/**
 	 * @param {string[]} emails - An array of emails of unverified educators
 	 * @throws {EmailError} Not all of the emails could be sent
-	 * @description Will receive the already categorised unverified email addresses and:
+	 * @description Will receive the already categorized unverified email addresses and:
 	 * 1. Find all the UnverifiedUser objects for each email
 	 * 2. Create VerificationEmail objects from each UnverifiedUser
 	 * 3. Send the emails by invoking the SendBulkVerificationReminderEmails function from the email service
 	 */
 	private async HandleUnverifiedEducators(emails: string[]) {
-		getRepository(UnverifiedUser)
+		this.unverifiedUserRepository
 			.find({ where: { email: In(emails) } })
 			.then((users) => {
 				let reminderEmails: VerificationEmail[] = users
@@ -183,7 +186,7 @@ export class EducatorService {
 		let unverifiedEmails: VerificationEmail[] = users.map((value) => {
 			return { code: value.verificationCode, email: value.email };
 		});
-		getRepository(UnverifiedUser)
+		this.unverifiedUserRepository
 			.save(users)
 			.then(() => {
 				this.emailService

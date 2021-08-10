@@ -1,21 +1,25 @@
 import { User } from "../database/User";
-import { getRepository } from "typeorm";
+import {  Repository } from "typeorm";
 import { RevokeUserFromAdminRequest } from "../models/user/RevokeUserFromAdminRequest";
 import { SetUserToAdminRequest } from "../models/user/SetUserToAdminRequet";
 import { DatabaseError } from "../errors/DatabaseError";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { InvalidParameterError } from "../errors/InvalidParametersError";
+import { Service } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
 
+@Service()
 export class UserService {
+	@InjectRepository(User) private userRepository: Repository<User>;
+
 	public async setUserToAdmin(request: SetUserToAdminRequest) {
 		if (request.username == null) {
 			throw new InvalidParameterError("Username not provided");
 		}
-		// TO DO change this to cater for Educators not user
-		let userRepo = getRepository(User);
+		// TODO change this to cater for Educators not user
 		let username = request.username;
-		let user = await userRepo.findOne({
+		let user = await this.userRepository.findOne({
 			where: { username: username },
 			relations: ["educator"],
 		});
@@ -24,7 +28,7 @@ export class UserService {
 			if (user.educator) {
 				if (!user.educator.admin) {
 					user.educator.admin = true;
-					userRepo
+					this.userRepository
 						.save(user)
 						.then((saved) => {
 							return true;
@@ -48,9 +52,8 @@ export class UserService {
 			throw new InvalidParameterError("Username not provided");
 		}
 
-		let userRepo = getRepository(User);
 		let username = request.username;
-		let user = await userRepo.findOne({
+		let user = await this.userRepository.findOne({
 			where: { username: username },
 			relations: ["educator"],
 		});
@@ -59,7 +62,7 @@ export class UserService {
 			if (user.educator) {
 				if (user.educator.admin) {
 					user.educator.admin = false;
-					userRepo
+					this.userRepository
 						.save(user)
 						.then((saved) => {
 							return true;

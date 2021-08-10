@@ -6,46 +6,27 @@ import { LoginRequest } from "../models/auth/LoginRequest";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
 import { AuthService } from "../services/AuthService";
+import { Container, Inject, Service } from "typedi";
+import { Body, JsonController, Post } from "routing-controllers";
 
-const service = new AuthService();
-const router = express.Router();
+@Service()
+@JsonController("/auth")
+export class AuthController {
+	@Inject()
+	private service: AuthService;
 
-router.use((req, res, next) => {
-	next();
-});
+	@Post("/login")
+	Login(@Body({ required: true }) body: LoginRequest) {
+		return this.service.login(body);
+	}
 
-router.post("/login", async (req, res) => {
-	service
-		.login(<LoginRequest>req.body)
-		.then((response) => {
-			res.status(200).json(response);
-		})
-		.catch((err) => {
-			handleErrors(err, res);
-		});
-});
+	@Post("/register")
+	Register(@Body({ required: true }) body: RegisterRequest) {
+		return this.service.register(body);
+	}
 
-
-router.post("/register", async (req, res) => {
-	service
-		.register(<RegisterRequest>req.body)
-		.then((response) => {
-			res.status(200).send("ok");
-		})
-		.catch((err) => {
-			handleErrors(err, res);
-		});
-});
-
-router.post("/verifyInvitation", async (req, res) => {
-	service
-		.verifyInvitation(<VerifyInvitationRequest>req.body)
-		.then((response) => {
-			res.status(200).send("ok");
-		})
-		.catch((err) => {
-			handleErrors(err, res);
-		});
-});
-
-export { router };
+	@Post("/verifyInvitation")
+	VerifyInvitation(@Body({ required: true }) body: VerifyInvitationRequest) {
+		return this.service.verifyInvitation(body);
+	}
+}

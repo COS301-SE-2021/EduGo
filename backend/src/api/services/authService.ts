@@ -1,4 +1,4 @@
-import { getConnection, getRepository } from "typeorm";
+import { Repository } from "typeorm";
 import { User } from "../database/User";
 import { genPassword, issueJWT, validPassword } from "../helper/auth/utils";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
@@ -9,60 +9,71 @@ import { Organisation } from "../database/Organisation";
 import { Educator } from "../database/Educator";
 import { DatabaseError } from "../errors/DatabaseError";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { InvalidParameterError } from "../errors/InvalidParametersError";
 import { validateRegisterRequest } from "./validations/AuthValidate";
 import { Student } from "../database/Student";
 import { Error400 } from "../errors/Error";
+import { Service } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
+import { LoginResponse } from "../models/auth/LoginResponse";
+import { BadRequestError } from "routing-controllers";
 
+@Service()
 export class AuthService {
+	@InjectRepository(User) private userRepository: Repository<User>;
+	@InjectRepository(UnverifiedUser)
+	private unverifiedUserRepository: Repository<UnverifiedUser>;
+	@InjectRepository(Organisation)
+	private organisationRepository: Repository<Organisation>;
+	/**
+	 * @description This function allows for a user to register onto the platform
+	 * 1. If User Type is the first admin for an organisation firstAdminRegistration will be used
+	 * 2. If the user type is a student or an educator then userRegistration will be used
+	 * @param {RegisterRequest} request
+	 * @returns {*}
+	 * @memberof AuthService
+	 */
 	public async register(request: RegisterRequest) {
-		// Check if parameters are set
-		try {
-			validateRegisterRequest(request);
-		} catch (error) {
-			throw error;
-		}
-
 		if (request.userType == userType.firstAdmin) {
-			// registering the first admin for an organization
 			return this.firstAdminRegistration(request);
 		}
-
-		// educator or student registration
 
 		return this.userRegistration(request);
 	}
 
-	public async login(request: LoginRequest) {
-		let UserRepo = getRepository(User);
-
-		// Find user with given Username
-		return UserRepo.findOne({ where: { username: request.username } })
-			.then((user) => {
-				if (!user) {
-					throw new NonExistantItemError(
-						`User with username ${request.username} not found`
-					);
-				}
-
-				// validate password of user
-				let isValid = validPassword(
-					request.password,
-					user.hash,
-					user.salt
-				);
-
-				if (isValid) {
-					// issue jwt token for the user
-
-					return { token: issueJWT(user).token };
-				} else {
-					throw new Error400("Incorrect Password");
-				}
-			})
-			.catch((err) => {
-				throw err;
+	/**
+	 * @description This endpoint allows for login in and returns a the JWT token
+	 * 1. Check if user with given username exists
+	 * 2. Validate the password entered
+	 * 3. Issue the JWT Token
+	 * @param {LoginRequest} request
+	 * @returns {Promise<LoginResponse>}
+	 * @memberof AuthService
+	 */
+	public async login(request: LoginRequest): Promise<LoginResponse> {
+		try {
+			let user = await this.userRepository.findOne({
+				where: { username: request.username },
 			});
+
+			if (user == undefined) {
+				throw new NonExistantItemError(
+					`User with username ${request.username} not found`
+				);
+			}
+
+			let isValid = validPassword(request.password, user.hash, user.salt);
+
+			if (isValid) {
+				let response: LoginResponse = {
+					token: issueJWT(user).token,
+				};
+				return response;
+			} else {
+				throw new BadRequestError("Incorrect Password");
+			}
+		} catch (err) {
+			throw err;
+		}
 	}
 
 	// User invitation code before registering
@@ -74,53 +85,62 @@ export class AuthService {
 	 * 3. Check if user verification code is valid
 	 * 4. Set user as verified
 	 * @param {VerifyInvitationRequest} request
+	 * @returns {Promise<void>}
+	 * @memberof AuthService
+	 */
+	public async verifyInvitation(
+		request: VerifyInvitationRequest
+	): Promise<void> {
+		try {
+			let existingUser = await this.userRepository.findOne({
+				where: { email: request.email },
+			});
+
+			if (existingUser) {
+				throw new NonExistantItemError("User is already registered");
+			}
+
+			let user = await this.unverifiedUserRepository.findOne({
+				where: { email: request.email },
+			});
+
+			if (user) {
+				if (user.verificationCode == request.verificationCode) {
+					try {
+						let verified: boolean = await this.setUserToverified(
+							user.id
+						);
+						if (verified) {
+							return;
+						} else {
+							throw new NonExistantItemError(
+								"User not found in unverified list"
+							);
+						}
+					} catch (err) {
+						throw err;
+					}
+				} else {
+					throw new Error400("Invitation code is invalid");
+				}
+			} else {
+				throw new Error400(
+					"User has not been invited to sign up for EduGo"
+				);
+			}
+		} catch (err) {
+			throw err;
+		}
+	}
+	/**
+	 * @description This function is a helper function to set the user to a verified user
+	 * @param {number} user_id
 	 * @returns {*}
 	 * @memberof AuthService
 	 */
-	public async verifyInvitation(request: VerifyInvitationRequest) {
-		let existingUser = await getRepository(User).findOne({
-			where: { email: request.email },
-		});
-
-		if (existingUser) {
-			throw new NonExistantItemError("User is already registered");
-		}
-
-		let invitationRepo = getRepository(UnverifiedUser);
-
-		let user = await invitationRepo.findOne({
-			where: { email: request.email },
-		});
-
-		if (user) {
-			if (user.verificationCode == request.verificationCode) {
-				try {
-					let verified: boolean = await this.setUserToverified(
-						user.id
-					);
-					if (verified) {
-						return;
-					} else {
-						throw new NonExistantItemError(
-							"User not found in unverified list"
-						);
-					}
-				} catch (err) {
-					throw err;
-				}
-			} else {
-				throw new Error400("Invitation code is invalid");
-			}
-		} else {
-			throw new Error400(
-				"User has not been invited to sign up for EduGo"
-			);
-		}
-	}
-
 	public async setUserToverified(user_id: number) {
 		try {
-			await getConnection()
+			await this.unverifiedUserRepository
 				.createQueryBuilder()
 				.update(UnverifiedUser)
 				.set({ verified: true })
@@ -131,11 +151,14 @@ export class AuthService {
 		}
 		return true;
 	}
-
+	/**
+	 * @description Helper function to check if given email exists
+	 * @param {RegisterRequest} request
+	 * @returns {*}
+	 * @memberof AuthService
+	 */
 	public async doesEmailExist(request: RegisterRequest) {
-		let userRepo = getRepository(User);
-		// check if username and password exist
-		let emailExists = await userRepo.findOne({
+		let emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
 
@@ -143,11 +166,15 @@ export class AuthService {
 
 		return false;
 	}
-
+	/**
+	 * @description Helper function to check if Username exists
+	 * @param {RegisterRequest} request
+	 * @returns {*}
+	 * @memberof AuthService
+	 */
 	public async doesUsernameExist(request: RegisterRequest) {
-		let userRepo = getRepository(User);
 		// check if username and password exist
-		let usernameExists = await userRepo.findOne({
+		let usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
 		});
 
@@ -155,24 +182,33 @@ export class AuthService {
 
 		return false;
 	}
-
+	/**
+	 * @description This function is for educators and student registration
+	 * 1. Check if email and username exists
+	 * 2. check if the user has been invited to an organisation
+	 * 3. set the user details
+	 * 4. add subjects that user was invited to their relation
+	 * 4. Remove user from invited list
+	 * @param {RegisterRequest} request
+	 * @returns  {Promise<void>}
+	 * @memberof AuthService
+	 */
 	public async userRegistration(request: RegisterRequest): Promise<void> {
 		// if user name and password don't exist proceed
-		let unverifiedUserRepo = getRepository(UnverifiedUser);
-		let userRepo = getRepository(User);
 
-		let unverifiedUserRepo = getRepository(UnverifiedUser);
 		if (!(await this.doesEmailExist(request))) {
 			if (!(await this.doesUsernameExist(request))) {
 				// check if user did verify their number
-				let invitedUser = await unverifiedUserRepo.findOne({
+				let invitedUser = await this.unverifiedUserRepository.findOne({
 					where: { email: request.user_email },
-					relations: ['subjects', 'organisation']
+					relations: ["subjects", "organisation"],
 				});
 				// Only invited users can register
 				if (invitedUser) {
 					if (!invitedUser.verified) {
-						throw new NonExistantItemError("User has not been Invited");
+						throw new NonExistantItemError(
+							"User has not been Invited"
+						);
 					}
 
 					let org = invitedUser.organisation;
@@ -187,10 +223,7 @@ export class AuthService {
 					user.salt = saltHAsh.salt;
 					user.hash = saltHAsh.hash;
 					user.organisation = org;
-
-					//TODO Test if this works
-					// add subjects that user was invited to their relation
-					if (request.userType == userType.student) {
+					if (invitedUser.type == userType.student) {
 						user.student = new Student();
 
 						for (let index of invitedUser.subjects) {
@@ -204,9 +237,8 @@ export class AuthService {
 					}
 
 					try {
-						await userRepo.save(user)
-					}
-					catch (err) {
+						await this.userRepository.save(user);
+					} catch (err) {
 						throw new DatabaseError(
 							"User unable to be saved to DB"
 						);
@@ -220,43 +252,57 @@ export class AuthService {
 						"Email address that was invited with doesn't match provided email address"
 					);
 				}
-			}
-			else throw new Error400("Username already exists");
-		}
-		else throw new Error400("Email already exists");
+			} else throw new Error400("Username already exists");
+		} else throw new Error400("Email already exists");
 	}
-
-	public async emailExists(request: RegisterRequest) {
-		let userRepo = getRepository(User);
-		//Check if user exists with specified username and email address
-		let emailExists = await userRepo.findOne({
+	/**
+	 * @description helper function to Check if user exists with specified email address
+	 * @param {RegisterRequest} request
+	 * @returns  {Promise<Boolean>}
+	 * @memberof AuthService
+	 */
+	public async emailExists(request: RegisterRequest): Promise<Boolean> {
+		let emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
 		if (emailExists == undefined) return true;
 
 		return false;
 	}
-	public async usernameExists(request: RegisterRequest) {
-		let userRepo = getRepository(User);
-
-		let usernameExists = await userRepo.findOne({
+	/**
+	 * @description Helper function to Check if user exists with specified email address
+	 * @param {RegisterRequest} request
+	 * @returns  {Promise<Boolean>}
+	 * @memberof AuthService
+	 */
+	public async usernameExists(request: RegisterRequest): Promise<Boolean> {
+		let usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
 		});
-		console.log(usernameExists);
 		if (usernameExists == undefined) return true;
 
 		return false;
 	}
-
-	public async firstAdminRegistration(request: RegisterRequest) {
-		let userRepo = getRepository(User);
+	/**
+	 * @description The purpose of this function is to register the first admin user of an organisation
+	 * Check if username and email exists
+	 * Check if organisationid givin exists
+	 * Set user details
+	 *
+	 * @param {RegisterRequest} request
+	 * @returns   {Promise<void>}
+	 * @memberof AuthService
+	 */
+	public async firstAdminRegistration(
+		request: RegisterRequest
+	): Promise<void> {
 		let organisation: Organisation;
 		if (
 			!(await this.doesEmailExist(request)) &&
 			!(await this.doesUsernameExist(request))
 		) {
 			try {
-				let org = await getRepository(Organisation).findOne(
+				let org = await this.organisationRepository.findOne(
 					request.organisation_id
 				);
 				if (org) organisation = org;
@@ -279,16 +325,16 @@ export class AuthService {
 			user.educator = new Educator();
 			user.educator.admin = true;
 			user.organisation = organisation;
-			return userRepo
-				.save(user)
-				.then((result) => {
+			try {
+				let savedUser = await this.userRepository.save(user);
+				if (savedUser) {
 					return;
-				})
-				.catch((err) => {
-					throw new DatabaseError("User unable to be saved to DB");
-				});
+				}
+			} catch (err) {
+				throw new DatabaseError("User unable to be saved to DB");
+			}
 		} else {
-			return new Error400("username and email already exist");
+			throw new Error400("username and email already exist");
 		}
 	}
 }

@@ -1,5 +1,5 @@
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
-import { getConnection, getRepository } from "typeorm";
+import { Repository } from "typeorm";
 import { Subject } from "../database/Subject";
 import { GetSubjectsByUserRequest } from "../models/subject/GetSubjectsByUserRequest";
 import { GetSubjectsByUserResponse } from "../models/subject/GetSubjectsByUserResponse";
@@ -7,16 +7,24 @@ import { Organisation } from "../database/Organisation";
 import { CreateSubjectResponse } from "../models/subject/CreateSubjectResponse";
 import { User } from "../database/User";
 import { DatabaseError } from "../errors/DatabaseError";
-import { Subject as GSBE_Subject } from "../models/subject/Default";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { handleErrors, handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { Educator } from "../database/Educator";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { Student } from "../database/Student";
+import { Service } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
+
 
 //import {client} from '../../index'
 
+@Service()
 export class SubjectService {
+	@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
+	@InjectRepository(User) private userRepository: Repository<User>;
+	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>;
+	@InjectRepository(Educator) private educatorRepository: Repository<Educator>;
+	@InjectRepository(Student) private studentRepository: Repository<Student>;
+
 	async CreateSubject(
 		request: CreateSubjectRequest,
 		user_id: number,
@@ -30,21 +38,17 @@ export class SubjectService {
 			throw error;
 		}
 
-		let subjectRepository = getRepository(Subject);
-		let userRepository = getRepository(User);
-		let organisationRepository = getRepository(Organisation);
-
 		let subject: Subject = new Subject();
 		subject.title = request.title;
 		subject.grade = request.grade;
 		subject.image = imageLink;
-		return organisationRepository
+		return this.organisationRepository
 			.findOne(userDetails.organisation.id)
 			.then(async (org) => {
 				if (org) {
 					subject.organisation = org;
 
-					const user = await userRepository.findOne(
+					const user = await this.userRepository.findOne(
 						userDetails.educator.id,
 						{
 							relations: ["educator"],
@@ -56,7 +60,7 @@ export class SubjectService {
 						subject.unverifiedUsers = [];
 						subject.lessons = [];
 
-						return subjectRepository
+						return this.subjectRepository
 							.save(subject)
 							.then((subject) => {
 								let response: CreateSubjectResponse = {
@@ -77,9 +81,8 @@ export class SubjectService {
 	async GetSubjectsByUser(
 		request: GetSubjectsByUserRequest
 	): Promise<GetSubjectsByUserResponse> {
-		let userRepository = getRepository(User);
 
-		return userRepository
+		return this.userRepository
 			.findOne(request.user_id, {
 				relations: ["educator", "student"],
 			})
@@ -87,9 +90,7 @@ export class SubjectService {
 				// if user is a educator then return the educators subjects
 				if (user && user.educator) {
 					try {
-						let educatorData = await getRepository(
-							Educator
-						).findOne(user.educator.id, {
+						let educatorData = await this.educatorRepository.findOne(user.educator.id, {
 							relations: ["subjects"],
 						});
 						if (educatorData) {
@@ -100,7 +101,7 @@ export class SubjectService {
 					}
 				} else if (user && user.student) {
 					try {
-						let studentData = await getRepository(Student).findOne(
+						let studentData = await this.studentRepository.findOne(
 							user.educator.id,
 							{
 								relations: ["subjects"],
