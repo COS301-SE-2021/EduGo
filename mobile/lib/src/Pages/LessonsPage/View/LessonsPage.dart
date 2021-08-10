@@ -16,6 +16,7 @@ class LessonsPage extends StatefulWidget {
   final int subjectID;
   //This title variable holds the subject count of the card that was clicked on
   //final int SubjectCount;
+
   //LessonPage constructor
   LessonsPage({Key? key, required this.title, required this.subjectID})
       : super(key: key);
@@ -34,6 +35,10 @@ class _LessonsPageState extends State<LessonsPage> {
 
   @override
   Widget build(BuildContext context) {
+    //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
+    //the two bool represent side bar and navbar. so if true and true, them
+    //the side bar and nav bar will be displayed.
+    //i.e true=yes display, false=no do not display
     return MobilePageLayout(
       false,
       true,
@@ -44,16 +49,21 @@ class _LessonsPageState extends State<LessonsPage> {
           //Used by momentum mvc model
           //Used to get the list of lessons
           final lessons = snapshot<LessonsModel>();
+
           //Used to call the specific function in the controller called getLessons
           //This requires the subjectID to be passed
           final lessonController =
               Momentum.controller<LessonsController>(context);
 
+          //Call the getLessonsfunction to pass in the subject id.
+          //This is needed to map the lessons to the subjects in the controller
           lessonController.getLessons(subjectID);
 
           //Get the number of lessons for a particular subject
           int lessonsCount = lessons.lessons.length;
 
+          //A check to see if there are subjects. If there are no subjects,
+          //display another card saying no subjects are available
           if (lessonsCount > 0) {
             return Container(
               //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
@@ -122,7 +132,9 @@ class _LessonsPageState extends State<LessonsPage> {
                 ),
               ),
             );
-          } else
+          }
+          //If there are no lessons
+          else
             return Container(
               child: Text('There are no lessons for this subject'),
             );

@@ -11,6 +11,7 @@ import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart'
 import 'package:momentum/momentum.dart';
 
 void main() {
+  //when mock=false it uses api calls. when mock=true, it uses mock data
   runApp(momentum(mock: false));
 }
 

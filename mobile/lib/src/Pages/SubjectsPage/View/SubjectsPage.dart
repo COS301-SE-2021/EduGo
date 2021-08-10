@@ -22,6 +22,10 @@ class SubjectsPage extends StatefulWidget {
 class _SubjectsPageState extends State<SubjectsPage> {
   @override
   Widget build(BuildContext context) {
+    //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
+    //the two bool represent side bar and navbar. so if true and true, them
+    //the side bar and nav bar will be displayed.
+    //i.e true=yes display, false=no do not display
     return MobilePageLayout(
       true,
       true,
@@ -31,8 +35,12 @@ class _SubjectsPageState extends State<SubjectsPage> {
         builder: (context, snapshot) {
           //Used for momentum mvc model
           final subjects = snapshot<SubjectsModel>();
+
           //Get the number of subjects for a particulat student
           int subjectsCount = subjects.subjects.length;
+
+          //A check to see if there are subjects. If there are no subjects,
+          //display another card saying no subjects are available
           if (subjectsCount > 0) {
             return Container(
               //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
@@ -88,6 +96,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       mainAxisSpacing: 10,
                       //makes 1 cards per row
                       crossAxisCount: 1,
+                      //Call subject card here and pass in all arguments required
                       children: subjects.subjects
                           .map((subject) => SubjectCard(
                               title: subject.title,
@@ -100,7 +109,9 @@ class _SubjectsPageState extends State<SubjectsPage> {
                 ),
               ),
             );
-          } else
+          }
+          //If there are no subjects
+          else
             return Container(
               child: Text('There are currently no subjects'),
             );

@@ -7,12 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 
 class SubjectCard extends StatelessWidget {
+  //Holds the subject title
   final String title;
+  //Holds the subject grade
   final int grade;
+  //Holds the subject id (no longer needed)
   final int id;
+  //Holds how many lessons are in the subject
   final int count;
   //final *type* subjectImage
 
+//This is the subject card constructor. it requires 5 arguments to be passed in
   SubjectCard(
       {required this.title,
       required this.grade,
@@ -25,6 +30,9 @@ class SubjectCard extends StatelessWidget {
     //   height: 500,
     //   width: 280,
 
+    //This is the main subject card design. It is all in a container and
+    //displays info like the subject photo, subject title, subject educator
+    //and how many lessons are in that subject
     return Card(
       semanticContainer: true,
       shape: RoundedRectangleBorder(
@@ -36,6 +44,8 @@ class SubjectCard extends StatelessWidget {
       // it will go to the lessons for that subject
       child: new InkWell(
         onTap: () {
+          //This redirects the page to the lessons page on tap
+          //and passes in the subject title, and subject id
           Navigator.push(
             context,
             MaterialPageRoute(

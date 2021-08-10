@@ -7,16 +7,25 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 
 class LessonsCard extends StatelessWidget {
+  //Holds the lesson title
   final String lessonTitle;
+
+  //Holds the lessonid
   final int lessonID;
+
+  //Holds the lesson description
   final String lessonDescription;
+
   //This holds the start time of the lesson
   final String lessonStartTime;
+
   //This holds the end time of the lesson
   final String lessonEndTime;
 
-  //final *type* subjectImage
+  //Holds the lesson objectives
+  //final String lessonObjectives
 
+//LessonCardConstructor. Takes in 4 arguments
   LessonsCard(
       {required this.lessonTitle,
       required this.lessonID,
@@ -29,7 +38,9 @@ class LessonsCard extends StatelessWidget {
     return Container(
       height: 250,
       width: 250,
-
+      //This is the main lesson card design. It is all in a container and
+      //displays info like the lesson title, lesson objectives and
+      //the lesson
       child: Card(
         semanticContainer: true,
         shape: RoundedRectangleBorder(
@@ -38,8 +49,10 @@ class LessonsCard extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         color: Colors.black,
         //This allows the card to be clickable so that when clicked,
-        // it will go to the lessons for that subject
+        // it will go to the lessons description for that lesson
         child: new InkWell(
+          //This redirects the page to the lessons description page on tap
+          //and passes in the lesson description, lesson objectives and lesson title
           onTap: () {
             Navigator.push(
               context,

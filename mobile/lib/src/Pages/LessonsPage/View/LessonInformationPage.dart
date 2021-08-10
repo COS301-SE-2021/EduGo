@@ -6,20 +6,23 @@ import 'package:mobile/src/Pages/VirtualEntityPage/View/VirtualEntityPage.dart';
 class LessonInformationPage extends StatefulWidget {
   //This title variable holds the lesson title of the card that was clicked on
   final String lessonTitle;
+
   //This holds the specific lesson ID
   final int lessonID;
+
   //This holds the lesson outcomes. i.e What the educator hopes to teach
   //in the lesson
   //final String lessonOutcomes;
+
   //This holds the lesson description. i.e What the lesson is about
   final String lessonDescription;
+
   //This holds the start time of the lesson
   final String lessonStartTime;
+
   //This holds the end time of the lesson
   final String lessonEndTime;
 
-  //This title variable holds the subject count of the card that was clicked on
-  //final int SubjectCount;
   //LessonPage constructor
   LessonInformationPage(
       {Key? key,
@@ -51,6 +54,8 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
 
   // var date = DateTime.parse(lessonStartTime);
 
+  //Soon take out start time and end time
+
   _LessonInformationPageState(
       {required this.lessonTitle,
       required this.lessonID,
@@ -65,6 +70,10 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
     var endDate = DateTime.parse(this.lessonEndTime);
 
     return MobilePageLayout(
+      //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
+      //the two bool represent side bar and navbar. so if true and true, them
+      //the side bar and nav bar will be displayed.
+      //i.e true=yes display, false=no do not display
       false,
       false,
       Container(
