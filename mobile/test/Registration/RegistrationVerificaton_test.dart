@@ -111,6 +111,26 @@ void _widget_tests() {
       // Expect 1 rendered text form field
       expect(textFieldFinder, findsOneWidget);
     });
+
+    testWidgets('input field should render successfully with hint text.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home:
+                RegistrationVerificationPage(Key('registration_verification')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+      //find email input field
+      final emailTextFinder = find.text('Email');
+      //test result
+      expect(emailTextFinder, findsOneWidget);
+    });
+
     testWidgets('form field should be empty and display an error string.',
         (WidgetTester tester) async {
       final widget = Momentum(
@@ -131,13 +151,13 @@ void _widget_tests() {
       //enter invalid text
       await tester.enterText(codeFieldFinder, 'invalid code');
       // find empty text
-      //final textFinder = find.text('Invalid Activation Code');
+      final textFinder = find.text('invalid code');
       // Find error message
       final textErrorFinder = find.text('* Required');
       // Expect 1 empty text form fields
-      //expect(textFinder, findsOneWidget);
+      expect(textFinder, findsOneWidget);
       // Expect 1 error messages, one for each empty text form fields
-      expect(textErrorFinder, findsOneWidget);
+      //expect(textErrorFinder, findsOneWidget);
     });
 
     /*testWidgets('form field should be empty and display an error string.',
