@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Get a specific controller (UserController) to call needed functions (verify)
+    //Get a specific controller (UserController) to call needed functions (login)
     UserController userController =
         Momentum.controller<UserController>(context);
 

@@ -15,10 +15,8 @@ class RegistrationPage extends StatefulWidget {
   _RegistrationPageState createState() => _RegistrationPageState();
 }
 
-/* 
-
-*/
 class _RegistrationPageState extends State<RegistrationPage> {
+  /////////////////////////  VARIABLES & FUNCTIONS  ////////////////////////////
   String selected_organisation = 'Select an organisation';
   final List<String> organisations = <String>[
     'Select an organisation',
@@ -34,10 +32,39 @@ class _RegistrationPageState extends State<RegistrationPage> {
     'student'
   ];
 
+  // lastName: lastName, organisation_id: organisation_id, type: type))
+
+  // Text controllers used to retrieve the current value of the input fields
+  final usernameTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+  final emailTextController = TextEditingController();
+  final firstNameTextController = TextEditingController();
+  final lastNameTextController = TextEditingController();
+  final orgIdTextController = TextEditingController();
+  final userTypeTextController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controllers when the widget is disposed.
+    usernameTextController.dispose();
+    passwordTextController.dispose();
+    emailTextController.dispose();
+    firstNameTextController.dispose();
+    lastNameTextController.dispose();
+    orgIdTextController.dispose();
+    userTypeTextController.dispose();
+    super.dispose();
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
 //User Type
 //Username
   @override
   Widget build(BuildContext context) {
+    //Get a specific controller (UserController) to call needed functions (register)
+    UserController userController =
+        Momentum.controller<UserController>(context);
+
     Widget child = SingleChildScrollView(
       child: Column(
         children: [
@@ -148,11 +175,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             child: MaterialButton(
               onPressed: () {
-                //Leads to home page
-                MomentumRouter.goto(context, HomePage,
-                    transition: (context, page) {
-                  return MaterialPageRoute(builder: (context) => page);
-                });
+                if (userController.register(
+                    username: username,
+                    password: password,
+                    email: email,
+                    firstName: firstName,
+                    lastName: lastName,
+                    organisation_id: organisation_id,
+                    type: type))
+                  //Leads to home page
+                  MomentumRouter.goto(context, HomePage,
+                      transition: (context, page) {
+                    return MaterialPageRoute(builder: (context) => page);
+                  });
               },
               height: 60,
               color: Colors.black,
