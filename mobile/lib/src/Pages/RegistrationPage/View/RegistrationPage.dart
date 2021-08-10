@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
+import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:momentum/momentum.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -176,18 +177,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
             child: MaterialButton(
               onPressed: () {
                 if (userController.register(
-                    username: username,
-                    password: password,
-                    email: email,
-                    firstName: firstName,
-                    lastName: lastName,
-                    organisation_id: organisation_id,
-                    type: type))
+                        username: usernameTextController.text,
+                        password: passwordTextController.text,
+                        email: emailTextController.text,
+                        firstName: firstNameTextController.text,
+                        lastName: lastNameTextController.text,
+                        organisation_id: orgIdTextController.text,
+                        type: userTypeTextController.text) ==
+                    true) {
                   //Leads to home page
-                  MomentumRouter.goto(context, HomePage,
+                  MomentumRouter.goto(context, RegistrationVerificationPage,
                       transition: (context, page) {
                     return MaterialPageRoute(builder: (context) => page);
                   });
+                } else {
+                  print("unsuccessful");
+                }
               },
               height: 60,
               color: Colors.black,
@@ -212,7 +217,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return MomentumBuilder(
         controllers: [UserController],
         builder: (context, snapshot) {
-          return child;
+          return MobilePageLayout(false, false, child);
         });
     ////////////////////////////////////////////////////////////////////////////
   }
