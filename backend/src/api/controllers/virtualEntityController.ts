@@ -22,6 +22,7 @@ import {
 } from "routing-controllers";
 import { User } from "../database/User";
 import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEntitiesRequest";
+import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 
 export class VirtualEntityController {
 	@Inject()
@@ -96,11 +97,13 @@ export class VirtualEntityController {
 	) {
 		return this.service.GetVirtualEntities(body);
 	}
+
 	@Post("/getVirtualEntity")
 	@UseBefore(isUser)
 	GetVirtualEntity(@Body({ required: true }) body: GetVirtualEntityRequest) {
 		return this.service.GetVirtualEntity(body);
 	}
+
 	@Post("/answerQuiz")
 	@UseBefore(isUser)
 	AnswerQuiz(
@@ -108,6 +111,12 @@ export class VirtualEntityController {
 		@CurrentUser({ required: true }) user: User
 	) {
 		return this.service.answerQuiz(body, user.id);
+	}
+
+	@Post("/togglePublic")
+	@UseBefore(isEducator)
+	TogglePublic(@Body({ required: true }) body: TogglePublicRequest, @CurrentUser({ required: true }) user: User) {
+		return this.service.TogglePublic(body, user.id);
 	}
 }
 

@@ -8,6 +8,7 @@ import {
 import { Subject } from "./Subject";
 import { UnverifiedUser } from "./UnverifiedUser";
 import { User } from "./User";
+import { VirtualEntity } from "./VirtualEntity";
 
 @Entity()
 export class Organisation {
@@ -43,4 +44,7 @@ export class Organisation {
 
 	//Emblem
 	//Banner
+
+	@OneToMany((type) => VirtualEntity, (virtualEntity) => virtualEntity.organisation)
+	virtualEntities: VirtualEntity[];
 }

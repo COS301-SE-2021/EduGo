@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Lesson } from "./Lesson";
 import { Model } from "./Model";
+import { Organisation } from "./Organisation";
 import { Quiz } from "./Quiz";
 
 @Entity()
@@ -31,4 +32,7 @@ export class VirtualEntity {
 
     @Column({default: false})
     public: boolean;
+
+    @ManyToOne(type => Organisation, (organisation) => organisation.virtualEntities)
+    organisation: Organisation;
 }

@@ -34,6 +34,9 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { DatabaseError } from "../errors/DatabaseError";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
+import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
+import { BadRequestError } from "routing-controllers";
+import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicResponse";
 
 
 @Service()
@@ -279,5 +282,33 @@ export class VirtualEntityService {
 					});
 			} else throw new Error400("Quiz not found");
 		} else throw new Error400("User is not an Student");
+	}
+
+	/**
+	 * @description This function will toggle the public flag of a virtual entity
+	 * @param {TogglePublicRequest} request
+	 * @param {number} user_id
+	 * @returns {Promise<TogglePublicResponse>}
+	 * @throws {BadRequestError}
+	 */
+	async TogglePublic(request: TogglePublicRequest, user_id: number): Promise<TogglePublicResponse> {
+		try {
+			let user = await this.userRepository.findOne(user_id, {relations: ["virtualEntities", "organisation"]});
+			if (user) {
+				let ve = await this.virtualEntityRepository.findOne(request.id, {relations: ["organisation"]});
+				if (ve) {
+					if (ve.organisation.id === user.organisation.id) {
+						ve.public = !ve.public;
+						await this.virtualEntityRepository.save(ve)
+						return {public: ve.public};
+					} else throw new BadRequestError("Virtual entity does not belong to organisation");
+				}
+				else throw new BadRequestError("Virtual entity not found");
+			}
+			else throw new BadRequestError("User not found");
+		}
+		catch (err) {
+			throw new BadRequestError("User not found");
+		}
 	}
 }
