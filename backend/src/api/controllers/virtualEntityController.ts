@@ -118,6 +118,19 @@ export class VirtualEntityController {
 	TogglePublic(@Body({ required: true }) body: TogglePublicRequest, @CurrentUser({ required: true }) user: User) {
 		return this.service.TogglePublic(body, user.id);
 	}
+
+	@Post("/getPublicVirtualEntities")
+	@UseBefore(isEducator)
+	GetPublicVirtualEntities() {
+		return this.service.GetPublicVirtualEntities();
+	}
+
+	@Post("/getPrivateVirtualEntities")
+	@UseBefore(isEducator)
+	GetPrivateVirtualEntities(@CurrentUser({ required: true }) user: User) {
+		return this.service.GetPrivateVirtualEntities(user.id);
+	}
+
 }
 
 //TODO add endpoint to make snapshot of 3d model
