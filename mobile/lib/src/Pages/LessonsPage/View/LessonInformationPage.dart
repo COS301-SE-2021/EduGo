@@ -17,19 +17,11 @@ class LessonInformationPage extends StatefulWidget {
   //This holds the lesson description. i.e What the lesson is about
   final String lessonDescription;
 
-  //This holds the start time of the lesson
-  final String lessonStartTime;
-
-  //This holds the end time of the lesson
-  final String lessonEndTime;
-
   //LessonPage constructor
   LessonInformationPage(
       {Key? key,
       required this.lessonTitle,
       required this.lessonID,
-      required this.lessonStartTime,
-      required this.lessonEndTime,
       required this.lessonDescription})
       : super(key: key);
   static String id = "lessons";
@@ -39,8 +31,6 @@ class LessonInformationPage extends StatefulWidget {
         lessonTitle: this.lessonTitle,
         lessonID: this.lessonID,
         lessonDescription: this.lessonDescription,
-        lessonStartTime: this.lessonStartTime,
-        lessonEndTime: this.lessonEndTime,
       );
 }
 
@@ -49,26 +39,20 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
   final int lessonID;
   //final String lessonOutcomes;
   final String lessonDescription;
-  final String lessonStartTime;
-  final String lessonEndTime;
 
   // var date = DateTime.parse(lessonStartTime);
 
   //Soon take out start time and end time
 
-  _LessonInformationPageState(
-      {required this.lessonTitle,
-      required this.lessonID,
-      required this.lessonDescription,
-      required this.lessonStartTime,
-      required this.lessonEndTime});
+  _LessonInformationPageState({
+    required this.lessonTitle,
+    required this.lessonID,
+    required this.lessonDescription,
+  });
 
   @override
   Widget build(BuildContext context) {
     //Format the date objects by passing them from strings to date objects
-    var startDate = DateTime.parse(this.lessonStartTime);
-    var endDate = DateTime.parse(this.lessonEndTime);
-
     return MobilePageLayout(
       //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
       //the two bool represent side bar and navbar. so if true and true, them

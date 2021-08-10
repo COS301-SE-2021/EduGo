@@ -16,22 +16,15 @@ class LessonsCard extends StatelessWidget {
   //Holds the lesson description
   final String lessonDescription;
 
-  //This holds the start time of the lesson
-  final String lessonStartTime;
-
-  //This holds the end time of the lesson
-  final String lessonEndTime;
-
   //Holds the lesson objectives
   //final String lessonObjectives
 
 //LessonCardConstructor. Takes in 4 arguments
-  LessonsCard(
-      {required this.lessonTitle,
-      required this.lessonID,
-      required this.lessonDescription,
-      required this.lessonStartTime,
-      required this.lessonEndTime});
+  LessonsCard({
+    required this.lessonTitle,
+    required this.lessonID,
+    required this.lessonDescription,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,8 +54,6 @@ class LessonsCard extends StatelessWidget {
                   lessonTitle: this.lessonTitle,
                   lessonDescription: this.lessonDescription,
                   lessonID: this.lessonID,
-                  lessonStartTime: this.lessonStartTime,
-                  lessonEndTime: this.lessonEndTime,
                 ),
               ),
             );
