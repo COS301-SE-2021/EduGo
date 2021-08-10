@@ -1,12 +1,12 @@
 //this file contains the actual test scripts that we are going to write by using
 //tester methods
 
+//TODO ask Sthe about test naming convention
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
-import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 
-//TODO update tests to remove username
 //TOTAL NUMBER OF TESTS: 28
 void main() {
   _widget_tests();
@@ -48,7 +48,7 @@ void _test_form_widget() {
         (WidgetTester tester) async {
       //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
+
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -60,9 +60,7 @@ void _test_form_widget() {
 
     testWidgets('input fields should initialise and render successfully.',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -98,9 +96,7 @@ void _test_text_widget() {
 
     testWidgets('Form Field inputs should both render successfully.',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -117,9 +113,7 @@ void _test_username_widget() {
   group('Username', () {
     testWidgets('input field renders successfully.',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -131,9 +125,7 @@ void _test_username_widget() {
 
     testWidgets('input field renders successfully with hint text.',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -160,9 +152,7 @@ void _test_username_widget() {
 
     testWidgets('input field should be empty and return an error string',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -183,9 +173,7 @@ void _test_username_widget() {
     testWidgets(
         'input text form field successfully responds to user interaction: entering text', //is successfully entered into the input text form filed
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -246,9 +234,7 @@ void _test_password_widget() {
   group('Password', () {
     testWidgets('input field renders successfully.',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -276,9 +262,7 @@ void _test_password_widget() {
     testWidgets(
         'input text form field successfully responds to user interaction: entering text', //is successfully entered into the input text form filed
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -314,9 +298,7 @@ void _test_password_widget() {
         (WidgetTester tester) async {
       //test the RequiredValidator
 
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -339,9 +321,7 @@ void _test_password_widget() {
         (WidgetTester tester) async {
       //test the MinLengthValidator
 
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -438,9 +418,7 @@ void _test_password_widget() {
         (WidgetTester tester) async {
       //test the PatternValidator
 
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -463,9 +441,7 @@ void _test_password_widget() {
         (WidgetTester tester) async {
       //test the PatternValidator
 
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -488,9 +464,7 @@ void _test_password_widget() {
         (WidgetTester tester) async {
       //test the PatternValidator
 
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -513,9 +487,7 @@ void _test_password_widget() {
         (WidgetTester tester) async {
       //test the PatternValidator. Special characters include ! @ # $ & * ~.
 
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
@@ -562,13 +534,10 @@ void _test_login_button_widget() {
   //TODO test submit form function
   //TODO test clear input function
 
-//TODO ask Sthe about test naming convention
   group('Login Button', () {
     testWidgets('initiates and renders successfully.',
         (WidgetTester tester) async {
-      //returns an instance of Momentum i.e. the app
       final widget = momentum();
-      //builds and renders the provided widget
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();

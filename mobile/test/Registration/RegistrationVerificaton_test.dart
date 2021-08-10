@@ -86,10 +86,9 @@ void _widget_tests() {
       final regHeadingFinder = find.byKey(Key('rv_registration_heading'));
       // find "Verification" text
       final verHeadingFinder = find.byKey(Key('rv_verification_heading'));
-      //TODO fix test
       // Expect to find headings
-      //expect(regHeadingFinder, findsOneWidget);
-      //xpect(verHeadingFinder, findsOneWidget);
+      expect(regHeadingFinder, findsOneWidget);
+      expect(verHeadingFinder, findsOneWidget);
     });
   }); //group Text
   //TODO implement test
@@ -112,7 +111,6 @@ void _widget_tests() {
       // Expect 1 rendered text form field
       expect(textFieldFinder, findsOneWidget);
     });
-
     testWidgets('form field should be empty and display an error string.',
         (WidgetTester tester) async {
       final widget = Momentum(
@@ -133,15 +131,43 @@ void _widget_tests() {
       //enter invalid text
       await tester.enterText(codeFieldFinder, 'invalid code');
       // find empty text
-      final textFinder = find.text('');
+      //final textFinder = find.text('Invalid Activation Code');
       // Find error message
       final textErrorFinder = find.text('* Required');
-      expect(find.byKey(Key('email_input_field')), findsOneWidget);
       // Expect 1 empty text form fields
       //expect(textFinder, findsOneWidget);
       // Expect 1 error messages, one for each empty text form fields
-      //expect(textErrorFinder, findsOneWidget);
+      expect(textErrorFinder, findsOneWidget);
     });
+
+    /*testWidgets('form field should be empty and display an error string.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home:
+                RegistrationVerificationPage(Key('registration_verification')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+      // find activaton code text form field
+      final codeFieldFinder = find.byKey(Key('code_input_field'));
+      //Attach keyboard to acquire focus
+      await tester.showKeyboard(codeFieldFinder);
+      //enter invalid text
+      await tester.enterText(codeFieldFinder, 'invalid code');
+      // find empty text
+      final textFinder = find.text('Invalid Activation Code');
+      // Find error message
+      final textErrorFinder = find.text('* Required');
+      // Expect 1 empty text form fields
+      expect(textFinder, findsOneWidget);
+      // Expect 1 error messages, one for each empty text form fields
+      expect(textErrorFinder, findsOneWidget);
+    });*/
   }); //group Email
   //TODO implement test
   group('Activation code', () {}); //group Activation code

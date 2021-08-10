@@ -27,19 +27,19 @@ class _LoginPageState extends State<LoginPage> {
   late SnackBar error_snackbar;
 
   void _submitForm(userController) {
-    bool mock_verification = false;
+    bool mock_login = false;
     if (username_text_controller.text == 'Simekani' &&
-        password_text_controller.text == "Simekani@1") {
-      mock_verification = true;
+        password_text_controller.text == 'Simekani@1') {
+      mock_login = true;
     }
-    if (/*userController.verify(
-            email: username_text_controller.text,
-            code: password_text_controller.text) ==
-        true*/
-        mock_verification == true) {
+
+    if (
+        //userController.login(
+        //        username: username_text_controller.text,
+        //        password: password_text_controller.text) ==
+        mock_login == true) {
       //Leads to home page
       MomentumRouter.goto(context, HomePage, transition: (context, page) {
-        // TODO MaterialPageRoute is not the one you need here :). use any route animation from flutter or from pub.dev
         return MaterialPageRoute(builder: (context) => page);
       });
       return;
@@ -109,7 +109,6 @@ class _LoginPageState extends State<LoginPage> {
         validator: MultiValidator([
           RequiredValidator(errorText: "* Required"),
         ]),
-        //TODO update accoriding to what Sthe says for username validation
         //type of keyboard to use for editing the text.
         //keyboardType: TextInputType.name,
         //Input field UI
