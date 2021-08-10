@@ -28,4 +28,7 @@ export class VirtualEntity {
 
     @ManyToMany(type => Lesson, lesson => lesson.virtualEntities)
     lessons: Lesson[];
+
+    @Column({default: false})
+    public: boolean;
 }

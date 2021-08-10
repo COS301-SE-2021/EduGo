@@ -1,7 +1,5 @@
 import { VirtualEntity } from "../database/VirtualEntity";
 import {
-	getConnection,
-	NoNeedToReleaseEntityManagerError,
 	Repository,
 } from "typeorm";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
@@ -54,7 +52,6 @@ export class VirtualEntityService {
 	async AddModelToVirtualEntity(
 		request: AddModelToVirtualEntityFileData
 	): Promise<AddModelToVirtualEntityDatabaseResult> {
-		let conn = getConnection();
 
 		return this.virtualEntityRepository
 			.findOne(request.id, {
@@ -97,8 +94,6 @@ export class VirtualEntityService {
 	async GetVirtualEntity(
 		request: GetVirtualEntityRequest
 	): Promise<GetVirtualEntityResponse> {
-		let conn = getConnection();
-	
 
 		return this.virtualEntityRepository
 			.findOne(request.id, {
@@ -131,10 +126,8 @@ export class VirtualEntityService {
 	async GetVirtualEntities(
 		request: GetVirtualEntitiesRequest
 	): Promise<GetVirtualEntitiesResponse> {
-		let conn = getConnection();
-		let virtualEntityRepo = conn.getRepository(VirtualEntity);
 
-		return virtualEntityRepo
+		return this.virtualEntityRepository
 			.find({
 				relations: ["model"],
 			})
@@ -164,6 +157,7 @@ export class VirtualEntityService {
 		let ve: VirtualEntity = new VirtualEntity();
 		ve.title = request.title;
 		ve.description = request.description;
+		ve.public = request.public ?? false;
 
 		if (request.model !== undefined) {
 			let model: Model = new Model();
