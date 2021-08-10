@@ -2,15 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
-import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
+import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:momentum/momentum.dart';
 
 class RegistrationPage extends StatefulWidget {
   RegistrationPage();
   static String id = "registration";
-// RegistrationModel(this.password, this.user_firstName, this.user_lastName,
-// this.user_email, this.organisation_id, this.userType, this.username);
 
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
@@ -175,8 +173,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
               bottom: 30,
             ),
             child: MaterialButton(
-              onPressed: () {
-                if (userController.register(
+              onPressed: () async {
+                if (await userController.register(
                         username: usernameTextController.text,
                         password: passwordTextController.text,
                         email: emailTextController.text,
@@ -185,13 +183,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         organisation_id: orgIdTextController.text,
                         type: userTypeTextController.text) ==
                     true) {
-                  //Leads to home page
-                  MomentumRouter.goto(context, RegistrationVerificationPage,
+                  //Leads to login page
+                  MomentumRouter.goto(
+                      context, LoginPage, //RegistrationVerificationPage,
                       transition: (context, page) {
                     return MaterialPageRoute(builder: (context) => page);
                   });
                 } else {
-                  print("unsuccessful");
+                  usernameTextController.clear();
                 }
               },
               height: 60,

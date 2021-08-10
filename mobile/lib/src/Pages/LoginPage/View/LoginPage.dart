@@ -27,18 +27,11 @@ class _LoginPageState extends State<LoginPage> {
 
   late SnackBar error_snackbar;
 
-  void _submitForm(userController) {
-    bool mock_login = false;
-    if (username_text_controller.text == 'Simekani' &&
-        password_text_controller.text == 'Simekani@1') {
-      mock_login = true;
-    }
-
-    if (
-        //userController.login(
-        //        username: username_text_controller.text,
-        //        password: password_text_controller.text) ==
-        mock_login == true) {
+  void _submitForm(userController) async {
+    if (await userController.login(
+            username: username_text_controller.text,
+            password: password_text_controller.text) ==
+        true) {
       //Leads to home page
       MomentumRouter.goto(context, HomePage, transition: (context, page) {
         return MaterialPageRoute(builder: (context) => page);
@@ -76,24 +69,33 @@ class _LoginPageState extends State<LoginPage> {
 
     //////////////////////////////////  WIDGETS  /////////////////////////////////
     //These may include the following widgets: input fields, buttons, forms
+/*
+    Widget loginImage (int height, int width) = Container(
+        alignment: Alignment.center,
+        height: height * 0.45,
+        widthFactor: 0.9,
+        child: Image.asset(
+          'assets/login_image',
+          fit: BoxFit.fill,
+        ));*/
 
-    Widget login_user_heading = new Text(
+    Widget loginUserHeading = new Text(
       'User',
-      key: Key('login_user_heading'),
+      key: Key('loginUserHeading'),
       textDirection: TextDirection.ltr,
       style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
     );
 
-    Widget login_login_heading = new Text(
+    Widget loginLoginHeading = new Text(
       'Login',
-      key: Key('login_login_heading'),
+      key: Key('loginLoginHeading'),
       textDirection: TextDirection.ltr,
       style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
     );
 
-    Widget username_input_widget = Padding(
+    Widget usernameInputWidget = Padding(
       padding: const EdgeInsets.only(
         top: 60,
         left: 20,
@@ -119,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    Widget password_input_widget = Padding(
+    Widget passwordInputWidget = Padding(
       padding: const EdgeInsets.only(
         top: 30,
         left: 20,
@@ -149,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    Widget login_button_widget = //Next button that leads to Registration Page
+    Widget loginButtonWidget = //Next button that leads to Registration Page
         Padding(
       key: Key('login_button'),
       padding: const EdgeInsets.only(
@@ -175,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    Widget padding_widget = Padding(padding: const EdgeInsets.only(top: 50));
+    Widget paddingWidget = Padding(padding: const EdgeInsets.only(top: 50));
 
     error_snackbar = SnackBar(
         key: Key('login_snackbar'),
@@ -220,14 +222,16 @@ class _LoginPageState extends State<LoginPage> {
                             top: 30,
                           ),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             textDirection: TextDirection.ltr,
                             children: [
-                              login_user_heading,
-                              login_login_heading,
-                              username_input_widget,
-                              password_input_widget,
-                              login_button_widget,
-                              padding_widget,
+                              //loginImage,
+                              loginUserHeading,
+                              loginLoginHeading,
+                              //usernameInputWidget,
+                              //passwordInputWidget,
+                              //loginButtonWidget,
+                              //paddingWidget,
                             ],
                           ))))
             ])));
