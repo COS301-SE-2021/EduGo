@@ -25,6 +25,8 @@ class _GradesPageState extends State<GradesPage> {
           //Used for momentum mvc model
           final subjects = snapshot<SubjectsModel>();
 
+          //final percentage = subjects.
+
           //return Container(
           //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
           return SingleChildScrollView(
@@ -59,7 +61,7 @@ class _GradesPageState extends State<GradesPage> {
                   //Call subject card here and pass in all arguments required
                   children: subjects.subjects
                       .map((subject) => GradesCard(
-                            totalGrade: 10,
+                            totalGrade: -1,
                             subjectTitle: subject.title,
                             marksArray: 2,
                           ))
