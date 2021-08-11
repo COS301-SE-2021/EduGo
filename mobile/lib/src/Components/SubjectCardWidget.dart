@@ -40,6 +40,7 @@ class SubjectCard extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       color: Color.fromARGB(255, 97, 211, 87),
+
       //This allows the card to be clickable so that when clicked,
       // it will go to the lessons for that subject
       child: new InkWell(

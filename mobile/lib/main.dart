@@ -12,7 +12,7 @@ import 'package:momentum/momentum.dart';
 
 void main() {
   //when mock=false it uses api calls. when mock=true, it uses mock data
-  runApp(momentum(mock: false));
+  runApp(momentum(mock: true));
 }
 
 Momentum momentum({bool mock = false}) {

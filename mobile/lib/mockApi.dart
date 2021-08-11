@@ -38,27 +38,32 @@ Future<http.Response> getSubjectsByUserClient(request) async {
         {
           "id": 1,
           "title": "Maths Mock",
-          "grade": 10
+          "grade": 10,
+          "mark": 20
         },
         {
           "id": 2,
           "title": "Geography Mock",
-          "grade": 11
+          "grade": 11,
+          "mark": 50
         },
         {
           "id": 3,
           "title": "Life Orientation Mock",
-          "grade": 12
+          "grade": 12,
+          "mark": 39
         },
         {
           "id": 3,
           "title": "Physics Mock",
-          "grade": 12
+          "grade": 12,
+          "mark": 22
         },
         {
           "id": 3,
           "title": "Chemistry Mock",
-          "grade": 12
+          "grade": 12,
+          "mark": 90
         }
       ]
     }

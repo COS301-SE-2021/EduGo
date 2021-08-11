@@ -48,7 +48,7 @@ class _GradesPageState extends State<GradesPage> {
                   ),
                   GridView.count(
                     //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
-                    childAspectRatio: MediaQuery.of(context).size.height / 600,
+                    childAspectRatio: MediaQuery.of(context).size.height / 1000,
                     primary: false,
                     padding: const EdgeInsets.all(20),
                     crossAxisSpacing: 0,
@@ -58,13 +58,13 @@ class _GradesPageState extends State<GradesPage> {
                     //makes 1 cards per row
                     crossAxisCount: 1,
                     //Call subject card here and pass in all arguments required
-                    // children: subjects.subjects
-                    //     .map((subject) => SubjectCard(
-                    //         title: subject.title,
-                    //         grade: subject.grade,
-                    //         id: subject.id,
-                    //         count: subjectsCount))
-                    //     .toList(),
+                    children: subjects.subjects
+                        .map(
+                          (subject) => GradesPageCardWidget(
+                            
+                              
+                        )
+                        .toList(),
                   ),
                 ],
               ),
