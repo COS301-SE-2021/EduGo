@@ -49,16 +49,19 @@ class _RegistrationVerificationPageState
         Momentum.controller<UserController>(context);
 
     //When the form is submitted
-    void _submitForm() {
-      if (userController.verify(
+    void _submitForm() async {
+      if (await userController.verify(
               email: email_text_controller.text,
               code: code_text_controller.text) ==
           true) {
-        //Leads to home page
-        Navigator.pushNamed(context, RegistrationPage.id);
+        // Leads to home page
+        MomentumRouter.goto(context, RegistrationPage,
+            transition: (context, page) {
+          return MaterialPageRoute(builder: (context) => page);
+        });
         return;
       }
-
+      // Unsuccessful login: clear fields and display error
       clearTextInput();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -76,7 +79,7 @@ class _RegistrationVerificationPageState
       "Registration",
       key: Key('rv_registration_heading'),
       style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
       textDirection: TextDirection.ltr,
     );
 
@@ -84,80 +87,102 @@ class _RegistrationVerificationPageState
       "Verification",
       key: Key('rv_verification_heading'),
       style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
       textDirection: TextDirection.ltr,
     );
 
-    Widget email_input_widget = Padding(
-      padding: const EdgeInsets.only(top: 100),
-      //Email input field
-      child: TextFormField(
-        key: Key('email_input_field'),
-        //Controller is notified when the text changes
-        controller: email_text_controller,
-        //Control when the auto validation should happen
-        autovalidateMode: AutovalidateMode.always,
-        //Email is required and must be valid
-        validator: MultiValidator([
-          RequiredValidator(errorText: "* Required"),
-          EmailValidator(errorText: "Invalid email address"),
-        ]),
-        //type of keyboard to use for editing the text.
-        keyboardType: TextInputType.emailAddress,
-        //Input field UI
-        style: TextStyle(),
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          hintText: "Email",
-          suffixIcon: Icon(Icons.email),
+    Widget email_input_widget = FractionallySizedBox(
+      widthFactor: 0.8,
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
+          left: 30,
+        ), //Email input field
+        child: TextFormField(
+          key: Key('email_input_field'),
+          //Controller is notified when the text changes
+          controller: email_text_controller,
+          //Control when the auto validation should happen
+          autovalidateMode: AutovalidateMode.always,
+          //Email is required and must be valid
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            EmailValidator(errorText: "Invalid email address"),
+          ]),
+          //type of keyboard to use for editing the text.
+          keyboardType: TextInputType.emailAddress,
+          //Input field UI
+          style: TextStyle(),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: "Email",
+            suffixIcon: Icon(Icons.email),
+          ),
         ),
       ),
     );
 
-    Widget code_input_widget = Padding(
-      padding: const EdgeInsets.only(top: 30),
-      //Code input field
-      child: TextFormField(
-        key: Key('code_input_field'),
-        //Controller is notified when the text changes
-        controller: code_text_controller,
-        //Control when the auto validation should happen
-        autovalidateMode: AutovalidateMode.always,
-        //Code is required, must be 6 digits long and must be numeric
-        validator: MultiValidator([
-          RequiredValidator(errorText: "* Required"),
-          LengthRangeValidator(
-              min: 5, max: 5, errorText: "Invalid Activation Code"),
-          PatternValidator("[0-9]{5}",
-              errorText: "Invalid Activation Code"), //Digits only
-        ]),
-        //type of keyboard to use for editing the text.
-        keyboardType: TextInputType.number,
-        //Input field UI
-        style: TextStyle(),
-        decoration: InputDecoration(
-            border: OutlineInputBorder(), hintText: "Activation Code"),
+    Widget code_input_widget = FractionallySizedBox(
+      widthFactor: 0.8,
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
+          left: 30,
+        ),
+        //Code input field
+        child: TextFormField(
+          key: Key('code_input_field'),
+          //Controller is notified when the text changes
+          controller: code_text_controller,
+          //Control when the auto validation should happen
+          autovalidateMode: AutovalidateMode.always,
+          //Code is required, must be 6 digits long and must be numeric
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            LengthRangeValidator(
+                min: 5, max: 5, errorText: "Invalid Activation Code"),
+            PatternValidator("[0-9]{5}",
+                errorText: "Invalid Activation Code"), //Digits only
+          ]),
+          //type of keyboard to use for editing the text.
+          keyboardType: TextInputType.number,
+          //Input field UI
+          style: TextStyle(),
+          decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: "Activation Code",
+              suffixIcon: Icon(Icons.filter_5_rounded)),
+        ),
       ),
     );
 
     Widget next_button_widget = //Next button that leads to Registration Page
-        Padding(
-      key: Key('next_button'),
-      padding: const EdgeInsets.only(top: 50),
-      child: MaterialButton(
-        onPressed: () => _submitForm(),
-        height: 60,
-        color: Colors.black,
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                "Next",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+        FractionallySizedBox(
+      widthFactor: 0.8,
+      alignment: Alignment.center,
+      child: Padding(
+        key: Key('next_button'),
+        padding: const EdgeInsets.only(
+          top: 30,
+          left: 30,
+        ),
+        child: MaterialButton(
+          onPressed: () => _submitForm(),
+          height: 60,
+          color: Colors.black,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  "Next",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
-            ),
-            Icon(Icons.login_outlined, color: Colors.white),
-          ],
+              Icon(Icons.login_outlined, color: Colors.white),
+            ],
+          ),
         ),
       ),
     );

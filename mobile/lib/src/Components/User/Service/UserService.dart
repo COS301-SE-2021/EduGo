@@ -53,6 +53,8 @@ class UserApiService extends MomentumService {
       {required String email,
       required String code,
       required http.Client client}) async {
+    print(code);
+    print(email);
     final response = await client.post(
         Uri.parse("${baseUrl}auth/verifyInvitation"),
         headers: <String, String>{
@@ -60,7 +62,8 @@ class UserApiService extends MomentumService {
         },
         body: jsonEncode(
             <String, String>{'email': email, 'verificationCode': code}));
-
+    print(" sifikile ");
+    print(response.statusCode);
     if (response.statusCode == 200) return true;
     return false;
   }

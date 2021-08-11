@@ -58,7 +58,6 @@ class PasswordFieldValidator {
           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
           errorText: "Invalid password"),
     ]);
-    if (value == 'Select a user type') return '* Required';
     return !passwordValidator.isValid(value)
         ? passwordValidator.errorText
         : null;
@@ -71,6 +70,8 @@ class UsernameFieldValidator {
       RequiredValidator(errorText: "* Required"),
       LengthRangeValidator(min: 4, max: 20, errorText: 'Invalid username')
     ]);
+
+    if (value == 'Select a user type') return '* Required';
 
     return !usernameValidator.isValid(value)
         ? usernameValidator.errorText

@@ -1,5 +1,6 @@
 //https://pub.dev/packages/reactive_forms
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mobile/src/Components/Common/ValidationClasses.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
@@ -33,8 +34,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
     'student'
   ];
 
-  // lastName: lastName, organisation_id: organisation_id, type: type))
-
   // Text controllers used to retrieve the current value of the input fields
   final usernameTextController = TextEditingController();
   final passwordTextController = TextEditingController();
@@ -44,11 +43,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final orgIdTextController = TextEditingController();
   final userTypeTextController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   selected_organisation = 'Select an organisation';
-  // }
+  //Snack bar that displays success or error message
+  late SnackBar snackbarWidget;
+  String snackbarMsg = '';
 
   @override
   void dispose() {
@@ -63,6 +60,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
     super.dispose();
   }
 
+  //snackbar to show error messages
+  void _showSnackbar(String msg) {
+    snackbarMsg = msg;
+    ScaffoldMessenger.of(context).showSnackBar(snackbarWidget);
+  }
   ////////////////////////////// WIDGETS //////////////////////////////////////
 
   @override
@@ -91,7 +93,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
           key: Key('userDropdown'),
           value: selected_user_type,
           autovalidateMode: AutovalidateMode.always,
-          validator: UserTypeFieldValidator.validate,
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+          ]),
           icon: const Icon(
             Icons.arrow_drop_down,
             key: Key('userTypeIcon'),
@@ -132,7 +136,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
           key: Key('orgDropdown'),
           value: selected_organisation,
           autovalidateMode: AutovalidateMode.always,
-          validator: OrgTypeFieldValidator.validate,
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+          ]),
           icon: const Icon(
             Icons.arrow_drop_down,
             key: Key('orgTypeIcon'),
@@ -169,7 +175,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
           top: 30,
           left: 30,
         ),
-        child: TextField(
+        child: new TextFormField(
+          controller: usernameTextController,
+          autovalidateMode: AutovalidateMode.always,
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            LengthRangeValidator(min: 4, max: 20, errorText: 'Invalid username')
+          ]),
           style: TextStyle(),
           decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -187,7 +199,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
           top: 30,
           left: 30,
         ),
-        child: TextField(
+        child: new TextFormField(
+          controller: firstNameTextController,
+          autovalidateMode: AutovalidateMode.always,
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid name')
+          ]),
           style: TextStyle(),
           decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -205,7 +223,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
           top: 30,
           left: 30,
         ),
-        child: TextField(
+        child: new TextFormField(
+          controller: lastNameTextController,
+          autovalidateMode: AutovalidateMode.always,
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid name')
+          ]),
           style: TextStyle(),
           decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -223,12 +247,48 @@ class _RegistrationPageState extends State<RegistrationPage> {
           top: 30,
           left: 30,
         ),
-        child: TextField(
+        child: new TextFormField(
+          controller: emailTextController,
+          autovalidateMode: AutovalidateMode.always,
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            EmailValidator(errorText: "Invalid email address"),
+          ]),
           style: TextStyle(),
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             hintText: "Email",
             prefixIcon: Icon(Icons.email_outlined),
+          ),
+        ),
+      ),
+    );
+
+    //Password input field
+    Widget _passwordField = FractionallySizedBox(
+      widthFactor: 0.8,
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
+          left: 30,
+        ),
+        child: new TextFormField(
+          controller: passwordTextController,
+          autovalidateMode: AutovalidateMode.always,
+          validator: MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            MinLengthValidator(8, errorText: "Invalid password"),
+            PatternValidator(
+                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                errorText: "Invalid password"),
+          ]),
+          obscureText: true,
+          style: TextStyle(),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: "Password",
+            prefixIcon: Icon(Icons.visibility_off),
           ),
         ),
       ),
@@ -260,8 +320,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   transition: (context, page) {
                 return MaterialPageRoute(builder: (context) => page);
               });
+              //_showSnackbar("SUCCESS!");
+              print('Success');
+              return;
             } else {
-              usernameTextController.clear();
+              //_showSnackbar("FAIL!");
+              print('Fail');
             }
           },
           height: 60,
@@ -281,23 +345,40 @@ class _RegistrationPageState extends State<RegistrationPage> {
       ),
     );
 
-    Widget child = SingleChildScrollView(
-      padding: const EdgeInsets.only(
-        top: 30,
-        left: 30,
-      ),
-      child: Column(
-        children: [
-          //TODO insert logo image
-          _pageTitle,
-          _userTypeField,
-          _orgTypeField,
-          _usernameField,
-          _firstNameField,
-          _lastNameField,
-          _emailField,
-          _regButton,
-        ],
+    //Snack bar definition
+    snackbarWidget = SnackBar(
+        key: Key('register_snackbar'),
+        content: Text(snackbarMsg),
+        backgroundColor: Colors.red, //Color.fromARGB(255, 97, 211, 87),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: BorderSide(
+            color: Colors.black,
+            width: 2,
+          ),
+        ));
+
+    Widget child = Form(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.only(
+          top: 30,
+          left: 30,
+        ),
+        child: Column(
+          children: [
+            //TODO insert logo image
+            _pageTitle,
+            _userTypeField,
+            _orgTypeField,
+            _usernameField,
+            _firstNameField,
+            _lastNameField,
+            _emailField,
+            _passwordField,
+            _regButton,
+          ],
+        ),
       ),
     );
     /////////////////////////////  VIEW RETURNED  ////////////////////////////////
@@ -326,7 +407,7 @@ class RegistrationPage extends StatelessWidget {
         //First Name input field
         Padding(
           padding: const EdgeInsets.only(top: 100),
-          child: TextField(
+          child: TextFormField(
             style: TextStyle(),
             decoration: InputDecoration(
                 border: OutlineInputBorder(), hintText: "First Name"),
@@ -335,7 +416,7 @@ class RegistrationPage extends StatelessWidget {
         //Last Name input field
         Padding(
           padding: const EdgeInsets.only(top: 30, left: 30,),
-          child: TextField(
+          child: TextFormField(
             style: TextStyle(),
             decoration: InputDecoration(
                 border: OutlineInputBorder(), hintText: "Last Name"),
@@ -344,7 +425,7 @@ class RegistrationPage extends StatelessWidget {
         //Email input field
         Padding(
           padding: const EdgeInsets.only(top: 30, left: 30,),
-          child: TextField(
+          child: TextFormField(
             style: TextStyle(),
             decoration: InputDecoration(
                 border: OutlineInputBorder(), hintText: "Email"),

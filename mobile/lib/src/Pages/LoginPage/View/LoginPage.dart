@@ -107,61 +107,78 @@ class _LoginPageState extends State<LoginPage> {
           fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
     );
 
-    Widget usernameInputWidget = Padding(
-      padding: const EdgeInsets.only(
-        top: 60,
-        left: 20,
-        right: 20,
-      ),
-      //username input field
-      child: new TextFormField(
-        key: Key('login_username'),
-        //Controller is notified when the text changes
-        controller: username_text_controller,
-        //Control when the auto validation should happen
-        autovalidateMode: AutovalidateMode.always,
-        //username is required
-        validator: UsernameFieldValidator.validate,
-        //type of keyboard to use for editing the text.
-        //keyboardType: TextInputType.name,
-        //Input field UI
-        style: TextStyle(),
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
+    Widget usernameInputWidget = FractionallySizedBox(
+      widthFactor: 0.8,
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
+          left: 30,
+        ),
+        //username input field
+        child: new TextFormField(
+          key: Key('login_username'),
+          //Controller is notified when the text changes
+          controller: username_text_controller,
+          //Control when the auto validation should happen
+          autovalidateMode: AutovalidateMode.always,
+          //username is required
+          validator: //UsernameFieldValidator.validate,
+              MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            LengthRangeValidator(min: 4, max: 20, errorText: 'Invalid username')
+          ]),
+          //type of keyboard to use for editing the text.
+          //keyboardType: TextInputType.name,
+          //Input field UI
+          style: TextStyle(),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            hintText: "Username",
+            suffixIcon: Icon(Icons.person),
           ),
-          hintText: "Username",
-          suffixIcon: Icon(Icons.person),
         ),
       ),
     );
 
-    Widget passwordInputWidget = Padding(
-      padding: const EdgeInsets.only(
-        top: 30,
-        left: 20,
-        right: 20,
-      ),
-      //password input field
-      child: TextFormField(
-        key: Key('login_password'),
-        //Controller is notified when the text changes
-        controller: password_text_controller,
-        obscureText: true,
-        //Control when the auto validation should happen
-        autovalidateMode: AutovalidateMode.always,
-        //password is required, must be 6 digits long and must be numeric
-        validator: PasswordFieldValidator.validate,
-        //type of keyboard to use for editing the text.
-        keyboardType: TextInputType.number,
-        //Input field UI
-        style: TextStyle(),
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
+    Widget passwordInputWidget = FractionallySizedBox(
+      widthFactor: 0.8,
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
+          left: 30,
+        ),
+        //password input field
+        child: TextFormField(
+          key: Key('login_password'),
+          //Controller is notified when the text changes
+          controller: password_text_controller,
+          obscureText: true,
+          //Control when the auto validation should happen
+          autovalidateMode: AutovalidateMode.always,
+          //password is required, must be 6 digits long and must be numeric
+          validator: //PasswordFieldValidator.validate,
+              MultiValidator([
+            RequiredValidator(errorText: "* Required"),
+            MinLengthValidator(8, errorText: "Invalid password"),
+            PatternValidator(
+                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                errorText: "Invalid password"),
+          ]),
+          //type of keyboard to use for editing the text.
+          keyboardType: TextInputType.number,
+          //Input field UI
+          style: TextStyle(),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            hintText: "Password",
+            suffixIcon: Icon(Icons.visibility_off),
           ),
-          hintText: "Password",
-          suffixIcon: Icon(Icons.visibility_off),
         ),
       ),
     );
@@ -179,33 +196,37 @@ class _LoginPageState extends State<LoginPage> {
         TextSpan(text: 'Can\'t log in yet: ', children: [
           TextSpan(
             text: 'Verify Registration',
-            style: TextStyle(color: Colors.blue),
+            style: TextStyle(
+                color: Colors.blue, decoration: TextDecoration.underline),
           ),
         ]),
       ),
     );
 
-    Widget loginButtonWidget = Padding(
-      key: Key('login_button'),
-      padding: const EdgeInsets.only(
-        top: 30,
-        left: 20,
-        right: 20,
-      ),
-      child: MaterialButton(
-        onPressed: () => _submitForm(userController),
-        height: 60,
-        color: Colors.black,
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                "Login",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+    Widget loginButtonWidget = FractionallySizedBox(
+      widthFactor: 0.7,
+      alignment: Alignment.centerRight,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
+          bottom: 30,
+          left: 30,
+        ),
+        child: MaterialButton(
+          onPressed: () => _submitForm(userController),
+          height: 60,
+          color: Colors.black,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  "Login",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
-            ),
-            Icon(Icons.login_outlined, color: Colors.white),
-          ],
+              Icon(Icons.login_outlined, color: Colors.white),
+            ],
+          ),
         ),
       ),
     );
@@ -260,10 +281,10 @@ class _LoginPageState extends State<LoginPage> {
                               //loginImage,
                               loginUserHeading,
                               loginLoginHeading,
+                              paddingWidget,
                               usernameInputWidget,
                               passwordInputWidget,
                               loginButtonWidget,
-                              paddingWidget,
                               registerWidget,
                             ],
                           ))))
