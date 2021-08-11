@@ -39,9 +39,14 @@ class LastNameFieldValidator {
   }
 }
 
-//TODO dropdown validator
 class OrgTypeFieldValidator {
-  static String? validate(String value) {}
+  static String? validate(String value) {
+    final orgTypeValidator = MultiValidator([
+      RequiredValidator(errorText: "* Required"),
+    ]);
+
+    return !orgTypeValidator.isValid(value) ? orgTypeValidator.errorText : null;
+  }
 }
 
 class PasswordFieldValidator {
@@ -51,7 +56,7 @@ class PasswordFieldValidator {
       MinLengthValidator(8, errorText: "Invalid password"),
       PatternValidator(
           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-          errorText: "Invalid password"), //Digits only
+          errorText: "Invalid password"),
     ]);
 
     return !passwordValidator.isValid(value)
@@ -73,7 +78,14 @@ class UsernameFieldValidator {
   }
 }
 
-//TODO dropdown validator
 class UserTypeFieldValidator {
-  static String? validate(String value) {}
+  static String? validate(String value) {
+    final userTypeValidator = MultiValidator([
+      RequiredValidator(errorText: "* Required"),
+    ]);
+
+    return !userTypeValidator.isValid(value)
+        ? userTypeValidator.errorText
+        : null;
+  }
 }
