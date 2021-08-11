@@ -36,6 +36,7 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { DatabaseError } from "../errors/DatabaseError";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
+import { DuplicateError } from "../errors/DuplicateError";
 
 
 @Service()
@@ -83,13 +84,13 @@ export class VirtualEntityService {
 								};
 							return response;
 						} else {
-							throw new Error(
+							throw new DuplicateError(
 								"There was an error adding to the DB"
 							);
 						}
 					});
 				} else {
-					throw new Error("There was an error");
+					throw new NonExistantItemError("Entity doesn't exixt");
 				}
 			});
 	}
@@ -121,7 +122,7 @@ export class VirtualEntityService {
 					}
 					return response;
 				} else {
-					throw new Error(
+					throw new NonExistantItemError(
 						`Could not find entity with id ${request.id}`
 					);
 				}

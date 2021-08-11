@@ -9,6 +9,8 @@ import { InvalidParameterError } from "../errors/InvalidParametersError";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { getUserDetails } from "../helper/auth/Userhelper";
+import { GetUserDetailsResponse } from "../models/user/GetUserDetailsResponse";
+import { userType } from "../models/auth/RegisterRequest";
 
 @Service()
 export class UserService {

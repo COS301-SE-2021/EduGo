@@ -14,3 +14,10 @@ export async function getUserDetails(user_id: number): Promise<User> {
 			} else throw new NonExistantItemError("User not found");
 		});
 }
+
+export  function generateCode(length: number): string {
+	let charset = '0123456789';
+	let result = '';
+	for (let i = 0; i < length; i++) result += charset[Math.floor(Math.random() * charset.length)];
+	return result;
+}
