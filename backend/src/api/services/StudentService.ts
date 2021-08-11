@@ -262,7 +262,7 @@ export class StudentService {
 		return result;
 	}
 
-	private async getStudentGrades(
+	public async getStudentGrades(
 		user_id: number
 	): Promise<GetStudentGradesResponse> {
 		let user: User;
@@ -301,5 +301,4 @@ export class StudentService {
 		}
 		throw new Error403("Only student grades can be displayed");
 	}
-}
 }
