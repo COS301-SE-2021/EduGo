@@ -16,6 +16,9 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Organisation } from "../database/Organisation";
 import { Educator } from "../database/Educator";
 import { Student } from "../database/Student";
+import { GetStudentGradesResponse, QuizGrade } from "../models/user/GetStudentGradesResponse";
+import { getUserDetails } from "../helper/auth/Userhelper";
+import { Error403 } from "../errors/Error";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -27,9 +30,11 @@ export class StudentService {
 	@InjectRepository(User) private userRepository: Repository<User>;
 	@InjectRepository(UnverifiedUser)
 	private unverifiedUserRepository: Repository<UnverifiedUser>;
+	@InjectRepository(Student) private studentRepository: Repository<Student>;
+	
 
 	//TODO check error regarding mockEmailService injectable
-	@Inject("mailgunEmailService")
+	@Inject('mailgunEmailService')
 	emailService: EmailService;
 
 	/**
@@ -260,5 +265,45 @@ export class StudentService {
 		for (let i = 0; i < length; i++)
 			result += charset[Math.floor(Math.random() * charset.length)];
 		return result;
+	}
+
+	public async getStudentGrades(
+		user_id: number
+	): Promise<GetStudentGradesResponse> {
+		let user: User;
+
+		try {
+			user = await getUserDetails(user_id);
+		} catch (err) {
+			throw err;
+		}
+
+		if (user.student) {
+			try {
+				let student = await this.studentRepository.findOne(
+					user.student.id,
+					{ relations: ["grades"] }
+				);
+				if (student) {
+					let grades = student.grades.map((grade) => {
+						let quizGra: QuizGrade = {
+							quiz_id: grade.quiz.id,
+							quiz_total: grade.total,
+							student_score: grade.score,
+						};
+
+						return quizGra;
+					});
+
+					let StudentGrades: GetStudentGradesResponse = {
+						grades: grades,
+					};
+					return StudentGrades;
+				} else throw Error("Student not found ");
+			} catch (err) {
+				throw err;
+			}
+		}
+		throw new Error403("Only student grades can be displayed");
 	}
 }

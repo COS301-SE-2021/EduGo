@@ -12,7 +12,7 @@ const FROM = `EduGo <test@${process.env.MAILGUN_DOMAIN}>`;
 
 type EmailType = 'verification' | 'reminder' | 'added';
 
-@Service('mailgunEmailService')
+@Service({id: 'mailgunEmailService'})
 export class MailgunEmailService implements EmailService {
     
     mg: mailgun.Mailgun;

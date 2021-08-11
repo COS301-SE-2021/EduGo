@@ -8,6 +8,9 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { InvalidParameterError } from "../errors/InvalidParametersError";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
+import { getUserDetails } from "../helper/auth/Userhelper";
+import { GetUserDetailsResponse } from "../models/user/GetUserDetailsResponse";
+import { userType } from "../models/auth/RegisterRequest";
 
 @Service()
 export class UserService {
@@ -44,6 +47,27 @@ export class UserService {
 			}
 		} else {
 			throw new NonExistantItemError("user not found");
+		}
+	}
+
+	public async getUserDetails(user_id: number) {
+		let user: User;
+		try {
+			user = await getUserDetails(user_id);
+		} catch (error) {
+			throw error;
+		}
+
+		if (user) {
+			let response: GetUserDetailsResponse = {
+				email: user.email,
+				firstName: user.email,
+				lastName: user.lastName,
+				username: user.username,
+				organisation_id: user.organisation.id,
+				userType: user.educator ? userType.educator : userType.student,
+			};
+			return response;
 		}
 	}
 
