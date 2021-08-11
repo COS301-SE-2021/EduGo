@@ -6,12 +6,15 @@ import { User } from "../database/User";
 import { DatabaseError } from "../errors/DatabaseError";
 import { EmailError } from "../errors/EmailError";
 import { EmailService } from "../helper/email/EmailService";
+import { MockEmailService } from "../helper/email/MockEmailService";
 import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail";
 import { VerificationEmail } from "../helper/email/models/VerificationEmail";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { EmailList } from "../models/user/SerivceModels";
 import { Service, Inject } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
+import { Organisation } from "../database/Organisation";
+import { Educator } from "../database/Educator";
 import { Student } from "../database/Student";
 import { GetStudentGradesResponse, QuizGrade } from "../models/user/GetStudentGradesResponse";
 import { getUserDetails } from "../helper/auth/Userhelper";
@@ -31,7 +34,7 @@ export class StudentService {
 	
 
 	//TODO check error regarding mockEmailService injectable
-	@Inject("mailgunEmailService")
+	@Inject('mailgunEmailService')
 	emailService: EmailService;
 
 	/**
