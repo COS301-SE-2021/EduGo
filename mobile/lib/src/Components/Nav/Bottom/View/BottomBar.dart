@@ -28,20 +28,24 @@ class BottomBarState extends State<BottomBar> {
       GradesPage,
       DetectMarkerPage,
     ];
-    //selectedIndex is used to determine which tab was selected in the bottom nav
-    int selectedIndex = 0;
+    //_selectedIndex is used to determine which tab was selected in the bottom nav
+    int _selectedIndex = 0;
 
     //bottom bar widget returned
     return TitledBottomNavigationBar(
         activeColor: Color.fromARGB(255, 97, 211, 87),
-        inactiveColor: Colors.blueGrey,
-        currentIndex: 1, // Use this to update the Bar giving a position
-        onTap: (index) {
-          selectedIndex = index;
+        inactiveColor: Colors.black,
+        curve: Curves.easeInBack,
+        currentIndex:
+            _selectedIndex, // Use this to update the Bar giving a position
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
           //display screen of selected tab
           MomentumRouter.goto(
             context,
-            widgetOptions.elementAt(selectedIndex),
+            widgetOptions.elementAt(_selectedIndex),
           );
         },
         items: [
