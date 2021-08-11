@@ -53,7 +53,7 @@ export class UserController {
 	@UseBefore(isEducator)
 	AddStudentsToSubject(
 		@Body({ required: true }) body: AddStudentsToSubjectRequest
-	) {
+	) { 
 		return this.studentService.AddUsersToSubject(body);
 	}
 
