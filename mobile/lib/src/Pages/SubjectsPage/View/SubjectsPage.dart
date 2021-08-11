@@ -87,15 +87,15 @@ class _SubjectsPageState extends State<SubjectsPage> {
                     GridView.count(
                       //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
                       childAspectRatio:
-                          MediaQuery.of(context).size.height / 600,
+                          MediaQuery.of(context).size.height / 100,
                       primary: false,
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(10),
                       crossAxisSpacing: 0,
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       mainAxisSpacing: 10,
                       //makes 1 cards per row
-                      crossAxisCount: 1,
+                      crossAxisCount: 2,
                       //Call subject card here and pass in all arguments required
                       children: subjects.subjects
                           .map((subject) => SubjectCard(
