@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
+import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
+import 'package:momentum/momentum.dart';
 
 class GradesPage extends StatefulWidget {
   GradesPage({Key? key}) : super(key: key);
@@ -15,7 +18,62 @@ class _GradesPageState extends State<GradesPage> {
     return MobilePageLayout(
       true,
       false,
-      Container(child: Text("Grades")),
+      MomentumBuilder(
+        controllers: [SubjectsController],
+        builder: (context, snapshot) {
+          //Used for momentum mvc model
+          final subjects = snapshot<SubjectsModel>();
+
+          return Container(
+            decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Align(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: Text(
+                        //'Title: +'
+                        //widget.title,
+                        'Marks',
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: false,
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  GridView.count(
+                    //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+                    childAspectRatio: MediaQuery.of(context).size.height / 600,
+                    primary: false,
+                    padding: const EdgeInsets.all(20),
+                    crossAxisSpacing: 0,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    mainAxisSpacing: 10,
+                    //makes 1 cards per row
+                    crossAxisCount: 1,
+                    //Call subject card here and pass in all arguments required
+                    // children: subjects.subjects
+                    //     .map((subject) => SubjectCard(
+                    //         title: subject.title,
+                    //         grade: subject.grade,
+                    //         id: subject.id,
+                    //         count: subjectsCount))
+                    //     .toList(),
+                  ),
+                ],
+              ),
+            ),
+          );
+
+          //If there are no subjects
+        },
+      ),
     );
   }
 }
