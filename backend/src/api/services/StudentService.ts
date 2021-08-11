@@ -16,6 +16,9 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Organisation } from "../database/Organisation";
 import { Educator } from "../database/Educator";
 import { Student } from "../database/Student";
+import { GetStudentGradesResponse, QuizGrade } from "../models/user/GetStudentGradesResponse";
+import { getUserDetails } from "../helper/auth/Userhelper";
+import { Error403 } from "../errors/Error";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -27,6 +30,8 @@ export class StudentService {
 	@InjectRepository(User) private userRepository: Repository<User>;
 	@InjectRepository(UnverifiedUser)
 	private unverifiedUserRepository: Repository<UnverifiedUser>;
+	@InjectRepository(Student) private studentRepository: Repository<Student>;
+	
 
 	//TODO check error regarding mockEmailService injectable
 	@Inject("mailgunEmailService")
@@ -275,7 +280,7 @@ export class StudentService {
 
 		if (user.student) {
 			try {
-				let student = await getRepository(Student).findOne(
+				let student = await this.studentRepository.findOne(
 					user.student.id,
 					{ relations: ["grades"] }
 				);
