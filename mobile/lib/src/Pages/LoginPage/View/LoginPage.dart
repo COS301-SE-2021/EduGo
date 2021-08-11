@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:mobile/src/Components/Common/ValidationClasses.dart';
 import 'package:momentum/momentum.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
@@ -120,10 +121,7 @@ class _LoginPageState extends State<LoginPage> {
         //Control when the auto validation should happen
         autovalidateMode: AutovalidateMode.always,
         //username is required
-        validator: MultiValidator([
-          RequiredValidator(errorText: "* Required"),
-          LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid username')
-        ]),
+        validator: UsernameFieldValidator.validate,
         //type of keyboard to use for editing the text.
         //keyboardType: TextInputType.name,
         //Input field UI
@@ -149,16 +147,11 @@ class _LoginPageState extends State<LoginPage> {
         key: Key('login_password'),
         //Controller is notified when the text changes
         controller: password_text_controller,
+        obscureText: true,
         //Control when the auto validation should happen
         autovalidateMode: AutovalidateMode.always,
         //password is required, must be 6 digits long and must be numeric
-        validator: MultiValidator([
-          RequiredValidator(errorText: "* Required"),
-          MinLengthValidator(8, errorText: "Invalid password"),
-          PatternValidator(
-              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-              errorText: "Invalid password"), //Digits only
-        ]),
+        validator: PasswordFieldValidator.validate,
         //type of keyboard to use for editing the text.
         keyboardType: TextInputType.number,
         //Input field UI

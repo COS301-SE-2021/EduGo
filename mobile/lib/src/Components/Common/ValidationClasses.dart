@@ -69,7 +69,7 @@ class UsernameFieldValidator {
   static String? validate(String? value) {
     final usernameValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
-      LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid username')
+      LengthRangeValidator(min: 4, max: 20, errorText: 'Invalid username')
     ]);
 
     return !usernameValidator.isValid(value)
