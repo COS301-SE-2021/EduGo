@@ -7,7 +7,7 @@ import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:momentum/momentum.dart';
 
-//NUMBER OF TESTS SO FAR: 12
+//NUMBER OF TESTS SO FAR: 16
 
 void main() {
 //TODO Implement widget tests
@@ -78,6 +78,43 @@ void _widget_tests() {
       await tester.pumpAndSettle();
       final userTypeIcon = find.byKey(Key('userTypeIcon'));
       expect(userTypeIcon, findsOneWidget);
+    });
+
+    testWidgets('input field validates successfully and returns error string.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+      //Find dropdown input fields
+      var orgSelectFinder = find.text("Select an organisation");
+      var userSelectFinder = find.text("Select a user type");
+      final textErrorFinder = find.text('* Required');
+
+      //Expect no selections to be selected and 2 error messages.
+      expect(orgSelectFinder, findsOneWidget);
+      expect(userSelectFinder, findsOneWidget);
+      expect(textErrorFinder, findsNWidgets(2));
+
+      //select dropdown option for org ONLY
+      await tester.tap(find.byKey(Key('orgDropdown')));
+      await tester.pumpAndSettle();
+
+      userSelectFinder = find.text("UP").last;
+      await tester.tap(userSelectFinder);
+      await tester.pumpAndSettle();
+
+      //Expect user type to be selected
+      expect(find.text("UP").last, findsOneWidget);
+
+      //Expect '*Required' error string
+      expect(textErrorFinder, findsOneWidget);
     });
   }); //group
 
@@ -181,6 +218,24 @@ void _widget_tests() {
       await tester.pumpAndSettle();
       final usernameIcon = find.byIcon(Icons.person);
       expect(usernameIcon, findsOneWidget);
+    });
+
+    testWidgets('input field validates successfully and returns error string.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+      //Find input field
+      var usernameFieldFinder = find.text("Username");
+      final textErrorFinder = find.text('* Required');
+      //Enter all other input fields
     });
   }); //group
 
