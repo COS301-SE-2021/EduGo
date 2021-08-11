@@ -44,8 +44,8 @@ class OrgTypeFieldValidator {
     final orgTypeValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
     ]);
-
-    return !orgTypeValidator.isValid(value) ? orgTypeValidator.errorText : '';
+    if (value == 'Select an organisation') return '* Required';
+    return !orgTypeValidator.isValid(value) ? orgTypeValidator.errorText : null;
   }
 }
 
@@ -84,6 +84,7 @@ class UserTypeFieldValidator {
       RequiredValidator(errorText: "* Required"),
     ]);
 
+    if (value == 'Select a user type') return '* Required';
     return !userTypeValidator.isValid(value)
         ? userTypeValidator.errorText
         : null;

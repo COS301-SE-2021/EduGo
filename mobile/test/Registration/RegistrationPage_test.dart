@@ -112,6 +112,43 @@ void _widget_tests() {
       final orgTypeIcon = find.byKey(Key('orgTypeIcon'));
       expect(orgTypeIcon, findsOneWidget);
     });
+
+    testWidgets('input field validates successfully and returns error string.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+      //Find dropdown input fields
+      var orgSelectFinder = find.text("Select an organisation");
+      var userSelectFinder = find.text("Select a user type");
+      final textErrorFinder = find.text('* Required');
+
+      //Expect no selections to be selected and 2 error messages.
+      expect(orgSelectFinder, findsOneWidget);
+      expect(userSelectFinder, findsOneWidget);
+      expect(textErrorFinder, findsNWidgets(2));
+
+      //select dropdown option for user type ONLY
+      await tester.tap(find.byKey(Key('userDropdown')));
+      await tester.pumpAndSettle();
+
+      userSelectFinder = find.text("student").last;
+      await tester.tap(userSelectFinder);
+      await tester.pumpAndSettle();
+
+      //Expect user type to be selected
+      expect(find.text("student").last, findsOneWidget);
+
+      //Expect '*Required' error string
+      expect(textErrorFinder, findsOneWidget);
+    });
   }); //group
 
 //TODO test_usernameField,
@@ -277,4 +314,4 @@ void _widget_tests() {
       expect(buttonIcon, findsOneWidget);
     });
   }); //group
-}//_widget_tests
+} //_widget_tests

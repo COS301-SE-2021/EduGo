@@ -88,8 +88,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
           left: 30,
         ),
         child: DropdownButtonFormField<String>(
+          key: Key('userDropdown'),
           value: selected_user_type,
-          validator: OrgTypeFieldValidator.validate,
+          autovalidateMode: AutovalidateMode.always,
+          validator: UserTypeFieldValidator.validate,
           icon: const Icon(
             Icons.arrow_drop_down,
             key: Key('userTypeIcon'),
@@ -127,7 +129,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
           left: 30,
         ),
         child: DropdownButtonFormField<String>(
+          key: Key('orgDropdown'),
           value: selected_organisation,
+          autovalidateMode: AutovalidateMode.always,
+          validator: OrgTypeFieldValidator.validate,
           icon: const Icon(
             Icons.arrow_drop_down,
             key: Key('orgTypeIcon'),
