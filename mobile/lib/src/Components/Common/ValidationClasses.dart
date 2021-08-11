@@ -58,7 +58,7 @@ class PasswordFieldValidator {
           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
           errorText: "Invalid password"),
     ]);
-
+    if (value == 'Select a user type') return '* Required';
     return !passwordValidator.isValid(value)
         ? passwordValidator.errorText
         : null;

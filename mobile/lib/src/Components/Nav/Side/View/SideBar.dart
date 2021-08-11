@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
 //import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
+import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/Controller/Preferences.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
+import 'package:momentum/momentum.dart';
 
 class SideBar extends StatefulWidget {
   SideBar({Key? key}) : super(key: key);
@@ -70,7 +72,7 @@ class _SideBarState extends State<SideBar> {
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Logout'),
-              onTap: () => {Navigator.of(context).pop()},
+              onTap: () => {MomentumRouter.pop(context)},
             ),
           ],
         ),
