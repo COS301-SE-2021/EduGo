@@ -7,7 +7,7 @@ import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:momentum/momentum.dart';
 
-//NUMBER OF TESTS SO FAR: 0
+//NUMBER OF TESTS SO FAR: 12
 
 void main() {
 //TODO Implement widget tests
@@ -18,77 +18,219 @@ void main() {
 //TODO Implement integration tests: _integration_tests();
 }
 
-void _buildRegPage(WidgetTester tester) async {
-  //create widget to test
-  final widget = Momentum(
-      child: MaterialApp(
-        home: RegistrationPage(Key('regPageHeading')),
-      ),
-      controllers: [
-        UserController(),
-      ]);
-  //call the widget's build fuction and render widget
-  await tester.pumpWidget(widget);
-  //automatically rebuild widget when state changes
-  await tester.pumpAndSettle();
-}
-
 //testWidgets('description.', (WidgetTester tester) async {});
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
 void _widget_tests() {
+  //TODO test icon
+  //Todo test validators
   //TODO test logo image
   group('Image', () {
     testWidgets('should render successfully.', (WidgetTester tester) async {});
   }); //group
 
-//TODO test _pageTitle,
   group('Heading', () {
-    testWidgets('should render successfully.', (WidgetTester tester) async {
-      _buildRegPage(tester);
+    testWidgets('text should render successfully.',
+        (WidgetTester tester) async {
+      //create widget to test
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      //call the widget's build fuction and render widget
+      await tester.pumpWidget(widget);
+      //automatically rebuild widget when state changes
+      await tester.pumpAndSettle();
       final heading = find.text("User Registration");
       // Expect one heading to render
       expect(heading, findsOneWidget);
     });
   }); //group
 
-//TODO test_userTypeField,
   group('User type', () {
     testWidgets('input field should render successfully.',
-        (WidgetTester tester) async {});
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final heading = find.text("Select a user type");
+      expect(heading, findsOneWidget);
+    });
+
+    testWidgets('dropdown icon should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final userTypeIcon = find.byKey(Key('userTypeIcon'));
+      expect(userTypeIcon, findsOneWidget);
+    });
   }); //group
 
 //TODO test_orgTypeField,
   group('Organisation type', () {
     testWidgets('input field should render successfully.',
-        (WidgetTester tester) async {});
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final heading = find.text("Select an organisation");
+      expect(heading, findsOneWidget);
+    });
+
+    testWidgets('dropdown icon should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final orgTypeIcon = find.byKey(Key('orgTypeIcon'));
+      expect(orgTypeIcon, findsOneWidget);
+    });
   }); //group
 
 //TODO test_usernameField,
   group('Username', () {
-    testWidgets('input field should render successfully.',
-        (WidgetTester tester) async {});
+    testWidgets('input field hint text should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final heading = find.text("Username");
+      expect(heading, findsOneWidget);
+    });
+
+    testWidgets('icon should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final usernameIcon = find.byIcon(Icons.person);
+      expect(usernameIcon, findsOneWidget);
+    });
   }); //group
 
 //TODO test_firstNameField,
   group('First Name', () {
-    testWidgets('input field should render successfully.',
-        (WidgetTester tester) async {});
+    testWidgets('input field hint text  should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final heading = find.text("First Name");
+      expect(heading, findsOneWidget);
+    });
   }); //group
 
 //TODO test_lastNameField,
   group('Last Name', () {
     testWidgets('input field should render successfully.',
-        (WidgetTester tester) async {});
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final heading = find.text("Last Name");
+      expect(heading, findsOneWidget);
+    });
   }); //group
 
 //TODO test_emailField,
   group('Email', () {
     testWidgets('input field should render successfully.',
-        (WidgetTester tester) async {});
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final heading = find.text("Email");
+      expect(heading, findsOneWidget);
+    });
+
+    testWidgets('icon should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final usernameIcon = find.byIcon(Icons.email_outlined);
+      expect(usernameIcon, findsOneWidget);
+    });
   }); //group
 
 //TODO test_regButton,
-  group('Register button', () {
-    testWidgets('should render successfully.', (WidgetTester tester) async {});
+  group('Register', () {
+    testWidgets('button should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final heading = find.text("Register");
+      expect(heading, findsOneWidget);
+    });
   }); //group
 }//_widget_tests
