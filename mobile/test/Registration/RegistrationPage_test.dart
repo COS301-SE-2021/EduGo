@@ -163,6 +163,20 @@ void _widget_tests() {
       final heading = find.text("First Name");
       expect(heading, findsOneWidget);
     });
+    testWidgets('icon should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final firstNameIcon = find.byIcon(Icons.person_add);
+      expect(firstNameIcon, findsOneWidget);
+    });
   }); //group
 
 //TODO test_lastNameField,
@@ -180,6 +194,21 @@ void _widget_tests() {
       await tester.pumpAndSettle();
       final heading = find.text("Last Name");
       expect(heading, findsOneWidget);
+    });
+
+    testWidgets('icon should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final lastNameIcon = find.byIcon(Icons.person_add_alt_1);
+      expect(lastNameIcon, findsOneWidget);
     });
   }); //group
 

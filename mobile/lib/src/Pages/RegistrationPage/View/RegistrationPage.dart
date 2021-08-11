@@ -80,7 +80,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
     //UserType input field
     Widget _userTypeField = DropdownButtonFormField<String>(
       value: selected_user_type,
-      icon: const Icon(Icons.arrow_downward),
+      icon: const Icon(
+        Icons.arrow_downward,
+        key: Key('userTypeIcon'),
+      ),
       iconSize: 24,
       elevation: 16,
       style: const TextStyle(color: Colors.black),
@@ -105,7 +108,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
     //Organisations input
     Widget _orgTypeField = DropdownButtonFormField<String>(
       value: selected_organisation,
-      icon: const Icon(Icons.arrow_downward),
+      icon: const Icon(
+        Icons.arrow_downward,
+        key: Key('orgTypeIcon'),
+      ),
       iconSize: 24,
       elevation: 16,
       style: const TextStyle(color: Colors.black),
@@ -132,8 +138,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
       padding: const EdgeInsets.only(top: 30),
       child: TextField(
         style: TextStyle(),
-        decoration:
-            InputDecoration(border: OutlineInputBorder(), hintText: "Username"),
+        decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: "Username",
+            prefixIcon: Icon(Icons.person)),
       ),
     );
     //First Name input field
@@ -142,7 +150,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: TextField(
         style: TextStyle(),
         decoration: InputDecoration(
-            border: OutlineInputBorder(), hintText: "First Name"),
+            border: OutlineInputBorder(),
+            hintText: "First Name",
+            prefixIcon: Icon(Icons.person_add)),
       ),
     );
     //Last Name input field
@@ -151,7 +161,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: TextField(
         style: TextStyle(),
         decoration: InputDecoration(
-            border: OutlineInputBorder(), hintText: "Last Name"),
+            border: OutlineInputBorder(),
+            hintText: "Last Name",
+            prefixIcon: Icon(Icons.person_add_alt_1)),
       ),
     );
     //Email input field
@@ -159,8 +171,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
       padding: const EdgeInsets.only(top: 30),
       child: TextField(
         style: TextStyle(),
-        decoration:
-            InputDecoration(border: OutlineInputBorder(), hintText: "Email"),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: "Email",
+          prefixIcon: Icon(Icons.email_outlined),
+        ),
       ),
     );
 
