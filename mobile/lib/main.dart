@@ -35,6 +35,7 @@ Momentum momentum({bool mock = false}) {
       UserApiService(), HomeService(),
       //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
+        RegistrationPage(Key('registrationPageKey')),
         LoginPage(),
         DetectMarkerPage(),
         GradesPage(),
@@ -42,7 +43,6 @@ Momentum momentum({bool mock = false}) {
         LessonsPage(),
         OrganisationsPage(),
         PreferencesPage(),
-        RegistrationPage(),
         RegistrationVerificationPage(Key('registration_verification')),
         SettingsPage(),
         SubjectsPage(),
