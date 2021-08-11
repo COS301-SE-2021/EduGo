@@ -23,7 +23,7 @@ import { User } from "../database/User";
 //TODO add endpoint to upload profile picture
 
 @Service()
-@JsonController()
+@JsonController("/user")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class UserController {
 	@Inject()

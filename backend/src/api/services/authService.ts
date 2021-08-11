@@ -9,13 +9,12 @@ import { Organisation } from "../database/Organisation";
 import { Educator } from "../database/Educator";
 import { DatabaseError } from "../errors/DatabaseError";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { validateRegisterRequest } from "./validations/AuthValidate";
 import { Student } from "../database/Student";
 import { Error400 } from "../errors/Error";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { LoginResponse } from "../models/auth/LoginResponse";
-import { BadRequestError } from "routing-controllers";
+import { BadRequestError, NotFoundError, UnauthorizedError } from "routing-controllers";
 
 @Service()
 export class AuthService {
@@ -56,7 +55,7 @@ export class AuthService {
 			});
 
 			if (user == undefined) {
-				throw new NonExistantItemError(
+				throw new UnauthorizedError(
 					`User with username ${request.username} not found`
 				);
 			}
@@ -69,7 +68,7 @@ export class AuthService {
 				};
 				return response;
 			} else {
-				throw new BadRequestError("Incorrect Password");
+				throw new UnauthorizedError("Incorrect Password");
 			}
 		} catch (err) {
 			throw err;
@@ -97,7 +96,7 @@ export class AuthService {
 			});
 
 			if (existingUser) {
-				throw new NonExistantItemError("User is already registered");
+				throw new NotFoundError("User is already registered");
 			}
 
 			let user = await this.unverifiedUserRepository.findOne({
@@ -113,7 +112,7 @@ export class AuthService {
 						if (verified) {
 							return;
 						} else {
-							throw new NonExistantItemError(
+							throw new NotFoundError(
 								"User not found in unverified list"
 							);
 						}
@@ -121,10 +120,10 @@ export class AuthService {
 						throw err;
 					}
 				} else {
-					throw new Error400("Invitation code is invalid");
+					throw new BadRequestError("Invitation code is invalid");
 				}
 			} else {
-				throw new Error400(
+				throw new BadRequestError(
 					"User has not been invited to sign up for EduGo"
 				);
 			}
@@ -206,7 +205,7 @@ export class AuthService {
 				// Only invited users can register
 				if (invitedUser) {
 					if (!invitedUser.verified) {
-						throw new NonExistantItemError(
+						throw new NotFoundError(
 							"User has not been Invited"
 						);
 					}
@@ -248,12 +247,12 @@ export class AuthService {
 					//await unverifiedUserRepo.delete(invitedUser);
 					return;
 				} else {
-					throw new NonExistantItemError(
+					throw new NotFoundError(
 						"Email address that was invited with doesn't match provided email address"
 					);
 				}
-			} else throw new Error400("Username already exists");
-		} else throw new Error400("Email already exists");
+			} else throw new BadRequestError("Username already exists");
+		} else throw new BadRequestError("Email already exists");
 	}
 	/**
 	 * @description helper function to Check if user exists with specified email address
@@ -334,7 +333,7 @@ export class AuthService {
 				throw new DatabaseError("User unable to be saved to DB");
 			}
 		} else {
-			throw new Error400("username and email already exist");
+			throw new BadRequestError("username and email already exist");
 		}
 	}
 }
