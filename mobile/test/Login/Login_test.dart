@@ -6,6 +6,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
+import 'package:mobile/src/Components/User/Controller/UserController.dart';
+import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
+import 'package:momentum/momentum.dart';
 
 //TOTAL NUMBER OF TESTS: 28
 void main() {
@@ -23,11 +26,14 @@ void _widget_tests() {
   //tester (single widget unit testing): https://stackoverflow.com/questions/62635696/flutter-widget-vs-flutter-driver
   //"pump()" https://medium.com/flutter/event-loop-in-widget-tester-50b3ca5e9fc5
   //"side bar" https://stackoverflow.com/questions/55628369/flutter-automatic-testing-tap-on-a-button-dont-work-in-drawer
-  _test_form_widget();
-  _test_text_widget();
-  _test_username_widget();
-  _test_password_widget();
-  _test_login_button_widget();
+  //"nav" https://iiro.dev/writing-widget-tests-for-navigation-events/
+
+  _testFormWidget();
+  _testTextWidget();
+  _testUsernameWidget();
+  _testPasswordWidget();
+  _testLoginButtonWidget();
+  _testVerificationRouting();
 }
 
 void _unit_tests() {
@@ -41,7 +47,7 @@ void _integration_tests() {
 }
 
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
-void _test_form_widget() {
+void _testFormWidget() {
   //2 tests
   group('Form', () {
     testWidgets('should initialise and render successfully.',
@@ -52,6 +58,7 @@ void _test_form_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // find all input fields
       final formFinder = find.byKey(Key('login_form'));
       //test result: finds both
@@ -64,6 +71,7 @@ void _test_form_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // find all input fields
       final fieldFinder = find.byType(TextFormField);
       //test result: finds both
@@ -72,18 +80,16 @@ void _test_form_widget() {
   });
 }
 
-void _test_text_widget() {
+void _testTextWidget() {
   //2 test
   group('Text', () {
     testWidgets(
         'Form Field inputs should both be empty and return an error string',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // find empty text
       final textFinder = find.text('');
       // find error message
@@ -100,6 +106,7 @@ void _test_text_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // find all input fields
       final textInputFinder = find.byType(TextFormField);
       //test result: finds both
@@ -109,7 +116,7 @@ void _test_text_widget() {
   }); //group
 }
 
-void _test_username_widget() {
+void _testUsernameWidget() {
   group('Username', () {
     testWidgets('input field renders successfully.',
         (WidgetTester tester) async {
@@ -117,6 +124,7 @@ void _test_username_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find username input field
       final usernameInputFinder = find.byKey(Key('login_username'));
       //test result
@@ -129,6 +137,7 @@ void _test_username_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find username input field
       final usernameTextFinder = find.text('Username');
       //test result
@@ -136,12 +145,10 @@ void _test_username_widget() {
     });
 
     testWidgets('input field should be empty.', (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // find username input
       final usernameInputFinder = find.byKey(Key('login_username'));
       // retrieve TextField Widget from Finder
@@ -156,6 +163,7 @@ void _test_username_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // find username input
       final usernameInputFinder = find.byKey(Key('login_username'));
       // retrieve TextField Widget from Finder
@@ -177,6 +185,7 @@ void _test_username_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find username input
       final usernameInputFinder = find.byKey(Key('login_username'));
       //Aquire focus in the TextFormField
@@ -187,12 +196,10 @@ void _test_username_widget() {
 
     testWidgets(' entered in the text form field is displayed successfully',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // find username input
       final usernameInputFinder = find.byKey(Key('login_username'));
       //Aquire focus in the TextFormField
@@ -208,12 +215,10 @@ void _test_username_widget() {
     testWidgets(
         'should be autovalidated as it is typed into input text form field',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // find username input
       final usernameInputFinder = find.byKey(Key('login_username'));
       //Aquire focus in the TextFormField
@@ -230,7 +235,7 @@ void _test_username_widget() {
   }); //group "Username"
 }
 
-void _test_password_widget() {
+void _testPasswordWidget() {
   group('Password', () {
     testWidgets('input field renders successfully.',
         (WidgetTester tester) async {
@@ -238,6 +243,7 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //test result
@@ -245,12 +251,10 @@ void _test_password_widget() {
     });
 
     testWidgets('input field should be empty.', (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       // retrieve TextField Widget from Finder
@@ -266,6 +270,7 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
@@ -276,12 +281,10 @@ void _test_password_widget() {
 
     testWidgets(' entered in the text form field is displayed successfully',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
@@ -302,6 +305,7 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       // retrieve TextField Widget from Finder
@@ -325,6 +329,7 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
 
@@ -422,6 +427,7 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
@@ -445,6 +451,7 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
@@ -468,6 +475,7 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
@@ -491,6 +499,7 @@ void _test_password_widget() {
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
@@ -508,12 +517,10 @@ void _test_password_widget() {
     testWidgets(
         'should be autovalidated as it is typed into input text form field',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final passowrdInputFinder = find.byKey(Key('login_password'));
       //Aquire focus in the TextFormField
@@ -529,18 +536,15 @@ void _test_password_widget() {
   }); //group password
 }
 
-void _test_login_button_widget() {
-  //TODO test login API function
-  //TODO test submit form function
-  //TODO test clear input function
-
+void _testLoginButtonWidget() {
   group('Login Button', () {
-    testWidgets('initiates and renders successfully.',
+    testWidgets('should initiate and render successfully.',
         (WidgetTester tester) async {
       final widget = momentum();
       await tester.pumpWidget(widget);
       //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find username input
       final loginButtonFinder = find.byKey(Key('login_button'));
       //test result
@@ -548,14 +552,12 @@ void _test_login_button_widget() {
     });
 
     testWidgets(
-        'successfully responds to user interaction (tap button) but fails to navigate to next page (as no form fields were filled) and returns error strings.',
+        'should successfully respond to user interaction (tap button) but fail to navigate to next page (as no form fields were filled) and return error strings.',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
       // find error message
@@ -564,17 +566,19 @@ void _test_login_button_widget() {
       expect(textErrorFinder, findsNWidgets(2));
     });
 
+    //TODO test login API function
+    //TODO test submit form function
+    //TODO test clear input function
+
     //TODO username validation
     /* 
     testWidgets(
         'successfully responds to user interaction (tap button) but fails to navigate to next page (only username form field was incorrectly filled, password left empty) and returns error strings.',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+      
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
       // find username input
@@ -598,14 +602,12 @@ void _test_login_button_widget() {
 
 //TODO update test to display errors, so far finds 2 required
     testWidgets(
-        'successfully responds to user interaction (tap button) but fails to navigate to next page (only password form field was incorrectly filled, username left empty) and returns error strings.',
+        'should successfully respond to user interaction (tap button) but fails to navigate to next page (only password form field was incorrectly filled, username left empty) and returns error strings.',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //find password input
       final pswdInputFinder = find.byKey(Key('login_password'));
       //Attach keyboard to acquire focus
@@ -624,12 +626,10 @@ void _test_login_button_widget() {
     testWidgets(
         'successfully responds to user interaction (tap button) but fails to navigate to next page (both form fields are incorrectly filled) and returns error strings.',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+      
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
       // find username input
@@ -663,12 +663,10 @@ void _test_login_button_widget() {
     /*testWidgets(
         'successfully responds to user interaction (tap button) and navigates to next page as both form fields are correctly filled',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+      
       /*
       // find username input
       final usernameInputFinder = find.byKey(Key('login_username'));
@@ -697,12 +695,10 @@ void _test_login_button_widget() {
     testWidgets('successfully clears invalid input fields when tapped.',
         (WidgetTester tester) async {
       //fill in fields first with invalid data the clear
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //TODO impement invalid username
       //find password input
       final pswdInputFinder = find.byKey(Key('login_password'));
@@ -720,12 +716,10 @@ void _test_login_button_widget() {
         'successfully clears valid input fields containing unverified data when tapped and displays snackbar that returns error string.',
         (WidgetTester tester) async {
       //fill in fields first with invalid data the clear
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       //TODO impement invalid username
       //find username input
       final usernameInputFinder = find.byKey(Key('login_username'));
@@ -753,12 +747,10 @@ void _test_login_button_widget() {
     testWidgets(
         'snackbar successfully responds to user interaction (tap button) and navigates to registration verfication page.',
         (WidgetTester tester) async {
-      // returns an instance of Momentum i.e. the app
       final widget = momentum();
-      // builds and renders the provided widget
       await tester.pumpWidget(widget);
-      // repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
+
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
       // schedule animation
@@ -775,6 +767,25 @@ void _test_login_button_widget() {
       //expect(verificationPageFinder, findsOneWidget);
     });
   }); //group 'login button'
+}
+
+void _testVerificationRouting() {
+  group('Registration Verification ', () {
+    testWidgets(
+        'link should respond to user interaction (tap link) and the registration verification page should render successfully ',
+        (WidgetTester tester) async {
+      var widget = momentum();
+      await tester.pumpWidget(widget);
+
+      // Tap the link
+      await tester.tap(find.byKey(Key('registerLink')));
+      await tester.pumpAndSettle();
+      // Find page to be rendered
+      final renderedPage = find.byKey(Key('registration_verification'));
+      // Expect page to render
+      expect(renderedPage, findsOneWidget);
+    });
+  }); //group
 }
 ////////////////////////////////////////////////////////////////////////////////
 

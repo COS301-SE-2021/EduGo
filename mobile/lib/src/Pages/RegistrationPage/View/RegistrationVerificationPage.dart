@@ -106,8 +106,11 @@ class _RegistrationVerificationPageState
         keyboardType: TextInputType.emailAddress,
         //Input field UI
         style: TextStyle(),
-        decoration:
-            InputDecoration(border: OutlineInputBorder(), hintText: "Email"),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          hintText: "Email",
+          suffixIcon: Icon(Icons.email),
+        ),
       ),
     );
 

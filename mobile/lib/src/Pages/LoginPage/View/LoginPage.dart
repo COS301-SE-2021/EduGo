@@ -1,10 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:momentum/momentum.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
-import 'package:momentum/momentum.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -17,27 +18,35 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   /////////////////////////  VARIABLES & FUNCTIONS  ////////////////////////////
-  //Global key that is going to tell us about any change in Form() widget.
+  // Unique key that identifies page: https://iiro.dev/writing-widget-tests-for-navigation-events/
+  static const navigateToVerificationLinkKey =
+      Key('navigateToVerificationLinkKey');
+  // Global key that is going to tell us about any change in Form() widget.
   GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
-  //Scaffold of login page
+
+  // Key of scaffold of login page
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   // Text controllers used to retrieve the current value of the input fields
   final username_text_controller = TextEditingController();
   final password_text_controller = TextEditingController();
 
+  //Snackbar widget that displays login error
   late SnackBar error_snackbar;
 
+  // Function called when login button pressed
   void _submitForm(userController) async {
     if (await userController.login(
             username: username_text_controller.text,
             password: password_text_controller.text) ==
         true) {
-      //Leads to home page
+      // Leads to home page
       MomentumRouter.goto(context, HomePage, transition: (context, page) {
         return MaterialPageRoute(builder: (context) => page);
       });
       return;
     }
+    // Unsuccessful login: clear fields and display error
     _clearInputFields();
     _showSnackbar('Unverified');
   }
@@ -69,7 +78,8 @@ class _LoginPageState extends State<LoginPage> {
 
     //////////////////////////////////  WIDGETS  /////////////////////////////////
     //These may include the following widgets: input fields, buttons, forms
-/*
+
+    /*
     Widget loginImage (int height, int width) = Container(
         alignment: Alignment.center,
         height: height * 0.45,
@@ -77,7 +87,8 @@ class _LoginPageState extends State<LoginPage> {
         child: Image.asset(
           'assets/login_image',
           fit: BoxFit.fill,
-        ));*/
+        ));
+    */
 
     Widget loginUserHeading = new Text(
       'User',
@@ -111,13 +122,19 @@ class _LoginPageState extends State<LoginPage> {
         //username is required
         validator: MultiValidator([
           RequiredValidator(errorText: "* Required"),
+          LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid username')
         ]),
         //type of keyboard to use for editing the text.
         //keyboardType: TextInputType.name,
         //Input field UI
         style: TextStyle(),
-        decoration:
-            InputDecoration(border: OutlineInputBorder(), hintText: "Username"),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          hintText: "Username",
+          suffixIcon: Icon(Icons.person),
+        ),
       ),
     );
 
@@ -146,13 +163,36 @@ class _LoginPageState extends State<LoginPage> {
         keyboardType: TextInputType.number,
         //Input field UI
         style: TextStyle(),
-        decoration:
-            InputDecoration(border: OutlineInputBorder(), hintText: "Password"),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          hintText: "Password",
+          suffixIcon: Icon(Icons.visibility_off),
+        ),
       ),
     );
 
-    Widget loginButtonWidget = //Next button that leads to Registration Page
-        Padding(
+    Widget registerWidget = GestureDetector(
+      key: navigateToVerificationLinkKey,
+      onTap: () {
+        //Leads to registration verification page
+        MomentumRouter.goto(context, RegistrationVerificationPage,
+            transition: (context, page) {
+          return MaterialPageRoute(builder: (context) => page);
+        });
+      },
+      child: Text.rich(
+        TextSpan(text: 'Can\'t log in yet: ', children: [
+          TextSpan(
+            text: 'Verify Registration',
+            style: TextStyle(color: Colors.blue),
+          ),
+        ]),
+      ),
+    );
+
+    Widget loginButtonWidget = Padding(
       key: Key('login_button'),
       padding: const EdgeInsets.only(
         top: 30,
@@ -195,14 +235,13 @@ class _LoginPageState extends State<LoginPage> {
           label: 'Verify registration.',
           onPressed: () =>
               //Leads to registration verification page
-              MomentumRouter.goto(
-                  context, RegistrationPage /*RegistrationVerificationPage*/,
+              MomentumRouter.goto(context, RegistrationVerificationPage,
                   transition: (context, page) {
             return MaterialPageRoute(builder: (context) => page);
           }),
-          //disabledTextColor: Colors.yellow,
-          textColor: Colors.white,
+          textColor: Colors.blue,
         ));
+
     Widget child = Scaffold(
         body: Form(
             key: _scaffoldKey,
@@ -228,10 +267,11 @@ class _LoginPageState extends State<LoginPage> {
                               //loginImage,
                               loginUserHeading,
                               loginLoginHeading,
-                              //usernameInputWidget,
-                              //passwordInputWidget,
-                              //loginButtonWidget,
-                              //paddingWidget,
+                              usernameInputWidget,
+                              passwordInputWidget,
+                              loginButtonWidget,
+                              paddingWidget,
+                              registerWidget,
                             ],
                           ))))
             ])));
