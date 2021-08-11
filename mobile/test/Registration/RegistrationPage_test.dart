@@ -80,6 +80,7 @@ void _widget_tests() {
       expect(userTypeIcon, findsOneWidget);
     });
 
+    //TODO fix
     testWidgets('input field validates successfully and returns error string.',
         (WidgetTester tester) async {
       final widget = Momentum(
@@ -150,6 +151,7 @@ void _widget_tests() {
       expect(orgTypeIcon, findsOneWidget);
     });
 
+    //TODO fix
     testWidgets('input field validates successfully and returns error string.',
         (WidgetTester tester) async {
       final widget = Momentum(

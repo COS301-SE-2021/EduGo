@@ -36,37 +36,43 @@ class _SideBarState extends State<SideBar> {
               child: ProfileWidget(
                   user: user, isEdit: false, onClicked: () async {}),
             ),
-            //All List tiles below have icons and titled tiles that lead to their relevant pages
-            ListTile(
-              leading: Icon(Icons.summarize_outlined),
-              title: Text('Lessons'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LessonsPage()),
-              ),
-            ),
             ListTile(
               leading: Icon(Icons.verified_user),
               title: Text('Preferences'),
-              onTap: () => Navigator.push(
+              onTap: () =>
+                  //Leads to Preferences page
+                  MomentumRouter.goto(
                 context,
-                MaterialPageRoute(builder: (context) => PreferencesPage()),
+                PreferencesPage,
+                transition: (context, page) {
+                  return MaterialPageRoute(builder: (context) => page);
+                },
               ),
             ),
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
-              onTap: () => Navigator.push(
+              onTap: () =>
+                  //Leads to Settings page
+                  MomentumRouter.goto(
                 context,
-                MaterialPageRoute(builder: (context) => SettingsPage()),
+                SettingsPage,
+                transition: (context, page) {
+                  return MaterialPageRoute(builder: (context) => page);
+                },
               ),
             ),
             ListTile(
               leading: Icon(Icons.border_color),
               title: Text('Toggle Organisations'),
-              onTap: () => Navigator.push(
+              onTap: () =>
+                  //Leads to Toggle Organisations page
+                  MomentumRouter.goto(
                 context,
-                MaterialPageRoute(builder: (context) => OrganisationsPage()),
+                OrganisationsPage,
+                transition: (context, page) {
+                  return MaterialPageRoute(builder: (context) => page);
+                },
               ),
             ),
             ListTile(
