@@ -7,7 +7,9 @@ import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationP
 import 'package:momentum/momentum.dart';
 
 class RegistrationPage extends StatefulWidget {
-  RegistrationPage();
+  static const registrationPageKey = Key('registrationPageKey');
+  RegistrationPage(Key key, {Key? registrationPageKey})
+      : super(key: registrationPageKey);
   static String id = "registration";
 
   @override
@@ -67,17 +69,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
     Widget child = SingleChildScrollView(
       child: Column(
         children: [
+          //TODO insert logo image
           //Page Title: User Registration
           Text(
-            "User",
+            "User Registration",
+            key: Key('regPageHeading'),
             style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 60),
+                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
           ),
-          Text("Registration",
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 60)),
           //UserType input field
           DropdownButtonFormField<String>(
             value: selected_user_type,
