@@ -261,4 +261,45 @@ export class StudentService {
 			result += charset[Math.floor(Math.random() * charset.length)];
 		return result;
 	}
+
+	private async getStudentGrades(
+		user_id: number
+	): Promise<GetStudentGradesResponse> {
+		let user: User;
+
+		try {
+			user = await getUserDetails(user_id);
+		} catch (err) {
+			throw err;
+		}
+
+		if (user.student) {
+			try {
+				let student = await getRepository(Student).findOne(
+					user.student.id,
+					{ relations: ["grades"] }
+				);
+				if (student) {
+					let grades = student.grades.map((grade) => {
+						let quizGra: QuizGrade = {
+							quiz_id: grade.quiz.id,
+							quiz_total: grade.total,
+							student_score: grade.score,
+						};
+
+						return quizGra;
+					});
+
+					let StudentGrades: GetStudentGradesResponse = {
+						grades: grades,
+					};
+					return StudentGrades;
+				} else throw Error("Student not found ");
+			} catch (err) {
+				throw err;
+			}
+		}
+		throw new Error403("Only student grades can be displayed");
+	}
+}
 }
