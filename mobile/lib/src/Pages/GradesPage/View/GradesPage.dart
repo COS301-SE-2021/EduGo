@@ -14,7 +14,7 @@ class _GradesPageState extends State<GradesPage> {
   Widget build(BuildContext context) {
     return MobilePageLayout(
       true,
-      false,
+      true,
       Container(child: Text("Grades")),
     );
   }
