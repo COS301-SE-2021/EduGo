@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/BottomBar.dart';
 import 'package:momentum/momentum.dart';
 
 import 'Nav/Side/View/SideBar.dart';

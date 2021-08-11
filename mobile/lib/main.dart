@@ -35,10 +35,11 @@ Momentum momentum({bool mock = false}) {
       UserApiService(), HomeService(),
       //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
+        HomePage(Key('homePageKey')),
         LoginPage(),
         DetectMarkerPage(),
         GradesPage(),
-        HomePage(Key('homePageKey')),
+        //HomePage(Key('homePageKey')),
         LessonsPage(),
         OrganisationsPage(),
         PreferencesPage(),

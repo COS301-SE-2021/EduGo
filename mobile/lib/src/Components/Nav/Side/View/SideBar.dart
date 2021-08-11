@@ -78,7 +78,7 @@ class _SideBarState extends State<SideBar> {
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('Logout'),
-              onTap: () => {MomentumRouter.pop(context)},
+              onTap: () => {MomentumRouter.goto(context, LoginPage)},
             ),
           ],
         ),
