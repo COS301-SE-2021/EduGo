@@ -1,6 +1,7 @@
 import { Request } from "express";
 import jwtDecode from "jwt-decode";
 import passport from "passport";
+import { UnauthorizedError } from "routing-controllers";
 import { getRepository } from "typeorm";
 import { User } from "../database/User";
 import { NonExistantItemError } from "../errors/NonExistantItemError";
@@ -35,12 +36,11 @@ export async function isUser(
 			if (user) {
 				req.user_id = payload.user_id;
 				next();
-			} else throw new UnauthorizedUserError("User is not authorized");
+			} else throw new UnauthorizedError("User is not authorized");
 		} catch (err) {
-			handleErrors(err, res);
+			throw err;
 		}
 	}
-	res.status(500);
 }
 
 export async function isAdmin(req: any, res: any, next: any) {
@@ -54,9 +54,9 @@ export async function isAdmin(req: any, res: any, next: any) {
 			if (user.isAdmin) {
 				req.user_id = payload.user_id;
 				next();
-			} else throw new UnauthorizedUserError("User is not an admin");
+			} else throw new UnauthorizedError("User is not an admin");
 		} catch (err) {
-			handleErrors(err, res);
+			throw err;
 		}
 	}
 	res.status(500);
@@ -78,12 +78,11 @@ export async function isEducator(
 			if (user.isEducator) {
 				req.user_id = payload.user_id;
 				next();
-			} else throw new UnauthorizedUserError("User is not an Educator");
+			} else throw new UnauthorizedError("User is not an Educator");
 		} catch (err) {
-			handleErrors(err, res);
+			throw err;
 		}
 	}
-	res.status(500);
 }
 
 async function getUserDetails(id: number): Promise<AuthenticateObject> {
@@ -99,7 +98,7 @@ async function getUserDetails(id: number): Promise<AuthenticateObject> {
 					isEducator: user.educator != undefined ? true : false,
 				};
 			} else
-				throw new NonExistantItemError(
+				throw new UnauthorizedError(
 					"User not found for get User Details"
 				);
 		});

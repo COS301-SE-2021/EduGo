@@ -3,7 +3,7 @@ import { AddedToSubjectEmail } from "./models/AddedToSubjectEmail";
 import { VerificationEmail } from "./models/VerificationEmail";
 import { Service } from "typedi";
 
-@Service('mockEmailService')
+@Service({id:'mockEmailService'})
 export class MockEmailService implements EmailService {
 	sendOneEmail(to: string, name: string, code: string): void {
 		throw new Error("Method not implemented.");

@@ -1,14 +1,24 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 import dotenv from "dotenv";
 import passport from "passport";
-import { createConnection, ConnectionOptions, useContainer as orm_useContainer } from "typeorm";
-import { Container as orm_Container} from "typeorm-typedi-extensions";
-import { Container as di_Container} from "typedi";
-import { Action, createExpressServer, useContainer as rc_useContainer } from 'routing-controllers';
+import {
+	createConnection,
+	ConnectionOptions,
+	useContainer as orm_useContainer,
+} from "typeorm";
+import { Container as orm_Container } from "typeorm-typedi-extensions";
+import { Container as di_Container } from "typedi";
+import {
+	Action,
+	createExpressServer,
+	useContainer as rc_useContainer,
+} from "routing-controllers";
 
-import { LessonController } from './api/controllers/lessonController';
-import { SubjectController } from './api/controllers/subjectController';
-import { AuthController } from './api/controllers/authController';
+import { LessonController } from "./api/controllers/lessonController";
+import { SubjectController } from "./api/controllers/subjectController";
+import { AuthController } from "./api/controllers/authController";
+import { OrganisationController } from "./api/controllers/OrganisationController";
+import { UserController } from "./api/controllers/userController";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
@@ -48,24 +58,28 @@ let options: ConnectionOptions = {
 	},
 };
 
-createConnection(options).then((conn) => {
-	if (conn.isConnected) {
-		console.log("Database connection established");
-	} else {
-		throw new Error("Database connection failed");
-	}
-}).catch((err) => {
-	console.log(err);
-});
+createConnection(options)
+	.then((conn) => {
+		if (conn.isConnected) {
+			console.log("Database connection established");
+		} else {
+			throw new Error("Database connection failed");
+		}
+	})
+	.catch((err) => {
+		console.log(err);
+	});
 
 const app = createExpressServer({
 	cors: true,
 	controllers: [
 		LessonController,
 		SubjectController,
-		AuthController, 
+		AuthController,
+		OrganisationController,
+		UserController,
 	],
-	currentUserChecker: (action: Action) => action.request.user
+	currentUserChecker: (action: Action) => action.request.user,
 });
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
