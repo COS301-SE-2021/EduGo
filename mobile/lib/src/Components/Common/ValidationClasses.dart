@@ -3,7 +3,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 //Alphabetical. List of field validators.
 
 class EmailFieldValidator {
-  static String? validate(String value) {
+  static String? validate(String? value) {
     final emailValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
       EmailValidator(errorText: "Invalid email address"),
@@ -14,7 +14,7 @@ class EmailFieldValidator {
 }
 
 class FirstNameFieldValidator {
-  static String? validate(String value) {
+  static String? validate(String? value) {
     final firstNameValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
       LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid name')
@@ -27,7 +27,7 @@ class FirstNameFieldValidator {
 }
 
 class LastNameFieldValidator {
-  static String? validate(String value) {
+  static String? validate(String? value) {
     final lastNameValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
       LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid name')
@@ -40,17 +40,17 @@ class LastNameFieldValidator {
 }
 
 class OrgTypeFieldValidator {
-  static String? validate(String value) {
+  static String? validate(String? value) {
     final orgTypeValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
     ]);
 
-    return !orgTypeValidator.isValid(value) ? orgTypeValidator.errorText : null;
+    return !orgTypeValidator.isValid(value) ? orgTypeValidator.errorText : '';
   }
 }
 
 class PasswordFieldValidator {
-  static String? validate(String value) {
+  static String? validate(String? value) {
     final passwordValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
       MinLengthValidator(8, errorText: "Invalid password"),
@@ -66,7 +66,7 @@ class PasswordFieldValidator {
 }
 
 class UsernameFieldValidator {
-  static String? validate(String value) {
+  static String? validate(String? value) {
     final usernameValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
       LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid username')
@@ -79,7 +79,7 @@ class UsernameFieldValidator {
 }
 
 class UserTypeFieldValidator {
-  static String? validate(String value) {
+  static String? validate(String? value) {
     final userTypeValidator = MultiValidator([
       RequiredValidator(errorText: "* Required"),
     ]);

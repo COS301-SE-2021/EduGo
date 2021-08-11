@@ -261,5 +261,20 @@ void _widget_tests() {
       final heading = find.text("Register");
       expect(heading, findsOneWidget);
     });
+
+    testWidgets('icon should render successfully.',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: RegistrationPage(Key('regPageHeading')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+      final buttonIcon = find.byIcon(Icons.login_outlined);
+      expect(buttonIcon, findsOneWidget);
+    });
   }); //group
 }//_widget_tests
