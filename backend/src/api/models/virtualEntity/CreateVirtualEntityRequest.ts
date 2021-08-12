@@ -1,6 +1,6 @@
 import {Quiz, Model} from './Default';
 
-export interface CreateVirtualEntityRequest {
+export class CreateVirtualEntityRequest {
     title: string;
     description: string;
     quiz: Quiz;

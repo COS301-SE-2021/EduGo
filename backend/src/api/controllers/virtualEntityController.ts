@@ -103,6 +103,7 @@ export class VirtualEntityController {
 		@Body({ required: true }) body: AnswerQuizRequest,
 		@CurrentUser({ required: true }) id:number
 	) {
+		console.log("bodyyyyy   ",body)
 		return this.service.AnswerQuiz(body, id);
 	}
 

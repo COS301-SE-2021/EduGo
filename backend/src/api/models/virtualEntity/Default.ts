@@ -1,17 +1,17 @@
-export interface Question {
+export class Question {
     type: string;
     question: string;
     options: string[];
     correctAnswer: string;
 }
 
-export interface Quiz {
+export class Quiz {
     title: string;
     description: string;
     questions: Question[];
 }
 
-export interface Model {
+export class Model {
     name: string;
     description: string;
     file_link: string;

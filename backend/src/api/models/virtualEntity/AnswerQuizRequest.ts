@@ -1,9 +1,9 @@
-export interface AnswerQuizRequest{
+export class AnswerQuizRequest{
     quiz_id: number; 
     answers: Answer[]
 }
 
-export interface Answer {
+export class Answer {
     question_id:number,
     answer: String
 }

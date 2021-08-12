@@ -229,6 +229,9 @@ export class VirtualEntityService {
 		request: AnswerQuizRequest,
 		user_id: number
 	): Promise<String> {
+
+
+
 		let user: User;
 		let quiz: Quiz | undefined;
 		try {

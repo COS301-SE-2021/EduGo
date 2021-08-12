@@ -1,3 +1,3 @@
-export interface GetVirtualEntitiesRequest {
+export class GetVirtualEntitiesRequest {
 
 }
