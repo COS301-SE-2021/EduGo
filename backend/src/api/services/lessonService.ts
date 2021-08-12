@@ -18,9 +18,11 @@ let statusRes: any = {
 };
 @Service()
 export class LessonService {
-	@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>;
-	@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
-	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
+	constructor(
+		@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>,
+		@InjectRepository(Subject) private subjectRepository: Repository<Subject>,
+		@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>
+	) {}
 
 	public async createLesson(request: CreateLessonRequest) {
 		// Set all attributes of a lesson
@@ -34,48 +36,36 @@ export class LessonService {
 
 		//let subjectRepository = getRepository(Subject);
 		// search for subject with the givem id
-		return this.subjectRepository
-			.findOne(request.subjectId, {relations: ["lessons"]})
-			.then((subject) => {
-				if (subject) {
-					subject.lessons.push(lesson);
-					// set add the lesson to the subject
-					return this.subjectRepository
-						.save(subject)
-						.then((value) => {
-							return { id: lesson.id };
-						})
-						.catch((err) => {
-							throw handleSavetoDBErrors(err);
-						});
-				} else {
-					throw new BadRequestError('Subject does not exist')
-				}
-		});
+		let subject = await this.subjectRepository.findOne(request.subjectId, {relations: ["lessons"]})
+		if (subject) {
+			subject.lessons.push(lesson);
+			// set add the lesson to the subject
+			try {
+				let savedSubject = this.subjectRepository.save(subject)
+			}
+			catch (err) {
+				throw handleSavetoDBErrors(err);
+			}
+			return { id: lesson.id };
+		} else {
+			throw new BadRequestError('Subject does not exist')
+		}
 	}
 
 	public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
-		if (request.subjectId == null) {
-			statusRes.message =
-				"SubjectId not provided" + JSON.stringify(request);
-			return statusRes;
-		} else {
-			//let subjectRepository = getRepository(Subject);
-			return this.subjectRepository
-				.findOne(request.subjectId, { relations: ["lessons"] })
-				.then((subject) => {
-					if (subject) {
-						let lessons = subject.lessons;
-						let LessonsData: GetLessonsBySubjectResponse = {
-							data: lessons,
-							statusMessage: "Successful",
-						};
-						return LessonsData;
-					} else throw new BadRequestError('Subject does not exist');
-				})
-				.catch(() => {
-					throw new BadRequestError('Subject does not exist');
-				});
+		try {
+			let subject = await this.subjectRepository.findOne(request.subjectId, { relations: ["lessons"] })
+			if (subject) {
+				let lessons = subject.lessons;
+				let LessonsData: GetLessonsBySubjectResponse = {
+					data: lessons,
+					statusMessage: "Successful",
+				};
+				return LessonsData;
+			} else throw new BadRequestError('Subject does not exist');
+		}
+		catch (err) {
+			throw new Error(err);
 		}
 	}
 
@@ -85,12 +75,13 @@ export class LessonService {
 		if (lesson) {
 			if (virtualEntity) {
 				lesson.virtualEntities.push(virtualEntity);
-				this.lessonRepository.save(lesson).then(() => {
-					return true;
-				})
-				.catch((err) => {
+				try {
+					await this.lessonRepository.save(lesson);
+					return;
+				}
+				catch(err) {
 					throw handleSavetoDBErrors(err);
-				});
+				};
 			}
 			else throw new BadRequestError('Virtual Entity does not exist');
 		}

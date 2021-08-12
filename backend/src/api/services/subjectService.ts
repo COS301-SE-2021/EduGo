@@ -13,6 +13,7 @@ import { Educator } from "../database/Educator";
 import { Student } from "../database/Student";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
+import { BadRequestError, InternalServerError } from "routing-controllers";
 
 
 //import {client} from '../../index'
@@ -81,41 +82,28 @@ export class SubjectService {
 	async GetSubjectsByUser(
 		request: GetSubjectsByUserRequest
 	): Promise<GetSubjectsByUserResponse> {
-
-		return this.userRepository
-			.findOne(request.user_id, {
-				relations: ["educator", "student"],
-			})
-			.then(async (user) => {
-				// if user is a educator then return the educators subjects
-				if (user && user.educator) {
-					try {
-						let educatorData = await this.educatorRepository.findOne(user.educator.id, {
-							relations: ["subjects"],
-						});
-						if (educatorData) {
-							return { data: educatorData.subjects };
-						}
-					} catch (error) {
-						throw error;
-					}
-				} else if (user && user.student) {
-					try {
-						let studentData = await this.studentRepository.findOne(
-							user.educator.id,
-							{
-								relations: ["subjects"],
-							}
-						);
-						if (studentData) {
-							return { data: studentData.subjects };
-						}
-					} catch (error) {
-						throw error;
-					}
-				}
-				throw new DatabaseError("Educator subjects could not be found");
-			});
+		//TODO - use the educator.subjects or the student.subjects relations
+		let user: User | undefined;
+		try { user = await this.userRepository.findOne(request.user_id, {relations: ["educator", "student"]}); }
+		catch (err) { throw new BadRequestError('Could not find error') }
+		if (user) {
+			if (user.educator) {
+				let educator: Educator | undefined;
+				try { educator = await this.educatorRepository.findOne(user.educator.id, {relations: ["subjects"]}); }
+				catch (err) { throw new BadRequestError('Could not find Educator') }
+				if (educator) return {data: educator.subjects};
+				else throw new BadRequestError('Could not find Educator');
+			}
+			else if (user.student) {
+				let student: Student | undefined;
+				try { student = await this.studentRepository.findOne(user.student.id, {relations: ["subjects"]}); }
+				catch (err) { throw new BadRequestError('Could not find Student') }
+				if (student) return {data: student.subjects};
+				else throw new BadRequestError('Could not find Student');
+			}
+			else throw new InternalServerError('Could not determine of user is student or educator')
+		}
+		else throw new BadRequestError('Could not find user')
 	}
 
 	//public mapSubjectDataFromDb(Subject);
