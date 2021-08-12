@@ -30,7 +30,11 @@ class OrganisationDashboardView extends StatelessWidget {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  "Welcome to ...",
+                                  "Welcome to " +
+                                      Momentum.controller<
+                                                  CurrentOrganisationController>(
+                                              context)
+                                          .getOrganisationName(),
                                   style: TextStyle(
                                     fontSize: 32,
                                   ),

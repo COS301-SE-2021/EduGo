@@ -87,12 +87,13 @@ class SessionController extends MomentumController<SessionModel> {
         setOrganisationId(organisationId);
       }
       var url = Uri.parse('http://localhost:8080/auth/login');
-      await post(url, headers: {
-        'contentType': 'application/json',
-      }, body: {
-        "username": userName,
-        'password': password
-      }).then((response) {
+      await post(url,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: jsonEncode(
+                  <String, String>{"username": userName, 'password': password}))
+          .then((response) {
         if (response.statusCode == 200) {
           Map<String, dynamic> _user = jsonDecode(response.body);
           String bearerToken = _user['token'];

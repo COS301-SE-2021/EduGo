@@ -7,6 +7,7 @@ export 'dart:html'
         Navigator,
         Text,
         PointerEvent;
+export 'dart:convert';
 export 'dart:typed_data';
 export 'package:edugo_web_app/src/Components/Components.dart';
 export 'package:edugo_web_app/src/Controller.dart';

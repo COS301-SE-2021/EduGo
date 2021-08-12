@@ -44,4 +44,12 @@ class Subject {
   String getSubjectImageLink() {
     return _imageLink;
   }
+
+  factory Subject.fromJson(dynamic json) {
+    return Subject(
+        title: json['title'] as String,
+        id: json['id'] as String,
+        grade: json['grade'] as String,
+        imageLink: json['image'] as String);
+  }
 }

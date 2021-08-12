@@ -14,4 +14,5 @@ export 'package:edugo_web_app/src/Pages/VirtualEntity/Model/ViewBoundVirtualEnti
 // * App Exports
 export 'package:edugo_web_app/src/Model.dart';
 export 'package:edugo_web_app/src/Pages/Home/Model/OrganisationModel.dart';
+export 'package:edugo_web_app/src/Pages/Home/Model/CurrentOrganisationModel.dart';
 export 'package:edugo_web_app/src/Pages/Home/Model/SessionModel.dart';

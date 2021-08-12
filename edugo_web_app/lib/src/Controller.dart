@@ -13,4 +13,5 @@ export 'package:edugo_web_app/src/Pages/VirtualEntity/Controller/ViewBoundVirtua
 // * App Exports
 export 'package:edugo_web_app/src/Controller.dart';
 export 'package:edugo_web_app/src/Pages/Home/Controller/OrganisationController.dart';
+export 'package:edugo_web_app/src/Pages/Home/Controller/CurrentOrganisationController.dart';
 export 'package:edugo_web_app/src/Pages/Home/Controller/SessionController.dart';
