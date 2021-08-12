@@ -20,7 +20,7 @@ import {
 	UploadedFile,
 	UseBefore,
 } from "routing-controllers";
-import { User } from "../database/User";
+import { User } from "../Database/User";
 import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEntitiesRequest";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 

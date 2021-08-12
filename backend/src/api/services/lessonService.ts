@@ -1,12 +1,12 @@
 import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectResponse } from "../models/lesson/GetLessonsBySubjectResponse";
-import { Lesson } from "../database/Lesson";
+import { Lesson } from "../Database/Lesson";
 import { Repository} from "typeorm";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
-import { Subject } from "../database/Subject";
+import { Subject } from "../Database/Subject";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
-import { VirtualEntity } from "../database/VirtualEntity";
+import { VirtualEntity } from "../Database/VirtualEntity";
 import { Service } from 'typedi'
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { BadRequestError } from "routing-controllers";

@@ -1,4 +1,4 @@
-import { User } from "../database/User";
+import { User } from "../Database/User";
 import {  Repository } from "typeorm";
 import { RevokeUserFromAdminRequest } from "../models/user/RevokeUserFromAdminRequest";
 import { SetUserToAdminRequest } from "../models/user/SetUserToAdminRequet";

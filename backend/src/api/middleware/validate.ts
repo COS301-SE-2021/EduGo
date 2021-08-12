@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 import passport from "passport";
 import { UnauthorizedError } from "routing-controllers";
 import { getRepository } from "typeorm";
-import { User } from "../database/User";
+import { User } from "../Database/User";
 
 interface MyPayload {
 	user_id: number;

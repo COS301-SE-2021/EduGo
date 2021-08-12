@@ -1,5 +1,5 @@
 
-import { Lesson } from "../../database/Lesson";
+import { Lesson } from "../../Database/Lesson";
 
 export interface GetLessonsBySubjectResponse{ 
     statusMessage : string; 

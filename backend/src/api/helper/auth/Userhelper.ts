@@ -1,4 +1,4 @@
-import { User } from "../../database/User";
+import { User } from "../../Database/User";
 import { getRepository } from "typeorm";
 import { DatabaseError } from "pg";
 import { NotFoundError } from "routing-controllers";

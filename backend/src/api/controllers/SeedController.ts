@@ -1,11 +1,11 @@
 import seed from "../helper/seed.json";
 import express from "express";
 import { getConnection, getRepository } from "typeorm";
-import { Organisation } from "../database/Organisation";
-import { User } from "../database/User";
-import { Student } from "../database/Student";
-import { Educator } from "../database/Educator";
-import { UnverifiedUser, UserType } from "../database/UnverifiedUser";
+import { Organisation } from "../Database/Organisation";
+import { User } from "../Database/User";
+import { Student } from "../Database/Student";
+import { Educator } from "../Database/Educator";
+import { UnverifiedUser, UserType } from "../Database/UnverifiedUser";
 
 const router = express.Router();
 
