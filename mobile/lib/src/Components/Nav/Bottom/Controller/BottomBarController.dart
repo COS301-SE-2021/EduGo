@@ -12,9 +12,9 @@ class BottomBarController extends MomentumController<BottomBarModel> {
   }
 
   void activateIcon(int index, BuildContext context, List<Type> widgetOptions) {
-    var value = model.value; // grab the current value
+    //var value = model.value; // grab the current value
     model.update(value: index); // update state (rebuild widgets)
-    print(model.value); // new or updated value
+    //print(model.value); // new or updated value
 
     //display screen of selected tab
     MomentumRouter.goto(
