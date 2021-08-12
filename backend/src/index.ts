@@ -80,7 +80,7 @@ const app = createExpressServer({
 		OrganisationController,
 		UserController,VirtualEntityController
 	],
-	currentUserChecker: (action: Action) => action.request.user,
+	currentUserChecker: (action: Action) => action.request.user_id,
 });
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));

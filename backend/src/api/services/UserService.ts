@@ -1,52 +1,50 @@
-import { User } from "../database/User";
+import { User } from "../Database/User";
 import {  Repository } from "typeorm";
 import { RevokeUserFromAdminRequest } from "../models/user/RevokeUserFromAdminRequest";
 import { SetUserToAdminRequest } from "../models/user/SetUserToAdminRequet";
-import { DatabaseError } from "../errors/DatabaseError";
-import { handleSavetoDBErrors } from "../helper/ErrorCatch";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { InvalidParameterError } from "../errors/InvalidParametersError";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { GetUserDetailsResponse } from "../models/user/GetUserDetailsResponse";
 import { userType } from "../models/auth/RegisterRequest";
+import { BadRequestError, ForbiddenError, NotFoundError } from "routing-controllers";
+import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 
 @Service()
 export class UserService {
 	@InjectRepository(User) private userRepository: Repository<User>;
 
-	public async setUserToAdmin(request: SetUserToAdminRequest) {
+	public async SetUserToAdmin(request: SetUserToAdminRequest): Promise<String> {
 		if (request.username == null) {
-			throw new InvalidParameterError("Username not provided");
+			throw new BadRequestError("Username not provided");
 		}
 		// TODO change this to cater for Educators not user
 		let username = request.username;
-		let user = await this.userRepository.findOne({
-			where: { username: username },
-			relations: ["educator"],
-		});
+		let user = await this.userRepository.findOne({where: { username: username }, relations: ["educator"]});
 
 		if (user) {
 			if (user.educator) {
 				if (!user.educator.admin) {
 					user.educator.admin = true;
-					this.userRepository
-						.save(user)
-						.then((saved) => {
-							return true;
-						})
-						.catch((err) => {
-							handleSavetoDBErrors(err);
-						});
-				} else {
-					throw new DatabaseError("User is already admin");
+					try {
+						await this.userRepository.save(user)
+					}
+					catch (err) {
+						handleSavetoDBErrors(err);
+					}
+					return 'ok';
+
+				} 
+				else {
+					throw new BadRequestError("User is already admin");
 				}
-			} else {
-				throw new NonExistantItemError("User is not an educator");
+			} 
+			else {
+				throw new ForbiddenError("User is not an educator");
 			}
-		} else {
-			throw new NonExistantItemError("user not found");
+		} 
+		else {
+			throw new NotFoundError("user not found");
 		}
 	}
 
@@ -71,37 +69,36 @@ export class UserService {
 		}
 	}
 
-	public async revokeUserFromAdmin(request: RevokeUserFromAdminRequest) {
-		if (request.username == null) {
-			throw new InvalidParameterError("Username not provided");
+	public async RevokeUserFromAdmin(request: RevokeUserFromAdminRequest): Promise<String> {
+		if (request.username == undefined) {
+			throw new BadRequestError("Username not provided");
 		}
 
 		let username = request.username;
-		let user = await this.userRepository.findOne({
-			where: { username: username },
-			relations: ["educator"],
-		});
+		let user = await this.userRepository.findOne({where: { username: username }, relations: ["educator"]});
 
 		if (user) {
 			if (user.educator) {
 				if (user.educator.admin) {
 					user.educator.admin = false;
-					this.userRepository
-						.save(user)
-						.then((saved) => {
-							return true;
-						})
-						.catch((err) => {
-							handleSavetoDBErrors(err);
-						});
-				} else {
-					throw new DatabaseError("User is already not an admin");
+					try {
+						await this.userRepository.save(user)
+					}
+					catch (err) {
+						handleSavetoDBErrors(err);
+					}
+					return 'ok';
+				} 
+				else {
+					throw new BadRequestError("User is already not an admin");
 				}
-			} else {
-				throw new NonExistantItemError("User is not an educator");
+			} 
+			else {
+				throw new ForbiddenError("User is not an educator");
 			}
-		} else {
-			throw new NonExistantItemError("user not found");
+		} 
+		else {
+			throw new NotFoundError("user not found");
 		}
 	}
 }

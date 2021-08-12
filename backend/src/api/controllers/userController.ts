@@ -18,7 +18,7 @@ import {
 	Post,
 	UseBefore,
 } from "routing-controllers";
-import { User } from "../database/User";
+import { User } from "../Database/User";
 
 //TODO add endpoint to upload profile picture
 
@@ -38,7 +38,7 @@ export class UserController {
 	@Post("/setUserToAdmin")
 	@UseBefore(isAdmin)
 	SetUserToAdmin(@Body({ required: true }) body: SetUserToAdminRequest) {
-		return this.userService.setUserToAdmin(body);
+		return this.userService.SetUserToAdmin(body);
 	}
 
 	@Post("/revokeUserFromAdmin")
@@ -46,7 +46,7 @@ export class UserController {
 	RevokeUserFromAdmin(
 		@Body({ required: true }) body: RevokeUserFromAdminRequest
 	) {
-		return this.userService.revokeUserFromAdmin(body);
+		return this.userService.RevokeUserFromAdmin(body);
 	}
 
 	@Post("/addStudentsToSubject")
@@ -59,14 +59,14 @@ export class UserController {
 
 	@Get("/getUserDetails")
 	@UseBefore(isUser)
-	GetUserDetails(@CurrentUser({ required: true }) user: User) {
-		return this.userService.getUserDetails(user.id);
+	GetUserDetails(@CurrentUser({ required: true }) id: number) {
+		return this.userService.getUserDetails(id);
 	}
 
 	@Get("/getStudentGrades")
 	@UseBefore(isUser)
-	GetStudentGrades(@CurrentUser({ required: true }) user: User) {
-		return this.studentService.getStudentGrades(user.id);
+	GetStudentGrades(@CurrentUser({ required: true }) id: number) {
+		return this.studentService.GetStudentGrades(id);
 	}
 
 
@@ -75,16 +75,16 @@ export class UserController {
 	@UseBefore(isEducator)
 	AddEducatorToExistingSubject(
 		@Body({ required: true }) body: AddEducatorToExistingSubjectRequest,
-		@CurrentUser({ required: true }) user: User
+		@CurrentUser({ required: true }) id: number
 	) {
-		return this.educatorService.addEducatorToExistingSubject(body, user.id);
+		return this.educatorService.AddEducatorToExistingSubject(body, id);
 	}
 	@Post("/addEducators")
 	@UseBefore(isAdmin)
 	AddEducators(
 		@Body({ required: true }) body: AddEducatorsRequest,
-		@CurrentUser({ required: true }) user: User
+		@CurrentUser({ required: true }) id: number
 	) {
-		return this.educatorService.AddEducators(body, user.id);
+		return this.educatorService.AddEducators(body, id);
 	}
 }

@@ -1,6 +1,6 @@
 import { getConnection } from "typeorm";
-import { Lesson } from "../database/Lesson";
-import { User } from "../database/User";
+import { Lesson } from "../Database/Lesson";
+import { User } from "../Database/User";
 import { UpcomingLesson, UpcomingLessonsResponse } from "../models/recommendation/UpcomingLessonsResponse";
 
 /**
@@ -35,8 +35,6 @@ export class RecommendationService {
                             id: lesson.id,
                             title: lesson.title,
                             description: lesson.description,
-                            startTime: lesson.startTime,
-                            endTime: lesson.endTime,
                             subject: subject.title,
                         };
                     }));
@@ -48,8 +46,6 @@ export class RecommendationService {
                 return <UpcomingLesson>{
                     id: lesson.id,
                     title: lesson.title,
-                    startTime: lesson.startTime.toISOString(),
-                    endTime: lesson.endTime.toISOString(),
                     description: lesson.description,
                     subject: lesson.subject
                 }

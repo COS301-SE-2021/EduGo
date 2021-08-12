@@ -6,7 +6,7 @@ import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRe
 import { GetOrganisationResponse } from "../models/organisation/GetOrganisationResponse";
 import { GetOrganisationsRequest } from "../models/organisation/GetOrganisationsRequest";
 
-import { Organisation } from "../database/Organisation";
+import { Organisation } from "../Database/Organisation";
 import { Repository } from "typeorm";
 
 import {
@@ -14,15 +14,13 @@ import {
 	GOs_Organisation,
 } from "../models/organisation/GetOrganisationsResponse";
 
-import { DatabaseError } from "../errors/DatabaseError";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
-
-import { Subject } from "../database/Subject";
+import { Subject } from "../Database/Subject";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import { AuthService } from "./AuthService";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
+import { BadRequestError, InternalServerError, NotFoundError } from "routing-controllers";
 
 @Service()
 export class OrganisationService {
@@ -39,9 +37,7 @@ export class OrganisationService {
  * @returns   {Promise<AddSubjectToOrganisationResponse>}
  * @memberof OrganisationService
  */
-async AddSubjectToOrganisation(
-		request: AddSubjectToOrganisationRequest
-	): Promise<AddSubjectToOrganisationResponse> {
+async AddSubjectToOrganisation(request: AddSubjectToOrganisationRequest): Promise<AddSubjectToOrganisationResponse> {
 		return this.organisationRepository
 			.findOne(request.organisation_id, { relations: ["subjects"] })
 			.then((organisation) => {
@@ -62,23 +58,15 @@ async AddSubjectToOrganisation(
 										return response;
 									})
 									.catch(() => {
-										throw new DatabaseError(
-											`Could not add subject ID ${request.subject_id} to organisation ID ${request.organisation_id}`
-										);
+										throw new InternalServerError(`Could not add subject ID ${request.subject_id} to organisation ID ${request.organisation_id}`);
 									});
 							}
-							throw new NonExistantItemError(
-								`Subject ID ${request.subject_id} could not be found`
-							);
+							throw new BadRequestError(`Subject ID ${request.subject_id} could not be found`);
 						});
 				}
-				throw new NonExistantItemError(
-					`Organisation ID ${request.organisation_id} could not be found`
-				);
+				throw new BadRequestError(`Organisation ID ${request.organisation_id} could not be found`);
 			})
-			.catch((err) => {
-				throw new DatabaseError(err.message);
-			});
+			.catch((err) => {throw new InternalServerError(err.message);});
 	}
 /**
  * @description The creation of an organisation 
@@ -145,23 +133,21 @@ async GetOrganisation(
 
 					return response;
 				}
-				throw new NonExistantItemError(
+				throw new BadRequestError(
 					`Organisation ID ${request.id} could not be found`
 				);
 			})
 			.catch((err) => {
-				throw new DatabaseError(err.message);
+				throw new BadRequestError(err.message);
 			});
 	}
-/**
- * @description Returns basic information about all the organisations on the platform 
- * @param {GetOrganisationsRequest} request
- * @returns {Promise<GetOrganisationsResponse>}
- * @memberof OrganisationService
- */
-async GetOrganisations(
-		request: GetOrganisationsRequest
-	): Promise<GetOrganisationsResponse> {
+	/**
+	 * @description Returns basic information about all the organisations on the platform 
+	 * @param {GetOrganisationsRequest} request
+	 * @returns {Promise<GetOrganisationsResponse>}
+	 * @memberof OrganisationService
+	 */
+	async GetOrganisations(request: GetOrganisationsRequest): Promise<GetOrganisationsResponse> {
 		return this.organisationRepository
 			.find()
 			.then((organisations) => {
@@ -179,7 +165,7 @@ async GetOrganisations(
 				return response;
 			})
 			.catch(() => {
-				throw new DatabaseError();
+				throw new InternalServerError('');
 			});
 	}
 }
