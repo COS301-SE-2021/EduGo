@@ -17,6 +17,7 @@ void main() {
         QuizBuilderController(),
         OrganisationController(),
         SessionController(),
+        CurrentOrganisationController()
       ],
       services: [
         MomentumRouter(
@@ -36,7 +37,8 @@ void main() {
             LessonsView(),
             UpdateLessonView(),
             SignInView(),
-            CreateOrganisationView()
+            CreateOrganisationView(),
+            OrganisationDashboardView(),
           ],
         ),
       ],

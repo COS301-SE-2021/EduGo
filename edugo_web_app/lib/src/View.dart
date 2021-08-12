@@ -22,3 +22,10 @@ export 'package:edugo_web_app/src/View.dart';
 export 'package:edugo_web_app/src/Pages/Home/View/Home.dart';
 export 'package:edugo_web_app/src/Pages/Home/View/SignInView.dart';
 export 'package:edugo_web_app/src/Pages/Home/View/CreateorganisationView.dart';
+
+//* Organisation Exports
+export 'package:edugo_web_app/src/Pages/Organisation/View/EducatorManagementView.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/View/EducatorRegistrationView.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/View/OrganisationDashboardView.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/View/StudentRegistrationView.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/View/StudentsProgress.dart';

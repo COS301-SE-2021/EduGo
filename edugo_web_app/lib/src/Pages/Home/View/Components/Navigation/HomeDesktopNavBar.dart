@@ -50,7 +50,7 @@ class HomeDesktopNavbar extends StatelessWidget {
                   minWidth: 150,
                   height: 40,
                   onPressed: () {
-                    MomentumRouter.goto(context, SignInView);
+                    MomentumRouter.goto(context, OrganisationDashboardView);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8),

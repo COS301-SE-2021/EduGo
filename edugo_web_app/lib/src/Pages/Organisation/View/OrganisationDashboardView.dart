@@ -3,7 +3,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class OrganisationDashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MomentumBuilder(
-        controllers: [],
+        controllers: [CurrentOrganisationController],
         builder: (context, snapshot) {
           return PageLayout(
             top: 0,
@@ -18,30 +18,101 @@ class OrganisationDashboardView extends StatelessWidget {
                       top: 0,
                     ),
                     children: <Widget>[
-                      StickyHeader(
-                        header: Material(
-                          elevation: 40,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            padding: EdgeInsets.only(
-                                right: 50, left: 100, top: 25, bottom: 25),
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  "Welcome to " +
-                                      Momentum.controller<
-                                                  CurrentOrganisationController>(
-                                              context)
-                                          .getOrganisationName(),
-                                  style: TextStyle(
-                                    fontSize: 32,
-                                  ),
-                                ),
-                              ],
-                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 80.0, bottom: 70, left: 100),
+                        child: Text(
+                          "Welcome to University of Pretoria",
+                          style: TextStyle(
+                            fontSize: 40,
                           ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(right: 100, left: 100),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Material(
+                              elevation: 40,
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  height: 110,
+                                  padding: EdgeInsets.only(
+                                      right: 20,
+                                      left: 100,
+                                      top: 25,
+                                      bottom: 25),
+                                  child: Container(
+                                    child: Text(
+                                      "Invite Educator",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            Spacer(),
+                            Material(
+                              elevation: 40,
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  height: 110,
+                                  padding: EdgeInsets.only(
+                                      right: 20,
+                                      left: 100,
+                                      top: 25,
+                                      bottom: 25),
+                                  child: Container(
+                                    child: Text(
+                                      "Invite Student",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            Spacer(),
+                            Material(
+                              elevation: 40,
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  height: 110,
+                                  padding: EdgeInsets.only(
+                                      right: 20,
+                                      left: 100,
+                                      top: 25,
+                                      bottom: 25),
+                                  child: Container(
+                                    child: Text(
+                                      "Manage Educators",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            Spacer(),
+                            Material(
+                              elevation: 40,
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  height: 110,
+                                  padding: EdgeInsets.only(
+                                      right: 20,
+                                      left: 100,
+                                      top: 25,
+                                      bottom: 25),
+                                  child: Container(
+                                    child: Text(
+                                      "Manage Virtual Entities",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  )),
+                            )
+                          ],
                         ),
                       ),
                     ],
