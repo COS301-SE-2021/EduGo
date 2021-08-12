@@ -16,10 +16,8 @@ import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError 
 @Service()
 export class AuthService {
 	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(UnverifiedUser)
-	private unverifiedUserRepository: Repository<UnverifiedUser>;
-	@InjectRepository(Organisation)
-	private organisationRepository: Repository<Organisation>;
+	@InjectRepository(UnverifiedUser) private unverifiedUserRepository: Repository<UnverifiedUser>;
+	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>;
 	/**
 	 * @description This function allows for a user to register onto the platform
 	 * 1. If User Type is the first admin for an organisation firstAdminRegistration will be used
@@ -289,9 +287,7 @@ export class AuthService {
 	 * @returns   {Promise<void>}
 	 * @memberof AuthService
 	 */
-	public async firstAdminRegistration(
-		request: RegisterRequest
-	): Promise<void> {
+	public async firstAdminRegistration(request: RegisterRequest): Promise<void> {
 		let organisation: Organisation;
 		if (
 			!(await this.doesEmailExist(request)) &&

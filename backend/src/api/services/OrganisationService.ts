@@ -18,7 +18,7 @@ import { Subject } from "../database/Subject";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import { AuthService } from "./AuthService";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
-import { Service } from "typedi";
+import { Inject, Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { BadRequestError, InternalServerError, NotFoundError } from "routing-controllers";
 
@@ -30,6 +30,9 @@ export class OrganisationService {
 
 	@InjectRepository(Subject) 
 	private subjectRepository: Repository<Subject>;
+
+	@Inject()
+	private authService: AuthService;
 
 /**
  * @description Subjects that have already been created can be added to an  new organisation 
@@ -94,10 +97,9 @@ async CreateOrganisation(
 				let registerObj: RegisterRequest = {
 					...request,
 				};
-				let authService = new AuthService();
 
 				try {
-					await authService.register(registerObj);
+					await this.authService.register(registerObj);
 					let response: CreateOrganisationResponse = {
 						id: org.id,
 					};
