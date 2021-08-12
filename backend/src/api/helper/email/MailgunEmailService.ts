@@ -5,14 +5,14 @@ import fs from 'fs';
 import { VerificationCodeTemplateObject, AddedToSubjectTemplateObject } from './models/TemplateObjects';
 import { VerificationEmail } from "./models/VerificationEmail";
 import { AddedToSubjectEmail } from "./models/AddedToSubjectEmail";
-import { Service } from "typedi";
+import { Service, Container } from "typedi";
 
 
 const FROM = `EduGo <test@${process.env.MAILGUN_DOMAIN}>`;
 
 type EmailType = 'verification' | 'reminder' | 'added';
 
-@Service({id: 'mailgunEmailService'})
+//@Service('mailgunemailservice')
 export class MailgunEmailService implements EmailService {
     
     mg: mailgun.Mailgun;
@@ -115,3 +115,5 @@ export class MailgunEmailService implements EmailService {
     }
 
 }
+
+// Container.set('mailgumEmailService', new MailgunEmailService());

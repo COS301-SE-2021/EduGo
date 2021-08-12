@@ -31,8 +31,8 @@ export class EducatorService {
 	@InjectRepository(UnverifiedUser)
 	private unverifiedUserRepository: Repository<UnverifiedUser>;
 	//TODO check error regarding mockEmailService injectable
-	@Inject("mailgunEmailService")
-	emailService: EmailService;
+	// @Inject("mailgunemailservice")
+	emailService: EmailService = new MockEmailService();
 
 	/**
 	 * @param  {AddEducatorToExistingSubjectRequest} body
