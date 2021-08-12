@@ -21,11 +21,14 @@ import {
 	InternalServerError,
 	JsonController,
 	Post,
+	Req,
+	Res,
 	UploadedFile,
 	UseBefore,
 } from "routing-controllers";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
+import express from "express";
 @Service()
 @Controller("/virtualEntity")
 @UseBefore(passport.authenticate("jwt", { session: false }))
@@ -43,6 +46,7 @@ export class VirtualEntityController {
 	@Post("/uploadModel")
 	@UseBefore(isEducator)
 	UploadModel(@UploadedFile("file", { required: true, options: uploadFile }) file: Express.MulterS3.File) {
+	//UploadModel(@Req() req: express.Request, @Res() res: express.Response) {
 		if (file) {
 			let response: any = {
 				file_name: file.key,

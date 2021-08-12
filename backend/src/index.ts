@@ -12,6 +12,7 @@ import {
 	Action,
 	createExpressServer,
 	useContainer as rc_useContainer,
+	useExpressServer,
 } from "routing-controllers";
 
 import { LessonController } from "./api/controllers/lessonController";
@@ -20,6 +21,8 @@ import { AuthController } from "./api/controllers/authController";
 import { OrganisationController } from "./api/controllers/OrganisationController";
 import { UserController } from "./api/controllers/userController";
 import { VirtualEntityController } from "./api/controllers/virtualEntityController";
+import express from "express";
+import {router as FileRouter} from "./api/controllers/FileController";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
@@ -71,14 +74,19 @@ createConnection(options)
 		console.log(err);
 	});
 
-const app = createExpressServer({
+let app = express()
+app.use('/virtualEntity', FileRouter);
+
+useExpressServer(app, {
+//const app = createExpressServer({
 	cors: true,
 	controllers: [
 		LessonController,
 		SubjectController,
 		AuthController,
 		OrganisationController,
-		UserController,VirtualEntityController
+		UserController,
+		VirtualEntityController
 	],
 	currentUserChecker: (action: Action) => action.request.user_id,
 });
