@@ -1,8 +1,11 @@
 import { EmailService } from "./EmailService";
 import { AddedToSubjectEmail } from "./models/AddedToSubjectEmail";
 import { VerificationEmail } from "./models/VerificationEmail";
+import { Service, Container } from "typedi";
 
-export class MockEmailService extends EmailService {
+
+// @Service({id:'mockEmailService'})
+export class MockEmailService implements EmailService {
 	sendOneEmail(to: string, name: string, code: string): void {
 		throw new Error("Method not implemented.");
 	}
@@ -29,3 +32,5 @@ export class MockEmailService extends EmailService {
 		return true;
 	}
 }
+
+// Container.set('mockEmailService', new MockEmailService());

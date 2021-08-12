@@ -1,58 +1,38 @@
-import express from "express";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { DatabaseError } from "../errors/DatabaseError";
-import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest";
+import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest"
 import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisationRequest";
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import { OrganisationService } from "../services/OrganisationService";
-import { handleErrors } from "../helper/ErrorCatch";
+import { Inject, Service } from "typedi";
+import { Body, JsonController, Post } from "routing-controllers";
+import { GetOrganisationsRequest } from "../models/organisation/GetOrganisationsRequest";
 
-export const router = express.Router();
-const service: OrganisationService = new OrganisationService();
+@Service()
+@JsonController("/organisation")
+export class OrganisationController {
+	@Inject()
+	private service: OrganisationService;
 
-router.post("/createOrganisation", async (req, res) => {
-	let body = <CreateOrganisationRequest>req.body;
-	service
-		.CreateOrganisation(body)
-		.then((response) => {
-			res.status(200).json(response);
-		})
-		.catch((err) => {
-			handleErrors(err, res);
-		});
-});
+	@Post("/createOrganisation")
+	CreateOrganisation(
+		@Body({ required: true }) body: CreateOrganisationRequest
+	) {
+		return this.service.CreateOrganisation(body);
+	}
+	@Post("/getOrganisations")
+	GetOrganisations(@Body({ required: true }) body: GetOrganisationsRequest) {
+		return this.service.GetOrganisations(body);
+	}
 
-router.post("/getOrganisations", async (req, res) => {
-	service
-		.GetOrganisations({})
-		.then((response) => {
-			res.status(200).json(response);
-		})
-		.catch((err) => {
-			handleErrors(err, res);
-		});
-});
+	@Post("/getOrganisation")
+	GetOrganisation(@Body({ required: true }) body: GetOrganisationRequest) {
+		return this.service.GetOrganisation(body);
+	}
 
-router.post("/getOrganisation", async (req, res) => {
-	let body = <GetOrganisationRequest>req.body;
-	service
-		.GetOrganisation(body)
-		.then((response) => {
-			res.status(200).json(response);
-		})
-		.catch((err) => {
-			handleErrors(err, res);
-		});
-});
+	@Post("/addSubjectToOrganisation")
+	AddSubjectToOrganisation(
+		@Body({ required: true }) body: AddSubjectToOrganisationRequest
+	) {
+		return this.service.AddSubjectToOrganisation(body);
+	}
+}
 
-router.post("/addSubject", async (req, res) => {
-	let body = <AddSubjectToOrganisationRequest>req.body;
-	service
-		.AddSubjectToOrganisation(body)
-		.then((response) => {
-			res.status(200).json(response);
-		})
-		.catch((err) => {
-			handleErrors(err, res);
-		});
-});

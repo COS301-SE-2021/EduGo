@@ -1,5 +1,3 @@
-import express from "express";
-
 //import { RegisterRequest } from "../models/registerRequest";
 import { StudentService } from "../services/StudentService";
 import { SetUserToAdminRequest } from "../models/user/SetUserToAdminRequet";
@@ -9,115 +7,84 @@ import { EducatorService } from "../services/EducatorService";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { AddEducatorsRequest } from "../models/user/AddEducatorsRequest";
 import passport from "passport";
-import {
-	isAdmin,
-	isEducator,
-	RequestObjectWithUserId,
-} from "../middleware/validate";
-import { handleErrors } from "../helper/ErrorCatch";
+import { isAdmin, isEducator, isUser } from "../middleware/validate";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
-const router = express.Router();
+import { Inject, Service } from "typedi";
+import {
+	Body,
+	CurrentUser,
+	Get,
+	JsonController,
+	Post,
+	UseBefore,
+} from "routing-controllers";
+import { User } from "../database/User";
 
-router.use((req, res, next) => {
-	next();
-});
+//TODO add endpoint to upload profile picture
 
-const studentService: StudentService = new StudentService();
-const educatorService: EducatorService = new EducatorService();
-const userService = new UserService();
+@Service()
+@JsonController("/user")
+@UseBefore(passport.authenticate("jwt", { session: false }))
+export class UserController {
+	@Inject()
+	private userService: UserService;
 
-router.post(
-	"/setUserToAdmin",
-	passport.authenticate("jwt", { session: false }),
-	isAdmin,
-	async (req, res) => {
-		let body: SetUserToAdminRequest = <SetUserToAdminRequest>req.body;
-		userService
-			.setUserToAdmin(body)
-			.then(() => {
-				res.status(200).send("ok");
-			})
-			.catch((err) => {
-				handleErrors(err, res);
-			});
+	@Inject()
+	private studentService: StudentService;
+
+	@Inject()
+	private educatorService: EducatorService;
+
+	@Post("/setUserToAdmin")
+	@UseBefore(isAdmin)
+	SetUserToAdmin(@Body({ required: true }) body: SetUserToAdminRequest) {
+		return this.userService.SetUserToAdmin(body);
 	}
-);
 
-router.post(
-	"/revokeUserFromAdmin",
-	passport.authenticate("jwt", { session: false }),
-	isAdmin,
-	async (req, res) => {
-		let body: RevokeUserFromAdminRequest = <RevokeUserFromAdminRequest>(
-			req.body
-		);
-		userService
-			.revokeUserFromAdmin(body)
-			.then(() => {
-				res.status(200).send("ok");
-			})
-			.catch((err) => {
-				handleErrors(err, res);
-			});
+	@Post("/revokeUserFromAdmin")
+	@UseBefore(isAdmin)
+	RevokeUserFromAdmin(
+		@Body({ required: true }) body: RevokeUserFromAdminRequest
+	) {
+		return this.userService.RevokeUserFromAdmin(body);
 	}
-);
 
-router.post(
-	"/addStudentsToSubject",
-	passport.authenticate("jwt", { session: false }),
-	isEducator,
-	async (req: RequestObjectWithUserId, res: any) => {
-		let body: AddStudentsToSubjectRequest = <AddStudentsToSubjectRequest>(
-			req.body
-		);
-		studentService
-			.AddUsersToSubject(body)
-			.then(() => {
-				res.status(200).send("ok");
-			})
-			.catch((err) => {
-				handleErrors(err, res);
-			});
+	@Post("/addStudentsToSubject")
+	@UseBefore(isEducator)
+	AddStudentsToSubject(
+		@Body({ required: true }) body: AddStudentsToSubjectRequest
+	) { 
+		return this.studentService.AddUsersToSubject(body);
 	}
-);
 
-// TODO Test endpoint 
-router.post(
-	"/addEducatorToExistingSubject",
-	passport.authenticate("jwt", { session: false }),
-	isAdmin,
-	async (req: RequestObjectWithUserId, res: any) => {
-		let body: AddEducatorToExistingSubjectRequest = <
-			AddEducatorToExistingSubjectRequest
-		>req.body;
-
-		educatorService
-			.addEducatorToExistingSubject(body, req.user_id)
-			.then(() => {
-				res.status(200).send("ok");
-			})
-			.catch((err) => {
-				handleErrors(err, res);
-			});
+	@Get("/getUserDetails")
+	@UseBefore(isUser)
+	GetUserDetails(@CurrentUser({ required: true }) id: number) {
+		return this.userService.getUserDetails(id);
 	}
-);
 
-router.post(
-	"/addEducators",
-	passport.authenticate("jwt", { session: false }),
-	isAdmin,
-	async (req: RequestObjectWithUserId, res: any) => {
-		let body: AddEducatorsRequest = <AddEducatorsRequest>req.body;
-
-		educatorService
-			.AddEducators(body, req.user_id)
-			.then(() => {
-				res.status(200).send("ok");
-			})
-			.catch((err) => {
-				handleErrors(err, res);
-			});
+	@Get("/getStudentGrades")
+	@UseBefore(isUser)
+	GetStudentGrades(@CurrentUser({ required: true }) id: number) {
+		return this.studentService.GetStudentGrades(id);
 	}
-);
 
-export { router };
+
+	// TODO Test endpoint
+	@Post("/addEducatorToExistingSubject")
+	@UseBefore(isEducator)
+	AddEducatorToExistingSubject(
+		@Body({ required: true }) body: AddEducatorToExistingSubjectRequest,
+		@CurrentUser({ required: true }) id: number
+	) {
+		return this.educatorService.AddEducatorToExistingSubject(body, id);
+	}
+	@Post("/addEducators")
+	@UseBefore(isAdmin)
+	AddEducators(
+		@Body({ required: true }) body: AddEducatorsRequest,
+		@CurrentUser({ required: true }) id: number
+	) {
+		return this.educatorService.AddEducators(body, id);
+	}
+}

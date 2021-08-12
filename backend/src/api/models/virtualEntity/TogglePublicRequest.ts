@@ -1,6 +1,7 @@
 import { IsInt, Min } from 'class-validator';
-export class GetLessonsBySubjectRequest {
+
+export class TogglePublicRequest {
     @IsInt()
     @Min(1)
-    subjectId: number;
-}
+    id: number;
+}   

@@ -1,8 +1,10 @@
-export interface CreateLessonRequest {
+import { IsInt, Min} from 'class-validator'
+
+export class CreateLessonRequest {
 	title: string;
 	description: string;
-	date: string;
-	startTime: string;
-	endTime: string;
+
+	@IsInt()
+	@Min(1)
 	subjectId: number;
 }
