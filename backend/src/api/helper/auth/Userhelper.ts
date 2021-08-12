@@ -1,7 +1,7 @@
 import { User } from "../../database/User";
 import { getRepository } from "typeorm";
-import { NonExistantItemError } from "../../../api/errors/NonExistantItemError";
 import { DatabaseError } from "pg";
+import { NotFoundError } from "routing-controllers";
 
 export async function getUserDetails(user_id: number): Promise<User> {
 	return getRepository(User)
@@ -11,7 +11,7 @@ export async function getUserDetails(user_id: number): Promise<User> {
 		.then((user) => {
 			if (user) {
 				return user;
-			} else throw new NonExistantItemError("User not found");
+			} else throw new NotFoundError("User not found");
 		});
 }
 
