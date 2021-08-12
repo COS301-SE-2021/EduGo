@@ -15,7 +15,16 @@ class CreateOrganisationView extends StatelessWidget {
             ],
           ),
         ),
-        child: CreateOrganisationContent(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: CreateOrganisationContent(),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -37,10 +37,6 @@ class ViewBoundOrganisationModel
     update(phoneNumber: viewBoundOrganisationPhoneNumber);
   }
 
-  void setAdminConfirmPassword(String adminConfirmPassword) {
-    update(adminConfirmPassword: adminConfirmPassword);
-  }
-
   void setAdminPassword(String adminPassword) {
     update(adminPassword: adminPassword);
   }
@@ -73,10 +69,6 @@ class ViewBoundOrganisationModel
     return phoneNumber;
   }
 
-  String getAdminConfirmPassword() {
-    return adminConfirmPassword;
-  }
-
   String getAdminEmail() {
     return adminEmail;
   }
@@ -102,7 +94,6 @@ class ViewBoundOrganisationModel
       {phoneNumber,
       organisationName,
       organisationEmail,
-      adminConfirmPassword,
       adminEmail,
       adminFirstName,
       adminLastName,
@@ -113,7 +104,6 @@ class ViewBoundOrganisationModel
       phoneNumber: phoneNumber ?? this.phoneNumber,
       organisationName: organisationName ?? this.organisationName,
       organisationEmail: organisationEmail ?? this.organisationEmail,
-      adminConfirmPassword: adminConfirmPassword ?? this.adminConfirmPassword,
       adminEmail: adminEmail ?? this.adminEmail,
       adminFirstName: adminFirstName ?? this.adminFirstName,
       adminLastName: adminLastName ?? this.adminLastName,

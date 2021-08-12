@@ -2,11 +2,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateOrganisationContent extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  List<Widget> pageChildren(
-    double width,
-    context,
-    bool spacer,
-  ) {
+  List<Widget> pageChildren(double width, context, bool spacer, organisation) {
     return <Widget>[
       Padding(
         padding: const EdgeInsets.only(top: 100.0, bottom: 100.0),
@@ -38,11 +34,11 @@ class CreateOrganisationContent extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 400,
-                  height: 60,
+                  height: 100,
                   child: TextFormField(
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Organisation name cannot be blank';
                       }
                       return null;
                     },
@@ -65,12 +61,22 @@ class CreateOrganisationContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
                   width: 400,
-                  height: 60,
-                  child: TextField(
+                  height: 100,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Organisation email cannot be blank';
+                      }
+                      Pattern pattern =
+                          r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                          r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                          r"{0,253}[a-zA-Z0-9])?)*$";
+                      RegExp regex = new RegExp(pattern);
+                      if (!regex.hasMatch(value) || value == null)
+                        return 'Enter a valid email address';
+                      return null;
+                    },
                     onChanged: (value) {
                       Momentum.controller<ViewBoundOrganisationController>(
                               context)
@@ -90,12 +96,15 @@ class CreateOrganisationContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
                   width: 400,
-                  height: 60,
-                  child: TextField(
+                  height: 100,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Organisation phone number cannot be blank';
+                      }
+                      return null;
+                    },
                     onChanged: (value) {
                       Momentum.controller<ViewBoundOrganisationController>(
                               context)
@@ -118,12 +127,15 @@ class CreateOrganisationContent extends StatelessWidget {
                   height: 20,
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
                   width: 400,
-                  height: 60,
-                  child: TextField(
+                  height: 100,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Admin first name cannot be blank';
+                      }
+                      return null;
+                    },
                     onChanged: (value) {
                       Momentum.controller<ViewBoundOrganisationController>(
                               context)
@@ -143,12 +155,15 @@ class CreateOrganisationContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
                   width: 400,
-                  height: 60,
-                  child: TextField(
+                  height: 100,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Admin last name cannot be blank';
+                      }
+                      return null;
+                    },
                     onChanged: (value) {
                       Momentum.controller<ViewBoundOrganisationController>(
                               context)
@@ -168,12 +183,24 @@ class CreateOrganisationContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
                   width: 400,
-                  height: 60,
-                  child: TextField(
+                  height: 100,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Admin email cannot be blank';
+                      }
+
+                      Pattern pattern =
+                          r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                          r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+                          r"{0,253}[a-zA-Z0-9])?)*$";
+                      RegExp regex = new RegExp(pattern);
+                      if (!regex.hasMatch(value) || value == null)
+                        return 'Enter a valid email address';
+
+                      return null;
+                    },
                     onChanged: (value) {
                       Momentum.controller<ViewBoundOrganisationController>(
                               context)
@@ -193,12 +220,15 @@ class CreateOrganisationContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
                   width: 400,
-                  height: 60,
-                  child: TextField(
+                  height: 100,
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Admin user name cannot be blank';
+                      }
+                      return null;
+                    },
                     onChanged: (value) {
                       Momentum.controller<ViewBoundOrganisationController>(
                               context)
@@ -218,12 +248,16 @@ class CreateOrganisationContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
                   width: 400,
-                  height: 60,
-                  child: TextField(
+                  height: 100,
+                  child: TextFormField(
+                    obscureText: true,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Password cannot be blank';
+                      }
+                      return null;
+                    },
                     onChanged: (value) {
                       Momentum.controller<ViewBoundOrganisationController>(
                               context)
@@ -243,17 +277,17 @@ class CreateOrganisationContent extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
                   width: 400,
-                  height: 60,
+                  height: 100,
                   child: TextFormField(
-                    // validator: () {},
-                    onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
-                          .inputAdminConfirmPassword(value);
+                    obscureText: true,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Confirmation password cannot be blank';
+                      }
+                      if (value != '${organisation.adminPassword}')
+                        return 'Passwords do not match';
+                      return null;
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
                     decoration: InputDecoration(
@@ -274,13 +308,14 @@ class CreateOrganisationContent extends StatelessWidget {
                 VirtualEntityButton(
                     elevation: 40,
                     child: Text(
-                      "Sign In",
+                      "Create Organisation",
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
-                          .createOrganisation(context);
+                      _formKey.currentState.validate();
+                      // Momentum.controller<ViewBoundOrganisationController>(
+                      //         context)
+                      //     .createOrganisation(context);
                     },
                     width: 450,
                     height: 65),
@@ -299,20 +334,30 @@ class CreateOrganisationContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 800) {
-        return Form(
-          key: _formKey,
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:
-                  pageChildren(constraints.biggest.width / 2, context, true)),
-        );
+        return MomentumBuilder(
+            controllers: [ViewBoundOrganisationController],
+            builder: (context, snapshot) {
+              var organisation = snapshot<ViewBoundOrganisationModel>();
+              return Form(
+                key: _formKey,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: pageChildren(constraints.biggest.width / 2,
+                        context, true, organisation)),
+              );
+            });
       } else {
-        return Form(
-          key: _formKey,
-          child: Column(
-              children:
-                  pageChildren(constraints.biggest.width, context, false)),
-        );
+        return MomentumBuilder(
+            controllers: [ViewBoundOrganisationController],
+            builder: (context, snapshot) {
+              var organisation = snapshot<ViewBoundOrganisationModel>();
+              return Form(
+                key: _formKey,
+                child: Column(
+                    children: pageChildren(constraints.biggest.width, context,
+                        false, organisation)),
+              );
+            });
       }
     });
   }
