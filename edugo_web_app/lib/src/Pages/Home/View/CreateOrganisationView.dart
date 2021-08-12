@@ -1,6 +1,6 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class SignInView extends StatelessWidget {
+class CreateOrganisationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,16 +15,7 @@ class SignInView extends StatelessWidget {
             ],
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: SignInContent(),
-              ),
-            ],
-          ),
-        ),
+        child: CreateOrganisationContent(),
       ),
     );
   }

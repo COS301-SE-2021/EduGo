@@ -33,8 +33,16 @@ class HomeDesktopNavbar extends StatelessWidget {
                 SizedBox(
                   width: 30,
                 ),
-                Text("Register Organisation",
-                    style: TextStyle(color: Colors.white)),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      MomentumRouter.goto(context, CreateOrganisationView);
+                    },
+                    child: Text("Register Organisation",
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ),
                 SizedBox(
                   width: 30,
                 ),
@@ -42,7 +50,7 @@ class HomeDesktopNavbar extends StatelessWidget {
                   minWidth: 150,
                   height: 40,
                   onPressed: () {
-                    MomentumRouter.goto(context, SubjectsView);
+                    MomentumRouter.goto(context, SignInView);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8),

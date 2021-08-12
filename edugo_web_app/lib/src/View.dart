@@ -20,3 +20,5 @@ export 'package:edugo_web_app/src/Pages/VirtualEntity/View/UpdateVirtualEntityVi
 // * App Exports
 export 'package:edugo_web_app/src/View.dart';
 export 'package:edugo_web_app/src/Pages/Home/View/Home.dart';
+export 'package:edugo_web_app/src/Pages/Home/View/SignInView.dart';
+export 'package:edugo_web_app/src/Pages/Home/View/CreateorganisationView.dart';

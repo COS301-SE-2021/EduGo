@@ -74,12 +74,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.view_in_ar_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    CreateVirtualEntityView()),
-                          );
+                          MomentumRouter.goto(context, CreateVirtualEntityView);
                         },
                       ),
                     ),
@@ -93,11 +88,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.store_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => VirtualEntityStoreView()),
-                          );
+                          MomentumRouter.goto(context, VirtualEntityStoreView);
                         },
                       ),
                     ),
@@ -111,12 +102,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.school_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    UpdateVirtualEntityView()),
-                          );
+                          MomentumRouter.goto(context, UpdateVirtualEntityView);
                         },
                       ),
                     )
@@ -129,13 +115,7 @@ class DesktopNavBar extends StatelessWidget {
                     child: GestureDetector(
                       child: Icon(Icons.settings_outlined,
                           size: 30, color: Colors.white),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CreateVirtualEntityView()),
-                        );
-                      },
+                      onTap: () {},
                     ),
                   )
                 ],

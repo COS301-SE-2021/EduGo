@@ -31,7 +31,7 @@ class Content extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                MomentumRouter.goto(context, SubjectsView);
+                MomentumRouter.goto(context, SignInView);
               },
               color: Color.fromARGB(255, 97, 211, 87),
               shape: RoundedRectangleBorder(
