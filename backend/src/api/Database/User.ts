@@ -36,7 +36,6 @@ export class User {
 	@Column()
 	salt: string;
 
-
 	@ManyToOne((type) => Organisation, (organisation) => organisation.users)
 	organisation: Organisation;
 
@@ -45,12 +44,10 @@ export class User {
 		cascade: true,
 		onDelete: "CASCADE",
 	})
-
-	
 	@JoinColumn()
 	student: Student;
 
-	@OneToOne((type) => Educator, (educator) => educator.user, {
+	@OneToOne((type) => Educator, {
 		nullable: true,
 		cascade: true,
 		onDelete: "CASCADE",
