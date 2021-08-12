@@ -1,7 +1,5 @@
 import { VirtualEntity } from "../database/VirtualEntity";
 import {
-	getConnection,
-	NoNeedToReleaseEntityManagerError,
 	Repository,
 } from "typeorm";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
@@ -36,6 +34,9 @@ import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { DatabaseError } from "../errors/DatabaseError";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
+import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
+import { BadRequestError, InternalServerError } from "routing-controllers";
+import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicResponse";
 import { DuplicateError } from "../errors/DuplicateError";
 
 
@@ -55,7 +56,6 @@ export class VirtualEntityService {
 	async AddModelToVirtualEntity(
 		request: AddModelToVirtualEntityFileData
 	): Promise<AddModelToVirtualEntityDatabaseResult> {
-		let conn = getConnection();
 
 		return this.virtualEntityRepository
 			.findOne(request.id, {
@@ -98,8 +98,6 @@ export class VirtualEntityService {
 	async GetVirtualEntity(
 		request: GetVirtualEntityRequest
 	): Promise<GetVirtualEntityResponse> {
-		let conn = getConnection();
-	
 
 		return this.virtualEntityRepository
 			.findOne(request.id, {
@@ -132,10 +130,8 @@ export class VirtualEntityService {
 	async GetVirtualEntities(
 		request: GetVirtualEntitiesRequest
 	): Promise<GetVirtualEntitiesResponse> {
-		let conn = getConnection();
-		let virtualEntityRepo = conn.getRepository(VirtualEntity);
 
-		return virtualEntityRepo
+		return this.virtualEntityRepository
 			.find({
 				relations: ["model"],
 			})
@@ -165,6 +161,7 @@ export class VirtualEntityService {
 		let ve: VirtualEntity = new VirtualEntity();
 		ve.title = request.title;
 		ve.description = request.description;
+		ve.public = request.public ?? false;
 
 		if (request.model !== undefined) {
 			let model: Model = new Model();
@@ -286,5 +283,85 @@ export class VirtualEntityService {
 					});
 			} else throw new Error400("Quiz not found");
 		} else throw new Error400("User is not an Student");
+	}
+
+	/**
+	 * @description This function will toggle the public flag of a virtual entity
+	 * @param {TogglePublicRequest} request
+	 * @param {number} user_id
+	 * @returns {Promise<TogglePublicResponse>}
+	 * @throws {BadRequestError}
+	 */
+	async TogglePublic(request: TogglePublicRequest, user_id: number): Promise<TogglePublicResponse> {
+		try {
+			let user = await this.userRepository.findOne(user_id, {relations: ["virtualEntities", "organisation"]});
+			if (user) {
+				let ve = await this.virtualEntityRepository.findOne(request.id, {relations: ["organisation"]});
+				if (ve) {
+					if (ve.organisation.id === user.organisation.id) {
+						ve.public = !ve.public;
+						await this.virtualEntityRepository.save(ve)
+						return {public: ve.public};
+					} else throw new BadRequestError("Virtual entity does not belong to organisation");
+				}
+				else throw new BadRequestError("Virtual entity not found");
+			}
+			else throw new BadRequestError("User not found");
+		}
+		catch (err) {
+			throw new BadRequestError("User not found");
+		}
+	}
+
+	/**
+	 * @description This function will get all the public virtual entities
+	 * @returns {GVEs_VirtualEntity[]}
+	 * @throws {InternalServerError}
+	 */
+	async GetPublicVirtualEntities(): Promise<GVEs_VirtualEntity[]> {
+		try {
+			let source_entities = await this.virtualEntityRepository.find({public: true});
+			let entities: GVEs_VirtualEntity[] = source_entities.map((value) => {
+				let entity: GVEs_VirtualEntity = {
+					id: value.id,
+					title: value.title,
+					description: value.description,
+				}
+				if (value.model) {
+					let model: GVEs_Model = {
+						...value.model
+					}
+					entity.model = model;
+				}
+				return entity;
+			});
+			return entities
+		}
+		catch (err) {
+			throw new InternalServerError('Something went wrong when finding the public entities')
+		}
+	}
+
+	/**
+	 * @description This function will get all the private virtual entities of the organisation
+	 * @param {number} user_id
+	 * @returns {Promise<GVEs_VirtualEntity[]>}
+	 */
+	async GetPrivateVirtualEntities(user_id: number): Promise<GVEs_VirtualEntity[]> {
+		try {
+			let user = await this.userRepository.findOne(user_id, {relations: ["virtualEntities", "organisation"]});
+			if (user) {
+				//A better query would be to get the organisation and then get all the virtual entities of that organisation
+				let entities: GVEs_VirtualEntity[] = await this.virtualEntityRepository.find({
+					organisation: user.organisation,
+					public: false,
+				});
+				return entities;
+			}
+			else throw new BadRequestError("User not found");
+		}
+		catch (err) {
+			throw new BadRequestError("User not found");
+		}
 	}
 }

@@ -31,8 +31,8 @@ export class LessonService {
 		lesson.description = request.description;
 		lesson.virtualEntities = [];
 		//If the lesson start and end timestamps are invalid, set them to null
-		lesson.startTime = new Date(request.startTime) ?? null;
-		lesson.endTime = new Date(request.endTime) ?? null;
+		// lesson.startTime = new Date(request.startTime) ?? null;
+		// lesson.endTime = new Date(request.endTime) ?? null;
 
 		//let subjectRepository = getRepository(Subject);
 		// search for subject with the givem id

@@ -11,7 +11,7 @@ import {
 } from "typeorm";
 import { Subject } from "./Subject";
 import { VirtualEntity } from "./VirtualEntity";
-@Index(["subject", "title", "startTime"], { unique: true })
+@Index(["subject", "title"], { unique: true })
 @Entity()
 export class Lesson {
 	@PrimaryGeneratedColumn()
@@ -33,11 +33,11 @@ export class Lesson {
 	// endTime: string;
 
 	//Example: 2021-08-01T14:00:00+00:00
-	@Column({type: 'timestamptz', nullable: true})
-	startTime: Date;
+	// @Column({type: 'timestamptz', nullable: true})
+	// startTime: Date;
 
-	@Column({type: 'timestamptz', nullable: true})
-	endTime: Date;
+	// @Column({type: 'timestamptz', nullable: true})
+	// endTime: Date;
 
 	@JoinColumn()
 	@ManyToOne(() => Subject, (subject) => subject.lessons)

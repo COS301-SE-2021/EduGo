@@ -5,4 +5,5 @@ export interface CreateVirtualEntityRequest {
     description: string;
     quiz: Quiz;
     model?: Model;
+    public?: boolean;
 }
