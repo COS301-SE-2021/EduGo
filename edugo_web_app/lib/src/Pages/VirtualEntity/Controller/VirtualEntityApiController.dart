@@ -40,11 +40,6 @@ class VirtualEntityApiController
   }
 }
 
-
-  // void updateVirtualEntityName(String virtualEntityName) {
-  //   model.updateVirtualEntityName(virtualEntityName: virtualEntityName);
-  // }
-
 //***************************************************************************************
 //*                                                                                     *
 //*       Return a list of virtual entities to populate the virtual entity store        *

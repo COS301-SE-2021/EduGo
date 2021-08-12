@@ -15,6 +15,10 @@ class SubjectController extends MomentumController<SubjectModel> {
     model.setViewBoundSubjectGrade(subjectGrade: subjectGrade);
   }
 
+  String getCurrentSubjectId() {
+    return model.currentSubject.getSubjectId();
+  }
+
   Future<String> createSubject(context) async {
     var url = Uri.parse('http://localhost:8080/subject/createSubject');
     var response = await post(url, headers: {
@@ -102,80 +106,4 @@ class SubjectController extends MomentumController<SubjectModel> {
   //   model.updateVirtualEntityStore(virtualEntities: enitites);
   // }
 
-//*********************************************************************************************
-//*                                                                                           *
-//*       Pick file from local storage and send to API and store the link to the model        *
-//*                                                                                           *
-//*********************************************************************************************
-  // void upload3DModel() async {
-  //   //await startWebFilePicker();
-  //   preview3DModel();
-  // }
-
-  // void preview3DModel() async {
-  //   model.updateVirtualEntity3DModelLink(
-  //       virtualEntity3DModelLink:
-  //           "https://practiceucket.s3.us-east-2.amazonaws.com/Astronaut.glb");
-  // }
-
-  // void clearLinkTo3DModel() {
-  //   model.updateVirtualEntity3DModelLink(virtualEntity3DModelLink: "");
-  // }
-
-//! Virtual Entity Controller Helper Methods and Attributes
-//*********************************************************************************************
-//*                                                                                           *
-//*       Pick file from local storage                                                        *
-//*                                                                                           *
-//*********************************************************************************************
-  List<int> _selectedFile;
-  Uint8List _bytesData;
-  String filename = "";
-  void startWebFilePicker() async {
-    InputElement uploadInput = FileUploadInputElement();
-    uploadInput.multiple = true;
-    uploadInput.draggable = true;
-    uploadInput.click();
-
-    uploadInput.onChange.listen((e) {
-      final files = uploadInput.files;
-      final file = files[0];
-      final reader = new FileReader();
-
-      reader.onLoadEnd.listen((e) {
-        _handleResult(reader.result);
-
-        filename = file.name;
-      });
-      reader.readAsDataUrl(file);
-    });
-  }
-
-  void _handleResult(Object result) {
-    _bytesData = Base64Decoder().convert(result.toString().split(",").last);
-    _selectedFile = _bytesData;
-  }
-
-  Future<String> send3DModelToStorage() async {
-    Future<String> linkTo3DModel;
-    var url =
-        Uri.parse("http://localhost:8080/virtualEntity/model/uploadModel");
-    var request = new MultipartRequest("POST", url);
-    request.files.add(MultipartFile.fromBytes('file', _selectedFile,
-        contentType: new MediaType('application', 'octet-stream'),
-        filename: filename));
-    request
-        .send()
-        .then((result) async {
-          Response.fromStream(result).then((response) async {
-            if (response.statusCode == 200) {
-              Map<String, dynamic> _3DModel = jsonDecode(response.body);
-              linkTo3DModel = _3DModel['file_link'];
-            }
-          });
-        })
-        .catchError((err) => print('error : ' + err.toString()))
-        .whenComplete(() {});
-    return linkTo3DModel;
-  }
 }

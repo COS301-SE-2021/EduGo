@@ -43,8 +43,7 @@ class CreateOrganisationContent extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
+                      Momentum.controller<OrganisationController>(context)
                           .inputName(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -78,8 +77,7 @@ class CreateOrganisationContent extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
+                      Momentum.controller<OrganisationController>(context)
                           .inputEmail(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -106,8 +104,7 @@ class CreateOrganisationContent extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
+                      Momentum.controller<OrganisationController>(context)
                           .inputPhoneNumber(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -137,8 +134,7 @@ class CreateOrganisationContent extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
+                      Momentum.controller<OrganisationController>(context)
                           .inputAdminFirstName(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -165,8 +161,7 @@ class CreateOrganisationContent extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
+                      Momentum.controller<OrganisationController>(context)
                           .inputAdminLastName(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -202,8 +197,7 @@ class CreateOrganisationContent extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
+                      Momentum.controller<OrganisationController>(context)
                           .inputAdminEmail(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -230,8 +224,7 @@ class CreateOrganisationContent extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
+                      Momentum.controller<OrganisationController>(context)
                           .inputAdminUserName(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -259,8 +252,7 @@ class CreateOrganisationContent extends StatelessWidget {
                       return null;
                     },
                     onChanged: (value) {
-                      Momentum.controller<ViewBoundOrganisationController>(
-                              context)
+                      Momentum.controller<OrganisationController>(context)
                           .inputAdminPassword(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -313,9 +305,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     ),
                     onPressed: () {
                       _formKey.currentState.validate();
-                      // Momentum.controller<ViewBoundOrganisationController>(
-                      //         context)
-                      //     .createOrganisation(context);
+                      Momentum.controller<OrganisationController>(context)
+                          .createOrganisation(context);
                     },
                     width: 450,
                     height: 65),
@@ -335,9 +326,9 @@ class CreateOrganisationContent extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 800) {
         return MomentumBuilder(
-            controllers: [ViewBoundOrganisationController],
+            controllers: [OrganisationController],
             builder: (context, snapshot) {
-              var organisation = snapshot<ViewBoundOrganisationModel>();
+              var organisation = snapshot<OrganisationModel>();
               return Form(
                 key: _formKey,
                 child: Row(
@@ -348,9 +339,9 @@ class CreateOrganisationContent extends StatelessWidget {
             });
       } else {
         return MomentumBuilder(
-            controllers: [ViewBoundOrganisationController],
+            controllers: [OrganisationController],
             builder: (context, snapshot) {
-              var organisation = snapshot<ViewBoundOrganisationModel>();
+              var organisation = snapshot<OrganisationModel>();
               return Form(
                 key: _formKey,
                 child: Column(

@@ -15,7 +15,7 @@ void main() {
         LessonController(),
         ViewBoundVirtualEntityController(),
         QuizBuilderController(),
-        ViewBoundOrganisationController()
+        OrganisationController()
       ],
       services: [
         MomentumRouter(

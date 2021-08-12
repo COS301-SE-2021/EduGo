@@ -1,7 +1,6 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class ViewBoundOrganisationModel
-    extends MomentumModel<ViewBoundOrganisationController> {
+class OrganisationModel extends MomentumModel<OrganisationController> {
   final String organisationName;
   final String organisationEmail;
   final String phoneNumber;
@@ -12,7 +11,7 @@ class ViewBoundOrganisationModel
   final String adminPassword;
   final String adminConfirmPassword;
 
-  ViewBoundOrganisationModel(ViewBoundOrganisationController controller,
+  OrganisationModel(OrganisationController controller,
       {this.organisationName,
       this.organisationEmail,
       this.phoneNumber,
@@ -24,16 +23,15 @@ class ViewBoundOrganisationModel
       this.adminUserName})
       : super(controller);
 
-  void setViewBoundOrganisationName(String organisationName) {
+  void setOrganisationName(String organisationName) {
     update(organisationName: organisationName);
   }
 
-  void setViewBoundOrganisationEmail(String organisationEmail) {
+  void setOrganisationEmail(String organisationEmail) {
     update(organisationEmail: organisationEmail);
   }
 
-  void setViewBoundOrganisationPhoneNumber(
-      String viewBoundOrganisationPhoneNumber) {
+  void setOrganisationPhoneNumber(String viewBoundOrganisationPhoneNumber) {
     update(phoneNumber: viewBoundOrganisationPhoneNumber);
   }
 
@@ -57,15 +55,15 @@ class ViewBoundOrganisationModel
     update(adminUserName: adminUserName);
   }
 
-  String getViewBoundOrganisationName() {
+  String getOrganisationName() {
     return organisationName;
   }
 
-  String getViewBoundOrganisationEmail() {
+  String getOrganisationEmail() {
     return organisationEmail;
   }
 
-  String getViewBoundOrganisationPhoneNumber() {
+  String getOrganisationPhoneNumber() {
     return phoneNumber;
   }
 
@@ -99,7 +97,7 @@ class ViewBoundOrganisationModel
       adminLastName,
       adminPassword,
       adminUserName}) {
-    ViewBoundOrganisationModel(
+    OrganisationModel(
       controller,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       organisationName: organisationName ?? this.organisationName,

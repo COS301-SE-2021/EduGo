@@ -31,16 +31,28 @@ class LessonModel extends MomentumModel<LessonController> {
     update(viewBoundLesson: temporaryLesson);
   }
 
-  void setViewBoundLessonImageLink({String lessonImage}) {
-    Lesson temporaryLesson = viewBoundLesson;
-    temporaryLesson.setLessonImageLink(lessonImage);
-    update(viewBoundLesson: temporaryLesson);
+  void setCurrentLessonTitle({String lessonTitle}) {
+    Lesson temporaryLesson = currentLesson;
+    temporaryLesson.setLessonTitle(lessonTitle);
+    update(currentLesson: temporaryLesson);
   }
 
-  // void addViewBoundLessonVirtualEntityId({VirtualEntity lessonVirtualEntity}) {
+  void setCurrentLessonDescription({String lessonDescription}) {
+    Lesson temporaryLesson = currentLesson;
+    temporaryLesson.setLessonDescription(lessonDescription);
+    update(currentLesson: temporaryLesson);
+  }
+
+  // void addViewBoundLessonVirtualEntity({VirtualEntity lessonVirtualEntity}) {
   //   Lesson temporaryLesson = viewBoundLesson;
   //   temporaryLesson.addLessonVirtualEntity(lessonVirtualEntity);
   //   update(viewBoundLesson: temporaryLesson);
+  // }
+
+  // void addCurrentLessonVirtualEntity({VirtualEntity lessonVirtualEntity}) {
+  //   Lesson temporaryLesson = currentLesson;
+  //   temporaryLesson.addLessonVirtualEntity(lessonVirtualEntity);
+  //   update(currentLesson: temporaryLesson);
   // }
 
   void setViewBoundLessonSubjectId({String lessonSubjectID}) {
@@ -49,15 +61,21 @@ class LessonModel extends MomentumModel<LessonController> {
     update(viewBoundLesson: temporaryLesson);
   }
 
+  void setCurrentLessonSubjectId({String lessonSubjectID}) {
+    Lesson temporaryLesson = currentLesson;
+    temporaryLesson.setLessonSubjectId(lessonSubjectID);
+    update(currentLesson: temporaryLesson);
+  }
+
   String getViewBoundLessonTitle() {
     return viewBoundLesson.getLessonTitle();
   }
 
-  // List<VirtualEntity> getViewBoundLessonVirtualEntities() {
-  //   return viewBoundLesson.getLessonVirtualEntities();
-  // }
-
   String getViewBoundLessonSubjectId() {
+    return viewBoundLesson.getLessonSubjectId();
+  }
+
+  String getCurrentsLessonSubjectId() {
     return viewBoundLesson.getLessonSubjectId();
   }
 
@@ -65,7 +83,11 @@ class LessonModel extends MomentumModel<LessonController> {
     return viewBoundLesson.getLessonDescription();
   }
 
-  String getViewBoundLessonImageLink() {
-    return viewBoundLesson.getLessonImageLink();
-  }
+  // List<VirtualEntity> getViewBoundLessonVirtualEntities() {
+  //   return viewBoundLesson.getLessonVirtualEntities();
+  // }
+
+  // List<VirtualEntity> getCurrentLessonVirtualEntities() {
+  //   return currentLessonss.getLessonVirtualEntities();
+  // }
 }

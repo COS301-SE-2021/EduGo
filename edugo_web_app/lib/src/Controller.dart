@@ -12,5 +12,5 @@ export 'package:edugo_web_app/src/Pages/VirtualEntity/Controller/VirtualEntityAp
 export 'package:edugo_web_app/src/Pages/VirtualEntity/Controller/ViewBoundVirtualEntityController.dart';
 // * App Exports
 export 'package:edugo_web_app/src/Controller.dart';
-export 'package:edugo_web_app/src/Pages/Home/Controller/ViewBoundOrganisationController.dart';
+export 'package:edugo_web_app/src/Pages/Home/Controller/OrganisationController.dart';
 export 'package:edugo_web_app/src/Pages/Home/Controller/SessionController.dart';
