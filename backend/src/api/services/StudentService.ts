@@ -11,7 +11,7 @@ import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail"
 import { VerificationEmail } from "../helper/email/models/VerificationEmail";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { EmailList } from "../models/user/SerivceModels";
-import { Service, Inject } from "typedi";
+import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Organisation } from "../database/Organisation";
 import { Educator } from "../database/Educator";
@@ -34,9 +34,12 @@ export class StudentService {
 	
 
 	//TODO check error regarding mockEmailService injectable
-	@Inject('mailgunEmailService')
+	//@Inject('mailgunEmailService')
 	emailService: EmailService;
 
+	constructor() {
+		this.emailService = new MockEmailService();
+	}
 	/**
 	 * @param {request} request - A request consisting of the organisation id and an array of email strings
 	 * @param {string[]} request.emails - An array of educator email addresses (unvalidated)
@@ -51,7 +54,8 @@ export class StudentService {
 		request: AddStudentsToSubjectRequest
 	): Promise<void> {
 		let emails: string[] = request.students;
-
+		
+		console.log('hey there')
 		if (validateEmails(emails)) {
 			this.CategoriseStudentsFromEmails(emails).then((list) => {
 				this.HandleVerifiedStudents(list.verified, request.subject_id);
