@@ -20,6 +20,10 @@ class OrganisationController extends MomentumController<OrganisationModel> {
     model.setOrganisationPhoneNumber(phoneNumber);
   }
 
+  String getAdminPassword() {
+    return model.getAdminPassword();
+  }
+
   void inputAdminFirstName(String firstName) {
     model.setAdminFirstName(firstName);
   }
@@ -41,23 +45,26 @@ class OrganisationController extends MomentumController<OrganisationModel> {
   }
 
   Future<void> createOrganisation(context) async {
-    var url = Uri.parse(
-        'http://localhost:8080/http://localhost:8080/organisation/createOrganisation');
-    await post(url, headers: {
-      'contentType': 'application/json',
-    }, body: {
-      "organisation_name": model.getOrganisationName(),
-      "organisation_email": model.getOrganisationEmail(),
-      "organisation_phone": model.getOrganisationPhoneNumber(),
-      "password": model.getAdminPassword(),
-      "user_firstName": model.getAdminFirstName(),
-      "user_lastName": model.getAdminLastName(),
-      "user_email": model.getAdminEmail(),
-      "username": model.getAdminUserName()
-    }).then((response) {
+    var url =
+        Uri.parse('http://localhost:8080/organisation/createOrganisation');
+    await post(url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, String>{
+          "organisation_name": model.getOrganisationName(),
+          "organisation_email": model.getOrganisationEmail(),
+          "organisation_phone": model.getOrganisationPhoneNumber(),
+          "password": model.getAdminPassword(),
+          "user_firstName": model.getAdminFirstName(),
+          "user_lastName": model.getAdminLastName(),
+          "user_email": model.getAdminEmail(),
+          "username": model.getAdminUserName()
+        })).then((response) {
       if (response.statusCode == 200) {
-        Map<String, dynamic> _organissation = jsonDecode(response.body);
-        String returnedOrganisationId = _organissation['organisation_id'];
+        print(response.body);
+        Map<String, dynamic> _organisation = jsonDecode(response.body);
+        String returnedOrganisationId = _organisation['organisation_id'];
         Momentum.controller<SessionController>(context)
             .createOrganisationRedirect(
                 context: context,
@@ -65,7 +72,8 @@ class OrganisationController extends MomentumController<OrganisationModel> {
                 password: model.getAdminPassword(),
                 organisationId: returnedOrganisationId);
         return;
-      }
+      } else
+        print(response.body);
     });
   }
 }

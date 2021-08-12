@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:http/http.dart' as http;
 
 class SessionController extends MomentumController<SessionModel> {
   @override
@@ -38,6 +39,7 @@ class SessionController extends MomentumController<SessionModel> {
 
   Future<String> loginUser({context, String organisationId}) async {
     String loginResponse;
+
     if (model.getLoginUserName() != null &&
         model.getLoginPassword() != null &&
         model.getLoginUserName() != "" &&
@@ -46,16 +48,21 @@ class SessionController extends MomentumController<SessionModel> {
         setOrganisationId(organisationId);
       }
       var url = Uri.parse('http://localhost:8080/auth/login');
-      await post(url, headers: {
-        'contentType': 'application/json',
-      }, body: {
-        "username": model.getLoginUserName(),
-        'password': model.getLoginPassword()
-      }).then((response) {
+      await http
+          .post(url,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: jsonEncode(<String, String>{
+                "username": model.getLoginUserName(),
+                "password": model.getLoginPassword()
+              }))
+          .then((response) {
         if (response.statusCode == 200) {
           Map<String, dynamic> _user = jsonDecode(response.body);
           String bearerToken = _user['token'];
           setToken(bearerToken);
+          MomentumRouter.goto(context, SubjectsView);
           loginResponse = "Session Started";
           return;
         }
@@ -90,6 +97,7 @@ class SessionController extends MomentumController<SessionModel> {
           Map<String, dynamic> _user = jsonDecode(response.body);
           String bearerToken = _user['token'];
           setToken(bearerToken);
+          MomentumRouter.goto(context, SubjectsView);
           loginResponse = "Session Started";
           return;
         }

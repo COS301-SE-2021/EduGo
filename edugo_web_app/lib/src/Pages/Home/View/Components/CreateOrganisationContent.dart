@@ -293,8 +293,10 @@ class CreateOrganisationContent extends StatelessWidget {
                       if (value.isEmpty) {
                         return 'Confirmation password cannot be blank';
                       }
-                      if (value != '${organisation.adminPassword}')
+                      if (value != '${organisation.adminPassword}') {
                         return 'Passwords do not match';
+                      }
+
                       return null;
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -320,9 +322,9 @@ class CreateOrganisationContent extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () {
-                      _formKey.currentState.validate();
-                      Momentum.controller<OrganisationController>(context)
-                          .createOrganisation(context);
+                      if (_formKey.currentState.validate())
+                        Momentum.controller<OrganisationController>(context)
+                            .createOrganisation(context);
                     },
                     width: 450,
                     height: 65),

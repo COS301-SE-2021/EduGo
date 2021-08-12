@@ -9,13 +9,11 @@ class OrganisationModel extends MomentumModel<OrganisationController> {
   final String adminEmail;
   final String adminUserName;
   final String adminPassword;
-  final String adminConfirmPassword;
 
   OrganisationModel(OrganisationController controller,
       {this.organisationName,
       this.organisationEmail,
       this.phoneNumber,
-      this.adminConfirmPassword,
       this.adminEmail,
       this.adminFirstName,
       this.adminLastName,
@@ -105,7 +103,7 @@ class OrganisationModel extends MomentumModel<OrganisationController> {
       adminEmail: adminEmail ?? this.adminEmail,
       adminFirstName: adminFirstName ?? this.adminFirstName,
       adminLastName: adminLastName ?? this.adminLastName,
-      adminPassword: adminLastName ?? this.adminLastName,
+      adminPassword: adminPassword ?? this.adminPassword,
       adminUserName: adminUserName ?? this.adminUserName,
     ).updateMomentum();
   }
