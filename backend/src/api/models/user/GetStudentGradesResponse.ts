@@ -1,9 +1,12 @@
 export interface GetStudentGradesResponse {
-	grades: any[];
+	quiz_grades: any[];
 }
+export interface LessonGrades{
+	mark: number; 
 
+}
 export interface QuizGrade {
-	quiz_id: number;
+	name: string;
 	quiz_total: number;
 	student_score: number;
 	//answers: studentAnswer[];
