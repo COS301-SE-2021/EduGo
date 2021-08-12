@@ -38,7 +38,7 @@ export class UserController {
 	@Post("/setUserToAdmin")
 	@UseBefore(isAdmin)
 	SetUserToAdmin(@Body({ required: true }) body: SetUserToAdminRequest) {
-		return this.userService.setUserToAdmin(body);
+		return this.userService.SetUserToAdmin(body);
 	}
 
 	@Post("/revokeUserFromAdmin")
@@ -46,7 +46,7 @@ export class UserController {
 	RevokeUserFromAdmin(
 		@Body({ required: true }) body: RevokeUserFromAdminRequest
 	) {
-		return this.userService.revokeUserFromAdmin(body);
+		return this.userService.RevokeUserFromAdmin(body);
 	}
 
 	@Post("/addStudentsToSubject")
@@ -66,7 +66,7 @@ export class UserController {
 	@Get("/getStudentGrades")
 	@UseBefore(isUser)
 	GetStudentGrades(@CurrentUser({ required: true }) id: number) {
-		return this.studentService.getStudentGrades(id);
+		return this.studentService.GetStudentGrades(id);
 	}
 
 

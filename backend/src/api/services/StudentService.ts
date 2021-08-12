@@ -204,7 +204,7 @@ export class StudentService {
 		return result;
 	}
 
-	public async getStudentGrades(user_id: number): Promise<GetStudentGradesResponse> {
+	public async GetStudentGrades(user_id: number): Promise<GetStudentGradesResponse> {
 		let user: User;
 
 		try {
