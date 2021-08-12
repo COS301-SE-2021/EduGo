@@ -1,12 +1,9 @@
 import { VirtualEntity } from "../database/VirtualEntity";
-import {
-	Repository,
-} from "typeorm";
+import { Repository } from "typeorm";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { Model } from "../database/Model";
 import { Quiz } from "../database/Quiz";
 import { CreateVirtualEntityResponse } from "../models/virtualEntity/CreateVirtualEntityResponse";
-import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEntitiesRequest";
 import {
 	GetVirtualEntitiesResponse,
 	GVEs_Model,
@@ -21,7 +18,6 @@ import {
 } from "../models/virtualEntity/GetVirtualEntityResponse";
 import { AddModelToVirtualEntityFileData } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityDatabaseResult } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
-import { Lesson } from "../database/Lesson";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { User } from "../database/User";
@@ -32,9 +28,8 @@ import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
-import { BadRequestError, ForbiddenError, InternalServerError, NotFoundError } from "routing-controllers";
+import { BadRequestError, InternalServerError, NotFoundError } from "routing-controllers";
 import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicResponse";
-import { DuplicateError } from "../errors/DuplicateError";
 
 
 @Service()
