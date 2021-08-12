@@ -37,15 +37,24 @@ class ViewBoundOrganisationController
     model.setAdminPassword(adminPassword);
   }
 
-  void inputAdminConfirmPassword(String adminConfirmPassword) {
-    model.setAdminConfirmPassword(adminConfirmPassword);
-  }
-
   void inputAdminUserName(String adminUserName) {
     model.setAdminUserName(adminUserName);
   }
 
-  Future createOrganisation(context) {
-    MomentumRouter.goto(context, SubjectsView);
+  Future createOrganisation(context) async {
+    var url = Uri.parse(
+        'http://localhost:8080/http://localhost:8080/organisation/createOrganisation');
+    await post(url, headers: {
+      'contentType': 'application/json',
+    }, body: {
+      "organisation_name": model.getViewBoundOrganisationName(),
+      "organisation_email": model.getViewBoundOrganisationEmail(),
+      "organisation_phone": model.getViewBoundOrganisationPhoneNumber(),
+      "password": model.getAdminPassword(),
+      "user_firstName": model.getAdminFirstName(),
+      "user_lastName": model.getAdminLastName(),
+      "user_email": model.getAdminEmail(),
+      "username": model.getAdminUserName()
+    }).then((value) => {MomentumRouter.goto(context, SubjectsView)});
   }
 }
