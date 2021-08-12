@@ -36,15 +36,16 @@ export class LessonService {
 		// search for subject with the givem id
 		let subject = await this.subjectRepository.findOne(request.subjectId, {relations: ["lessons"]})
 		if (subject) {
-			subject.lessons.push(lesson);
+			lesson.subject = subject;
 			// set add the lesson to the subject
+			let savedLesson: Lesson;
 			try {
-				let savedSubject = this.subjectRepository.save(subject)
+				savedLesson = await this.lessonRepository.save(lesson)
 			}
 			catch (err) {
 				throw handleSavetoDBErrors(err);
 			}
-			return { id: lesson.id };
+			return { id: savedLesson.id };
 		} else {
 			throw new BadRequestError('Subject does not exist')
 		}
