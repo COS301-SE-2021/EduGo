@@ -19,6 +19,7 @@ import { SubjectController } from "./api/controllers/subjectController";
 import { AuthController } from "./api/controllers/authController";
 import { OrganisationController } from "./api/controllers/OrganisationController";
 import { UserController } from "./api/controllers/userController";
+import { VirtualEntityController } from "./api/controllers/virtualEntityController";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
@@ -77,7 +78,7 @@ const app = createExpressServer({
 		SubjectController,
 		AuthController,
 		OrganisationController,
-		UserController,
+		UserController,VirtualEntityController
 	],
 	currentUserChecker: (action: Action) => action.request.user,
 });
