@@ -10,10 +10,11 @@ import {
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
 import { isEducator, isUser } from "../middleware/validate";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
-import { Inject } from "typedi";
+import { Inject, Service } from "typedi";
 import {
 	BadRequestError,
 	Body,
+	Controller,
 	CurrentUser,
 	Get,
 	InternalServerError,
@@ -24,7 +25,10 @@ import {
 import { User } from "../database/User";
 import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEntitiesRequest";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
-
+import passport from "passport";
+@Service()
+@Controller("/virtualEntity")
+@UseBefore(passport.authenticate("jwt", { session: false }))
 export class VirtualEntityController {
 	@Inject()
 	private service: VirtualEntityService;
