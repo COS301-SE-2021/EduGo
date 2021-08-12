@@ -15,12 +15,13 @@ import {
 	BadRequestError,
 	Body,
 	CurrentUser,
+	Get,
 	InternalServerError,
 	Post,
 	UploadedFile,
 	UseBefore,
 } from "routing-controllers";
-import { User } from "../Database/User";
+import { User } from "../database/User";
 import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEntitiesRequest";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 
@@ -82,7 +83,7 @@ export class VirtualEntityController {
 		} else throw new BadRequestError("User is invalid");
 	}
 
-	@Post("/getVirtualEntities")
+	@Get("/getVirtualEntities")
 	@UseBefore(isUser)
 	GetVirtualEntities() {
 		return this.service.GetVirtualEntities();

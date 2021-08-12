@@ -1,8 +1,8 @@
 import { In, Repository } from "typeorm";
 import { validateEmails } from "./validations/EmailValidate";
-import { Subject } from "../Database/Subject";
-import { UnverifiedUser } from "../Database/UnverifiedUser";
-import { User } from "../Database/User";
+import { Subject } from "../database/Subject";
+import { UnverifiedUser } from "../database/UnverifiedUser";
+import { User } from "../database/User";
 import { EmailService } from "../helper/email/EmailService";
 import { MockEmailService } from "../helper/email/MockEmailService";
 import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail";
@@ -11,7 +11,7 @@ import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectR
 import { EmailList } from "../models/user/SerivceModels";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { Student } from "../Database/Student";
+import { Student } from "../database/Student";
 import { GetStudentGradesResponse, QuizGrade } from "../models/user/GetStudentGradesResponse";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { BadRequestError, ForbiddenError, InternalServerError } from "routing-controllers";
