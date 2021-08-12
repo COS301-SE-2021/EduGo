@@ -24,8 +24,10 @@ class ProfileWidget extends StatelessWidget {
             //remove borders and background color
             color: Colors.transparent,
             border: Border.all(color: Colors.transparent)),
-        accountName: Text(user.name), //User's name
-        accountEmail: Text(user.current_organistion), //Current organization
+        //TODO api integration
+        accountName: Text("Sthe"), //Text(user.name), //User's name
+        accountEmail: Text(
+            "COS301"), //Text(user.current_organistion), //Current organization
         currentAccountPicture: CircleAvatar(
             //profile picture
             radius: 30.0,

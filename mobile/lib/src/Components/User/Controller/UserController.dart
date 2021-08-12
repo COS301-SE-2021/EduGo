@@ -30,6 +30,7 @@ class UserController extends MomentumController<UserModel> {
 
   Future<User> loadUser() {
     final api = service<UserApiService>();
+
     return api.getUser(
         client: mock == true
             ? httpMock.MockClient(mockApi.loadUserClient)

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
+import 'package:mobile/src/Components/User/Controller/UserController.dart';
+import 'package:mobile/src/Components/User/Models/UserModel.dart';
 //import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
@@ -19,9 +21,25 @@ class SideBar extends StatefulWidget {
 
 //todo momentum name and surname
 class _SideBarState extends State<SideBar> {
-  final user = Preferences.user;
+  //Functions
+  Future<User> getUser(userController) async {
+    return await userController.loadUser();
+  }
+
+  //final user = Preferences.user;
   @override
   Widget build(BuildContext context) {
+    //Get a specific controller (UserController) to call needed functions (login)
+    UserController userController =
+        Momentum.controller<UserController>(context);
+
+    /*getUser(userController).then((value) {
+      print("here");
+      print(value.firstName);
+    });*/
+
+    return Text("Sidebar");
+    /*
     return Align(
       //Align the side bar
       alignment: Alignment.centerRight,
@@ -98,5 +116,6 @@ class _SideBarState extends State<SideBar> {
         ),
       ),
     );
+  */
   }
 }
