@@ -77,7 +77,7 @@ export class LessonService {
 				lesson.virtualEntities.push(virtualEntity);
 				try {
 					await this.lessonRepository.save(lesson);
-					return;
+					return "ok";
 				}
 				catch(err) {
 					throw handleSavetoDBErrors(err);

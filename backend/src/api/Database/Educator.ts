@@ -15,9 +15,7 @@ export class Educator {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@OneToOne(type => User)
-	@JoinColumn()
-	user: User;
+	
 
 	@ManyToMany(type => Subject, subject => subject.educators)
 	@JoinTable()

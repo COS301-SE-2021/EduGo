@@ -89,7 +89,7 @@ export class AuthService {
 	 */
 	public async verifyInvitation(
 		request: VerifyInvitationRequest
-	): Promise<void> {
+	): Promise<boolean> {
 		try {
 			let existingUser = await this.userRepository.findOne({
 				where: { email: request.email },
@@ -110,7 +110,7 @@ export class AuthService {
 							user.id
 						);
 						if (verified) {
-							return;
+							return true;
 						} else {
 							throw new NotFoundError(
 								"User not found in unverified list"
@@ -192,7 +192,7 @@ export class AuthService {
 	 * @returns  {Promise<void>}
 	 * @memberof AuthService
 	 */
-	public async userRegistration(request: RegisterRequest): Promise<void> {
+	public async userRegistration(request: RegisterRequest): Promise<String> {
 		// if user name and password don't exist proceed
 
 		if (!(await this.doesEmailExist(request))) {
@@ -237,15 +237,20 @@ export class AuthService {
 
 					try {
 						await this.userRepository.save(user);
+						return "ok";
 					} catch (err) {
+
+						if (err.code == "23505") {
+							throw new BadRequestError(err)
+						}
 						throw new DatabaseError(
-							"User unable to be saved to DB"
+							err
 						);
 					}
 					// removing user from unverified list after they have registered successfully
 					//TODO figure out what is wrong with the delete function for unverified user
 					//await unverifiedUserRepo.delete(invitedUser);
-					return;
+					
 				} else {
 					throw new NotFoundError(
 						"Email address that was invited with doesn't match provided email address"
