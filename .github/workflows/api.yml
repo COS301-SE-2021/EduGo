@@ -17,6 +17,7 @@ jobs:
                   node-version: 12
             - run: npm ci
               working-directory: ./backend
-            - run: docker-compose run --rm edugo-server npm run test
+            #- run: docker-compose run --rm edugo-server npm run test
+            - run: npm test
               working-directory: ./backend
             #- uses: SonarSource/sonarcloud-github-action@master
