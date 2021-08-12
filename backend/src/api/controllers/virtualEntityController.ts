@@ -27,22 +27,16 @@ import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest
 export class VirtualEntityController {
 	@Inject()
 	private service: VirtualEntityService;
+
 	@Post("/createVirtualEntity")
 	@UseBefore(isUser)
-	CreateVirtualEntity(
-		@Body({ required: true }) body: CreateVirtualEntityRequest
-	) {
+	CreateVirtualEntity(@Body({ required: true }) body: CreateVirtualEntityRequest) {
 		return this.service.CreateVirtualEntity(body);
 	}
+
 	@Post("/uploadModel")
 	@UseBefore(isEducator)
-	CreateSubject(
-		@UploadedFile("file", { required: true, options: uploadFile })
-		file: Express.MulterS3.File
-	) {
-		let link = file
-			? file.location
-			: "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
+	UploadModel(@UploadedFile("file", { required: true, options: uploadFile }) file: Express.MulterS3.File) {
 		if (file) {
 			let response: any = {
 				file_name: file.key,
@@ -51,18 +45,16 @@ export class VirtualEntityController {
 				file_link: file.location,
 			};
 			return response;
-		} else throw new BadRequestError("User is invalid");
+		} 
+		else throw new BadRequestError("User is invalid");
 	}
+
 	@Post("/addToVirtualEntity")
 	@UseBefore(isEducator)
 	async AddToVirtualEntity(
-		@UploadedFile("file", { required: true, options: uploadFile })
-		file: Express.MulterS3.File,
+		@UploadedFile("file", { required: true, options: uploadFile }) file: Express.MulterS3.File,
 		@Body({ required: true }) body: AddModelToVirtualEntityRequest
 	) {
-		let link = file
-			? file.location
-			: "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
 		if (file) {
 			let baseFile = {
 				file_name: file.key,
@@ -92,10 +84,8 @@ export class VirtualEntityController {
 
 	@Post("/getVirtualEntities")
 	@UseBefore(isUser)
-	GetVirtualEntities(
-		@Body({ required: true }) body: GetVirtualEntitiesRequest
-	) {
-		return this.service.GetVirtualEntities(body);
+	GetVirtualEntities() {
+		return this.service.GetVirtualEntities();
 	}
 
 	@Post("/getVirtualEntity")
@@ -110,7 +100,7 @@ export class VirtualEntityController {
 		@Body({ required: true }) body: AnswerQuizRequest,
 		@CurrentUser({ required: true }) user: User
 	) {
-		return this.service.answerQuiz(body, user.id);
+		return this.service.AnswerQuiz(body, user.id);
 	}
 
 	@Post("/togglePublic")

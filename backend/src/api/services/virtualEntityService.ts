@@ -25,138 +25,137 @@ import { Lesson } from "../database/Lesson";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { User } from "../database/User";
-import { Error400 } from "../errors/Error";
 import { Grade } from "../database/Grade";
 import { Answer } from "../database/Answer";
 import { Student } from "../database/Student";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { DatabaseError } from "../errors/DatabaseError";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
-import { BadRequestError, InternalServerError } from "routing-controllers";
+import { BadRequestError, ForbiddenError, InternalServerError, NotFoundError } from "routing-controllers";
 import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicResponse";
 import { DuplicateError } from "../errors/DuplicateError";
 
 
 @Service()
 export class VirtualEntityService {
-	GetSubjectsByUser(arg0: { user_id: any; }) {
-		throw new Error("Method not implemented.");
-	}
 
 	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
 	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
 	@InjectRepository(Question) private questionRepository: Repository<Question>;
 	@InjectRepository(User) private userRepository: Repository<User>;
-
 	@InjectRepository(Student) private studentRepository: Repository<Student>;
 
-	async AddModelToVirtualEntity(
-		request: AddModelToVirtualEntityFileData
-	): Promise<AddModelToVirtualEntityDatabaseResult> {
+	/**
+	 * @description This function will add a 3d model to a virtual entity. It will include checks to see if the virtual entity already has a model attached
+	 * @param {AddModelToVirtualEntityFileData} request
+	 * @returns {Promise<AddModelToVirtualEntityDatabaseResult>}
+	 * @throws {NotFoundError, InternalServerError}
+	 */
+	async AddModelToVirtualEntity(request: AddModelToVirtualEntityFileData): Promise<AddModelToVirtualEntityDatabaseResult> {
+		let entity: VirtualEntity | undefined;
+		try {
+			entity = await this.virtualEntityRepository.findOne(request.id, {relations: ["model", "quiz", "quiz.questions"],})
+		}
+		catch (err){
+			throw new NotFoundError('Could not find virtual entity');
+		}
 
-		return this.virtualEntityRepository
-			.findOne(request.id, {
-				relations: ["model", "quiz", "quiz.questions"],
-			})
-			.then((entity) => {
-				if (entity) {
-					let model: Model = new Model();
-					model.name = request.name;
-					model.description = request.description;
-					model.file_name = request.file_name;
-					model.file_link = request.file_link;
-					model.file_size = request.file_size;
-					model.file_type = request.file_type;
-					if (entity.model) {
-						throw new Error(
-							"This virtual entity already has a model"
-						);
-					}
-					entity.model = model;
-					return this.virtualEntityRepository.save(entity).then((result) => {
-						if (result.model) {
-							let response: AddModelToVirtualEntityDatabaseResult =
-								{
-									model_id: result.model.id,
-								};
-							return response;
-						} else {
-							throw new DuplicateError(
-								"There was an error adding to the DB"
-							);
-						}
-					});
-				} else {
-					throw new NonExistantItemError("Entity doesn't exixt");
-				}
-			});
+		if (!entity) throw new NotFoundError('Could not find virtual entity');
+		if (entity.model) throw new BadRequestError('Virtual Entity already has a Model');
+
+		let model: Model = new Model();
+		model.name = request.name;
+		model.description = request.description;
+		model.file_name = request.file_name;
+		model.file_link = request.file_link;
+		model.file_size = request.file_size;
+		model.file_type = request.file_type;
+
+		entity.model = model;
+		let result: VirtualEntity;
+
+		try {
+			result = await this.virtualEntityRepository.save(entity)
+		}
+		catch (err) {
+			throw new InternalServerError('Could not save virtual entity');
+		}
+
+		if (result.model) {
+			let response: AddModelToVirtualEntityDatabaseResult = {model_id: result.model.id};
+			return response;
+		} 
+		else throw new InternalServerError('Could not save the model to the virtual entity');
 	}
 
-	async GetVirtualEntity(
-		request: GetVirtualEntityRequest
-	): Promise<GetVirtualEntityResponse> {
+	async GetVirtualEntity(request: GetVirtualEntityRequest): Promise<GetVirtualEntityResponse> {
+		let entity: VirtualEntity | undefined;
+		try {
+			entity = await this.virtualEntityRepository.findOne(request.id, {relations: ["model", "quiz", "quiz.questions"]})
+		}
+		catch (err) {
+			throw new NotFoundError('Could not find virtual entity');
+		}
 
-		return this.virtualEntityRepository
-			.findOne(request.id, {
-				relations: ["model", "quiz", "quiz.questions"],
-			})
-			.then((entity) => {
-				if (entity) {
-					let response: GetVirtualEntityResponse = {
-						id: entity.id,
-						title: entity.title,
-						description: entity.description,
-					};
-					if (entity.model) {
-						let model: GVE_Model = { ...entity.model };
-						response.model = model;
-					}
-					if (entity.quiz) {
-						let quiz: GVE_Quiz = { ...entity.quiz };
-						response.quiz = quiz;
-					}
-					return response;
-				} else {
-					throw new NonExistantItemError(
-						`Could not find entity with id ${request.id}`
-					);
-				}
-			});
+		if (!entity) throw new NotFoundError('Could not find virtual entity');
+
+		let response: GetVirtualEntityResponse = {
+			id: entity.id,
+			title: entity.title,
+			description: entity.description,
+		};
+
+		if (entity.model) {
+			let model: GVE_Model = { ...entity.model };
+			response.model = model;
+		}
+		if (entity.quiz) {
+			let quiz: GVE_Quiz = { ...entity.quiz };
+			response.quiz = quiz;
+		}
+		return response;
 	}
 
-	async GetVirtualEntities(
-		request: GetVirtualEntitiesRequest
-	): Promise<GetVirtualEntitiesResponse> {
+	/**
+	 * @description Get all the virtual entities in the system
+	 * @returns {Promise<GetVirtualEntitiesResponse>}
+	 * @throws {NotFoundError, InternalServerError}
+	 */
+	async GetVirtualEntities(): Promise<GetVirtualEntitiesResponse> {
+		let entities: VirtualEntity[];
 
-		return this.virtualEntityRepository
-			.find({
-				relations: ["model"],
-			})
-			.then((entities) => {
-				let response: GetVirtualEntitiesResponse = {
-					entities: entities.map((value) => {
-						let entity: GVEs_VirtualEntity = {
-							title: value.title,
-							description: value.description,
-							id: value.id,
-						};
-						if (value.model) {
-							let model: GVEs_Model = { ...value.model };
-							entity.model = model;
-						}
-						return entity;
-					}),
+		try {
+			entities = await this.virtualEntityRepository.find({relations: ["model"]})
+		}
+		catch (err) {
+			throw new InternalServerError('Could not find virtual entities');
+		}
+
+		let response: GetVirtualEntitiesResponse = {
+			entities: entities.map((value) => {
+				let entity: GVEs_VirtualEntity = {
+					title: value.title,
+					description: value.description,
+					id: value.id,
 				};
-				return response;
-			});
+				if (value.model) {
+					let model: GVEs_Model = { ...value.model };
+					entity.model = model;
+				}
+				return entity;
+			}),
+		};
+		return response;
 	}
 
-	async CreateVirtualEntity(
-		request: CreateVirtualEntityRequest
-	): Promise<CreateVirtualEntityResponse> {
+	/**
+	 * @description Create a new virtual entity from the CreateVirtualEntityRequest object which may contain a model, quiz, and questions
+	 * @param {CreateVirtualEntityRequest} request
+	 * @returns {Promise<CreateVirtualEntityResponse>}
+	 * @throws {InternalServerError}
+	 */
+	async CreateVirtualEntity(request: CreateVirtualEntityRequest): Promise<CreateVirtualEntityResponse> {
 		
 		let ve: VirtualEntity = new VirtualEntity();
 		ve.title = request.title;
@@ -190,16 +189,20 @@ export class VirtualEntityService {
 			ve.quiz = quiz;
 		}
 
-		return this.virtualEntityRepository.save(ve).then((result) => {
-			let response: CreateVirtualEntityResponse = {
-				id: result.id,
-				message: "Successfully added virtual entity"
-			};
-			return response;
-		})
-		.catch((err) => {
-			throw new DatabaseError('Could not add virtual entity');
-		});
+		let result: VirtualEntity;
+
+		try {
+			result = await this.virtualEntityRepository.save(ve);
+		}
+		catch (err) {
+			throw new InternalServerError('Could not save virtual entity')
+		}
+
+		let response: CreateVirtualEntityResponse = {
+			id: result.id,
+			message: "Successfully added virtual entity"
+		};
+		return response;
 	}
 	/**
 	 * @description This function allows a student to answer a quiz
@@ -211,78 +214,70 @@ export class VirtualEntityService {
 	 * @param {number} user_id
 	 * @memberof VirtualEntityService
 	 */
-	async answerQuiz(request: AnswerQuizRequest, user_id: number) {
+	async AnswerQuiz(request: AnswerQuizRequest, user_id: number): Promise<String> {
 		let user: User;
 		let quiz: Quiz | undefined;
 		try {
 			user = await getUserDetails(user_id);
-			quiz = await this.quizRepository.findOne(request.quiz_id, {
-				relations: ["questions"],
-			});
-		} catch (error) {
+			quiz = await this.quizRepository.findOne(request.quiz_id, {relations: ["questions"],});
+		} 
+		catch (error) {
 			throw error;
 		}
-		//console.log(user);
-		if (user.student != null) {
-			if (quiz) {
-				let StudentGrade = new Grade();
-				let score: number = 0;
-				let total: number = quiz.questions.length;
-				StudentGrade.quiz = quiz;
-				StudentGrade.answers = [];
-				for (let value of request.answers) {
-					let question: Question | undefined;
-					try {
-						question = await this.questionRepository.findOne(
-							value.question_id
-						);
-					} catch (error) {
-						throw new error();
-					}
-					if (question) {
-						let answer = new Answer();
-						answer.answer = value.answer;
-						answer.question = question;
-						StudentGrade.answers.push(answer);
-						if (value.answer == question.correctAnswer) {
-							score++;
-						}
-					} else {
-						throw new Error400("Error 400 question not found");
-					}
-				}
-				StudentGrade.score = score;
-				StudentGrade.total = total;
-				let student;
-				try {
-					student = await this.studentRepository.findOne(user.student.id, {
-						relations: ["grades"],
-					});
 
-					if (!student)
-						throw new NonExistantItemError(
-							"Student info not found"
-						);
+		if (!user.student) throw new NotFoundError('Could not find student');
+		if (!quiz) throw new NotFoundError('Could not find quiz');
 
-					student.grades.push(StudentGrade);
+		let StudentGrade = new Grade();
+		let score: number = 0;
+		let total: number = quiz.questions.length;
+		StudentGrade.quiz = quiz;
+		StudentGrade.answers = [];
+		for (let value of request.answers) {
+			let question: Question | undefined;
 
-					await this.studentRepository.save(student).catch((err) => {
-						throw handleSavetoDBErrors(err);
-					});
-				} catch (error) {
-					throw error;
-				}
+			try {
+				question = await this.questionRepository.findOne(value.question_id);
+			} 
+			catch (error) {
+				throw new BadRequestError('Question not found')
+			}
 
-				this.userRepository
-					.save(user)
-					.then((res) => {
-						return;
-					})
-					.catch((error) => {
-						throw handleSavetoDBErrors(error);
-					});
-			} else throw new Error400("Quiz not found");
-		} else throw new Error400("User is not an Student");
+			if (question) {
+				let answer = new Answer();
+				answer.answer = value.answer;
+				answer.question = question;
+				StudentGrade.answers.push(answer);
+				if (value.answer == question.correctAnswer) score++;
+			} 
+			else {
+				throw new NotFoundError("Question not found");
+			}
+		}
+
+		StudentGrade.score = score;
+		StudentGrade.total = total;
+		let student;
+		try {
+			student = await this.studentRepository.findOne(user.student.id, {relations: ["grades"],});
+
+			if (!student) throw new NotFoundError('Student info not found');
+			student.grades.push(StudentGrade);
+
+			await this.studentRepository.save(student);
+		} catch (error) {
+			//TODO: handle error
+			handleSavetoDBErrors(error);
+			throw new InternalServerError('');
+		}
+
+		try {
+			await this.userRepository.save(user)
+		}
+		catch (error) {
+			throw new InternalServerError('There was an error');
+		}
+		return 'ok';
 	}
 
 	/**
@@ -295,18 +290,16 @@ export class VirtualEntityService {
 	async TogglePublic(request: TogglePublicRequest, user_id: number): Promise<TogglePublicResponse> {
 		try {
 			let user = await this.userRepository.findOne(user_id, {relations: ["virtualEntities", "organisation"]});
-			if (user) {
-				let ve = await this.virtualEntityRepository.findOne(request.id, {relations: ["organisation"]});
-				if (ve) {
-					if (ve.organisation.id === user.organisation.id) {
-						ve.public = !ve.public;
-						await this.virtualEntityRepository.save(ve)
-						return {public: ve.public};
-					} else throw new BadRequestError("Virtual entity does not belong to organisation");
-				}
-				else throw new BadRequestError("Virtual entity not found");
+			let ve = await this.virtualEntityRepository.findOne(request.id, {relations: ["organisation"]});
+			if (!user) throw new BadRequestError("User not found");
+			if (!ve) throw new BadRequestError("Virtual entity does not belong to organisation");
+
+			if (ve.organisation.id === user.organisation.id) {
+				ve.public = !ve.public;
+				await this.virtualEntityRepository.save(ve)
+				return {public: ve.public};
 			}
-			else throw new BadRequestError("User not found");
+			else throw new BadRequestError("User does not belong to organisation");
 		}
 		catch (err) {
 			throw new BadRequestError("User not found");
@@ -321,7 +314,7 @@ export class VirtualEntityService {
 	async GetPublicVirtualEntities(): Promise<GVEs_VirtualEntity[]> {
 		try {
 			let source_entities = await this.virtualEntityRepository.find({public: true});
-			let entities: GVEs_VirtualEntity[] = source_entities.map((value) => {
+			return source_entities.map((value) => {
 				let entity: GVEs_VirtualEntity = {
 					id: value.id,
 					title: value.title,
@@ -335,7 +328,6 @@ export class VirtualEntityService {
 				}
 				return entity;
 			});
-			return entities
 		}
 		catch (err) {
 			throw new InternalServerError('Something went wrong when finding the public entities')
@@ -350,15 +342,13 @@ export class VirtualEntityService {
 	async GetPrivateVirtualEntities(user_id: number): Promise<GVEs_VirtualEntity[]> {
 		try {
 			let user = await this.userRepository.findOne(user_id, {relations: ["virtualEntities", "organisation"]});
-			if (user) {
-				//A better query would be to get the organisation and then get all the virtual entities of that organisation
-				let entities: GVEs_VirtualEntity[] = await this.virtualEntityRepository.find({
-					organisation: user.organisation,
-					public: false,
-				});
-				return entities;
-			}
-			else throw new BadRequestError("User not found");
+			if (!user) throw new BadRequestError("User not found");
+
+			//A better query would be to get the organisation and then get all the virtual entities of that organisation
+			return await this.virtualEntityRepository.find({
+				organisation: user.organisation,
+				public: false,
+			});
 		}
 		catch (err) {
 			throw new BadRequestError("User not found");
