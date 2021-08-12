@@ -217,12 +217,13 @@ export class AuthService {
 					user.organisation = org;
 					if (invitedUser.type == userType.student) {
 						user.student = new Student();
-
+						user.student.subjects = [];
 						for (let index of invitedUser.subjects) {
 							user.student.subjects.push(index);
 						}
 					} else {
 						user.educator = new Educator();
+						user.educator.subjects = [];
 						for (let index of invitedUser.subjects) {
 							user.educator.subjects.push(index);
 						}
