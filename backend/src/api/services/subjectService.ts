@@ -13,6 +13,7 @@ import { Student } from "../database/Student";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { BadRequestError, InternalServerError, NotFoundError } from "routing-controllers";
+import { Subject as ResponseSubject } from "../models/subject/Default";
 
 @Service()
 export class SubjectService {
@@ -83,10 +84,19 @@ export class SubjectService {
 				try { 
 					educator = await this.educatorRepository.findOne(user.educator.id, {relations: ["subjects"]}); 
 				}
-				catch (err) { throw new BadRequestError('Could not find Educator') }
+				catch (err) {throw new BadRequestError('Could not find Educator')}
+				if (!educator) throw new BadRequestError('Could not find Educator')
 
-				if (educator) return {data: educator.subjects};
-				else throw new BadRequestError('Could not find Educator');
+				return {
+					data: educator.subjects.map((value) => {
+						return {
+							id: value.id, 
+							title: value.title, 
+							grade: value.grade,
+							image: value.image
+						}
+					})
+				}
 			}
 			else if (user.student) {
 				let student: Student | undefined;
@@ -95,9 +105,18 @@ export class SubjectService {
 					student = await this.studentRepository.findOne(user.student.id, {relations: ["subjects"]}); 
 				}
 				catch (err) { throw new BadRequestError('Could not find Student') }
+				if (!student) throw new BadRequestError('Could not find Student')
 
-				if (student) return {data: student.subjects};
-				else throw new BadRequestError('Could not find Student');
+				return {
+					data: student.subjects.map((value) => {
+						return {
+							id: value.id, 
+							title: value.title, 
+							grade: value.grade,
+							image: value.image
+						}
+					})
+				}
 			}
 			else throw new InternalServerError('Could not determine of user is student or educator')
 		}
