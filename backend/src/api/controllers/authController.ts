@@ -1,7 +1,6 @@
 import { ok } from "assert/strict";
 import express from "express";
 import passport from "passport";
-import { handleErrors } from "../helper/ErrorCatch";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";

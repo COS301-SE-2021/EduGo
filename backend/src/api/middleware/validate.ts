@@ -4,9 +4,6 @@ import passport from "passport";
 import { UnauthorizedError } from "routing-controllers";
 import { getRepository } from "typeorm";
 import { User } from "../database/User";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { UnauthorizedUserError } from "../errors/UnauthorizedUserError";
-import { handleErrors } from "../helper/ErrorCatch";
 
 interface MyPayload {
 	user_id: number;

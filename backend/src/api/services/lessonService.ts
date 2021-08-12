@@ -4,14 +4,12 @@ import { Lesson } from "../database/Lesson";
 import { Repository} from "typeorm";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import { Subject } from "../database/Subject";
-import { User } from "../database/User";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
 import { VirtualEntity } from "../database/VirtualEntity";
 import { Service } from 'typedi'
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { BadRequestError, InternalServerError } from "routing-controllers";
+import { BadRequestError } from "routing-controllers";
 let statusRes: any = {
 	message: "",
 	type: "fail",

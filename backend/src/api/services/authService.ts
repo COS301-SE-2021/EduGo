@@ -7,14 +7,11 @@ import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest"
 import { UnverifiedUser } from "../database/UnverifiedUser";
 import { Organisation } from "../database/Organisation";
 import { Educator } from "../database/Educator";
-import { DatabaseError } from "../errors/DatabaseError";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
 import { Student } from "../database/Student";
-import { Error400 } from "../errors/Error";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { LoginResponse } from "../models/auth/LoginResponse";
-import { BadRequestError, NotFoundError, UnauthorizedError } from "routing-controllers";
+import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from "routing-controllers";
 
 @Service()
 export class AuthService {
@@ -50,14 +47,10 @@ export class AuthService {
 	 */
 	public async login(request: LoginRequest): Promise<LoginResponse> {
 		try {
-			let user = await this.userRepository.findOne({
-				where: { username: request.username },
-			});
+			let user = await this.userRepository.findOne({where: { username: request.username },});
 
 			if (user == undefined) {
-				throw new UnauthorizedError(
-					`User with username ${request.username} not found`
-				);
+				throw new UnauthorizedError(`User with username ${request.username} not found`);
 			}
 
 			let isValid = validPassword(request.password, user.hash, user.salt);
@@ -243,9 +236,7 @@ export class AuthService {
 						if (err.code == "23505") {
 							throw new BadRequestError(err)
 						}
-						throw new DatabaseError(
-							err
-						);
+						throw new InternalServerError(err);
 					}
 					// removing user from unverified list after they have registered successfully
 					//TODO figure out what is wrong with the delete function for unverified user
@@ -311,7 +302,7 @@ export class AuthService {
 				);
 				if (org) organisation = org;
 				else {
-					throw new NonExistantItemError("Organisation not found");
+					throw new NotFoundError("Organisation not found");
 				}
 			} catch (error) {
 				throw error;
@@ -335,7 +326,7 @@ export class AuthService {
 					return;
 				}
 			} catch (err) {
-				throw new DatabaseError("User unable to be saved to DB");
+				throw new InternalServerError("User unable to be saved to DB");
 			}
 		} else {
 			throw new BadRequestError("username and email already exist");

@@ -1,12 +1,8 @@
-import express from "express";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { DatabaseError } from "../errors/DatabaseError";
-import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest";
+import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest"
 import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisationRequest";
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import { OrganisationService } from "../services/OrganisationService";
-import { handleErrors } from "../helper/ErrorCatch";
-import { Container, Inject, Service } from "typedi";
+import { Inject, Service } from "typedi";
 import { Body, JsonController, Post } from "routing-controllers";
 import { GetOrganisationsRequest } from "../models/organisation/GetOrganisationsRequest";
 

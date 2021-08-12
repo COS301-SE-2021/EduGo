@@ -23,4 +23,7 @@ export class Educator {
 
 	@Column({default:false})
 	admin: boolean;
+
+	@OneToOne((type) => User, user => user.educator)
+	user: User;
 }

@@ -21,4 +21,7 @@ export class Student {
 
 	@OneToMany((type) => Grade, (grade) => grade.student,{cascade:true})
 	grades: Grade[];
+
+	@OneToOne(type => User, user => user.student)
+	user: User;
 }
