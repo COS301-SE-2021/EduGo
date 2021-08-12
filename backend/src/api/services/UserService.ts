@@ -61,7 +61,7 @@ export class UserService {
 		if (user) {
 			let response: GetUserDetailsResponse = {
 				email: user.email,
-				firstName: user.email,
+				firstName: user.firstName,
 				lastName: user.lastName,
 				username: user.username,
 				organisation_id: user.organisation.id,
