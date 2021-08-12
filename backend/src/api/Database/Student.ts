@@ -15,9 +15,6 @@ export class Student {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@OneToOne(type => User, user => user.student)
-	user: User;
-
 	@ManyToMany(type => Subject, subject => subject.students)
 	@JoinTable()
 	subjects: Subject[];

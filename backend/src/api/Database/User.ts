@@ -39,7 +39,7 @@ export class User {
 	@ManyToOne((type) => Organisation, (organisation) => organisation.users)
 	organisation: Organisation;
 
-	@OneToOne((type) => Student, (student) => student.user, {
+	@OneToOne((type) => Student,{
 		nullable: true,
 		cascade: true,
 		onDelete: "CASCADE",
