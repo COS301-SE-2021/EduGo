@@ -25,6 +25,4 @@ export class Educator {
 
 	@Column({default:false})
 	admin: boolean;
-
-	virtualEntities
 }
