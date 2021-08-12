@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesLessonPage.dart';
 
-class GradesCard extends StatelessWidget {
+class GradesQuizCard extends StatelessWidget {
   //Holds the lesson title
   final String subjectTitle;
 
@@ -20,7 +20,7 @@ class GradesCard extends StatelessWidget {
   final int marksArray;
 
 //LessonCardConstructor. Takes in 4 arguments
-  GradesCard({
+  GradesQuizCard({
     required this.subjectTitle,
     required this.totalGrade,
     required this.marksArray,

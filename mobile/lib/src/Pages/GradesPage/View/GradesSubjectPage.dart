@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/GradesPageCardWidget.dart';
+import 'package:mobile/src/Components/GradesSubjectCard.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
-import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
-import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
+import 'package:mobile/src/Pages/GradesPage/Model/GradesModel.dart';
 import 'package:momentum/momentum.dart';
 
-class GradesPage extends StatefulWidget {
-  GradesPage({Key? key}) : super(key: key);
+class GradesSubjectPage extends StatefulWidget {
+  GradesSubjectPage({Key? key}) : super(key: key);
   static String id = "grades";
 
   @override
-  _GradesPageState createState() => _GradesPageState();
+  _GradesSubjectState createState() => _GradesSubjectState();
 }
 
-class _GradesPageState extends State<GradesPage> {
+class _GradesSubjectState extends State<GradesSubjectPage> {
   @override
   Widget build(BuildContext context) {
     return MobilePageLayout(
       true,
       false,
       MomentumBuilder(
-        controllers: [SubjectsController],
+        controllers: [GradesController],
         builder: (context, snapshot) {
-          //Used for momentum mvc model
-          final subjects = snapshot<SubjectsModel>();
+          //Take a snapshot of the gradesModel.
+          //Does this using MVC momentum
+          final subjects = snapshot<GradesModel>();
 
-          //final percentage = subjects.
-
-          //return Container(
-          //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -60,11 +57,16 @@ class _GradesPageState extends State<GradesPage> {
                   crossAxisCount: 1,
                   //Call subject card here and pass in all arguments required
                   children: subjects.subjects
-                      .map((subject) => GradesCard(
-                            totalGrade: -1,
-                            subjectTitle: subject.title,
-                            marksArray: 2,
-                          ))
+                      .map(
+                        (subject) =>
+                            //Pass in the entire subjects list of lessons so subjects.lessons
+                            //Also pass in the subject title and the subject mark as a percentage
+                            GradesSubjectCard(
+                          subjectLessons: subject.lessons,
+                          subjectMark: subject.mark,
+                          subjectTitle: subject.title,
+                        ),
+                      )
                       .toList(),
                 ),
               ],

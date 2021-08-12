@@ -37,7 +37,7 @@ class Subject {
   Map<String, dynamic> toJson() => _$SubjectToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class Lesson {
   //Lesson id
   @JsonKey(required: true)
@@ -57,7 +57,7 @@ class Lesson {
   Map<String, dynamic> toJson() => _$LessonToJson(this);
 }
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class Quiz {
   //quiz id
   @JsonKey(required: true)

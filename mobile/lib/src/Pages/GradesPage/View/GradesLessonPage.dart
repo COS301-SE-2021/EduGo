@@ -1,130 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 
-class GradesSpecificViewPage extends StatefulWidget {
-  //This holds the specific lesson ID
-  //final array[] marksArray;
-  final int marksArray;
 
-  //Holds the lesson title
-  final String subjectTitle;
+class GradesLessonPage extends StatefulWidget {
 
-  //Holds the lessonid
-  final int totalGrade;
+  //Holds the list of lessons to be passed in from the GradesSubjectCard 
+  //when clicked
+  final List<Lesson> lessonList;
 
-  //LessonPage constructor
-  GradesSpecificViewPage(
-      {Key? key,
-      required this.marksArray,
-      required this.subjectTitle,
-      required this.totalGrade})
-      : super(key: key);
-  static String id = "lessons";
+    GradesLessonPage({Key? key, required this.lessonList}) : super(key: key);
+    //Can i remove this id below??
+  static String id = "grades";
 
   @override
-  _GradesSpecificViewPageState createState() => _GradesSpecificViewPageState(
-      marksArray: this.marksArray,
-      subjectTitle: this.subjectTitle,
-      totalGrade: this.totalGrade);
+  _GradesLessonState createState() => _GradesLessonState(
+    lessonList: this.lessonList
+  );
 }
 
-class _GradesSpecificViewPageState extends State<GradesSpecificViewPage> {
-  //final array[] marksArray;
-  final int marksArray;
+class _GradesLessonState extends State<GradesLessonPage> {
 
-  final String subjectTitle;
+  final List<Lesson> lessonList;
+  
+  _GradesLessonState({
+    required this.lessonList,
+  });
 
-  final int totalGrade;
-
-  // var date = DateTime.parse(lessonStartTime);
-
-  //Soon take out start time and end time
-
-  _GradesSpecificViewPageState(
-      {required this.marksArray,
-      required this.subjectTitle,
-      required this.totalGrade});
-
+  
   @override
   Widget build(BuildContext context) {
-    //Format the date objects by passing them from strings to date objects
     return MobilePageLayout(
-      //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
-      //the two bool represent side bar and navbar. so if true and true, them
-      //the side bar and nav bar will be displayed.
-      //i.e true=yes display, false=no do not display
-      false,
+      true,
       false,
       Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-        //child: SingleChildScrollView(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: Text(
-                  subjectTitle,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  softWrap: false,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+        child:
+      
+           SingleChildScrollView(
+            child: Column(
+              children: [
+                // Align(
+                //   child: Padding(
+                //     padding: const EdgeInsets.only(top: 25),
+                //     // child: Text(
+                //     //   'Marks',
+                //     //   overflow: TextOverflow.ellipsis,
+                //     //   maxLines: 2,
+                //     //   softWrap: false,
+                //     //   style: TextStyle(
+                //     //       fontSize: 30,
+                //     //       fontWeight: FontWeight.bold,
+                //     //       color: Colors.black),
+                //     // ),
+                //   ),
+                // ),
+                GridView.count(
+                  //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+                  childAspectRatio: MediaQuery.of(context).size.height / 400,
+                  primary: false,
+                  //padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 0,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  mainAxisSpacing: 10,
+                  //makes 1 cards per row
+                  crossAxisCount: 1,
+                  //Call subject card here and pass in all arguments required
+                  children: lessonList.
+                      .map(
+                        (lesson) =>
+                            //Pass in the entire subjects list of lessons so subjects.lessons
+                            //Also pass in the subject title and the subject mark as a percentage
+                            GradesSubjectCard(
+                          subjectLessons: lesson.
+                          subjectMark: subject.mark,
+                          subjectTitle: subject.title,
+                        ),
+                      )
+                      .toList(),
                 ),
-              ),
+              ],
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: Text(
-                  'test',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                  softWrap: false,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 150),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width / 1,
-                height: MediaQuery.of(context).size.width / 10,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: MaterialButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      side: BorderSide(color: Colors.black),
-                    ),
-                    onPressed: () {},
-                    minWidth: 10,
-                    height: 60,
-                    child: Text(
-                      "Get Started",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+
+          //If there are no subjects
+        },
       ),
-      // ),
     );
   }
 }
