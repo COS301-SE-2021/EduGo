@@ -69,3 +69,92 @@ Future<http.Response> getSubjectsByUserClient(request) async {
     }
   ''', 200);
 }
+
+Future<http.Response> getGradesByUserClient(request) async {
+  return http.Response('''
+    {
+      "data": [
+        {
+          "title": "Maths Mock",
+          //As a percentage
+          "mark": 10,
+          "Lessons": [
+            {
+              "title":"Math Lesson 1",
+              "mark": 20,
+              "quiz": [
+                //quiz 1
+                {
+                  "studentmark": 20,
+                  "quiztotal": 40,
+                  "title":"quiz 1"
+                },
+                 //quiz 1
+                {
+                  "mark": 20,
+                  "quiztotal": 40,
+                  "title":"quiz 2"
+                },
+              //lesson 2
+              {
+              "title":"Math Lesson 2",
+              "mark": 15,
+              "quiz": [
+                 //quiz 1
+                {
+                  "studentmark": 20,
+                  "quiztotal": 40,
+                  "title":"quiz 1"
+                },
+                 //quiz 1
+                {
+                  "studentmark": 20,
+                  "quiztotal": 40,
+                  "title":"quiz 1"
+                }
+              ] //end of quiz 1 array
+            },
+          ] //end of lesson array
+        },
+        //subject 2
+        {
+          "title": "Geography Mock",
+          //As a percentage
+          "mark": 10,
+          "Lessons": [
+            {
+              "title":"Geography Lesson 1",
+              "mark": 20,
+              "quiz": [
+                {
+                  "studentmark": 20,
+                  "quiztotal": 40,
+                  "title":"quiz 1"
+                },
+                {
+                  "studentmark": 20,
+                  "quiztotal": 40,
+                  "title":"quiz 1"
+                },
+                {
+              "title":"Geography Lesson 2",
+              "mark": 15,
+              "quiz": [
+                {
+                  "studentmark": 20,
+                  "quiztotal": 40,
+                  "title":"quiz 1"
+                },
+                {
+                  "studentmark": 20,
+                  "quiztotal": 40,
+                  "title":"quiz 1"
+                }
+              ]
+            },
+          ]
+        },  
+      ]
+    }
+  ''', 200);
+}

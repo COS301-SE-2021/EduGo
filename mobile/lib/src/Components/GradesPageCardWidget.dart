@@ -4,7 +4,7 @@
    * into the constructor when displaying the subjects
    */
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesSpecificViewPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesLessonPage.dart';
 
 class GradesCard extends StatelessWidget {
   //Holds the lesson title
