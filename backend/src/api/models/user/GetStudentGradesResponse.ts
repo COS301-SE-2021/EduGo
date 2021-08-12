@@ -1,5 +1,5 @@
 export interface GetStudentGradesResponse {
-	grades: QuizGrade[];
+	grades: any[];
 }
 
 export interface QuizGrade {

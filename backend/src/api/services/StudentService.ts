@@ -15,6 +15,8 @@ import { Student } from "../database/Student";
 import { GetStudentGradesResponse, QuizGrade } from "../models/user/GetStudentGradesResponse";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { BadRequestError, ForbiddenError, InternalServerError } from "routing-controllers";
+import { Grade } from "../database/Grade";
+import { VirtualEntity } from "../database/VirtualEntity";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -27,6 +29,8 @@ export class StudentService {
 	@InjectRepository(UnverifiedUser)
 	private unverifiedUserRepository: Repository<UnverifiedUser>;
 	@InjectRepository(Student) private studentRepository: Repository<Student>;
+	@InjectRepository(Grade) private gradeRepository: Repository<Grade>;
+	@InjectRepository(VirtualEntity) private veRepository: Repository<VirtualEntity>;
 	
 
 	//TODO check error regarding mockEmailService injectable
@@ -220,18 +224,27 @@ export class StudentService {
 					{ relations: ["grades"] }
 				);
 				if (student) {
-					let grades = student.grades.map((grade) => {
-						let quizGra: QuizGrade = {
-							quiz_id: grade.quiz.id,
-							quiz_total: grade.total,
-							student_score: grade.score,
+					console.log(student)
+					let quizGrades =  student.grades.map(async (grade) => {
+						let quizGrade = {
+							grade_id: grade.id,
+							studentScore: 0, 
+							quiz_total : 0, 
+							name: ""
 						};
+						let quiz = await this.getQuizByGrade(grade.id)
+						
+						if (quiz){
+							quizGrade.studentScore = quiz.score; 
+							quizGrade.quiz_total  = quiz.total; 
+							quizGrade.name = await this.getvirtualEntityName(quiz.id)
+						}
 
-						return quizGra;
+						return quizGrade;
 					});
 
 					let StudentGrades: GetStudentGradesResponse = {
-						grades: grades,
+						grades: quizGrades,
 					};
 					return StudentGrades;
 				} else throw new BadRequestError("Could not find student");
@@ -240,5 +253,37 @@ export class StudentService {
 			}
 		}
 		throw new ForbiddenError("Only student grades can be displayed"); //Supposed to be a 403
+	}
+
+	async getQuizByGrade(grade_id:number){
+		try{
+			let Quiz = await this.gradeRepository.findOne(grade_id, {relations:["quiz"]}); 
+			if (Quiz){
+				return Quiz; 
+			}
+
+			else return undefined; 
+		}
+
+		catch(err){
+			throw new InternalServerError(err)
+		}
+	}
+
+	async getvirtualEntityName( quiz_id :number){
+
+		try{ 
+			let virtualEntity = await this.veRepository.findOne({where:{quiz:quiz_id}})
+
+			if(virtualEntity){
+				return virtualEntity.title
+			}
+			return "no name"; 
+		}
+
+		catch (err){
+			throw new InternalServerError(err)
+		}
+
 	}
 }

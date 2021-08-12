@@ -22,8 +22,6 @@ import {
 	UploadedFile,
 	UseBefore,
 } from "routing-controllers";
-import { User } from "../database/User";
-import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEntitiesRequest";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
 @Service()
@@ -103,15 +101,15 @@ export class VirtualEntityController {
 	@UseBefore(isUser)
 	AnswerQuiz(
 		@Body({ required: true }) body: AnswerQuizRequest,
-		@CurrentUser({ required: true }) user: User
+		@CurrentUser({ required: true }) id:number
 	) {
-		return this.service.AnswerQuiz(body, user.id);
+		return this.service.AnswerQuiz(body, id);
 	}
 
 	@Post("/togglePublic")
 	@UseBefore(isEducator)
-	TogglePublic(@Body({ required: true }) body: TogglePublicRequest, @CurrentUser({ required: true }) user: User) {
-		return this.service.TogglePublic(body, user.id);
+	TogglePublic(@Body({ required: true }) body: TogglePublicRequest, @CurrentUser({ required: true }) id: number) {
+		return this.service.TogglePublic(body,id);
 	}
 
 	@Post("/getPublicVirtualEntities")
@@ -122,8 +120,8 @@ export class VirtualEntityController {
 
 	@Post("/getPrivateVirtualEntities")
 	@UseBefore(isEducator)
-	GetPrivateVirtualEntities(@CurrentUser({ required: true }) user: User) {
-		return this.service.GetPrivateVirtualEntities(user.id);
+	GetPrivateVirtualEntities(@CurrentUser({ required: true }) id:number) {
+		return this.service.GetPrivateVirtualEntities(id);
 	}
 
 }

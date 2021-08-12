@@ -3,8 +3,9 @@ import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisa
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import { OrganisationService } from "../services/OrganisationService";
 import { Inject, Service } from "typedi";
-import { Body, JsonController, Post } from "routing-controllers";
+import { Body, JsonController, Post, UseBefore } from "routing-controllers";
 import { GetOrganisationsRequest } from "../models/organisation/GetOrganisationsRequest";
+import { isUser } from "../middleware/validate";
 
 @Service()
 @JsonController("/organisation")
@@ -19,6 +20,7 @@ export class OrganisationController {
 		return this.service.CreateOrganisation(body);
 	}
 	@Post("/getOrganisations")
+	@UseBefore(isUser)
 	GetOrganisations(@Body({ required: true }) body: GetOrganisationsRequest) {
 		return this.service.GetOrganisations(body);
 	}
