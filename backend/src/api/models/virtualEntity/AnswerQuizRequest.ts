@@ -4,6 +4,6 @@ export class AnswerQuizRequest{
 }
 
 export class Answer {
-    question_id:number,
+    question_id: number;
     answer: String
 }

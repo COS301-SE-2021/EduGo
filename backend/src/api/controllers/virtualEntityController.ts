@@ -14,10 +14,12 @@ import { Inject, Service } from "typedi";
 import {
 	BadRequestError,
 	Body,
+	ContentType,
 	Controller,
 	CurrentUser,
 	Get,
 	InternalServerError,
+	JsonController,
 	Post,
 	UploadedFile,
 	UseBefore,
@@ -32,9 +34,10 @@ export class VirtualEntityController {
 	private service: VirtualEntityService;
 
 	@Post("/createVirtualEntity")
+	@ContentType('application/json')
 	@UseBefore(isUser)
-	CreateVirtualEntity(@Body({ required: true }) body: CreateVirtualEntityRequest) {
-		return this.service.CreateVirtualEntity(body);
+	CreateVirtualEntity(@Body({ required: true }) body: CreateVirtualEntityRequest, @CurrentUser() id: number) {
+		return this.service.CreateVirtualEntity(body, id);
 	}
 
 	@Post("/uploadModel")
@@ -86,18 +89,21 @@ export class VirtualEntityController {
 	}
 
 	@Get("/getVirtualEntities")
+	@ContentType('application/json')
 	@UseBefore(isUser)
 	GetVirtualEntities() {
 		return this.service.GetVirtualEntities();
 	}
 
 	@Post("/getVirtualEntity")
+	@ContentType('application/json')
 	@UseBefore(isUser)
 	GetVirtualEntity(@Body({ required: true }) body: GetVirtualEntityRequest) {
 		return this.service.GetVirtualEntity(body);
 	}
 
 	@Post("/answerQuiz")
+	@ContentType('application/json')
 	@UseBefore(isUser)
 	AnswerQuiz(
 		@Body({ required: true }) body: AnswerQuizRequest,
@@ -108,18 +114,21 @@ export class VirtualEntityController {
 	}
 
 	@Post("/togglePublic")
+	@ContentType('application/json')
 	@UseBefore(isEducator)
 	TogglePublic(@Body({ required: true }) body: TogglePublicRequest, @CurrentUser({ required: true }) id: number) {
 		return this.service.TogglePublic(body,id);
 	}
 
 	@Post("/getPublicVirtualEntities")
+	@ContentType('application/json')
 	@UseBefore(isEducator)
 	GetPublicVirtualEntities() {
 		return this.service.GetPublicVirtualEntities();
 	}
 
 	@Post("/getPrivateVirtualEntities")
+	@ContentType('application/json')
 	@UseBefore(isEducator)
 	GetPrivateVirtualEntities(@CurrentUser({ required: true }) id:number) {
 		return this.service.GetPrivateVirtualEntities(id);

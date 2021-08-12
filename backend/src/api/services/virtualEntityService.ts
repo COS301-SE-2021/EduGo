@@ -37,11 +37,9 @@ import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicRespon
 
 @Service()
 export class VirtualEntityService {
-	@InjectRepository(VirtualEntity)
-	private virtualEntityRepository: Repository<VirtualEntity>;
+	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
 	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
-	@InjectRepository(Question)
-	private questionRepository: Repository<Question>;
+	@InjectRepository(Question) private questionRepository: Repository<Question>;
 	@InjectRepository(User) private userRepository: Repository<User>;
 	@InjectRepository(Student) private studentRepository: Repository<Student>;
 
@@ -165,13 +163,21 @@ export class VirtualEntityService {
 	 * @returns {Promise<CreateVirtualEntityResponse>}
 	 * @throws {InternalServerError}
 	 */
-	async CreateVirtualEntity(
-		request: CreateVirtualEntityRequest
-	): Promise<CreateVirtualEntityResponse> {
+	async CreateVirtualEntity(request: CreateVirtualEntityRequest, user_id: number): Promise<CreateVirtualEntityResponse> {
+		let user: User | undefined;
+		try {
+			user = await this.userRepository.findOne(user_id, {relations: ["organisation"]});
+		} catch (err) {
+			throw new NotFoundError("Could not find user");
+		}
+
+		if (!user) throw new NotFoundError("Could not find user");
+
 		let ve: VirtualEntity = new VirtualEntity();
 		ve.title = request.title;
 		ve.description = request.description;
 		ve.public = request.public ?? false;
+		ve.organisation = user.organisation;
 
 		if (request.model !== undefined) {
 			let model: Model = new Model();
@@ -201,7 +207,6 @@ export class VirtualEntityService {
 		}
 
 		let result: VirtualEntity;
-		console.log("hereee");
 
 		try {
 			result = await this.virtualEntityRepository.save(ve);
