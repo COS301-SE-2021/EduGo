@@ -36,7 +36,7 @@ class SessionController extends MomentumController<SessionModel> {
     model.setOrganisationId(organisationId);
   }
 
-  Future<String> loginUser({String organisationId}) async {
+  Future<String> loginUser({context, String organisationId}) async {
     String loginResponse;
     if (model.getLoginUserName() != null &&
         model.getLoginPassword() != null &&
@@ -67,7 +67,10 @@ class SessionController extends MomentumController<SessionModel> {
   }
 
   Future<String> createOrganisationRedirect(
-      {String userName, String password, String organisationId}) async {
+      {context,
+      String userName,
+      String password,
+      String organisationId}) async {
     String loginResponse;
     if (userName != null &&
         password != null &&

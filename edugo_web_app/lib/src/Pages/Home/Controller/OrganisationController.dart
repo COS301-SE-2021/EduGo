@@ -60,13 +60,10 @@ class OrganisationController extends MomentumController<OrganisationModel> {
         String returnedOrganisationId = _organissation['organisation_id'];
         Momentum.controller<SessionController>(context)
             .createOrganisationRedirect(
+                context: context,
                 userName: model.getAdminUserName(),
                 password: model.getAdminPassword(),
                 organisationId: returnedOrganisationId);
-        if (Momentum.controller<SessionController>(context).getToken() !=
-                null &&
-            Momentum.controller<SessionController>(context).getToken() != '')
-          MomentumRouter.goto(context, SubjectsView);
         return;
       }
     });

@@ -2,7 +2,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class SignInContent extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  List<Widget> pageChildren(double width, context, bool spacer, organisation) {
+  List<Widget> pageChildren(double width, context, bool spacer) {
     return <Widget>[
       SizedBox(
         height: MediaQuery.of(context).size.height,
@@ -16,20 +16,28 @@ class SignInContent extends StatelessWidget {
               padding: EdgeInsets.only(top: 100),
               child: Column(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text("Edu",
-                          style: TextStyle(
-                              fontSize: 50,
-                              color: Colors.black,
-                              fontWeight: FontWeight.normal)),
-                      Text("Go",
-                          style: TextStyle(
-                              fontSize: 50,
-                              color: Color.fromARGB(255, 97, 211, 87),
-                              fontWeight: FontWeight.bold))
-                    ],
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        MomentumRouter.goto(context, Home);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text("Edu",
+                              style: TextStyle(
+                                  fontSize: 50,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal)),
+                          Text("Go",
+                              style: TextStyle(
+                                  fontSize: 50,
+                                  color: Color.fromARGB(255, 97, 211, 87),
+                                  fontWeight: FontWeight.bold))
+                        ],
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 50,
@@ -101,7 +109,7 @@ class SignInContent extends StatelessWidget {
                       onPressed: () {
                         _formKey.currentState.validate();
                         Momentum.controller<SessionController>(context)
-                            .loginUser();
+                            .loginUser(context: context);
                       },
                       width: 450,
                       height: 65),
@@ -121,30 +129,20 @@ class SignInContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 800) {
-        return MomentumBuilder(
-            controllers: [OrganisationController],
-            builder: (context, snapshot) {
-              var organisation = snapshot<OrganisationModel>();
-              return Form(
-                key: _formKey,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: pageChildren(constraints.biggest.width / 2,
-                        context, true, organisation)),
-              );
-            });
+        return Form(
+          key: _formKey,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:
+                  pageChildren(constraints.biggest.width / 2, context, true)),
+        );
       } else {
-        return MomentumBuilder(
-            controllers: [OrganisationController],
-            builder: (context, snapshot) {
-              var organisation = snapshot<OrganisationModel>();
-              return Form(
-                key: _formKey,
-                child: Column(
-                    children: pageChildren(constraints.biggest.width, context,
-                        false, organisation)),
-              );
-            });
+        return Form(
+          key: _formKey,
+          child: Column(
+              children:
+                  pageChildren(constraints.biggest.width, context, false)),
+        );
       }
     });
   }
