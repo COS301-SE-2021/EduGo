@@ -30,31 +30,36 @@ Future<http.Response> getSubjectsByUserClient(request) async {
       "data": [
         {
           "id": 1,
-          "title": "Maths 101-Mock",
+          "educator": "Mr Harry",
+          "title": "Maths 101",
           "grade": 10,
           "mark": 20
         },
         {
           "id": 2,
-          "title": "Geography 101-Mock",
+          "educator": "Mr Coloniser",
+          "title": "Geography 101",
           "grade": 11,
           "mark": 50
         },
         {
           "id": 3,
-          "title": "Life Orientation 101-Mock",
+          "educator": "Mrs Naledi",
+          "title": "Life Orientation 101",
           "grade": 12,
           "mark": 39
         },
         {
           "id": 3,
-          "title": "Physics 101-Mock",
+          "educator": "Prof NoahtheClown",
+          "title": "Physics 101",
           "grade": 12,
           "mark": 22
         },
         {
           "id": 3,
-          "title": "Chemistry 101-Mock",
+          "educator": "Dr Simekani",
+          "title": "Chemistry 101",
           "grade": 12,
           "mark": 90
         }
@@ -70,7 +75,7 @@ Future<http.Response> getGradesByUserClient(request) async {
       [
         {
           "id": 1,
-          "title": "Maths 101-Mock",
+          "title": "Maths 101",
           "mark": 10,
           "lessons": 
           [
@@ -166,7 +171,7 @@ Future<http.Response> getGradesByUserClient(request) async {
         },
         {
           "id": 3,
-          "title": "Physics 101-Mock",
+          "title": "Physics 101",
           "mark": 65,
           "lessons": 
           [
@@ -214,7 +219,7 @@ Future<http.Response> getGradesByUserClient(request) async {
         },
         {
           "id": 4,
-          "title": "Biology 101-Mock",
+          "title": "Biology 101",
           "mark": -1,
           "lessons": 
           [

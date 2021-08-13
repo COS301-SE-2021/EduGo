@@ -14,12 +14,19 @@ import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 class SubjectCard extends StatelessWidget {
   //Holds the subject title
   final String title;
+
+  //Holds the subject title
+  final String educator;
+
   //Holds the subject grade
   final int grade;
+
   //Holds the subject id (no longer needed)
   final int id;
+
   //Holds how many lessons are in the subject
   final int count;
+
   //Holds the subject image
   //final *String* subjectImage
 
@@ -28,7 +35,8 @@ class SubjectCard extends StatelessWidget {
       {required this.title,
       required this.grade,
       required this.id,
-      required this.count});
+      required this.count,
+      required this.educator});
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +217,7 @@ class SubjectCard extends StatelessWidget {
                       child: Text(
                         //If there is a mark, display it.
                         //Els display the two dashes
-                        'Mr Mafalaclownla',
+                        '$educator',
                         //textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
