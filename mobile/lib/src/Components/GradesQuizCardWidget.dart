@@ -1,53 +1,65 @@
 /**
    * This widget will be a stateless widget and is responsible for 
-   * displaying the grades lesson cards for the GradesLesson page. 
-   * There will be a lesson mark, title and a list of quizzes that 
-   * can be passedinto the constructor when displaying the 
-   * gradelesson cards.
-*/
+   * displaying the grades quiz cards for the GradesQuiz page. 
+   * There will be a student mark, overall quiz mark, title and 
+   * quiz id that can be passed into the constructor when displaying the 
+   * gradequiz cards.
+**/
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesQuizPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 
 /*------------------------------------------------------------------------------
- *              GradeLesson Cards used in the GradeLesson page 
+ *              GradeQuiz Cards used in the GradeQuiz page 
  *------------------------------------------------------------------------------
 */
 
-class GradesLessonCard extends StatelessWidget {
-  //Holds the list of quizzes
-  //returned from the api call
-  final List<Quiz> quizList;
+class GradesQuizCard extends StatelessWidget {
+  //Holds the quiz title
+  final String quizTitle;
 
-  //Holds the lesson title
-  final String lessonTitle;
+  //Holds the quiz id
+  final int id;
 
-  //Holds the lesson mark as a percentage
-  final int lessonMark;
+  //Holds the mark that the student received for the quiz
+  final int studentQuizMark;
 
-  //GradeLesson constructor
-  GradesLessonCard(
-      {required this.quizList,
-      required this.lessonMark,
-      required this.lessonTitle});
+  //Holds the total mark that the quiz was out of
+  final int quizTotalMark;
+
+  //Holds the student answers from the quiz
+  final List<String> studentAnswers;
+
+  //Holds the correct answers from the quiz
+  final List<String> correctAnswers;
+
+//QuizCardConstructor. Takes in 4 arguments
+  GradesQuizCard(
+      {required this.quizTitle,
+      required this.quizTotalMark,
+      required this.studentQuizMark,
+      required this.id,
+      required this.correctAnswers,
+      required this.studentAnswers});
 
   @override
   Widget build(BuildContext context) {
-    //TODO:
-    //Make an if statement to check mark and make a variable to say
-    //'This is the mark ' currently or if no mark available it must say
-    //No marks avaiable yet.. check clickup for reference
     return Column(
+      // height: 400,
+      // width: 400,
+      //This is the main lesson card design. It is all in a container and
+      //displays info like the lesson title, lesson objectives and
+      //the lesson
       children: [
         Expanded(
           child: Card(
             semanticContainer: true,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
-              side: BorderSide(color: Colors.purple),
+              //side: BorderSide(color: Colors.purple),
             ),
             clipBehavior: Clip.antiAlias,
-            color: Colors.green,
+            //color: Colors.green,
+            color: Color.fromARGB(0, 246, 246, 246),
             //This allows the card to be clickable so that when clicked,
             // it will go to the lessons description for that lesson
             child: new InkWell(
@@ -57,8 +69,13 @@ class GradesLessonCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GradesQuizPage(
-                      quizList: quizList,
+                    builder: (context) => GradesQuizSpecificsPage(
+                      quizTitle: this.quizTitle,
+                      id: this.id,
+                      studentQuizMark: this.studentQuizMark,
+                      quizTotalMark: this.quizTotalMark,
+                      studentAnswers: this.studentAnswers,
+                      correctAnswers: this.correctAnswers,
                     ),
                   ),
                 );
@@ -78,15 +95,17 @@ class GradesLessonCard extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: MaterialButton(
-                            //color: backgroundColourForMark,
+                            // color: backgroundColourForMark,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                               side: BorderSide(color: Colors.black),
                             ),
                             onPressed: () {},
+                            //minWidth: 50,
+                            //height: 60,
                             child: Text(
-                              '$lessonMark',
+                              '$studentQuizMark' + '/' + '$quizTotalMark',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 20,
@@ -103,7 +122,7 @@ class GradesLessonCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25),
                         child: Text(
-                          '$lessonTitle',
+                          '$quizTitle',
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 4,
@@ -120,8 +139,7 @@ class GradesLessonCard extends StatelessWidget {
                     //   child: Padding(
                     //     padding: const EdgeInsets.only(top: 15),
                     //     child: Text(
-                    //       //marksDescription,
-                    //       'This is the mark currently',
+                    //       "marksDescription",
                     //       //"",
                     //       textAlign: TextAlign.center,
                     //       overflow: TextOverflow.ellipsis,

@@ -10,7 +10,7 @@
  * 
 */
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/GradesSubjectCard.dart';
+import 'package:mobile/src/Components/GradesSubjectCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/GradesModel.dart';

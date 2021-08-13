@@ -88,6 +88,12 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
 
   @override
   Widget build(BuildContext context) {
+    String array = correctAnswers.join(', ');
+    String array2 = correctAnswers.join(', ');
+
+    // for (int i = 0; i < correctAnswers.length; i++) {
+    //   array.   correctAnswers.elementAt(i);
+    // }
     //Format the date objects by passing them from strings to date objects
     return MobilePageLayout(
       //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
@@ -181,7 +187,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 60),
                 child: Text(
-                  'Your Mark',
+                  'Your Mark:',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   softWrap: false,
@@ -222,7 +228,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 40),
                 child: Text(
-                  'Quiz overall mark',
+                  'Quiz total mark:',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   softWrap: false,
@@ -260,7 +266,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 150),
+              padding: const EdgeInsets.only(top: 70),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1,
                 height: MediaQuery.of(context).size.width / 10,
@@ -287,8 +293,46 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                         //   color: Colors.white,
                         // ),
                         Text(
-                      "Your answers: ",
-                      //studentAnswers.map((e) => (e)),
+                      "Your answers: " + array,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1,
+                height: MediaQuery.of(context).size.width / 10,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      side: BorderSide(color: Colors.black),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DetectMarkerPage()),
+                      );
+                    },
+                    //minWidth: MediaQuery.of(context).size.width / 180,
+                    minWidth: 10,
+                    height: 60,
+                    child:
+                        // Icon(
+                        //   Icons.add_outlined,
+                        //   color: Colors.white,
+                        // ),
+                        Text(
+                      "Correct answers: " + array2,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20,

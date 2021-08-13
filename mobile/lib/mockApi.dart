@@ -96,7 +96,7 @@ Future<http.Response> getGradesByUserClient(request) async {
                   ],
                   "correctAnswers":
                   [
-                  "A", "B", "A", "D"
+                  "C", "B", "B", "D"
                   ]
                 },
                 {
@@ -106,11 +106,11 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 2",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "A", "K", "U", "D"
                   ],
                   "correctAnswers":
                   [
-                  "A", "B", "A", "D"
+                  "S", "B", "J", "D"
                   ]
                 }
               ]
@@ -128,11 +128,11 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 1",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "N", "D", "L", "D"
                   ],
                   "correctAnswers":
                   [
-                    "A", "B", "A", "D"
+                    "A", "B", "K", "D"
                   ]
                 },
                 {
@@ -142,11 +142,11 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 1",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "Q", "B", "L", "D"
                   ],
                   "correctAnswers":
                   [
-                    "A", "B", "A", "D"
+                    "A", "L", "A", "D"
                   ]
                 }
               ]
@@ -172,7 +172,7 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 1",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "L", "K", "A", "D"
                   ],
                   "correctAnswers":
                   [
@@ -186,11 +186,11 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 2",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "B", "B", "B", "D"
                   ],
                   "correctAnswers":
                   [
-                    "A", "B", "A", "D"
+                    "B", "B", "A", "D"
                   ]
                 }
               ]
@@ -208,11 +208,11 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 1",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "S", "B", "S", "D"
                   ],
                   "correctAnswers":
                   [
-                    "A", "B", "A", "D"
+                    "L", "O", "A", "D"
                   ]
                 },
                 {
@@ -222,11 +222,11 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 2",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "L", "B", "A", "S"
                   ],
                   "correctAnswers":
                   [
-                    "A", "B", "A", "D"
+                    "A", "T", "A", "U"
                   ]
                 }
               ]
@@ -252,11 +252,11 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 1",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "S", "B", "A", "D"
                   ],
                   "correctAnswers":
                   [
-                    "A", "B", "A", "D"
+                    "A", "S", "A", "D"
                   ]
                 },
                 {
@@ -266,11 +266,11 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "title": "quiz 2",
                   "studentAnswers": 
                   [
-                    "A", "B", "A", "D"
+                    "D", "B", "A", "D"
                   ],
                   "correctAnswers":
                   [
-                    "A", "B", "A", "D"
+                    "U", "B", "A", "D"
                   ]
                 }
               ]

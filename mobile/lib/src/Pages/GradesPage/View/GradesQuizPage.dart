@@ -7,7 +7,7 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/GradesQuizWidget.dart';
+import 'package:mobile/src/Components/GradesQuizCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 
@@ -64,28 +64,28 @@ class _GradesQuizState extends State<GradesQuizPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Align(
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(top: 25),
-              //     // child: Text(
-              //     //   'Marks',
-              //     //   overflow: TextOverflow.ellipsis,
-              //     //   maxLines: 2,
-              //     //   softWrap: false,
-              //     //   style: TextStyle(
-              //     //       fontSize: 30,
-              //     //       fontWeight: FontWeight.bold,
-              //     //       color: Colors.black),
-              //     // ),
-              //   ),
-              // ),
-
+              Align(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: Text(
+                    'Quiz Marks',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    softWrap: false,
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                ),
+              ),
               GridView.count(
                 //This makes 2 cards appear. So effectively two cards per page.
                 //(2 rows, 1 card per row)
                 childAspectRatio: MediaQuery.of(context).size.height / 300,
                 primary: false,
                 //padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.only(top: 20),
                 crossAxisSpacing: 0,
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
