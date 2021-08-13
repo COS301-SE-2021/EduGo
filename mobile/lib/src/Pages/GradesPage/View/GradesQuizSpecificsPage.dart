@@ -7,7 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
-import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 
 /*------------------------------------------------------------------------------
  *                   Grade Quiz Specific View Page 
@@ -88,13 +87,12 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
 
   @override
   Widget build(BuildContext context) {
-    String array = correctAnswers.join(', ');
+    //Store answers from student's list of answers
+    //and display as a comma sepatated string string
+    String array = studentAnswers.join(', ');
+    //Store answers from correct list of answers
+    //and display as a comma sepatated string string
     String array2 = correctAnswers.join(', ');
-
-    // for (int i = 0; i < correctAnswers.length; i++) {
-    //   array.   correctAnswers.elementAt(i);
-    // }
-    //Format the date objects by passing them from strings to date objects
     return MobilePageLayout(
       //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
       //the two bool represent side bar and navbar. so if true and true, them
@@ -124,64 +122,6 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                 ),
               ),
             ),
-            // Align(
-            //   alignment: Alignment.center,
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(top: 40),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       children: [
-            //         Text(
-            //           'Start time: ' +
-            //               startDate.day.toString() +
-            //               '-' +
-            //               startDate.month.toString() +
-            //               '-' +
-            //               startDate.year.toString(),
-            //           overflow: TextOverflow.ellipsis,
-            //           maxLines: 2,
-            //           softWrap: false,
-            //           style: TextStyle(
-            //               fontSize: 25,
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.black),
-            //         ),
-            //         Icon(
-            //           Icons.alarm_outlined,
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            // Align(
-            //   alignment: Alignment.center,
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(top: 25),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       children: [
-            //         Text(
-            //           'End time: ' +
-            //               endDate.day.toString() +
-            //               '-' +
-            //               endDate.month.toString() +
-            //               '-' +
-            //               endDate.year.toString(),
-            //           overflow: TextOverflow.ellipsis,
-            //           maxLines: 2,
-            //           softWrap: false,
-            //           style: TextStyle(
-            //               fontSize: 25,
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.black),
-            //         ),
-            //         Icon(
-            //           Icons.alarm_outlined,
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             Align(
               alignment: Alignment.center,
               child: Padding(
@@ -197,11 +137,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                     color: Colors.black,
                     decoration: TextDecoration.underline,
                     decorationStyle: TextDecorationStyle.solid,
-                    //color: Colors.transparent,
                     decorationColor: Colors.black,
-                    // shadows: [
-                    //   Shadow(color: Colors.black, offset: Offset(0, -5))
-                    // ],
                   ),
                 ),
               ),
@@ -238,11 +174,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                     color: Colors.black,
                     decoration: TextDecoration.underline,
                     decorationStyle: TextDecorationStyle.solid,
-                    //color: Colors.transparent,
                     decorationColor: Colors.black,
-                    // shadows: [
-                    //   Shadow(color: Colors.black, offset: Offset(0, -5))
-                    // ],
                   ),
                 ),
               ),
@@ -252,7 +184,6 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 25),
                 child: Text(
-                  //lessonOutcomes,
                   '$quizTotalMark',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
@@ -278,21 +209,15 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                       side: BorderSide(color: Colors.black),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetectMarkerPage()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => DetectMarkerPage()),
+                      // );
                     },
-                    //minWidth: MediaQuery.of(context).size.width / 180,
                     minWidth: 10,
                     height: 60,
-                    child:
-                        // Icon(
-                        //   Icons.add_outlined,
-                        //   color: Colors.white,
-                        // ),
-                        Text(
+                    child: Text(
                       "Your answers: " + array,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -317,21 +242,15 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                       side: BorderSide(color: Colors.black),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetectMarkerPage()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => DetectMarkerPage()),
+                      // );
                     },
-                    //minWidth: MediaQuery.of(context).size.width / 180,
                     minWidth: 10,
                     height: 60,
-                    child:
-                        // Icon(
-                        //   Icons.add_outlined,
-                        //   color: Colors.white,
-                        // ),
-                        Text(
+                    child: Text(
                       "Correct answers: " + array2,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -346,7 +265,6 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
           ],
         ),
       ),
-      // ),
     );
   }
 }

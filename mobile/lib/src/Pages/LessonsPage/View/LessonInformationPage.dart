@@ -2,7 +2,7 @@
  * This is the lesson information page. It simply displays
  * the relevant information about a lesson when a specific 
  * lesson card is clicked on
- */
+*/
 
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
@@ -11,13 +11,13 @@ import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 /*------------------------------------------------------------------------------
  *                        Lesson details View Page 
  *------------------------------------------------------------------------------
- */
+*/
 
 class LessonInformationPage extends StatefulWidget {
   //This title variable holds the lesson
   //title of the card that was clicked on
-
   final String lessonTitle;
+
   //This lesson ID variable holds the subject
   //id of the card that was clicked on
   final int lessonID;
@@ -84,64 +84,6 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                 ),
               ),
             ),
-            // Align(
-            //   alignment: Alignment.center,
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(top: 40),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       children: [
-            //         Text(
-            //           'Start time: ' +
-            //               startDate.day.toString() +
-            //               '-' +
-            //               startDate.month.toString() +
-            //               '-' +
-            //               startDate.year.toString(),
-            //           overflow: TextOverflow.ellipsis,
-            //           maxLines: 2,
-            //           softWrap: false,
-            //           style: TextStyle(
-            //               fontSize: 25,
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.black),
-            //         ),
-            //         Icon(
-            //           Icons.alarm_outlined,
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            // Align(
-            //   alignment: Alignment.center,
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(top: 25),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       children: [
-            //         Text(
-            //           'End time: ' +
-            //               endDate.day.toString() +
-            //               '-' +
-            //               endDate.month.toString() +
-            //               '-' +
-            //               endDate.year.toString(),
-            //           overflow: TextOverflow.ellipsis,
-            //           maxLines: 2,
-            //           softWrap: false,
-            //           style: TextStyle(
-            //               fontSize: 25,
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.black),
-            //         ),
-            //         Icon(
-            //           Icons.alarm_outlined,
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             Align(
               alignment: Alignment.center,
               child: Padding(
@@ -157,11 +99,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                     color: Colors.black,
                     decoration: TextDecoration.underline,
                     decorationStyle: TextDecorationStyle.solid,
-                    //color: Colors.transparent,
                     decorationColor: Colors.black,
-                    // shadows: [
-                    //   Shadow(color: Colors.black, offset: Offset(0, -5))
-                    // ],
                   ),
                 ),
               ),
@@ -198,11 +136,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                     color: Colors.black,
                     decoration: TextDecoration.underline,
                     decorationStyle: TextDecorationStyle.solid,
-                    //color: Colors.transparent,
                     decorationColor: Colors.black,
-                    // shadows: [
-                    //   Shadow(color: Colors.black, offset: Offset(0, -5))
-                    // ],
                   ),
                 ),
               ),
@@ -245,15 +179,9 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                             builder: (context) => DetectMarkerPage()),
                       );
                     },
-                    //minWidth: MediaQuery.of(context).size.width / 180,
                     minWidth: 10,
                     height: 60,
-                    child:
-                        // Icon(
-                        //   Icons.add_outlined,
-                        //   color: Colors.white,
-                        // ),
-                        Text(
+                    child: Text(
                       "Get Started",
                       textAlign: TextAlign.center,
                       style: TextStyle(

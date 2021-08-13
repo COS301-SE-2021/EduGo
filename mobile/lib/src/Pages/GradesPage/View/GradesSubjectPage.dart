@@ -43,7 +43,6 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
           final subjects = snapshot<GradesModel>();
 
           if (subjects.subjects.isNotEmpty) {
-            //int subjectsCount = subjects.subjects.length;
             return Container(
               child: SingleChildScrollView(
                 child: Column(
@@ -64,7 +63,8 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                       ),
                     ),
                     GridView.count(
-                      //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+                      //This makes 2 cards appear. So effectively two
+                      //cards per page. (2 rows, 1 card per row)
                       childAspectRatio:
                           MediaQuery.of(context).size.height / 400,
                       primary: false,
@@ -75,7 +75,8 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                       mainAxisSpacing: 10,
                       //makes 1 cards per row
                       crossAxisCount: 1,
-                      //Call subject card here and pass in all arguments required
+                      //Call GradesSubjectubjeCtardWidget here and
+                      //pass in all arguments required
                       children: subjects.subjects
                           .map(
                             (subject) =>

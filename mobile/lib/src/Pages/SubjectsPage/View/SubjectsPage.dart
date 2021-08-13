@@ -49,9 +49,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
 
           //A check to see if there are subjects. If there are no subjects,
           //display another card saying no subjects are available
-          if (subjectsCount > 0) {
+          if (subjectsCount > 0 && subjects.subjects.isNotEmpty) {
             return Container(
-              //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -59,8 +58,6 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25),
                         child: Text(
-                          //'Title: +'
-                          //widget.title,
                           'Subjects',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -72,28 +69,9 @@ class _SubjectsPageState extends State<SubjectsPage> {
                         ),
                       ),
                     ),
-                    // Align(
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.only(top: 25),
-                    //     child: Text(
-                    //       //'Title: +'
-                    //       '$subjectsCount' + ' subjects',
-                    //       overflow: TextOverflow.ellipsis,
-                    //       maxLines: 2,
-                    //       softWrap: false,
-                    //       style: TextStyle(
-                    //           fontSize: 30,
-                    //           fontWeight: FontWeight.bold,
-                    //           color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
-                    //return Container(
-                    //height: MediaQuery.of(context).size.height - 100,
-                    //padding: EdgeInsets.only(top: 75),
-                    //grid view arranges the cards into a grid format to be displayed neatly on the page
                     GridView.count(
-                      //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+                      //This makes 2 cards appear. So effectively
+                      //two cards per page. (2 rows, 1 card per row)
                       childAspectRatio:
                           MediaQuery.of(context).size.height / 520,
                       primary: false,

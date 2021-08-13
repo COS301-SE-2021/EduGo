@@ -15,6 +15,7 @@ part 'Grades.g.dart';
  *                        Subject model class for grades
  *------------------------------------------------------------------------------
  */
+
 @JsonSerializable()
 class Subject {
   //Subject id
@@ -46,6 +47,7 @@ class Subject {
  *                        Lesson model class for grades
  *------------------------------------------------------------------------------
  */
+
 @JsonSerializable()
 class Lesson {
   //Lesson id
@@ -78,6 +80,7 @@ class Lesson {
  *                        Quiz model class for grades
  *------------------------------------------------------------------------------
  */
+
 @JsonSerializable()
 class Quiz {
   //Quiz id

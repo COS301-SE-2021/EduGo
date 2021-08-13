@@ -72,20 +72,15 @@ class _LessonsPageState extends State<LessonsPage> {
 
           //A check to see if there are subjects. If there are no subjects,
           //display another card saying no subjects are available
-          if (lessonsCount > 0) {
+          if (lessonsCount > 0 && lessons.lessons.isNotEmpty) {
             return Container(
-              //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
               child: SingleChildScrollView(
-                // children: lessons.lessons.map((e) => Text(e.title)).toList());
-                //'${widget.title}');
                 child: Column(
                   children: [
                     Align(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25),
                         child: Text(
-                          //'Title: +'
-                          //widget.title,
                           title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -101,7 +96,6 @@ class _LessonsPageState extends State<LessonsPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25),
                         child: Text(
-                          //'Title: +'
                           '$lessonsCount' + ' lessons',
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -114,7 +108,8 @@ class _LessonsPageState extends State<LessonsPage> {
                       ),
                     ),
                     GridView.count(
-                      //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+                      //This makes 2 cards appear. So effectively two cards
+                      //per page. (2 rows, 1 card per row)
                       childAspectRatio:
                           MediaQuery.of(context).size.height / 180,
                       primary: false,

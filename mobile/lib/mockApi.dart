@@ -37,7 +37,7 @@ Future<http.Response> getSubjectsByUserClient(request) async {
         },
         {
           "id": 2,
-          "educator": "Mr Coloniser",
+          "educator": "Mrs Kim",
           "title": "Geography 101",
           "grade": 11,
           "mark": 50

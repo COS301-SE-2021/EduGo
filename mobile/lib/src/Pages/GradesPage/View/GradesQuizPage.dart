@@ -46,13 +46,9 @@ class GradesQuizPage extends StatefulWidget {
 
 class _GradesQuizState extends State<GradesQuizPage> {
   final List<Quiz> quizList;
-  // final List<String> studentAnswers;
-  // final List<String> correctAnswers;
 
   _GradesQuizState({
     required this.quizList,
-    // required this.correctAnswers,
-    // required this.studentAnswers
   });
 
   @override
@@ -80,11 +76,10 @@ class _GradesQuizState extends State<GradesQuizPage> {
                 ),
               ),
               GridView.count(
-                //This makes 2 cards appear. So effectively two cards per page.
-                //(2 rows, 1 card per row)
+                //This makes 2 cards appear. So effectively
+                //two cards per page. (2 rows, 1 card per row)
                 childAspectRatio: MediaQuery.of(context).size.height / 300,
                 primary: false,
-                //padding: const EdgeInsets.all(20),
                 padding: const EdgeInsets.only(top: 20),
                 crossAxisSpacing: 0,
                 shrinkWrap: true,
@@ -113,7 +108,6 @@ class _GradesQuizState extends State<GradesQuizPage> {
             ],
           ),
         ),
-        //If there are no subjects
       ),
     );
   }
