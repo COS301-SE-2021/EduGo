@@ -1,15 +1,20 @@
 /**
- * This is the model for the grades. The getGrades endpoint
- * will return a list of subjects. The subject will have an id, a title 
- * and a mark(in a percentage) and a list of lessons. This will be used in the 
- * subjects card on the grades page. The lessons will have a mark, an id and a 
- * list of quizzes.The list of quizzes will have an id, a quiz mark the 
- * student got, and the total quiz mark
+ * This is the model for the grades. 
+ * The getStudentGrades endpoint will return a list of subjects. A subject 
+ * will have an id, a title, a mark (as a percentage) and a list of lessons. 
+ * All of this will be passed into the GradesSubjectCard on the grades page. 
+ * A lesson will have a mark, an id and a list of quizzes. The list of quizzes 
+ * will have an id, a title, a quiz mark that the student received, and the total 
+ * quiz mark
  */
 
 import 'package:json_annotation/json_annotation.dart';
 part 'Grades.g.dart';
 
+/*------------------------------------------------------------------------------
+ *                        Subject model class for grades
+ *------------------------------------------------------------------------------
+ */
 @JsonSerializable()
 class Subject {
   //Subject id
@@ -31,12 +36,16 @@ class Subject {
   //Subject constructor
   Subject(this.id, this.lessons, this.mark, this.title);
 
-  //Factory
+  //Factory method used in gradesController to map subject attributes to json
   factory Subject.fromJson(Map<String, dynamic> json) =>
       _$SubjectFromJson(json);
   Map<String, dynamic> toJson() => _$SubjectToJson(this);
 }
 
+/*------------------------------------------------------------------------------
+ *                        Lesson model class for grades
+ *------------------------------------------------------------------------------
+ */
 @JsonSerializable()
 class Lesson {
   //Lesson id
@@ -47,23 +56,40 @@ class Lesson {
   @JsonKey(required: true)
   int mark;
 
-  //List of lessons
+  //Lesson title
+  @JsonKey(required: true)
+  String title;
+
+  //List of quizzes for each lesson.
+  //(A lesson can have many virtual entities therefore many quizzes
+  //as a quiz is attached to the virtual entity and not the lesson)
   @JsonKey(required: true)
   List<Quiz> quizzes;
 
-  Lesson(this.id, this.mark, this.quizzes);
+  //Lesson constructor
+  Lesson(this.id, this.mark, this.quizzes, this.title);
 
+  //Factory method used in gradesController to map lesson attributes to json
   factory Lesson.fromJson(Map<String, dynamic> json) => _$LessonFromJson(json);
   Map<String, dynamic> toJson() => _$LessonToJson(this);
 }
 
+/*------------------------------------------------------------------------------
+ *                        Quiz model class for grades
+ *------------------------------------------------------------------------------
+ */
 @JsonSerializable()
 class Quiz {
-  //quiz id
+  //Quiz id
   @JsonKey(required: true)
   int id;
 
+  //Quiz title
+  @JsonKey(required: true)
+  String title;
+
   //Overall student mark for the quiz
+  //(Not a percentage)
   @JsonKey(required: true)
   int studentMark;
 
@@ -71,8 +97,10 @@ class Quiz {
   @JsonKey(required: true)
   int quizTotal;
 
-  Quiz(this.id, this.quizTotal, this.studentMark);
+  //Quiz constructor
+  Quiz(this.id, this.quizTotal, this.studentMark, this.title);
 
+  //Factory method used in gradesController to map quiz attributes to json
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
   Map<String, dynamic> toJson() => _$QuizToJson(this);
 }

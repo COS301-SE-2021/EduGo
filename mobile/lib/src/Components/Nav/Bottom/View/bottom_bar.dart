@@ -23,7 +23,7 @@ class BottomBarState extends State<BottomBar> {
     List<String> widgetOptions = <String>[
       HomePage.id,
       SubjectsPage.id,
-      GradesPage.id,
+      GradesSubjectPage.id,
       DetectMarkerPage.id,
     ];
     //selectedIndex is used to determine which tab was selected in the bottom nav

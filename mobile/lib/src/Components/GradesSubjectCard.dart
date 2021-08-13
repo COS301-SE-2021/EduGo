@@ -1,6 +1,6 @@
 /**
    * This widget will be a stateless widget and is responsible for displaying 
-   * the subjects as cards for the grades page. There will be a subject title 
+   * the subjects as cards for the GradesSubjectPage. There will be a subject title 
    * and grade as a percentage displayed on the card. It uses the gradescontroller 
    * to make the api call which will return a list of subjects
    */

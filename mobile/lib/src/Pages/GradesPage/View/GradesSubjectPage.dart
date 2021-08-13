@@ -59,6 +59,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                   children: subjects.subjects
                       .map(
                         (subject) =>
+
                             //Pass in the entire subjects list of lessons so subjects.lessons
                             //Also pass in the subject title and the subject mark as a percentage
                             GradesSubjectCard(

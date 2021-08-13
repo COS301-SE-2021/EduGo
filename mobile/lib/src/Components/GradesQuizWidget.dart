@@ -4,48 +4,30 @@
    * into the constructor when displaying the subjects
    */
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesLessonPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 
 class GradesQuizCard extends StatelessWidget {
-  //Holds the lesson title
-  final String subjectTitle;
+  //Holds the quiz title
+  final String quizTitle;
 
-  //Holds the lessonid
-  final int totalGrade;
+  //Holds the quizid
+  final int id;
 
-  //For the grades button
-  //final Color colour;
+  //Holds the mark that the student received for the quiz
+  final int studentQuizMark;
 
-  //TODO: Make this a key value paired array
-  final int marksArray;
+  //Holds the total mark that the quiz was out of
+  final int quizTotalMark;
 
-//LessonCardConstructor. Takes in 4 arguments
-  GradesQuizCard({
-    required this.subjectTitle,
-    required this.totalGrade,
-    required this.marksArray,
-    //required this.colour
-  });
+//QuizCardConstructor. Takes in 4 arguments
+  GradesQuizCard(
+      {required this.quizTitle,
+      required this.quizTotalMark,
+      required this.studentQuizMark,
+      required this.id});
 
   @override
   Widget build(BuildContext context) {
-    String marksDescription;
-    Color backgroundColourForMark = Colors.blue;
-    // int totalGradeAsInt = int.parse(this.totalGrade);
-    String totalGradeAsString = "-";
-
-    if (totalGrade == -1) {
-      marksDescription = "Marks are currently unavailable for this course";
-    } else if (marksArray / totalGrade * 100 < 50) {
-      marksDescription = "Based on submitted work";
-      backgroundColourForMark = Colors.red;
-    } else if (marksArray / totalGrade * 100 < 70) {
-      marksDescription = "Based on submitted work";
-      backgroundColourForMark = Colors.orange;
-    } else {
-      marksDescription = "Based on submitted work";
-      backgroundColourForMark = Colors.green;
-    }
     return Column(
       // height: 400,
       // width: 400,
@@ -71,10 +53,11 @@ class GradesQuizCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GradesSpecificViewPage(
-                      marksArray: this.marksArray,
-                      subjectTitle: this.subjectTitle,
-                      totalGrade: this.totalGrade,
+                    builder: (context) => GradesQuizSpecificsPage(
+                      quizTitle: this.quizTitle,
+                      id: this.id,
+                      studentQuizMark: this.studentQuizMark,
+                      quizTotalMark: this.quizTotalMark,
                     ),
                   ),
                 );
@@ -94,7 +77,7 @@ class GradesQuizCard extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: MaterialButton(
-                            color: backgroundColourForMark,
+                            // color: backgroundColourForMark,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
@@ -105,7 +88,7 @@ class GradesQuizCard extends StatelessWidget {
                             //height: 60,
                             child: Text(
                               //'$totalGradeAsString' + '/' + '80',
-                              '$totalGrade' + '/' + '80',
+                              '$studentQuizMark' + '/' + '$quizTotalMark',
 
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -123,7 +106,7 @@ class GradesQuizCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25),
                         child: Text(
-                          '$subjectTitle',
+                          '$quizTitle',
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 4,
@@ -140,7 +123,7 @@ class GradesQuizCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 15),
                         child: Text(
-                          marksDescription,
+                          "marksDescription",
                           //"",
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,

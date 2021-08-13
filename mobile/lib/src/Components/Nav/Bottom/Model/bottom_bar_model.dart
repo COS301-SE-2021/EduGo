@@ -20,7 +20,7 @@ List<Destination> allDestinations = <Destination>[
       HomePage(), Icons.cottage_rounded, Color.fromARGB(255, 97, 211, 87)),
   Destination(SubjectsPage(), Icons.library_books_rounded,
       Color.fromARGB(255, 97, 211, 87)),
-  Destination(GradesPage(), Icons.checklist_rtl_outlined,
+  Destination(GradesSubjectPage(), Icons.checklist_rtl_outlined,
       Color.fromARGB(255, 97, 211, 87)),
   Destination(DetectMarkerPage(), Icons.center_focus_weak,
       Color.fromARGB(255, 97, 211, 87))

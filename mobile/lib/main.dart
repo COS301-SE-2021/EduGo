@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
@@ -15,12 +16,13 @@ void main() {
   runApp(momentum(mock: true));
 }
 
-Momentum momentum({bool mock = false}) {
+Momentum momentum({bool mock = true}) {
   return Momentum(
     child: MyApp(),
     controllers: [
       LessonsController(mock: mock),
-      SubjectsController(mock: mock)
+      SubjectsController(mock: mock),
+      GradesController(mock: mock)
     ],
   );
 }
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
         initialRoute: HomePage.id,
         routes: {
           DetectMarkerPage.id: (context) => DetectMarkerPage(),
-          GradesPage.id: (context) => GradesPage(),
+          GradesSubjectPage.id: (context) => GradesSubjectPage(),
           HomePage.id: (context) => HomePage(),
           //LessonsPage.id: (context) => LessonsPage(),
           OrganisationsPage.id: (context) => OrganisationsPage(),

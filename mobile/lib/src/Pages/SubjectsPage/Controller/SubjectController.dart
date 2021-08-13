@@ -1,5 +1,10 @@
-import 'dart:convert';
+/**
+ * This is the subject controller. It handles the api calls for the subjects.
+ * The endpoint is getSubjectsByUser which return a list of subjects.
+ * That list is converted from a string to a json object. 
+ */
 
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as httpMock;
 import 'package:mobile/mockApi.dart' as mockApi;
@@ -9,6 +14,12 @@ import 'package:mobile/src/Pages/SubjectsPage/Models/Subject.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
 import 'package:momentum/momentum.dart';
 
+/*------------------------------------------------------------------------------
+ *                          Subject controller
+ *------------------------------------------------------------------------------
+ */
+
+//Function to get the list of subjects from the database
 Future<List<Subject>> getSubjectsByUser(int userId,
     {required http.Client client}) async {
   final response =
@@ -20,6 +31,8 @@ Future<List<Subject>> getSubjectsByUser(int userId,
           },
           body: jsonEncode(<String, int>{'user_id': userId}));
 
+  //If there is a list of subjects that is returned,
+  //convert it to a json object, else throw an exception
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
     if (json['data'] != null) {
@@ -32,19 +45,28 @@ Future<List<Subject>> getSubjectsByUser(int userId,
   throw new Exception('Not a code 200');
 }
 
+//SubjectsController constructor with a default value of mock set to false
 class SubjectsController extends MomentumController<SubjectsModel> {
   SubjectsController({this.mock = false});
 
+  //Used to determine if mock data should be used
+  //or real data from the api call
   bool mock;
 
+  //Initialize the subjects to an empty array in the beginning
   @override
   SubjectsModel init() {
     return SubjectsModel(this, subjects: []);
   }
 
+  //Bootstrap function is run immediately/automatically when page is opened
   @override
   Future<void> bootstrapAsync() {
     return getSubjectsByUser(100,
+            //If bool is set to true in the controller constructor in the main file,
+            //it uses mock the actual api end point
+            //If bool is set to true in the controller constructor in the main file,
+            //it uses mock data
             client: mock
                 ? httpMock.MockClient(mockApi.getSubjectsByUserClient)
                 : http.Client())

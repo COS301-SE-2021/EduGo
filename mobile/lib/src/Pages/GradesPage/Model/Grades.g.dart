@@ -26,33 +26,38 @@ Map<String, dynamic> _$SubjectToJson(Subject instance) => <String, dynamic>{
     };
 
 Lesson _$LessonFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['id', 'mark', 'quizzes']);
+  $checkKeys(json, requiredKeys: const ['id', 'mark', 'title', 'quizzes']);
   return Lesson(
     json['id'] as int,
     json['mark'] as int,
     (json['quizzes'] as List<dynamic>)
         .map((e) => Quiz.fromJson(e as Map<String, dynamic>))
         .toList(),
+    json['title'] as String,
   );
 }
 
 Map<String, dynamic> _$LessonToJson(Lesson instance) => <String, dynamic>{
       'id': instance.id,
       'mark': instance.mark,
-      'quizzes': instance.quizzes.map((e) => e.toJson()).toList(),
+      'title': instance.title,
+      'quizzes': instance.quizzes,
     };
 
 Quiz _$QuizFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['id', 'studentMark', 'quizTotal']);
+  $checkKeys(json,
+      requiredKeys: const ['id', 'title', 'studentMark', 'quizTotal']);
   return Quiz(
     json['id'] as int,
     json['quizTotal'] as int,
     json['studentMark'] as int,
+    json['title'] as String,
   );
 }
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'id': instance.id,
+      'title': instance.title,
       'studentMark': instance.studentMark,
       'quizTotal': instance.quizTotal,
     };

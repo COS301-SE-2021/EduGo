@@ -73,87 +73,104 @@ Future<http.Response> getSubjectsByUserClient(request) async {
 Future<http.Response> getGradesByUserClient(request) async {
   return http.Response('''
     {
-      "data": [
+      "data": 
+      [
         {
+          "id": 1,
           "title": "Maths Mock",
-          //As a percentage
           "mark": 10,
-          "Lessons": [
+          "lessons": 
+          [
             {
-              "title":"Math Lesson 1",
+              "id": 1,
+              "title": "Math Lesson 1",
               "mark": 20,
-              "quiz": [
-                //quiz 1
+              "quizzes": 
+              [
                 {
-                  "studentmark": 20,
-                  "quiztotal": 40,
-                  "title":"quiz 1"
-                },
-                 //quiz 1
-                {
-                  "mark": 20,
-                  "quiztotal": 40,
-                  "title":"quiz 2"
-                },
-              //lesson 2
-              {
-              "title":"Math Lesson 2",
-              "mark": 15,
-              "quiz": [
-                 //quiz 1
-                {
-                  "studentmark": 20,
-                  "quiztotal": 40,
-                  "title":"quiz 1"
-                },
-                 //quiz 1
-                {
-                  "studentmark": 20,
-                  "quiztotal": 40,
-                  "title":"quiz 1"
-                }
-              ] //end of quiz 1 array
-            },
-          ] //end of lesson array
-        },
-        //subject 2
-        {
-          "title": "Geography Mock",
-          //As a percentage
-          "mark": 10,
-          "Lessons": [
-            {
-              "title":"Geography Lesson 1",
-              "mark": 20,
-              "quiz": [
-                {
-                  "studentmark": 20,
-                  "quiztotal": 40,
-                  "title":"quiz 1"
+                  "id": 1,
+                  "studentMark": 67,
+                  "quizTotal": 89,
+                  "title": "quiz 1"
                 },
                 {
-                  "studentmark": 20,
-                  "quiztotal": 40,
-                  "title":"quiz 1"
-                },
-                {
-              "title":"Geography Lesson 2",
-              "mark": 15,
-              "quiz": [
-                {
-                  "studentmark": 20,
-                  "quiztotal": 40,
-                  "title":"quiz 1"
-                },
-                {
-                  "studentmark": 20,
-                  "quiztotal": 40,
-                  "title":"quiz 1"
+                  "id": 2,
+                  "studentMark": 20,
+                  "quizTotal": 40,
+                  "title": "quiz 2"
                 }
               ]
             },
-          ]
-        },  
+            {
+              "id": 2,
+              "title": "Math Lesson 2",
+              "mark": 15,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": 29,
+                  "quizTotal": 39,
+                  "title": "quiz 1"
+                },
+                {
+                  "id": 2,
+                  "studentMark": 12,
+                  "quizTotal": 87,
+                  "title": "quiz 1"
+                }
+              ]
+            }
+          ] 
+        },
+        {
+          "id": 2,
+          "title": "Geography Mock",
+          "mark": 15,
+          "lessons": 
+          [
+            {
+              "id": 1,
+              "title": "Geography Lesson 1",
+              "mark": 90,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": 80,
+                  "quizTotal": 100,
+                  "title": "quiz 1"
+                },
+                { 
+                  "id": 2,
+                  "studentMark": 22,
+                  "quizTotal": 48,
+                  "title": "quiz 2"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "title": "Geography Lesson 2",
+              "mark": 18,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": 76,
+                  "quizTotal": 80,
+                  "title": "quiz 1"
+                },
+                {
+                  "id": 2,
+                  "studentMark": 19,
+                  "quizTotal": 120,
+                  "title": "quiz 2"
+                }
+              ]
+            }
+          ] 
+        }
       ]
     }
   ''', 200);
