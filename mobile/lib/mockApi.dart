@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'package:http/testing.dart' as mock;
 
 Future<http.Response> getLessonsBySubjectClient(request) async {
   return http.Response('''
@@ -8,23 +7,17 @@ Future<http.Response> getLessonsBySubjectClient(request) async {
         {
           "id": 1,
           "title": "Lesson test 1",
-          "description": "This is lesson 1",
-          "startTime": "10:00",
-          "endTime": "11:00"
+          "description": "This is lesson 1"
         },
         {
           "id": 2,
           "title": "Lesson test 2",
-          "description": "This is lesson 2",
-          "startTime": "11:00",
-          "endTime": "12:00"
+          "description": "This is lesson 2"
         },
         {
           "id": 3,
           "title": "Lesson test 3",
-          "description": "This is lesson 3",
-          "startTime": "12:00",
-          "endTime": "13:00"
+          "description": "This is lesson 3"
         }
       ]
     }
@@ -37,31 +30,31 @@ Future<http.Response> getSubjectsByUserClient(request) async {
       "data": [
         {
           "id": 1,
-          "title": "Maths Mock",
+          "title": "Maths 101-Mock",
           "grade": 10,
           "mark": 20
         },
         {
           "id": 2,
-          "title": "Geography Mock",
+          "title": "Geography 101-Mock",
           "grade": 11,
           "mark": 50
         },
         {
           "id": 3,
-          "title": "Life Orientation Mock",
+          "title": "Life Orientation 101-Mock",
           "grade": 12,
           "mark": 39
         },
         {
           "id": 3,
-          "title": "Physics Mock",
+          "title": "Physics 101-Mock",
           "grade": 12,
           "mark": 22
         },
         {
           "id": 3,
-          "title": "Chemistry Mock",
+          "title": "Chemistry 101-Mock",
           "grade": 12,
           "mark": 90
         }
@@ -77,7 +70,7 @@ Future<http.Response> getGradesByUserClient(request) async {
       [
         {
           "id": 1,
-          "title": "Maths Mock",
+          "title": "Maths 101-Mock",
           "mark": 10,
           "lessons": 
           [
@@ -126,7 +119,7 @@ Future<http.Response> getGradesByUserClient(request) async {
         {
           "id": 2,
           "title": "Geography Mock",
-          "mark": 15,
+          "mark": 87,
           "lessons": 
           [
             {
@@ -166,6 +159,102 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "studentMark": 19,
                   "quizTotal": 120,
                   "title": "quiz 2"
+                }
+              ]
+            }
+          ] 
+        },
+        {
+          "id": 3,
+          "title": "Physics 101-Mock",
+          "mark": 65,
+          "lessons": 
+          [
+            {
+              "id": 1,
+              "title": "Physics Lesson 1",
+              "mark": 20,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": 67,
+                  "quizTotal": 89,
+                  "title": "quiz 1"
+                },
+                {
+                  "id": 2,
+                  "studentMark": 20,
+                  "quizTotal": 40,
+                  "title": "quiz 2"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "title": "Physics Lesson 2",
+              "mark": 15,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": 29,
+                  "quizTotal": 39,
+                  "title": "quiz 1"
+                },
+                {
+                  "id": 2,
+                  "studentMark": 12,
+                  "quizTotal": 87,
+                  "title": "quiz 1"
+                }
+              ]
+            }
+          ] 
+        },
+        {
+          "id": 4,
+          "title": "Biology 101-Mock",
+          "mark": -1,
+          "lessons": 
+          [
+            {
+              "id": 1,
+              "title": "Biology Lesson 1",
+              "mark": -1,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": -1,
+                  "quizTotal": -1,
+                  "title": "quiz 1"
+                },
+                {
+                  "id": 2,
+                  "studentMark": -1,
+                  "quizTotal": -1,
+                  "title": "quiz 2"
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "title": "Biology Lesson 2",
+              "mark": -1,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": -1,
+                  "quizTotal": -1,
+                  "title": "quiz 1"
+                },
+                {
+                  "id": 2,
+                  "studentMark": -1,
+                  "quizTotal": -1,
+                  "title": "quiz 1"
                 }
               ]
             }

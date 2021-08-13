@@ -10,7 +10,7 @@ import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 
 /*------------------------------------------------------------------------------
- *                         Grade Quiz Specific View Page 
+ *                   Grade Quiz Specific View Page 
  *------------------------------------------------------------------------------
 */
 

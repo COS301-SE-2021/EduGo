@@ -33,10 +33,37 @@ class GradesSubjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO:
-    //Make an if statement to check mark and make a variable to say
-    //'This is the mark ' currently or if no mark available it must say
-    //No marks avaiable yet.. check clickup for reference
+    //Holds the colour of the backround container
+    //of the marks container and changes accordingly
+    Color backgroundOfMarkColour;
+
+    //Used to identify whether there
+    //is a mark of not for the subject
+    bool hasMark = false;
+
+    //If there is a mark for the subject, display this discription
+    String markDescription1 = "Based on submitted work";
+
+    //If there is no mark for the subject (i.e returns -1), display this discription
+    String markDescription2 = "Marks are currently unavailable for this course";
+
+    //Checks if there is a mark and changes the bool value
+    //It also changes the background colour of the mark container
+    //depending on what catagory of percent the student falls in
+    if (subjectMark < 0) {
+      hasMark = false;
+      backgroundOfMarkColour = Colors.white;
+    } else if (subjectMark >= 0 && subjectMark < 50) {
+      backgroundOfMarkColour = Colors.red;
+      hasMark = true;
+    } else if (subjectMark > 50 && subjectMark < 70) {
+      backgroundOfMarkColour = Colors.yellow;
+      hasMark = true;
+    } else {
+      backgroundOfMarkColour = Colors.green;
+      hasMark = true;
+    }
+
     return Column(
       children: [
         Expanded(
@@ -44,10 +71,11 @@ class GradesSubjectCard extends StatelessWidget {
             semanticContainer: true,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
-              side: BorderSide(color: Colors.purple),
+              //borderRadius: BorderRadius.zero;
+              //side: BorderSide(color: Colors.purple),
             ),
             clipBehavior: Clip.antiAlias,
-            color: Colors.green,
+            color: Color.fromARGB(0, 246, 246, 246),
             //This allows the card to be clickable so that when clicked,
             // it will go to the lessons description for that lesson
             child: new InkWell(
@@ -71,23 +99,24 @@ class GradesSubjectCard extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.width / 10,
-                        // child: DecoratedBox(
-                        // decoration: BoxDecoration(color: Colors.purple),
-                        //),
-
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: MaterialButton(
-                            //color: backgroundColourForMark,
+                            //Make the colour of the button the
+                            //background of the one chosen from the
+                            //if statement done above
+                            color: backgroundOfMarkColour,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(20),
                               ),
-                              side: BorderSide(color: Colors.black),
+                              side: BorderSide(color: backgroundOfMarkColour),
                             ),
                             onPressed: () {},
                             child: Text(
-                              '$subjectMark',
+                              //If there is a mark, display it.
+                              //Els display the two dashes
+                              hasMark ? '$subjectMark' + '%' : "--",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 20,
@@ -121,9 +150,9 @@ class GradesSubjectCard extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 15),
                         child: Text(
-                          //marksDescription,
-                          'This is the mark currently',
-                          //"",
+                          //If there is a mark, display description 1.
+                          //Else display description two.
+                          hasMark ? markDescription1 : markDescription2,
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 4,

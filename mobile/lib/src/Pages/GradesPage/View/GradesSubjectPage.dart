@@ -41,7 +41,6 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
           //Stores a snapshot of the current subject
           //list in the GradesModel page
           final subjects = snapshot<GradesModel>();
-
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -64,7 +63,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                   //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
                   childAspectRatio: MediaQuery.of(context).size.height / 400,
                   primary: false,
-                  //padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.only(top: 20),
                   crossAxisSpacing: 0,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
