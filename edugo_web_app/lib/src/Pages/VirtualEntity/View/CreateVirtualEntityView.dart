@@ -14,7 +14,7 @@ class CreateVirtualEntityView extends StatelessWidget {
         child:
             //* Content Container
             ListView(
-          padding: EdgeInsets.only(bottom: 100, top: 20, left: 20, right: 20),
+          padding: EdgeInsets.only(top: 20, left: 20, right: 20),
           children: [
             //* Title Row
             Row(

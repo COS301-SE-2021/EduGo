@@ -62,7 +62,7 @@ class SessionController extends MomentumController<SessionModel> {
           Map<String, dynamic> _user = jsonDecode(response.body);
           String bearerToken = _user['token'];
           setToken(bearerToken);
-          MomentumRouter.goto(context, OrganisationDashboardView);
+          MomentumRouter.goto(context, SubjectsView);
           loginResponse = "Session Started";
           return;
         }

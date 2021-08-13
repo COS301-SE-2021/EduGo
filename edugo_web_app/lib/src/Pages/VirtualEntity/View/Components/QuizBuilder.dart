@@ -11,35 +11,43 @@ class QuizBuilder extends StatelessWidget {
         return Container(
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Quiz",
-                    style: TextStyle(fontSize: 32),
-                  ),
-                  Text(
-                    "Builder",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32,
-                      color: Color.fromARGB(255, 97, 211, 87),
-                    ),
-                  ),
-                  Spacer(),
-                  VirtualEntityButton(
-                      elevation: 40,
-                      child: Text(
-                        "New Question",
-                        style: TextStyle(color: Colors.white),
+              Material(
+                elevation: 40,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 50),
+                  height: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Quiz",
+                        style: TextStyle(fontSize: 32),
                       ),
-                      onPressed: () {
-                        Momentum.controller<QuizBuilderController>(context)
-                            .newQuestion();
-                      },
-                      width: 200,
-                      height: 50),
-                ],
+                      Text(
+                        "Builder",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32,
+                          color: Color.fromARGB(255, 97, 211, 87),
+                        ),
+                      ),
+                      Spacer(),
+                      VirtualEntityButton(
+                          elevation: 40,
+                          child: Text(
+                            "New Question",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            Momentum.controller<QuizBuilderController>(context)
+                                .newQuestion();
+                          },
+                          width: 200,
+                          height: 50),
+                    ],
+                  ),
+                ),
               ),
               SizedBox(
                 height: 50,

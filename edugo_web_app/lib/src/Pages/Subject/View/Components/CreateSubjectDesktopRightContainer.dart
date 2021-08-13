@@ -18,7 +18,10 @@ class CreateSubjectDesktopRightContainer extends StatelessWidget {
               ),
               SizedBox(height: 70),
               SubjectButton(
-                onPressed: () {},
+                onPressed: () {
+                  Momentum.controller<SubjectController>(context)
+                      .startWebFilePicker();
+                },
                 child: Row(
                   children: <Widget>[
                     Icon(

@@ -23,7 +23,7 @@ class DesktopRightContainer extends StatelessWidget {
                       onPressed: () {
                         Momentum.controller<ViewBoundVirtualEntityController>(
                                 context)
-                            .upload3dModel();
+                            .upload3dModel(context);
                       },
                       width: ScreenUtil().setWidth(400),
                       height: 60),

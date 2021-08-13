@@ -47,7 +47,7 @@ class CreateSubjectDesktopLeftContainer extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              VirtualEntityButton(
+              SubjectButton(
                   elevation: 40,
                   child: Text(
                     "Create Subject",

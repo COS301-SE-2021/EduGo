@@ -20,6 +20,7 @@ class LessonController extends MomentumController<LessonModel> {
   }
 
   Future createLesson(context) async {
+    MomentumRouter.goto(context, LessonsView);
     var currentSubjectController = controller<SubjectController>();
     var url = Uri.parse('http://localhost:8080/lesson/createLesson');
     await post(url, headers: {
