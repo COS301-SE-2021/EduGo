@@ -16,6 +16,7 @@ class _GradesPageState extends State<GradesPage> {
       true,
       true,
       Container(child: Text("Grades")),
+      "Grades",
     );
   }
 }

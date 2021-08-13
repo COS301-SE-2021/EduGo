@@ -50,6 +50,7 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
             )),
         Expanded(flex: 1, child: Center(child: Text('Scan a marker')))
       ])),
+      "Detect  Marker",
     );
   }
 

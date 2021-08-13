@@ -16,17 +16,19 @@ class _SubjectsPageState extends State<SubjectsPage> {
   @override
   Widget build(BuildContext context) {
     return MobilePageLayout(
-        true,
-        true,
-        Container(
-            child: MomentumBuilder(
-          controllers: [SubjectsController],
-          builder: (context, snapshot) {
-            final subjects = snapshot<SubjectsModel>();
-            //TODO replace the text widget with a List of subject card widgets, try using the map function to this in one line
-            //Example: subjects.subjects.map(subject => SubjectCard(subject: subject));
-            return Text('');
-          },
-        )));
+      true,
+      true,
+      Container(
+          child: MomentumBuilder(
+        controllers: [SubjectsController],
+        builder: (context, snapshot) {
+          final subjects = snapshot<SubjectsModel>();
+          //TODO replace the text widget with a List of subject card widgets, try using the map function to this in one line
+          //Example: subjects.subjects.map(subject => SubjectCard(subject: subject));
+          return Text('');
+        },
+      )),
+      "Subjects",
+    );
   }
 }

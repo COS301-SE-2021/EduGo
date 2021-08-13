@@ -16,16 +16,18 @@ class _LessonsPageState extends State<LessonsPage> {
   @override
   Widget build(BuildContext context) {
     return MobilePageLayout(
-        true,
-        true,
-        Container(
-            child: MomentumBuilder(
-                controllers: [LessonsController],
-                builder: (context, snapshot) {
-                  final lessons = snapshot<LessonsModel>();
-                  return Column(
-                      children:
-                          lessons.lessons.map((e) => Text(e.title)).toList());
-                })));
+      true,
+      true,
+      Container(
+          child: MomentumBuilder(
+              controllers: [LessonsController],
+              builder: (context, snapshot) {
+                final lessons = snapshot<LessonsModel>();
+                return Column(
+                    children:
+                        lessons.lessons.map((e) => Text(e.title)).toList());
+              })),
+      "Lessons",
+    );
   }
 }
