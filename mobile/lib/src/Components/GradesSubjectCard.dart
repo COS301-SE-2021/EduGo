@@ -56,7 +56,10 @@ class GradesSubjectCard extends StatelessWidget {
     } else if (subjectMark >= 0 && subjectMark < 50) {
       backgroundOfMarkColour = Colors.red;
       hasMark = true;
-    } else if (subjectMark > 50 && subjectMark < 70) {
+    } else if (subjectMark >= 50 && subjectMark < 60) {
+      backgroundOfMarkColour = Colors.orange;
+      hasMark = true;
+    } else if (subjectMark >= 60 && subjectMark < 75) {
       backgroundOfMarkColour = Colors.yellow;
       hasMark = true;
     } else {

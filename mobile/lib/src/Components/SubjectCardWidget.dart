@@ -61,40 +61,52 @@ class SubjectCard extends StatelessWidget {
             ),
           );
         },
-        child: Column(
-          children: [
-            //child:
-            Container(
-              height: 90,
-              width: double.infinity,
-              child: Image.network(
-                'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
-                fit: BoxFit.fitWidth,
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+              // image: AssetImage(
+              //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+              fit: BoxFit.fill,
+              alignment: Alignment.topCenter,
             ),
-
-            Container(
-              child: Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 25),
-                  child: Text(
-                    //'Title: +'
-                    "$title",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    softWrap: false,
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
+        // child: Column(
+        //   children: [
+        //     //child:
+        //     Container(
+        //       height: 90,
+        //       width: double.infinity,
+        //       child: Image.network(
+        //         'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg',
+        //         fit: BoxFit.fitWidth,
+        //       ),
+        //     ),
+
+        //     Container(
+        //       child: Align(
+        //         alignment: Alignment.center,
+        //         child: Padding(
+        //           padding: const EdgeInsets.only(top: 25),
+        //           child: Text(
+        //             //'Title: +'
+        //             "$title",
+        //             textAlign: TextAlign.center,
+        //             overflow: TextOverflow.ellipsis,
+        //             maxLines: 2,
+        //             softWrap: false,
+        //             style: TextStyle(
+        //                 fontSize: 20,
+        //                 fontWeight: FontWeight.bold,
+        //                 color: Colors.black),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

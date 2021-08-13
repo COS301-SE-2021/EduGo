@@ -14,6 +14,7 @@ import 'package:momentum/momentum.dart';
 void main() {
   //when mock=false it uses api calls. when mock=true, it uses mock data
   runApp(momentum(mock: true));
+  //PaintingBinding.instance!.imageCache!.clear();
 }
 
 Momentum momentum({bool mock = true}) {
