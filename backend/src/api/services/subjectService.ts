@@ -63,10 +63,11 @@ export class SubjectService {
 			let savedSubject: Subject;
 			try {
 				savedSubject = await this.subjectRepository.save(subject)
+				let response: CreateSubjectResponse = {id: savedSubject.id};
+			return response;
 			}
 			catch (err) { throw handleSavetoDBErrors(err) }
-			let response: CreateSubjectResponse = {id: savedSubject.id};
-			return response;
+			
 		}
 		throw new NotFoundError("Could not find educator user");
 	}

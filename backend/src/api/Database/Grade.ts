@@ -11,9 +11,10 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm";
 import { Answer } from "./Answer";
+import { Lesson } from "./Lesson";
 import { Quiz } from "./Quiz";
 import { Student } from "./Student";
-@Index(["student", "quiz"],{unique:true})
+@Index(["student", "quiz"], { unique: true })
 @Entity()
 export class Grade {
 	@PrimaryGeneratedColumn()
@@ -32,6 +33,9 @@ export class Grade {
 	@ManyToOne((type) => Quiz, (quiz) => quiz.grades)
 	quiz: Quiz;
 
-	@OneToMany(type=>Answer , answer=>answer.grade,{cascade:true})
+	@ManyToOne((type) => Lesson, (lesson) => lesson.grades, { cascade: true })
+	lesson: Lesson;
+
+	@OneToMany((type) => Answer, (answer) => answer.grade, { cascade: true })
 	answers: Answer[];
 }

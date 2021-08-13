@@ -265,25 +265,31 @@ export class StudentService {
 					user.student.id,
 					{ relations: ["grades"] }
 				);
-				if (student) {
-					let quizGrades =await  Promise.all( student.grades.map(async (grade) => {
-						let quizGrade = {
-							name: "",
-							students_score: 0,
-							quiz_total: 0,
-						};
-						let gradeInfo = await this.getGradeInfo(grade.id);
 
-						if (gradeInfo) {
-							quizGrade.students_score = gradeInfo.score;
-							quizGrade.quiz_total = gradeInfo.total;
-							quizGrade.name = await this.getvirtualEntityName(
-								gradeInfo.quiz.id
-							);
-							return await quizGrade;
-						}					
-					})); 
-					
+				if (student) {
+					let quizGrades = await Promise.all(
+						student.grades.map(async (grade) => {
+							let quizGrade = {
+								name: "",
+								students_score: 0,
+								quiz_total: 0,
+								VirtualEntityId: 0,
+							};
+							let gradeInfo = await this.getGradeInfo(grade.id);
+
+							if (gradeInfo) {
+								quizGrade.students_score = gradeInfo.score;
+								quizGrade.quiz_total = gradeInfo.total;
+
+								quizGrade.VirtualEntityId =
+									await this.getvirtualEntityId(
+										gradeInfo.quiz.id
+									);
+								return await quizGrade;
+							}
+						})
+					);
+
 					let StudentGrades: GetStudentGradesResponse = {
 						quiz_grades: quizGrades,
 					};
@@ -296,6 +302,7 @@ export class StudentService {
 		throw new ForbiddenError("Only student grades can be displayed"); //Supposed to be a 403
 	}
 
+	async getUserSubjects() {}
 	async getGradeInfo(grade_id: number) {
 		try {
 			let Quiz = await this.gradeRepository.findOne(grade_id, {
@@ -309,17 +316,16 @@ export class StudentService {
 		}
 	}
 
-	async getvirtualEntityName(quiz_id: number) {
+	async getvirtualEntityId(quiz_id: number) {
 		try {
-		
-			let virtualEntity = await this.quizRepository.findOne(quiz_id, {
-				relations:["virtualEntity"]
+			let quiz = await this.quizRepository.findOne(quiz_id, {
+				relations: ["virtualEntity"],
 			});
-			
-			if (virtualEntity) {
-				return virtualEntity.title;
+
+			if (quiz) {
+				return quiz.virtualEntity.id;
 			}
-			return "no name";
+			return 0;
 		} catch (err) {
 			throw new InternalServerError(err);
 		}

@@ -14,10 +14,11 @@ import {
 	InternalServerError,
 	JsonController,
 	ContentType,
+	Header,
 } from "routing-controllers";
 
 @Service()
-@Controller("/subject")
+@JsonController("/subject")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class SubjectController {
 	@Inject()
@@ -25,7 +26,6 @@ export class SubjectController {
 
 	@Post("/createSubject")
 	@UseBefore(isEducator)
-	@ContentType('multipart/form-data')
 	CreateSubject(
 		@UploadedFile("file", { required: true, options: uploadFile })
 		file: Express.MulterS3.File,

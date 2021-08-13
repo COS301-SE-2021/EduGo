@@ -34,14 +34,18 @@ import {
 	NotFoundError,
 } from "routing-controllers";
 import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicResponse";
+import { Lesson } from "../database/Lesson";
 
 @Service()
 export class VirtualEntityService {
-	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
+	@InjectRepository(VirtualEntity)
+	private virtualEntityRepository: Repository<VirtualEntity>;
 	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
-	@InjectRepository(Question) private questionRepository: Repository<Question>;
+	@InjectRepository(Question)
+	private questionRepository: Repository<Question>;
 	@InjectRepository(User) private userRepository: Repository<User>;
 	@InjectRepository(Student) private studentRepository: Repository<Student>;
+	@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>;
 
 	/**
 	 * @description This function will add a 3d model to a virtual entity. It will include checks to see if the virtual entity already has a model attached
@@ -163,10 +167,15 @@ export class VirtualEntityService {
 	 * @returns {Promise<CreateVirtualEntityResponse>}
 	 * @throws {InternalServerError}
 	 */
-	async CreateVirtualEntity(request: CreateVirtualEntityRequest, user_id: number): Promise<CreateVirtualEntityResponse> {
+	async CreateVirtualEntity(
+		request: CreateVirtualEntityRequest,
+		user_id: number
+	): Promise<CreateVirtualEntityResponse> {
 		let user: User | undefined;
 		try {
-			user = await this.userRepository.findOne(user_id, {relations: ["organisation"]});
+			user = await this.userRepository.findOne(user_id, {
+				relations: ["organisation"],
+			});
 		} catch (err) {
 			throw new NotFoundError("Could not find user");
 		}
@@ -234,28 +243,29 @@ export class VirtualEntityService {
 		request: AnswerQuizRequest,
 		user_id: number
 	): Promise<String> {
-
-
-
 		let user: User;
 		let quiz: Quiz | undefined;
+		let lesson: Lesson | undefined;
 		try {
 			user = await getUserDetails(user_id);
 			quiz = await this.quizRepository.findOne(request.quiz_id, {
 				relations: ["questions"],
 			});
+			lesson = await this.lessonRepository.findOne(request.lesson_id);
 		} catch (error) {
 			throw error;
 		}
 
 		if (!user.student) throw new NotFoundError("Could not find student");
 		if (!quiz) throw new NotFoundError("Could not find quiz");
+		if (!lesson) throw new NotFoundError("Could not find lesson");
 
 		let StudentGrade = new Grade();
 		let score: number = 0;
 		let total: number = quiz.questions.length;
 		StudentGrade.quiz = quiz;
 		StudentGrade.answers = [];
+		StudentGrade.lesson = lesson;
 		for (let value of request.answers) {
 			let question: Question | undefined;
 

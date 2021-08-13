@@ -9,6 +9,7 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from "typeorm";
+import { Grade } from "./Grade";
 import { Subject } from "./Subject";
 import { VirtualEntity } from "./VirtualEntity";
 @Index(["subject", "title"], { unique: true })
@@ -50,6 +51,9 @@ export class Lesson {
 			cascade: true,
 		}
 	)
+	@OneToMany((type) => Grade, (grade) => grade.lesson)
+	grades: Grade[];
+
 	@JoinTable()
 	virtualEntities: VirtualEntity[];
 }
