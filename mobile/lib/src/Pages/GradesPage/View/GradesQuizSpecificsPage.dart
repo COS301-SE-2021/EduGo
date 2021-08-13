@@ -1,7 +1,18 @@
+/**
+ * This is the grade quiz specific page. This page shows the 
+ * specific information of the quiz such as the students mark,
+ * the quiz mark, the quiz title and the quiz' correct answers 
+ * and the student's answers. 
+*/
+
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
-import 'package:mobile/src/Pages/VirtualEntityPage/View/VirtualEntityPage.dart';
+
+/*------------------------------------------------------------------------------
+ *                         Grade Quiz Specific View Page 
+ *------------------------------------------------------------------------------
+*/
 
 class GradesQuizSpecificsPage extends StatefulWidget {
   //Holds the quiz title
@@ -10,14 +21,19 @@ class GradesQuizSpecificsPage extends StatefulWidget {
   //Holds the quizid
   final int id;
 
-  //Holds the mark that the student received for the quiz
+  //Holds the mark that the
+  //student received for the quiz
   final int studentQuizMark;
 
-  //Holds the total mark that the quiz was out of
+  //Holds the total mark
+  //that the quiz was out of
   final int quizTotalMark;
 
-  //hold the list of correct answers
-  //List<answers> answers;
+  //Holds the list of the correct answers
+  //List<answers> correctAnswers;
+
+  //Holds the list of the student answers
+  //List<answers> studentAnswers;
 
   //LessonPage constructor
   GradesQuizSpecificsPage(
@@ -49,10 +65,6 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
 
   //Holds the total mark that the quiz was out of
   final int quizTotalMark;
-
-  // var date = DateTime.parse(lessonStartTime);
-
-  //Soon take out start time and end time
 
   _GradesQuizSpecificsPageState(
       {required this.id,

@@ -1,15 +1,22 @@
 /**
-   * This widget will be a stateless widget and is responsible for displaying 
-   * the subjects as cards for the GradesSubjectPage. There will be a subject title 
-   * and grade as a percentage displayed on the card. It uses the gradescontroller 
-   * to make the api call which will return a list of subjects
-   */
+   * This widget will be a stateless widget and is responsible for 
+   * displaying the grades subject cards for the GradesSubject page. 
+   * There will be a subject title, mark and a list of lessons that 
+   * can be passed into the constructor when displaying the 
+   * gradeSubject cards.
+**/
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesLessonPage.dart';
 
+/*------------------------------------------------------------------------------
+ *              GradeSubject Cards used in the GradeQuiz page 
+ *------------------------------------------------------------------------------
+*/
+
 class GradesSubjectCard extends StatelessWidget {
-  //Holds the list of subjects returned from the api call
+  //Holds the list of subjects
+  //returned from the api call
   final List<Lesson> subjectLessons;
 
   //Holds the subject title
@@ -73,8 +80,9 @@ class GradesSubjectCard extends StatelessWidget {
                           child: MaterialButton(
                             //color: backgroundColourForMark,
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
                               side: BorderSide(color: Colors.black),
                             ),
                             onPressed: () {},
@@ -131,7 +139,6 @@ class GradesSubjectCard extends StatelessWidget {
                 ),
               ),
             ),
-            //),
           ),
         ),
       ],

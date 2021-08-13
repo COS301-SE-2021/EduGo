@@ -1,8 +1,10 @@
 /**
- * This is the subject page view. It follows the MVC design pattern and is implemented
- * using Momentum. The subjectCard widget is used along side the subject page controller
- * to populate the card.
- */
+ * This is the subject page. It follows the mvc design pattern 
+ * and is implemented using Momentum. The subjectCard widget 
+ * is used to display the subject cards. The subjectController is 
+ * passed into the MomentumBuilder widget and handles the api call 
+ * to get the data and also handles the conversion from string to json. 
+*/
 
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
@@ -10,6 +12,11 @@ import 'package:mobile/src/Components/SubjectCardWidget.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
 import 'package:momentum/momentum.dart';
+
+/*------------------------------------------------------------------------------
+ *                            Subject View Page 
+ *------------------------------------------------------------------------------
+*/
 
 class SubjectsPage extends StatefulWidget {
   SubjectsPage({Key? key}) : super(key: key);
@@ -33,10 +40,11 @@ class _SubjectsPageState extends State<SubjectsPage> {
       MomentumBuilder(
         controllers: [SubjectsController],
         builder: (context, snapshot) {
-          //Used for momentum mvc model
+          //Stores a snapshot of the current subject
+          //list in the SubjectModel page
           final subjects = snapshot<SubjectsModel>();
 
-          //Get the number of subjects for a particulat student
+          //Stores the number of subjects for a particulat student
           int subjectsCount = subjects.subjects.length;
 
           //A check to see if there are subjects. If there are no subjects,
@@ -98,11 +106,13 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       crossAxisCount: 2,
                       //Call subject card here and pass in all arguments required
                       children: subjects.subjects
-                          .map((subject) => SubjectCard(
-                              title: subject.title,
-                              grade: subject.grade,
-                              id: subject.id,
-                              count: subjectsCount))
+                          .map(
+                            (subject) => SubjectCard(
+                                title: subject.title,
+                                grade: subject.grade,
+                                id: subject.id,
+                                count: subjectsCount),
+                          )
                           .toList(),
                     ),
                   ],

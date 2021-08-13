@@ -1,16 +1,23 @@
 /**
-   * This widget will be a stateless widget and is responsible for displaying the 
-   * grades as cards. There will be a subject and grade that can be passed 
-   * into the constructor when displaying the subjects
-   */
+   * This widget will be a stateless widget and is responsible for 
+   * displaying the grades quiz cards for the GradesQuiz page. 
+   * There will be a student mark, overall quiz mark, title and 
+   * quiz id that can be passed into the constructor when displaying the 
+   * gradequiz cards.
+**/
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
+
+/*------------------------------------------------------------------------------
+ *              GradeQuiz Cards used in the GradeQuiz page 
+ *------------------------------------------------------------------------------
+*/
 
 class GradesQuizCard extends StatelessWidget {
   //Holds the quiz title
   final String quizTitle;
 
-  //Holds the quizid
+  //Holds the quiz id
   final int id;
 
   //Holds the mark that the student received for the quiz
@@ -87,9 +94,7 @@ class GradesQuizCard extends StatelessWidget {
                             //minWidth: 50,
                             //height: 60,
                             child: Text(
-                              //'$totalGradeAsString' + '/' + '80',
                               '$studentQuizMark' + '/' + '$quizTotalMark',
-
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 20,
@@ -140,7 +145,6 @@ class GradesQuizCard extends StatelessWidget {
                 ),
               ),
             ),
-            //),
           ),
         ),
       ],

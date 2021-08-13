@@ -1,6 +1,9 @@
 /**
- * This is the lessons page that displays all the lessons for a particular subject.
- * It uses the MVC design pattern with Momentum.
+ * This is the lesson page. It follows the mvc design pattern 
+ * and is implemented using Momentum. The lessonCard widget 
+ * is used to display the lesson cards. The lessonController is 
+ * passed into the MomentumBuilder widget and handles the api call 
+ * to get the data and also handles the conversion from string to json 
  */
 
 import 'package:flutter/material.dart';
@@ -10,17 +13,22 @@ import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
 import 'package:momentum/momentum.dart';
 
+/*------------------------------------------------------------------------------
+ *                          Lesson View Page  
+ *------------------------------------------------------------------------------
+ */
 class LessonsPage extends StatefulWidget {
-  //This title variable holds the subject title of the card that was clicked on
+  //This title variable holds the subject
+  //title of the card that was clicked on
   final String title;
+
+  //This subject ID variable holds the subject
+  //id of the card that was clicked on
   final int subjectID;
-  //This title variable holds the subject count of the card that was clicked on
-  //final int SubjectCount;
 
   //LessonPage constructor
   LessonsPage({Key? key, required this.title, required this.subjectID})
       : super(key: key);
-  static String id = "lessons";
 
   @override
   _LessonsPageState createState() =>
@@ -138,7 +146,6 @@ class _LessonsPageState extends State<LessonsPage> {
               child: Text('There are no lessons for this subject'),
             );
         },
-        //),
       ),
     );
   }

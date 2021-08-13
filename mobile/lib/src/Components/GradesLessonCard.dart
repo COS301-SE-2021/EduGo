@@ -1,24 +1,31 @@
 /**
-   * This widget will be a stateless widget and is responsible for displaying 
-   * the subjects as cards for the grades page. There will be a subject title 
-   * and grade as a percentage displayed on the card. It uses the gradescontroller 
-   * to make the api call which will return a list of subjects
-   */
+   * This widget will be a stateless widget and is responsible for 
+   * displaying the grades lesson cards for the GradesLesson page. 
+   * There will be a lesson mark, title and a list of quizzes that 
+   * can be passedinto the constructor when displaying the 
+   * gradelesson cards.
+*/
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesQuizPage.dart';
 
+/*------------------------------------------------------------------------------
+ *              GradeLesson Cards used in the GradeLesson page 
+ *------------------------------------------------------------------------------
+*/
+
 class GradesLessonCard extends StatelessWidget {
-  //Holds the list of subjects returned from the api call
+  //Holds the list of quizzes
+  //returned from the api call
   final List<Quiz> quizList;
 
-  //Holds the subject title
+  //Holds the lesson title
   final String lessonTitle;
 
-  //Holds the subject mark as a percentage
+  //Holds the lesson mark as a percentage
   final int lessonMark;
 
-  //Constructor
+  //GradeLesson constructor
   GradesLessonCard(
       {required this.quizList,
       required this.lessonMark,
@@ -131,7 +138,6 @@ class GradesLessonCard extends StatelessWidget {
                 ),
               ),
             ),
-            //),
           ),
         ),
       ],

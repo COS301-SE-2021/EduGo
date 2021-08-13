@@ -1,17 +1,27 @@
+/**
+ * This is the grade quiz page. This page shows the quizzes of
+ * a particular lesson with the individual quiz marks that the student 
+ * achieved. When clicked, it will take the student to the 
+ * GradeQuizSpecifics page. The GradeQuiz card widget is used 
+ * to display the GradeQuiz cards.  
+*/
+
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/GradesLessonCard.dart';
 import 'package:mobile/src/Components/GradesQuizWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 
+/*------------------------------------------------------------------------------
+ *                         Grade Quiz View Page 
+ *------------------------------------------------------------------------------
+*/
+
 class GradesQuizPage extends StatefulWidget {
-  //Holds the list of quizzes to be passed in from the GradesLessonsCard
-  //when clicked
+  //Holds the list of quizzes to be
+  //passed in from the GradesQuizCard
   final List<Quiz> quizList;
 
   GradesQuizPage({Key? key, required this.quizList}) : super(key: key);
-  //Can i remove this id below??
-  static String id = "grades";
 
   @override
   _GradesQuizState createState() => _GradesQuizState(quizList: this.quizList);
@@ -78,7 +88,6 @@ class _GradesQuizState extends State<GradesQuizPage> {
             ],
           ),
         ),
-
         //If there are no subjects
       ),
     );

@@ -21,8 +21,6 @@ void main() {
       expect(lesson.id, 1);
       expect(lesson.title, 'Lesson 1');
       expect(lesson.description, 'This is lesson 1');
-      expect(lesson.startTime, '10:00');
-      expect(lesson.endTime, '11:00');
     });
 
     test('should set description to an empty string when omitted', () {
@@ -50,7 +48,6 @@ void main() {
       ''';
 
       Lesson lesson = Lesson.fromJson(jsonDecode(json));
-      expect(lesson.startTime, '');
     });
 
     test('should set endTime to an empty string when omitted', () {
@@ -64,7 +61,6 @@ void main() {
       ''';
 
       Lesson lesson = Lesson.fromJson(jsonDecode(json));
-      expect(lesson.endTime, '');
     });
 
     test('should throw an exception if the id is missing', () {
@@ -77,7 +73,8 @@ void main() {
         }
       ''';
 
-      expect(() => Lesson.fromJson(jsonDecode(json)), throwsA(isA<MissingRequiredKeysException>()));
+      expect(() => Lesson.fromJson(jsonDecode(json)),
+          throwsA(isA<MissingRequiredKeysException>()));
     });
 
     test('should throw an exception if the title is missing', () {
@@ -90,7 +87,8 @@ void main() {
         }
       ''';
 
-      expect(() => Lesson.fromJson(jsonDecode(json)), throwsA(isA<MissingRequiredKeysException>()));
+      expect(() => Lesson.fromJson(jsonDecode(json)),
+          throwsA(isA<MissingRequiredKeysException>()));
     });
   });
 }

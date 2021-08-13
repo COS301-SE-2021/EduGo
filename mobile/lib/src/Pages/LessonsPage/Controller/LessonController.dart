@@ -2,7 +2,7 @@
  * This is the lesson controller. It handles the api calls for the lessons.
  * The endpoint is getLessonsBySubject which return a list of lessons.
  * That list is converted from a string to a json object. 
- */
+*/
 
 import 'dart:convert';
 import 'package:mobile/src/Exceptions.dart';
@@ -17,7 +17,7 @@ import 'package:momentum/momentum.dart';
 /*------------------------------------------------------------------------------
  *                          Lesson controller
  *------------------------------------------------------------------------------
- */
+*/
 
 //Function to get the list of lessons from the database
 Future<List<Lesson>> getLessonsBySubject(int subject_id,

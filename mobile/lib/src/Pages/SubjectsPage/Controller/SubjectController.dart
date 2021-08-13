@@ -2,7 +2,7 @@
  * This is the subject controller. It handles the api calls for the subjects.
  * The endpoint is getSubjectsByUser which return a list of subjects.
  * That list is converted from a string to a json object. 
- */
+*/
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;

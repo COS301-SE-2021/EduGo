@@ -1,10 +1,15 @@
 /**
    * This widget will be a stateless widget and is responsible for displaying the 
-   * subjects as cards. There will be a title, grade and subject image that can be passed 
-   * into the constructor when displaying the subjects
-   */
+   * lesson as cards. There will be a title, id and description that can be passed 
+   * into the constructor when displaying the lesson cards.
+*/
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
+
+/*------------------------------------------------------------------------------
+ *                  Lesson Card used in the lesson page 
+ *------------------------------------------------------------------------------
+*/
 
 class LessonsCard extends StatelessWidget {
   //Holds the lesson title
@@ -76,8 +81,6 @@ class LessonsCard extends StatelessWidget {
           ),
         ),
       ),
-
-      //),
     );
   }
 }

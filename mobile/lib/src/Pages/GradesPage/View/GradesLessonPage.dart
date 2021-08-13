@@ -1,16 +1,26 @@
+/**
+ * This is the grade lesson page. This page shows the lessons of
+ * a particular subject with the overall lesson mark that the student 
+ * achieved. When clicked, it will take the student to the GradeQuiz page.
+ * The GradeLesson card widget is used to display the GradeLesson cards.  
+*/
+
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/GradesLessonCard.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 
+/*------------------------------------------------------------------------------
+ *                       Grade Lesson View Page 
+ *------------------------------------------------------------------------------
+*/
+
 class GradesLessonPage extends StatefulWidget {
-  //Holds the list of lessons to be passed in from the GradesSubjectCard
-  //when clicked
+  //Holds the list of lessons to be
+  //passed in from the GradesLessonCard
   final List<Lesson> lessonList;
 
   GradesLessonPage({Key? key, required this.lessonList}) : super(key: key);
-  //Can i remove this id below??
-  static String id = "grades";
 
   @override
   _GradesLessonState createState() =>
@@ -77,7 +87,6 @@ class _GradesLessonState extends State<GradesLessonPage> {
             ],
           ),
         ),
-
         //If there are no subjects
       ),
     );

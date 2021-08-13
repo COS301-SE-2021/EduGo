@@ -1,18 +1,26 @@
+/**
+ * This is the lesson information page. It simply displays
+ * the relevant information about a lesson when a specific 
+ * lesson card is clicked on
+ */
+
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
-import 'package:mobile/src/Pages/VirtualEntityPage/View/VirtualEntityPage.dart';
+
+/*------------------------------------------------------------------------------
+ *                        Lesson details View Page 
+ *------------------------------------------------------------------------------
+ */
 
 class LessonInformationPage extends StatefulWidget {
-  //This title variable holds the lesson title of the card that was clicked on
+  //This title variable holds the lesson
+  //title of the card that was clicked on
+
   final String lessonTitle;
-
-  //This holds the specific lesson ID
+  //This lesson ID variable holds the subject
+  //id of the card that was clicked on
   final int lessonID;
-
-  //This holds the lesson outcomes. i.e What the educator hopes to teach
-  //in the lesson
-  //final String lessonOutcomes;
 
   //This holds the lesson description. i.e What the lesson is about
   final String lessonDescription;
@@ -37,12 +45,7 @@ class LessonInformationPage extends StatefulWidget {
 class _LessonInformationPageState extends State<LessonInformationPage> {
   final String lessonTitle;
   final int lessonID;
-  //final String lessonOutcomes;
   final String lessonDescription;
-
-  // var date = DateTime.parse(lessonStartTime);
-
-  //Soon take out start time and end time
 
   _LessonInformationPageState({
     required this.lessonTitle,
@@ -52,7 +55,6 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Format the date objects by passing them from strings to date objects
     return MobilePageLayout(
       //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
       //the two bool represent side bar and navbar. so if true and true, them
@@ -266,7 +268,6 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
           ],
         ),
       ),
-      // ),
     );
   }
 }

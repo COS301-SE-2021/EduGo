@@ -1,9 +1,25 @@
+/**
+ * This is the grade subject page. This page shows the subjects
+ * with the overall total of the students mark. When clicked, it
+ * will take the student to the GradeLesson page.
+ * It follows the mvc design pattern and is implemented using Momentum. 
+ * The GradeSubject card widget is used to display the GradeSubject cards. 
+ * The GradeController is passed into the MomentumBuilder widget and 
+ * handles the api call to get the data and also handles the conversion 
+ * from string to json. 
+ * 
+*/
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/GradesSubjectCard.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/GradesModel.dart';
 import 'package:momentum/momentum.dart';
+
+/*------------------------------------------------------------------------------
+ *                       Grade Subject View Page 
+ *------------------------------------------------------------------------------
+*/
 
 class GradesSubjectPage extends StatefulWidget {
   GradesSubjectPage({Key? key}) : super(key: key);
@@ -22,8 +38,8 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
       MomentumBuilder(
         controllers: [GradesController],
         builder: (context, snapshot) {
-          //Take a snapshot of the gradesModel.
-          //Does this using MVC momentum
+          //Stores a snapshot of the current subject
+          //list in the GradesModel page
           final subjects = snapshot<GradesModel>();
 
           return SingleChildScrollView(
@@ -59,9 +75,8 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                   children: subjects.subjects
                       .map(
                         (subject) =>
-
-                            //Pass in the entire subjects list of lessons so subjects.lessons
-                            //Also pass in the subject title and the subject mark as a percentage
+                            //Pass in the entire subjects list of lessons.
+                            //Also pass in the subject title and the subject mark
                             GradesSubjectCard(
                           subjectLessons: subject.lessons,
                           subjectMark: subject.mark,
@@ -73,7 +88,6 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
               ],
             ),
           );
-
           //If there are no subjects
         },
       ),

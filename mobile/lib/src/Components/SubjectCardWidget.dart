@@ -1,10 +1,15 @@
 /**
    * This widget will be a stateless widget and is responsible for displaying the 
    * subjects as cards. There will be a title, grade and subject image that can be passed 
-   * into the constructor when displaying the subjects
-   */
+   * into the constructor when displaying the subject cards.
+*/
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
+
+/*------------------------------------------------------------------------------
+ *                 Subject Card used in the subject page 
+ *------------------------------------------------------------------------------
+ */
 
 class SubjectCard extends StatelessWidget {
   //Holds the subject title
@@ -15,7 +20,8 @@ class SubjectCard extends StatelessWidget {
   final int id;
   //Holds how many lessons are in the subject
   final int count;
-  //final *type* subjectImage
+  //Holds the subject image
+  //final *String* subjectImage
 
 //This is the subject card constructor. it requires 5 arguments to be passed in
   SubjectCard(
@@ -50,8 +56,9 @@ class SubjectCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    LessonsPage(title: this.title, subjectID: this.id)),
+              builder: (context) =>
+                  LessonsPage(title: this.title, subjectID: this.id),
+            ),
           );
         },
         child: Column(
@@ -88,8 +95,6 @@ class SubjectCard extends StatelessWidget {
             ),
           ],
         ),
-        //),
-        // ),
       ),
     );
   }
