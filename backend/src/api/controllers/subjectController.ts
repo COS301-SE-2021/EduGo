@@ -43,6 +43,6 @@ export class SubjectController {
 	@ContentType("application/json")
 	@UseBefore(isUser)
 	GetSubjectsByUser(@CurrentUser({ required: true }) id: number) {
-		return this.service.GetSubjectsByUser({ user_id: id });
+		return this.service.GetSubjectsByUser(id);
 	}
 }

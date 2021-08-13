@@ -42,11 +42,13 @@ export class SubjectService {
 			throw error;
 		}
 
+		console.log(userDetails.educator.id);
+
 		let subject: Subject = new Subject();
 		subject.title = request.title;
 		subject.grade = request.grade;
 		subject.image = imageLink;
-
+		userDetails.educator.subjects;
 		let org: Organisation | undefined;
 		try {
 			org = await this.organisationRepository.findOne(
@@ -62,18 +64,20 @@ export class SubjectService {
 
 		let user: User | undefined;
 		try {
-			user = await this.userRepository.findOne(userDetails.educator.id, {
+			user = await this.userRepository.findOne(userDetails.id, {
 				relations: ["educator"],
 			});
 		} catch (err) {
 			throw new BadRequestError("Could not find user");
 		}
-		console.log(user);
+
 		if (user && user.educator) {
-			subject.educators = [user.educator];
+			subject.educators = [];
+			subject.educators.push(user.educator);
 			subject.students = [];
 			subject.unverifiedUsers = [];
 			subject.lessons = [];
+
 			let savedSubject: Subject;
 			try {
 				savedSubject = await this.subjectRepository.save(subject);
@@ -87,12 +91,12 @@ export class SubjectService {
 	}
 
 	async GetSubjectsByUser(
-		request: GetSubjectsByUserRequest
+		user_id: number
 	): Promise<GetSubjectsByUserResponse> {
 		//TODO - use the educator.subjects or the student.subjects relations
 		let user: User | undefined;
 		try {
-			user = await this.userRepository.findOne(request.user_id, {
+			user = await this.userRepository.findOne(user_id, {
 				relations: ["educator", "student"],
 			});
 		} catch (err) {
@@ -102,20 +106,24 @@ export class SubjectService {
 		if (user) {
 			if (user.educator) {
 				let educator: Educator | undefined;
-
+				console.log(user.educator.id);
 				try {
 					educator = await this.educatorRepository.findOne(
-						user.educator.id,
+						3,
 						{ relations: ["subjects"] }
 					);
+
+					console.log(educator);
 				} catch (err) {
 					throw new BadRequestError("Could not find Educator");
 				}
 				if (!educator)
 					throw new BadRequestError("Could not find Educator");
 
-				return {
+				let obj = {
 					data: educator.subjects.map((value) => {
+						console.log(value);
+
 						return {
 							id: value.id,
 							title: value.title,
@@ -124,6 +132,9 @@ export class SubjectService {
 						};
 					}),
 				};
+
+				console.log(obj);
+				return obj;
 			} else if (user.student) {
 				let student: Student | undefined;
 
