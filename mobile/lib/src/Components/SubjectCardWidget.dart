@@ -64,13 +64,184 @@ class SubjectCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4), BlendMode.hue),
               image: NetworkImage(
                   'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
               // image: AssetImage(
               //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
               fit: BoxFit.fill,
-              alignment: Alignment.topCenter,
+              //alignment: Alignment.center,
             ),
+          ),
+          child: Column(
+            //crossAxisAlignment: CrossAxisAlignment.stretch,
+            //mainAxisAlignment: MainAxisAlignment.
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 100, left: 20),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.width / 9,
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(color: Colors.blueAccent),
+                    // ),
+                    // color: Colors.white,
+                    // child: Text(
+                    //   "English",
+                    //   textAlign: TextAlign.left,
+                    //   overflow: TextOverflow.ellipsis,
+                    //   maxLines: 2,
+                    //   softWrap: false,
+                    //   style: TextStyle(
+                    //       fontSize: 25,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.black),
+                    // ),
+                    child: MaterialButton(
+                      //Make the colour of the button the
+                      //background of the one chosen from the
+                      //if statement done above
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        //If there is a mark, display it.
+                        //Els display the two dashes
+                        '$title',
+                        //textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: false,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 25, left: 20),
+              //     child: Container(
+              //       width: MediaQuery.of(context).size.width / 3,
+              //       height: MediaQuery.of(context).size.width / 10,
+              //       decoration: BoxDecoration(
+              //         border: Border.all(color: Colors.blueAccent),
+              //       ),
+              //       child: Text(
+              //         "Mr MafalaClownlala",
+              //         textAlign: TextAlign.left,
+              //         overflow: TextOverflow.ellipsis,
+              //         maxLines: 2,
+              //         softWrap: false,
+              //         style: TextStyle(
+              //             fontSize: 12,
+              //             fontWeight: FontWeight.bold,
+              //             color: Colors.black),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 25, left: 20),
+              //     child: Text(
+              //       "Mr Noah The Clown",
+              //       textAlign: TextAlign.left,
+              //       overflow: TextOverflow.ellipsis,
+              //       maxLines: 2,
+              //       softWrap: false,
+              //       style: TextStyle(
+              //           fontSize: 22,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.black),
+              //     ),
+              //   ),
+              // ),
+
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 20),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.width / 9,
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(color: Colors.blueAccent),
+                    // ),
+                    // color: Colors.white,
+                    // child: Text(
+                    //   "English",
+                    //   textAlign: TextAlign.left,
+                    //   overflow: TextOverflow.ellipsis,
+                    //   maxLines: 2,
+                    //   softWrap: false,
+                    //   style: TextStyle(
+                    //       fontSize: 25,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.black),
+                    // ),
+                    child: MaterialButton(
+                      //Make the colour of the button the
+                      //background of the one chosen from the
+                      //if statement done above
+                      color: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                        side: BorderSide(color: Colors.black),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        //If there is a mark, display it.
+                        //Els display the two dashes
+                        'Mr Mafalaclownla',
+                        //textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: false,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Align(
+              //   alignment: Alignment.bottomLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 5, left: 20),
+              //     child: Text(
+              //       "Teacher",
+              //       textAlign: TextAlign.left,
+              //       overflow: TextOverflow.ellipsis,
+              //       maxLines: 4,
+              //       softWrap: false,
+              //       style: TextStyle(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.black),
+              //     ),
+              //   ),
+              // ),
+            ],
           ),
         ),
         // child: Column(
