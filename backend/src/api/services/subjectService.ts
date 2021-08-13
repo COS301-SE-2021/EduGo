@@ -64,7 +64,7 @@ export class SubjectService {
 
 		let user: User | undefined;
 		try {
-			user = await this.userRepository.findOne(userDetails.id, {
+			user = await this.userRepository.findOne(userDetails.educator.id, {
 				relations: ["educator"],
 			});
 		} catch (err) {
@@ -106,10 +106,9 @@ export class SubjectService {
 		if (user) {
 			if (user.educator) {
 				let educator: Educator | undefined;
-				console.log(user.educator.id);
 				try {
 					educator = await this.educatorRepository.findOne(
-						3,
+						user.educator.id,
 						{ relations: ["subjects"] }
 					);
 
@@ -133,7 +132,6 @@ export class SubjectService {
 					}),
 				};
 
-				console.log(obj);
 				return obj;
 			} else if (user.student) {
 				let student: Student | undefined;
