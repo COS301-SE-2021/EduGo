@@ -41,53 +41,64 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
           //Stores a snapshot of the current subject
           //list in the GradesModel page
           final subjects = snapshot<GradesModel>();
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Align(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: Text(
-                      'Marks',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: false,
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
-                  ),
-                ),
-                GridView.count(
-                  //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
-                  childAspectRatio: MediaQuery.of(context).size.height / 400,
-                  primary: false,
-                  padding: const EdgeInsets.only(top: 20),
-                  crossAxisSpacing: 0,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  mainAxisSpacing: 10,
-                  //makes 1 cards per row
-                  crossAxisCount: 1,
-                  //Call subject card here and pass in all arguments required
-                  children: subjects.subjects
-                      .map(
-                        (subject) =>
-                            //Pass in the entire subjects list of lessons.
-                            //Also pass in the subject title and the subject mark
-                            GradesSubjectCard(
-                          subjectLessons: subject.lessons,
-                          subjectMark: subject.mark,
-                          subjectTitle: subject.title,
+
+          if (subjects.subjects.isNotEmpty) {
+            //int subjectsCount = subjects.subjects.length;
+            return Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Align(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: Text(
+                          'Marks',
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          softWrap: false,
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
-                      )
-                      .toList(),
+                      ),
+                    ),
+                    GridView.count(
+                      //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
+                      childAspectRatio:
+                          MediaQuery.of(context).size.height / 400,
+                      primary: false,
+                      padding: const EdgeInsets.only(top: 20),
+                      crossAxisSpacing: 0,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      mainAxisSpacing: 10,
+                      //makes 1 cards per row
+                      crossAxisCount: 1,
+                      //Call subject card here and pass in all arguments required
+                      children: subjects.subjects
+                          .map(
+                            (subject) =>
+                                //Pass in the entire subjects list of lessons.
+                                //Also pass in the subject title and the subject mark
+                                GradesSubjectCard(
+                              subjectLessons: subject.lessons,
+                              subjectMark: subject.mark,
+                              subjectTitle: subject.title,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
+              ),
+            );
+          }
           //If there are no subjects
+          else
+            return Container(
+              child: Text('There are currently no subjects'),
+            );
         },
       ),
     );

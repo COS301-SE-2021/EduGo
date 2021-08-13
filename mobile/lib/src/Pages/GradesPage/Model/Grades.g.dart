@@ -45,13 +45,21 @@ Map<String, dynamic> _$LessonToJson(Lesson instance) => <String, dynamic>{
     };
 
 Quiz _$QuizFromJson(Map<String, dynamic> json) {
-  $checkKeys(json,
-      requiredKeys: const ['id', 'title', 'studentMark', 'quizTotal']);
+  $checkKeys(json, requiredKeys: const [
+    'id',
+    'title',
+    'studentMark',
+    'quizTotal',
+    'studentAnswers',
+    'correctAnswers'
+  ]);
   return Quiz(
     json['id'] as int,
     json['quizTotal'] as int,
     json['studentMark'] as int,
     json['title'] as String,
+    (json['correctAnswers'] as List<dynamic>).map((e) => e as String).toList(),
+    (json['studentAnswers'] as List<dynamic>).map((e) => e as String).toList(),
   );
 }
 
@@ -60,4 +68,6 @@ Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'title': instance.title,
       'studentMark': instance.studentMark,
       'quizTotal': instance.quizTotal,
+      'studentAnswers': instance.studentAnswers,
+      'correctAnswers': instance.correctAnswers,
     };

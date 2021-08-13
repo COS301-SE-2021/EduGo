@@ -7,17 +7,17 @@ Future<http.Response> getLessonsBySubjectClient(request) async {
         {
           "id": 1,
           "title": "Lesson test 1",
-          "description": "This is lesson 1"
+          "description": "This is the first lesson..."
         },
         {
           "id": 2,
           "title": "Lesson test 2",
-          "description": "This is lesson 2"
+          "description": "This is the second lesson..."
         },
         {
           "id": 3,
           "title": "Lesson test 3",
-          "description": "This is lesson 3"
+          "description": "This is the third lesson.."
         }
       ]
     }
@@ -89,13 +89,29 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "id": 1,
                   "studentMark": 67,
                   "quizTotal": 89,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "A", "B", "A", "D"
+                  ]
                 },
                 {
                   "id": 2,
                   "studentMark": 20,
                   "quizTotal": 40,
-                  "title": "quiz 2"
+                  "title": "quiz 2",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "A", "B", "A", "D"
+                  ]
                 }
               ]
             },
@@ -109,13 +125,29 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "id": 1,
                   "studentMark": 29,
                   "quizTotal": 39,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 },
                 {
                   "id": 2,
                   "studentMark": 12,
                   "quizTotal": 87,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 }
               ]
             }
@@ -137,13 +169,29 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "id": 1,
                   "studentMark": 80,
                   "quizTotal": 100,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 },
                 { 
                   "id": 2,
                   "studentMark": 22,
                   "quizTotal": 48,
-                  "title": "quiz 2"
+                  "title": "quiz 2",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 }
               ]
             },
@@ -157,13 +205,29 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "id": 1,
                   "studentMark": 76,
                   "quizTotal": 80,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 },
                 {
                   "id": 2,
                   "studentMark": 19,
                   "quizTotal": 120,
-                  "title": "quiz 2"
+                  "title": "quiz 2",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 }
               ]
             }
@@ -185,13 +249,29 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "id": 1,
                   "studentMark": 67,
                   "quizTotal": 89,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 },
                 {
                   "id": 2,
                   "studentMark": 20,
                   "quizTotal": 40,
-                  "title": "quiz 2"
+                  "title": "quiz 2",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 }
               ]
             },
@@ -205,13 +285,29 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "id": 1,
                   "studentMark": 29,
                   "quizTotal": 39,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "A", "D"
+                  ]
                 },
                 {
                   "id": 2,
                   "studentMark": 12,
                   "quizTotal": 87,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                  "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "A", "B", "A", "D"
+                  ]
                 }
               ]
             }
@@ -233,13 +329,30 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "id": 1,
                   "studentMark": -1,
                   "quizTotal": -1,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                  "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "A", "B", "A", "D"
+                  ]
+
                 },
                 {
                   "id": 2,
                   "studentMark": -1,
                   "quizTotal": -1,
-                  "title": "quiz 2"
+                  "title": "quiz 2",
+                  "studentAnswers": 
+                  [
+                  "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "A", "B", "A", "D"
+                  ]
                 }
               ]
             },
@@ -253,13 +366,29 @@ Future<http.Response> getGradesByUserClient(request) async {
                   "id": 1,
                   "studentMark": -1,
                   "quizTotal": -1,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                  "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "A", "B", "A", "D"
+                  ]
                 },
                 {
                   "id": 2,
                   "studentMark": -1,
                   "quizTotal": -1,
-                  "title": "quiz 1"
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                  "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "A", "B", "A", "D"
+                  ]
                 }
               ]
             }

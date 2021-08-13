@@ -21,17 +21,38 @@ class GradesQuizPage extends StatefulWidget {
   //passed in from the GradesQuizCard
   final List<Quiz> quizList;
 
-  GradesQuizPage({Key? key, required this.quizList}) : super(key: key);
+  //Holds the list of student answers to be
+  //passed in from the GradesQuizCard
+  // final List<String> studentAnswers;
+
+  // //Holds the list of quizzes to be
+  // //passed in from the GradesQuizCard
+  // final List<String> correctAnswers;
+
+  GradesQuizPage({
+    Key? key,
+    required this.quizList,
+    // required this.correctAnswers,
+    // required this.studentAnswers
+  }) : super(key: key);
 
   @override
-  _GradesQuizState createState() => _GradesQuizState(quizList: this.quizList);
+  _GradesQuizState createState() => _GradesQuizState(
+        quizList: this.quizList,
+        // correctAnswers: this.correctAnswers,
+        // studentAnswers: this.studentAnswers
+      );
 }
 
 class _GradesQuizState extends State<GradesQuizPage> {
   final List<Quiz> quizList;
+  // final List<String> studentAnswers;
+  // final List<String> correctAnswers;
 
   _GradesQuizState({
     required this.quizList,
+    // required this.correctAnswers,
+    // required this.studentAnswers
   });
 
   @override
@@ -60,8 +81,9 @@ class _GradesQuizState extends State<GradesQuizPage> {
               // ),
 
               GridView.count(
-                //This makes 2 cards appear. So effectively two cards per page. (2 rows, 1 card per row)
-                childAspectRatio: MediaQuery.of(context).size.height / 400,
+                //This makes 2 cards appear. So effectively two cards per page.
+                //(2 rows, 1 card per row)
+                childAspectRatio: MediaQuery.of(context).size.height / 300,
                 primary: false,
                 //padding: const EdgeInsets.all(20),
                 crossAxisSpacing: 0,
@@ -78,10 +100,13 @@ class _GradesQuizState extends State<GradesQuizPage> {
                           //Also pass in the lesson title and the overall lesson mark
                           //as a percentage
                           GradesQuizCard(
-                              quizTitle: quiz.title,
-                              studentQuizMark: quiz.studentMark,
-                              quizTotalMark: quiz.quizTotal,
-                              id: quiz.id),
+                        quizTitle: quiz.title,
+                        studentQuizMark: quiz.studentMark,
+                        quizTotalMark: quiz.quizTotal,
+                        id: quiz.id,
+                        studentAnswers: quiz.studentAnswers,
+                        correctAnswers: quiz.correctAnswers,
+                      ),
                     )
                     .toList(),
               ),

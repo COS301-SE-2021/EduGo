@@ -97,8 +97,17 @@ class Quiz {
   @JsonKey(required: true)
   int quizTotal;
 
+  //List of student quiz answers
+  @JsonKey(required: true)
+  List<String> studentAnswers;
+
+  //List of correct quiz answers
+  @JsonKey(required: true)
+  List<String> correctAnswers;
+
   //Quiz constructor
-  Quiz(this.id, this.quizTotal, this.studentMark, this.title);
+  Quiz(this.id, this.quizTotal, this.studentMark, this.title,
+      this.correctAnswers, this.studentAnswers);
 
   //Factory method used in gradesController to map quiz attributes to json
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);

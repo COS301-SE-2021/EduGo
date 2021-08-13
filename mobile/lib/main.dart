@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         routes: {
           DetectMarkerPage.id: (context) => DetectMarkerPage(),
           GradesSubjectPage.id: (context) => GradesSubjectPage(),
-          HomePage.id: (context) => HomePage(),
+          HomePage.id: (context) => SubjectsPage(),
           //LessonsPage.id: (context) => LessonsPage(),
           OrganisationsPage.id: (context) => OrganisationsPage(),
           PreferencesPage.id: (context) => PreferencesPage(),

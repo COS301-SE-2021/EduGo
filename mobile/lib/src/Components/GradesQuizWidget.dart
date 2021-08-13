@@ -26,12 +26,18 @@ class GradesQuizCard extends StatelessWidget {
   //Holds the total mark that the quiz was out of
   final int quizTotalMark;
 
+  final List<String> studentAnswers;
+
+  final List<String> correctAnswers;
+
 //QuizCardConstructor. Takes in 4 arguments
   GradesQuizCard(
       {required this.quizTitle,
       required this.quizTotalMark,
       required this.studentQuizMark,
-      required this.id});
+      required this.id,
+      required this.correctAnswers,
+      required this.studentAnswers});
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +71,8 @@ class GradesQuizCard extends StatelessWidget {
                       id: this.id,
                       studentQuizMark: this.studentQuizMark,
                       quizTotalMark: this.quizTotalMark,
+                      studentAnswers: this.studentAnswers,
+                      correctAnswers: this.correctAnswers,
                     ),
                   ),
                 );
@@ -123,24 +131,24 @@ class GradesQuizCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Text(
-                          "marksDescription",
-                          //"",
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 4,
-                          softWrap: false,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                      ),
-                    ),
+                    // Align(
+                    //   alignment: Alignment.bottomCenter,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.only(top: 15),
+                    //     child: Text(
+                    //       "marksDescription",
+                    //       //"",
+                    //       textAlign: TextAlign.center,
+                    //       overflow: TextOverflow.ellipsis,
+                    //       maxLines: 4,
+                    //       softWrap: false,
+                    //       style: TextStyle(
+                    //           fontSize: 18,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

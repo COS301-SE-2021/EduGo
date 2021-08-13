@@ -53,7 +53,8 @@ class SubjectCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       clipBehavior: Clip.antiAlias,
-      color: Color.fromARGB(255, 97, 211, 87),
+      //color: Color.fromARGB(255, 97, 211, 87),
+      color: Colors.black,
 
       //This allows the card to be clickable so that when clicked,
       // it will go to the lessons for that subject
@@ -70,18 +71,18 @@ class SubjectCard extends StatelessWidget {
           );
         },
         child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.4), BlendMode.hue),
-              image: NetworkImage(
-                  'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
-              // image: AssetImage(
-              //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
-              fit: BoxFit.fill,
-              //alignment: Alignment.center,
-            ),
-          ),
+          // decoration: BoxDecoration(
+          //   image: DecorationImage(
+          //     colorFilter: ColorFilter.mode(
+          //         Colors.black.withOpacity(0.4), BlendMode.hue),
+          //     image: NetworkImage(
+          //         'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+          //     // image: AssetImage(
+          //     //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+          //     fit: BoxFit.fill,
+          //     //alignment: Alignment.center,
+          //   ),
+          // ),
           child: Column(
             //crossAxisAlignment: CrossAxisAlignment.stretch,
             //mainAxisAlignment: MainAxisAlignment.
@@ -89,10 +90,10 @@ class SubjectCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 100, left: 20),
+                  padding: const EdgeInsets.only(top: 150, left: 20),
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 9,
+                    height: MediaQuery.of(context).size.width / 16,
                     // decoration: BoxDecoration(
                     //   border: Border.all(color: Colors.blueAccent),
                     // ),
@@ -108,29 +109,151 @@ class SubjectCard extends StatelessWidget {
                     //       fontWeight: FontWeight.bold,
                     //       color: Colors.black),
                     // ),
-                    child: MaterialButton(
+                    child: Container(
                       //Make the colour of the button the
                       //background of the one chosen from the
                       //if statement done above
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                        side: BorderSide(color: Colors.black),
+                      //color: Colors.white,
+                      // decoration: BoxDecoration(
+                      //   border: Border.all(color: Colors.blueAccent)
+                      //   borderRadius: Border.all(),
+                      // ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
                       ),
-                      onPressed: () {},
+
+                      //   side: BorderSide(color: Colors.black),
+                      // ),
+                      // onPressed: () {},
                       child: Text(
                         //If there is a mark, display it.
                         //Els display the two dashes
                         '$title',
+                        textAlign: TextAlign.center,
                         //textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                        maxLines: 1,
                         softWrap: false,
-                        textAlign: TextAlign.left,
+
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Expanded(
+              //     // child: Align(
+              //     //   alignment: Alignment.centerLeft,
+              //     //   child: Padding(
+              //     //     padding: const EdgeInsets.only(top: 120, left: 20),
+              //     child: Container(
+              //       width: MediaQuery.of(context).size.width / 2,
+              //       height: MediaQuery.of(context).size.height / 20,
+              //       // decoration: BoxDecoration(
+              //       //   border: Border.all(color: Colors.blueAccent),
+              //       // ),
+              //       // color: Colors.white,
+              //       // child: Text(
+              //       //   "English",
+              //       //   textAlign: TextAlign.left,
+              //       //   overflow: TextOverflow.ellipsis,
+              //       //   maxLines: 2,
+              //       //   softWrap: false,
+              //       //   style: TextStyle(
+              //       //       fontSize: 25,
+              //       //       fontWeight: FontWeight.bold,
+              //       //       color: Colors.black),
+              //       // ),
+              //       //child: Container(
+              //       //Make the colour of the button the
+              //       //background of the one chosen from the
+              //       //if statement done above
+              //       color: Colors.white,
+              //       // shape: RoundedRectangleBorder(
+              //       //   borderRadius: BorderRadius.all(
+              //       //     Radius.circular(5),
+              //       //   ),
+              //       //   side: BorderSide(color: Colors.black),
+              //       // ),
+              //       // onPressed: () {},
+
+              //       child: Text(
+              //         //If there is a mark, display it.
+              //         //Els display the two dashes
+              //         '$title',
+              //         textAlign: TextAlign.center,
+              //         //textAlign: TextAlign.left,
+              //         overflow: TextOverflow.ellipsis,
+              //         maxLines: 3,
+              //         softWrap: true,
+
+              //         style: TextStyle(
+              //             fontSize: 20,
+              //             fontWeight: FontWeight.bold,
+              //             color: Colors.black),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              //),
+              //),
+              //),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 20),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.width / 16,
+                    // decoration: BoxDecoration(
+                    //   border: Border.all(color: Colors.blueAccent),
+                    // ),
+                    // color: Colors.white,
+                    // child: Text(
+                    //   "English",
+                    //   textAlign: TextAlign.left,
+                    //   overflow: TextOverflow.ellipsis,
+                    //   maxLines: 2,
+                    //   softWrap: false,
+                    //   style: TextStyle(
+                    //       fontSize: 25,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.black),
+                    // ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                      ),
+                      //Make the colour of the button the
+                      //background of the one chosen from the
+                      //if statement done above
+                      //color: Colors.white,
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.all(
+                      //     Radius.circular(5),
+                      //   ),
+                      //   side: BorderSide(color: Colors.black),
+                      // ),
+                      // onPressed: () {},
+                      child: Text(
+                        //If there is a mark, display it.
+                        //Els display the two dashes
+                        '$educator',
+                        textAlign: TextAlign.center,
+                        //textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: false,
+
+                        style: TextStyle(
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
@@ -180,58 +303,58 @@ class SubjectCard extends StatelessWidget {
               //   ),
               // ),
 
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 9,
-                    // decoration: BoxDecoration(
-                    //   border: Border.all(color: Colors.blueAccent),
-                    // ),
-                    // color: Colors.white,
-                    // child: Text(
-                    //   "English",
-                    //   textAlign: TextAlign.left,
-                    //   overflow: TextOverflow.ellipsis,
-                    //   maxLines: 2,
-                    //   softWrap: false,
-                    //   style: TextStyle(
-                    //       fontSize: 25,
-                    //       fontWeight: FontWeight.bold,
-                    //       color: Colors.black),
-                    // ),
-                    child: MaterialButton(
-                      //Make the colour of the button the
-                      //background of the one chosen from the
-                      //if statement done above
-                      color: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                        side: BorderSide(color: Colors.black),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        //If there is a mark, display it.
-                        //Els display the two dashes
-                        '$educator',
-                        //textAlign: TextAlign.left,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        softWrap: false,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(top: 20, left: 20),
+              //     child: Container(
+              //       width: MediaQuery.of(context).size.width / 2,
+              //       height: MediaQuery.of(context).size.width / 9,
+              //       // decoration: BoxDecoration(
+              //       //   border: Border.all(color: Colors.blueAccent),
+              //       // ),
+              //       // color: Colors.white,
+              //       // child: Text(
+              //       //   "English",
+              //       //   textAlign: TextAlign.left,
+              //       //   overflow: TextOverflow.ellipsis,
+              //       //   maxLines: 2,
+              //       //   softWrap: false,
+              //       //   style: TextStyle(
+              //       //       fontSize: 25,
+              //       //       fontWeight: FontWeight.bold,
+              //       //       color: Colors.black),
+              //       // ),
+              //       child: MaterialButton(
+              //         //Make the colour of the button the
+              //         //background of the one chosen from the
+              //         //if statement done above
+              //         color: Colors.black,
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.all(
+              //             Radius.circular(5),
+              //           ),
+              //           side: BorderSide(color: Colors.white),
+              //         ),
+              //         onPressed: () {},
+              //         child: Text(
+              //           //If there is a mark, display it.
+              //           //Els display the two dashes
+              //           '$educator',
+              //           //textAlign: TextAlign.left,
+              //           overflow: TextOverflow.ellipsis,
+              //           maxLines: 2,
+              //           softWrap: false,
+              //           textAlign: TextAlign.left,
+              //           style: TextStyle(
+              //               fontSize: 18,
+              //               fontWeight: FontWeight.bold,
+              //               color: Colors.white),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               // Align(
               //   alignment: Alignment.bottomLeft,
               //   child: Padding(

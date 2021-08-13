@@ -29,11 +29,11 @@ class GradesQuizSpecificsPage extends StatefulWidget {
   //that the quiz was out of
   final int quizTotalMark;
 
-  //Holds the list of the correct answers
-  //List<answers> correctAnswers;
+  // Holds the list of the correct answers
+  final List<String> correctAnswers;
 
-  //Holds the list of the student answers
-  //List<answers> studentAnswers;
+  // Holds the list of the student answers
+  final List<String> studentAnswers;
 
   //LessonPage constructor
   GradesQuizSpecificsPage(
@@ -41,7 +41,9 @@ class GradesQuizSpecificsPage extends StatefulWidget {
       required this.id,
       required this.studentQuizMark,
       required this.quizTitle,
-      required this.quizTotalMark})
+      required this.quizTotalMark,
+      required this.correctAnswers,
+      required this.studentAnswers})
       : super(key: key);
   // static String id = "lessons";
 
@@ -50,7 +52,9 @@ class GradesQuizSpecificsPage extends StatefulWidget {
       id: this.id,
       quizTotalMark: this.quizTotalMark,
       quizTitle: this.quizTitle,
-      studentQuizMark: this.studentQuizMark);
+      studentQuizMark: this.studentQuizMark,
+      studentAnswers: this.studentAnswers,
+      correctAnswers: this.correctAnswers);
 }
 
 class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
@@ -66,11 +70,21 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
   //Holds the total mark that the quiz was out of
   final int quizTotalMark;
 
+  //Holds the list of student answers to be
+  //passed in from the GradesQuizCard
+  final List<String> studentAnswers;
+
+  //Holds the list of quizzes to be
+  //passed in from the GradesQuizCard
+  final List<String> correctAnswers;
+
   _GradesQuizSpecificsPageState(
       {required this.id,
       required this.quizTitle,
       required this.quizTotalMark,
-      required this.studentQuizMark});
+      required this.studentQuizMark,
+      required this.correctAnswers,
+      required this.studentAnswers});
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +181,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 60),
                 child: Text(
-                  'Lesson Description',
+                  'Your Mark',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   softWrap: false,
@@ -189,9 +203,9 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
             Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.only(top: 25),
+                padding: const EdgeInsets.only(top: 20),
                 child: Text(
-                  'lessonDescription',
+                  '$studentQuizMark',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,
@@ -206,9 +220,9 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
             Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.only(top: 80),
+                padding: const EdgeInsets.only(top: 40),
                 child: Text(
-                  'Lesson Outcomes',
+                  'Quiz overall mark',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   softWrap: false,
@@ -233,8 +247,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                 padding: const EdgeInsets.only(top: 25),
                 child: Text(
                   //lessonOutcomes,
-                  'The outcome of this lesson is to ensure every student' +
-                      'is comfortable with the basics of algebra',
+                  '$quizTotalMark',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,
@@ -274,7 +287,8 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                         //   color: Colors.white,
                         // ),
                         Text(
-                      "Get Started",
+                      "Your answers: ",
+                      //studentAnswers.map((e) => (e)),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20,
