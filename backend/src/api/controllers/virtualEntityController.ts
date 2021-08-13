@@ -30,23 +30,28 @@ import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest
 import passport from "passport";
 import express from "express";
 @Service()
-@Controller("/virtualEntity")
+@JsonController("/virtualEntity")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class VirtualEntityController {
 	@Inject()
 	private service: VirtualEntityService;
 
 	@Post("/createVirtualEntity")
-	@ContentType('application/json')
 	@UseBefore(isUser)
-	CreateVirtualEntity(@Body({ required: true }) body: CreateVirtualEntityRequest, @CurrentUser() id: number) {
+	CreateVirtualEntity(
+		@Body({ required: true }) body: CreateVirtualEntityRequest,
+		@CurrentUser() id: number
+	) {
 		return this.service.CreateVirtualEntity(body, id);
 	}
 
 	@Post("/uploadModel")
 	@UseBefore(isEducator)
-	UploadModel(@UploadedFile("file", { required: true, options: uploadFile }) file: Express.MulterS3.File) {
-	//UploadModel(@Req() req: express.Request, @Res() res: express.Response) {
+	UploadModel(
+		@UploadedFile("file", { required: true, options: uploadFile })
+		file: Express.MulterS3.File
+	) {
+		//UploadModel(@Req() req: express.Request, @Res() res: express.Response) {
 		if (file) {
 			let response: any = {
 				file_name: file.key,
@@ -55,14 +60,14 @@ export class VirtualEntityController {
 				file_link: file.location,
 			};
 			return response;
-		} 
-		else throw new BadRequestError("User is invalid");
+		} else throw new BadRequestError("User is invalid");
 	}
 
 	@Post("/addToVirtualEntity")
 	@UseBefore(isEducator)
 	async AddToVirtualEntity(
-		@UploadedFile("file", { required: true, options: uploadFile }) file: Express.MulterS3.File,
+		@UploadedFile("file", { required: true, options: uploadFile })
+		file: Express.MulterS3.File,
 		@Body({ required: true }) body: AddModelToVirtualEntityRequest
 	) {
 		if (file) {
@@ -93,51 +98,47 @@ export class VirtualEntityController {
 	}
 
 	@Get("/getVirtualEntities")
-	@ContentType('application/json')
 	@UseBefore(isUser)
 	GetVirtualEntities() {
 		return this.service.GetVirtualEntities();
 	}
 
 	@Post("/getVirtualEntity")
-	@ContentType('application/json')
 	@UseBefore(isUser)
 	GetVirtualEntity(@Body({ required: true }) body: GetVirtualEntityRequest) {
 		return this.service.GetVirtualEntity(body);
 	}
 
 	@Post("/answerQuiz")
-	@ContentType('application/json')
 	@UseBefore(isUser)
 	AnswerQuiz(
 		@Body({ required: true }) body: AnswerQuizRequest,
-		@CurrentUser({ required: true }) id:number
+		@CurrentUser({ required: true }) id: number
 	) {
-		console.log("bodyyyyy   ",body)
+		console.log("bodyyyyy   ", body);
 		return this.service.AnswerQuiz(body, id);
 	}
 
 	@Post("/togglePublic")
-	@ContentType('application/json')
 	@UseBefore(isEducator)
-	TogglePublic(@Body({ required: true }) body: TogglePublicRequest, @CurrentUser({ required: true }) id: number) {
-		return this.service.TogglePublic(body,id);
+	TogglePublic(
+		@Body({ required: true }) body: TogglePublicRequest,
+		@CurrentUser({ required: true }) id: number
+	) {
+		return this.service.TogglePublic(body, id);
 	}
 
 	@Post("/getPublicVirtualEntities")
-	@ContentType('application/json')
 	@UseBefore(isEducator)
 	GetPublicVirtualEntities() {
 		return this.service.GetPublicVirtualEntities();
 	}
 
 	@Post("/getPrivateVirtualEntities")
-	@ContentType('application/json')
 	@UseBefore(isEducator)
-	GetPrivateVirtualEntities(@CurrentUser({ required: true }) id:number) {
+	GetPrivateVirtualEntities(@CurrentUser({ required: true }) id: number) {
 		return this.service.GetPrivateVirtualEntities(id);
 	}
-
 }
 
 //TODO add endpoint to make snapshot of 3d model
