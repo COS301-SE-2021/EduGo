@@ -5,9 +5,12 @@ class UpdateVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityController],
+      controllers: [VirtualEntityApiController],
       builder: (context, snapshot) {
         return PageLayout(
+          top: 50,
+          left: 150,
+          right: 150,
           child: Stack(
             children: [
               Row(
@@ -25,7 +28,7 @@ class UpdateVirtualEntityView extends StatelessWidget {
                   Align(
                     alignment: Alignment.topRight,
                     child: VirtualEntityButton(
-                        text: "Delete Entity",
+                        child: Text("Delete Entity"),
                         onPressed: () {},
                         width: 200,
                         height: 50),
@@ -80,7 +83,7 @@ class UpdateVirtualEntityView extends StatelessWidget {
                               Column(
                                 children: [
                                   VirtualEntityButton(
-                                      text: "Change 3D Model",
+                                      child: Text("Change 3D Model"),
                                       onPressed: () {},
                                       width: 400,
                                       height: 65),
@@ -88,7 +91,7 @@ class UpdateVirtualEntityView extends StatelessWidget {
                                     height: 60,
                                   ),
                                   VirtualEntityButton(
-                                      text: "Print Marker",
+                                      child: Text("Print Marker"),
                                       onPressed: () {},
                                       width: 400,
                                       height: 65)
@@ -101,7 +104,7 @@ class UpdateVirtualEntityView extends StatelessWidget {
                       height: 50,
                     ),
                     VirtualEntityButton(
-                        text: "Update Virtual Entity",
+                        child: Text("Update Virtual Entity"),
                         onPressed: () {},
                         width: 400,
                         height: 65),

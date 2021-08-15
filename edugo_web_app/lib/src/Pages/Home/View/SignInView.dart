@@ -5,27 +5,27 @@ class SignInView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: Row(
-        children: <Widget>[
-          MaterialButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CreateVirtualEntityView()),
-                );
-              },
-              child: Text("Sign In")),
-          MaterialButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
-              child: Text("<< Back"))
-        ],
-      )),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              Color.fromRGBO(20, 195, 50, 1.0),
+              Color.fromRGBO(11, 36, 54, 1.0)
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: SignInContent(),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,46 +1,49 @@
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/VirtualEntityWidgets.dart';
-import 'package:flutter/material.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class DesktopLeftContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Material(
-              elevation: 40,
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: VirtualEntityInputBox(text: "Entity Name..."))),
-          SizedBox(
-            height: 30,
-          ),
-          Material(
-            elevation: 40,
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: VirtualEntityMultiLine(
-                text: "Entity description...",
+    return MomentumBuilder(
+      controllers: [VirtualEntityApiController],
+      builder: (context, snapshot) {
+        return Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Material(
+                  elevation: 40,
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    child: VirtualEntityInputBox(
+                      text: "Entity Name...",
+                      onChanged:
+                          Momentum.controller<ViewBoundVirtualEntityController>(
+                                  context)
+                              .inputName,
+                    ),
+                  )),
+              SizedBox(
+                height: 30,
               ),
-            ),
+              Material(
+                elevation: 40,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: VirtualEntityMultiLine(
+                    text: "Entity description...",
+                    onChanged:
+                        Momentum.controller<ViewBoundVirtualEntityController>(
+                                context)
+                            .inputDescription,
+                  ),
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            height: 40,
-          ),
-          VirtualEntityButton(
-              elevation: 40,
-              text: "Create Virtual Entity",
-              onPressed: () {},
-              width: 450,
-              height: 65),
-        ],
-      ),
+        );
+      },
     );
   }
 }

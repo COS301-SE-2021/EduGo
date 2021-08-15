@@ -4,9 +4,11 @@ import 'package:edugo_web_app/src/Components/Navigation/NavBar.dart';
 import 'package:flutter/material.dart';
 
 class PageLayout extends StatelessWidget {
-  PageLayout({
-    this.child,
-  });
+  final double left;
+  final double right;
+  final double top;
+
+  PageLayout({this.child, this.left, this.right, this.top});
   final Widget child;
 
   @override
@@ -21,7 +23,7 @@ class PageLayout extends StatelessWidget {
           builder: (context, constraints) {
             if (constraints.maxWidth > 1199) {
               return Container(
-                padding: EdgeInsets.only(top: 50, left: 150, right: 150),
+                padding: EdgeInsets.only(top: top, left: left, right: right),
                 child: child,
                 margin: EdgeInsets.only(left: 100, top: 100),
                 width: MediaQuery.of(context).size.width - 100,

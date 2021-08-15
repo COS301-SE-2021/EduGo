@@ -10,23 +10,38 @@ void main() {
     Momentum(
       //* controllers used withing the application
       controllers: [
-        VirtualEntityController(),
+        VirtualEntityApiController(),
+        SubjectController(),
+        LessonController(),
+        ViewBoundVirtualEntityController(),
+        QuizBuilderController(),
+        OrganisationController(),
+        SessionController(),
+        CurrentOrganisationController(),
+        InviteEducatorController(),
+        InviteStudentController()
       ],
       services: [
         MomentumRouter(
           [
             //* All pages that the Router is going to use
             Home(),
+            EducatorVirtualEntitiesView(),
+            InviteEducatorView(), InviteStudentView(),
             CreateVirtualEntityView(),
             VirtualEntityStoreView(),
             ViewVirtualEntityView(),
             UpdateVirtualEntityView(),
             CreateSubjectView(),
             SubjectsView(),
+            CreateLessonView(),
             UpdateSubjectView(),
             CreateSubjectView(),
             LessonsView(),
             UpdateLessonView(),
+            SignInView(),
+            CreateOrganisationView(),
+            OrganisationDashboardView(),
           ],
         ),
       ],

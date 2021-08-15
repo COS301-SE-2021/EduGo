@@ -1,52 +1,55 @@
-import 'package:edugo_web_app/src/Components/Components.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/VirtualEntityWidgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class DesktopRightContainer extends StatefulWidget {
-  @override
-  State<DesktopRightContainer> createState() => _DesktopRightContainerState();
-}
-
-class _DesktopRightContainerState extends State<DesktopRightContainer> {
-  bool modelVisible = false;
-
+class DesktopRightContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: ScreenUtil().setWidth(230),
-      child: !modelVisible
-          ? Center(
-              child: VirtualEntityButton(
-                  elevation: 40,
-                  text: "Upload 3D Model",
-                  onPressed: () {
-                    setState(() {
-                      modelVisible = !modelVisible;
-                    });
-                  },
-                  width: ScreenUtil().setWidth(400),
-                  height: 60),
-            )
-          : Column(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
+    return MomentumBuilder(
+      controllers: [
+        VirtualEntityApiController,
+        ViewBoundVirtualEntityController
+      ],
+      builder: (context, snapshot) {
+        var entity = snapshot<ViewBoundVirtualEntity>();
+        return Container(
+          width: ScreenUtil().setWidth(230),
+          child: ('${entity.viewBoundVirtualEntity3dModelLink}' == "null")
+              ? Center(
                   child: VirtualEntityButton(
-                      text: "Discard 3D Model",
+                      elevation: 40,
+                      child: Text(
+                        "Upload 3D Model",
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: () {
-                        setState(
-                          () {
-                            modelVisible = !modelVisible;
-                          },
-                        );
+                        Momentum.controller<ViewBoundVirtualEntityController>(
+                                context)
+                            .upload3dModel(context);
                       },
-                      width: ScreenUtil().setWidth(200),
-                      height: 50),
+                      width: ScreenUtil().setWidth(400),
+                      height: 60),
+                )
+              : Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: VirtualEntityButton(
+                          child: Text(
+                            "Discard 3D Model",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            Momentum.controller<
+                                    ViewBoundVirtualEntityController>(context)
+                                .clearLinkTo3DModel();
+                          },
+                          width: ScreenUtil().setWidth(200),
+                          height: 50),
+                    ),
+                    Viewer(),
+                  ],
                 ),
-                Viewer(),
-              ],
-            ),
+        );
+      },
     );
   }
 }

@@ -66,24 +66,6 @@ class DesktopNavBar extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
                     //*
-                    //* Lessons Icon
-                    //*
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        child: Icon(Icons.summarize_outlined,
-                            size: 30, color: Colors.white),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LessonsView()),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    //*
                     //* Create VirtualEntity Icon
                     //*
                     MouseRegion(
@@ -92,12 +74,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.view_in_ar_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    CreateVirtualEntityView()),
-                          );
+                          MomentumRouter.goto(context, CreateVirtualEntityView);
                         },
                       ),
                     ),
@@ -111,11 +88,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.store_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => VirtualEntityStoreView()),
-                          );
+                          MomentumRouter.goto(context, VirtualEntityStoreView);
                         },
                       ),
                     ),
@@ -123,21 +96,16 @@ class DesktopNavBar extends StatelessWidget {
                     //*
                     //* Grades Icon
                     //*
-                    // MouseRegion(
-                    //   cursor: SystemMouseCursors.click,
-                    //   child: GestureDetector(
-                    //     child: Icon(Icons.school_outlined,
-                    //         size: 30, color: Colors.white),
-                    //     onTap: () {
-                    //       Navigator.push(
-                    //         context,
-                    //         MaterialPageRoute(
-                    //             builder: (context) =>
-                    //                 UpdateVirtualEntityView()),
-                    //       );
-                    //     },
-                    //   ),
-                    // )
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        child: Icon(Icons.school_outlined,
+                            size: 30, color: Colors.white),
+                        onTap: () {
+                          MomentumRouter.goto(context, UpdateVirtualEntityView);
+                        },
+                      ),
+                    )
                   ]),
                   //*
                   //* Settings Icon
@@ -147,13 +115,7 @@ class DesktopNavBar extends StatelessWidget {
                     child: GestureDetector(
                       child: Icon(Icons.settings_outlined,
                           size: 30, color: Colors.white),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CreateVirtualEntityView()),
-                        );
-                      },
+                      onTap: () {},
                     ),
                   )
                 ],

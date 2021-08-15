@@ -1,20 +1,34 @@
-//Todo: Make use of PrintMarker function in the lesson page, once the lesson has been fully created
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-/*  
-void printMarker() async {
-    final image = await QrPainter(
-      data:
-          "Cars Man!! Cars, Jokes. Music!!!!!, we'll actually get this info from the controller , dont stress ",
-      version: QrVersions.auto,
-      errorCorrectionLevel: QrErrorCorrectLevel.Q,
-    ).toImageData(500);
-    final blob = Blob([image]);
-    final url = Url.createObjectUrlFromBlob(blob);
-    final anchor = document.createElement('a') as AnchorElement
-      ..href = url
-      ..style.display = 'none'
-      ..download = 'getName().png';
-    document.body.children.add(anchor);
-    anchor.click();
-    anchor.remove();
-  }*/
+class LessonController extends MomentumController<LessonModel> {
+  @override
+  LessonModel init() {
+    return LessonModel(this,
+        viewBoundLesson: Lesson(), currentLesson: Lesson());
+  }
+
+  void setViewBoundLessonTitle(String lessonTitle) {
+    model.setViewBoundLessonTitle(lessonTitle: lessonTitle);
+  }
+
+  void setViewBoundLessonDescription(String lessonDescription) {
+    model.setViewBoundLessonDescription(lessonDescription: lessonDescription);
+  }
+
+  void setViewBoundLessonSubjectId(String lessonSubjectId) {
+    model.setViewBoundLessonSubjectId(lessonSubjectID: lessonSubjectId);
+  }
+
+  Future createLesson(context) async {
+    MomentumRouter.goto(context, LessonsView);
+    var currentSubjectController = controller<SubjectController>();
+    var url = Uri.parse('http://localhost:8080/lesson/createLesson');
+    await post(url, headers: {
+      'contentType': 'application/json',
+    }, body: {
+      "title": model.viewBoundLesson.getLessonTitle(),
+      "description": model.viewBoundLesson.getLessonDescription(),
+      "subjectId": currentSubjectController.getCurrentSubjectId()
+    }).then((value) => {MomentumRouter.goto(context, SubjectsView)});
+  }
+}

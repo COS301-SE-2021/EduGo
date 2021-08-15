@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
 class VirtualEntityMultiLine extends StatelessWidget {
+  final Function onChanged;
   final String text;
-  const VirtualEntityMultiLine({Key key, this.text}) : super(key: key);
+  const VirtualEntityMultiLine({Key key, this.onChanged, this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 370,
       child: TextField(
+        onChanged: (value) {
+          onChanged(value);
+        },
         cursorColor: Color.fromARGB(255, 97, 211, 87),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
