@@ -16,6 +16,30 @@ EduGo is an educational system that aims to shape and influence the future of ed
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/EduGo?label=Pull%20Requests)](https://github.com/COS301-SE-2021/EduGo/pulls)
 ![GitHub API Build](https://img.shields.io/github/workflow/status/COS301-SE-2021/EduGo/API%20Build?label=API%20Build)
 
+## GitHub Structure
+
+### Branching Strategy
+
+master ( build )
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop - backend ( build )
+</br>
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-backend−feature 
+</br>
+
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop - mobile ( build )
+</br>
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-mobile−feature 
+</br>
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop - web ( build )
+</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop- web− feature 
+</br>
+
 ## Recorded Demo 1 Video
 https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing
 ## Recorded Demo 2 video
