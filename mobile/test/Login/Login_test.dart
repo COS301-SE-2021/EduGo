@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
+import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:momentum/momentum.dart';
 
@@ -540,12 +541,17 @@ void _testLoginButtonWidget() {
   group('Login Button', () {
     testWidgets('should initiate and render successfully.',
         (WidgetTester tester) async {
-      final widget = momentum();
+      final widget = Momentum(
+          child: MaterialApp(
+            home: LoginPage(Key('login_page')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
       await tester.pumpWidget(widget);
-      //repeatedly triggers a rebuild of the widget when the state changes.
       await tester.pumpAndSettle();
 
-      //find username input
+      //find button
       final loginButtonFinder = find.byKey(Key('login_button'));
       //test result
       expect(loginButtonFinder, findsOneWidget);
@@ -554,16 +560,25 @@ void _testLoginButtonWidget() {
     testWidgets(
         'should successfully respond to user interaction (tap button) but fail to navigate to next page (as no form fields were filled) and return error strings.',
         (WidgetTester tester) async {
-      final widget = momentum();
+      final widget = Momentum(
+          child: MaterialApp(
+            home: LoginPage(Key('login_page')),
+          ),
+          controllers: [
+            UserController(),
+          ]);
       await tester.pumpWidget(widget);
-      await tester.pumpAndSettle();
 
       // Tap the login button.
       await tester.tap(find.byKey(Key('login_button')));
-      // find error message
+      await tester.pumpAndSettle();
+      // find error messages
+      final errorPopupFinder =
+          find.text('Invalid data: Please fill in all the fields correctly.');
       final textErrorFinder = find.text('* Required');
       // Expect to find 2 error messages for both unfilled form fields.
       expect(textErrorFinder, findsNWidgets(2));
+      expect(errorPopupFinder, findsOneWidget);
     });
 
     //TODO test login API function

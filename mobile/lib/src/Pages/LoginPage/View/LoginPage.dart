@@ -9,8 +9,8 @@ import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
-  final key = Key('login_page');
+  LoginPage(this.key) : super(key: key);
+  Key key = Key('login_page');
   static String id = 'login';
 
   @override
@@ -34,22 +34,39 @@ class _LoginPageState extends State<LoginPage> {
 
   //Snackbar widget that displays login error
   late SnackBar error_snackbar;
-
+  /*
+  if (_formKey.currentState!.validate()) {
+                  // If the form is valid, display a snackbar. In the real world,
+                  // you'd often call a server or save the information in a database.
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Data')),
+                  );
+                }
+              }
+  */
   // Function called when login button pressed
   void _submitForm(userController) async {
-    if (await userController.login(
-            username: username_text_controller.text,
-            password: password_text_controller.text) ==
-        true) {
-      // Leads to home page
-      MomentumRouter.goto(context, HomePage, transition: (context, page) {
-        return MaterialPageRoute(builder: (context) => page);
-      });
-      return;
+    if (_loginFormKey.currentState!.validate()) {
+      if (await userController.login(
+              username: username_text_controller.text,
+              password: password_text_controller.text) ==
+          true) {
+        // Leads to home page
+        MomentumRouter.goto(context, HomePage, transition: (context, page) {
+          return MaterialPageRoute(builder: (context) => page);
+        });
+        return;
+      }
+      // Unsuccessful login: clear fields and display error
+      _clearInputFields();
+      _showSnackbar('Unverified');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content:
+                Text('Invalid data: Please fill in all the fields correctly.')),
+      );
     }
-    // Unsuccessful login: clear fields and display error
-    _clearInputFields();
-    _showSnackbar('Unverified');
   }
 
   void _clearInputFields() {
@@ -213,6 +230,7 @@ class _LoginPageState extends State<LoginPage> {
           left: 30,
         ),
         child: MaterialButton(
+          key: Key('login_button'),
           onPressed: () => _submitForm(userController),
           height: 60,
           color: Colors.black,
@@ -258,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
 
     Widget child = Scaffold(
         body: Form(
-            key: _scaffoldKey,
+            key: _loginFormKey,
             child: Stack(key: Key('login_form'), children: <Widget>[
               Container(
                   height: MediaQuery.of(context).size.height,
