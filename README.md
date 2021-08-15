@@ -1,4 +1,13 @@
-# EduGo
+<-- Logo -->
+
+<br />
+<div style="background: #ffffff">
+<p align="center">
+  <a href="https://github.com/COS301-SE-2021/EduGo">
+    <img src="https://images.app.goo.gl/2TQvY5mRAes39YkP8" alt="Logo" width="150" height="80">
+  </a>
+</div>
+<h1 align="center">EduGo</h1>
 
 ## Description 
 EduGo is an educational system that aims to shape and influence the future of education throughthe use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and virtual entities.
