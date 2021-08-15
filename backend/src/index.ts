@@ -74,7 +74,7 @@ createConnection(options)
 		console.log(err);
 	});
 
-let app = express()
+export let app = express()
 app.use('/virtualEntity', FileRouter);
 
 useExpressServer(app, {

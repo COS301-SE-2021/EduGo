@@ -9,12 +9,13 @@
 		"dev": "nodemon -L src/index.ts",
 		"watch-node": "nodemon dist/index.js",
 		"watch-ts": "tsc -w",
-		"test": "NODE_ENV=test jest"
+		"test": "jest"
 	},
 	"author": "Gang of Five",
 	"license": "ISC",
 	"dependencies": {
 		"aws-sdk": "^2.929.0",
+		"body-parser": "^1.19.0",
 		"class-transformer": "^0.3.1",
 		"class-validator": "^0.12.2",
 		"cors": "^2.8.5",
