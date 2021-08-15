@@ -1,12 +1,11 @@
-<-- Logo -->
+
 
 <br />
-<div style="background: #ffffff">
+
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
-    <img src="https://cinoptics.com/wp-content/uploads/2014/05/5DT-logo1.jpg" alt="Logo" width="500" height="250">
+    <img src="https://cinoptics.com/wp-content/uploads/2014/05/5DT-logo1.jpg" alt="Logo" width="600" height="300">
   </a>
-</div>
 <h1 align="center">EduGo</h1>
 
 ## Description 
