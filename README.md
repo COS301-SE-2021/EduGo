@@ -1,7 +1,7 @@
 # EduGo
 
 ## Description 
-Gang of five - EduGo - EduGo is an educational system that aims to shape and influence the future of education throughthe use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and virtual entities.
+EduGo is an educational system that aims to shape and influence the future of education throughthe use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and virtual entities.
 
 ## Code Quality
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/EduGo?label=Pull%20Requests)](https://github.com/COS301-SE-2021/EduGo/pulls)
