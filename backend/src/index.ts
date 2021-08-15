@@ -23,6 +23,7 @@ import { UserController } from "./api/controllers/userController";
 import { VirtualEntityController } from "./api/controllers/virtualEntityController";
 import express from "express";
 import {router as FileRouter} from "./api/controllers/FileController";
+import { NodemailerService } from "./api/helper/email/NodemailerService";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
@@ -90,6 +91,12 @@ useExpressServer(app, {
 	],
 	currentUserChecker: (action: Action) => action.request.user_id,
 });
+
+
+let nodemailer = new NodemailerService(); 
+
+nodemailer.sendOneEmail("simekani.mabambe@gmail.com","Simekani", "23445" );
+
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
 

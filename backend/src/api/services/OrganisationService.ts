@@ -16,7 +16,7 @@ import {
 
 import { Subject } from "../database/Subject";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
-import { AuthService } from "./AuthService";
+import  AuthService  from "./AuthService";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { Inject, Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
