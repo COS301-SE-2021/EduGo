@@ -5,25 +5,27 @@ import 'package:momentum/momentum.dart';
 import 'Nav/Side/View/SideBar.dart';
 
 class MobilePageLayout extends StatefulWidget {
-  const MobilePageLayout(
-      this.isSideBarVisible, this.isBottomBarVisible, this.child);
+  const MobilePageLayout(this.isSideBarVisible, this.isBottomBarVisible,
+      this.child, this.appBarTitle);
   final Widget child;
   final bool isSideBarVisible;
   final bool isBottomBarVisible;
+  final String appBarTitle;
 
   @override
-  MobilePageLayoutState createState() =>
-      MobilePageLayoutState(isSideBarVisible, isBottomBarVisible, child);
+  MobilePageLayoutState createState() => MobilePageLayoutState(
+      isSideBarVisible, isBottomBarVisible, child, appBarTitle);
 }
 
 class MobilePageLayoutState extends State<MobilePageLayout> {
   //this layout determines the child (page content displayed) and whether or not
   //the nav bars (side and/or bottom) will be displayed.
-  MobilePageLayoutState(
-      this.isSideBarVisible, this.isBottomBarVisible, this.child);
+  MobilePageLayoutState(this.isSideBarVisible, this.isBottomBarVisible,
+      this.child, this.appBarTitle);
   Widget child;
   bool isSideBarVisible;
   bool isBottomBarVisible;
+  String appBarTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
               onPressed: () {
                 MomentumRouter.pop(context);
               }),
-          title: Text('EduGo'),
+          title: Text(appBarTitle),
           backgroundColor: Color.fromARGB(255, 97, 211, 87),
         ),
         backgroundColor: Colors.white,
@@ -50,7 +52,7 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
       return Scaffold(
         drawer: SideBar(),
         appBar: AppBar(
-          title: Text('EduGo'),
+          title: Text(appBarTitle),
           backgroundColor: Color.fromARGB(255, 97, 211, 87),
         ),
         backgroundColor: Colors.white,
@@ -62,7 +64,7 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
     if (!isSideBarVisible & isBottomBarVisible) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('EduGo'),
+          title: Text(appBarTitle),
           backgroundColor: Color.fromARGB(255, 97, 211, 87),
         ),
         backgroundColor: Colors.white,
@@ -75,7 +77,7 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
     return Scaffold(
       drawer: SideBar(),
       appBar: AppBar(
-        title: Text('EduGo'),
+        title: Text(appBarTitle),
         backgroundColor: Color.fromARGB(255, 97, 211, 87),
       ),
       backgroundColor: Colors.white, //go to that page

@@ -106,6 +106,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
             );
         },
       ),
+      'Subjects',
     );
   }
 }

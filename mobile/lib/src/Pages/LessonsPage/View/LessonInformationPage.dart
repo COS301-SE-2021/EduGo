@@ -196,6 +196,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
           ],
         ),
       ),
+      'Lesson Information Page',
     );
   }
 }

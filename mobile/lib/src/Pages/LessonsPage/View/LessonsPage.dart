@@ -142,6 +142,7 @@ class _LessonsPageState extends State<LessonsPage> {
             );
         },
       ),
+      'Lessons',
     );
   }
 }

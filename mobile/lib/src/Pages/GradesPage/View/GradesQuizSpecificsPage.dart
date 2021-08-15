@@ -265,6 +265,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
           ],
         ),
       ),
+      'Grades Quiz Specific Page',
     );
   }
 }

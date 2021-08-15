@@ -109,6 +109,7 @@ class _GradesQuizState extends State<GradesQuizPage> {
           ),
         ),
       ),
+      'Grades Quiz Page',
     );
   }
 }
