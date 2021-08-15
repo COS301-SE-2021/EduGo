@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/Nav/Bottom/View/bottom_bar.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/BottomBarView.dart';
+import 'package:momentum/momentum.dart';
+
 import 'Nav/Side/View/SideBar.dart';
 
 class MobilePageLayout extends StatefulWidget {
@@ -25,8 +27,6 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
 
   @override
   Widget build(BuildContext context) {
-    print(isBottomBarVisible);
-    print(isSideBarVisible);
     //bottom and side nav not displayed
     if (!isSideBarVisible & !isBottomBarVisible) {
       return Scaffold(
@@ -34,7 +34,7 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
           leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
-                Navigator.pop(context);
+                MomentumRouter.pop(context);
               }),
           title: Text('EduGo'),
           backgroundColor: Color.fromARGB(255, 97, 211, 87),

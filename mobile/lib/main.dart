@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Nav/Bottom/Controller/BottomBarController.dart';
+import 'package:mobile/src/Components/User/Controller/UserController.dart';
+import 'package:mobile/src/Components/User/Service/UserService.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
+import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
+import 'package:mobile/src/Pages/HomePage/Service/HomeService.dart';
+import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
+import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
+import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
+import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
@@ -24,6 +35,26 @@ Momentum momentum({bool mock = true}) {
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
       GradesController(mock: mock)
+      BottomBarController(),
+      UserController(mock: mock),
+      HomeController(mock: mock)
+    ],
+    services: [
+      UserApiService(), HomeService(),
+      //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
+      MomentumRouter([
+        LoginPage(),
+        DetectMarkerPage(),
+        GradesPage(),
+        HomePage(Key('homePageKey')),
+        LessonsPage(),
+        OrganisationsPage(),
+        PreferencesPage(),
+        RegistrationPage(Key('registrationPageKey')),
+        RegistrationVerificationPage(Key('registration_verification')),
+        SettingsPage(),
+        SubjectsPage(),
+      ]),
     ],
   );
 }
@@ -33,23 +64,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'EduGo',
-        theme: ThemeData(
-            primaryColor: Color.fromARGB(255, 97, 211, 87),
-            primarySwatch: Colors.blue,
-            fontFamily: "Montserrat"),
-
-        //Navigate application using named routes
-        initialRoute: HomePage.id,
-        routes: {
-          DetectMarkerPage.id: (context) => DetectMarkerPage(),
-          GradesSubjectPage.id: (context) => GradesSubjectPage(),
-          HomePage.id: (context) => SubjectsPage(),
-          //LessonsPage.id: (context) => LessonsPage(),
-          OrganisationsPage.id: (context) => OrganisationsPage(),
-          PreferencesPage.id: (context) => PreferencesPage(),
-          SettingsPage.id: (context) => SettingsPage(),
-          SubjectsPage.id: (context) => SubjectsPage(),
-        });
+      title: 'EduGo',
+      theme: ThemeData(
+          primaryColor: Color.fromARGB(255, 97, 211, 87),
+          primarySwatch: Colors.blue,
+          fontFamily: "Montserrat"),
+      //Get the active widget from the router. This is the initial widget when the app starts.
+      home: MomentumRouter.getActivePage(context),
+    );
   }
 }
