@@ -7,6 +7,7 @@
     <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200">
   </a>
 <h1 align="center">EduGo</h1>
+<h2 align="center">Gang of Five</h2>
 
 ## Description 
 EduGo is an educational system that aims to shape and influence the future of education throughthe use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and virtual entities.
