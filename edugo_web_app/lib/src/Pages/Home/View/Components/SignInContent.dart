@@ -5,7 +5,6 @@ class SignInContent extends StatelessWidget {
   List<Widget> pageChildren(double width, context, bool spacer) {
     return <Widget>[
       SizedBox(
-        height: MediaQuery.of(context).size.height,
         child: Padding(
           padding: const EdgeInsets.only(top: 100.0, bottom: 100.0),
           child: Material(

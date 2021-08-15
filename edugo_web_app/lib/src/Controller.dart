@@ -17,5 +17,5 @@ export 'package:edugo_web_app/src/Pages/Home/Controller/CurrentOrganisationContr
 export 'package:edugo_web_app/src/Pages/Home/Controller/SessionController.dart';
 
 // * Organisation Exports
-export 'package:edugo_web_app/src/Pages/Organisation/Controller/EducatorController.dart';
-export 'package:edugo_web_app/src/Pages/Organisation/Controller/StudentController.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/Controller/InviteEducatorController.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/Controller/InviteStudentsController.dart';

@@ -39,7 +39,7 @@ class SessionController extends MomentumController<SessionModel> {
 
   Future<String> loginUser({context, String organisationId}) async {
     String loginResponse;
-
+    MomentumRouter.goto(context, OrganisationDashboardView);
     if (model.getLoginUserName() != null &&
         model.getLoginPassword() != null &&
         model.getLoginUserName() != "" &&

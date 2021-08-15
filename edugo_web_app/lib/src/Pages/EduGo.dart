@@ -39,3 +39,4 @@ export 'package:momentum/momentum.dart';
 export 'package:edugo_web_app/src/Pages/Subject/Model/Data/SubjectDataObjects.dart';
 export 'package:time_range/time_range.dart';
 export 'package:edugo_web_app/src/Pages/Lesson/Model/Data/LessonDataObjects.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/View/Widgets/OrganisationWidgets.dart';

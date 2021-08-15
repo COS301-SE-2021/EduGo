@@ -17,7 +17,9 @@ void main() {
         QuizBuilderController(),
         OrganisationController(),
         SessionController(),
-        CurrentOrganisationController()
+        CurrentOrganisationController(),
+        InviteEducatorController(),
+        InviteStudentController()
       ],
       services: [
         MomentumRouter(
@@ -25,6 +27,7 @@ void main() {
             //* All pages that the Router is going to use
             Home(),
             EducatorVirtualEntitiesView(),
+            InviteEducatorView(), InviteStudentView(),
             CreateVirtualEntityView(),
             VirtualEntityStoreView(),
             ViewVirtualEntityView(),

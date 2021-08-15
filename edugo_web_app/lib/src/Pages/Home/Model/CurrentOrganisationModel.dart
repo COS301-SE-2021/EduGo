@@ -37,6 +37,7 @@ class CurrentOrganisationModel
       organisationName,
       organisationEmail,
       organisationId,
+      educatorViewOrStudentView,
       subjects}) {
     CurrentOrganisationModel(controller,
             organisationId: organisationId ?? this.organisationId,

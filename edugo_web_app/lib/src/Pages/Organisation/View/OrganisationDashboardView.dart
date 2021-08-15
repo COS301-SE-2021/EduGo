@@ -5,6 +5,7 @@ class OrganisationDashboardView extends StatelessWidget {
     return MomentumBuilder(
         controllers: [CurrentOrganisationController],
         builder: (context, snapshot) {
+          var currentOrganisation = snapshot<CurrentOrganisationModel>();
           return PageLayout(
             top: 0,
             left: 0,
@@ -18,101 +19,146 @@ class OrganisationDashboardView extends StatelessWidget {
                       top: 0,
                     ),
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 80.0, bottom: 70, left: 100),
-                        child: Text(
-                          "Welcome to University of Pretoria",
-                          style: TextStyle(
-                            fontSize: 40,
+                      StickyHeader(
+                        header: Material(
+                          elevation: 40,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            padding: EdgeInsets.only(
+                                right: 50, left: 100, top: 25, bottom: 25),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Container(
+                                        padding: EdgeInsets.only(
+                                          bottom:
+                                              5, // Space between underline and text
+                                        ),
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Color.fromARGB(
+                                                  255, 97, 211, 87),
+                                              width: 4.0, // Underline thickness
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          currentOrganisation.organisationName,
+                                          style: TextStyle(
+                                            fontSize: 35,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    SubjectButton(
+                                      onPressed: () {
+                                        MomentumRouter.goto(
+                                            context, InviteStudentView);
+                                      },
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(width: 15),
+                                          Text(
+                                            "Invite Students",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      width: 230,
+                                      height: 60,
+                                    ),
+                                    SizedBox(
+                                      width: ScreenUtil().setWidth(40),
+                                    ),
+                                    SubjectButton(
+                                      onPressed: () {
+                                        MomentumRouter.goto(
+                                            context, InviteEducatorView);
+                                      },
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(width: 15),
+                                          Text(
+                                            "Invite Educators",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      width: 230,
+                                      height: 60,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(right: 100, left: 100),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Material(
-                              elevation: 40,
-                              borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                  height: 110,
-                                  padding: EdgeInsets.only(
-                                      right: 20,
-                                      left: 100,
-                                      top: 25,
-                                      bottom: 25),
-                                  child: Container(
-                                    child: Text(
-                                      "Invite Educator",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  )),
-                            ),
-                            Spacer(),
-                            Material(
-                              elevation: 40,
-                              borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                  height: 110,
-                                  padding: EdgeInsets.only(
-                                      right: 20,
-                                      left: 100,
-                                      top: 25,
-                                      bottom: 25),
-                                  child: Container(
-                                    child: Text(
-                                      "Invite Student",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  )),
-                            ),
-                            Spacer(),
-                            Material(
-                              elevation: 40,
-                              borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                  height: 110,
-                                  padding: EdgeInsets.only(
-                                      right: 20,
-                                      left: 100,
-                                      top: 25,
-                                      bottom: 25),
-                                  child: Container(
-                                    child: Text(
-                                      "Manage Educators",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  )),
-                            ),
-                            Spacer(),
-                            Material(
-                              elevation: 40,
-                              borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                  height: 110,
-                                  padding: EdgeInsets.only(
-                                      right: 20,
-                                      left: 100,
-                                      top: 25,
-                                      bottom: 25),
-                                  child: Container(
-                                    child: Text(
-                                      "Manage Virtual Entities",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                  )),
-                            )
-                          ],
+                        content: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 100),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 50,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Educators",
+                                  style: TextStyle(
+                                    fontSize: 32,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              EducatorCard(
+                                admin: true,
+                              ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              EducatorCard(
+                                admin: false,
+                              ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              EducatorCard(
+                                admin: true,
+                              ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              EducatorCard(
+                                admin: false,
+                              ),
+                              SizedBox(
+                                height: 50,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ],

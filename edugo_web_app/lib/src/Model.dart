@@ -18,5 +18,5 @@ export 'package:edugo_web_app/src/Pages/Home/Model/CurrentOrganisationModel.dart
 export 'package:edugo_web_app/src/Pages/Home/Model/SessionModel.dart';
 
 // * Organisation Exports
-export 'package:edugo_web_app/src/Pages/Organisation/Model/Educatormodel.dart';
-export 'package:edugo_web_app/src/Pages/Organisation/Model/StudentModel.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/Model/InviteEducatorModel.dart';
+export 'package:edugo_web_app/src/Pages/Organisation/Model/InviteStudentsModel.dart';

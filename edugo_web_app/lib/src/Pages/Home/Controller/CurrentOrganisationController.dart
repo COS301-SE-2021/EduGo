@@ -6,6 +6,7 @@ class CurrentOrganisationController
   CurrentOrganisationModel init() {
     return CurrentOrganisationModel(
       this,
+      organisationName: "EduGo University",
     );
   }
 
