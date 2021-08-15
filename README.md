@@ -24,10 +24,8 @@ master ( build )
 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop - backend ( build )
 </br>
-</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-backend−feature 
 </br>
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop - mobile ( build )
 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-mobile−feature 
