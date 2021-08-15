@@ -28,16 +28,13 @@ master ( build )
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-backend−feature 
 </br>
 
-</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop - mobile ( build )
-</br>
 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-mobile−feature 
 </br>
-</br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop - web ( build )
 </br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop- web− feature 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-web−feature 
 </br>
 
 ## Recorded Demo 1 Video
