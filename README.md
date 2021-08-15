@@ -40,7 +40,7 @@ https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=shari
 ### Recorded Demo 2 video
 Demo 2 Video: https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing
 
-##Documententation
+## Documententation
 ### Software requirements specification (Demo 1)
 https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=sharing
 ### Software requirements specification (Demo 2)
