@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
-    <img src="https://cinoptics.com/wp-content/uploads/2014/05/5DT-logo1.jpg" alt="Logo" width="600" height="300">
+    <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="300">
   </a>
 <h1 align="center">EduGo</h1>
 
