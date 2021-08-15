@@ -1,103 +1,104 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/Nav/Side/View/SideBar.dart';
 
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
+import 'package:momentum/momentum.dart';
 
 class BottomBar extends StatefulWidget {
-  const BottomBar({
-    Key? key,
-  }) : super(key: key);
+  //function that updates the scaffolds body based on the tab selected in the
+  //bottom bar
+  BottomBar();
 
   @override
-  _BottomBarState createState() => _BottomBarState();
+  BottomBarState createState() => BottomBarState();
 }
 
-class _BottomBarState extends State<BottomBar> {
-  //_selectedIndex is used to determine which tab was selected in the bottom nav
-  int _selectedIndex = 0;
+class BottomBarState extends State<BottomBar> {
+  //destination options: 0.Home, 1.Subjects, 2.Grades, 3.DetectMarker
 
-  //all the different pages that will display based on the tab selected
-  List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    SubjectsPage(),
-    GradesPage(),
-    DetectMarkerPage(),
-  ];
-
-  //destination options: Home, Subjects, Grades, DetectMarker
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: SideBar(),
-      appBar: AppBar(
-        title: Text('EduGo'),
-        backgroundColor: Color.fromARGB(255, 97, 211, 87),
-      ),
-      backgroundColor: Colors.white,
-      bottomNavigationBar: BottomNavigationBar(
-        //current page displayed based on the index selected
-        currentIndex: _selectedIndex,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.cottage_rounded,
-              color: Colors.grey,
-            ),
-            label: 'HOME',
-            activeIcon: Icon(
-              Icons.cottage_rounded,
-              color: Color.fromARGB(255, 97, 211, 87),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.library_books_rounded,
-              color: Colors.grey,
-            ),
-            label: 'SUBJECTS',
-            activeIcon: Icon(
-              Icons.library_books_rounded,
-              color: Color.fromARGB(255, 97, 211, 87),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.checklist_rtl_outlined,
-              color: Colors.grey,
-            ),
-            label: 'GRADES',
-            activeIcon: Icon(
-              Icons.checklist_rtl_outlined,
-              color: Color.fromARGB(255, 97, 211, 87),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.center_focus_weak,
-              color: Colors.grey,
-            ),
-            label: 'DETECT MARKER',
-            activeIcon: Icon(
-              Icons.center_focus_weak,
-              color: Color.fromARGB(255, 97, 211, 87),
-            ),
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-      ),
+    //all the different pages that will display based on the tab selected
+    List<Type> widgetOptions = <Type>[
+      HomePage,
+      SubjectsPage,
+      GradesPage,
+      DetectMarkerPage,
+    ];
+    //selectedIndex is used to determine which tab was selected in the bottom nav
+    int selectedIndex = 0;
 
-//todo take in any page as parameter and display: make that the additional widget in list OR set defualt selected index to dipslay param child
-      //go to that page
-      body: _widgetOptions.elementAt(_selectedIndex),
+    //bottom bar widget returned
+    return BottomNavigationBar(
+      //current page displayed based on the index selected
+      currentIndex: selectedIndex,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      type: BottomNavigationBarType.shifting,
+      items: [
+        new BottomNavigationBarItem(
+          icon: Icon(
+            Icons.cottage_rounded,
+            color: Colors.grey,
+          ),
+          label: 'HOME',
+          activeIcon: Icon(
+            Icons.cottage_rounded,
+            color: Color.fromARGB(255, 97, 211, 87),
+          ),
+        ),
+        new BottomNavigationBarItem(
+          icon: Icon(
+            Icons.library_books_rounded,
+            color: Colors.grey,
+          ),
+          label: 'SUBJECTS',
+          activeIcon: Icon(
+            Icons.cottage_rounded,
+            color: Color.fromARGB(255, 97, 211, 87),
+          ),
+        ),
+        new BottomNavigationBarItem(
+          icon: Icon(
+            Icons.checklist_rtl_outlined,
+            color: Colors.grey,
+          ),
+          label: 'GRADES',
+          activeIcon: Icon(
+            Icons.cottage_rounded,
+            color: Color.fromARGB(255, 97, 211, 87),
+          ),
+        ),
+        new BottomNavigationBarItem(
+          icon: Icon(
+            Icons.center_focus_weak,
+            color: Colors.grey,
+          ),
+          label: 'DETECT MARKER',
+          activeIcon: Icon(
+            Icons.cottage_rounded,
+            color: Color.fromARGB(255, 97, 211, 87),
+          ),
+        ),
+      ],
+      onTap: (index) {
+        setState(() {
+          //update selected index based on tab selected
+          selectedIndex = index;
+          //display screen of selected tab
+          MomentumRouter.goto(
+            context,
+            widgetOptions.elementAt(selectedIndex),
+          );
+        });
+      },
     );
   }
 }
+//cottage_rounded Home
+//library_books_rounded Subject
+//checklist_rtl_outlined Grades
+//center_focus_weak Detect marker

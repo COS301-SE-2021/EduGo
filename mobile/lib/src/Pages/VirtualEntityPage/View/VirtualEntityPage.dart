@@ -8,6 +8,7 @@ class VirtualEntityView extends StatefulWidget {
   final VirtualEntityData data;
 
   VirtualEntityView({required this.data});
+  static String id = "virtual_entity";
 
   @override
   State<StatefulWidget> createState() {
@@ -99,3 +100,4 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
 //       }
 //     );
 //   }
+
