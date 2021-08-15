@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Bottom/Controller/BottomBarController.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/User/Service/UserService.dart';
+import 'package:mobile/src/Components/Nav/Bottom/Controller/BottomBarController.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
@@ -34,7 +35,7 @@ Momentum momentum({bool mock = true}) {
     controllers: [
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
-      GradesController(mock: mock)
+      GradesController(mock: mock),
       BottomBarController(),
       UserController(mock: mock),
       HomeController(mock: mock)
@@ -47,7 +48,7 @@ Momentum momentum({bool mock = true}) {
         DetectMarkerPage(),
         GradesPage(),
         HomePage(Key('homePageKey')),
-        LessonsPage(),
+        LessonsPage(title: '', subjectID: 0,),
         OrganisationsPage(),
         PreferencesPage(),
         RegistrationPage(Key('registrationPageKey')),
