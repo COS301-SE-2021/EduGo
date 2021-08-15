@@ -38,7 +38,7 @@ class UserApiService extends MomentumService {
     if (token == null) throw NoToken();
 
     final response = await client.post(Uri.parse("${baseUrl}auth/user"),
-        headers: <String, String>{'Authorization': 'Bearer ' + token});
+        headers: <String, String>{'Authorization': token});
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);

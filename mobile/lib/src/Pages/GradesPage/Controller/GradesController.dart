@@ -39,8 +39,11 @@ Future<List<Subject>> getGrades({required http.Client client}) async {
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
     if (json['data'] != null) {
+      print('Data');
+      print(json['data']);
       List<Subject> subjects =
           (json['data'] as List).map((e) => Subject.fromJson(e)).toList();
+      print('Length Grades: ${subjects.length}');
       return subjects;
     } else
       throw new BadResponse('No data property');
@@ -63,6 +66,8 @@ class GradesController extends MomentumController<GradesModel> {
 
   @override
   Future<void> bootstrapAsync() {
+    print('Mock');
+    print(mock);
     return getGrades(
             //If bool is set to true in the controller constructor in the main file,
             //it uses mock the actual api end point

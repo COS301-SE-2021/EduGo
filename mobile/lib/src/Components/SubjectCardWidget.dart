@@ -16,7 +16,7 @@ class SubjectCard extends StatelessWidget {
   final String title;
 
   //Holds the subject title
-  final String educator;
+  //final String educator;
 
   //Holds the subject grade
   final int grade;
@@ -28,7 +28,7 @@ class SubjectCard extends StatelessWidget {
   final int count;
 
   //Holds the subject image
-  //final *String* subjectImage
+  final String subjectImage;
 
 //This is the subject card constructor. it requires 5 arguments to be passed in
   SubjectCard(
@@ -36,7 +36,8 @@ class SubjectCard extends StatelessWidget {
       required this.grade,
       required this.id,
       required this.count,
-      required this.educator});
+      required this.subjectImage});
+      //required this.educator});
 
   @override
   Widget build(BuildContext context) {
@@ -71,18 +72,19 @@ class SubjectCard extends StatelessWidget {
           );
         },
         child: Container(
-          // decoration: BoxDecoration(
-          //   image: DecorationImage(
-          //     colorFilter: ColorFilter.mode(
-          //         Colors.black.withOpacity(0.4), BlendMode.hue),
-          //     image: NetworkImage(
-          //         'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
-          //     // image: AssetImage(
-          //     //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
-          //     fit: BoxFit.fill,
-          //     //alignment: Alignment.center,
-          //   ),
-          // ),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4), BlendMode.hue),
+              image: NetworkImage(
+                  //'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+                  this.subjectImage),
+              // image: AssetImage(
+              //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+              fit: BoxFit.fill,
+              //alignment: Alignment.center,
+            ),
+          ),
           child: Column(
             //crossAxisAlignment: CrossAxisAlignment.stretch,
             //mainAxisAlignment: MainAxisAlignment.
@@ -226,38 +228,38 @@ class SubjectCard extends StatelessWidget {
                     //       fontWeight: FontWeight.bold,
                     //       color: Colors.black),
                     // ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white,
-                      ),
-                      //Make the colour of the button the
-                      //background of the one chosen from the
-                      //if statement done above
-                      //color: Colors.white,
-                      // shape: RoundedRectangleBorder(
-                      //   borderRadius: BorderRadius.all(
-                      //     Radius.circular(5),
-                      //   ),
-                      //   side: BorderSide(color: Colors.black),
-                      // ),
-                      // onPressed: () {},
-                      child: Text(
-                        //If there is a mark, display it.
-                        //Els display the two dashes
-                        '$educator',
-                        textAlign: TextAlign.center,
-                        //textAlign: TextAlign.left,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        softWrap: false,
+                    // child: Container(
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(5),
+                    //     color: Colors.white,
+                    //   ),
+                    //   //Make the colour of the button the
+                    //   //background of the one chosen from the
+                    //   //if statement done above
+                    //   //color: Colors.white,
+                    //   // shape: RoundedRectangleBorder(
+                    //   //   borderRadius: BorderRadius.all(
+                    //   //     Radius.circular(5),
+                    //   //   ),
+                    //   //   side: BorderSide(color: Colors.black),
+                    //   // ),
+                    //   // onPressed: () {},
+                    //   child: Text(
+                    //     //If there is a mark, display it.
+                    //     //Els display the two dashes
+                    //     '$educator',
+                    //     textAlign: TextAlign.center,
+                    //     //textAlign: TextAlign.left,
+                    //     overflow: TextOverflow.ellipsis,
+                    //     maxLines: 1,
+                    //     softWrap: false,
 
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                    ),
+                    //     style: TextStyle(
+                    //         fontSize: 20,
+                    //         fontWeight: FontWeight.bold,
+                    //         color: Colors.black),
+                    //   ),
+                    // ),
                   ),
                 ),
               ),

@@ -90,7 +90,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
                                 grade: subject.grade,
                                 id: subject.id,
                                 count: subjectsCount,
-                                educator: subject.educator),
+                                subjectImage: subject.image,)
+                                //educator: subject.educator),
                           )
                           .toList(),
                     ),

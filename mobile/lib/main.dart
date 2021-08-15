@@ -7,7 +7,6 @@ import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
 import 'package:mobile/src/Pages/HomePage/Service/HomeService.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
@@ -25,7 +24,7 @@ import 'package:momentum/momentum.dart';
 
 void main() {
   //when mock=false it uses api calls. when mock=true, it uses mock data
-  runApp(momentum(mock: true));
+  runApp(momentum(mock: false));
   //PaintingBinding.instance!.imageCache!.clear();
 }
 
@@ -35,7 +34,7 @@ Momentum momentum({bool mock = true}) {
     controllers: [
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
-      GradesController(mock: mock),
+      GradesController(mock: true),
       BottomBarController(),
       UserController(mock: mock),
       HomeController(mock: mock)
@@ -46,7 +45,7 @@ Momentum momentum({bool mock = true}) {
       MomentumRouter([
         LoginPage(),
         DetectMarkerPage(),
-        GradesPage(),
+        GradesSubjectPage(),
         HomePage(Key('homePageKey')),
         LessonsPage(title: '', subjectID: 0,),
         OrganisationsPage(),
