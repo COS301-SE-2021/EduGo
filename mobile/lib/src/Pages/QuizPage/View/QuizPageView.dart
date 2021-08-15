@@ -1,78 +1,127 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
 import 'package:momentum/momentum.dart';
 
-class QuizPage extends StatefulWidget {
-  QuizPage({Key? key}) : super(key: key);
+class QuizView extends StatefulWidget {
+  QuizView({Key? key}) : super(key: key);
 
   @override
-  _QuizPageState createState() => _QuizPageState();
+  _QuizViewState createState() => _QuizViewState();
 }
 
-//TODO UI: https://www.geeksforgeeks.org/basic-quiz-app-in-flutter-api/
-class _QuizPageState extends State<QuizPage> {
-  @override
-  Widget build(BuildContext context) {
-    SingingCharacter? _character = SingingCharacter.lafayette;
-    Widget _questionWidget = Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Center(
-              child: Text(
-                'This is where question go',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25.0,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+class _QuizViewState extends State<QuizView> {
+  //Next question button
+  bool _isEnabled = true;
 
-    String _answerText = "";
-    Widget _answerWidget = ListTile(
-      title: Text("jsjsj"),
-      leading: Radio<SingingCharacter>(
-        value: SingingCharacter.lafayette,
-        groupValue: _character,
-        onChanged: (SingingCharacter? value) {
-          setState(() {
-            _character = value;
-          });
-        },
-      ),
-    );
-    Column _answersColumn = Column(
+  //Widget
+  Widget _getQuestionWidget(QuestionModel question, BuildContext context) {
+    /*Align(
+      //Align the side bar
+      alignment: Alignment.centerRight,
+      heightFactor: 1.00,
+      widthFactor: 1.00,
+      child: Drawer(
+        child: ListQuizView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[ */
+    //Widget to be returned
+    var columnWidget = Column(
       children: [],
     );
-    //for loop for amount of questions:
-    _answersColumn.children.add(Text('Hello 123'));
-    _answersColumn.children.add(Text('Hello 123'));
-    _answersColumn.children.add(Text('Hello 123'));
-    _answersColumn.children.add(Text('Hello 123'));
 
-    Widget child = Stack(children: [_questionWidget, _answersColumn]);
+    //Text of the actual question. e.g. What is 1+1?
+    columnWidget.children.add(
+      Text(
+        '${question.questionText}',
+        //style: Theme.of(context).textTheme.headline4,
+      ),
+    );
 
-    return MobilePageLayout(true, true, child);
-    /*return MomentumBuilder(
-        controllers: [QuizPageController],
-        builder: (context, snapshot) {
-          var QuizPage = snapshot<QuizPageModel>();
-          return MobilePageLayout(
-            true,
-            true,
-            child,
-            //call function to update view: Momentum.controller<QuizPageController>(context).update(title, description, questions);
-          );
-        });*/
+    String? _selectedAnswer;
+    bool isValidAnswer = false;
+    for (String _optionsText in question.optionsText) {
+      Widget _optionsTextWidget = RadioListTile<String>(
+          title: Text(_optionsText),
+          value: _optionsText,
+          groupValue: _selectedAnswer,
+          toggleable: false,
+          onChanged: (String? val) {
+            setState(() {
+              _selectedAnswer = val;
+              if (_selectedAnswer != null) {
+                print('not null');
+                if (_selectedAnswer == question.correctAnswer) {
+                  print('true');
+                  isValidAnswer = true;
+                } else {
+                  isValidAnswer = false;
+                  print('false');
+                }
+              }
+            });
+          });
+      columnWidget.children.add(_optionsTextWidget);
+    }
+    //Next qustion button
+    //TODO talk to Sim K about mark alloc
+    int mark = 1;
+    List<int> markPerQuestion = [];
+    int finalMark = 0;
+
+    Widget nextButton = ElevatedButton(
+      onPressed: (_isEnabled)
+          ? () => Momentum.controller<QuestionController>(context)
+                  .isNextQuestionRetrievable(questions)
+              ? {
+                  _isEnabled = true,
+                  if (isValidAnswer == true)
+                    {
+                      print(_selectedAnswer),
+                      markPerQuestion.add(mark),
+                      finalMark++,
+                    }
+                } //all but last question
+              : {
+                  _isEnabled = false,
+                } //last question
+          : null,
+      child: const Text('Next Question'),
+    );
+    columnWidget.children.add(nextButton);
+
+    //End quiz button
+    Widget endQuizBtn = ElevatedButton(
+      onPressed: () {
+        MomentumRouter.goto(context, QuizResultPage,
+            params: QuizResultParam(finalMark, markPerQuestion));
+      },
+      child: const Text('End Quiz'),
+    );
+    columnWidget.children.add(endQuizBtn);
+    return columnWidget;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Momentum Counter'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            MomentumBuilder(
+              controllers: [QuestionController],
+              builder: (context, snapshot) {
+                var question = snapshot<QuestionModel>();
+                return _getQuestionWidget(question, context);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

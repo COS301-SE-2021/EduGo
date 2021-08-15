@@ -2,47 +2,33 @@ import 'package:mobile/src/Pages/QuizPage/Controller/QuizPageController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:momentum/momentum.dart';
 
-class QuizPageModel extends MomentumModel<QuizPageController> {
-  QuizPageModel(QuizPageController controller,
-      {required this.title, required this.description, this.questions})
-      : super(controller);
-  final String title;
-  final String description;
-  final List<Question>? questions;
+class QuestionModel extends MomentumModel<QuestionController> {
+  QuestionModel(
+    QuestionController controller, {
+    required this.type,
+    required this.questionText,
+    required this.optionsText,
+    required this.correctAnswer,
+  }) : super(controller);
 
-  // TODO: add your final properties here...
+  final QuestionType type;
+  final String questionText;
+  final List<String> optionsText;
+  final String correctAnswer;
 
   @override
-  void update({String? title, String? description, List<Question>? questions}) {
-    QuizPageModel(
+  void update({
+    QuestionType? type,
+    String? questionText,
+    List<String>? optionsText,
+    String? correctAnswer,
+  }) {
+    QuestionModel(
       controller,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      questions: questions ?? this.questions,
+      type: type ?? this.type,
+      questionText: questionText ?? this.questionText,
+      optionsText: optionsText ?? this.optionsText,
+      correctAnswer: correctAnswer ?? this.correctAnswer,
     ).updateMomentum();
   }
 }
-/*
-export interface Question {
-    type: string;
-    question: string;
-    options: string[];
-    correctAnswer: string;
-}
-
-export interface Quiz {
-    title: string;
-    description: string;
-    questions: Question[];
-}
-
-export interface Model {
-    name: string;
-    description: string;
-    file_link: string;
-    file_size: number;
-    file_name: string;
-    file_type: string;
-    preview_img?: string;
-}
- */
