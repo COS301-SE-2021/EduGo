@@ -1,7 +1,6 @@
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
 import { Repository } from "typeorm";
 import { Subject } from "../database/Subject";
-import { GetSubjectsByUserRequest } from "../models/subject/GetSubjectsByUserRequest";
 import { GetSubjectsByUserResponse } from "../models/subject/GetSubjectsByUserResponse";
 import { Organisation } from "../database/Organisation";
 import { CreateSubjectResponse } from "../models/subject/CreateSubjectResponse";

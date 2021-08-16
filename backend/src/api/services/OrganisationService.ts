@@ -4,7 +4,6 @@ import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisa
 import { CreateOrganisationResponse } from "../models/organisation/CreateOrganisationResponse";
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import { GetOrganisationResponse } from "../models/organisation/GetOrganisationResponse";
-import { GetOrganisationsRequest } from "../models/organisation/GetOrganisationsRequest";
 
 import { Organisation } from "../database/Organisation";
 import { Repository } from "typeorm";
@@ -149,7 +148,7 @@ async GetOrganisation(
 	 * @returns {Promise<GetOrganisationsResponse>}
 	 * @memberof OrganisationService
 	 */
-	async GetOrganisations(request: GetOrganisationsRequest): Promise<GetOrganisationsResponse> {
+	async GetOrganisations(): Promise<GetOrganisationsResponse> {
 		return this.organisationRepository
 			.find()
 			.then((organisations) => {

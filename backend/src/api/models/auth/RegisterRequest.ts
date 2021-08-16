@@ -28,5 +28,8 @@ export class RegisterRequest {
 	@IsNotEmpty()
 	@IsString()
 	username: string;
+
+	//Should be optional
+	//Only used for first time admins
 	organisation_id: number;
 }
