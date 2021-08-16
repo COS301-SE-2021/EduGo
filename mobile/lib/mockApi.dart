@@ -6,18 +6,21 @@ Future<http.Response> getLessonsBySubjectClient(request) async {
       "data": [
         {
           "id": 1,
-          "title": "Lesson test 1",
-          "description": "This is the first lesson..."
+          "title": "Lesson test 1 ",
+          "description": "This is the first lesson...",
+          "lessonCompleted": "true"
         },
         {
           "id": 2,
           "title": "Lesson test 2",
-          "description": "This is the second lesson..."
+          "description": "This is the second lesson...",
+          "lessonCompleted": "true"
         },
         {
           "id": 3,
           "title": "Lesson test 3",
-          "description": "This is the third lesson.."
+          "description": "This is the third lesson..",
+          "lessonCompleted": "false"
         }
       ]
     }

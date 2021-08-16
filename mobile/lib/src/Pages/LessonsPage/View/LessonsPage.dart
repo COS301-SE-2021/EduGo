@@ -127,6 +127,7 @@ class _LessonsPageState extends State<LessonsPage> {
                               lessonTitle: lesson.title,
                               lessonID: lesson.id,
                               lessonDescription: lesson.description,
+                              lessonCompleted: lesson.lessonCompleted,
                             ),
                           )
                           .toList(),
