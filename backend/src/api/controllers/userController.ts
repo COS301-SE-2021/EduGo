@@ -18,7 +18,7 @@ import {
 	Post,
 	UseBefore,
 } from "routing-controllers";
-import { User } from "../database/User";
+import { User } from "../Database/User";
 
 //TODO add endpoint to upload profile picture
 

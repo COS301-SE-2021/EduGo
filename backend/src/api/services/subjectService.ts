@@ -1,15 +1,15 @@
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
 import { Repository } from "typeorm";
-import { Subject } from "../database/Subject";
+import { Subject } from "../Database/Subject";
 import { GetSubjectsByUserRequest } from "../models/subject/GetSubjectsByUserRequest";
 import { GetSubjectsByUserResponse } from "../models/subject/GetSubjectsByUserResponse";
-import { Organisation } from "../database/Organisation";
+import { Organisation } from "../Database/Organisation";
 import { CreateSubjectResponse } from "../models/subject/CreateSubjectResponse";
-import { User } from "../database/User";
+import { User } from "../Database/User";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
-import { Educator } from "../database/Educator";
-import { Student } from "../database/Student";
+import { Educator } from "../Database/Educator";
+import { Student } from "../Database/Student";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import {

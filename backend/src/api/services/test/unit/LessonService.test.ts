@@ -3,9 +3,9 @@ import { LessonService } from '../../lessonService';
 import { Container, Service } from 'typedi';
 import { Repository, EntityRepository, useContainer as orm_useContainer } from 'typeorm';
 import * as mocks from "../RepositoryMocks";
-import { Lesson } from '../../../database/Lesson';
-import { Subject } from '../../../database/Subject';
-import { VirtualEntity } from '../../../database/VirtualEntity';
+import { Lesson } from '../../../Database/Lesson';
+import { Subject } from '../../../Database/Subject';
+import { VirtualEntity } from '../../../Database/VirtualEntity';
 import { CreateLessonRequest } from '../../../../api/models/lesson/CreateLessonRequest';
 
 let subject: Subject = new Subject();
