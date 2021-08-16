@@ -1,6 +1,7 @@
-import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Grade } from "./Grade";
 import { Question } from "./Question";
+import { VirtualEntity } from "./VirtualEntity";
 
 @Entity()
 export class Quiz {
@@ -9,6 +10,9 @@ export class Quiz {
 
     @Column()
     title: string;
+
+    @OneToOne(type => VirtualEntity, ve => ve.quiz)
+	virtualEntity: VirtualEntity;
 
     @Column()
     description: string;

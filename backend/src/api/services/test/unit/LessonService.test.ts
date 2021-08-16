@@ -3,13 +3,13 @@ import { LessonService } from '../../lessonService';
 import { Container, Service } from 'typedi';
 import { Repository, EntityRepository, useContainer as orm_useContainer } from 'typeorm';
 import * as mocks from "../RepositoryMocks";
-import { Lesson } from '../../../Database/Lesson';
-import { Subject } from '../../../Database/Subject';
-import { VirtualEntity } from '../../../Database/VirtualEntity';
+import { Lesson } from '../../../database/Lesson';
+import { Subject } from '../../../database/Subject';
+import { VirtualEntity } from '../../../database/VirtualEntity';
 import { CreateLessonRequest } from '../../../../api/models/lesson/CreateLessonRequest';
 
 let subject: Subject = new Subject();
-subject.lessons = [0, 1, 2, 3].map((value) => ({id: value, title: `Lesson ${value}`, description: 'Something', startTime: new Date(), endTime: new Date(), subject: subject, virtualEntities: []}));
+subject.lessons = [0, 1, 2, 3].map((value) => ({id: value, grades: [], title: `Lesson ${value}`, description: 'Something', startTime: new Date(), endTime: new Date(), subject: subject, virtualEntities: []}));
 
 const repositoryMock: () => mocks.MockType<Repository<any>> = jest.fn(() => ({
     save: jest.fn(entity => new Promise((res, rej) => res({id: 1, ...entity}))),

@@ -1,9 +1,9 @@
 import { Request } from "express";
 import jwtDecode from "jwt-decode";
 import passport from "passport";
-import { UnauthorizedError } from "routing-controllers";
+import { InternalServerError, UnauthorizedError } from "routing-controllers";
 import { getRepository } from "typeorm";
-import { User } from "../Database/User";
+import { User } from "../database/User";
 
 interface MyPayload {
 	user_id: number;
@@ -41,10 +41,11 @@ export async function isUser(
 }
 
 export async function isAdmin(req: any, res: any, next: any) {
-	if (req.headers.authorization) {
-		const token = req.headers.authorization.slice(7);
-		const payload = jwtDecode<MyPayload>(token);
-		try {
+	try {
+		if (req.headers.authorization) {
+			const token = req.headers.authorization.slice(7);
+			const payload = jwtDecode<MyPayload>(token);
+
 			let user: AuthenticateObject = await getUserDetails(
 				payload.user_id
 			);
@@ -52,11 +53,12 @@ export async function isAdmin(req: any, res: any, next: any) {
 				req.user_id = payload.user_id;
 				next();
 			} else throw new UnauthorizedError("User is not an admin");
-		} catch (err) {
-			throw err;
+		} else {
+			 return "Authorization header not set";
 		}
+	} catch (err) {
+		throw console.log(err.message);
 	}
-	res.status(500);
 }
 
 export async function isEducator(

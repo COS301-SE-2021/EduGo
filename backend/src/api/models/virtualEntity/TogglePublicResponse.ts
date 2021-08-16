@@ -1,3 +1,3 @@
-export interface TogglePublicResponse {
-    public: boolean;
+export class TogglePublicResponse {
+	public: boolean;
 }

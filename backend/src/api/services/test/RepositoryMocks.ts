@@ -1,4 +1,4 @@
-import { Subject } from "../../Database/Subject";
+import { Subject } from "../../database/Subject";
 import { Repository } from "typeorm";
 
 let subject: Subject = new Subject();

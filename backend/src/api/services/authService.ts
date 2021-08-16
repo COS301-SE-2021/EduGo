@@ -1,25 +1,23 @@
 import { Repository } from "typeorm";
-import { User } from "../Database/User";
+import { User } from "../database/User";
 import { genPassword, issueJWT, validPassword } from "../helper/auth/utils";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
-import { UnverifiedUser } from "../Database/UnverifiedUser";
-import { Organisation } from "../Database/Organisation";
-import { Educator } from "../Database/Educator";
-import { Student } from "../Database/Student";
+import { UnverifiedUser } from "../database/UnverifiedUser";
+import { Organisation } from "../database/Organisation";
+import { Educator } from "../database/Educator";
+import { Student } from "../database/Student";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { LoginResponse } from "../models/auth/LoginResponse";
 import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from "routing-controllers";
 
 @Service()
-export class AuthService {
+export default class AuthService {
 	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(UnverifiedUser)
-	private unverifiedUserRepository: Repository<UnverifiedUser>;
-	@InjectRepository(Organisation)
-	private organisationRepository: Repository<Organisation>;
+	@InjectRepository(UnverifiedUser) private unverifiedUserRepository: Repository<UnverifiedUser>;
+	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>;
 	/**
 	 * @description This function allows for a user to register onto the platform
 	 * 1. If User Type is the first admin for an organisation firstAdminRegistration will be used
@@ -289,9 +287,7 @@ export class AuthService {
 	 * @returns   {Promise<void>}
 	 * @memberof AuthService
 	 */
-	public async firstAdminRegistration(
-		request: RegisterRequest
-	): Promise<void> {
+	public async firstAdminRegistration(request: RegisterRequest): Promise<void> {
 		let organisation: Organisation;
 		if (
 			!(await this.doesEmailExist(request)) &&

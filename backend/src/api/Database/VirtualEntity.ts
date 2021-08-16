@@ -15,7 +15,7 @@ export class VirtualEntity {
     @Column()
     description: string;
 
-    @OneToOne(type => Quiz, {
+    @OneToOne(type => Quiz, quiz =>quiz.virtualEntity, {
         cascade: true
     })
     @JoinColumn()

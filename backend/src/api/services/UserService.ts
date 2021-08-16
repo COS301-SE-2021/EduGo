@@ -1,4 +1,4 @@
-import { User } from "../Database/User";
+import { User } from "../database/User";
 import {  Repository } from "typeorm";
 import { RevokeUserFromAdminRequest } from "../models/user/RevokeUserFromAdminRequest";
 import { SetUserToAdminRequest } from "../models/user/SetUserToAdminRequet";
@@ -59,7 +59,7 @@ export class UserService {
 		if (user) {
 			let response: GetUserDetailsResponse = {
 				email: user.email,
-				firstName: user.email,
+				firstName: user.firstName,
 				lastName: user.lastName,
 				username: user.username,
 				organisation_id: user.organisation.id,

@@ -15,8 +15,6 @@ export class Educator {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	
-
 	@ManyToMany(type => Subject, subject => subject.educators)
 	@JoinTable()
 	subjects: Subject[];

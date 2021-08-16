@@ -1,19 +1,20 @@
 import { In, Repository } from "typeorm";
 import { validateEmails } from "./validations/EmailValidate";
-import { Organisation } from "../Database/Organisation";
-import { UnverifiedUser } from "../Database/UnverifiedUser";
+import { Organisation } from "../database/Organisation";
+import { UnverifiedUser } from "../database/UnverifiedUser";
 import { EmailService } from "../helper/email/EmailService";
 import { MockEmailService } from "../helper/email/MockEmailService";
 import { VerificationEmail } from "../helper/email/models/VerificationEmail";
 import { AddEducatorsRequest } from "../models/user/AddEducatorsRequest";
 import { EmailList } from "../models/user/SerivceModels";
-import { User } from "../Database/User";
+import { User } from "../database/User";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
-import { Subject } from "../Database/Subject";
+import { Subject } from "../database/Subject";
 import { Service, Inject } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { BadRequestError, InternalServerError, NotFoundError } from "routing-controllers";
+import { NodemailerService } from "../helper/email/NodemailerService";
 
 /**
  * A class consisting of the functions that make up the educator service
@@ -28,7 +29,7 @@ export class EducatorService {
 
 	//TODO check error regarding mockEmailService injectable
 	// @Inject("mailgunemailservice")
-	emailService: EmailService = new MockEmailService();
+	emailService: EmailService = new NodemailerService();
 
 	/**
 	 * @param  {AddEducatorToExistingSubjectRequest} body

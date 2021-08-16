@@ -1,8 +1,8 @@
 import { In, Repository } from "typeorm";
 import { validateEmails } from "./validations/EmailValidate";
-import { Subject } from "../Database/Subject";
-import { UnverifiedUser } from "../Database/UnverifiedUser";
-import { User } from "../Database/User";
+import { Subject } from "../database/Subject";
+import { UnverifiedUser } from "../database/UnverifiedUser";
+import { User } from "../database/User";
 import { EmailService } from "../helper/email/EmailService";
 import { MockEmailService } from "../helper/email/MockEmailService";
 import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail";
@@ -11,10 +11,21 @@ import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectR
 import { EmailList } from "../models/user/SerivceModels";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { Student } from "../Database/Student";
-import { GetStudentGradesResponse, QuizGrade } from "../models/user/GetStudentGradesResponse";
+import { Student } from "../database/Student";
+import {
+	GetStudentGradesResponse,
+	QuizGrade,
+} from "../models/user/GetStudentGradesResponse";
 import { getUserDetails } from "../helper/auth/Userhelper";
-import { BadRequestError, ForbiddenError, InternalServerError } from "routing-controllers";
+import {
+	BadRequestError,
+	ForbiddenError,
+	InternalServerError,
+} from "routing-controllers";
+import { Grade } from "../database/Grade";
+import { VirtualEntity } from "../database/VirtualEntity";
+import { Quiz } from "../database/Quiz";
+import { NodemailerService } from "../helper/email/NodemailerService";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -27,11 +38,13 @@ export class StudentService {
 	@InjectRepository(UnverifiedUser)
 	private unverifiedUserRepository: Repository<UnverifiedUser>;
 	@InjectRepository(Student) private studentRepository: Repository<Student>;
-	
+	@InjectRepository(Grade) private gradeRepository: Repository<Grade>;
+	@InjectRepository(Quiz)
+	private quizRepository: Repository<Quiz>;
 
 	//TODO check error regarding mockEmailService injectable
 	//@Inject('mailgunEmailService')
-	emailService: EmailService = new MockEmailService();
+	emailService: EmailService = new NodemailerService();
 
 	/**
 	 * @param {request} request - A request consisting of the organisation id and an array of email strings
@@ -43,17 +56,21 @@ export class StudentService {
 	 * 2. The emails will be categorised and stored in a list
 	 * 3. Each category will be handled by an appropriate handler function
 	 */
-	public async AddUsersToSubject(request: AddStudentsToSubjectRequest): Promise<String> {
+	public async AddUsersToSubject(
+		request: AddStudentsToSubjectRequest
+	): Promise<String> {
 		let emails: string[] = request.students;
 
 		if (validateEmails(emails)) {
-			let list = await this.CategoriseStudentsFromEmails(emails)
+			let list = await this.CategoriseStudentsFromEmails(emails);
 			this.HandleVerifiedStudents(list.verified, request.subject_id);
 			this.HandleUnverifiedStudents(list.unverified, request.subject_id);
-			this.HandleNonexistentStudents(list.nonexistent, request.subject_id);
-			return 'ok';
-		}
-		else throw new BadRequestError('Could not validate emails');
+			this.HandleNonexistentStudents(
+				list.nonexistent,
+				request.subject_id
+			);
+			return "ok";
+		} else throw new BadRequestError("Could not validate emails");
 	}
 
 	/**
@@ -68,17 +85,21 @@ export class StudentService {
 	 * 5. Enroll the students
 	 * 6. Send emails by invoking the SendBulkAddedToSubjectEmails function from the email service
 	 */
-	private async HandleVerifiedStudents(emails: string[], id: number): Promise<void> {
+	private async HandleVerifiedStudents(
+		emails: string[],
+		id: number
+	): Promise<void> {
 		let subject: Subject | undefined;
 
 		try {
-			subject = await this.subjectRepository.findOne(id, {relations: ["students", "students.user"],})
-		}
-		catch (error) {
+			subject = await this.subjectRepository.findOne(id, {
+				relations: ["students", "students.user"],
+			});
+		} catch (error) {
 			throw new BadRequestError("Could not find subject");
 		}
 
-		if (!subject) throw new BadRequestError('Subject could not be found');
+		if (!subject) throw new BadRequestError("Subject could not be found");
 
 		let allEnrolledUserEmails: string[] = subject.students.map(
 			(value) => value.user.email
@@ -87,11 +108,11 @@ export class StudentService {
 			(value) => !allEnrolledUserEmails.includes(value)
 		);
 
-
-		let users = await this.userRepository.find({where: { email: In(nonEnrolledUserEmails) },relations: ["student"],})
-		subject.students.push(
-			...users.map((value) => value.student)
-		);
+		let users = await this.userRepository.find({
+			where: { email: In(nonEnrolledUserEmails) },
+			relations: ["student"],
+		});
+		subject.students.push(...users.map((value) => value.student));
 		let addedToSubjectEmails: AddedToSubjectEmail[] = users.map((value) => {
 			return {
 				email: value.email,
@@ -100,10 +121,14 @@ export class StudentService {
 			};
 		});
 
-		await this.subjectRepository.save(subject)
-		let status = await this.emailService.SendBulkAddedToSubjectEmails(addedToSubjectEmails)
+		await this.subjectRepository.save(subject);
+		let status = await this.emailService.SendBulkAddedToSubjectEmails(
+			addedToSubjectEmails
+		);
 		if (!status)
-			throw new InternalServerError('Could not send added to subject emails');
+			throw new InternalServerError(
+				"Could not send added to subject emails"
+			);
 	}
 
 	/**
@@ -113,41 +138,54 @@ export class StudentService {
 	 * @throws {DatabaseError} The subject could not be found in the database
 	 * @description
 	 */
-	private async HandleUnverifiedStudents(emails: string[], id: number): Promise<void> {
+	private async HandleUnverifiedStudents(
+		emails: string[],
+		id: number
+	): Promise<void> {
 		let subject: Subject | undefined;
 
-		subject = await this.subjectRepository.findOne(id, {relations: ["unverifiedUsers"],})
+		subject = await this.subjectRepository.findOne(id, {
+			relations: ["unverifiedUsers"],
+		});
 		if (!subject) throw new BadRequestError("Could not find subject");
 
-		let allEnrolledUnverifiedEmails: string[] =
-			subject.unverifiedUsers.map((value) => value.email);
+		let allEnrolledUnverifiedEmails: string[] = subject.unverifiedUsers.map(
+			(value) => value.email
+		);
 
 		let nonEnrolledUnverifiedEmails: string[] = emails.filter(
 			(value) => !allEnrolledUnverifiedEmails.includes(value)
 		);
 
-		let users = await this.unverifiedUserRepository.find({ where: { email: In(nonEnrolledUnverifiedEmails) } })
-		let unverifiedEmails: VerificationEmail[] = users.map(
-			(value) => {
-				return {
-					code: value.verificationCode,
-					email: value.email,
-				};
-			}
-		);
+		let users = await this.unverifiedUserRepository.find({
+			where: { email: In(nonEnrolledUnverifiedEmails) },
+		});
+		let unverifiedEmails: VerificationEmail[] = users.map((value) => {
+			return {
+				code: value.verificationCode,
+				email: value.email,
+			};
+		});
 		subject.unverifiedUsers.push(...users);
 
-		await this.subjectRepository.save(subject)
-		let status = await this.emailService.SendBulkVerificationReminderEmails(unverifiedEmails)
+		await this.subjectRepository.save(subject);
+		let status = await this.emailService.SendBulkVerificationReminderEmails(
+			unverifiedEmails
+		);
 		if (!status)
 			throw new InternalServerError("Could not send reminder emails");
 	}
 
 	//Precondition: all the emails given are already known to NOT exists, so checking if they
 	//exist is unnecessary
-	private async HandleNonexistentStudents(emails: string[], id: number): Promise<void> {
+	private async HandleNonexistentStudents(
+		emails: string[],
+		id: number
+	): Promise<void> {
 		let subject: Subject | undefined;
-		subject = await this.subjectRepository.findOne(id, {relations: ["unverifiedUsers", "organisation"],})
+		subject = await this.subjectRepository.findOne(id, {
+			relations: ["unverifiedUsers", "organisation"],
+		});
 		if (!subject) throw new BadRequestError("Could not find subject");
 
 		let unverifiedUsers: UnverifiedUser[] = emails.map((value) => {
@@ -168,26 +206,33 @@ export class StudentService {
 			}
 		);
 
-		await this.unverifiedUserRepository.save(unverifiedUsers)
-		let status = await this.emailService.SendBulkVerificationEmails(unverifiedEmails)
-		if (!status)
-			throw new InternalServerError("Could not send all emails");
+		await this.unverifiedUserRepository.save(unverifiedUsers);
+		let status = await this.emailService.SendBulkVerificationEmails(
+			unverifiedEmails
+		);
+		if (!status) throw new InternalServerError("Could not send all emails");
 	}
 
-	private async CategoriseStudentsFromEmails(emails: string[]): Promise<EmailList> {
+	private async CategoriseStudentsFromEmails(
+		emails: string[]
+	): Promise<EmailList> {
 		let list: EmailList = {
 			verified: [],
 			unverified: [],
 			nonexistent: [],
 		};
 
-		let users = await this.userRepository.find({ where: { email: In(emails) } })
+		let users = await this.userRepository.find({
+			where: { email: In(emails) },
+		});
 		list.verified = users.map((value) => value.email);
 		let withoutVerified: string[] = emails.filter(
 			(value) => !list.verified.includes(value)
 		);
 
-		let unverifiedUsers = await this.unverifiedUserRepository.find({ where: { email: In(withoutVerified) } })
+		let unverifiedUsers = await this.unverifiedUserRepository.find({
+			where: { email: In(withoutVerified) },
+		});
 		list.unverified = unverifiedUsers.map((value) => value.email);
 		list.nonexistent = withoutVerified.filter(
 			(value) => !list.unverified.includes(value)
@@ -204,7 +249,9 @@ export class StudentService {
 		return result;
 	}
 
-	public async GetStudentGrades(user_id: number): Promise<GetStudentGradesResponse> {
+	public async GetStudentGrades(
+		user_id: number
+	): Promise<GetStudentGradesResponse> {
 		let user: User;
 
 		try {
@@ -219,19 +266,33 @@ export class StudentService {
 					user.student.id,
 					{ relations: ["grades"] }
 				);
-				if (student) {
-					let grades = student.grades.map((grade) => {
-						let quizGra: QuizGrade = {
-							quiz_id: grade.quiz.id,
-							quiz_total: grade.total,
-							student_score: grade.score,
-						};
 
-						return quizGra;
-					});
+				if (student) {
+					let quizGrades = await Promise.all(
+						student.grades.map(async (grade) => {
+							let quizGrade = {
+								name: "",
+								students_score: 0,
+								quiz_total: 0,
+								VirtualEntityId: 0,
+							};
+							let gradeInfo = await this.getGradeInfo(grade.id);
+
+							if (gradeInfo) {
+								quizGrade.students_score = gradeInfo.score;
+								quizGrade.quiz_total = gradeInfo.total;
+
+								quizGrade.VirtualEntityId =
+									await this.getvirtualEntityId(
+										gradeInfo.quiz.id
+									);
+								return await quizGrade;
+							}
+						})
+					);
 
 					let StudentGrades: GetStudentGradesResponse = {
-						grades: grades,
+						quiz_grades: quizGrades,
 					};
 					return StudentGrades;
 				} else throw new BadRequestError("Could not find student");
@@ -240,5 +301,34 @@ export class StudentService {
 			}
 		}
 		throw new ForbiddenError("Only student grades can be displayed"); //Supposed to be a 403
+	}
+
+	async getUserSubjects() {}
+	async getGradeInfo(grade_id: number) {
+		try {
+			let Quiz = await this.gradeRepository.findOne(grade_id, {
+				relations: ["quiz"],
+			});
+			if (Quiz) {
+				return Quiz;
+			} else return undefined;
+		} catch (err) {
+			throw new InternalServerError(err);
+		}
+	}
+
+	async getvirtualEntityId(quiz_id: number) {
+		try {
+			let quiz = await this.quizRepository.findOne(quiz_id, {
+				relations: ["virtualEntity"],
+			});
+
+			if (quiz) {
+				return quiz.virtualEntity.id;
+			}
+			return 0;
+		} catch (err) {
+			throw new InternalServerError(err);
+		}
 	}
 }

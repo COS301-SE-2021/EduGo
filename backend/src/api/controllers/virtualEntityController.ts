@@ -10,33 +10,48 @@ import {
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
 import { isEducator, isUser } from "../middleware/validate";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
-import { Inject } from "typedi";
+import { Inject, Service } from "typedi";
 import {
 	BadRequestError,
 	Body,
+	ContentType,
+	Controller,
 	CurrentUser,
+	Get,
 	InternalServerError,
+	JsonController,
 	Post,
+	Req,
+	Res,
 	UploadedFile,
 	UseBefore,
 } from "routing-controllers";
-import { User } from "../Database/User";
-import { GetVirtualEntitiesRequest } from "../models/virtualEntity/GetVirtualEntitiesRequest";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
-
+import passport from "passport";
+import express from "express";
+@Service()
+@JsonController("/virtualEntity")
+@UseBefore(passport.authenticate("jwt", { session: false }))
 export class VirtualEntityController {
 	@Inject()
 	private service: VirtualEntityService;
 
 	@Post("/createVirtualEntity")
 	@UseBefore(isUser)
-	CreateVirtualEntity(@Body({ required: true }) body: CreateVirtualEntityRequest) {
-		return this.service.CreateVirtualEntity(body);
+	CreateVirtualEntity(
+		@Body({ required: true }) body: CreateVirtualEntityRequest,
+		@CurrentUser() id: number
+	) {
+		return this.service.CreateVirtualEntity(body, id);
 	}
 
 	@Post("/uploadModel")
 	@UseBefore(isEducator)
-	UploadModel(@UploadedFile("file", { required: true, options: uploadFile }) file: Express.MulterS3.File) {
+	UploadModel(
+		@UploadedFile("file", { required: true, options: uploadFile })
+		file: Express.MulterS3.File
+	) {
+		//UploadModel(@Req() req: express.Request, @Res() res: express.Response) {
 		if (file) {
 			let response: any = {
 				file_name: file.key,
@@ -45,14 +60,14 @@ export class VirtualEntityController {
 				file_link: file.location,
 			};
 			return response;
-		} 
-		else throw new BadRequestError("User is invalid");
+		} else throw new BadRequestError("User is invalid");
 	}
 
 	@Post("/addToVirtualEntity")
 	@UseBefore(isEducator)
 	async AddToVirtualEntity(
-		@UploadedFile("file", { required: true, options: uploadFile }) file: Express.MulterS3.File,
+		@UploadedFile("file", { required: true, options: uploadFile })
+		file: Express.MulterS3.File,
 		@Body({ required: true }) body: AddModelToVirtualEntityRequest
 	) {
 		if (file) {
@@ -82,7 +97,7 @@ export class VirtualEntityController {
 		} else throw new BadRequestError("User is invalid");
 	}
 
-	@Post("/getVirtualEntities")
+	@Get("/getVirtualEntities")
 	@UseBefore(isUser)
 	GetVirtualEntities() {
 		return this.service.GetVirtualEntities();
@@ -98,15 +113,19 @@ export class VirtualEntityController {
 	@UseBefore(isUser)
 	AnswerQuiz(
 		@Body({ required: true }) body: AnswerQuizRequest,
-		@CurrentUser({ required: true }) user: User
+		@CurrentUser({ required: true }) id: number
 	) {
-		return this.service.AnswerQuiz(body, user.id);
+		console.log("bodyyyyy   ", body);
+		return this.service.AnswerQuiz(body, id);
 	}
 
 	@Post("/togglePublic")
 	@UseBefore(isEducator)
-	TogglePublic(@Body({ required: true }) body: TogglePublicRequest, @CurrentUser({ required: true }) user: User) {
-		return this.service.TogglePublic(body, user.id);
+	TogglePublic(
+		@Body({ required: true }) body: TogglePublicRequest,
+		@CurrentUser({ required: true }) id: number
+	) {
+		return this.service.TogglePublic(body, id);
 	}
 
 	@Post("/getPublicVirtualEntities")
@@ -117,10 +136,9 @@ export class VirtualEntityController {
 
 	@Post("/getPrivateVirtualEntities")
 	@UseBefore(isEducator)
-	GetPrivateVirtualEntities(@CurrentUser({ required: true }) user: User) {
-		return this.service.GetPrivateVirtualEntities(user.id);
+	GetPrivateVirtualEntities(@CurrentUser({ required: true }) id: number) {
+		return this.service.GetPrivateVirtualEntities(id);
 	}
-
 }
 
 //TODO add endpoint to make snapshot of 3d model

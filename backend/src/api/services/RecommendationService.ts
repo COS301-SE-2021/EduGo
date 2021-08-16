@@ -1,6 +1,6 @@
 import { getConnection } from "typeorm";
-import { Lesson } from "../Database/Lesson";
-import { User } from "../Database/User";
+import { Lesson } from "../database/Lesson";
+import { User } from "../database/User";
 import { UpcomingLesson, UpcomingLessonsResponse } from "../models/recommendation/UpcomingLessonsResponse";
 
 /**
