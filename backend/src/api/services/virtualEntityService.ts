@@ -1,15 +1,15 @@
-import { VirtualEntity } from "../Database/VirtualEntity";
+import { VirtualEntity } from "../database/VirtualEntity";
 import { Repository } from "typeorm";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
-import { Model } from "../Database/Model";
-import { Quiz } from "../Database/Quiz";
+import { Model } from "../database/Model";
+import { Quiz } from "../database/Quiz";
 import { CreateVirtualEntityResponse } from "../models/virtualEntity/CreateVirtualEntityResponse";
 import {
 	GetVirtualEntitiesResponse,
 	GVEs_Model,
 	GVEs_VirtualEntity,
 } from "../models/virtualEntity/GetVirtualEntitiesResponse";
-import { Question, QuestionType } from "../Database/Question";
+import { Question, QuestionType } from "../database/Question";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import {
 	GetVirtualEntityResponse,
@@ -20,10 +20,10 @@ import { AddModelToVirtualEntityFileData } from "../models/virtualEntity/AddMode
 import { AddModelToVirtualEntityDatabaseResult } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { getUserDetails } from "../helper/auth/Userhelper";
-import { User } from "../Database/User";
-import { Grade } from "../Database/Grade";
-import { Answer } from "../Database/Answer";
-import { Student } from "../Database/Student";
+import { User } from "../database/User";
+import { Grade } from "../database/Grade";
+import { Answer } from "../database/Answer";
+import { Student } from "../database/Student";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
@@ -34,7 +34,7 @@ import {
 	NotFoundError,
 } from "routing-controllers";
 import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicResponse";
-import { Lesson } from "../Database/Lesson";
+import { Lesson } from "../database/Lesson";
 
 @Service()
 export class VirtualEntityService {

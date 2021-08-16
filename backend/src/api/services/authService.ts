@@ -1,13 +1,13 @@
 import { Repository } from "typeorm";
-import { User } from "../Database/User";
+import { User } from "../database/User";
 import { genPassword, issueJWT, validPassword } from "../helper/auth/utils";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
-import { UnverifiedUser } from "../Database/UnverifiedUser";
-import { Organisation } from "../Database/Organisation";
-import { Educator } from "../Database/Educator";
-import { Student } from "../Database/Student";
+import { UnverifiedUser } from "../database/UnverifiedUser";
+import { Organisation } from "../database/Organisation";
+import { Educator } from "../database/Educator";
+import { Student } from "../database/Student";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { LoginResponse } from "../models/auth/LoginResponse";

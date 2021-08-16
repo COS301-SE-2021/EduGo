@@ -6,7 +6,7 @@ import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRe
 import { GetOrganisationResponse } from "../models/organisation/GetOrganisationResponse";
 import { GetOrganisationsRequest } from "../models/organisation/GetOrganisationsRequest";
 
-import { Organisation } from "../Database/Organisation";
+import { Organisation } from "../database/Organisation";
 import { Repository } from "typeorm";
 
 import {
@@ -14,7 +14,7 @@ import {
 	GOs_Organisation,
 } from "../models/organisation/GetOrganisationsResponse";
 
-import { Subject } from "../Database/Subject";
+import { Subject } from "../database/Subject";
 import { RegisterRequest, userType } from "../models/auth/RegisterRequest";
 import  AuthService  from "./AuthService";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";

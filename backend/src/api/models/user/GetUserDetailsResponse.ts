@@ -1,4 +1,4 @@
-import { UserType } from "../../Database/UnverifiedUser";
+import { UserType } from "../../database/UnverifiedUser";
 
 export interface GetUserDetailsResponse{
     "organisation_id":number; 
