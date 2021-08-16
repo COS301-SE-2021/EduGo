@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                 errorText: "Invalid password"),
           ]),
           //type of keyboard to use for editing the text.
-          keyboardType: TextInputType.number,
+          //keyboardType: TextInputType.,
           //Input field UI
           style: TextStyle(),
           decoration: InputDecoration(

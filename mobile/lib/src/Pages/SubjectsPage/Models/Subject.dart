@@ -1,25 +1,45 @@
-import 'package:json_annotation/json_annotation.dart';
-//import 'package:mobile/src/Pages/LessonsPage/Models/LessonModels.dart';
+/**
+ * This is the model for a subject. 
+ * The getSubjectsByUser endpoint will return a list of subjects. A subject 
+ * will have an id, a title, a grade < and a list of lessons >. 
+ * All of this will be passed into the SubjectCardWidget on the SubjectPage page. 
+ */
 
+import 'package:json_annotation/json_annotation.dart';
 part 'Subject.g.dart';
 
+/*------------------------------------------------------------------------------
+ *                            Subject model class 
+ *------------------------------------------------------------------------------
+ */
 @JsonSerializable()
 class Subject {
+  //Subject id
   @JsonKey(required: true)
   int id;
 
+  //Subject title
   @JsonKey(required: true)
   String title;
 
-  //If grade is 0, then the subject does not have a grade
+  //Subject grade. (Not subject mark. i.e. grade as in grade 11)
   @JsonKey(required: false, defaultValue: 0)
   int grade;
+
+  //Educator name
+  // @JsonKey(required: true)
+  // String educator;
 
   // @JsonKey(required: false, defaultValue: [])
   // List<Lesson> lessons;
 
-  Subject(this.id, this.title, this.grade);
+  String image;
 
-  factory Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);
+  //Subject constructor
+  Subject(this.id, this.title, this.grade, this.image);
+
+  //Factory method used in subjectController to map lesson attributes to json
+  factory Subject.fromJson(Map<String, dynamic> json) =>
+      _$SubjectFromJson(json);
   Map<String, dynamic> toJson() => _$SubjectToJson(this);
 }

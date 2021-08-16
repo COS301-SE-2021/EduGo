@@ -21,6 +21,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
       true,
       true,
       Container(child: Text("Preferences")),
+      'Preferences',
     );
   }
 }

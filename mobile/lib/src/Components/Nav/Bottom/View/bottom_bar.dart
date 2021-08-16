@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 import 'package:momentum/momentum.dart';
@@ -24,7 +24,7 @@ class BottomBarState extends State<BottomBar> {
     List<Type> widgetOptions = <Type>[
       HomePage,
       SubjectsPage,
-      GradesPage,
+      GradesSubjectPage,
       DetectMarkerPage,
     ];
     //selectedIndex is used to determine which tab was selected in the bottom nav

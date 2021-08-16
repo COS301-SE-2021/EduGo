@@ -16,6 +16,7 @@ class _SettingsPageState extends State<SettingsPage> {
       true,
       true,
       Container(child: Text("Settings")),
+      'Settings',
     );
   }
 }
