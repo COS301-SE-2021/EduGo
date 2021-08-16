@@ -31,6 +31,14 @@ class SubjectModel extends MomentumModel<SubjectController> {
     update(viewBoundSubject: temporarySubject);
   }
 
+  void setCurrentSubject({Subject currentSubject}) {
+    update(currentSubject: currentSubject);
+  }
+
+  Subject getCurrentSubject() {
+    return currentSubject;
+  }
+
   String getViewBoundSubjectTitle() {
     return viewBoundSubject.getSubjectTitle();
   }

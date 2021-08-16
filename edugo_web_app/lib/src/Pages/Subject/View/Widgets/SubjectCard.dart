@@ -3,11 +3,10 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class SubjectCard extends StatelessWidget {
   final String title;
   final String grade;
+  final String subjectId;
+  final String imageLink;
 
-  SubjectCard({
-    this.title,
-    this.grade,
-  }) {}
+  SubjectCard({this.title, this.grade, this.subjectId, this.imageLink});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,14 @@ class SubjectCard extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                MomentumRouter.goto(context, LessonsView);
+                Momentum.controller<SubjectController>(context)
+                    .setCurrentSubject(new Subject(
+                        title: this.title,
+                        grade: this.grade,
+                        id: this.subjectId,
+                        imageLink: this.imageLink));
+                Momentum.controller<CurrentOrganisationController>(context)
+                    .getEducatorSubjectLessons(context);
               },
               child: Column(
                 children: <Widget>[

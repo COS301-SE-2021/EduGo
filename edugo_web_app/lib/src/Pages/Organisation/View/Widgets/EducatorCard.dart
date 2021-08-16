@@ -2,12 +2,17 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class EducatorCard extends StatelessWidget {
   final bool admin;
-  const EducatorCard({Key key, this.admin}) : super(key: key);
+  final int id;
+  final String name;
+  const EducatorCard({Key key, this.admin, this.id, this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController, QuizBuilderController],
+      controllers: [
+        VirtualEntityApiController,
+      ],
       builder: (context, snapshot) {
         return Material(
           elevation: 40,
@@ -24,7 +29,7 @@ class EducatorCard extends StatelessWidget {
                     child: SizedBox(
                       width: ScreenUtil().setWidth(300),
                       child: Text(
-                        "Mr Noah",
+                        name,
                         overflow: TextOverflow.visible,
                         style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
@@ -57,7 +62,11 @@ class EducatorCard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Momentum.controller<
+                                      CurrentOrganisationController>(context)
+                                  .revokeEducatorAdmin(id);
+                            },
                           ),
                         ),
                       )
@@ -85,7 +94,11 @@ class EducatorCard extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              Momentum.controller<
+                                      CurrentOrganisationController>(context)
+                                  .makeEducatorAdmin(id);
+                            },
                           ),
                         ),
                       ),

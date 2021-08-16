@@ -61,8 +61,13 @@ class SessionModel extends MomentumModel<SessionController> {
   }
 
   @override
-  void update(
-      {organisationId, token, currentUser, loginUserName, loginPassword}) {
+  void update({
+    organisationId,
+    token,
+    currentUser,
+    loginUserName,
+    loginPassword,
+  }) {
     SessionModel(
       controller,
       organisationId: organisationId ?? this.organisationId,

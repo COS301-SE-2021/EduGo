@@ -15,13 +15,16 @@ class SubjectController extends MomentumController<SubjectModel> {
     model.setViewBoundSubjectGrade(subjectGrade: subjectGrade);
   }
 
-  String getCurrentSubjectId() {
-    return model.currentSubject.getSubjectId();
+  void setCurrentSubject(Subject currentSubject) {
+    model.setCurrentSubject(currentSubject: currentSubject);
+  }
+
+  Subject getCurrentSubject() {
+    return model.getCurrentSubject();
   }
 
   Future<String> createSubject(context) async {
-    MomentumRouter.goto(context, SubjectsView);
-    var url = Uri.parse('http://localhost:8080/subject/createSubject');
+    var url = Uri.parse("http://43e6071f3a8e.ngrok.io/subject/createSubject");
 
     var request = new MultipartRequest(
       "POST",
@@ -31,7 +34,7 @@ class SubjectController extends MomentumController<SubjectModel> {
     request.headers["authorization"] =
         Momentum.controller<SessionController>(context).getToken();
 
-    request.files.add(await MultipartFile.fromBytes('file', _selectedFile,
+    request.files.add(MultipartFile.fromBytes('file', _selectedFile,
         contentType: new MediaType('application', 'octet-stream'),
         filename: "file_up"));
 
@@ -40,16 +43,11 @@ class SubjectController extends MomentumController<SubjectModel> {
 
     await request.send().then((value) async {
       await Response.fromStream(value).then((response) {
-        print(response.body);
+        Momentum.controller<CurrentOrganisationController>(context)
+            .getEducatorSubjects(context);
+        MomentumRouter.goto(context, SubjectsView);
       });
     });
-
-    // if (response.statusCode == 200) {
-    //   MomentumRouter.goto(context, SubjectsView);
-    //   return "Subject Created";
-    // } else {
-    //   return "Subject Could not be created";
-    // }
   }
 
   List<int> _selectedFile;

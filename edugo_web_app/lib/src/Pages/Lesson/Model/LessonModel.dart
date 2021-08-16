@@ -55,28 +55,8 @@ class LessonModel extends MomentumModel<LessonController> {
   //   update(currentLesson: temporaryLesson);
   // }
 
-  void setViewBoundLessonSubjectId({String lessonSubjectID}) {
-    Lesson temporaryLesson = viewBoundLesson;
-    temporaryLesson.setLessonSubjectId(lessonSubjectID);
-    update(viewBoundLesson: temporaryLesson);
-  }
-
-  void setCurrentLessonSubjectId({String lessonSubjectID}) {
-    Lesson temporaryLesson = currentLesson;
-    temporaryLesson.setLessonSubjectId(lessonSubjectID);
-    update(currentLesson: temporaryLesson);
-  }
-
   String getViewBoundLessonTitle() {
     return viewBoundLesson.getLessonTitle();
-  }
-
-  String getViewBoundLessonSubjectId() {
-    return viewBoundLesson.getLessonSubjectId();
-  }
-
-  String getCurrentsLessonSubjectId() {
-    return viewBoundLesson.getLessonSubjectId();
   }
 
   String getViewBoundLessonDescription() {

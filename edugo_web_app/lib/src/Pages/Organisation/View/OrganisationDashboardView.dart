@@ -133,29 +133,8 @@ class OrganisationDashboardView extends StatelessWidget {
                               SizedBox(
                                 height: 30,
                               ),
-                              EducatorCard(
-                                admin: true,
-                              ),
-                              SizedBox(
-                                height: 50,
-                              ),
-                              EducatorCard(
-                                admin: false,
-                              ),
-                              SizedBox(
-                                height: 50,
-                              ),
-                              EducatorCard(
-                                admin: true,
-                              ),
-                              SizedBox(
-                                height: 50,
-                              ),
-                              EducatorCard(
-                                admin: false,
-                              ),
-                              SizedBox(
-                                height: 50,
+                              Column(
+                                children: currentOrganisation.educatorsView,
                               )
                             ],
                           ),

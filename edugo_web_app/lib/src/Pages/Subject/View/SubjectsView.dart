@@ -1,19 +1,12 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class SubjectsView extends StatefulWidget {
-  const SubjectsView({Key key}) : super(key: key);
-
-  @override
-  State<SubjectsView> createState() => _SubjectsViewState();
-}
-
-class _SubjectsViewState extends State<SubjectsView> {
-  bool plublished = true;
+class SubjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-        controllers: [],
+        controllers: [CurrentOrganisationController],
         builder: (context, snapshot) {
+          var currentOrganisation = snapshot<CurrentOrganisationModel>();
           return PageLayout(
             top: 0,
             left: 0,
@@ -48,80 +41,6 @@ class _SubjectsViewState extends State<SubjectsView> {
                                       ),
                                     ),
                                     Spacer(),
-                                    MouseRegion(
-                                      cursor: SystemMouseCursors.click,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            plublished = !plublished;
-                                          });
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                            bottom:
-                                                5, // Space between underline and text
-                                          ),
-                                          decoration: plublished
-                                              ? BoxDecoration(
-                                                  border: Border(
-                                                    bottom: BorderSide(
-                                                      color: Color.fromARGB(
-                                                          255, 97, 211, 87),
-                                                      width:
-                                                          4.0, // Underline thickness
-                                                    ),
-                                                  ),
-                                                )
-                                              : BoxDecoration(),
-                                          child: Text(
-                                            "Published",
-                                            style: TextStyle(
-                                              fontSize: 22,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 40,
-                                    ),
-                                    MouseRegion(
-                                      cursor: SystemMouseCursors.click,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            plublished = !plublished;
-                                          });
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                            bottom:
-                                                5, // Space between underline and text
-                                          ),
-                                          decoration: !plublished
-                                              ? BoxDecoration(
-                                                  border: Border(
-                                                    bottom: BorderSide(
-                                                      color: Color.fromARGB(
-                                                          255, 97, 211, 87),
-                                                      width:
-                                                          4.0, // Underline thickness
-                                                    ),
-                                                  ),
-                                                )
-                                              : BoxDecoration(),
-                                          child: Text(
-                                            "Unpublished",
-                                            style: TextStyle(
-                                              fontSize: 22,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Spacer(),
                                     SubjectButton(
                                       onPressed: () {
                                         MomentumRouter.goto(
@@ -151,145 +70,18 @@ class _SubjectsViewState extends State<SubjectsView> {
                             ),
                           ),
                         ),
-                        content: plublished
-                            ? GridView.count(
-                                physics: NeverScrollableScrollPhysics(),
-                                primary: false,
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.only(
-                                    right: 30, left: 30, top: 40, bottom: 80),
-                                crossAxisSpacing: 40,
-                                mainAxisSpacing: 40,
-                                crossAxisCount: 4,
-                                childAspectRatio: 1 / 1.1,
-                                children: [
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                  SubjectCard(
-                                    title: "Mathematics",
-                                    grade: "12",
-                                  ),
-                                ],
-                              )
-                            : GridView.count(
-                                physics: NeverScrollableScrollPhysics(),
-                                primary: false,
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.only(
-                                    right: 30, left: 30, top: 40, bottom: 80),
-                                crossAxisSpacing: 40,
-                                mainAxisSpacing: 40,
-                                crossAxisCount: 4,
-                                childAspectRatio: 1 / 1.1,
-                                children: [
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                  SubjectCard(
-                                    title: "English",
-                                    grade: "11",
-                                  ),
-                                ],
-                              ),
+                        content: GridView.count(
+                          physics: NeverScrollableScrollPhysics(),
+                          primary: false,
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(
+                              right: 30, left: 30, top: 40, bottom: 80),
+                          crossAxisSpacing: 40,
+                          mainAxisSpacing: 40,
+                          crossAxisCount: 4,
+                          childAspectRatio: 1 / 1.1,
+                          children: currentOrganisation.subjectsView,
+                        ),
                       ),
                     ],
                   ),
@@ -300,7 +92,6 @@ class _SubjectsViewState extends State<SubjectsView> {
         });
   }
 }
-
 
 // import 'dart:html';
 // import 'dart:js_util';

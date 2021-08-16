@@ -6,9 +6,6 @@ class CreateLessonDesktopBottomContainer extends StatelessWidget {
     return MomentumBuilder(
       controllers: [LessonController, SubjectController],
       builder: (context, snapshot) {
-        Momentum.controller<LessonController>(context)
-            .setViewBoundLessonSubjectId(
-                snapshot<SubjectModel>().currentSubject.getSubjectId());
         return Row(
           children: <Widget>[
             LessonButton(

@@ -14,8 +14,8 @@ class VirtualEntityApiController
     var viewBoundVirtualEntityController =
         controller<ViewBoundVirtualEntityController>();
     var quizBuilderController = controller<QuizBuilderController>();
-    var url =
-        Uri.parse('http://localhost:8080/virtualEntity/createVirtualEntity');
+    var url = Uri.parse(
+        'http://43e6071f3a8e.ngrok.io/virtualEntity/createVirtualEntity');
     var response = await post(url,
         headers: {
           'Content-Type': 'application/json',

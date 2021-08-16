@@ -45,11 +45,11 @@ class Subject {
     return _imageLink;
   }
 
-  factory Subject.fromJson(dynamic json) {
+  factory Subject.fromJson(Map<String, dynamic> json) {
     return Subject(
         title: json['title'] as String,
-        id: json['id'] as String,
-        grade: json['grade'] as String,
+        id: json['id'].toString(),
+        grade: json['grade'].toString(),
         imageLink: json['image'] as String);
   }
 }

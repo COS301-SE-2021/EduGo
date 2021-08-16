@@ -2,13 +2,13 @@ class Lesson {
   String _title;
   String _description;
   // List<VirtualEntity> _virtualEntities;
-  String _subjectId;
+  String lessonId;
 
-  Lesson({imageLink, title, description, virtualEntities, subjectId})
+  Lesson({imageLink, title, description, virtualEntities, lessonId})
       : _description = description,
         _title = title,
         // _virtualEntities = virtualEntities,
-        _subjectId = subjectId;
+        lessonId = lessonId;
 
   void setLessonTitle(String title) {
     _title = title;
@@ -22,12 +22,12 @@ class Lesson {
   //   _virtualEntities.add(virtualEntity);
   // }
 
-  void setLessonSubjectId(String subjectId) {
-    _subjectId = subjectId;
+  void setLessonId(String lessonId) {
+    lessonId = lessonId;
   }
 
-  String getLessonSubjectId() {
-    return _subjectId;
+  String getLessonId() {
+    return lessonId;
   }
 
   String getLessonTitle() {
@@ -41,4 +41,11 @@ class Lesson {
   // List<VirtualEntity> getLessonVirtualEntities() {
   //   return _virtualEntities;
   // }
+
+  factory Lesson.fromJson(Map<String, dynamic> json) {
+    return Lesson(
+        title: json['title'] as String,
+        lessonId: json['id'].toString(),
+        description: json['image'] as String);
+  }
 }

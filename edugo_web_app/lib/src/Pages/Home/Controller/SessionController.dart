@@ -37,9 +37,10 @@ class SessionController extends MomentumController<SessionModel> {
     model.setOrganisationId(organisationId);
   }
 
-  Future<String> loginUser({context, String organisationId}) async {
+  Future<String> loginUser(
+      {context, String organisationId, GlobalKey<FormState> formkey}) async {
     String loginResponse;
-    MomentumRouter.goto(context, OrganisationDashboardView);
+
     if (model.getLoginUserName() != null &&
         model.getLoginPassword() != null &&
         model.getLoginUserName() != "" &&
@@ -47,7 +48,7 @@ class SessionController extends MomentumController<SessionModel> {
       if (organisationId != null && organisationId != "") {
         setOrganisationId(organisationId);
       }
-      var url = Uri.parse('http://localhost:8080/auth/login');
+      var url = Uri.parse('http://43e6071f3a8e.ngrok.io/auth/login');
       await http
           .post(url,
               headers: {
@@ -58,10 +59,19 @@ class SessionController extends MomentumController<SessionModel> {
                 "password": model.getLoginPassword()
               }))
           .then((response) {
+        Map<String, dynamic> _user = jsonDecode(response.body);
+        if (_user['name'] == "UnauthorizedError") {
+          formkey.currentState.validate();
+
+          return;
+        }
         if (response.statusCode == 200) {
-          Map<String, dynamic> _user = jsonDecode(response.body);
           String bearerToken = _user['token'];
           setToken(bearerToken);
+          Momentum.controller<CurrentOrganisationController>(context)
+              .getOrganisationEducators();
+          Momentum.controller<CurrentOrganisationController>(context)
+              .getEducatorSubjects(context);
           MomentumRouter.goto(context, SubjectsView);
           loginResponse = "Session Started";
           return;

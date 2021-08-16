@@ -15,10 +15,6 @@ class LessonController extends MomentumController<LessonModel> {
     model.setViewBoundLessonDescription(lessonDescription: lessonDescription);
   }
 
-  void setViewBoundLessonSubjectId(String lessonSubjectId) {
-    model.setViewBoundLessonSubjectId(lessonSubjectID: lessonSubjectId);
-  }
-
   Future createLesson(context) async {
     MomentumRouter.goto(context, LessonsView);
     var currentSubjectController = controller<SubjectController>();
@@ -28,7 +24,7 @@ class LessonController extends MomentumController<LessonModel> {
     }, body: {
       "title": model.viewBoundLesson.getLessonTitle(),
       "description": model.viewBoundLesson.getLessonDescription(),
-      "subjectId": currentSubjectController.getCurrentSubjectId()
-    }).then((value) => {MomentumRouter.goto(context, SubjectsView)});
+      "subjectId": currentSubjectController.getCurrentSubject().getSubjectId()
+    }).then((value) => {MomentumRouter.goto(context, LessonsView)});
   }
 }

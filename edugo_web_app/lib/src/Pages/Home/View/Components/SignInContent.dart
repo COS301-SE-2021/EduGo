@@ -49,7 +49,7 @@ class SignInContent extends StatelessWidget {
                         if (value.isEmpty) {
                           return 'User name cannot be blank';
                         }
-                        return null;
+                        return "Invalid user name";
                       },
                       onChanged: (value) {
                         Momentum.controller<SessionController>(context)
@@ -77,7 +77,7 @@ class SignInContent extends StatelessWidget {
                         if (value.isEmpty) {
                           return 'Password cannot be blank';
                         }
-                        return null;
+                        return "Invalid password";
                       },
                       onChanged: (value) {
                         Momentum.controller<SessionController>(context)
@@ -106,9 +106,14 @@ class SignInContent extends StatelessWidget {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        _formKey.currentState.validate();
+                        if (Momentum.controller<SessionController>(context)
+                                    .getLoginuserName() ==
+                                null ||
+                            Momentum.controller<SessionController>(context)
+                                    .getLoginPassword() ==
+                                null) _formKey.currentState.validate();
                         Momentum.controller<SessionController>(context)
-                            .loginUser(context: context);
+                            .loginUser(context: context, formkey: _formKey);
                       },
                       width: 450,
                       height: 65),

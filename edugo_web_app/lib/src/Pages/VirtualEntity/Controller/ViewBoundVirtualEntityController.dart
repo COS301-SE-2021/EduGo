@@ -85,7 +85,8 @@ class ViewBoundVirtualEntityController
   Future<void> send3DModelToStorage(context) async {
     String linkTo3DModel;
 
-    var url = Uri.parse("http://localhost:8080/virtualEntity/uploadModel");
+    var url =
+        Uri.parse("http://43e6071f3a8e.ngrok.io/virtualEntity/uploadModel");
 
     var request = new MultipartRequest(
       "POST",
@@ -108,6 +109,7 @@ class ViewBoundVirtualEntityController
             if (response.statusCode == 200) {
               Map<String, dynamic> _decoded3DModel = jsonDecode(response.body);
               linkTo3DModel = _decoded3DModel['file_link'];
+              print(linkTo3DModel);
               model.setViewBoundVirtualEntity3dModelLink(linkTo3DModel);
             }
           },
