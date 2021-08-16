@@ -14,6 +14,7 @@ import { Subject } from "../database/Subject";
 import { Service, Inject } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { BadRequestError, InternalServerError, NotFoundError } from "routing-controllers";
+import { NodemailerService } from "../helper/email/NodemailerService";
 
 /**
  * A class consisting of the functions that make up the educator service
@@ -28,7 +29,7 @@ export class EducatorService {
 
 	//TODO check error regarding mockEmailService injectable
 	// @Inject("mailgunemailservice")
-	emailService: EmailService = new MockEmailService();
+	emailService: EmailService = new NodemailerService();
 
 	/**
 	 * @param  {AddEducatorToExistingSubjectRequest} body

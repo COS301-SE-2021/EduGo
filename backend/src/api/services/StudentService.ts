@@ -25,6 +25,7 @@ import {
 import { Grade } from "../database/Grade";
 import { VirtualEntity } from "../database/VirtualEntity";
 import { Quiz } from "../database/Quiz";
+import { NodemailerService } from "../helper/email/NodemailerService";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -43,7 +44,7 @@ export class StudentService {
 
 	//TODO check error regarding mockEmailService injectable
 	//@Inject('mailgunEmailService')
-	emailService: EmailService = new MockEmailService();
+	emailService: EmailService = new NodemailerService();
 
 	/**
 	 * @param {request} request - A request consisting of the organisation id and an array of email strings
