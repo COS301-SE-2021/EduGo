@@ -119,15 +119,3 @@ class Question {
       _$QuestionFromJson(json);
   Map<String, dynamic> toJson() => _$QuestionToJson(this);
 }
-<<<<<<< HEAD
-/*export interface AnswerQuizRequest{
-    quiz_id: number; 
-    answers: Answer[]
-}
-
-export interface Answer {
-    question_id:number,
-    answer: String
-} */
-=======
->>>>>>> cf69078a048dedccf5e03a216118277f52315305

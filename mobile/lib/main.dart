@@ -34,11 +34,6 @@ Momentum momentum({bool mock = true}) {
   return Momentum(
     child: MyApp(),
     controllers: [
-<<<<<<< HEAD
-      BottomBarController(),
-      QuizPageController(),
-=======
->>>>>>> cf69078a048dedccf5e03a216118277f52315305
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
       GradesController(mock: true),
@@ -50,12 +45,15 @@ Momentum momentum({bool mock = true}) {
       UserApiService(), HomeService(),
       //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
-        QuizPage(),
+        //QuizPage(),
         LoginPage(),
         DetectMarkerPage(),
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),
-        LessonsPage(title: '', subjectID: 0,),
+        LessonsPage(
+          title: '',
+          subjectID: 0,
+        ),
         OrganisationsPage(),
         PreferencesPage(),
         //QuizPage(),
