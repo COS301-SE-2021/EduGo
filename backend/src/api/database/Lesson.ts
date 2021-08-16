@@ -44,6 +44,10 @@ export class Lesson {
 	@ManyToOne(() => Subject, (subject) => subject.lessons)
 	subject: Subject;
 
+	
+	@OneToMany((type) => Grade, (grade) => grade.lesson)
+	grades: Grade[];
+	
 	@ManyToMany(
 		(type) => VirtualEntity,
 		(virtualEntities) => virtualEntities.lessons,
@@ -51,9 +55,6 @@ export class Lesson {
 			cascade: true,
 		}
 	)
-	@OneToMany((type) => Grade, (grade) => grade.lesson)
-	grades: Grade[];
-
 	@JoinTable()
 	virtualEntities: VirtualEntity[];
 }
