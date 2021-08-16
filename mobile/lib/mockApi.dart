@@ -1,5 +1,43 @@
 import 'package:http/http.dart' as http;
 
+Future<http.Response> getQuestionsByQuizId(request) async {
+  return http.Response('''
+    {
+      "data": 
+      [
+        {
+          "id": 1,
+          "type": "TrueFalse",
+          "question": "Select True",
+          "correctAnswer": "True",
+          "options": ["True","False"],
+        },
+        {
+          "id": 2,
+          "type": "MultipleChoice",
+          "question": "Select A",
+          "correctAnswer": "A",
+          "options": ["A","B","C"],
+        },
+        {
+          "id": 3,
+          "type": "MultipleChoice",
+          "question": "Select B",
+          "correctAnswer": "B",
+          "options": ["A","B","C"],
+        },
+        {
+          "id": 4,
+          "type": "TrueFalse",
+          "question": "Select False",
+          "correctAnswer": "False",
+          "options": ["True","False"],
+        },
+      ]
+    }
+  ''', 200);
+}
+
 Future<http.Response> getLessonsBySubjectClient(request) async {
   return http.Response('''
     {

@@ -14,7 +14,6 @@ import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
-import 'package:mobile/src/Pages/QuizPage/Controller/QuizPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuizPageView.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
@@ -45,7 +44,7 @@ Momentum momentum({bool mock = true}) {
       UserApiService(), HomeService(),
       //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
-        //QuizPage(),
+        QuizView(),
         LoginPage(),
         DetectMarkerPage(),
         GradesSubjectPage(),

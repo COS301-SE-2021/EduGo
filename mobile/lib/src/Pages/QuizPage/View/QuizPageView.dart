@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
-import 'package:mobile/src/Pages/QuizPage/Controller/QuestionController.dart';
-import 'package:mobile/src/Pages/QuizPage/Model/QuestionModel.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Controller/VirtualEntityController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:http/http.dart' as http;
 import 'package:momentum/momentum.dart';
 
 class QuizView extends StatefulWidget {
-  //final VirtualEntityData data;
   QuizView({Key? key}) : super(key: key);
 
   @override
@@ -16,14 +15,9 @@ class QuizView extends StatefulWidget {
 }
 
 class _QuizViewState extends State<QuizView> {
-  //VirtualEntityData data;
-  //late Future<VirtualEntity> entity;
-
   @override
   void initState() {
     super.initState();
-    //this.entity = getVirtualEntity(1, client: http.Client());
-    //this.entity = getVirtualEntity(data.ve_id, client: http.Client());
   }
 
   //_QuizViewState();
@@ -84,21 +78,18 @@ class _QuizViewState extends State<QuizView> {
     );}*/
   @override
   Widget build(BuildContext context) {
+    //Widg
     return MobilePageLayout(
         false,
         false,
-        //Container(
         MomentumBuilder(
-            controllers: [QuestionController],
+            controllers: [QuizController],
             builder: (context, snapshot) {
-              // Get the list of questions of
-              final questions = snapshot<QuestionModel>();
-
-              // Call update function in controller
+              final questions = snapshot<QuizModel>();
               final questionController =
-                  Momentum.controller<QuestionController>(context);
+                  Momentum.controller<QuizController>(context);
 
-              return Row();
+              return Column(); //TODO return children
             }),
         'Quiz');
   }
