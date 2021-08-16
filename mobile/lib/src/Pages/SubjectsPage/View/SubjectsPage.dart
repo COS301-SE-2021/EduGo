@@ -7,6 +7,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Components/SubjectCardWidget.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
@@ -48,7 +49,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
           int subjectsCount = subjects.subjects.length;
 
           //A check to see if there are subjects. If there are no subjects,
-          //display another card saying no subjects are available
+          //or if the list is empty display another card saying no
+          //subjects are available
           if (subjectsCount > 0 && subjects.subjects.isNotEmpty) {
             return Container(
               child: SingleChildScrollView(
@@ -101,8 +103,9 @@ class _SubjectsPageState extends State<SubjectsPage> {
           }
           //If there are no subjects
           else
-            return Container(
-              child: Text('There are currently no subjects'),
+            return ErrorCard(
+              errorDescription:
+                  "There are currently no subjects to be displayed",
             );
         },
       ),

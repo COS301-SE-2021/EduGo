@@ -28,41 +28,7 @@ Future<http.Response> getSubjectsByUserClient(request) async {
   return http.Response('''
     {
       "data": [
-        {
-          "id": 1,
-          "educator": "Mr Harry",
-          "title": "Maths 101",
-          "grade": 10,
-          "mark": 20
-        },
-        {
-          "id": 2,
-          "educator": "Mrs Kim",
-          "title": "Geography 101",
-          "grade": 11,
-          "mark": 50
-        },
-        {
-          "id": 3,
-          "educator": "Mrs Naledi",
-          "title": "Life Orientation 101",
-          "grade": 12,
-          "mark": 39
-        },
-        {
-          "id": 3,
-          "educator": "Prof NoahtheClown",
-          "title": "Physics 101",
-          "grade": 12,
-          "mark": 22
-        },
-        {
-          "id": 3,
-          "educator": "Dr Simekani",
-          "title": "Chemistry 101",
-          "grade": 12,
-          "mark": 90
-        }
+        
       ]
     }
   ''', 200);
@@ -398,3 +364,39 @@ Future<http.Response> getGradesByUserClient(request) async {
     }
   ''', 200);
 }
+
+// {
+//           "id": 1,
+//           "educator": "Mr Harry",
+//           "title": "Maths 101",
+//           "grade": 10,
+//           "mark": 20
+//         },
+//         {
+//           "id": 2,
+//           "educator": "Mrs Kim",
+//           "title": "Geography 101",
+//           "grade": 11,
+//           "mark": 50
+//         },
+//         {
+//           "id": 3,
+//           "educator": "Mrs Naledi",
+//           "title": "Life Orientation 101",
+//           "grade": 12,
+//           "mark": 39
+//         },
+//         {
+//           "id": 3,
+//           "educator": "Prof NoahtheClown",
+//           "title": "Physics 101",
+//           "grade": 12,
+//           "mark": 22
+//         },
+//         {
+//           "id": 3,
+//           "educator": "Dr Simekani",
+//           "title": "Chemistry 101",
+//           "grade": 12,
+//           "mark": 90
+//         }
