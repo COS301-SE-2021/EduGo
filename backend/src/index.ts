@@ -26,6 +26,20 @@ import {router as FileRouter} from "./api/controllers/FileController";
 import { NodemailerService } from "./api/helper/email/NodemailerService";
 import { EducatorService } from "./api/services/EducatorService";
 import { AddEducatorsRequest } from "./api/models/user/AddEducatorsRequest";
+import { Answer } from "./api/database/Answer";
+import { Educator } from "./api/database/Educator";
+import { Grade } from "./api/database/Grade";
+import { Image } from "./api/database/Image";
+import { Lesson } from "./api/database/Lesson";
+import { Model } from "./api/database/Model";
+import { Organisation } from "./api/database/Organisation";
+import { Question } from "./api/database/Question";
+import { Quiz } from "./api/database/Quiz";
+import { Student } from "./api/database/Student";
+import { Subject } from "./api/database/Subject";
+import { User } from "./api/database/User";
+import { VirtualEntity } from "./api/database/VirtualEntity";
+import { UnverifiedUser } from "./api/database/UnverifiedUser";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
@@ -55,7 +69,22 @@ let options: ConnectionOptions = {
 	synchronize: true,
 	logging: true,
 	logger: "file",
-	entities: ["src/api/database/**/*.ts"],
+	entities: [
+		Answer, 
+		Educator, 
+		Grade, 
+		Image, 
+		Lesson, 
+		Model, 
+		Organisation, 
+		Question, 
+		Quiz, 
+		Student, 
+		Subject, 
+		UnverifiedUser,
+		User, 
+		VirtualEntity
+	],
 	migrations: ["src/api/database/migration/**/*.ts"],
 	subscribers: ["src/api/database/subscriber/**/*.ts"],
 	cli: {
