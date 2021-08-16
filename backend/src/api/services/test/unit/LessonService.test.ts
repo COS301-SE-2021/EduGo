@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { LessonService } from '../../lessonService';
+import { LessonService } from '../../LessonService';
 import { Container, Service } from 'typedi';
 import { Repository, EntityRepository, useContainer as orm_useContainer } from 'typeorm';
 import * as mocks from "../RepositoryMocks";
