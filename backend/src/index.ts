@@ -24,6 +24,8 @@ import { VirtualEntityController } from "./api/controllers/virtualEntityControll
 import express from "express";
 import {router as FileRouter} from "./api/controllers/FileController";
 import { NodemailerService } from "./api/helper/email/NodemailerService";
+import { EducatorService } from "./api/services/EducatorService";
+import { AddEducatorsRequest } from "./api/models/user/AddEducatorsRequest";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
@@ -92,10 +94,9 @@ useExpressServer(app, {
 	currentUserChecker: (action: Action) => action.request.user_id,
 });
 
-
-let nodemailer = new NodemailerService(); 
-
-nodemailer.sendOneEmail("simekani.mabambe@gmail.com","Simekani", "23445" );
+// let educatorSer = new EducatorService(); 
+// let req : AddEducatorsRequest = {educators: ["u19134101@tuks.co.za"]}; 
+// educatorSer.AddEducators(req, 1)
 
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
