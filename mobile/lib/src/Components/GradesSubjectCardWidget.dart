@@ -79,20 +79,25 @@ class GradesSubjectCard extends StatelessWidget {
             ),
             clipBehavior: Clip.antiAlias,
             color: Color.fromARGB(0, 246, 246, 246),
-            //This allows the card to be clickable so that when clicked,
-            // it will go to the lessons description for that lesson
             child: new InkWell(
-              //This redirects the page to the gradespecific page on tap
-              //and passes in the marks array, subject title and total grade
+              //This allows the card to be clickable so that when clicked,
+              // it will go to the lessons description for that lesson
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GradesLessonPage(
-                      lessonList: subjectLessons,
+                //If the subject has a mark, make the card clickable and redirect
+                //to the GradesLessonPage and show the lesson marks. Else don't
+                //make the card clickable
+                if (hasMark) {
+                  //This redirects the page to the gradespecific page on tap
+                  //and passes in the marks array, subject title and total grade
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GradesLessonPage(
+                        lessonList: subjectLessons,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               },
               child: Container(
                 child: Column(

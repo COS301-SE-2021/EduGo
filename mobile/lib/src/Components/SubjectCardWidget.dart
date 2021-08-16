@@ -28,7 +28,7 @@ class SubjectCard extends StatelessWidget {
   final int count;
 
   //Holds the subject image
-  //final *String* subjectImage
+  //final String subjectImage;
 
 //This is the subject card constructor. it requires 5 arguments to be passed in
   SubjectCard(

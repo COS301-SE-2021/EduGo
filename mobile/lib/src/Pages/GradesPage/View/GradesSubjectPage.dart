@@ -10,6 +10,7 @@
  * 
 */
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/GradesSubjectCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
@@ -42,7 +43,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
           //list in the GradesModel page
           final subjects = snapshot<GradesModel>();
 
-          if (subjects.subjects.isNotEmpty) {
+          if (subjects.subjects.isNotEmpty && subjects.subjects.length > 0) {
             return Container(
               child: SingleChildScrollView(
                 child: Column(
@@ -95,10 +96,16 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
               ),
             );
           }
-          //If there are no subjects
+          //Will never be a case where student has no subjects
+          //Display error card if no mark for subjects
           else
-            return Container(
-              child: Text('There are currently no subjects'),
+            return MobilePageLayout(
+              false,
+              true,
+              ErrorCard(
+                errorDescription:
+                    "There are currently no marks published for any subject",
+              ),
             );
         },
       ),
