@@ -14,18 +14,22 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { Student } from "../database/Student";
 import {
 	GetStudentGradesResponse,
+	LessonGrades,
 	QuizGrade,
+	SubjectGrades,
 } from "../models/user/GetStudentGradesResponse";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import {
 	BadRequestError,
 	ForbiddenError,
 	InternalServerError,
+	NotFoundError,
 } from "routing-controllers";
 import { Grade } from "../database/Grade";
 import { VirtualEntity } from "../database/VirtualEntity";
 import { Quiz } from "../database/Quiz";
 import { NodemailerService } from "../helper/email/NodemailerService";
+import { lchmod } from "fs";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -39,8 +43,7 @@ export class StudentService {
 	private unverifiedUserRepository: Repository<UnverifiedUser>;
 	@InjectRepository(Student) private studentRepository: Repository<Student>;
 	@InjectRepository(Grade) private gradeRepository: Repository<Grade>;
-	@InjectRepository(Quiz)
-	private quizRepository: Repository<Quiz>;
+	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
 
 	//TODO check error regarding mockEmailService injectable
 	//@Inject('mailgunEmailService')
@@ -253,7 +256,6 @@ export class StudentService {
 		user_id: number
 	): Promise<GetStudentGradesResponse> {
 		let user: User;
-
 		try {
 			user = await getUserDetails(user_id);
 		} catch (err) {
@@ -264,10 +266,11 @@ export class StudentService {
 			try {
 				let student = await this.studentRepository.findOne(
 					user.student.id,
-					{ relations: ["grades"] }
+					{ relations: ["grades", "subjects"] }
 				);
 
 				if (student) {
+					let studentGrade = await this.populateGrades(student);
 					let quizGrades = await Promise.all(
 						student.grades.map(async (grade) => {
 							let quizGrade = {
@@ -275,13 +278,14 @@ export class StudentService {
 								students_score: 0,
 								quiz_total: 0,
 								VirtualEntityId: 0,
+								lessonId: 0,
 							};
 							let gradeInfo = await this.getGradeInfo(grade.id);
 
 							if (gradeInfo) {
 								quizGrade.students_score = gradeInfo.score;
 								quizGrade.quiz_total = gradeInfo.total;
-
+								quizGrade.lessonId = gradeInfo.lesson.id;
 								quizGrade.VirtualEntityId =
 									await this.getvirtualEntityId(
 										gradeInfo.quiz.id
@@ -291,10 +295,36 @@ export class StudentService {
 						})
 					);
 
-					let StudentGrades: GetStudentGradesResponse = {
-						quiz_grades: quizGrades,
-					};
-					return StudentGrades;
+					let subjesct = studentGrade.subjects.map((subject) => {
+						let lessonG = subject.lessonGrades.map((lesson) => {
+
+							let quiz =  quizGrades.map((quizMark) => {
+								if (quizMark?.lessonId == lesson.id) {
+								return 	quizGrades.map((quiz) => {
+										if (quiz && quizMark) {
+											quizMark.VirtualEntityId =
+												quiz.VirtualEntityId;
+											quizMark.lessonId = quiz.lessonId;
+											quizMark.name = quiz.name;
+											quizMark.students_score =
+												quiz.students_score;
+												quizMark.quiz_total =
+												quiz.quiz_total;
+												return quizMark
+										}
+										
+									});
+								}
+							});
+							return quiz; 
+						});
+						return lessonG; 
+					});
+
+					// let StudentGrades: GetStudentGradesResponse = {
+					// 	quiz_grades: quizGrades,
+					// };
+					//	return StudentGrades;
 				} else throw new BadRequestError("Could not find student");
 			} catch (err) {
 				throw err;
@@ -330,5 +360,44 @@ export class StudentService {
 		} catch (err) {
 			throw new InternalServerError(err);
 		}
+	}
+
+	async populateGrades(student: Student) {
+		let StudentGrades: GetStudentGradesResponse =
+			new GetStudentGradesResponse();
+
+		let subjects = student.subjects.map((subject) => {
+			let createdSubject: SubjectGrades = {
+				id: subject.id,
+				subjectName: subject.title,
+				gradeAchieved: -1,
+				lessonGrades: [],
+			};
+			return createdSubject;
+		});
+
+		if (subjects) {
+			subjects.map(async (subject) => {
+				let subjectLesson = await this.subjectRepository.findOne(
+					subject.id,
+					{
+						relations: ["lessons"],
+					}
+				);
+
+				if (!subjectLesson)
+					throw new NotFoundError("Subject not found");
+				subject.lessonGrades = subjectLesson.lessons.map((lesson) => {
+					return {
+						id: lesson.id,
+						gradeAchieved: -1,
+						lessonName: lesson.title,
+						quizGrades: [],
+					};
+				});
+			});
+		}
+
+		return StudentGrades;
 	}
 }

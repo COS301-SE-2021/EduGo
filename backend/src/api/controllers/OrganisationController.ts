@@ -26,8 +26,8 @@ export class OrganisationController {
 	}
 
 	@Post("/getOrganisation")
-	@UseBefore(passport.authenticate("jwt", { session: false }))
-	@UseBefore(isUser)
+	//@UseBefore(passport.authenticate("jwt", { session: false }))
+	//@UseBefore(isUser)
 	GetOrganisation(@Body({ required: true }) body: GetOrganisationRequest) {
 		return this.service.GetOrganisation(body);
 	}
