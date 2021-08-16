@@ -285,7 +285,7 @@ export class StudentService {
 							if (gradeInfo) {
 								quizGrade.students_score = gradeInfo.score;
 								quizGrade.quiz_total = gradeInfo.total;
-								quizGrade.lessonId = gradeInfo.lesson.id;
+								quizGrade.lessonId = gradeInfo.lesson?.id;
 								quizGrade.VirtualEntityId =
 									await this.getvirtualEntityId(
 										gradeInfo.quiz.id
@@ -294,37 +294,40 @@ export class StudentService {
 							}
 						})
 					);
+					console.log(studentGrade);
+					if(!studentGrade.subjects) throw new NotFoundError("blank not created")
 
-					let subjesct = studentGrade.subjects.map((subject) => {
-						let lessonG = subject.lessonGrades.map((lesson) => {
+					studentGrade.subjects = studentGrade.subjects.map(
+						(subject) => {
+							let subjectG = subject.lessonGrades.map(
+								(lesson) => {
+									let lessonG = quizGrades.map((quizMark) => {
+										if (quizMark?.lessonId == lesson.id) {
+											let quizes = quizGrades.map(
+												(quiz) => {
+													let quizer: QuizGrade={};
+													if (quiz && quizMark) {
+														quizer.name = quiz.name;
+														quizer.student_score = quiz.students_score;
+														quizer.quiz_total = quiz.quiz_total;
+													}
+													return quizer;
+												}
+											);
 
-							let quiz =  quizGrades.map((quizMark) => {
-								if (quizMark?.lessonId == lesson.id) {
-								return 	quizGrades.map((quiz) => {
-										if (quiz && quizMark) {
-											quizMark.VirtualEntityId =
-												quiz.VirtualEntityId;
-											quizMark.lessonId = quiz.lessonId;
-											quizMark.name = quiz.name;
-											quizMark.students_score =
-												quiz.students_score;
-												quizMark.quiz_total =
-												quiz.quiz_total;
-												return quizMark
+											lesson.quizGrades = quizes;
 										}
-										
+										return lesson;
 									});
+									subject.lessonGrades = lessonG;
+									return subject;
 								}
-							});
-							return quiz; 
-						});
-						return lessonG; 
-					});
+							);
+							return subject;
+						}
+					);
 
-					// let StudentGrades: GetStudentGradesResponse = {
-					// 	quiz_grades: quizGrades,
-					// };
-					//	return StudentGrades;
+					return studentGrade;
 				} else throw new BadRequestError("Could not find student");
 			} catch (err) {
 				throw err;
@@ -337,7 +340,7 @@ export class StudentService {
 	async getGradeInfo(grade_id: number) {
 		try {
 			let Quiz = await this.gradeRepository.findOne(grade_id, {
-				relations: ["quiz"],
+				relations: ["quiz", "lesson"],
 			});
 			if (Quiz) {
 				return Quiz;
@@ -363,8 +366,7 @@ export class StudentService {
 	}
 
 	async populateGrades(student: Student) {
-		let StudentGrades: GetStudentGradesResponse =
-			new GetStudentGradesResponse();
+		console.log(student)
 
 		let subjects = student.subjects.map((subject) => {
 			let createdSubject: SubjectGrades = {
@@ -377,6 +379,7 @@ export class StudentService {
 		});
 
 		if (subjects) {
+			console.log(subjects)
 			subjects.map(async (subject) => {
 				let subjectLesson = await this.subjectRepository.findOne(
 					subject.id,
@@ -396,8 +399,11 @@ export class StudentService {
 					};
 				});
 			});
-		}
+			let StudentGrades: GetStudentGradesResponse = {subjects:subjects} ;
 
-		return StudentGrades;
+			return StudentGrades;
+		}
+		throw new NotFoundError('populate grades not working ')
+		
 	}
 }

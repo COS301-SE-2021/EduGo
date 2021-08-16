@@ -1,27 +1,26 @@
-export class QuizGrade {
-	id:number;
-	name: string;
-	quiz_total: number;
-	student_score: number;
+export interface QuizGrade {
+	name?: string;
+	quiz_total?: number;
+	student_score?: number;
 }
 
 
-export class GetStudentGradesResponse{
-	subjects: SubjectGrades[]; 
+export interface GetStudentGradesResponse{
+	subjects?: SubjectGrades[]; 
  }
 
- export class SubjectGrades{
+ export interface SubjectGrades{
 	 id:number; 
 	 gradeAchieved: number; 
 	 subjectName:string; 
 	 lessonGrades: LessonGrades[]
  }
 
- export class LessonGrades{
+ export interface LessonGrades{
 	id?:number;
 	gradeAchieved?: number;
-	lessonName: string; 
-	quizGrades: QuizGrade[]
+	lessonName?: string; 
+	quizGrades: QuizGrade[]| undefined[]
 }
 
 // export interface studentAnswer {
