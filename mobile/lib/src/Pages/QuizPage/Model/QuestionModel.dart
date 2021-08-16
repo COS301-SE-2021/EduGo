@@ -1,4 +1,4 @@
-import 'package:mobile/src/Pages/QuizPage/Controller/QuizPageController.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/QuestionController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:momentum/momentum.dart';
 
@@ -13,7 +13,7 @@ class QuestionModel extends MomentumModel<QuestionController> {
 
   final QuestionType type;
   final String questionText;
-  final List<String> optionsText;
+  final List<String>? optionsText;
   final String correctAnswer;
 
   @override

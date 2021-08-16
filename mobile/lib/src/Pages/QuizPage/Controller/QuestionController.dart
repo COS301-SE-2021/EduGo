@@ -1,18 +1,19 @@
-import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
+import 'package:mobile/src/Pages/QuizPage/Model/QuestionModel.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:momentum/momentum.dart';
 
 class QuestionController extends MomentumController<QuestionModel> {
   int i = 0;
-
+  //TODO Remove later
+  List<Question> questions = [];
   @override
   QuestionModel init() {
     return QuestionModel(
       this,
       //default values fot wehn model is initialised
       type: questions.elementAt(i).type,
-      questionText: questions.elementAt(i).questionText,
-      optionsText: questions.elementAt(i).optionsText,
+      questionText: questions.elementAt(i).question,
+      optionsText: questions.elementAt(i).options,
       correctAnswer: questions.elementAt(i).correctAnswer,
     );
   }
@@ -24,8 +25,8 @@ class QuestionController extends MomentumController<QuestionModel> {
       Question currentQuestion = questions.elementAt(i);
       model.update(
           type: currentQuestion.type,
-          questionText: currentQuestion.questionText,
-          optionsText: currentQuestion.optionsText,
+          questionText: currentQuestion.question,
+          optionsText: currentQuestion.options,
           correctAnswer: currentQuestion.correctAnswer);
     }
     //last question
