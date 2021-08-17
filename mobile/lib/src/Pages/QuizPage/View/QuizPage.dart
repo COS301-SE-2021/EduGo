@@ -28,12 +28,55 @@ class _QuizPageState extends State<QuizPage> {
   int index = -1;
   @override
   Widget build(BuildContext context) {
-    //   String? _value = '';
-    //   bool isSelected = false;
+    // This function takes the data of the question retrieved via the getQuizByLesson API call
+    // and places it in widgets to be displayed via the UI
+    Widget _getQuestionWidget(Question question, BuildContext context) {
+      // Widget to be returned and displayed
+      var columnWidget = Column(
+        children: [],
+      );
 
-    //   Widget displayQuestions(QuestionModel questions) {
-    //     return Column();
-    //   }
+      // Text of the actual question. e.g. What is 1+1?
+      columnWidget.children.add(
+        Text(
+          question.question,
+          //style: Theme.of(context).textTheme.headline4,
+        ),
+      );
+
+      // Optional answers the student may select: https://material.io/components/chips/flutter#using-chips
+      String? _value = '';
+      List<Widget> _optionsTextWidgets =
+          List<Widget>.generate(question.options!.length, (int index) {
+        String optionText = question.options!.elementAt(index);
+        if (question.type == QuestionType.TrueFalse) {
+          return ChoiceChip(
+            label: Text(optionText),
+            selected: _value == optionText,
+            onSelected: (bool selected) {
+              setState(() {
+                _value = selected ? optionText : null;
+              });
+            },
+          );
+        } else //if(question.type == QuestionType.MultipleChoice)
+          return FilterChip(
+              label: Text(optionText),
+              labelStyle: TextStyle(color: Colors.white),
+              backgroundColor: Colors.green,
+              selected: _value == optionText,
+              onSelected: (bool selected) {
+                setState(() {
+                  _value = selected ? optionText : null;
+                });
+              });
+      }).toList();
+
+      for (var _optionsTextWidget in _optionsTextWidgets) {
+        columnWidget.children.add(_optionsTextWidget);
+      }
+      return columnWidget;
+    }
 
     //Display page
     return MobilePageLayout(

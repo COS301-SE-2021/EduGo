@@ -46,8 +46,8 @@ Momentum momentum({bool mock = true}) {
       //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
         //QuizView(),
-        QuizPage(),
         LoginPage(),
+        QuizPage(),
         DetectMarkerPage(),
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),
