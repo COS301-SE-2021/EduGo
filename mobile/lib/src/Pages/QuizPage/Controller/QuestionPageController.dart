@@ -22,16 +22,16 @@ class QuestionPageController extends MomentumController<QuestionPageModel> {
 
   // Update the question details based on the list passed in. Move onto the
   // next question and keep the enabled or disable at the last question.
-  bool getQuestionDetails(List<Question>? questions) {
+  bool updateQuestionDetails(List<Question>? questions) {
     //all but last question
     if (index < questions!.length - 1) {
       model.update(question: questions.elementAt(index));
-      index++;
     }
     //last question
     if (index == questions.length - 1) {
       return false;
     }
+    index++;
     return true;
   }
 }

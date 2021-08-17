@@ -29,13 +29,6 @@ class _QuizPageState extends State<QuizPage> {
   int index = -1;
   @override
   Widget build(BuildContext context) {
-    //   String? _value = '';
-    //   bool isSelected = false;
-
-    //   Widget displayQuestions(QuestionModel questions) {
-    //     return Column();
-    //   }
-
     //Display page
     return MobilePageLayout(
         false,
@@ -51,7 +44,6 @@ class _QuizPageState extends State<QuizPage> {
                   Momentum.controller<QuizController>(context);
               //TODO pass in id dynamically lessonId
               quizController.getQuizzes(1);
-              print(quizzes.quizes.length);
               return Container(
                 child: TextButton(
                   style: TextButton.styleFrom(
