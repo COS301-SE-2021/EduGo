@@ -13,7 +13,7 @@ class VirtualEntityStoreView extends StatelessWidget {
     return MomentumBuilder(
       controllers: [AdminController],
       builder: (context, snapshot) {
-        var entity = snapshot<AdminModel>();
+        // var entity = snapshot<AdminModel>();
         bool public = true;
         return PageLayout(
           top: 0,

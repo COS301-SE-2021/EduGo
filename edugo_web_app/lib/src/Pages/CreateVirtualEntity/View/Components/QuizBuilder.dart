@@ -7,7 +7,7 @@ class QuizBuilder extends StatelessWidget {
     return MomentumBuilder(
       controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
-        var quizBuilder = snapshot<QuizBuilderModel>();
+        // var quizBuilder = snapshot<QuizBuilderModel>();
 
         return Container(
           child: Column(

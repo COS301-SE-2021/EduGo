@@ -8,7 +8,7 @@ class ViewVirtualEntityView extends StatelessWidget {
     return MomentumBuilder(
       controllers: [AdminController],
       builder: (context, snapshot) {
-        var entity = snapshot<AdminModel>();
+        //var entity = snapshot<AdminModel>();
         return PageLayout(
           top: 50,
           left: 150,
