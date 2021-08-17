@@ -1,35 +1,56 @@
-import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
-import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
-import 'package:momentum/momentum.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-//for the page
-class QuizModel extends MomentumModel<QuizController> {
-  QuizModel(
-    QuizController controller, {
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.questions,
-  }) : super(controller);
+part 'QuizModel.g.dart';
 
-  final int id;
-  final String title;
-  final String description;
-  final List<Question> questions;
+@JsonSerializable(explicitToJson: true)
+class Quiz {
+  @JsonKey(required: true)
+  int id;
 
-  @override
-  void update({
-    int? id,
-    String? title,
-    String? description,
-    List<Question>? questions,
-  }) {
-    QuizModel(
-      controller,
-      id: id ?? this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      questions: questions ?? this.questions,
-    ).updateMomentum();
-  }
+  @JsonKey(required: true)
+  String title;
+
+  @JsonKey(defaultValue: '')
+  String description;
+
+  @JsonKey(defaultValue: null)
+  List<Question>? questions;
+
+  Quiz(this.id, this.title, this.description, this.questions);
+
+  factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
+  Map<String, dynamic> toJson() => _$QuizToJson(this);
+}
+
+@JsonSerializable()
+class Question {
+  @JsonKey(required: true)
+  int id;
+
+  @JsonKey(required: true, unknownEnumValue: QuestionType.TrueFalse)
+  QuestionType type;
+
+  @JsonKey(required: true)
+  String question;
+
+  @JsonKey(defaultValue: '')
+  String correctAnswer;
+
+  @JsonKey(defaultValue: null)
+  List<String>? options;
+
+  Question(this.id, this.type, this.question, this.correctAnswer, this.options);
+
+  factory Question.fromJson(Map<String, dynamic> json) =>
+      _$QuestionFromJson(json);
+  Map<String, dynamic> toJson() => _$QuestionToJson(this);
+}
+
+enum QuestionType {
+  @JsonValue("TrueFalse")
+  TrueFalse,
+  @JsonValue("MultipleChoice")
+  MultipleChoice
+  // @JsonValue("FreeText")
+  // FreeText,
 }

@@ -38,6 +38,84 @@ Future<http.Response> getQuestionsByQuizId(request) async {
   ''', 200);
 }
 
+Future<http.Response> getQuizesByLesson(request) async {
+  return http.Response('''
+  {
+    "data": [
+      {
+      "id" : "0",
+      "title": "Quiz 1"
+      "description": "Quiz 1 d",
+      "questions": [{
+          "id": 1,
+          "type": "TrueFalse",
+          "question": "Select True",
+          "correctAnswer": "True",
+          "options": ["True","False"],
+        },
+        {
+          "id": 2,
+          "type": "MultipleChoice",
+          "question": "Select A",
+          "correctAnswer": "A",
+          "options": ["A","B","C"],
+        },
+        {
+          "id": 3,
+          "type": "MultipleChoice",
+          "question": "Select B",
+          "correctAnswer": "B",
+          "options": ["A","B","C"],
+        },
+        {
+          "id": 4,
+          "type": "TrueFalse",
+          "question": "Select False",
+          "correctAnswer": "False",
+          "options": ["True","False"],
+        },
+        
+      ]
+      },{
+      "id" : "1",
+      "title": "Quiz 2"
+      "description": "Quiz 2 d",
+      "questions": [{
+          "id": 1,
+          "type": "TrueFalse",
+          "question": "Select False",
+          "correctAnswer": "False",
+          "options": ["True","False"],
+        },
+        {
+          "id": 2,
+          "type": "MultipleChoice",
+          "question": "Select A",
+          "correctAnswer": "A",
+          "options": ["A","B","C"],
+        },
+        {
+          "id": 3,
+          "type": "MultipleChoice",
+          "question": "Select B",
+          "correctAnswer": "B",
+          "options": ["A","B","C"],
+        },
+        {
+          "id": 4,
+          "type": "TrueFalse",
+          "question": "Select False",
+          "correctAnswer": "False",
+          "options": ["True","False"],
+        },
+        
+      ]
+      }
+    ]
+  }
+   ''', 200);
+}
+
 Future<http.Response> getLessonsBySubjectClient(request) async {
   return http.Response('''
     {

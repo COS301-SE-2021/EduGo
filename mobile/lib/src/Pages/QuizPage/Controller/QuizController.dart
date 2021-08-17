@@ -1,49 +1,53 @@
 import 'dart:convert';
-
-import 'package:mobile/globals.dart';
+import 'package:mobile/mockApi.dart' as mockApi;
+import 'package:http/testing.dart' as httpMock;
+import 'package:http/http.dart' as http;
+import 'package:mobile/globals.dart' as globals;
 import 'package:mobile/src/Exceptions.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
-import 'package:mobile/mockApi.dart' as mockApi;
-import 'package:http/http.dart' as http;
-import 'package:http/testing.dart' as httpMock;
-import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
+import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
 import 'package:momentum/momentum.dart';
 
-class QuizController extends MomentumController<QuizModel> {
+Future<List<Quiz>> getQuizesByLesson(int id,
+    {required http.Client client}) async {
+  final response = await client.post(
+      Uri.parse("${globals.baseUrl}virtualEntity/getQuizesByLesson"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        //'Authorization': token
+      },
+      body: jsonEncode(<String, int>{'id': id}));
+
+  if (response.statusCode == 200) {
+    Map<String, dynamic> json = jsonDecode(response.body);
+    if (json['data'] != null) {
+      List<Quiz> quizes =
+          (json['data'] as List).map((e) => Quiz.fromJson(e)).toList();
+      return quizes;
+    } else
+      throw new BadResponse('No data property');
+  }
+  throw Exception('Not a code 200');
+}
+
+class QuizController extends MomentumController<QuizPageModel> {
   QuizController({this.mock = false});
   bool mock;
 
-  //List<Question> questions = [];
-  @override
-  QuizModel init() {
-    return QuizModel(this, id: 0, title: '', description: '', questions: []);
-  }
-
-  Future<List<Question>> getQuestions({required http.Client client}) async {
-    final response = await client.post(
-      Uri.parse("${baseUrl}quiz/getQuestionsByQuizId"),
-      headers: <String, String>{'Content-Type': 'application/json'},
-    ); //convert it to a json object, else throw an exception
-    if (response.statusCode == 200) {
-      Map<String, dynamic> json = jsonDecode(response.body);
-      if (json['data'] != null) {
-        List<Question> questions =
-            (json['data'] as List).map((e) => Question.fromJson(e)).toList();
-        return questions;
-      } else
-        throw new BadResponse('No data property');
-    }
-    throw Exception('Not a code 200');
+  QuizPageModel init() {
+    return QuizPageModel(this, quizes: []);
   }
 
   @override
   Future<void> bootstrapAsync() {
-    return getQuestions(
+    return getQuizesByLesson(1,
             client: mock
-                ? httpMock.MockClient(mockApi.getQuestionsByQuizId)
+                ? httpMock.MockClient(mockApi.getQuizesByLesson)
                 : http.Client())
         .then((value) {
-      model.update(questions: value);
+      print('Value');
+      print(value);
+      model.update();
     });
   }
 }

@@ -60,6 +60,7 @@ class Model {
   Map<String, dynamic> toJson() => _$ModelToJson(this);
 }
 
+/*
 @JsonSerializable(explicitToJson: true)
 class Quiz {
   @JsonKey(required: true)
@@ -79,23 +80,15 @@ class Quiz {
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
   Map<String, dynamic> toJson() => _$QuizToJson(this);
 }
+*/
 
-enum QuestionType {
-  @JsonValue("TrueFalse")
-  TrueFalse,
-  @JsonValue("MultipleChoice")
-  MultipleChoice,
-  @JsonValue("FreeText")
-  FreeText,
-}
-
+/*
 QuestionType toQuestionType(String type) {
   QuestionType t = QuestionType.values.firstWhere(
       (element) => element.toString() == "QuestionType.${type}",
       orElse: () => QuestionType.TrueFalse);
   return t;
 }
-
 @JsonSerializable()
 class Question {
   @JsonKey(required: true)
@@ -119,3 +112,13 @@ class Question {
       _$QuestionFromJson(json);
   Map<String, dynamic> toJson() => _$QuestionToJson(this);
 }
+
+enum QuestionType {
+  @JsonValue("TrueFalse")
+  TrueFalse,
+  @JsonValue("MultipleChoice")
+  MultipleChoice,
+  @JsonValue("FreeText")
+  FreeText,
+}
+*/

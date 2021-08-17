@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
-//import 'package:mobile/src/Components/Nav/Side/Model/ProfileWidget.dart';
-import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/Controller/Preferences.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
-import 'package:mobile/src/Pages/QuizPage/View/QuizPageView.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:momentum/momentum.dart';
 
@@ -44,7 +42,7 @@ class _SideBarState extends State<SideBar> {
                   //Leads to Preferences page
                   MomentumRouter.goto(
                 context,
-                QuizView,
+                QuizPage,
                 transition: (context, page) {
                   return MaterialPageRoute(builder: (context) => page);
                 },
