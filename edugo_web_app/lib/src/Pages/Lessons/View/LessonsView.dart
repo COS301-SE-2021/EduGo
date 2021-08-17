@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:edugo_web_app/src/Pages/Lessons/View/Widgets/LessonsWidgets.dart';
 
 class LessonsView extends StatefulWidget {
   const LessonsView({Key key}) : super(key: key);
@@ -11,10 +12,17 @@ class _LessonsViewState extends State<LessonsView> {
   bool plublished = true;
   @override
   Widget build(BuildContext context) {
+    //Info: Getting educator lessons from API
+    Momentum.controller<LessonsController>(context).getSubjectLessons(context);
+
+    //Info: Buiding lessons user interface
     return MomentumBuilder(
-        controllers: [CurrentOrganisationController],
+        controllers: [LessonsController],
         builder: (context, snapshot) {
-          var currentOrgnisation = snapshot<CurrentOrganisationModel>();
+          //Info: reading lesson cards from model
+          var educatorLessons = snapshot<LessonsModel>();
+
+          //Info: rendering lesson cards
           return PageLayout(
             top: 0,
             left: 0,
@@ -49,7 +57,7 @@ class _LessonsViewState extends State<LessonsView> {
                                         ),
                                       ),
                                       Spacer(),
-                                      LessonButton(
+                                      LessonsButton(
                                         onPressed: () {
                                           MomentumRouter.goto(
                                               context, CreateLessonView);
@@ -84,7 +92,7 @@ class _LessonsViewState extends State<LessonsView> {
                             shrinkWrap: true,
                             padding: const EdgeInsets.only(
                                 right: 30, left: 30, top: 50, bottom: 80),
-                            children: currentOrgnisation.lessonsView,
+                            children: educatorLessons.lessonCards,
                           )),
                     ],
                   ),

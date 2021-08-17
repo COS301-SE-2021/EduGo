@@ -1,73 +1,29 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class LessonModel extends MomentumModel<LessonController> {
-  final Lesson currentLesson;
-  final Lesson viewBoundLesson;
-  LessonModel(LessonController controller,
-      {this.currentLesson, this.viewBoundLesson})
+class CreateLessonModel extends MomentumModel<CreateLessonController> {
+  final String lessonTitle;
+  final String lessonDescription;
+  CreateLessonModel(CreateLessonController controller,
+      {this.lessonTitle, this.lessonDescription})
       : super(controller);
+
+  void setLessonTitle(String lessonTitle) {
+    update(lessonTitle: lessonTitle);
+  }
+
+  void setLessonDescription(String lessonDescription) {
+    update(lessonDescription: lessonDescription);
+  }
 
   @override
   void update({
-    Lesson viewBoundLesson,
-    Lesson currentLesson,
+    String lessonTitle,
+    String lessonDescription,
   }) {
-    LessonModel(
+    CreateLessonModel(
       controller,
-      viewBoundLesson: currentLesson ?? this.currentLesson,
-      currentLesson: currentLesson ?? this.currentLesson,
+      lessonTitle: lessonTitle ?? this.lessonTitle,
+      lessonDescription: lessonDescription ?? this.lessonDescription,
     ).updateMomentum();
   }
-
-  void setViewBoundLessonTitle({String lessonTitle}) {
-    Lesson temporaryLesson = viewBoundLesson;
-    temporaryLesson.setLessonTitle(lessonTitle);
-    update(viewBoundLesson: temporaryLesson);
-  }
-
-  void setViewBoundLessonDescription({String lessonDescription}) {
-    Lesson temporaryLesson = viewBoundLesson;
-    temporaryLesson.setLessonDescription(lessonDescription);
-    update(viewBoundLesson: temporaryLesson);
-  }
-
-  void setCurrentLessonTitle({String lessonTitle}) {
-    Lesson temporaryLesson = currentLesson;
-    temporaryLesson.setLessonTitle(lessonTitle);
-    update(currentLesson: temporaryLesson);
-  }
-
-  void setCurrentLessonDescription({String lessonDescription}) {
-    Lesson temporaryLesson = currentLesson;
-    temporaryLesson.setLessonDescription(lessonDescription);
-    update(currentLesson: temporaryLesson);
-  }
-
-  // void addViewBoundLessonVirtualEntity({VirtualEntity lessonVirtualEntity}) {
-  //   Lesson temporaryLesson = viewBoundLesson;
-  //   temporaryLesson.addLessonVirtualEntity(lessonVirtualEntity);
-  //   update(viewBoundLesson: temporaryLesson);
-  // }
-
-  // void addCurrentLessonVirtualEntity({VirtualEntity lessonVirtualEntity}) {
-  //   Lesson temporaryLesson = currentLesson;
-  //   temporaryLesson.addLessonVirtualEntity(lessonVirtualEntity);
-  //   update(currentLesson: temporaryLesson);
-  // }
-
-  String getViewBoundLessonTitle() {
-    return viewBoundLesson.getLessonTitle();
-  }
-
-  String getViewBoundLessonDescription() {
-    return viewBoundLesson.getLessonDescription();
-  }
-
-  // List<VirtualEntity> getViewBoundLessonVirtualEntities() {
-  //   return viewBoundLesson.getLessonVirtualEntities();
-  // }
-
-  // List<VirtualEntity> getCurrentLessonVirtualEntities() {
-  //   return currentLessonss.getLessonVirtualEntities();
-  // }
 }

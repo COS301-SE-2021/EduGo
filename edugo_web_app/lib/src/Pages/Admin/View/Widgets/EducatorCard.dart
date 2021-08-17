@@ -2,10 +2,8 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class EducatorCard extends StatelessWidget {
   final bool admin;
-  final int id;
   final String name;
-  const EducatorCard({Key key, this.admin, this.id, this.name})
-      : super(key: key);
+  const EducatorCard({Key key, this.admin, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +62,7 @@ class EducatorCard extends StatelessWidget {
                             ),
                             onTap: () {
                               Momentum.controller<AdminController>(context)
-                                  .revokeEducatorAdmin(id);
+                                  .revokeEducatorAdmin(name);
                             },
                           ),
                         ),
@@ -95,7 +93,7 @@ class EducatorCard extends StatelessWidget {
                             ),
                             onTap: () {
                               Momentum.controller<AdminController>(context)
-                                  .makeEducatorAdmin(id);
+                                  .makeEducatorAdmin(name);
                             },
                           ),
                         ),

@@ -1,4 +1,4 @@
-import 'package:edugo_web_app/src/Pages/Lesson/Model/Data/LessonDataObjects.dart';
+import 'package:edugo_web_app/src/Pages/Lessons/Model/Data/Lesson.dart';
 
 class Lessons {
   final List<Lesson> lessons;

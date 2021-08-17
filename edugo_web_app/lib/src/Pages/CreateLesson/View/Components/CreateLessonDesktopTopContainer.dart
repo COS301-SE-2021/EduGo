@@ -1,10 +1,11 @@
+import 'package:edugo_web_app/src/Pages/CreateLesson/View/Widgets/CreateLessonWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateLessonDesktopTopContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [LessonController],
+      controllers: [CreateLessonController],
       builder: (context, snapshot) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -17,11 +18,11 @@ class CreateLessonDesktopTopContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: LessonInputBox(
+                child: CreateLessonInputBox(
                   text: "Lesson title...",
                   onChanged: (lessonTitle) {
-                    Momentum.controller<LessonController>(context)
-                        .setViewBoundLessonTitle(lessonTitle);
+                    Momentum.controller<CreateLessonController>(context)
+                        .setLessonTitle(lessonTitle);
                   },
                 ),
               ),
@@ -34,11 +35,11 @@ class CreateLessonDesktopTopContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: LessonMultiLine(
+                child: CreateLessonMultiLine(
                   text: "Lesson description...",
                   onChanged: (lessonDescription) {
-                    Momentum.controller<LessonController>(context)
-                        .setViewBoundLessonDescription(lessonDescription);
+                    Momentum.controller<CreateLessonController>(context)
+                        .setLessonDescription(lessonDescription);
                   },
                 ),
               ),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LessonButton extends StatelessWidget {
+class CreateLessonButton extends StatelessWidget {
   final Widget child;
   final Function onPressed;
   final double elevation;
   final double width;
   final double height;
-  const LessonButton(
+  const CreateLessonButton(
       {Key key,
       this.child,
       this.onPressed,

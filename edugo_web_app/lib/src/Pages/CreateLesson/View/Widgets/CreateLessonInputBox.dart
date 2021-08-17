@@ -1,10 +1,11 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:flutter/material.dart';
 
-class LessonInputBox extends StatelessWidget {
+class CreateLessonInputBox extends StatelessWidget {
   final String text;
   final Function onChanged;
-  const LessonInputBox({Key key, this.text, this.onChanged}) : super(key: key);
+  const CreateLessonInputBox({Key key, this.text, this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

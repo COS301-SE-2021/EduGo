@@ -1,25 +1,33 @@
 class User {
-  String name;
-  bool admin;
-  int id;
+  String _name;
+  bool _admin;
+
+  User({
+    name,
+    admin,
+  })  : _name = name,
+        _admin = admin;
 
   void setAdmin(bool admin) {
-    admin = admin;
+    _admin = admin;
   }
 
   void setName(String name) {
-    name = name;
-  }
-
-  void setId(int id) {
-    id = id;
+    _name = name;
   }
 
   bool getAdmin() {
-    return admin;
+    return _admin;
   }
 
   String getName() {
-    return name;
+    return _name;
+  }
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      name: json['username'] as String,
+      admin: json['admin'] as bool,
+    );
   }
 }

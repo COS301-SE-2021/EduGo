@@ -136,7 +136,7 @@ class AdminView extends StatelessWidget {
                                 height: 30,
                               ),
                               Column(
-                                children: currentOrganisation.educatorsView,
+                                children: currentOrganisation.educatorCards,
                               )
                             ],
                           ),

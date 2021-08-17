@@ -1,30 +1,43 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class CreateLessonController extends MomentumController<LessonModel> {
+class CreateLessonController extends MomentumController<CreateLessonModel> {
   @override
-  LessonModel init() {
-    return LessonModel(this,
-        viewBoundLesson: Lesson(), currentLesson: Lesson());
+  CreateLessonModel init() {
+    return CreateLessonModel(
+      this,
+    );
   }
 
-  void setViewBoundLessonTitle(String lessonTitle) {
-    model.setViewBoundLessonTitle(lessonTitle: lessonTitle);
+  void setLessonTitle(String lessonTitle) {
+    model.setLessonTitle(lessonTitle);
   }
 
-  void setViewBoundLessonDescription(String lessonDescription) {
-    model.setViewBoundLessonDescription(lessonDescription: lessonDescription);
+  void setLessonDescription(String lessonDescription) {
+    model.setLessonDescription(lessonDescription);
   }
 
   Future createLesson(context) async {
-    MomentumRouter.goto(context, LessonsView);
-    var currentSubjectController = controller<SubjectController>();
     var url = Uri.parse('http://localhost:8080/lesson/createLesson');
-    await post(url, headers: {
-      'contentType': 'application/json',
-    }, body: {
-      "title": model.viewBoundLesson.getLessonTitle(),
-      "description": model.viewBoundLesson.getLessonDescription(),
-      "subjectId": currentSubjectController.getCurrentSubject().getSubjectId()
-    }).then((value) => {MomentumRouter.goto(context, LessonsView)});
+    await post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':
+            Momentum.controller<AdminController>(context).getToken()
+      },
+      body: jsonEncode(
+        <String, String>{
+          "title": model.lessonTitle,
+          "description": model.lessonDescription,
+          "subjectId": Momentum.controller<AdminController>(context)
+              .getCurrentSubjectId()
+              .toString()
+        },
+      ),
+    ).then(
+      (value) => {
+        MomentumRouter.goto(context, LessonsView),
+      },
+    );
   }
 }

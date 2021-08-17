@@ -1,14 +1,17 @@
+import 'package:edugo_web_app/src/Pages/CreateLesson/View/Widgets/CreateLessonWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateLessonDesktopBottomContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [LessonController, SubjectController],
+      controllers: [
+        CreateLessonController,
+      ],
       builder: (context, snapshot) {
         return Row(
           children: <Widget>[
-            LessonButton(
+            CreateLessonButton(
               onPressed: () {},
               child: Row(
                 children: <Widget>[
@@ -29,14 +32,14 @@ class CreateLessonDesktopBottomContainer extends StatelessWidget {
               height: 60,
             ),
             Spacer(),
-            LessonButton(
+            CreateLessonButton(
                 elevation: 40,
                 child: Text(
                   "Create Lesson",
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  Momentum.controller<LessonController>(context)
+                  Momentum.controller<CreateLessonController>(context)
                       .createLesson(context);
                 },
                 width: ScreenUtil().setWidth(500),

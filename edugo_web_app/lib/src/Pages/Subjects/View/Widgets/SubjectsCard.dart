@@ -25,9 +25,11 @@ class SubjectsCard extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                //Info:
+                //Info: set current subject Id to card's subect ID
                 Momentum.controller<AdminController>(context)
                     .setCurrentSubjectId(this.subjectId);
+
+                //Info: redirect to lessons view
                 MomentumRouter.goto(context, LessonsView);
               },
               child: Column(
@@ -39,6 +41,7 @@ class SubjectsCard extends StatelessWidget {
                       topRight: Radius.circular(5.0),
                     ),
                     child: Image.asset(
+                      //Todo: repace with this.imagelink
                       "../assets/images/maths.jpeg",
                     ),
                   ),

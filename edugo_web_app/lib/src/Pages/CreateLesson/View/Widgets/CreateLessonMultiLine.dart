@@ -1,10 +1,11 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:flutter/material.dart';
 
-class LessonMultiLine extends StatelessWidget {
+class CreateLessonMultiLine extends StatelessWidget {
   final String text;
   final Function onChanged;
-  const LessonMultiLine({Key key, this.text, this.onChanged}) : super(key: key);
+  const CreateLessonMultiLine({Key key, this.text, this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
