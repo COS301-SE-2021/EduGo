@@ -96,6 +96,7 @@ export class SubjectService {
 		let user: User | undefined;
 		try {
 			user = await this.userRepository.findOne(user_id, {
+<<<<<<< HEAD
 				relations: [
 					"educator",
 					"educator.subjects",
@@ -104,11 +105,15 @@ export class SubjectService {
 					"student.subjects.educators.user",
 					"student.subjects.educators",
 				],
+=======
+				relations: ["educator", "student"],
+>>>>>>> parent of f36fb458 (feat: all changes)
 			});
 		} catch (err) {
 			throw new BadRequestError("Could not find error");
 		}
 
+<<<<<<< HEAD
 		console.log(user);
 
 		if (!user) throw new BadRequestError("Could not find user");
@@ -143,5 +148,66 @@ export class SubjectService {
 		}
 
 		throw new InternalServerError("User not a student nor a educator");
+=======
+		if (user) {
+			if (user.educator) {
+				let educator: Educator | undefined;
+				try {
+					educator = await this.educatorRepository.findOne(
+						user.educator.id,
+						{ relations: ["subjects"] }
+					);
+
+					console.log(educator);
+				} catch (err) {
+					throw new BadRequestError("Could not find Educator");
+				}
+				if (!educator)
+					throw new BadRequestError("Could not find Educator");
+
+				let obj = {
+					data: educator.subjects.map((value) => {
+						console.log(value);
+
+						return {
+							id: value.id,
+							title: value.title,
+							grade: value.grade,
+							image: value.image,
+						};
+					}),
+				};
+
+				return obj;
+			} else if (user.student) {
+				let student: Student | undefined;
+
+				try {
+					student = await this.studentRepository.findOne(
+						user.student.id,
+						{ relations: ["subjects"] }
+					);
+				} catch (err) {
+					throw new BadRequestError("Could not find Student");
+				}
+				if (!student)
+					throw new BadRequestError("Could not find Student");
+
+				return {
+					data: student.subjects.map((value) => {
+						return {
+							id: value.id,
+							title: value.title,
+							grade: value.grade,
+							image: value.image,
+						};
+					}),
+				};
+			} else
+				throw new InternalServerError(
+					"Could not determine of user is student or educator"
+				);
+		} else throw new BadRequestError("Could not find user");
+>>>>>>> parent of f36fb458 (feat: all changes)
 	}
 }

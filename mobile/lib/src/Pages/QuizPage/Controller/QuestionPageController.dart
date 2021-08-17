@@ -1,25 +1,21 @@
-import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
-import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
-import 'package:momentum/momentum.dart';
-
-class QuestionPageController extends MomentumController<QuestionPageModel> {
+class QuestionController extends MomentumController<QuestionPageModel> {
+  QuestionController({this.mock = false});
   bool mock;
-  QuestionPageController({this.mock = false});
 
   QuestionPageModel init() {
-    int index = 0;
-    return QuestionPageModel(
-      this,
-      type: QuestionType.TrueFalse,
-      questionText: '',
-      optionsText: [],
-      correctAnswer: '',
-    );
+    return QuestionPageModel(this, quizes: []);
   }
 
-  Future<void> loadQuestion(List<Question> questions) async {
-    model.update(
-        //question: questions.elementAt(index).question,
-        );
+  @override
+  Future<void> bootstrapAsync() {
+    return getQuestionesByLesson(1,
+            client: mock
+                ? httpMock.MockClient(mockApi.getQuestionesByLesson)
+                : http.Client())
+        .then((value) {
+      print('Value');
+      print(value);
+      model.update();
+    });
   }
 }
