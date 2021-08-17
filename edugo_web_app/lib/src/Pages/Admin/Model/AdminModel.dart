@@ -1,6 +1,12 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:edugo_web_app/src/Pages/Lessons/Model/Data/Lesson.dart';
+import 'package:edugo_web_app/src/Pages/Subjects/Model/Data/Subject.dart';
+
+import 'Data/User.dart';
 
 class AdminModel extends MomentumModel<AdminController> {
+  final String token;
+  final int currentSubjectId;
   final String organisationName;
   final String organisationEmail;
   final String organisationId;
@@ -13,6 +19,8 @@ class AdminModel extends MomentumModel<AdminController> {
   final List<Widget> educatorsView;
   AdminModel(AdminController controller,
       {this.organisationName,
+      this.currentSubjectId,
+      this.token,
       this.subjectsView,
       this.organisationEmail,
       this.organisationId,
@@ -71,18 +79,6 @@ class AdminModel extends MomentumModel<AdminController> {
     update(educatorsView: educatorsWidgets);
   }
 
-  void updateSubjectsView() {
-    List<Widget> subjectsWidgets = [];
-    subjects.forEach((subject) {
-      subjectsWidgets.add(new SubjectCard(
-          title: subject.getSubjectTitle(),
-          grade: subject.getSubjectGrade(),
-          imageLink: subject.getSubjectImageLink(),
-          subjectId: subject.getSubjectId().toString()));
-    });
-    update(subjectsView: subjectsWidgets);
-  }
-
   void updateLessonsView() {
     List<Widget> lessonsWidgets = [];
     lessons.forEach((lesson) {
@@ -96,6 +92,22 @@ class AdminModel extends MomentumModel<AdminController> {
     update(lessonsView: lessonsWidgets);
   }
 
+  void setCurrentSubjectId(int id) {
+    update(currentSubjectId: id);
+  }
+
+  void setToken(String token) {
+    update(token: token);
+  }
+
+  String getToken() {
+    return token;
+  }
+
+  int getCurrentSubjectId() {
+    return currentSubjectId;
+  }
+
   @override
   void update(
       {phoneNumber,
@@ -107,7 +119,9 @@ class AdminModel extends MomentumModel<AdminController> {
       educatorsView,
       subjectsView,
       lessons,
-      lessonsView}) {
+      lessonsView,
+      token,
+      currentSubjectId}) {
     AdminModel(controller,
             organisationId: organisationId ?? this.organisationId,
             phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -118,7 +132,9 @@ class AdminModel extends MomentumModel<AdminController> {
             educatorsView: educatorsView ?? this.educatorsView,
             subjectsView: subjectsView ?? this.subjectsView,
             lessons: lessons ?? this.lessons,
-            lessonsView: lessonsView ?? this.lessonsView)
+            lessonsView: lessonsView ?? this.lessonsView,
+            token: token ?? this.token,
+            currentSubjectId: currentSubjectId ?? this.currentSubjectId)
         .updateMomentum();
   }
 }

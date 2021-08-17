@@ -3,7 +3,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class AdminController extends MomentumController<AdminModel> {
   @override
   AdminModel init() {
-    return AdminModels(this,
+    return AdminModel(this,
         organisationName: "EduGo University",
         educators: [],
         educatorsView: [],
@@ -106,23 +106,19 @@ class AdminController extends MomentumController<AdminModel> {
     });
   }
 
-  Future<void> getEducatorSubjects(context) async {
-    var url =
-        Uri.parse('http://43e6071f3a8e.ngrok.io/subject/getSubjectsbyUser');
-    await post(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization':
-            Momentum.controller<SessionController>(context).getToken()
-      },
-    ).then((response) {
-      if (response.statusCode == 200) {
-        Map<String, dynamic> _subjects = jsonDecode(response.body);
-        model.update(subjects: Subjects.fromJson(_subjects).subjects);
-        model.updateSubjectsView();
-        return;
-      }
-    });
+  void setToken(String token) {
+    model.setToken(token);
+  }
+
+  void setCurrentSubjectId(int id) {
+    model.setCurrentSubjectId(id);
+  }
+
+  int getCurrentSubjectId() {
+    return model.getCurrentSubjectId();
+  }
+
+  String getToken() {
+    return model.getToken();
   }
 }

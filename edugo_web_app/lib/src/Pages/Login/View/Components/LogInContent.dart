@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:edugo_web_app/src/Pages/Login/View/Widgets/LogInWidgets.dart';
 
 class LogInContent extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -52,7 +53,7 @@ class LogInContent extends StatelessWidget {
                         return "Invalid user name";
                       },
                       onChanged: (value) {
-                        Momentum.controller<LoginsController>(context)
+                        Momentum.controller<LogInController>(context)
                             .setLoginUserName(value);
                       },
                       cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -80,7 +81,7 @@ class LogInContent extends StatelessWidget {
                         return "Invalid password";
                       },
                       onChanged: (value) {
-                        Momentum.controller<SessionController>(context)
+                        Momentum.controller<LogInController>(context)
                             .setLoginPassword(value);
                       },
                       cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -99,20 +100,14 @@ class LogInContent extends StatelessWidget {
                   SizedBox(
                     height: 40,
                   ),
-                  VirtualEntityButton(
+                  LogInButton(
                       elevation: 40,
                       child: Text(
                         "Sign In",
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        if (Momentum.controller<SessionController>(context)
-                                    .getLoginuserName() ==
-                                null ||
-                            Momentum.controller<SessionController>(context)
-                                    .getLoginPassword() ==
-                                null) _formKey.currentState.validate();
-                        Momentum.controller<SessionController>(context)
+                        Momentum.controller<LogInController>(context)
                             .loginUser(context: context, formkey: _formKey);
                       },
                       width: 450,

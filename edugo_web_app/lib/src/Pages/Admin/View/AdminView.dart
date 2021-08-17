@@ -1,13 +1,13 @@
+import 'package:edugo_web_app/src/Pages/Admin/View/Widgets/AdminWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class OrganisationDashboardView extends StatelessWidget {
+class AdminView extends StatelessWidget {
   Widget build(BuildContext context) {
-    Momentum.controller<CurrentOrganisationController>(context)
-        .getOrganisationEducators();
+    Momentum.controller<AdminController>(context).getOrganisationEducators();
     return MomentumBuilder(
-        controllers: [CurrentOrganisationController],
+        controllers: [AdminController],
         builder: (context, snapshot) {
-          var currentOrganisation = snapshot<CurrentOrganisationModel>();
+          var currentOrganisation = snapshot<AdminModel>();
           return PageLayout(
             top: 0,
             left: 0,
@@ -61,10 +61,10 @@ class OrganisationDashboardView extends StatelessWidget {
                                       ),
                                     ),
                                     Spacer(),
-                                    SubjectButton(
+                                    AdminButton(
                                       onPressed: () {
                                         MomentumRouter.goto(
-                                            context, InviteStudentView);
+                                            context, InviteStudentsView);
                                       },
                                       child: Row(
                                         children: <Widget>[
@@ -87,10 +87,10 @@ class OrganisationDashboardView extends StatelessWidget {
                                     SizedBox(
                                       width: ScreenUtil().setWidth(40),
                                     ),
-                                    SubjectButton(
+                                    AdminButton(
                                       onPressed: () {
                                         MomentumRouter.goto(
-                                            context, InviteEducatorView);
+                                            context, InviteEducatorsView);
                                       },
                                       child: Row(
                                         children: <Widget>[

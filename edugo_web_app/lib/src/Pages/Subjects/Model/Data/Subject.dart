@@ -1,7 +1,7 @@
 class Subject {
   String _title;
   String _grade;
-  String _id;
+  int _id;
   String _imageLink;
   Subject({
     imageLink,
@@ -13,27 +13,11 @@ class Subject {
         _title = title,
         _id = id;
 
-  void setSubjectTitle(String title) {
-    _title = title;
-  }
-
-  void setSubjectId(String id) {
-    _id = id;
-  }
-
-  void setSubjectGrade(String grade) {
-    _grade = grade;
-  }
-
-  void setSubjectImageLink(String imageLink) {
-    _imageLink = imageLink;
-  }
-
   String getSubjectTitle() {
     return _title;
   }
 
-  String getSubjectId() {
+  int getSubjectId() {
     return _id;
   }
 
@@ -48,7 +32,7 @@ class Subject {
   factory Subject.fromJson(Map<String, dynamic> json) {
     return Subject(
         title: json['title'] as String,
-        id: json['id'].toString(),
+        id: json['id'] as int,
         grade: json['grade'].toString(),
         imageLink: json['image'] as String);
   }

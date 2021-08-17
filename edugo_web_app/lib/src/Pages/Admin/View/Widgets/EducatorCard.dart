@@ -11,7 +11,7 @@ class EducatorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return MomentumBuilder(
       controllers: [
-        VirtualEntityApiController,
+        AdminController,
       ],
       builder: (context, snapshot) {
         return Material(
@@ -63,8 +63,7 @@ class EducatorCard extends StatelessWidget {
                               ],
                             ),
                             onTap: () {
-                              Momentum.controller<
-                                      CurrentOrganisationController>(context)
+                              Momentum.controller<AdminController>(context)
                                   .revokeEducatorAdmin(id);
                             },
                           ),
@@ -95,8 +94,7 @@ class EducatorCard extends StatelessWidget {
                               ],
                             ),
                             onTap: () {
-                              Momentum.controller<
-                                      CurrentOrganisationController>(context)
+                              Momentum.controller<AdminController>(context)
                                   .makeEducatorAdmin(id);
                             },
                           ),

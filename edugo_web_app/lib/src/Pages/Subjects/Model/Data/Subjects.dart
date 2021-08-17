@@ -1,4 +1,4 @@
-import 'package:edugo_web_app/src/Pages/Subject/Model/Data/SubjectDataObjects.dart';
+import 'Subject.dart';
 
 class Subjects {
   final List<Subject> subjects;

@@ -25,7 +25,7 @@ export 'package:edugo_web_app/src/Pages/InviteStudents/View/InviteStudentsView.d
 export 'package:edugo_web_app/src/Pages/Lessons/View/LessonsView.dart';
 
 // Info: Login View Exports
-export 'package:edugo_web_app/src/Pages/Login/View/LoginView.dart';
+export 'package:edugo_web_app/src/Pages/Login/View/LogInView.dart';
 
 // Info: Subjects View Exports
 export 'package:edugo_web_app/src/Pages/Subjects/View/SubjectsView.dart';

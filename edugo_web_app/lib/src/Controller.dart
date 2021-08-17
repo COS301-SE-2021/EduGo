@@ -26,7 +26,7 @@ export 'package:edugo_web_app/src/Pages/InviteStudents/Controller/InviteStudents
 export 'package:edugo_web_app/src/Pages/Lessons/Controller/LessonsController.dart';
 
 // Info: Login Contoller Exports
-export 'package:edugo_web_app/src/Pages/Login/Controller/LoginController.dart';
+export 'package:edugo_web_app/src/Pages/Login/Controller/LogInController.dart';
 
 // Info: Subjects Contoller Exports
 export 'package:edugo_web_app/src/Pages/Subjects/Controller/SubjectsController.dart';

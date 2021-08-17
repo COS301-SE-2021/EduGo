@@ -1,6 +1,7 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:edugo_web_app/src/Pages/Login/View/Components/LogInComponents.dart';
 
-class LoginView extends StatelessWidget {
+class LogInView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +21,7 @@ class LoginView extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 20),
-                child: SignInContent(),
+                child: LogInContent(),
               ),
             ],
           ),

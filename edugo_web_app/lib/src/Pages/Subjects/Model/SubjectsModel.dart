@@ -1,53 +1,48 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:edugo_web_app/src/Pages/Subjects/Model/Data/Subject.dart';
+import 'package:edugo_web_app/src/Pages/Subjects/View/Widgets/SubjectsWidgets.dart';
 
 class SubjectsModel extends MomentumModel<SubjectsController> {
-  final Subject currentSubject;
-  final Subject viewBoundSubject;
+  final List<Subject> subjects;
+  final List<Widget> subjectCards;
+
   SubjectsModel(SubjectsController controller,
-      {this.currentSubject, this.viewBoundSubject})
+      {this.subjects, this.subjectCards})
       : super(controller);
+
+// Info: Update list of subjects
+  void updateSubjects(List<Subject> subjectsUpdate) {
+    update(subjects: subjectsUpdate);
+    updateSubjectCards();
+  }
+
+// Info: Update subject cards
+  void updateSubjectCards() {
+    List<Widget> subjectCardsUpdate = [];
+    subjects.forEach(
+      (subject) {
+        subjectCardsUpdate.add(
+          new SubjectsCard(
+            title: subject.getSubjectTitle(),
+            grade: subject.getSubjectGrade(),
+            subjectId: subject.getSubjectId(),
+            imageLink: subject.getSubjectImageLink(),
+          ),
+        );
+      },
+    );
+    update(subjectCards: subjectCardsUpdate);
+  }
 
   @override
   void update({
-    Subject viewBoundSubject,
-    Subject currentSubject,
+    List<Subject> subjects,
+    List<Widget> subjectCards,
   }) {
     SubjectsModel(
       controller,
-      viewBoundSubject: currentSubject ?? this.currentSubject,
-      currentSubject: currentSubject ?? this.currentSubject,
+      subjects: subjects ?? this.subjects,
+      subjectCards: subjectCards ?? this.subjectCards,
     ).updateMomentum();
-  }
-
-  void setViewBoundSubjectTitle({String subjectTitle}) {
-    Subject temporarySubject = viewBoundSubject;
-    temporarySubject.setSubjectTitle(subjectTitle);
-    update(viewBoundSubject: temporarySubject);
-  }
-
-  void setViewBoundSubjectGrade({String subjectGrade}) {
-    Subject temporarySubject = viewBoundSubject;
-    temporarySubject.setSubjectGrade(subjectGrade);
-    update(viewBoundSubject: temporarySubject);
-  }
-
-  void setCurrentSubject({Subject currentSubject}) {
-    update(currentSubject: currentSubject);
-  }
-
-  Subject getCurrentSubject() {
-    return currentSubject;
-  }
-
-  String getViewBoundSubjectTitle() {
-    return viewBoundSubject.getSubjectTitle();
-  }
-
-  String getViewBoundSubjectGrade() {
-    return viewBoundSubject.getSubjectGrade();
-  }
-
-  String getViewBoundSubjectImageLink() {
-    return viewBoundSubject.getSubjectImageLink();
   }
 }

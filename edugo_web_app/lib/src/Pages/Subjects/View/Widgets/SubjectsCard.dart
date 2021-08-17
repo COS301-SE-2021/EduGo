@@ -1,16 +1,17 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class SubjectCard extends StatelessWidget {
+class SubjectsCard extends StatelessWidget {
+  //Info: Subjects card attributes
   final String title;
   final String grade;
-  final String subjectId;
+  final int subjectId;
   final String imageLink;
 
-  SubjectCard({this.title, this.grade, this.subjectId, this.imageLink});
+  SubjectsCard({this.title, this.grade, this.subjectId, this.imageLink});
 
   @override
   Widget build(BuildContext context) {
-    //Todo: Subject Card
+    //Info: Subjects card user interface
     return Card(
       elevation: 40,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
@@ -24,14 +25,10 @@ class SubjectCard extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Momentum.controller<SubjectController>(context)
-                    .setCurrentSubject(new Subject(
-                        title: this.title,
-                        grade: this.grade,
-                        id: this.subjectId,
-                        imageLink: this.imageLink));
-                Momentum.controller<CurrentOrganisationController>(context)
-                    .getEducatorSubjectLessons(context);
+                //Info:
+                Momentum.controller<AdminController>(context)
+                    .setCurrentSubjectId(this.subjectId);
+                MomentumRouter.goto(context, LessonsView);
               },
               child: Column(
                 children: <Widget>[
@@ -107,7 +104,7 @@ class SubjectCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
                   onPressed: () {
-                    MomentumRouter.goto(context, UpdateSubjectView);
+                    //MomentumRouter.goto(context, UpdateSubjectView);
                   },
                   child: Icon(
                     Icons.edit_outlined,
