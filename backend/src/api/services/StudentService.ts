@@ -211,7 +211,9 @@ export class StudentService {
 		);
 
 		await this.unverifiedUserRepository.save(unverifiedUsers);
-		let status = await this.emailService.SendBulkVerificationEmails(unverifiedEmails);
+		let status = await this.emailService.SendBulkVerificationEmails(
+			unverifiedEmails
+		);
 		if (!status) throw new InternalServerError("Could not send all emails");
 	}
 
@@ -426,13 +428,13 @@ export class StudentService {
 			throw new InternalServerError(err);
 		}
 	}
-	/** 
+	/**
 	 * @description Get all the grades for a student (including grades from lessons without any marks)
 	 * @param {Student} student - Database Student entity
 	 * @returns {Promise<GetStudentGradesResponse>}
 	 */
 	async populateGrades(student: Student): Promise<GetStudentGradesResponse> {
-		console.log(student)
+		console.log(student);
 
 		let studentSubjects = student.subjects.map((subject) => {
 			let createdSubject: SubjectGrades = {
@@ -444,14 +446,14 @@ export class StudentService {
 			return createdSubject;
 		});
 
-		console.log(studentSubjects)
+		console.log(studentSubjects);
 		let ids = studentSubjects.map((subject) => subject.id);
 		let subjects: Subject[] = await this.subjectRepository.find({
-			where: {id: In(ids)}, 
-			relations: ["lessons"]
+			where: { id: In(ids) },
+			relations: ["lessons"],
 		});
 		studentSubjects.map(async (subject) => {
-			let subjectLesson = subjects.find(sub => sub.id == subject.id);
+			let subjectLesson = subjects.find((sub) => sub.id == subject.id);
 			if (!subjectLesson) throw new NotFoundError("Subject not found");
 
 			subject.lessonGrades = subjectLesson.lessons.map((lesson) => {
@@ -463,9 +465,11 @@ export class StudentService {
 				};
 			});
 		});
-		let StudentGrades: GetStudentGradesResponse = {subjects:studentSubjects} ;
+		let StudentGrades: GetStudentGradesResponse = {
+			subjects: studentSubjects,
+		};
 
 		return StudentGrades;
-		
 	}
+	async GenerateAverages(studentGrade: GetStudentGradesResponse) {}
 }

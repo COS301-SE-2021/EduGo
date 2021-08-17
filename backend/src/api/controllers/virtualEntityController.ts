@@ -14,21 +14,15 @@ import { Inject, Service } from "typedi";
 import {
 	BadRequestError,
 	Body,
-	ContentType,
-	Controller,
 	CurrentUser,
-	Get,
 	InternalServerError,
 	JsonController,
 	Post,
-	Req,
-	Res,
 	UploadedFile,
 	UseBefore,
 } from "routing-controllers";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
-import express from "express";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
 @Service()
 @JsonController("/virtualEntity")
@@ -150,4 +144,3 @@ export class VirtualEntityController {
 
 //TODO add endpoint to make snapshot of 3d model
 
-// TODO get virtual entities by lesson
