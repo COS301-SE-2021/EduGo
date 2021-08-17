@@ -8,9 +8,8 @@ import {
 	GetOrganisationResponse,
 } from "../models/organisation/GetOrganisationResponse";
 
-
 import { Organisation } from "../database/Organisation";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 
 import {
 	GetOrganisationsResponse,
@@ -150,28 +149,32 @@ export class OrganisationService {
 						organisation_phone: organisation.phone,
 						id: organisation.id,
 						subjects: organisation.subjects,
+						educator: [],
 					};
 
-					let educators: educatorDetails[] = [];
-					organisation.users.map(async (user) => {
-						let userDetails = await this.userRepository.findOne(
-							user.id,
-							{ relations: ["educator"] }
-						);
+					let ids = organisation.users.map((user) => user.id);
 
-						if (userDetails?.educator) {
-							let populatedUserDetails: educatorDetails = {
-								username: user.username,
-								firstName: user.lastName,
-								lastName: user.lastName,
-								isAdmin: userDetails.educator.admin,
-							};
-							educators.push(populatedUserDetails);
-							return;
-						}
+					let users: User[] = await (
+						await this.userRepository.find({
+							where: { id: In(ids) },
+							relations: ["educator"],
+						})
+					).filter((user) => user.educator != undefined);
+					let educators: educatorDetails[] = users.map((user) => {
+						let populatedUserDetails: educatorDetails = {
+							username: user.username,
+							firstName: user.lastName,
+							lastName: user.lastName,
+							isAdmin: user.educator.admin,
+						};
+						console.log(populatedUserDetails);
+						return populatedUserDetails;
 					});
+					console.log(educators);
 
-					response.educator = educators;
+					for (let i = 0; i < educators.length; i++) {
+						response.educator.push(educators[i]);
+					}
 					return response;
 				}
 				throw new BadRequestError(
@@ -188,8 +191,7 @@ export class OrganisationService {
 	 * @returns {Promise<GetOrganisationsResponse>}
 	 * @memberof OrganisationService
 	 */
-	async GetOrganisations(
-	): Promise<GetOrganisationsResponse> {
+	async GetOrganisations(): Promise<GetOrganisationsResponse> {
 		return this.organisationRepository
 			.find()
 			.then((organisations) => {

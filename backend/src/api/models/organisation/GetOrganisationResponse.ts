@@ -4,7 +4,7 @@ import { Organisation } from "./Default";
 export interface GetOrganisationResponse extends Organisation {
 	id: number;
 	subjects: Subject[];
-	educator?: educatorDetails[];
+	educator: educatorDetails[];
 }
 
 export interface educatorDetails {
