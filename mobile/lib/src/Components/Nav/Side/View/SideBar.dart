@@ -44,7 +44,7 @@ class _SideBarState extends State<SideBar> {
                   //Leads to Preferences page
                   MomentumRouter.goto(
                 context,
-                QuizPage,
+                QuizView,
                 transition: (context, page) {
                   return MaterialPageRoute(builder: (context) => page);
                 },

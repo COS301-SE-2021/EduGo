@@ -14,6 +14,9 @@ import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/QuestionController.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuestionPageView.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuizPageView.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
@@ -25,7 +28,7 @@ import 'package:momentum/momentum.dart';
 
 void main() {
   //when mock=false it uses api calls. when mock=true, it uses mock data
-  runApp(momentum(mock: false));
+  runApp(momentum(mock: true));
   //PaintingBinding.instance!.imageCache!.clear();
 }
 
@@ -33,6 +36,8 @@ Momentum momentum({bool mock = true}) {
   return Momentum(
     child: MyApp(),
     controllers: [
+      QuestionController(mock: mock),
+      QuizController(mock: mock),
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
       GradesController(mock: true),
@@ -44,7 +49,8 @@ Momentum momentum({bool mock = true}) {
       UserApiService(), HomeService(),
       //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
-        QuizView(),
+        //QuizView(),
+        QuestionView(),
         LoginPage(),
         DetectMarkerPage(),
         GradesSubjectPage(),

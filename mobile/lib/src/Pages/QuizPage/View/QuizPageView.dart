@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/QuestionController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+import 'package:mobile/src/Pages/QuizPage/Model/QuestionModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Controller/VirtualEntityController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
@@ -20,76 +22,62 @@ class _QuizViewState extends State<QuizView> {
     super.initState();
   }
 
-  //_QuizViewState();
-
-  /*class Tech {
-  String label;
-  bool isSelected;
-  Tech(this.label, this.isSelected);
-}
-
-  //MC
-  bool selected = false;
-  List<Tech> _chipsList = [
-    Tech("Android", false),
-    Tech("Flutter", false),
-    Tech("Ios", false),
-    Tech("Python", false),
-    Tech("Go lang", false)
-  ];
-  //TOF
-  String? _value = '';
-  String type = 'MC'; //'MC'; //
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Choice Chips Demo',
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Choice Chips Demo'),
-        ),
-        body: Column(
-          children: List<Widget>.generate(3, (int index) {
-            if (type == 'TOF') {
-              return ChoiceChip(
-                label: Text('Item $index'),
-                selected: _value == 'Item $index',
-                onSelected: (bool selected) {
+    String? _value = '';
+    bool isSelected = false;
+
+    Widget displayQuestions(QuestionModel questions) {
+      return Column(
+        children:
+            List<Widget>.generate(questions.optionsText.length, (int index) {
+          String currrentOption = questions.optionsText.elementAt(index);
+          if (questions.type == QuestionType.TrueFalse) {
+            return ChoiceChip(
+              label: Text(currrentOption),
+              selected: _value == currrentOption,
+              onSelected: (bool selected) {
+                setState(() {
+                  _value = selected ? currrentOption : null;
+                });
+              },
+            );
+          } else
+            return FilterChip(
+                label: Text(currrentOption),
+                labelStyle: TextStyle(color: Colors.white),
+                backgroundColor: Colors.green,
+                selected: isSelected,
+                onSelected: (bool value) {
                   setState(() {
-                    _value = selected ? 'Item $index' : null;
+                    isSelected = value;
                   });
-                },
-              );
-            } else
-              return FilterChip(
-                  label: Text(_chipsList[index].label),
-                  labelStyle: TextStyle(color: Colors.white),
-                  backgroundColor: Colors.green,
-                  selected: _chipsList[index].isSelected,
-                  onSelected: (bool value) {
-                    setState(() {
-                      _chipsList[index].isSelected = value;
-                    });
-                  });
-          }).toList(),
-        ),
-      ),
-    );}*/
-  @override
-  Widget build(BuildContext context) {
-    //Widg
+                });
+        }).toList(),
+      );
+    }
+
+    //Display page
     return MobilePageLayout(
         false,
         false,
         MomentumBuilder(
             controllers: [QuizController],
             builder: (context, snapshot) {
-              final questions = snapshot<QuizModel>();
-              final questionController =
+              final quizzes = snapshot<QuizModel>();
+              final quizController =
                   Momentum.controller<QuizController>(context);
+              //TODO call update functio in controller
 
-              return Column(); //TODO return children
+              final questions = snapshot<QuestionModel>();
+              final questionController =
+                  Momentum.controller<QuestionController>(context);
+
+              // If optional answers for the quiz have been added, display question
+              if (questions.optionsText.isNotEmpty) {
+                return displayQuestions(questions);
+              }
+              return Row(children: [Text('no questions to display')]);
             }),
         'Quiz');
   }

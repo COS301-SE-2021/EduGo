@@ -6,15 +6,29 @@ import 'package:momentum/momentum.dart';
 class QuizModel extends MomentumModel<QuizController> {
   QuizModel(
     QuizController controller, {
+    required this.id,
+    required this.title,
+    required this.description,
     required this.questions,
   }) : super(controller);
 
+  final int id;
+  final String title;
+  final String description;
   final List<Question> questions;
 
   @override
-  void update({List<Question>? questions}) {
+  void update({
+    int? id,
+    String? title,
+    String? description,
+    List<Question>? questions,
+  }) {
     QuizModel(
       controller,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
       questions: questions ?? this.questions,
     ).updateMomentum();
   }

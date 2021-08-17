@@ -13,10 +13,10 @@ class QuizController extends MomentumController<QuizModel> {
   QuizController({this.mock = false});
   bool mock;
 
-  List<Question> questions = [];
+  //List<Question> questions = [];
   @override
   QuizModel init() {
-    return QuizModel(this, questions: []);
+    return QuizModel(this, id: 0, title: '', description: '', questions: []);
   }
 
   Future<List<Question>> getQuestions({required http.Client client}) async {
