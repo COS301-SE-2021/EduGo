@@ -13,6 +13,7 @@ import { Grade } from "./Grade";
 import { Subject } from "./Subject";
 import { VirtualEntity } from "./VirtualEntity";
 @Index(["subject", "title"], { unique: true })
+
 @Entity()
 export class Lesson {
 	@PrimaryGeneratedColumn()

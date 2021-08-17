@@ -211,7 +211,9 @@ export class StudentService {
 		);
 
 		await this.unverifiedUserRepository.save(unverifiedUsers);
-		let status = await this.emailService.SendBulkVerificationEmails(unverifiedEmails);
+		let status = await this.emailService.SendBulkVerificationEmails(
+			unverifiedEmails
+		);
 		if (!status) throw new InternalServerError("Could not send all emails");
 	}
 
@@ -260,7 +262,8 @@ export class StudentService {
 		} catch (err) {
 			throw err;
 		}
-		if (!user.student) throw new ForbiddenError("Only student grades can be displayed");
+		if (!user.student)
+			throw new ForbiddenError("Only student grades can be displayed");
 
 		try {
 			let student = await this.studentRepository.findOne(
@@ -286,45 +289,58 @@ export class StudentService {
 						quizGrade.quiz_total = gradeInfo.total;
 						quizGrade.lessonId = gradeInfo.lesson?.id;
 						quizGrade.VirtualEntityId =
-							await this.getvirtualEntityId(
-								gradeInfo.quiz.id
-							);
+							await this.getvirtualEntityId(gradeInfo.quiz.id);
 						return await quizGrade;
 					}
 				})
 			);
-			console.log(studentGrade);
-			if(!studentGrade.subjects) throw new NotFoundError("blank not created")
+			if (!studentGrade.subjects)
+				throw new NotFoundError("blank not created");
 
-			studentGrade.subjects = studentGrade.subjects.map(
-				(subject) => {
-					let subjectG = subject.lessonGrades.map(
-						(lesson) => {
-							let lessonG = quizGrades.map((quizMark) => {
-								if (quizMark?.lessonId == lesson.id) {
-									let quizes = quizGrades.map(
-										(quiz) => {
-											let quizer: QuizGrade={};
-											if (quiz && quizMark) {
-												quizer.name = quiz.name;
-												quizer.student_score = quiz.students_score;
-												quizer.quiz_total = quiz.quiz_total;
-											}
-											return quizer;
-										}
-									);
-
-									lesson.quizGrades = quizes;
+			studentGrade.subjects = studentGrade.subjects.map((subject) => {
+				let subjectMark = -1; 
+				let subjetTotal = 0; 
+				let subjectG = subject.lessonGrades.map((lesson) => {
+					let lessonTotal = -1;
+					let quizTally = 0;
+					let lessonG = quizGrades.map((quizMark) => {
+						if (quizMark?.lessonId == lesson.id) {
+							let quizes = quizGrades.map((quiz) => {
+								let quizer: QuizGrade = {};
+								if (quiz && quizMark) {
+									quizer.name = quiz.name;
+									quizer.student_score = quiz.students_score;
+									quizer.quiz_total = quiz.quiz_total;
+									lessonTotal += quiz.students_score;
+									quizTally += quiz.quiz_total;
 								}
-								return lesson;
+								return quizer;
 							});
-							subject.lessonGrades = lessonG;
-							return subject;
+
+							lesson.quizGrades = quizes;
 						}
-					);
+						lesson.gradeAchieved =
+							lessonTotal == -1
+								? -1
+								: ((lessonTotal + 1) / quizTally) * 100;
+								
+						return lesson;
+					});
+					subject.lessonGrades = lessonG;
+
+					if(lesson.gradeAchieved){
+						subjectMark += lesson.gradeAchieved; 
+						subjetTotal +=1; 
+					}
+
 					return subject;
-				}
-			);
+				});
+
+				subject.gradeAchieved= subjectMark==-1? -1: (subjectMark+1)/subjetTotal 
+				return subject;
+			});
+
+			//GenerateAverages(studentGrade)
 			return studentGrade;
 		} catch (err) {
 			throw err;
@@ -359,13 +375,13 @@ export class StudentService {
 			throw new InternalServerError(err);
 		}
 	}
-	/** 
+	/**
 	 * @description Get all the grades for a student (including grades from lessons without any marks)
 	 * @param {Student} student - Database Student entity
 	 * @returns {Promise<GetStudentGradesResponse>}
 	 */
 	async populateGrades(student: Student): Promise<GetStudentGradesResponse> {
-		console.log(student)
+		console.log(student);
 
 		let studentSubjects = student.subjects.map((subject) => {
 			let createdSubject: SubjectGrades = {
@@ -377,14 +393,14 @@ export class StudentService {
 			return createdSubject;
 		});
 
-		console.log(studentSubjects)
+		console.log(studentSubjects);
 		let ids = studentSubjects.map((subject) => subject.id);
 		let subjects: Subject[] = await this.subjectRepository.find({
-			where: {id: In(ids)}, 
-			relations: ["lessons"]
+			where: { id: In(ids) },
+			relations: ["lessons"],
 		});
 		studentSubjects.map(async (subject) => {
-			let subjectLesson = subjects.find(sub => sub.id == subject.id);
+			let subjectLesson = subjects.find((sub) => sub.id == subject.id);
 			if (!subjectLesson) throw new NotFoundError("Subject not found");
 
 			subject.lessonGrades = subjectLesson.lessons.map((lesson) => {
@@ -396,9 +412,11 @@ export class StudentService {
 				};
 			});
 		});
-		let StudentGrades: GetStudentGradesResponse = {subjects:studentSubjects} ;
+		let StudentGrades: GetStudentGradesResponse = {
+			subjects: studentSubjects,
+		};
 
 		return StudentGrades;
-		
 	}
+	async GenerateAverages(studentGrade: GetStudentGradesResponse) {}
 }
