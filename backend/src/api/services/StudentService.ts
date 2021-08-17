@@ -256,7 +256,7 @@ export class StudentService {
 	public async GetStudentGrades(id: number): Promise<GetStudentGradesResponse> {
 		let user: User | undefined;
 		try {
-			user = await this.userRepository.findOne({where: {id: id}, relations: ["student", "student.grades", "student.grades.quiz", "student.grades.lesson", "student.grades.lesson.subject"]});
+			user = await this.userRepository.findOne({where: {id: id}, relations: ["student", "student.subjects", "student.grades", "student.grades.quiz", "student.grades.lesson", "student.grades.lesson.subject"]});
 		}
 		catch (err) {
 			throw new BadRequestError("Could not find user");
@@ -315,6 +315,20 @@ export class StudentService {
 			lesson.gradeAchieved += value.score;
 			subject.gradeAchieved += value.score;
 			
+		});
+
+		let existingSubjectIds: number[] = response.subjects.map(sub => sub.id);
+		let remainingSubjects: Subject[] = user.student.subjects.filter(sub => !existingSubjectIds.includes(sub.id));
+
+		//For each remaining subject create a new SubjectGrades object and push it to the response object
+		remainingSubjects.map(sub => {
+			let subject: SubjectGrades = {
+				id: sub.id,
+				subjectName: sub.title,
+				gradeAchieved: 0,
+				lessonGrades: []
+			}
+			response.subjects.push(subject);
 		});
 		return response;
 	}
