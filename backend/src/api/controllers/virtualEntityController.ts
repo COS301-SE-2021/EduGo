@@ -29,6 +29,7 @@ import {
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
 import express from "express";
+import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
 @Service()
 @JsonController("/virtualEntity")
 @UseBefore(passport.authenticate("jwt", { session: false }))
@@ -97,11 +98,11 @@ export class VirtualEntityController {
 		} else throw new BadRequestError("User is invalid");
 	}
 
-	@Get("/getVirtualEntities")
-	@UseBefore(isUser)
-	GetVirtualEntities() {
-		return this.service.GetVirtualEntities();
-	}
+	// @Get("/getVirtualEntities")
+	// @UseBefore(isUser)
+	// GetVirtualEntities() {
+	// 	return this.service.GetVirtualEntities();
+	// }
 
 	@Post("/getVirtualEntity")
 	@UseBefore(isUser)
@@ -138,6 +139,12 @@ export class VirtualEntityController {
 	@UseBefore(isEducator)
 	GetPrivateVirtualEntities(@CurrentUser({ required: true }) id: number) {
 		return this.service.GetPrivateVirtualEntities(id);
+	}
+
+	@Post("/getQuizesByLesson")
+	@UseBefore(isUser)
+	GetQuizesByLesson(@Body({ required: true }) body: GetQuizesByLessonRequest) {
+		return this.service.GetQuizesByLesson(body);
 	}
 }
 

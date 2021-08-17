@@ -1,6 +1,6 @@
 import express from "express";
 import { AuthController } from "../authController";
-import  AuthService  from "../../../api/services/AuthService";
+import  AuthService  from "../../services/AuthService";
 import { LoginRequest } from "../../../api/models/auth/LoginRequest";
 import request from "supertest";
 import { app } from "../../../index";

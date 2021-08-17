@@ -15,12 +15,6 @@ export class Question {
 }
 
 export class Quiz {
-    @IsString()
-    title: string;
-
-    @IsString()
-    description: string;
-
     @IsArray()
     questions: Question[];
 }
