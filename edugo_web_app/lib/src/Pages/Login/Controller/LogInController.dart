@@ -37,7 +37,6 @@ class LogInController extends MomentumController<LoginModel> {
 
         if (_user['name'] == "UnauthorizedError") {
           formkey.currentState.validate();
-
           return;
         }
 

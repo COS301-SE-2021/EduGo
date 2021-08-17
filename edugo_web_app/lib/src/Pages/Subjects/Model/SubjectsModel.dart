@@ -13,7 +13,6 @@ class SubjectsModel extends MomentumModel<SubjectsController> {
 // Info: Update list of subjects
   void updateSubjects(List<Subject> subjectsUpdate) {
     update(subjects: subjectsUpdate);
-    updateSubjectCards();
   }
 
 // Info: Update subject cards
@@ -31,6 +30,7 @@ class SubjectsModel extends MomentumModel<SubjectsController> {
         );
       },
     );
+
     update(subjectCards: subjectCardsUpdate);
   }
 

@@ -26,8 +26,8 @@ void main() {
         MomentumRouter(
           [
             //* All pages that the Router is going to use
-            AdminView(),
             Home(),
+            AdminView(),
             InviteEducatorsView(),
             InviteStudentsView(),
             CreateVirtualEntityView(),

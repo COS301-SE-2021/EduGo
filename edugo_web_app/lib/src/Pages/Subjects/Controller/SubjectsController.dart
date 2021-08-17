@@ -9,8 +9,7 @@ class SubjectsController extends MomentumController<SubjectsModel> {
 
 // Info: Get all subjects created by the educator
   Future<void> getEducatorSubjects(context) async {
-    var url =
-        Uri.parse('http://43e6071f3a8e.ngrok.io/subject/getSubjectsbyUser');
+    var url = Uri.parse('http://34.65.226.152:8080/subject/getSubjectsbyUser');
     await post(
       url,
       headers: {
@@ -22,6 +21,7 @@ class SubjectsController extends MomentumController<SubjectsModel> {
       if (response.statusCode == 200) {
         Map<String, dynamic> _subjects = jsonDecode(response.body);
         model.updateSubjects(Subjects.fromJson(_subjects).subjects);
+        model.updateSubjectCards();
         return;
       }
     });

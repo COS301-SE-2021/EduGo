@@ -17,7 +17,7 @@ class CreateSubjectController extends MomentumController<CreateSubjectModel> {
   }
 
   Future<void> createSubject(context) async {
-    var url = Uri.parse("http://43e6071f3a8e.ngrok.io/subject/createSubject");
+    var url = Uri.parse("http://34.65.226.152:8080/subject/createSubject");
 
     var request = new MultipartRequest(
       "POST",
@@ -36,6 +36,7 @@ class CreateSubjectController extends MomentumController<CreateSubjectModel> {
 
     await request.send().then((value) async {
       await Response.fromStream(value).then((response) {
+        print(response.body);
         MomentumRouter.goto(context, SubjectsView);
       });
     });
