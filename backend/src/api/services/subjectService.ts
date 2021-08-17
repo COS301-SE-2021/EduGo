@@ -97,7 +97,7 @@ export class SubjectService {
 		let user: User | undefined;
 		try {
 			user = await this.userRepository.findOne(user_id, {
-				relations: ["educator", "student"],
+				relations: ["educator", "educator.", "student"],
 			});
 		} catch (err) {
 			throw new BadRequestError("Could not find error");
@@ -111,8 +111,6 @@ export class SubjectService {
 						user.educator.id,
 						{ relations: ["subjects"] }
 					);
-
-					console.log(educator);
 				} catch (err) {
 					throw new BadRequestError("Could not find Educator");
 				}
@@ -121,8 +119,6 @@ export class SubjectService {
 
 				let obj = {
 					data: educator.subjects.map((value) => {
-						console.log(value);
-
 						return {
 							id: value.id,
 							title: value.title,
@@ -139,21 +135,30 @@ export class SubjectService {
 				try {
 					student = await this.studentRepository.findOne(
 						user.student.id,
-						{ relations: ["subjects"] }
+						{ relations: ["subjects", "subjects.educators"] }
 					);
 				} catch (err) {
 					throw new BadRequestError("Could not find Student");
 				}
 				if (!student)
 					throw new BadRequestError("Could not find Student");
-
+				console.log(student)
 				return {
-					data: student.subjects.map((value) => {
+					data: await student.subjects.map( (subject) => {
+						// let subject = await this.subjectRepository.findOne(
+						// 	value.id,
+						// 	{ relations: ["educators", "educators.user"]  }
+						// );
+						// if (!subject)
+						// 	throw new NotFoundError("Subject not found");
+
+					//	console.log(subject.educators[0].user.firstName);
 						return {
-							id: value.id,
-							title: value.title,
-							grade: value.grade,
-							image: value.image,
+							id: subject.id,
+							title: subject.title,
+							grade: subject.grade,
+							image: subject.image,
+						//	educatorName: subject.educators[0].user.firstName,
 						};
 					}),
 				};
