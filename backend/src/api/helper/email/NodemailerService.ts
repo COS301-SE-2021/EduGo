@@ -41,7 +41,7 @@ export class NodemailerService implements EmailService {
 		this.addedToSubjectTemplate = Handlebars.compile(
 			rawAddedToSubjectTemplate
 		);
-
+	
 		this.transporter = nodemailer.createTransport({
 			service: "gmail",
 			auth: {
@@ -110,7 +110,7 @@ export class NodemailerService implements EmailService {
 							code: content[i].code,
 							link: "",
 						}),
-					})
+					}).catch(() => false)
 				);
 			}
 		} else if (type === "reminder" && this.isVerificationEmail(content)) {
@@ -124,7 +124,7 @@ export class NodemailerService implements EmailService {
 							code: content[i].code,
 							link: "",
 						}),
-					})
+					}).catch(() => false)
 				);
 			}
 		} else if (type === "added" && this.isAddedToSubjectEmail(content)) {
@@ -138,7 +138,7 @@ export class NodemailerService implements EmailService {
 							name: content[i].name,
 							subject: content[i].subject,
 						}),
-					})
+					}).catch(() => false)
 				);
 				recipientJSON[content[i].email] = {
 					html: this.addedToSubjectTemplate({
@@ -148,16 +148,16 @@ export class NodemailerService implements EmailService {
 				};
 			}
 		} else return false;
+		return true;
 
-		Promise.all(recipientJSON)
-			.then((result) => {
-				console.log("all emails sent");
-				return true;
-			})
-			.catch((error) => {
-				throw new InternalServerError("emails not sent");
-			});
-		return false;
+		// return Promise.all(recipientJSON)
+		// 	.then((result) => {
+		// 		console.log("all emails sent");
+		// 		return true;
+		// 	})
+		// 	.catch((error) => {
+		// 		throw new InternalServerError("emails not sent");
+		// 	});
 	}
 	private sendMail(mail: any) {
 		return new Promise((resolve, reject) => {
