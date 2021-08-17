@@ -21,14 +21,13 @@ class QuestionPageModel extends MomentumModel<QuestionPageController> {
   // Every time the next button is clicked, the question of the quiz at a particular index
   // will display. The index will be updated so when clicked again, the next question will display
   @override
-  void update({List<Question>? question}) {
-    final questionMap = question!.asMap();
+  void update({Question? question}) {
     QuestionPageModel(
       controller,
-      type: questionMap[index]!.type,
-      questionText: questionMap[index]!.question,
-      optionsText: questionMap[index]!.options,
-      correctAnswer: questionMap[index]!.correctAnswer,
+      type: question!.type,
+      questionText: question.question,
+      optionsText: question.options,
+      correctAnswer: question.correctAnswer,
     ).updateMomentum();
     index++;
   }

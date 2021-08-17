@@ -12,7 +12,9 @@ import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuizResultView.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
@@ -34,6 +36,7 @@ Momentum momentum({bool mock = true}) {
     child: MyApp(),
     controllers: [
       QuizController(mock: false),
+      QuestionPageController(mock: mock),
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
       GradesController(mock: true),
@@ -45,9 +48,7 @@ Momentum momentum({bool mock = true}) {
       UserApiService(), HomeService(),
       //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
-        //QuizView(),
         LoginPage(),
-        QuizPage(),
         DetectMarkerPage(),
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),
@@ -57,7 +58,8 @@ Momentum momentum({bool mock = true}) {
         ),
         OrganisationsPage(),
         PreferencesPage(),
-        //QuizView(),
+        QuestionPage(),
+        QuizPage(),
         QuizResultView(),
         RegistrationPage(Key('registrationPageKey')),
         RegistrationVerificationPage(Key('registration_verification')),

@@ -3,6 +3,7 @@ import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
 import 'package:momentum/momentum.dart';
 
 class QuizPage extends StatefulWidget {
@@ -50,20 +51,34 @@ class _QuizPageState extends State<QuizPage> {
                   Momentum.controller<QuizController>(context);
               //TODO pass in id dynamically lessonId
               quizController.getQuizzes(1);
-              List<Question> questions = [];
-              //print('ek is hier'); makes it in then throws error
+              print(quizzes.quizes.length);
+              return Container(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    MomentumRouter.goto(context, QuestionPage,
+                        params: QuestionParam(
+                            //TODO pass in id dynamically lessonId instead of 1
+                            quizzes.quizes.elementAt(0).questions));
+                  },
+                  child: const Text('Start Quiz'),
+                ),
+              );
+              /*print(quizzes.quizes.first.questions!.first.question);
               var allQuestions =
                   quizzes.quizes.map((e) => e.questions!.map((e) {
                         questions.add(e);
-                        print(e.toString());
+                        print("ek is hier");
+                        print(questions.elementAt(0).question);
                       }));
               if (index <= allQuestions.length) {
                 index++;
                 return Row(children: [
                   //Text(questions.elementAt(index).question)
                 ]); //return Row(children: [Text(index.toString())]);
-              }
-              return Row(children: [Text('no quiz to display')]);
+              }*/
             }),
         'Quiz');
   }
