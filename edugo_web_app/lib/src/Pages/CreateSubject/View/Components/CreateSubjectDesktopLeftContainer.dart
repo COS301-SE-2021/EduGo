@@ -1,10 +1,11 @@
+import 'package:edugo_web_app/src/Pages/CreateSubject/View/Widgets/CreateSubjectWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateSubjectDesktopLeftContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [SubjectController],
+      controllers: [CreateSubjectController],
       builder: (context, snapshot) {
         return Container(
           child: Column(
@@ -18,11 +19,11 @@ class CreateSubjectDesktopLeftContainer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: SubjectInputBox(
+                  child: CreateSubjectInputBox(
                     text: "Subject title...",
                     onChanged: (subjectTitle) {
-                      Momentum.controller<SubjectController>(context)
-                          .setViewBoundSubjectTitle(subjectTitle);
+                      Momentum.controller<CreateSubjectController>(context)
+                          .setSubjectTitle(subjectTitle);
                     },
                   ),
                 ),
@@ -35,11 +36,11 @@ class CreateSubjectDesktopLeftContainer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: SubjectInputBox(
+                  child: CreateSubjectInputBox(
                     text: "Subject grade...",
                     onChanged: (subjectGrade) {
-                      Momentum.controller<SubjectController>(context)
-                          .setViewBoundSubjectGrade(subjectGrade);
+                      Momentum.controller<CreateSubjectController>(context)
+                          .setSubjectGrade(subjectGrade);
                     },
                   ),
                 ),
@@ -47,14 +48,14 @@ class CreateSubjectDesktopLeftContainer extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              SubjectButton(
+              CreateSubjectButton(
                   elevation: 40,
                   child: Text(
                     "Create Subject",
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    Momentum.controller<SubjectController>(context)
+                    Momentum.controller<CreateSubjectController>(context)
                         .createSubject(context);
                   },
                   width: 450,

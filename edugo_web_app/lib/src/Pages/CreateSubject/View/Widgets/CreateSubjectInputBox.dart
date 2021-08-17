@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class SubjectInputBox extends StatelessWidget {
+class CreateSubjectInputBox extends StatelessWidget {
   final String text;
   final Function onChanged;
-  const SubjectInputBox({Key key, this.text, this.onChanged}) : super(key: key);
+  const CreateSubjectInputBox({Key key, this.text, this.onChanged})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

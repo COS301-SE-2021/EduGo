@@ -1,12 +1,12 @@
+import 'package:edugo_web_app/src/Pages/CreateSubject/View/Widgets/CreateSubjectWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateSubjectDesktopRightContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController],
+      controllers: [CreateLessonController],
       builder: (context, snapshot) {
-        var entity = snapshot<VirtualEntityApiModel>();
         return Container(
           width: ScreenUtil().setWidth(230),
           child: Column(
@@ -17,9 +17,9 @@ class CreateSubjectDesktopRightContainer extends StatelessWidget {
                 color: Color.fromARGB(255, 97, 211, 87),
               ),
               SizedBox(height: 70),
-              SubjectButton(
+              CreateSubjectButton(
                 onPressed: () {
-                  Momentum.controller<SubjectController>(context)
+                  Momentum.controller<CreateSubjectController>(context)
                       .startWebFilePicker();
                 },
                 child: Row(

@@ -1,29 +1,22 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class CreateSubjectController extends MomentumController<SubjectModel> {
+class CreateSubjectController extends MomentumController<CreateSubjectModel> {
   @override
-  SubjectModel init() {
-    return SubjectModel(this,
-        viewBoundSubject: Subject(), currentSubject: Subject());
+  CreateSubjectModel init() {
+    return CreateSubjectModel(
+      this,
+    );
   }
 
-  void setViewBoundSubjectTitle(String subjectTitle) {
-    model.setViewBoundSubjectTitle(subjectTitle: subjectTitle);
+  void setSubjectTitle(String subjectTitle) {
+    model.setSubjectTitle(subjectTitle);
   }
 
-  void setViewBoundSubjectGrade(String subjectGrade) {
-    model.setViewBoundSubjectGrade(subjectGrade: subjectGrade);
+  void setSubjectGrade(String subjectGrade) {
+    model.setSubjectGrade(subjectGrade);
   }
 
-  void setCurrentSubject(Subject currentSubject) {
-    model.setCurrentSubject(currentSubject: currentSubject);
-  }
-
-  Subject getCurrentSubject() {
-    return model.getCurrentSubject();
-  }
-
-  Future<String> createSubject(context) async {
+  Future<void> createSubject(context) async {
     var url = Uri.parse("http://43e6071f3a8e.ngrok.io/subject/createSubject");
 
     var request = new MultipartRequest(
@@ -32,19 +25,17 @@ class CreateSubjectController extends MomentumController<SubjectModel> {
     );
 
     request.headers["authorization"] =
-        Momentum.controller<SessionController>(context).getToken();
+        Momentum.controller<AdminController>(context).getToken();
 
     request.files.add(MultipartFile.fromBytes('file', _selectedFile,
         contentType: new MediaType('application', 'octet-stream'),
         filename: "file_up"));
 
-    request.fields['title'] = model.viewBoundSubject.getSubjectTitle();
-    request.fields['grade'] = model.viewBoundSubject.getSubjectGrade();
+    request.fields['title'] = model.subjectTitle;
+    request.fields['grade'] = model.subjectGrade;
 
     await request.send().then((value) async {
       await Response.fromStream(value).then((response) {
-        Momentum.controller<CurrentOrganisationController>(context)
-            .getEducatorSubjects(context);
         MomentumRouter.goto(context, SubjectsView);
       });
     });
@@ -82,73 +73,4 @@ class CreateSubjectController extends MomentumController<SubjectModel> {
     _bytesData = Base64Decoder().convert(result.toString().split(",").last);
     _selectedFile = _bytesData;
   }
-
-//***************************************************************************************
-//*                                                                                     *
-//*       Return a list of virtual entities to populate the virtual entity store        *
-//*                                                                                     *
-//***************************************************************************************
-  // void getVirtualEntities(BuildContext context) {
-  //   List<Widget> enitites = <Widget>[];
-  //   for (int i = 0; i < 12; i++) {
-  //     enitites.add(
-  //       Card(
-  //         elevation: 40,
-  //         shape:
-  //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-  //         shadowColor: Colors.green,
-  //         child: Center(
-  //           child: Column(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: <Widget>[
-  //               ListTile(
-  //                 title: Column(
-  //                   children: [
-  //                     Icon(
-  //                       Icons.view_in_ar_outlined,
-  //                       size: 60,
-  //                     ),
-  //                     SizedBox(
-  //                       height: 30,
-  //                     ),
-  //                     Align(
-  //                         alignment: Alignment.center,
-  //                         child: Text('Mish the Skeleton',
-  //                             style: TextStyle(fontSize: 22))),
-  //                   ],
-  //                 ),
-  //                 subtitle: Column(
-  //                   children: [
-  //                     SizedBox(
-  //                       height: 10,
-  //                     ),
-  //                     Align(
-  //                         alignment: Alignment.center,
-  //                         child: Text('Entity by: Mr TN Mafaralala')),
-  //                   ],
-  //                 ),
-  //               ),
-  //               SizedBox(
-  //                 height: 30,
-  //               ),
-  //               TextButton(
-  //                 child: const Text(
-  //                   'View Entity',
-  //                   style: TextStyle(
-  //                       color: Color.fromARGB(255, 97, 211, 87), fontSize: 18),
-  //                 ),
-  //                 onPressed: () {
-  //                   updateVirtualEntityName("Mish the Astronaut");
-  //                   MomentumRouter.goto(context, ViewVirtualEntityView);
-  //                 },
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   model.updateVirtualEntityStore(virtualEntities: enitites);
-  // }
-
 }

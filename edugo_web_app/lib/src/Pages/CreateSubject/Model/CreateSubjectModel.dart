@@ -1,53 +1,29 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class SubjectModel extends MomentumModel<SubjectController> {
-  final Subject currentSubject;
-  final Subject viewBoundSubject;
-  SubjectModel(SubjectController controller,
-      {this.currentSubject, this.viewBoundSubject})
+class CreateSubjectModel extends MomentumModel<CreateSubjectController> {
+  final String subjectTitle;
+  final String subjectGrade;
+  CreateSubjectModel(CreateSubjectController controller,
+      {this.subjectTitle, this.subjectGrade})
       : super(controller);
 
   @override
   void update({
-    Subject viewBoundSubject,
-    Subject currentSubject,
+    String subjectTitle,
+    String subjectGrade,
   }) {
-    SubjectModel(
+    CreateSubjectModel(
       controller,
-      viewBoundSubject: currentSubject ?? this.currentSubject,
-      currentSubject: currentSubject ?? this.currentSubject,
+      subjectTitle: subjectTitle ?? this.subjectTitle,
+      subjectGrade: subjectGrade ?? this.subjectGrade,
     ).updateMomentum();
   }
 
-  void setViewBoundSubjectTitle({String subjectTitle}) {
-    Subject temporarySubject = viewBoundSubject;
-    temporarySubject.setSubjectTitle(subjectTitle);
-    update(viewBoundSubject: temporarySubject);
+  void setSubjectTitle(String subjectTitle) {
+    update(subjectTitle: subjectTitle);
   }
 
-  void setViewBoundSubjectGrade({String subjectGrade}) {
-    Subject temporarySubject = viewBoundSubject;
-    temporarySubject.setSubjectGrade(subjectGrade);
-    update(viewBoundSubject: temporarySubject);
-  }
-
-  void setCurrentSubject({Subject currentSubject}) {
-    update(currentSubject: currentSubject);
-  }
-
-  Subject getCurrentSubject() {
-    return currentSubject;
-  }
-
-  String getViewBoundSubjectTitle() {
-    return viewBoundSubject.getSubjectTitle();
-  }
-
-  String getViewBoundSubjectGrade() {
-    return viewBoundSubject.getSubjectGrade();
-  }
-
-  String getViewBoundSubjectImageLink() {
-    return viewBoundSubject.getSubjectImageLink();
+  void setSubjectGrade(String subjectGrade) {
+    update(subjectGrade: subjectGrade);
   }
 }
