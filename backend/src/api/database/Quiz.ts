@@ -8,14 +8,8 @@ export class Quiz {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    title: string;
-
     @OneToOne(type => VirtualEntity, ve => ve.quiz)
 	virtualEntity: VirtualEntity;
-
-    @Column()
-    description: string;
 
     @OneToMany(type => Question, question => question.quiz, {
         cascade: true

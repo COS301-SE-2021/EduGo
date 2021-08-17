@@ -33,6 +33,6 @@ export class VirtualEntity {
     @Column({default: false})
     public: boolean;
 
-    @ManyToOne(type => Organisation, (organisation) => organisation.virtualEntities)
+    @ManyToOne(type => Organisation, (organisation) => organisation.virtualEntities, {nullable: false})
     organisation: Organisation;
 }

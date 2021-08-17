@@ -193,6 +193,7 @@ export class StudentService {
 			user.email = value;
 			user.verificationCode = this.generateCode(5);
 			user.organisation = subject!.organisation;
+			user.subjects = [subject!];
 			user.type = "student";
 			return user;
 		});
@@ -207,9 +208,7 @@ export class StudentService {
 		);
 
 		await this.unverifiedUserRepository.save(unverifiedUsers);
-		let status = await this.emailService.SendBulkVerificationEmails(
-			unverifiedEmails
-		);
+		let status = await this.emailService.SendBulkVerificationEmails(unverifiedEmails);
 		if (!status) throw new InternalServerError("Could not send all emails");
 	}
 
