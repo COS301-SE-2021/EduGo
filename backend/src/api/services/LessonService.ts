@@ -83,8 +83,8 @@ export class LessonService {
 
 		if (!lesson) throw new BadRequestError("Lesson does not exist"); 
 		if (!virtualEntity) throw new BadRequestError("Virtual Entity does not exist");
-		if (!lesson.virtualEntities.find(e => e.id === virtualEntity!.id)) throw new BadRequestError("Virtual Entity has already been added");
-		
+		if (lesson.virtualEntities.find(e => e.id === virtualEntity!.id) !== undefined) throw new BadRequestError("Virtual Entity has already been added");
+
 		lesson.virtualEntities.push(virtualEntity);
 		try {
 			await this.lessonRepository.save(lesson);
