@@ -94,7 +94,7 @@ class CreateVirtualEntityController
     );
 
     request.headers["authorization"] =
-        Momentum.controller<LoginController>(context).getToken();
+        Momentum.controller<AdminController>(context).getToken();
 
     request.files.add(
       MultipartFile.fromBytes('file', _selectedFile,
@@ -117,4 +117,6 @@ class CreateVirtualEntityController
       },
     );
   }
+
+  void createVirtualEntity(context) {}
 }

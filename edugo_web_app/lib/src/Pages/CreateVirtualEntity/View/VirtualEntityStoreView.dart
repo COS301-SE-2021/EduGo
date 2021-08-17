@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class VirtualEntityStoreView extends StatelessWidget {
@@ -10,9 +11,9 @@ class VirtualEntityStoreView extends StatelessWidget {
     //     .getVirtualEntities(context);
     // //*
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController],
+      controllers: [AdminController],
       builder: (context, snapshot) {
-        var entity = snapshot<VirtualEntityApiModel>();
+        var entity = snapshot<AdminModel>();
         bool public = true;
         return PageLayout(
           top: 0,

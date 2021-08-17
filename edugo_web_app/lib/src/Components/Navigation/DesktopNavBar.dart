@@ -55,12 +55,7 @@ class DesktopNavBar extends StatelessWidget {
                       child: GestureDetector(
                         child: Icon(Icons.home, size: 30, color: Colors.white),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    OrganisationDashboardView()),
-                          );
+                          MomentumRouter.goto(context, AdminView);
                         },
                       ),
                     ),
@@ -74,12 +69,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.auto_stories_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    OrganisationDashboardView()),
-                          );
+                          MomentumRouter.goto(context, SubjectsView);
                         },
                       ),
                     ),
@@ -107,7 +97,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.store_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          MomentumRouter.goto(context, VirtualEntityStoreView);
+                          //MomentumRouter.goto(context, VirtualEntityStoreView);
                         },
                       ),
                     ),
@@ -121,7 +111,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.school_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          MomentumRouter.goto(context, UpdateVirtualEntityView);
+                          //MomentumRouter.goto(context, UpdateVirtualEntityView);
                         },
                       ),
                     )

@@ -1,10 +1,11 @@
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class QuizBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController, QuizBuilderController],
+      controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
         var quizBuilder = snapshot<QuizBuilderModel>();
 
@@ -69,7 +70,8 @@ class QuizBuilder extends StatelessWidget {
                     if (Momentum.controller<QuizBuilderController>(context)
                             .getQuizBuilderResult() !=
                         "Quiz is not valid") {
-                      Momentum.controller<VirtualEntityApiController>(context)
+                      Momentum.controller<CreateVirtualEntityController>(
+                              context)
                           .createVirtualEntity(context);
                     }
                   },

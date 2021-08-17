@@ -1,6 +1,5 @@
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/QuestionInputCard.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/QuestionOptionInputCard.dart';
 
 class QuestionCard extends StatelessWidget {
   final int questionId;
@@ -21,7 +20,7 @@ class QuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController, QuizBuilderController],
+      controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
         var quizBuilder = snapshot<QuizBuilderModel>();
         return Material(

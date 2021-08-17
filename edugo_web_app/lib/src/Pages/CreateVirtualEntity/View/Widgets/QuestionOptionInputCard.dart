@@ -9,7 +9,7 @@ class QuestionOptionInputCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController, QuizBuilderController],
+      controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
         var quizBuilder = snapshot<QuizBuilderModel>();
         return Material(

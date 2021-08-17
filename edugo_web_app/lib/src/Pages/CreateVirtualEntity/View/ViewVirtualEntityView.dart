@@ -1,13 +1,14 @@
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class ViewVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Momentum.controller<VirtualEntityApiController>(context).preview3DModel();
+    //Momentum.controller<>(context).preview3DModel();
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController],
+      controllers: [AdminController],
       builder: (context, snapshot) {
-        var entity = snapshot<VirtualEntityApiModel>();
+        var entity = snapshot<AdminModel>();
         return PageLayout(
           top: 50,
           left: 150,
@@ -79,8 +80,7 @@ class ViewVirtualEntityView extends StatelessWidget {
                               VirtualEntityButton(
                                   child: Text("Add Entity to Lesson"),
                                   onPressed: () {
-                                    MomentumRouter.goto(
-                                        context, UpdateLessonView);
+                                    MomentumRouter.goto(context, LessonsView);
                                   },
                                   width: 300,
                                   height: 65),

@@ -11,7 +11,7 @@ class QuizBuilderOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController, QuizBuilderController],
+      controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
         return Material(
           elevation: 40,

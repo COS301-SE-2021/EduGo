@@ -20,7 +20,7 @@ void main() {
         LessonsController(),
         SubjectsController(),
         QuizBuilderController(),
-        LoginController(),
+        LogInController(),
       ],
       services: [
         MomentumRouter(

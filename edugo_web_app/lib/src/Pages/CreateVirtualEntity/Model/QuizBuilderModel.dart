@@ -1,8 +1,6 @@
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/Data/QuestionObject.dart';
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/Model/Data/QuestionObject.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/QuestionCard.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/QuestionOptionInputCard.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntity/View/Widgets/QuizBuilderOption.dart';
 
 // ignore: must_be_immutable
 class QuizBuilderModel extends MomentumModel<QuizBuilderController> {

@@ -1,6 +1,7 @@
 //* Create Virtual Enitity Page
 //  Todo : Create a virtual entity by giving it a name,description and a 3D Model
 
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Components/CreateVirtualEntityComponents.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateVirtualEntityView extends StatelessWidget {

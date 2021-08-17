@@ -10,9 +10,11 @@ class AdminModel extends MomentumModel<AdminController> {
   final String organisationName;
   final List<User> educators;
   final List<Widget> educatorCards;
+  final String virtualEntityViewerModelLink;
   AdminModel(AdminController controller,
       {this.organisationName,
       this.currentLessonId,
+      this.virtualEntityViewerModelLink,
       this.currentSubjectId,
       this.token,
       this.educatorCards,
@@ -51,8 +53,16 @@ class AdminModel extends MomentumModel<AdminController> {
     update(token: token);
   }
 
+  void setVirtualEntityViewerModelLink(String link) {
+    update(virtualEntityViewerModelLink: link);
+  }
+
   String getToken() {
     return token;
+  }
+
+  String getVirtualEntityViewerModelLink() {
+    return virtualEntityViewerModelLink;
   }
 
   int getCurrentSubjectId() {
@@ -70,6 +80,7 @@ class AdminModel extends MomentumModel<AdminController> {
       educatorCards,
       token,
       currentSubjectId,
+      virtualEntityViewerModelLink,
       currentLessonId}) {
     AdminModel(controller,
             organisationName: organisationName ?? this.organisationName,
@@ -77,7 +88,9 @@ class AdminModel extends MomentumModel<AdminController> {
             educatorCards: educatorCards ?? this.educatorCards,
             token: token ?? this.token,
             currentSubjectId: currentSubjectId ?? this.currentSubjectId,
-            currentLessonId: currentLessonId ?? this.currentLessonId)
+            currentLessonId: currentLessonId ?? this.currentLessonId,
+            virtualEntityViewerModelLink: virtualEntityViewerModelLink ??
+                this.virtualEntityViewerModelLink)
         .updateMomentum();
   }
 }

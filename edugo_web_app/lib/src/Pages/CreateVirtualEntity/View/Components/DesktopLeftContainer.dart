@@ -1,10 +1,11 @@
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class DesktopLeftContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController],
+      controllers: [CreateVirtualEntityController],
       builder: (context, snapshot) {
         return Container(
           child: Column(
@@ -18,7 +19,7 @@ class DesktopLeftContainer extends StatelessWidget {
                     child: VirtualEntityInputBox(
                       text: "Entity Name...",
                       onChanged:
-                          Momentum.controller<ViewBoundVirtualEntityController>(
+                          Momentum.controller<CreateVirtualEntityController>(
                                   context)
                               .inputName,
                     ),
@@ -34,7 +35,7 @@ class DesktopLeftContainer extends StatelessWidget {
                   child: VirtualEntityMultiLine(
                     text: "Entity description...",
                     onChanged:
-                        Momentum.controller<ViewBoundVirtualEntityController>(
+                        Momentum.controller<CreateVirtualEntityController>(
                                 context)
                             .inputDescription,
                   ),

@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class UpdateVirtualEntityView extends StatelessWidget {
@@ -5,7 +6,7 @@ class UpdateVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController],
+      controllers: [AdminController],
       builder: (context, snapshot) {
         return PageLayout(
           top: 50,
