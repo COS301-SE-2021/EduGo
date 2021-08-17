@@ -4,8 +4,8 @@ import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisa
 import { CreateOrganisationResponse } from "../models/organisation/CreateOrganisationResponse";
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import {
-	educatorDetails,
 	GetOrganisationResponse,
+	educatorDetails
 } from "../models/organisation/GetOrganisationResponse";
 
 import { Organisation } from "../database/Organisation";
