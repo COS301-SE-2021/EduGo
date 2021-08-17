@@ -19,9 +19,9 @@ export 'package:edugo_web_app/src/Pages/VirtualEntity/View/UpdateVirtualEntityVi
 
 // * App Exports
 export 'package:edugo_web_app/src/View.dart';
-export 'package:edugo_web_app/src/Pages/Home/View/Home.dart';
-export 'package:edugo_web_app/src/Pages/Home/View/SignInView.dart';
-export 'package:edugo_web_app/src/Pages/Home/View/CreateOrganisationView.dart';
+export 'package:edugo_web_app/src/Pages/Home/Home.dart';
+export 'package:edugo_web_app/src/Pages/Login/View/LoginView.dart';
+export 'package:edugo_web_app/src/Pages/CreateOrganisation/View/CreateOrganisationView.dart';
 
 //* Organisation Exports
 export 'package:edugo_web_app/src/Pages/Organisation/View/InviteEducatorView.dart';
