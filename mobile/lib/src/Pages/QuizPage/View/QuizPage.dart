@@ -6,13 +6,19 @@ import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
 import 'package:momentum/momentum.dart';
 
 class QuizPage extends StatefulWidget {
-  QuizPage({Key? key}) : super(key: key);
-
+  //final int lessonId;
+  QuizPage({
+    Key? key,
+    /*required this.lessonId*/
+  }) : super(key: key);
   @override
-  _QuizPageState createState() => _QuizPageState();
+  _QuizPageState createState() => _QuizPageState(/*lessonId: this.lessonId*/);
 }
 
 class _QuizPageState extends State<QuizPage> {
+  //final int lessonId;
+  _QuizPageState();
+  //_QuizPageState({required this.lessonId});
   @override
   void initState() {
     super.initState();
@@ -40,6 +46,10 @@ class _QuizPageState extends State<QuizPage> {
             builder: (context, snapshot) {
               //List of quizes
               final quizzes = snapshot<QuizPageModel>();
+              final quizController =
+                  Momentum.controller<QuizController>(context);
+              //TODO pass in id dynamically lessonId
+              quizController.getQuizzes(1);
               List<Question> questions = [];
               //print('ek is hier'); makes it in then throws error
               var allQuestions =

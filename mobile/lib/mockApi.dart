@@ -43,72 +43,73 @@ Future<http.Response> getQuizesByLesson(request) async {
   {
     "data": [
       {
-      "id" : "0",
-      "title": "Quiz 1"
+      "id" : 0,
+      "title": "Quiz 1",
       "description": "Quiz 1 d",
-      "questions": [{
+      "questions": [
+        {
           "id": 1,
           "type": "TrueFalse",
           "question": "Select True",
           "correctAnswer": "True",
-          "options": ["True","False"],
+          "options": ["True","False"]
         },
         {
           "id": 2,
           "type": "MultipleChoice",
           "question": "Select A",
           "correctAnswer": "A",
-          "options": ["A","B","C"],
+          "options": ["A","B","C"]
         },
         {
           "id": 3,
           "type": "MultipleChoice",
           "question": "Select B",
           "correctAnswer": "B",
-          "options": ["A","B","C"],
+          "options": ["A","B","C"]
         },
         {
           "id": 4,
           "type": "TrueFalse",
           "question": "Select False",
           "correctAnswer": "False",
-          "options": ["True","False"],
-        },
-        
-      ]
-      },{
-      "id" : "1",
-      "title": "Quiz 2"
+          "options": ["True","False"]
+        }
+       ]
+      },
+      {
+      "id" : 1,
+      "title": "Quiz 2",
       "description": "Quiz 2 d",
-      "questions": [{
+      "questions": [
+        {
           "id": 1,
           "type": "TrueFalse",
           "question": "Select False",
           "correctAnswer": "False",
-          "options": ["True","False"],
+          "options": ["True","False"]
         },
         {
           "id": 2,
           "type": "MultipleChoice",
           "question": "Select A",
           "correctAnswer": "A",
-          "options": ["A","B","C"],
+          "options": ["A","B","C"]
         },
         {
           "id": 3,
           "type": "MultipleChoice",
           "question": "Select B",
           "correctAnswer": "B",
-          "options": ["A","B","C"],
+          "options": ["A","B","C"]
         },
         {
           "id": 4,
           "type": "TrueFalse",
           "question": "Select False",
           "correctAnswer": "False",
-          "options": ["True","False"],
-        },
-        
+          "options": ["True","False"]
+        }
       ]
       }
     ]
