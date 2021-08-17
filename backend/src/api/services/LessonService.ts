@@ -24,7 +24,7 @@ export class LessonService {
 		private virtualEntityRepository: Repository<VirtualEntity>
 	) {}
 
-	public async createLesson(request: CreateLessonRequest) {
+	public async CreateLesson(request: CreateLessonRequest) {
 		// Set all attributes of a lesson
 		let lesson: Lesson = new Lesson();
 		lesson.title = request.title;
