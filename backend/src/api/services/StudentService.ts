@@ -261,79 +261,75 @@ export class StudentService {
 		} catch (err) {
 			throw err;
 		}
+		if (!user.student) throw new ForbiddenError("Only student grades can be displayed");
 
-		if (user.student) {
-			try {
-				let student = await this.studentRepository.findOne(
-					user.student.id,
-					{ relations: ["grades", "subjects"] }
-				);
+		try {
+			let student = await this.studentRepository.findOne(
+				user.student.id,
+				{ relations: ["grades", "subjects"] }
+			);
+			if (!student) throw new BadRequestError("Could not find student");
 
-				if (student) {
-					let studentGrade = await this.populateGrades(student);
-					let quizGrades = await Promise.all(
-						student.grades.map(async (grade) => {
-							let quizGrade = {
-								name: "",
-								students_score: 0,
-								quiz_total: 0,
-								VirtualEntityId: 0,
-								lessonId: 0,
-							};
-							let gradeInfo = await this.getGradeInfo(grade.id);
+			let studentGrade = await this.populateGrades(student);
+			let quizGrades = await Promise.all(
+				student.grades.map(async (grade) => {
+					let quizGrade = {
+						name: "",
+						students_score: 0,
+						quiz_total: 0,
+						VirtualEntityId: 0,
+						lessonId: 0,
+					};
+					let gradeInfo = await this.getGradeInfo(grade.id);
 
-							if (gradeInfo) {
-								quizGrade.students_score = gradeInfo.score;
-								quizGrade.quiz_total = gradeInfo.total;
-								quizGrade.lessonId = gradeInfo.lesson?.id;
-								quizGrade.VirtualEntityId =
-									await this.getvirtualEntityId(
-										gradeInfo.quiz.id
-									);
-								return await quizGrade;
-							}
-						})
-					);
-					console.log(studentGrade);
-					if(!studentGrade.subjects) throw new NotFoundError("blank not created")
-
-					studentGrade.subjects = studentGrade.subjects.map(
-						(subject) => {
-							let subjectG = subject.lessonGrades.map(
-								(lesson) => {
-									let lessonG = quizGrades.map((quizMark) => {
-										if (quizMark?.lessonId == lesson.id) {
-											let quizes = quizGrades.map(
-												(quiz) => {
-													let quizer: QuizGrade={};
-													if (quiz && quizMark) {
-														quizer.name = quiz.name;
-														quizer.student_score = quiz.students_score;
-														quizer.quiz_total = quiz.quiz_total;
-													}
-													return quizer;
-												}
-											);
-
-											lesson.quizGrades = quizes;
-										}
-										return lesson;
-									});
-									subject.lessonGrades = lessonG;
-									return subject;
-								}
+					if (gradeInfo) {
+						quizGrade.students_score = gradeInfo.score;
+						quizGrade.quiz_total = gradeInfo.total;
+						quizGrade.lessonId = gradeInfo.lesson?.id;
+						quizGrade.VirtualEntityId =
+							await this.getvirtualEntityId(
+								gradeInfo.quiz.id
 							);
+						return await quizGrade;
+					}
+				})
+			);
+			console.log(studentGrade);
+			if(!studentGrade.subjects) throw new NotFoundError("blank not created")
+
+			studentGrade.subjects = studentGrade.subjects.map(
+				(subject) => {
+					let subjectG = subject.lessonGrades.map(
+						(lesson) => {
+							let lessonG = quizGrades.map((quizMark) => {
+								if (quizMark?.lessonId == lesson.id) {
+									let quizes = quizGrades.map(
+										(quiz) => {
+											let quizer: QuizGrade={};
+											if (quiz && quizMark) {
+												quizer.name = quiz.name;
+												quizer.student_score = quiz.students_score;
+												quizer.quiz_total = quiz.quiz_total;
+											}
+											return quizer;
+										}
+									);
+
+									lesson.quizGrades = quizes;
+								}
+								return lesson;
+							});
+							subject.lessonGrades = lessonG;
 							return subject;
 						}
 					);
-
-					return studentGrade;
-				} else throw new BadRequestError("Could not find student");
-			} catch (err) {
-				throw err;
-			}
+					return subject;
+				}
+			);
+			return studentGrade;
+		} catch (err) {
+			throw err;
 		}
-		throw new ForbiddenError("Only student grades can be displayed"); //Supposed to be a 403
 	}
 
 	async getUserSubjects() {}
@@ -344,7 +340,7 @@ export class StudentService {
 			});
 			if (Quiz) {
 				return Quiz;
-			} else return undefined;
+			} else throw new NotFoundError("Quiz not found");
 		} catch (err) {
 			throw new InternalServerError(err);
 		}
@@ -364,11 +360,15 @@ export class StudentService {
 			throw new InternalServerError(err);
 		}
 	}
-
-	async populateGrades(student: Student) {
+	/** 
+	 * @description Get all the grades for a student (including grades from lessons without any marks)
+	 * @param {Student} student - Database Student entity
+	 * @returns {Promise<GetStudentGradesResponse>}
+	 */
+	async populateGrades(student: Student): Promise<GetStudentGradesResponse> {
 		console.log(student)
 
-		let subjects = student.subjects.map((subject) => {
+		let studentSubjects = student.subjects.map((subject) => {
 			let createdSubject: SubjectGrades = {
 				id: subject.id,
 				subjectName: subject.title,
@@ -378,32 +378,28 @@ export class StudentService {
 			return createdSubject;
 		});
 
-		if (subjects) {
-			console.log(subjects)
-			subjects.map(async (subject) => {
-				let subjectLesson = await this.subjectRepository.findOne(
-					subject.id,
-					{
-						relations: ["lessons"],
-					}
-				);
+		console.log(studentSubjects)
+		let ids = studentSubjects.map((subject) => subject.id);
+		let subjects: Subject[] = await this.subjectRepository.find({
+			where: {id: In(ids)}, 
+			relations: ["lessons"]
+		});
+		studentSubjects.map(async (subject) => {
+			let subjectLesson = subjects.find(sub => sub.id == subject.id);
+			if (!subjectLesson) throw new NotFoundError("Subject not found");
 
-				if (!subjectLesson)
-					throw new NotFoundError("Subject not found");
-				subject.lessonGrades = subjectLesson.lessons.map((lesson) => {
-					return {
-						id: lesson.id,
-						gradeAchieved: -1,
-						lessonName: lesson.title,
-						quizGrades: [],
-					};
-				});
+			subject.lessonGrades = subjectLesson.lessons.map((lesson) => {
+				return {
+					id: lesson.id,
+					gradeAchieved: -1,
+					lessonName: lesson.title,
+					quizGrades: [],
+				};
 			});
-			let StudentGrades: GetStudentGradesResponse = {subjects:subjects} ;
+		});
+		let StudentGrades: GetStudentGradesResponse = {subjects:studentSubjects} ;
 
-			return StudentGrades;
-		}
-		throw new NotFoundError('populate grades not working ')
+		return StudentGrades;
 		
 	}
 }

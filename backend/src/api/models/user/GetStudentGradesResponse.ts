@@ -20,7 +20,7 @@ export interface GetStudentGradesResponse{
 	id?:number;
 	gradeAchieved?: number;
 	lessonName?: string; 
-	quizGrades: QuizGrade[]| undefined[]
+	quizGrades: QuizGrade[]
 }
 
 // export interface studentAnswer {
