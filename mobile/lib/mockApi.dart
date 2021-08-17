@@ -82,6 +82,78 @@ Future<http.Response> getGradesByUserClient(request) async {
           "mark": 10,
           "lessons": 
           [
+            {
+              "id": 1,
+              "title": "Math Lesson 1",
+              "mark": 20,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": 67,
+                  "quizTotal": 89,
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "A", "B", "A", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "C", "B", "B", "D"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "studentMark": 20,
+                  "quizTotal": 40,
+                  "title": "quiz 2",
+                  "studentAnswers": 
+                  [
+                    "A", "K", "U", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                  "S", "B", "J", "D"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "title": "Math Lesson 2",
+              "mark": -1,
+              "quizzes": 
+              [
+                {
+                  "id": 1,
+                  "studentMark": 29,
+                  "quizTotal": 39,
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "N", "D", "L", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "B", "K", "D"
+                  ]
+                },
+                {
+                  "id": 2,
+                  "studentMark": 12,
+                  "quizTotal": 87,
+                  "title": "quiz 1",
+                  "studentAnswers": 
+                  [
+                    "Q", "B", "L", "D"
+                  ],
+                  "correctAnswers":
+                  [
+                    "A", "L", "A", "D"
+                  ]
+                }
+              ]
+            }
             
           ] 
         },
@@ -330,78 +402,3 @@ Future<http.Response> getGradesByUserClient(request) async {
     }
   ''', 200);
 }
-
-
-
-// {
-//               "id": 1,
-//               "title": "Math Lesson 1",
-//               "mark": 20,
-//               "quizzes": 
-//               [
-//                 {
-//                   "id": 1,
-//                   "studentMark": 67,
-//                   "quizTotal": 89,
-//                   "title": "quiz 1",
-//                   "studentAnswers": 
-//                   [
-//                     "A", "B", "A", "D"
-//                   ],
-//                   "correctAnswers":
-//                   [
-//                   "C", "B", "B", "D"
-//                   ]
-//                 },
-//                 {
-//                   "id": 2,
-//                   "studentMark": 20,
-//                   "quizTotal": 40,
-//                   "title": "quiz 2",
-//                   "studentAnswers": 
-//                   [
-//                     "A", "K", "U", "D"
-//                   ],
-//                   "correctAnswers":
-//                   [
-//                   "S", "B", "J", "D"
-//                   ]
-//                 }
-//               ]
-//             },
-//             {
-//               "id": 2,
-//               "title": "Math Lesson 2",
-//               "mark": 15,
-//               "quizzes": 
-//               [
-//                 {
-//                   "id": 1,
-//                   "studentMark": 29,
-//                   "quizTotal": 39,
-//                   "title": "quiz 1",
-//                   "studentAnswers": 
-//                   [
-//                     "N", "D", "L", "D"
-//                   ],
-//                   "correctAnswers":
-//                   [
-//                     "A", "B", "K", "D"
-//                   ]
-//                 },
-//                 {
-//                   "id": 2,
-//                   "studentMark": 12,
-//                   "quizTotal": 87,
-//                   "title": "quiz 1",
-//                   "studentAnswers": 
-//                   [
-//                     "Q", "B", "L", "D"
-//                   ],
-//                   "correctAnswers":
-//                   [
-//                     "A", "L", "A", "D"
-//                   ]
-//                 }
-//               ]
-//             }

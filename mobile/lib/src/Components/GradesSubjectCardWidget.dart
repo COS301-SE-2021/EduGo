@@ -122,7 +122,7 @@ class GradesSubjectCard extends StatelessWidget {
                             ),
                             onPressed: () {},
                             child: Text(
-                              //If there is a mark, display it.
+                              //If there is a subject mark, display it.
                               //Else display the two dashes
                               hasMark ? '$subjectMark' + '%' : "--",
                               textAlign: TextAlign.center,

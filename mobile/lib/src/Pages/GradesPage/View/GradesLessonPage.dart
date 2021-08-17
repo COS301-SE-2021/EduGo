@@ -3,6 +3,12 @@
  * a particular subject with the overall lesson mark that the student 
  * achieved. When clicked, it will take the student to the GradeQuiz page.
  * The GradeLesson card widget is used to display the GradeLesson cards.  
+ * A GradesLesson Card will appear for all the lessons. However, if a lesson
+ * does not have all of the quizzes completed, the student will not be 
+ * allowed access into that card yet. The lesson mark will also be 
+ * unavailable. But when all quizzes have been completed, the lesson
+ * mark will be available. I.e. A student cannot view his/her quiz marks
+ * until all quizzes for that lesson have been completed.
 */
 
 import 'package:flutter/material.dart';
