@@ -96,59 +96,12 @@ export class SubjectService {
 		let user: User | undefined;
 		try {
 			user = await this.userRepository.findOne(user_id, {
-<<<<<<< HEAD
-				relations: [
-					"educator",
-					"educator.subjects",
-					"student",
-					"student.subjects",
-					"student.subjects.educators.user",
-					"student.subjects.educators",
-				],
-=======
 				relations: ["educator", "student"],
->>>>>>> parent of f36fb458 (feat: all changes)
 			});
 		} catch (err) {
 			throw new BadRequestError("Could not find error");
 		}
 
-<<<<<<< HEAD
-		console.log(user);
-
-		if (!user) throw new BadRequestError("Could not find user");
-
-		if (user.educator) {
-			let obj = {
-				data: user.educator.subjects.map((value) => {
-					return {
-						id: value.id,
-						title: value.title,
-						grade: value.grade,
-						image: value.image,
-					};
-				}),
-			};
-
-			return obj;
-		} else if (user.student) {
-			console.log(user.student);
-			return {
-				data: await user.student.subjects.map((subject) => {
-					console.log(subject.educators[0].user.firstName);
-					return {
-						id: subject.id,
-						title: subject.title,
-						grade: subject.grade,
-						image: subject.image,
-						educatorName: subject.educators[0].user.firstName,
-					};
-				}),
-			};
-		}
-
-		throw new InternalServerError("User not a student nor a educator");
-=======
 		if (user) {
 			if (user.educator) {
 				let educator: Educator | undefined;
@@ -208,6 +161,5 @@ export class SubjectService {
 					"Could not determine of user is student or educator"
 				);
 		} else throw new BadRequestError("Could not find user");
->>>>>>> parent of f36fb458 (feat: all changes)
 	}
 }
