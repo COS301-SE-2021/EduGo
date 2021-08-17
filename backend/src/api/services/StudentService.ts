@@ -253,6 +253,12 @@ export class StudentService {
 		return result;
 	}
 
+	/**
+	 * @description Get all the student grades including the ones that are not yet
+	 * 					completed
+	 * @param {number} id - The user id of the student
+	 * @returns {Promise<GetStudentGradesResponse>} The grades of the student
+	 */
 	public async GetStudentGrades(id: number): Promise<GetStudentGradesResponse> {
 		let user: User | undefined;
 		try {
@@ -314,9 +320,9 @@ export class StudentService {
 			lesson.quizGrades.push(grade);
 			lesson.gradeAchieved += value.score;
 			subject.gradeAchieved += value.score;
-			
 		});
 
+		//Get all the subjects that have grades for the user then get the remaining user subjects that do not have grades
 		let existingSubjectIds: number[] = response.subjects.map(sub => sub.id);
 		let remainingSubjects: Subject[] = user.student.subjects.filter(sub => !existingSubjectIds.includes(sub.id));
 
