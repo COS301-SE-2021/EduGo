@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:edugo_web_app/src/Pages/InviteStudents/View/Widgets/InviteStudentsWidgets.dart';
 
 class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
   final String currentEmailInput;
@@ -36,7 +37,7 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
     int id = 0;
     emails.forEach(
       (email) {
-        inviteEmailCards.add(InviteEmailCard(
+        inviteEmailCards.add(StudentsEmailCard(
           emailId: id,
           emailValue: email,
         ));

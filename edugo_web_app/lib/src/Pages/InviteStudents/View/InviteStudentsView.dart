@@ -1,6 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-
-import 'Widgets/StudentEmailInputCard.dart';
+import 'package:edugo_web_app/src/Pages/InviteStudents/View/Widgets/InviteStudentsWidgets.dart';
 
 class InviteStudentsView extends StatelessWidget {
   @override
@@ -49,20 +48,20 @@ class InviteStudentsView extends StatelessWidget {
                           SizedBox(
                             height: 50,
                           ),
-                          InviteEmailInputCard(),
+                          StudentsEmailInputCard(),
                           SizedBox(
                             height: 20,
                           ),
                           Column(
                             children:
-                                Momentum.controller<InviteStudentController>(
+                                Momentum.controller<InviteStudentsController>(
                                         context)
                                     .getEmailView(),
                           ),
                           SizedBox(
                             height: 40,
                           ),
-                          VirtualEntityButton(
+                          InviteStudentsButton(
                               elevation: 40,
                               child: Text(
                                 "Send Invitations",

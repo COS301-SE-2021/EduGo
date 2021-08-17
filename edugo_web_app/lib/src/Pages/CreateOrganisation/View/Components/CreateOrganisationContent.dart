@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/src/Pages/CreateOrganisation/View/Widgets/CreateOrganisationButton.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateOrganisationContent extends StatelessWidget {
@@ -52,7 +53,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null)
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .inputName(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -87,7 +89,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null)
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .inputEmail(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -115,7 +118,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null)
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .inputPhoneNumber(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -146,7 +150,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null)
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .inputAdminFirstName(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -174,7 +179,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null)
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .inputAdminLastName(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -211,7 +217,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null)
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .inputAdminEmail(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -239,7 +246,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null)
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .inputAdminUserName(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -268,7 +276,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null)
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .inputAdminPassword(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -315,7 +324,7 @@ class CreateOrganisationContent extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
-                VirtualEntityButton(
+                CreateOrganisationButton(
                     elevation: 40,
                     child: Text(
                       "Create Organisation",
@@ -323,7 +332,8 @@ class CreateOrganisationContent extends StatelessWidget {
                     ),
                     onPressed: () {
                       if (_formKey.currentState.validate())
-                        Momentum.controller<OrganisationController>(context)
+                        Momentum.controller<CreateOrganisationController>(
+                                context)
                             .createOrganisation(context);
                     },
                     width: 450,
@@ -344,9 +354,9 @@ class CreateOrganisationContent extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 800) {
         return MomentumBuilder(
-            controllers: [OrganisationController, SessionController],
+            controllers: [CreateOrganisationController, LogInController],
             builder: (context, snapshot) {
-              var organisation = snapshot<OrganisationModel>();
+              var organisation = snapshot<CreateOrganisationModel>();
               return Form(
                 key: _formKey,
                 child: Row(
@@ -357,9 +367,9 @@ class CreateOrganisationContent extends StatelessWidget {
             });
       } else {
         return MomentumBuilder(
-            controllers: [OrganisationController],
+            controllers: [CreateOrganisationController],
             builder: (context, snapshot) {
-              var organisation = snapshot<OrganisationModel>();
+              var organisation = snapshot<CreateOrganisationModel>();
               return Form(
                 key: _formKey,
                 child: Column(

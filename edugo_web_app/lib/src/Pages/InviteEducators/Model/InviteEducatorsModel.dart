@@ -1,5 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/Pages/Organisation/View/Widgets/InviteEmailCard.dart';
+import 'package:edugo_web_app/src/Pages/InviteEducators/View/Widgets/InviteEducatorsWidgets.dart';
 
 class InviteEducatorsModel extends MomentumModel<InviteEducatorsController> {
   final String currentEmailInput;
@@ -34,7 +34,8 @@ class InviteEducatorsModel extends MomentumModel<InviteEducatorsController> {
     int id = 0;
     emails.forEach(
       (email) {
-        inviteEmailCards.add(InviteEmailCard(emailId: id, emailValue: email));
+        inviteEmailCards
+            .add(EducatorsEmailCard(emailId: id, emailValue: email));
         inviteEmailCards.add(
           SizedBox(
             height: 20,

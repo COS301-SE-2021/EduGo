@@ -1,9 +1,9 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class InviteEmailCard extends StatelessWidget {
+class EducatorsEmailCard extends StatelessWidget {
   final int emailId;
   final String emailValue;
-  const InviteEmailCard({
+  const EducatorsEmailCard({
     Key key,
     this.emailId,
     this.emailValue,
@@ -12,7 +12,7 @@ class InviteEmailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController, QuizBuilderController],
+      controllers: [InviteEducatorsController],
       builder: (context, snapshot) {
         return Material(
           elevation: 40,
@@ -41,7 +41,7 @@ class InviteEmailCard extends StatelessWidget {
                     child: Icon(Icons.delete,
                         size: 40, color: Color.fromARGB(255, 97, 211, 87)),
                     onTap: () {
-                      Momentum.controller<InviteEducatorController>(context)
+                      Momentum.controller<InviteEducatorsController>(context)
                           .removeEmail(emailId);
                     },
                   ),

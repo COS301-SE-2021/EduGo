@@ -1,16 +1,16 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class InviteEmailInputCard extends StatelessWidget {
+class StudentsEmailInputCard extends StatelessWidget {
   static var _controller = TextEditingController();
 
-  const InviteEmailInputCard({
+  const StudentsEmailInputCard({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [VirtualEntityApiController, QuizBuilderController],
+      controllers: [InviteStudentsController],
       builder: (context, snapshot) {
         return Material(
           elevation: 40,
@@ -25,7 +25,7 @@ class InviteEmailInputCard extends StatelessWidget {
                   child: TextField(
                     controller: _controller,
                     onChanged: (value) {
-                      Momentum.controller<InviteEducatorController>(context)
+                      Momentum.controller<InviteStudentsController>(context)
                           .inputEmail(value);
                     },
                     cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -47,7 +47,7 @@ class InviteEmailInputCard extends StatelessWidget {
                     child: Icon(Icons.add,
                         size: 40, color: Color.fromARGB(255, 97, 211, 87)),
                     onTap: () {
-                      Momentum.controller<InviteEducatorController>(context)
+                      Momentum.controller<InviteStudentsController>(context)
                           .addEmail();
                       _controller.clear();
                     },

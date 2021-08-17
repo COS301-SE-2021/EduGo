@@ -1,3 +1,4 @@
+import 'package:edugo_web_app/src/Pages/CreateOrganisation/View/Components/CreateOrganisationContent.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateOrganisationView extends StatelessWidget {

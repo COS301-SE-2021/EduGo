@@ -4,7 +4,7 @@ class InviteEducatorsController
     extends MomentumController<InviteEducatorsModel> {
   @override
   InviteEducatorsModel init() {
-    return InviteEducatorModel(this, emails: []);
+    return InviteEducatorsModel(this, emails: []);
   }
 
   void inputEmail(String email) {
