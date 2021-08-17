@@ -1,12 +1,12 @@
 export interface QuizGrade {
-	name?: string;
-	quiz_total?: number;
-	student_score?: number;
+	name: string;
+	quiz_total: number;
+	student_score: number;
 }
 
 
 export interface GetStudentGradesResponse{
-	subjects?: SubjectGrades[]; 
+	subjects: SubjectGrades[]; 
  }
 
  export interface SubjectGrades{
@@ -17,9 +17,9 @@ export interface GetStudentGradesResponse{
  }
 
  export interface LessonGrades{
-	id?:number;
-	gradeAchieved?: number;
-	lessonName?: string; 
+	id:number;
+	gradeAchieved: number;
+	lessonName: string; 
 	quizGrades: QuizGrade[]
 }
 
