@@ -1,31 +1,35 @@
-// * This file will export all the views defined in the different pages
+// EndGoal: This file will export all the views defined in the different pages
 
-// * Lesson View Exports
-export 'package:edugo_web_app/src/Pages/Lesson/View/CreateLessonView.dart';
-export 'package:edugo_web_app/src/Pages/Lesson/View/LessonsView.dart';
-export 'package:edugo_web_app/src/Pages/Lesson/View/UpdateLessonView.dart';
+// Info: Admin View Exports
+export 'package:edugo_web_app/src/Pages/Admin/View/AdminView.dart';
 
-// * Subject View Exports
-export 'package:edugo_web_app/src/Pages/Subject/View/CreateSubjectView.dart';
-export 'package:edugo_web_app/src/Pages/Subject/View/SubjectsView.dart';
-export 'package:edugo_web_app/src/Pages/Subject/View/UpdateSubjectView.dart';
+// Info: Create Lesson View Exports
+export 'package:edugo_web_app/src/Pages/CreateLesson/View/CreateLessonView.dart';
 
-// * Virtual Entity View Exports
-export 'package:edugo_web_app/src/Pages/VirtualEntity/View/EducatorVirtualEntitiesView.dart';
-export 'package:edugo_web_app/src/Pages/VirtualEntity/View/CreateVirtualEntityView.dart';
-export 'package:edugo_web_app/src/Pages/VirtualEntity/View/ViewVirtualEntityView.dart';
-export 'package:edugo_web_app/src/Pages/VirtualEntity/View/VirtualEntityStoreView.dart';
-export 'package:edugo_web_app/src/Pages/VirtualEntity/View/UpdateVirtualEntityView.dart';
-
-// * App Exports
-export 'package:edugo_web_app/src/View.dart';
-export 'package:edugo_web_app/src/Pages/Home/Home.dart';
-export 'package:edugo_web_app/src/Pages/Login/View/LoginView.dart';
+// Info: Create Organisation View Exports
 export 'package:edugo_web_app/src/Pages/CreateOrganisation/View/CreateOrganisationView.dart';
 
-//* Organisation Exports
-export 'package:edugo_web_app/src/Pages/Organisation/View/InviteEducatorView.dart';
-export 'package:edugo_web_app/src/Pages/Organisation/View/InviteStudentView.dart';
-export 'package:edugo_web_app/src/Pages/Organisation/View/OrganisationDashboardView.dart';
-export 'package:edugo_web_app/src/Pages/Organisation/View/StudentRegistrationView.dart';
-export 'package:edugo_web_app/src/Pages/Organisation/View/StudentsProgress.dart';
+// Info: Create Subject View Exports
+export 'package:edugo_web_app/src/Pages/CreateSubject/View/CreateSubjectView.dart';
+
+// Info: Create Virtual Entity View Exports
+export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/CreateVirtualEntityView.dart';
+
+// Info: Invite Educators View Exports
+export 'package:edugo_web_app/src/Pages/InviteEducators/View/InviteEducatorsView.dart';
+
+// Info: Invite Students View Exports
+export 'package:edugo_web_app/src/Pages/InviteStudents/View/InviteStudentsView.dart';
+
+// Info: Lessons View Exports
+export 'package:edugo_web_app/src/Pages/Lessons/View/LessonsView.dart';
+
+// Info: Login View Exports
+export 'package:edugo_web_app/src/Pages/Login/View/LoginView.dart';
+
+// Info: Subjects View Exports
+export 'package:edugo_web_app/src/Pages/Subjects/View/SubjectsView.dart';
+
+// Info: App Exports
+export 'package:edugo_web_app/src/View.dart';
+export 'package:edugo_web_app/src/Pages/Home/Home.dart';

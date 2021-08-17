@@ -1,14 +1,13 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/Pages/Organisation/View/Widgets/InviteEmailCard.dart';
 
-class InviteStudentModel extends MomentumModel<InviteStudentController> {
+class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
   final String currentEmailInput;
   final List<String> emails;
 
   final String subjectId;
   final String subjectName;
 
-  InviteStudentModel(InviteStudentController controller,
+  InviteStudentsModel(InviteStudentsController controller,
       {this.currentEmailInput, this.emails, this.subjectId, this.subjectName})
       : super(controller);
 
@@ -55,7 +54,7 @@ class InviteStudentModel extends MomentumModel<InviteStudentController> {
 
   @override
   void update({currentEmailInput, emails, subjectId, subjectName}) {
-    InviteStudentModel(controller,
+    InviteStudentsModel(controller,
             currentEmailInput: currentEmailInput ?? this.currentEmailInput,
             emails: emails ?? this.emails,
             subjectId: subjectId ?? this.subjectId,

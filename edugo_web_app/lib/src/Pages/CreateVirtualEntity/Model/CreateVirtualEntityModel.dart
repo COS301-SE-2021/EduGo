@@ -1,40 +1,40 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class ViewBoundVirtualEntity
-    extends MomentumModel<ViewBoundVirtualEntityController> {
+class CreateVirtualEntityModel
+    extends MomentumModel<CreateVirtualEntityController> {
   final String name;
   final String description;
   final String viewBoundVirtualEntity3dModelLink;
-  ViewBoundVirtualEntity(
-    ViewBoundVirtualEntityController controller, {
+  CreateVirtualEntityModel(
+    CreateVirtualEntityController controller, {
     this.viewBoundVirtualEntity3dModelLink,
     this.name,
     this.description,
   }) : super(controller);
 
-  void setViewBoundVirtualEntityName(String name) {
+  void setCreateVirtualEntityName(String name) {
     update(name: name);
   }
 
-  void setViewBoundVirtualEntityDescription(String description) {
+  void setCreateVirtualEntityDescription(String description) {
     update(description: description);
   }
 
-  void setViewBoundVirtualEntity3dModelLink(
+  void setCreateVirtualEntity3dModelLink(
       String viewBoundVirtualEntity3dModelLink) {
     update(
         viewBoundVirtualEntity3dModelLink: viewBoundVirtualEntity3dModelLink);
   }
 
-  String getViewBoundVirtualEntityName() {
+  String getCreateVirtualEntityName() {
     return name;
   }
 
-  String getViewBoundVirtualEntityDescription() {
+  String getCreateVirtualEntityDescription() {
     return description;
   }
 
-  String getViewBoundVirtualEntity3dModelLink() {
+  String getCreateVirtualEntity3dModelLink() {
     return viewBoundVirtualEntity3dModelLink;
   }
 
@@ -44,7 +44,7 @@ class ViewBoundVirtualEntity
     name,
     description,
   }) {
-    ViewBoundVirtualEntity(
+    CreateVirtualEntityModel(
       controller,
       viewBoundVirtualEntity3dModelLink: viewBoundVirtualEntity3dModelLink ??
           this.viewBoundVirtualEntity3dModelLink,

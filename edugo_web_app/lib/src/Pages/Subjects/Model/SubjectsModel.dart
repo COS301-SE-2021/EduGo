@@ -1,9 +1,9 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class SubjectModel extends MomentumModel<SubjectController> {
+class SubjectsModel extends MomentumModel<SubjectsController> {
   final Subject currentSubject;
   final Subject viewBoundSubject;
-  SubjectModel(SubjectController controller,
+  SubjectsModel(SubjectsController controller,
       {this.currentSubject, this.viewBoundSubject})
       : super(controller);
 
@@ -12,7 +12,7 @@ class SubjectModel extends MomentumModel<SubjectController> {
     Subject viewBoundSubject,
     Subject currentSubject,
   }) {
-    SubjectModel(
+    SubjectsModel(
       controller,
       viewBoundSubject: currentSubject ?? this.currentSubject,
       currentSubject: currentSubject ?? this.currentSubject,

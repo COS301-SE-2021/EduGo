@@ -1,9 +1,9 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class LessonController extends MomentumController<LessonModel> {
+class LessonsController extends MomentumController<LessonsModel> {
   @override
-  LessonModel init() {
-    return LessonModel(this,
+  LessonsModel init() {
+    return LessonsModel(this,
         viewBoundLesson: Lesson(), currentLesson: Lesson());
   }
 

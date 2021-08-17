@@ -1,13 +1,9 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/App/Model/User.dart';
-import 'package:edugo_web_app/src/Pages/Lesson/Model/Data/Lessons.dart';
-import 'package:edugo_web_app/src/Pages/Subject/Model/Data/Subjects.dart';
 
-class CurrentOrganisationController
-    extends MomentumController<CurrentOrganisationModel> {
+class AdminController extends MomentumController<AdminModel> {
   @override
-  CurrentOrganisationModel init() {
-    return CurrentOrganisationModel(this,
+  AdminModel init() {
+    return AdminModels(this,
         organisationName: "EduGo University",
         educators: [],
         educatorsView: [],

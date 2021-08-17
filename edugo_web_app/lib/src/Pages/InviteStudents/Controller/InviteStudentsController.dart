@@ -1,9 +1,9 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class InviteStudentController extends MomentumController<InviteStudentModel> {
+class InviteStudentsController extends MomentumController<InviteStudentsModel> {
   @override
-  InviteStudentModel init() {
-    return InviteStudentModel(this, emails: []);
+  InviteStudentsModel init() {
+    return InviteStudentsModel(this, emails: []);
   }
 
   void inputEmail(String email) {

@@ -1,23 +1,32 @@
-// + This file will export all the controllers defined in the different pages
+// EndGoal: This file will export all the controllers defined in the different pages
 
-// * Admin Contoller Exports
+// Info: Admin Contoller Exports
+export 'package:edugo_web_app/src/Pages/Admin/Controller/AdminController.dart';
 
-// * Create Lesson Contoller Exports
+// Info: Create Lesson Contoller Exports
+export 'package:edugo_web_app/src/Pages/CreateLesson/Controller/CreateLessonController.dart';
 
-// * Create Organisation Contoller Exports
+// Info: Create Organisation Contoller Exports
+export 'package:edugo_web_app/src/Pages/CreateOrganisation/Controller/CreateOrganisationController.dart';
 
-// * Create Subject Contoller Exports
+// Info: Create Subject Contoller Exports
+export 'package:edugo_web_app/src/Pages/CreateSubject/Controller/CreateSubjectController.dart';
 
-// * Create Virtual Entity Contoller Exports
+// Info: Create Virtual Entity Contoller Exports
+export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Controller/CreateVirtualEntityController.dart';
+export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Controller/QuizBuilderController.dart';
 
-// * Invite Educators Contoller Exports
+// Info: Invite Educators Contoller Exports
+export 'package:edugo_web_app/src/Pages/InviteEducators/Controller/InviteEducatorsController.dart';
 
-// * Invite Students Contoller Exports
+// Info: Invite Students Contoller Exports
+export 'package:edugo_web_app/src/Pages/InviteStudents/Controller/InviteStudentsController.dart';
 
-// * Lessons Contoller Exports
+// Info: Lessons Contoller Exports
+export 'package:edugo_web_app/src/Pages/Lessons/Controller/LessonsController.dart';
 
-// * Login Contoller Exports
+// Info: Login Contoller Exports
+export 'package:edugo_web_app/src/Pages/Login/Controller/LoginController.dart';
 
-// * Subjects Contoller Exports
-
-// * Admin Contoller Exports
+// Info: Subjects Contoller Exports
+export 'package:edugo_web_app/src/Pages/Subjects/Controller/SubjectsController.dart';

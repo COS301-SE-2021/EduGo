@@ -1,9 +1,9 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class SubjectController extends MomentumController<SubjectModel> {
+class SubjectsController extends MomentumController<SubjectsModel> {
   @override
-  SubjectModel init() {
-    return SubjectModel(this,
+  SubjectsModel init() {
+    return SubjectsModel(this,
         viewBoundSubject: Subject(), currentSubject: Subject());
   }
 

@@ -1,22 +1,32 @@
-// * This file will export all the models defined in the different pages
+// EndGoal: This file will export all the models defined in the different pages
 
-// * Lesson Model Exports
-export 'package:edugo_web_app/src/Pages/Lesson/Model/LessonModel.dart';
+// Info: Admin Model Exports
+export 'package:edugo_web_app/src/Pages/Admin/Model/AdminModel.dart';
 
-// * Subject Model Exports
-export 'package:edugo_web_app/src/Pages/Subject/Model/SubjectsModel.dart';
+// Info: Create Lesson Model Exports
+export 'package:edugo_web_app/src/Pages/CreateLesson/Model/CreateLessonModel.dart';
 
-// * Virtual Entity Model Exports
-export 'package:edugo_web_app/src/Pages/VirtualEntity/Model/QuizBuilderModel.dart';
-export 'package:edugo_web_app/src/Pages/VirtualEntity/Model/VirtualEntityApiModel.dart';
-export 'package:edugo_web_app/src/Pages/VirtualEntity/Model/ViewBoundVirtualEntity.dart';
-
-// * App Exports
-export 'package:edugo_web_app/src/Model.dart';
+// Info: Create Organisation Model Exports
 export 'package:edugo_web_app/src/Pages/CreateOrganisation/Model/CreateOrganisationModel.dart';
-export 'package:edugo_web_app/src/App/Model/CurrentOrganisationModel.dart';
+
+// Info: Create Subject Model Exports
+export 'package:edugo_web_app/src/Pages/CreateSubject/Model/CreateSubjectModel.dart';
+
+// Info: Create Virtual Entity Model Exports
+export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/CreateVirtualEntityModel.dart';
+export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/QuizBuilderModel.dart';
+
+// Info: Invite Educators Model Exports
+export 'package:edugo_web_app/src/Pages/InviteEducators/Model/InviteEducatorsModel.dart';
+
+// Info: Invite Students Model Exports
+export 'package:edugo_web_app/src/Pages/InviteStudents/Model/InviteStudentsModel.dart';
+
+// Info: Lessons ModelModel Exports
+export 'package:edugo_web_app/src/Pages/Lessons/Model/LessonsModel.dart';
+
+// Info: Login Model Exports
 export 'package:edugo_web_app/src/Pages/Login/Model/LoginModel.dart';
 
-// * Organisation Exports
-export 'package:edugo_web_app/src/Pages/Organisation/Model/InviteEducatorModel.dart';
-export 'package:edugo_web_app/src/Pages/Organisation/Model/InviteStudentsModel.dart';
+// Info: Subjects Model Exports
+export 'package:edugo_web_app/src/Pages/Subjects/Model/SubjectsModel.dart';

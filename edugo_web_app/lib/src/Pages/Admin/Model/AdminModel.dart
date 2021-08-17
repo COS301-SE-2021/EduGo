@@ -1,8 +1,6 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/App/Model/User.dart';
 
-class CurrentOrganisationModel
-    extends MomentumModel<CurrentOrganisationController> {
+class AdminModel extends MomentumModel<AdminController> {
   final String organisationName;
   final String organisationEmail;
   final String organisationId;
@@ -13,7 +11,7 @@ class CurrentOrganisationModel
   final List<Widget> lessonsView;
   final List<User> educators;
   final List<Widget> educatorsView;
-  CurrentOrganisationModel(CurrentOrganisationController controller,
+  AdminModel(AdminController controller,
       {this.organisationName,
       this.subjectsView,
       this.organisationEmail,
@@ -110,7 +108,7 @@ class CurrentOrganisationModel
       subjectsView,
       lessons,
       lessonsView}) {
-    CurrentOrganisationModel(controller,
+    AdminModel(controller,
             organisationId: organisationId ?? this.organisationId,
             phoneNumber: phoneNumber ?? this.phoneNumber,
             organisationName: organisationName ?? this.organisationName,

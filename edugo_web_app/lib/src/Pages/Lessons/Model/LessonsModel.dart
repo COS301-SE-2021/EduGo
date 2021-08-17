@@ -1,9 +1,9 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class LessonModel extends MomentumModel<LessonController> {
+class LessonsModel extends MomentumModel<LessonsController> {
   final Lesson currentLesson;
   final Lesson viewBoundLesson;
-  LessonModel(LessonController controller,
+  LessonsModel(LessonsController controller,
       {this.currentLesson, this.viewBoundLesson})
       : super(controller);
 
@@ -12,7 +12,7 @@ class LessonModel extends MomentumModel<LessonController> {
     Lesson viewBoundLesson,
     Lesson currentLesson,
   }) {
-    LessonModel(
+    LessonsModel(
       controller,
       viewBoundLesson: currentLesson ?? this.currentLesson,
       currentLesson: currentLesson ?? this.currentLesson,

@@ -1,12 +1,12 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-import 'Widgets/StudentEmailInputCard.dart';
+import 'Widgets/EducatorEmailInputCard.dart';
 
-class InviteStudentView extends StatelessWidget {
+class InviteEducatorsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-        controllers: [InviteStudentController],
+        controllers: [InviteEducatorsController],
         builder: (context, snapshot) {
           return PageLayout(
             top: 0,
@@ -33,11 +33,11 @@ class InviteStudentView extends StatelessWidget {
                                 style: TextStyle(fontSize: 32),
                               ),
                               Text(
-                                " Stu",
+                                " Edu",
                                 style: TextStyle(fontSize: 32),
                               ),
                               Text(
-                                "dents",
+                                "cators",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 32,
@@ -55,7 +55,7 @@ class InviteStudentView extends StatelessWidget {
                           ),
                           Column(
                             children:
-                                Momentum.controller<InviteStudentController>(
+                                Momentum.controller<InviteEducatorController>(
                                         context)
                                     .getEmailView(),
                           ),

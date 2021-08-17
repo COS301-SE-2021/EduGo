@@ -1,20 +1,20 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class ViewBoundVirtualEntityController
-    extends MomentumController<ViewBoundVirtualEntity> {
+class CreateVirtualEntityController
+    extends MomentumController<CreateVirtualEntityModel> {
   @override
-  ViewBoundVirtualEntity init() {
-    return ViewBoundVirtualEntity(
+  CreateVirtualEntityModel init() {
+    return CreateVirtualEntityModel(
       this,
     );
   }
 
   void inputName(String name) {
-    model.setViewBoundVirtualEntityName(name);
+    model.setCreateVirtualEntityName(name);
   }
 
   void inputDescription(String description) {
-    model.setViewBoundVirtualEntityDescription(description);
+    model.setCreateVirtualEntityDescription(description);
   }
 
   void upload3dModel(context) {
@@ -22,19 +22,19 @@ class ViewBoundVirtualEntityController
   }
 
   String getName() {
-    return model.getViewBoundVirtualEntityName();
+    return model.getCreateVirtualEntityName();
   }
 
   String getDescription() {
-    return model.getViewBoundVirtualEntityDescription();
+    return model.getCreateVirtualEntityDescription();
   }
 
   String get3dModelLink() {
-    return model.getViewBoundVirtualEntity3dModelLink();
+    return model.getCreateVirtualEntity3dModelLink();
   }
 
   void clearLinkTo3DModel() {
-    model.setViewBoundVirtualEntity3dModelLink("null");
+    model.setCreateVirtualEntity3dModelLink("null");
   }
 
   //! Virtual Entity Controller Helper Methods and Attributes
@@ -94,7 +94,7 @@ class ViewBoundVirtualEntityController
     );
 
     request.headers["authorization"] =
-        Momentum.controller<SessionController>(context).getToken();
+        Momentum.controller<LoginController>(context).getToken();
 
     request.files.add(
       MultipartFile.fromBytes('file', _selectedFile,
@@ -110,7 +110,7 @@ class ViewBoundVirtualEntityController
               Map<String, dynamic> _decoded3DModel = jsonDecode(response.body);
               linkTo3DModel = _decoded3DModel['file_link'];
               print(linkTo3DModel);
-              model.setViewBoundVirtualEntity3dModelLink(linkTo3DModel);
+              model.setCreateVirtualEntity3dModelLink(linkTo3DModel);
             }
           },
         );
