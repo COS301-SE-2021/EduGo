@@ -1,4 +1,4 @@
-export interface CreateVirtualEntityResponse {
-    id: number;
-    message: string;
+export class CreateVirtualEntityResponse {
+	id: number;
+	message: string;
 }

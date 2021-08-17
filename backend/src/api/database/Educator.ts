@@ -1,6 +1,7 @@
 import {
 	Column,
 	Entity,
+	JoinColumn,
 	JoinTable,
 	ManyToMany,
 	OneToOne,
@@ -14,13 +15,13 @@ export class Educator {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@OneToOne(type => User, user => user.educator)
-	user: User;
-
 	@ManyToMany(type => Subject, subject => subject.educators)
 	@JoinTable()
 	subjects: Subject[];
 
 	@Column({default:false})
 	admin: boolean;
+
+	@OneToOne((type) => User, user => user.educator)
+	user: User;
 }

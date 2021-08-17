@@ -1,9 +1,23 @@
+import { Type } from 'class-transformer';
+import { IsBoolean, IsOptional, IsString, ValidateNested } from 'class-validator';
 import {Quiz, Model} from './Default';
 
-export interface CreateVirtualEntityRequest {
-    lesson_id: number;
+export class CreateVirtualEntityRequest {
+    @IsString()
     title: string;
+
+    @IsString()
     description: string;
-    quiz?: Quiz;
+
+    @Type(() => Quiz)
+    @ValidateNested()
+    quiz: Quiz;
+
+    @IsOptional()
+    @Type(() => Model)
     model?: Model;
+
+    @IsOptional()
+    @IsBoolean()
+    public?: boolean;
 }

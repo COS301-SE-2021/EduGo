@@ -1,11 +1,9 @@
 import { Request } from "express";
 import jwtDecode from "jwt-decode";
 import passport from "passport";
+import { InternalServerError, UnauthorizedError } from "routing-controllers";
 import { getRepository } from "typeorm";
 import { User } from "../database/User";
-import { NonExistantItemError } from "../errors/NonExistantItemError";
-import { UnauthorizedUserError } from "../errors/UnauthorizedUserError";
-import { handleErrors } from "../helper/ErrorCatch";
 
 interface MyPayload {
 	user_id: number;
@@ -30,30 +28,31 @@ export async function isUser(req: RequestObjectWithUserId, res: any, next: any) 
 			);
 			if (user) {
 				next();
-			} else throw new UnauthorizedUserError("User is not authorized");
+			} else throw new UnauthorizedError("User is not authorized");
 		} catch (err) {
-			handleErrors(err, res);
+			throw err;
 		}
 	}
-	res.status(500);
 }
 
 export async function isAdmin(req: any, res: any, next: any) {
-	if (req.headers.authorization) {
-		const token = req.headers.authorization.slice(7);
-		const payload = jwtDecode<MyPayload>(token);
-		try {
+	try {
+		if (req.headers.authorization) {
+			const token = req.headers.authorization.slice(7);
+			const payload = jwtDecode<MyPayload>(token);
+
 			let user: AuthenticateObject = await getUserDetails(
 				payload.user_id
 			);
 			if (user.isAdmin) {
 				next();
-			} else throw new UnauthorizedUserError("User is not an admin");
-		} catch (err) {
-			handleErrors(err, res);
+			} else throw new UnauthorizedError("User is not an admin");
+		} else {
+			 return "Authorization header not set";
 		}
+	} catch (err) {
+		throw console.log(err.message);
 	}
-	res.status(500);
 }
 
 export async function isEducator(
@@ -71,12 +70,11 @@ export async function isEducator(
 			);
 			if (user.isEducator) {
 				next();
-			} else throw new UnauthorizedUserError("User is not an Educator");
+			} else throw new UnauthorizedError("User is not an Educator");
 		} catch (err) {
-			handleErrors(err, res);
+			throw err;
 		}
 	}
-	res.status(500);
 }
 
 async function getUserDetails(id: number): Promise<AuthenticateObject> {
@@ -94,7 +92,7 @@ async function getUserDetails(id: number): Promise<AuthenticateObject> {
 					isEducator: user.educator != undefined ? true : false,
 				};
 			} else
-				throw new NonExistantItemError(
+				throw new UnauthorizedError(
 					"User not found for get User Details"
 				);
 		});

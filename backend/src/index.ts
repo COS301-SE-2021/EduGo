@@ -1,8 +1,49 @@
-import express from "express";
-import cors from "cors";
-import { createConnection, ConnectionOptions, QueryFailedError } from "typeorm";
+import "reflect-metadata";
 import dotenv from "dotenv";
 import passport from "passport";
+import {
+	createConnection,
+	ConnectionOptions,
+	useContainer as orm_useContainer,
+} from "typeorm";
+import { Container as orm_Container } from "typeorm-typedi-extensions";
+import { Container as di_Container } from "typedi";
+import {
+	Action,
+	createExpressServer,
+	useContainer as rc_useContainer,
+	useExpressServer,
+} from "routing-controllers";
+import cors from "cors";
+
+import { LessonController } from "./api/controllers/lessonController";
+import { SubjectController } from "./api/controllers/subjectController";
+import { AuthController } from "./api/controllers/authController";
+import { OrganisationController } from "./api/controllers/OrganisationController";
+import { UserController } from "./api/controllers/userController";
+import { VirtualEntityController } from "./api/controllers/virtualEntityController";
+import express from "express";
+import {router as FileRouter} from "./api/controllers/FileController";
+import { NodemailerService } from "./api/helper/email/NodemailerService";
+import { EducatorService } from "./api/services/EducatorService";
+import { AddEducatorsRequest } from "./api/models/user/AddEducatorsRequest";
+import { Answer } from "./api/database/Answer";
+import { Educator } from "./api/database/Educator";
+import { Grade } from "./api/database/Grade";
+import { Image } from "./api/database/Image";
+import { Lesson } from "./api/database/Lesson";
+import { Model } from "./api/database/Model";
+import { Organisation } from "./api/database/Organisation";
+import { Question } from "./api/database/Question";
+import { Quiz } from "./api/database/Quiz";
+import { Student } from "./api/database/Student";
+import { Subject } from "./api/database/Subject";
+import { User } from "./api/database/User";
+import { VirtualEntity } from "./api/database/VirtualEntity";
+import { UnverifiedUser } from "./api/database/UnverifiedUser";
+
+rc_useContainer(di_Container);
+orm_useContainer(orm_Container);
 
 dotenv.config();
 
@@ -29,7 +70,22 @@ let options: ConnectionOptions = {
 	synchronize: true,
 	logging: true,
 	logger: "file",
-	entities: ["src/api/database/**/*.ts"],
+	entities: [
+		Answer, 
+		Educator, 
+		Grade, 
+		Image, 
+		Lesson, 
+		Model, 
+		Organisation, 
+		Question, 
+		Quiz, 
+		Student, 
+		Subject, 
+		UnverifiedUser,
+		User, 
+		VirtualEntity
+	],
 	migrations: ["src/api/database/migration/**/*.ts"],
 	subscribers: ["src/api/database/subscriber/**/*.ts"],
 	cli: {
@@ -39,70 +95,70 @@ let options: ConnectionOptions = {
 	},
 };
 
-if (process.env.NODE_ENV !== "test") {
-	createConnection(options)
-		.then((conn) => {
-			if (conn.isConnected) {
-				console.log("Database connection established");
-			} else {
-				throw new Error("Database connection failed");
-			}
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-}
+createConnection(options)
+	.then((conn) => {
+		if (conn.isConnected) {
+			console.log("Database connection established");
+		} else {
+			throw new Error("Database connection failed");
+		}
+	})
+	.catch((err) => {
+		console.log(err);
+	});
 
-import { router as LessonController } from "./api/controllers/LessonController";
-import { router as SubjectController } from "./api/controllers/SubjectController";
-import { router as VirtualEntityController } from "./api/controllers/VirtualEntityController";
-import { router as OrganisationController } from "./api/controllers/OrganisationController";
-import { EmailService } from "./api/helper/email/EmailService";
-import { MailgunEmailService } from "./api/helper/email/MailgunEmailService";
-import { router as AuthController } from "./api/controllers/AuthController";
-import { router as UserController } from "./api/controllers/UserController";
-import { router as SeedController } from "./api/controllers/SeedController";
-import { router as RecommenderController } from './api/controllers/RecommendationController';
+export let app = express()
+app.use(cors(
+	{
+		origin: "*",
+		methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+	}
+))
+app.use('/virtualEntity', FileRouter);
 
-export const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
-app.use("/lesson", LessonController);
-app.use("/subject", SubjectController);
-app.use("/virtualEntity", VirtualEntityController);
-app.use("/organisation", OrganisationController);
-app.use("/auth", AuthController);
-app.use("/user", UserController);
-app.use("/", SeedController);
-app.use("/recommender", RecommenderController);
-
-/*
- * Look, it's a comment
- * TODO Fix this
- */
-
-// app.use((req, res, next) => {
-//     express.json()(req, res, err => {
-//         if (err) {
-//             if (err instanceof SyntaxError) {
-
-//             }
-//         }
-//     })
-// })
-
-app.get("/", (req, res) => {
-	res.send("hey there");
+useExpressServer(app, {
+//const app = createExpressServer({
+	controllers: [
+		LessonController,
+		SubjectController,
+		AuthController,
+		OrganisationController,
+		UserController,
+		VirtualEntityController
+	],
+	currentUserChecker: (action: Action) => action.request.user_id,
 });
 
-app.post("/email", (req, res) => {
-	let { to, name, code } = req.body;
+// let educatorSer = new EducatorService(); 
+// let req : AddEducatorsRequest = {educators: ["u19134101@tuks.co.za"]}; 
+// educatorSer.AddEducators(req, 1)
 
-	let emailService: EmailService = new MailgunEmailService();
-	emailService.sendOneEmail(to, name, code);
-	res.status(200).send();
-});
 
-if (process.env.NODE_ENV !== "test")
-	app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+
+// import { router as LessonController } from "./api/controllers/LessonController";
+// import { router as SubjectController } from "./api/controllers/SubjectController";
+// import { router as VirtualEntityController } from "./api/controllers/VirtualEntityController";
+// import { router as OrganisationController } from "./api/controllers/OrganisationController";
+// import { EmailService } from "./api/helper/email/EmailService";
+// import { MailgunEmailService } from "./api/helper/email/MailgunEmailService";
+// import { router as AuthController } from "./api/controllers/AuthController";
+// import { router as UserController } from "./api/controllers/UserController";
+// import { router as SeedController } from "./api/controllers/SeedController";
+// import { router as RecommenderController } from './api/controllers/RecommendationController';
+
+// export const app = express();
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(cors());
+// app.use("/lesson", LessonController);
+// app.use("/subject", SubjectController);
+// app.use("/virtualEntity", VirtualEntityController);
+// app.use("/organisation", OrganisationController);
+// app.use("/auth", AuthController);
+// app.use("/user", UserController);
+// app.use("/", SeedController);
+// app.use("/recommender", RecommenderController);
+
+// if (process.env.NODE_ENV !== "test")
+// 	app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
