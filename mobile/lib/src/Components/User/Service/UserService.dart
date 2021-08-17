@@ -19,10 +19,13 @@ class UserApiService extends MomentumService {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
+      print(response.body);
       if (json['token'] != null) {
         String token = json['token'] as String;
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('user_token', token);
+        print(token);
+        print(prefs.getString("user_token"));
         return true;
       } else
         throw new BadResponse('No token property');

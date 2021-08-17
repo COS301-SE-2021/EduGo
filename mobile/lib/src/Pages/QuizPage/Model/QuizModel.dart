@@ -7,16 +7,10 @@ class Quiz {
   @JsonKey(required: true)
   int id;
 
-  @JsonKey(required: true)
-  String title;
-
-  @JsonKey(defaultValue: '')
-  String description;
-
   @JsonKey(defaultValue: null)
   List<Question>? questions;
 
-  Quiz(this.id, this.title, this.description, this.questions);
+  Quiz(this.id, this.questions);
 
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
   Map<String, dynamic> toJson() => _$QuizToJson(this);

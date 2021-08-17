@@ -25,7 +25,7 @@ import 'package:momentum/momentum.dart';
 
 void main() {
   //when mock=false it uses api calls. when mock=true, it uses mock data
-  runApp(momentum(mock: true));
+  runApp(momentum(mock: false));
   //PaintingBinding.instance!.imageCache!.clear();
 }
 
@@ -46,8 +46,8 @@ Momentum momentum({bool mock = true}) {
       //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
         //QuizView(),
-        QuizPage(),
         LoginPage(),
+        QuizPage(),
         DetectMarkerPage(),
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),

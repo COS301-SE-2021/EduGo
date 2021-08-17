@@ -13,7 +13,7 @@ Future<List<Quiz>> getQuizesByLesson(int id,
     {required http.Client client}) async {
   final preferences = await SharedPreferences.getInstance();
   final String? token = preferences.getString("user_token") ?? null;
-  print(token);
+  //print(token);
   if (token == null) throw NoToken();
   final response =
       await client.post(Uri.parse("${baseUrl}virtualEntity/getQuizesByLesson"),
@@ -22,8 +22,8 @@ Future<List<Quiz>> getQuizesByLesson(int id,
             'Authorization': token,
           },
           body: jsonEncode(<String, int>{"id": id}));
-  print('here');
-  print(response);
+  //print('here');
+  //print(response);
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
     if (json['data'] != null) {
@@ -52,9 +52,8 @@ class QuizController extends MomentumController<QuizPageModel> {
                 ? httpMock.MockClient(mockApi.getQuizesByLesson)
                 : http.Client())
         .then((value) {
-      print('Value');
-      print(value);
-      model.update();
+      //get the quizzes
+      model.update(quizes: value);
     });
   }
 }

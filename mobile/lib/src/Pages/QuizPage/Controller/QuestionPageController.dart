@@ -1,21 +1,18 @@
-class QuestionController extends MomentumController<QuestionPageModel> {
-  QuestionController({this.mock = false});
+import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
+import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
+import 'package:momentum/momentum.dart';
+
+class QuestionPageController extends MomentumController<QuestionPageModel> {
+  QuestionPageController({this.mock = false});
   bool mock;
 
   QuestionPageModel init() {
-    return QuestionPageModel(this, quizes: []);
-  }
-
-  @override
-  Future<void> bootstrapAsync() {
-    return getQuestionesByLesson(1,
-            client: mock
-                ? httpMock.MockClient(mockApi.getQuestionesByLesson)
-                : http.Client())
-        .then((value) {
-      print('Value');
-      print(value);
-      model.update();
-    });
+    return QuestionPageModel(
+      this,
+      type: QuestionType.TrueFalse,
+      questionText: '',
+      optionsText: [],
+      correctAnswer: '',
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:momentum/momentum.dart';
 
@@ -14,6 +15,7 @@ class QuestionPageModel extends MomentumModel<QuestionPageController> {
   final String questionText;
   final List<String>? optionsText;
   final String correctAnswer;
+
   int index = 0;
 
   // Every time the next button is clicked, the question of the quiz at a particular index

@@ -7,11 +7,9 @@ part of 'QuizModel.dart';
 // **************************************************************************
 
 Quiz _$QuizFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['id', 'title']);
+  $checkKeys(json, requiredKeys: const ['id']);
   return Quiz(
     json['id'] as int,
-    json['title'] as String,
-    json['description'] as String? ?? '',
     (json['questions'] as List<dynamic>?)
         ?.map((e) => Question.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -20,8 +18,6 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
-      'description': instance.description,
       'questions': instance.questions?.map((e) => e.toJson()).toList(),
     };
 
