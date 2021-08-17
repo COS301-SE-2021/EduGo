@@ -43,28 +43,9 @@ class GradesQuizCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Holds the colour of the backround container
-    //of the marks container and changes accordingly
-    Color backgroundOfMarkColour;
-
-    //Holds the percentage of the quiz mark that the
-    //student received for a quiz
-    double percentage = studentQuizMark / quizTotalMark * 100;
-
-    //Changes the background colour of the mark container
-    //depending on what catagory of percent the student falls in
-    if (percentage < 0)
-      backgroundOfMarkColour = Colors.white;
-    else if (percentage >= 0 && percentage < 50)
-      backgroundOfMarkColour = Colors.red;
-    else if (percentage >= 50 && percentage < 60)
-      backgroundOfMarkColour = Colors.orange;
-    else if (percentage >= 60 && percentage < 75)
-      backgroundOfMarkColour = Colors.yellow;
-    else
-      backgroundOfMarkColour = Colors.green;
-
     return Column(
+      // height: 400,
+      // width: 400,
       //This is the main lesson card design. It is all in a container and
       //displays info like the lesson title, lesson objectives and
       //the lesson
@@ -114,11 +95,11 @@ class GradesQuizCard extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: MaterialButton(
-                            color: backgroundOfMarkColour,
+                            // color: backgroundColourForMark,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
-                              side: BorderSide(color: backgroundOfMarkColour),
+                              side: BorderSide(color: Colors.black),
                             ),
                             onPressed: () {},
                             //minWidth: 50,
