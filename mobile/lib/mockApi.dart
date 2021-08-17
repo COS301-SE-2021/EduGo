@@ -7,7 +7,7 @@ Future<http.Response> getLessonsBySubjectClient(request) async {
         {
           "id": 1,
           "title": "Lesson test 1 ",
-          "description": "This is the first lesson...",
+          "description": "This is the first lesson. We will learn about the importance of the democratic extinction of dinasours. One day, the patriachal empire of pandas wiol return.",
           "lessonCompleted": "true"
         },
         {
