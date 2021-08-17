@@ -200,8 +200,6 @@ export class VirtualEntityService {
 
 		if (request.quiz !== undefined) {
 			let quiz: Quiz = new Quiz();
-			quiz.title = request.quiz.title;
-			quiz.description = request.quiz.description;
 			quiz.questions = request.quiz.questions.map((value) => {
 				let question: Question = new Question();
 				question.question = value.question;

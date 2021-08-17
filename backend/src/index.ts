@@ -14,6 +14,7 @@ import {
 	useContainer as rc_useContainer,
 	useExpressServer,
 } from "routing-controllers";
+import cors from "cors";
 
 import { LessonController } from "./api/controllers/lessonController";
 import { SubjectController } from "./api/controllers/subjectController";
@@ -107,11 +108,16 @@ createConnection(options)
 	});
 
 export let app = express()
+app.use(cors(
+	{
+		origin: "*",
+		methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+	}
+))
 app.use('/virtualEntity', FileRouter);
 
 useExpressServer(app, {
 //const app = createExpressServer({
-	cors: true,
 	controllers: [
 		LessonController,
 		SubjectController,
