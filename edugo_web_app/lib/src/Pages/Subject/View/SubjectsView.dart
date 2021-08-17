@@ -3,6 +3,8 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class SubjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Momentum.controller<CurrentOrganisationController>(context)
+        .getEducatorSubjects(context);
     return MomentumBuilder(
         controllers: [CurrentOrganisationController],
         builder: (context, snapshot) {

@@ -48,6 +48,24 @@ class DesktopNavBar extends StatelessWidget {
                 children: <Widget>[
                   Column(children: <Widget>[
                     //*
+                    //* Dashboard Icon
+                    //*
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        child: Icon(Icons.home, size: 30, color: Colors.white),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    OrganisationDashboardView()),
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    //*
                     //* Subjects Icon
                     //*
                     MouseRegion(

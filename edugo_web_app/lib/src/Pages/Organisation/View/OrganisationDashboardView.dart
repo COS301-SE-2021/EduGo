@@ -2,6 +2,8 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class OrganisationDashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
+    Momentum.controller<CurrentOrganisationController>(context)
+        .getOrganisationEducators();
     return MomentumBuilder(
         controllers: [CurrentOrganisationController],
         builder: (context, snapshot) {
