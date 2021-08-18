@@ -117,8 +117,8 @@ class _QuizPageState extends State<QuizPage> {
                       _value = selected ? optionalAnswer : 'N/A';
 
                       // Selected answer of each question
-                      _selectedAnswers
-                          .add(new Answer(questionId, optionalAnswer));
+                      _selectedAnswers.add(new Answer(
+                          questions.elementAt(q).id, optionalAnswer));
                     });
                   },
                 ));
