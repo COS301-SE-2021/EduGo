@@ -17,6 +17,8 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as httpMock;
 import 'package:mobile/globals.dart';
 import 'package:momentum/momentum.dart';
+//UNCOMMENT THIS IMPORT WHEN MERGED INTO DEVELOP-MOBILE-APP-COMBINED
+//import 'package:shared_preferences/shared_preferences.dart';
 
 /*------------------------------------------------------------------------------
  *                          Grades controller
@@ -25,22 +27,35 @@ import 'package:momentum/momentum.dart';
 
 //Function to get the list of subjects from the database
 Future<List<Subject>> getGrades({required http.Client client}) async {
-  final response = await client.post(
-    Uri.parse("${baseUrl}lesson/getStudentGrades"),
+  //UNCOMMENT THESE 3 COMMENTS WHEN MERGED INTO DEVELOP-MOBILE-APP-COMBINED
+  // final prefs = await SharedPreferences.getInstance();
+  // final String? token = prefs.getString('user_token') ?? null;
+
+  // if (token == null) throw NoToken();
+  final response = await client.get(
+    Uri.parse("${baseUrl}user/getStudentGrades"),
     headers: <String, String>{
       'Content-Type': 'application/json',
       "Authorization":
-          "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2Mjg1MzUwMzgsImV4cCI6MTYyODYyMTQzOH0.rikKnXXsIuIy_pIfJcu1MRBh5eX6l85PR7rCg7GpiuKkBMv8ehLec1K_xFWtszr58M7pMMkcPVol_HvV6KULJ4QcyTMLcbPSmc5zGW59idsqBorYhoY35qyjLMK7IhgGeywDear3jGIiqdf4sv8JAs1onLBhQm_2IyiWa2OVFHXZ0v-Cwd-LtqgQyvyZKBwW_i8bqCmCGlBZCtMSCo61ci4HTJZXlQffey7YB796oVpm7Ibftlb1grPFbDdmt1vNYiirtoKv9gI69AY0H-w9PnaT34GzZ2748lSfTugo0TquHKxbvFgC0vJ_M7M4m-_P7S4pzu6j4uxLSqWslwU1ErMCgIK6fk9jfUnG8lVwEu5uVumf3_mKsj0NWE8bn9GrSOnXCAVlxrKqi_kNaeuKRKtLB0kwlQceoMVbCM_RcW_PacXlLDMN0CQMiGHvRyUhU8_A8p0wiTehPgQdhbQN60d0jYCl2sgXl5EkgFcxF3TYKWFJoOWqnKlVGOp42e-84soyV8Z7f0UMzLJWSun8XRu2pa3c6umKmauN3dSzKVEIOZUFGXER4LyZYTvjebn5nA4kf7PS1fPS4TszXmYk6-MCDBNO544ma5iNLQzJ_fCA4OffhCp7VK_JoKSaBAEvw-MnDGST-ITtOO-u5BH8ftdnIM9Mm0Ccdh9PMUXe1h0",
+          "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2MjkyODY2NjMsImV4cCI6MTYyOTM3MzA2M30.KYzzZbqk6_HpW-_mdqf2p1LlWjzsOTVplx4Vi850KHNJDXAiSmBR-R8L85liOB-ijpOXFVqMa2zz63SBd-gx06kdBdms48Ah9oFVoOvOziSDuhSUKK-GmuV6GhBKr5rhoAoPbSS600AXjFuJCYSjdqitaVDPp5Be4JJjQUXzm_D-T7QoxhvJMyd5NESCGIT4Pv8OT-7ph90z1nGmSUNVLjV1FTBNHRcxnrKZDm4r8_iGwjBoTxcE5slXlh8xvNwJsWT3U3c-8mtnApRappfL5bE44gjmq0t2gxx6S4RkcipUYlC_cbzKwk10ITVQAcX9pEcNmoQAeE1ZYIemkyLS9I3sHVRffJoSOjJo5tHd0ZeTWCaLsdafBfSSjDvZr2jYtSky1ejDf_qpNjdS-_zbe-5i6wSA_3RedqHNyOHZMGmkgBjlgCwWkv6zGq-KifEcC18319CnPOW3H4SPrjugcbGFcP4NZ-cXnil3a-0GUtkgyYWI8O8n_NxEpggt-lc8Ge80vbSB4E-1jMkvSVDZSBcQgeIX5Jn5H2so1Yjoaz7ZO2QZn15EYwg6rgq35DYOH39OZI4IS8WOJksvBWz09OceiGJbppCJHX_Vlhhdd8cSY-hL-F2izT1ljjRSuHDTFKKc805AwG1YM5dzIjTA1W1T0vwqPuBss3L_EJzjxZk",
+
+      //UNCOMMENT THIS WHEN MERGED INTO DEVELOP-APP-MOBILE-COMBINED
+      //"Authorization": token
     },
   );
 
   //If there is a list of subjects that is returned,
   //convert it to a json object, else throw an exception
+  print(response.statusCode);
+
+  // json.toString(response);
+
+  print(response.body);
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
-    if (json['data'] != null) {
+    if (json['subjects'] != null) {
       List<Subject> subjects =
-          (json['data'] as List).map((e) => Subject.fromJson(e)).toList();
+          (json['subjects'] as List).map((e) => Subject.fromJson(e)).toList();
       return subjects;
     } else
       throw new BadResponse('No data property');

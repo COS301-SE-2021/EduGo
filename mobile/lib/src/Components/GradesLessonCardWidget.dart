@@ -80,16 +80,16 @@ class GradesLessonCard extends StatelessWidget {
               //This redirects the page to the gradespecific page on tap
               //and passes in the marks array, lesson title and lesson grade
               onTap: () {
-                if (hasMark) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GradesQuizPage(
-                        quizList: quizList,
-                      ),
-                    ),
-                  );
-                }
+                // if (hasMark) {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => GradesQuizPage(
+                //         quizList: quizList,
+                //       ),
+                //     ),
+                //   );
+                // }
               },
               child: Container(
                 child: Column(

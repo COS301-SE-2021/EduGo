@@ -48,6 +48,10 @@ class _GradesQuizState extends State<GradesQuizPage> {
     required this.quizList,
   });
 
+  //TODO:
+  //CHANGE THIS PAGE TO DISPLAY CARDS OF THE QUIZ SECTION RATHER THAN INDIVIDUAL QUIZZES
+  //A LESSON NO LONGER HAS MORE THAN ONE QUIZ. IT HAS ONE BIG QUIZ WITH
+  //DIFFERENT SECTIONS INSTEAD
   @override
   Widget build(BuildContext context) {
     if (quizList.isNotEmpty && quizList.length > 0) {
@@ -93,12 +97,12 @@ class _GradesQuizState extends State<GradesQuizPage> {
                             //Also pass in the lesson title and the overall lesson mark
                             //as a percentage
                             GradesQuizCard(
-                          quizTitle: quiz.title,
-                          studentQuizMark: quiz.studentMark,
-                          quizTotalMark: quiz.quizTotal,
-                          id: quiz.id,
-                          studentAnswers: quiz.studentAnswers,
-                          correctAnswers: quiz.correctAnswers,
+                          //quizTitle: quiz.title,
+                          studentQuizMark: quiz.student_score,
+                          quizTotalMark: quiz.quiz_total,
+                          //id: quiz.id,
+                          //studentAnswers: quiz.studentAnswers,
+                          //correctAnswers: quiz.correctAnswers,
                         ),
                       )
                       .toList(),

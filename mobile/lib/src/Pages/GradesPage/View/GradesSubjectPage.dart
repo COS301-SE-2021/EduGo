@@ -84,9 +84,9 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                                 //Pass in the entire subjects list of lessons.
                                 //Also pass in the subject title and the subject mark
                                 GradesSubjectCard(
-                              subjectLessons: subject.lessons,
-                              subjectMark: subject.mark,
-                              subjectTitle: subject.title,
+                              subjectLessons: subject.lessonGrades,
+                              subjectMark: subject.gradeAchieved,
+                              subjectTitle: subject.subjectName,
                             ),
                           )
                           .toList(),

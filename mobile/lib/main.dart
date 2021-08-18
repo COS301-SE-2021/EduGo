@@ -21,9 +21,9 @@ Momentum momentum({bool mock = true}) {
   return Momentum(
     child: MyApp(),
     controllers: [
-      LessonsController(mock: mock),
-      SubjectsController(mock: mock),
-      GradesController(mock: mock)
+      LessonsController(mock: false),
+      SubjectsController(mock: false),
+      GradesController(mock: false)
     ],
   );
 }

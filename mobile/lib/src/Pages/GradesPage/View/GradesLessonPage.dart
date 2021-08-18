@@ -88,9 +88,9 @@ class _GradesLessonState extends State<GradesLessonPage> {
                             //Also pass in the lesson title and the overall lesson mark
                             //as a percentage
                             GradesLessonCard(
-                          lessonTitle: lesson.title,
-                          lessonMark: lesson.mark,
-                          quizList: lesson.quizzes,
+                          lessonTitle: lesson.lessonName,
+                          lessonMark: lesson.gradeAchieved,
+                          quizList: lesson.quizGrades,
                         ),
                       )
                       .toList(),

@@ -18,7 +18,7 @@ class LessonInformationPage extends StatefulWidget {
   //title of the card that was clicked on
   final String lessonTitle;
 
-  //This lesson ID variable holds the subject
+  //This lesson ID variable holds the lesson
   //id of the card that was clicked on
   final int lessonID;
 
@@ -138,7 +138,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                       // Navigator.push(
                       //   context,
                       //   MaterialPageRoute(
-                      //       builder: (context) => DetectMarkerPage()),
+                      //       builder: (context) => QuizModelPage(lessonId: lessonID)),
                       // );
                     },
                     minWidth: 10,

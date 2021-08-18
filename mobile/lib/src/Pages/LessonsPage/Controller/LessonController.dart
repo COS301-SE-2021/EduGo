@@ -14,6 +14,10 @@ import 'package:mobile/globals.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
 import 'package:momentum/momentum.dart';
 
+//UNCOMMENT THIS IMPORT WHEN MERGED INTO DEVELOP-MOBILE-APP-COMBINED
+//USED FOR SHARED PREFERENCES
+//import 'package:shared_preferences/shared_preferences.dart';
+
 /*------------------------------------------------------------------------------
  *                          Lesson controller
  *------------------------------------------------------------------------------
@@ -22,12 +26,17 @@ import 'package:momentum/momentum.dart';
 //Function to get the list of lessons from the database
 Future<List<Lesson>> getLessonsBySubject(int subject_id,
     {required http.Client client}) async {
+  //UNCOMMENT THESE 3 COMMENTS WHEN MERGED INTO DEVELOP-MOBILE-APP-COMBINED
+  // final prefs = await SharedPreferences.getInstance();
+  // final String? token = prefs.getString('user_token') ?? null;
+
+  // if (token == null) throw NoToken();
   final response =
       await client.post(Uri.parse("${baseUrl}lesson/getLessonsBySubject"),
           headers: <String, String>{
             'Content-Type': 'application/json',
             "Authorization":
-                "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2Mjg1MzUwMzgsImV4cCI6MTYyODYyMTQzOH0.rikKnXXsIuIy_pIfJcu1MRBh5eX6l85PR7rCg7GpiuKkBMv8ehLec1K_xFWtszr58M7pMMkcPVol_HvV6KULJ4QcyTMLcbPSmc5zGW59idsqBorYhoY35qyjLMK7IhgGeywDear3jGIiqdf4sv8JAs1onLBhQm_2IyiWa2OVFHXZ0v-Cwd-LtqgQyvyZKBwW_i8bqCmCGlBZCtMSCo61ci4HTJZXlQffey7YB796oVpm7Ibftlb1grPFbDdmt1vNYiirtoKv9gI69AY0H-w9PnaT34GzZ2748lSfTugo0TquHKxbvFgC0vJ_M7M4m-_P7S4pzu6j4uxLSqWslwU1ErMCgIK6fk9jfUnG8lVwEu5uVumf3_mKsj0NWE8bn9GrSOnXCAVlxrKqi_kNaeuKRKtLB0kwlQceoMVbCM_RcW_PacXlLDMN0CQMiGHvRyUhU8_A8p0wiTehPgQdhbQN60d0jYCl2sgXl5EkgFcxF3TYKWFJoOWqnKlVGOp42e-84soyV8Z7f0UMzLJWSun8XRu2pa3c6umKmauN3dSzKVEIOZUFGXER4LyZYTvjebn5nA4kf7PS1fPS4TszXmYk6-MCDBNO544ma5iNLQzJ_fCA4OffhCp7VK_JoKSaBAEvw-MnDGST-ITtOO-u5BH8ftdnIM9Mm0Ccdh9PMUXe1h0",
+                "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2MjkyODUxNzgsImV4cCI6MTYyOTM3MTU3OH0.nUHp27qXDN2jCpk14YqL1X4BSgHmgrlKQOE1UdkO0FfvU0KZFmOEHKycOXnfzQYTNoBMIJkbKbwbbSnBp1h1zALaKwR8xIM7gWnZ2eW59ZXy741leCWbaH7Fy2JH-lJeT8GAS46DRPZIoddD6s_DXuoFKWYyK_QXJJC_QotuRQWGUH80vz293XvYpm8U7stoOMcjbWCLRJy5c4QyS-cgSGq4b4BpEITFKo4W4A5dqlnDLwRkEVuFzhkPnhnEWTWvfp1SS1YzNhjwv5ObfbuIrrDZ1JvOIkc6_SceFcz40K-JcZX95l8K1YCPs6FtArYA-ZEp8rsLM89zmnl-JiG2hMK-3JyHvmsgSor54LWvDBOpfHYWbFaXY7A2fGFSpJd_BRgxH3NEDqfxa2QVsvXBDYIJu5ELBy3J5DyO9gOAVvgM6nTyMYkPrpmopkhCefYvmT-rR9JXY33ltFd5X3SvBV99SFv69UJ3lUOgjaoQZLT9UC5yOXCIsFTw-IGMv3X5KPU_PIww0f3PimiwXKI0_g-gi-n_sxcVIu6Dia2SKlVSqwDHRazoKx6h61VHIbZkiLD3yQ56T4HeRLohxr6mWyYxK_vl-CHMkx7DMNPvQ9n8BiEZ2uYPhkmh-hdRuajDqobE8JPW0bHdiAwyiMj6xQrPLIQV6dd4Tpd-pd00kXg",
           },
           body: jsonEncode(<String, int>{'subjectId': subject_id}));
 

@@ -50,7 +50,9 @@ class GradesSubjectCard extends StatelessWidget {
     //Checks if there is a mark and changes the bool value
     //It also changes the background colour of the mark container
     //depending on what catagory of percent the student falls in
-    if (subjectMark < 0) {
+    if (subjectMark < 0 ||
+        subjectLessons.isEmpty ||
+        subjectLessons.length < 0) {
       hasMark = false;
       backgroundOfMarkColour = Colors.white;
     } else if (subjectMark >= 0 && subjectMark < 50) {
