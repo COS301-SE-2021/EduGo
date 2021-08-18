@@ -13,6 +13,7 @@ import 'package:mobile/src/Components/SubjectCardWidget.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
 import 'package:momentum/momentum.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 /*------------------------------------------------------------------------------
  *                            Subject View Page 
@@ -103,9 +104,16 @@ class _SubjectsPageState extends State<SubjectsPage> {
           }
           //If there are no subjects
           else
-            return ErrorCard(
-              errorDescription:
-                  "There are currently no subjects to be displayed",
+            //
+            // return SizedBox(
+            //   height: MediaQuery.of(context).size.height,
+            //   child: CircularProgressIndicator(
+            //     backgroundColor: Colors.black,
+            //     strokeWidth: 10,
+            //   ),
+            // );
+            return SpinKitCircle(
+              color: Colors.black,
             );
         },
       ),
