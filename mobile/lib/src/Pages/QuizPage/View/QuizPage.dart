@@ -82,6 +82,7 @@ class _QuizPageState extends State<QuizPage> {
             List.from(listOfQuizzes.elementAt(i).questions!);
 
         List<Widget> columnWidget = [];
+        columnWidget.add(Padding(padding: const EdgeInsets.only(top: 50.0)));
         // For each question in the quiz, create the widgets so thatt they may be
         // added to the view
         List<Widget> getColumnWidget(int noOfQsforThisQuiz) {
@@ -89,11 +90,41 @@ class _QuizPageState extends State<QuizPage> {
             // Questions to be asked
             columnWidget.add(Text(questions.elementAt(q).question));
 
-            //Optional answers
-            if (questions.elementAt(q).type == QuestionType.TrueFalse) {
-              columnWidget.add();
+            // Optional answers: iterarting through all the options of this particular
+            // question so that I may create a UI widget that a student may select
+            List<String> optionalAnswers =
+                List.from(questions.elementAt(q).options!);
+            String? _value = '';
+            for (var optionalAnswer in optionalAnswers) {
+              if (questions.elementAt(q).type == QuestionType.TrueFalse) {
+                columnWidget.add(ChoiceChip(
+                  selectedColor: Colors.green,
+                  backgroundColor: Colors.grey,
+                  label: Text(optionalAnswer),
+                  labelStyle: TextStyle(color: Colors.white),
+                  selected: _value == optionalAnswer,
+                  onSelected: (bool selected) {
+                    setState(() {
+                      //TODO fix does not change color
+                      _value = selected ? optionalAnswer : '';
+                    });
+                  },
+                ));
+              } else if (questions.elementAt(q).type ==
+                  QuestionType.MultipleChoice) {
+                columnWidget.add(FilterChip(
+                    label: Text(optionalAnswer),
+                    labelStyle: TextStyle(color: Colors.white),
+                    backgroundColor: Colors.grey,
+                    selected: _value == optionalAnswer,
+                    selectedColor: Colors.green,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        _value = selected ? optionalAnswer : null;
+                      });
+                    }));
+              }
             }
-
             //Space between all questions
             columnWidget
                 .add(Padding(padding: const EdgeInsets.only(top: 25.0)));
