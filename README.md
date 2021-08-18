@@ -48,11 +48,15 @@ https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=shari
 ### Architectural requirements specification (Demo 2)
 https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing
 ### Software requirements specification (Demo 3)
-xxx
+xxx as a pds link
 ### Architectural requirements specification (Demo 3)
-xxx
+xxx as a pds link
 ### User Manuel (Demo 3)
-xxx
+xxx as a pds link
+### Technical Instillation Manuel (Demo 3)
+xxx as a pds link
+### Coding Standards/Quality Manuel (Demo 3)
+xxx as a pds link
 ## Project Management Tool
 https://3.basecamp.com/5098601/projects/22442122
 
