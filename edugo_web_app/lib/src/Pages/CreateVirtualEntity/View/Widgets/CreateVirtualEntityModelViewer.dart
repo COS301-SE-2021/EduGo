@@ -14,7 +14,7 @@ class CreateVirtualEntityModelViewer extends StatelessWidget {
           String modelview = "<html>" +
               "   <head>" +
               "        <meta charset=\"UTF-8\">" +
-              "        <meta name=\"viewpoort\" content=\"width=device-width, initial-scale=1.0\">" +
+              "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
               "        <script type=\"module\" src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js\"></script>" +
               "        <script nomodule src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js\"></script>" +
               "        <script type=\"module\" src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js\"></script>" +

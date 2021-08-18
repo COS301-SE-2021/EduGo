@@ -53,7 +53,8 @@ class DesktopNavBar extends StatelessWidget {
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
-                        child: Icon(Icons.home, size: 30, color: Colors.white),
+                        child: Icon(Icons.home_outlined,
+                            size: 30, color: Colors.white),
                         onTap: () {
                           MomentumRouter.goto(context, AdminView);
                         },

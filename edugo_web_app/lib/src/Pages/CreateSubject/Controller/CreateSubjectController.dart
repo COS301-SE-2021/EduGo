@@ -1,4 +1,6 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:flutter/painting.dart'; // NetworkImage
+import 'package:image_whisperer/image_whisperer.dart'; // BlobImage
 
 class CreateSubjectController extends MomentumController<CreateSubjectModel> {
   @override
@@ -14,6 +16,10 @@ class CreateSubjectController extends MomentumController<CreateSubjectModel> {
 
   void setSubjectGrade(String subjectGrade) {
     model.setSubjectGrade(subjectGrade);
+  }
+
+  void clearPhoto() {
+    model.update(subjectImage: "null");
   }
 
   Future<void> createSubject(context) async {
@@ -36,7 +42,6 @@ class CreateSubjectController extends MomentumController<CreateSubjectModel> {
 
     await request.send().then((value) async {
       await Response.fromStream(value).then((response) {
-        print(response.body);
         MomentumRouter.goto(context, SubjectsView);
       });
     });
@@ -56,12 +61,15 @@ class CreateSubjectController extends MomentumController<CreateSubjectModel> {
       final file = files[0];
       final reader = new FileReader();
 
+      reader.readAsDataUrl(file);
       reader.onLoadEnd.listen((e) async {
         _handleResult(reader.result);
         filename = file.name;
-      });
 
-      reader.readAsDataUrl(file);
+        BlobImage blobImage = new BlobImage(file, name: file.name);
+        final image = NetworkImage(blobImage.url);
+        model.update(subjectImage: image.url);
+      });
     });
   }
 

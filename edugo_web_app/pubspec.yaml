@@ -42,6 +42,7 @@ dependencies:
   sticky_headers: ^0.2.0
   syncfusion_flutter_datepicker: ^19.2.51
   time_range: ^1.0.0
+  image_whisperer: ^0.11.1
   
 
 

@@ -22,6 +22,10 @@ class CreateVirtualEntityModel
     update(modelLink: modelLink);
   }
 
+  void clearLinkTo3DModel() {
+    update(modelLink: "null");
+  }
+
   String getCreateVirtualEntityName() {
     return name;
   }

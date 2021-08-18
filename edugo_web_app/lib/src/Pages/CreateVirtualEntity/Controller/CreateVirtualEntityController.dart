@@ -29,9 +29,8 @@ class CreateVirtualEntityController
     return model.getCreateVirtualEntityDescription();
   }
 
-  void clearLinkTo3DModel(context) {
-    Momentum.controller<AdminController>(context)
-        .setVirtualEntity3dModelLink(null);
+  void clearLinkTo3DModel() {
+    model.clearLinkTo3DModel();
   }
 
   //! Virtual Entity Controller Helper Methods and Attributes

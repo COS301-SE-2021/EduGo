@@ -4,13 +4,16 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class DesktopRightContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Momentum.controller<CreateVirtualEntityController>(context).reset();
     return MomentumBuilder(
-      controllers: [CreateVirtualEntityController, AdminController],
+      controllers: [
+        CreateVirtualEntityController,
+      ],
       builder: (context, snapshot) {
         var entity = snapshot<CreateVirtualEntityModel>();
         return Container(
           width: ScreenUtil().setWidth(230),
-          child: (entity.modelLink == "")
+          child: ('${entity.modelLink}' == "null")
               ? Center(
                   child: VirtualEntityButton(
                       elevation: 40,
@@ -36,8 +39,9 @@ class DesktopRightContainer extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () {
-                            Momentum.controller<AdminController>(context)
-                                .setVirtualEntity3dModelLink("");
+                            Momentum.controller<CreateVirtualEntityController>(
+                                    context)
+                                .clearLinkTo3DModel();
                           },
                           width: ScreenUtil().setWidth(200),
                           height: 50),
