@@ -32,11 +32,11 @@ class Subject {
 
   // @JsonKey(required: false, defaultValue: [])
   // List<Lesson> lessons;
-
+  @JsonKey(required: false, defaultValue: '')
   String image;
 
   //Subject constructor
-  Subject(this.id, this.title, this.grade, this.educatorName);
+  Subject(this.id, this.title, this.grade, this.educatorName, this.image);
 
   //Factory method used in subjectController to map lesson attributes to json
   factory Subject.fromJson(Map<String, dynamic> json) =>

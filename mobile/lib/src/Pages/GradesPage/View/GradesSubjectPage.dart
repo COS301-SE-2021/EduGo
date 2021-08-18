@@ -106,6 +106,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                 errorDescription:
                     "There are currently no marks published for any subject",
               ),
+              ''
             );
         },
       ),

@@ -13,6 +13,7 @@ Subject _$SubjectFromJson(Map<String, dynamic> json) {
     json['title'] as String,
     json['grade'] as int? ?? 0,
     json['educatorName'] as String,
+    json['image'] as String? ?? '',
   );
 }
 
@@ -21,4 +22,5 @@ Map<String, dynamic> _$SubjectToJson(Subject instance) => <String, dynamic>{
       'title': instance.title,
       'grade': instance.grade,
       'educatorName': instance.educatorName,
+      'image': instance.image,
     };

@@ -99,7 +99,7 @@ class _GradesLessonState extends State<GradesLessonPage> {
             ),
           ),
         ),
-      );
+      '' );
       //Display error card if no mark for lessons
     } else
       return MobilePageLayout(
@@ -109,6 +109,7 @@ class _GradesLessonState extends State<GradesLessonPage> {
           errorDescription:
               "There is currently no mark for this lesson to be displayed",
         ),
+        ''
       );
   }
 }

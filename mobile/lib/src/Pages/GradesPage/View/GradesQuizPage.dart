@@ -111,7 +111,7 @@ class _GradesQuizState extends State<GradesQuizPage> {
             ),
           ),
         ),
-      );
+      '');
     } else
       return MobilePageLayout(
         false,
@@ -120,6 +120,7 @@ class _GradesQuizState extends State<GradesQuizPage> {
           errorDescription:
               "There is currently no mark for this quiz to be displayed",
         ),
+        ''
       );
   }
 }
