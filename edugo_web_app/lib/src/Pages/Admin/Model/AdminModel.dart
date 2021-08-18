@@ -11,10 +11,12 @@ class AdminModel extends MomentumModel<AdminController> {
   final int organisationId;
   final List<User> educators;
   final List<Widget> educatorCards;
+  final String userName;
   final String virtualEntityViewerModelLink;
 
   AdminModel(AdminController controller,
       {this.organisationName,
+      this.userName,
       this.organisationId,
       this.currentLessonId,
       this.virtualEntityViewerModelLink,
@@ -31,19 +33,26 @@ class AdminModel extends MomentumModel<AdminController> {
   void updateEducatorsView() {
     List<Widget> educatorsWidgets = [];
     educators.forEach((educator) {
-      educatorsWidgets.add(new EducatorCard(
-        name: educator.getName(),
-        admin: educator.getAdmin(),
-      ));
-      educatorsWidgets.add(SizedBox(
-        height: 20,
-      ));
+      if (educator.getAdmin() == true && educator.getName() == userName) {
+      } else {
+        educatorsWidgets.add(new EducatorCard(
+          name: educator.getName(),
+          admin: educator.getAdmin(),
+        ));
+        educatorsWidgets.add(SizedBox(
+          height: 20,
+        ));
+      }
     });
     update(educatorCards: educatorsWidgets);
   }
 
   void setCurrentSubjectId(int id) {
     update(currentSubjectId: id);
+  }
+
+  void setUserName(String name) {
+    update(userName: name);
   }
 
   void setCurrentLessonId(int id) {
@@ -95,9 +104,11 @@ class AdminModel extends MomentumModel<AdminController> {
       token,
       currentSubjectId,
       virtualEntityViewerModelLink,
-      currentLessonId}) {
+      currentLessonId,
+      userName}) {
     AdminModel(controller,
             organisationName: organisationName ?? this.organisationName,
+            userName: userName ?? this.userName,
             organisationId: organisationId ?? this.organisationId,
             educators: educators ?? this.educators,
             educatorCards: educatorCards ?? this.educatorCards,

@@ -62,7 +62,7 @@ class ViewVirtualEntityView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Viewer(),
+                                  ViewVirtualEntityModelViewer(),
                                 ],
                               ),
                               Spacer(),
@@ -77,14 +77,41 @@ class ViewVirtualEntityView extends StatelessWidget {
                           ),
                           Row(
                             children: [
+                              QrImage(
+                                data: 'EduGo_Marker {"ve_id":' +
+                                    entity.virtualEntityId +
+                                    '}',
+                                version: QrVersions.auto,
+                                size: 250.0,
+                              ),
+                              Spacer(),
                               VirtualEntityButton(
                                   child: Text(
                                     "Print Marker",
                                     style: TextStyle(color: Colors.white),
                                   ),
-                                  onPressed: () {
-                                    MomentumRouter.goto(
-                                        context, VirtualEntityStoreView);
+                                  onPressed: () async {
+                                    final image = await QrPainter(
+                                      data: 'EduGo_Marker {"ve_id":' +
+                                          entity.virtualEntityId +
+                                          '}',
+                                      version: QrVersions.auto,
+                                      errorCorrectionLevel:
+                                          QrErrorCorrectLevel.Q,
+                                    ).toImageData(400);
+
+                                    var pngBytes = image.buffer.asUint8List();
+                                    var download = document.createElement('a')
+                                        as AnchorElement;
+
+                                    download.href = 'data:image/png;base64,' +
+                                        base64Encode(pngBytes);
+                                    download.download =
+                                        entity.name + '_EduGo_3D_Model.png';
+
+                                    download.click();
+
+                                    download.remove();
                                   },
                                   width: 300,
                                   height: 65),

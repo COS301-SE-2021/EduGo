@@ -56,6 +56,10 @@ class AdminController extends MomentumController<AdminModel> {
     model.setVirtualEntityViewerModelLink(link);
   }
 
+  void setUserName(String name) {
+    model.setUserName(name);
+  }
+
   Future<void> getOrganisationEducators() async {
     var url =
         Uri.parse('http://34.65.226.152:8080/organisation/getOrganisation');

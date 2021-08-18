@@ -6,8 +6,11 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
   final int virtualEntityId;
   final String virtualEntityDescription;
 
-  VirtualEntitiesStoreCard(
-      {this.name, this.virtualEntityId, this.virtualEntityDescription});
+  VirtualEntitiesStoreCard({
+    this.name,
+    this.virtualEntityId,
+    this.virtualEntityDescription,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,7 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
     return MomentumBuilder(
         controllers: [ViewVirtualEntityController],
         builder: (context, snapshot) {
+          var virtualEntity = snapshot<ViewVirtualEntityModel>();
           return Card(
             elevation: 40,
             shape: RoundedRectangleBorder(
@@ -63,7 +67,8 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
                     ),
                     onPressed: () {
                       Momentum.controller<ViewVirtualEntityController>(context)
-                          .viewEntity(name, virtualEntityDescription);
+                          .viewEntity(name, virtualEntityDescription,
+                              virtualEntityId.toString(), context);
                       MomentumRouter.goto(context, ViewVirtualEntityView);
                     },
                   ),

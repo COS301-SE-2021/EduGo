@@ -105,8 +105,7 @@ class CreateVirtualEntityController
             if (response.statusCode == 200) {
               Map<String, dynamic> _decoded3DModel = jsonDecode(response.body);
               linkTo3DModel = _decoded3DModel['file_link'];
-              Momentum.controller<AdminController>(context)
-                  .setVirtualEntity3dModelLink(linkTo3DModel);
+              model.setCreateVirtualEntityModelLink(linkTo3DModel);
             }
           },
         );

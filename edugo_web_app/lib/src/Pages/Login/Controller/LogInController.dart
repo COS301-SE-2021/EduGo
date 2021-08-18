@@ -43,6 +43,8 @@ class LogInController extends MomentumController<LoginModel> {
         if (response.statusCode == 200) {
           String bearerToken = _user['token'];
           Momentum.controller<AdminController>(context).setToken(bearerToken);
+          Momentum.controller<AdminController>(context)
+              .setUserName(model.loginUserName);
           MomentumRouter.goto(context, AdminView);
           return;
         }

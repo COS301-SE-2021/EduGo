@@ -7,10 +7,10 @@ class DesktopRightContainer extends StatelessWidget {
     return MomentumBuilder(
       controllers: [CreateVirtualEntityController, AdminController],
       builder: (context, snapshot) {
-        var entity = snapshot<AdminModel>();
+        var entity = snapshot<CreateVirtualEntityModel>();
         return Container(
           width: ScreenUtil().setWidth(230),
-          child: (entity.virtualEntityViewerModelLink == "")
+          child: (entity.modelLink == "")
               ? Center(
                   child: VirtualEntityButton(
                       elevation: 40,
@@ -42,7 +42,7 @@ class DesktopRightContainer extends StatelessWidget {
                           width: ScreenUtil().setWidth(200),
                           height: 50),
                     ),
-                    Viewer(),
+                    CreateVirtualEntityModelViewer(),
                   ],
                 ),
         );

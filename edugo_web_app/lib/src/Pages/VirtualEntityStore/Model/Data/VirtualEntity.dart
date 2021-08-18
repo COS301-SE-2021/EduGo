@@ -2,11 +2,9 @@ class VirtualEntity {
   String _name;
   String _description;
   int _id;
-  VirtualEntity({
-    name,
-    description,
-    id,
-  })  : _description = description,
+
+  VirtualEntity({name, description, id, modelLink})
+      : _description = description,
         _name = name,
         _id = id;
 
@@ -24,8 +22,9 @@ class VirtualEntity {
 
   factory VirtualEntity.fromJson(Map<String, dynamic> json) {
     return VirtualEntity(
-        name: json['title'] as String,
-        id: json['id'] as int,
-        description: json['description'] as String);
+      name: json['title'] as String,
+      id: json['id'] as int,
+      description: json['description'] as String,
+    );
   }
 }
