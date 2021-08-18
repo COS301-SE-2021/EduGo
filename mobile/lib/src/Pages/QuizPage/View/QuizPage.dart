@@ -26,17 +26,19 @@ class _QuizPageState extends State<QuizPage> {
   //final int lessonId;
   _QuizPageState();
   //_QuizPageState({required this.lessonId});
+
+  // Number of quizzes = number of tabs
+  late int noOfQuizzes; //TODO get no of quizzes via controller
+  // Number of questions = number of tab views
+  late int noOfQuestions = 0; //TODO get no of questions via controller
+
   @override
   void initState() {
     super.initState();
-    //int index = -1;
+    noOfQuizzes = 0;
+    noOfQuestions = 0;
   }
   //int index = -1;
-
-  // Number of quizzes = number of tabs
-  int noOfQuizzes = 2; //TODO get no of quizzes via controller
-  // Number of questions = number of tab views
-  int noOfQuestions = 3; //TODO get no of questions via controller
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +54,16 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     // Add UI pazzazz to tab bar
-    Widget tabBarDecor = Container(
-      child: TabBar(
-        labelColor: Colors.green,
-        unselectedLabelColor: Colors.black,
-        tabs: _buildTabs(noOfQuizzes),
-      ),
-    );
+    Widget _getTabBarDecor() {
+      Widget tabBarDecor = Container(
+        child: TabBar(
+          labelColor: Colors.green,
+          unselectedLabelColor: Colors.black,
+          tabs: _buildTabs(noOfQuizzes),
+        ),
+      );
+      return tabBarDecor;
+    }
 
     //View of questions
     TabBarView _buildTabBarView(int noOfQuestions) {
@@ -79,33 +84,52 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     // Add UI pazzazz to view
-    Widget _tabBarDecor = Container(
-        height:
-            400, //height of TabBarView //TODO might have to use frationally sized box
-        decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
-        child: _buildTabBarView(noOfQuestions));
+    Widget _getTabBarViewDecor() {
+      Widget _tabBarViewDecor = Container(
+          height:
+              400, //height of TabBarView //TODO might have to use frationally sized box
+          decoration: BoxDecoration(
+              border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
+          child: _buildTabBarView(noOfQuestions));
+      return _tabBarViewDecor;
+    }
 
     // Structure of tabs
-    DefaultTabController _defaultTabController = DefaultTabController(
-        length: noOfQuizzes,
-        initialIndex: 0,
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[tabBarDecor, _tabBarDecor]));
+    DefaultTabController _getDefaultTabController() {
+      DefaultTabController _defaultTabController = DefaultTabController(
+          length: noOfQuizzes,
+          initialIndex: 0,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[_getTabBarDecor(), _getTabBarViewDecor()]));
+      return _defaultTabController;
+    }
 
     // The contents of the screen
-    Widget child = Container(
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            SizedBox(height: 20.0),
-            _defaultTabController,
-          ]),
-    );
+    Widget _getChild() {
+      Widget child = Container(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              SizedBox(height: 20.0),
+              _getDefaultTabController(),
+            ]),
+      );
+      return child;
+    }
 
+    MomentumBuilder _momentumBuilder = MomentumBuilder(
+        controllers: [QuizController, QuestionPageController],
+        builder: (context, snapshot) {
+          final quizzes = snapshot<QuizPageModel>();
+          final quizController = Momentum.controller<QuizController>(context);
+          final int lessonId = 3; //TODO pass in id dynamically lessonId
+          quizController.getQuizzes(lessonId);
+          noOfQuizzes = quizzes.quizes.length;
+          return _getChild();
+        });
     //Display page
-    return MobilePageLayout(false, false, child, 'Quizzes');
+    return MobilePageLayout(false, false, _momentumBuilder, 'Quizzes');
   }
 }
 /* RESPONSE
