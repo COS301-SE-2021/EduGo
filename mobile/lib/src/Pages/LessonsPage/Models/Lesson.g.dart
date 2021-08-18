@@ -12,6 +12,7 @@ Lesson _$LessonFromJson(Map<String, dynamic> json) {
     json['id'] as int,
     json['title'] as String,
     json['description'] as String? ?? '',
+    json['lessonCompleted'] as String? ?? '',
   );
 }
 
@@ -19,4 +20,5 @@ Map<String, dynamic> _$LessonToJson(Lesson instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
+      'lessonCompleted': instance.lessonCompleted,
     };
