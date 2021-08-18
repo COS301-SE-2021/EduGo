@@ -1,3 +1,7 @@
+//Hourly
+//7am, fix question display uisn momenutm
+//TODO 8am, fix button click
+//TODO 9am, answer page get actual mark
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
@@ -45,24 +49,22 @@ class _QuestionPageState extends State<QuestionPage> {
             // Question controller displays a question at a time while maintaining state (has index and list if questions)
             controllers: [QuestionPageController],
             builder: (context, snapshot) {
-              // Update question
-              final questionController =
-                  Momentum.controller<QuestionPageController>(context);
-              questionController.updateQuestionDetails(param!.questions);
-
               // Question Model snapshot of details
               final question = snapshot<QuestionPageModel>();
 
               // Question to be asked
               Widget questionTextWidget = Text(question.questionText);
               child.children.add(questionTextWidget);
-
+              print(question.questionText);
               // Optional answers to select from
               String? _value = '';
+              List<String> _selectedAnswers = [];
               List<Widget> _optionsTextWidgets = List<Widget>.generate(
                   question.optionsText!.length, (int index) {
                 String optionText = question.optionsText!.elementAt(index);
                 if (question.type == QuestionType.TrueFalse) {
+                  print('TF');
+                  print(optionText);
                   return ChoiceChip(
                     label: Text(optionText),
                     selected: _value == optionText,
@@ -72,17 +74,23 @@ class _QuestionPageState extends State<QuestionPage> {
                       });
                     },
                   );
-                } else //if(question.type == QuestionType.MultipleChoice)
+                }
+                if (question.type == QuestionType.MultipleChoice) {
+                  print('MC');
+                  print(optionText);
                   return FilterChip(
                       label: Text(optionText),
                       labelStyle: TextStyle(color: Colors.white),
-                      backgroundColor: Colors.green,
+                      backgroundColor: Colors.grey,
                       selected: _value == optionText,
+                      selectedColor: Colors.green,
                       onSelected: (bool selected) {
                         setState(() {
                           _value = selected ? optionText : null;
                         });
                       });
+                }
+                return Text('no optional answers');
               }).toList();
 
               for (var _optionsTextWidget in _optionsTextWidgets) {
@@ -93,15 +101,15 @@ class _QuestionPageState extends State<QuestionPage> {
               Widget nextButton = ElevatedButton(
                 onPressed: (_isEnabled)
                     ? () => Momentum.controller<QuestionPageController>(context)
-                            .updateQuestionDetails(param.questions)
+                            .updateQuestionDetails(param!.questions)
                         ? {
                             //ANSWER DETAILS
                             _isEnabled = true,
-                            MomentumRouter.goto(context, QuestionPage,
-                                params: QuestionParam(param.questions)),
+                            //print('true'),
                           }
                         : {
                             _isEnabled = false,
+                            //print('false'),
                           }
                     : null,
                 child: const Text('Next Question'),

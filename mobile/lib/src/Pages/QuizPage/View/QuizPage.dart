@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
@@ -36,7 +37,7 @@ class _QuizPageState extends State<QuizPage> {
         MomentumBuilder(
             // Quiz controller fetches JSON data of the Quiz
             // Question controller displays a question at a time while maintaining state (has index and list if questions)
-            controllers: [QuizController],
+            controllers: [QuizController, QuestionPageController],
             builder: (context, snapshot) {
               //List of quizes
               final quizzes = snapshot<QuizPageModel>();
@@ -50,6 +51,13 @@ class _QuizPageState extends State<QuizPage> {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
+                    //Display first question as soon as it loads
+                    // Update question
+                    final questionController =
+                        Momentum.controller<QuestionPageController>(context);
+                    questionController.updateQuestionDetails(
+                        quizzes.quizes.elementAt(0).questions);
+
                     MomentumRouter.goto(context, QuestionPage,
                         params: QuestionParam(
                             //TODO pass in id dynamically lessonId instead of 1
