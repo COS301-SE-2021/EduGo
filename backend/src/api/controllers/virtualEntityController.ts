@@ -1,7 +1,6 @@
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import { VirtualEntityService } from "../services/VirtualEntityService";
-
 import { uploadFile } from "../helper/aws/fileUpload";
 import {
 	AddModelToVirtualEntityFileData,
@@ -28,8 +27,9 @@ import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLes
 @JsonController("/virtualEntity")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class VirtualEntityController {
-	@Inject()
-	private service: VirtualEntityService;
+	constructor(
+		@Inject() private service: VirtualEntityService
+	) {}
 
 	@Post("/createVirtualEntity")
 	@UseBefore(isUser)
@@ -46,7 +46,6 @@ export class VirtualEntityController {
 		@UploadedFile("file", { required: true, options: uploadFile })
 		file: Express.MulterS3.File
 	) {
-		//UploadModel(@Req() req: express.Request, @Res() res: express.Response) {
 		if (file) {
 			let response: any = {
 				file_name: file.key,
@@ -110,7 +109,6 @@ export class VirtualEntityController {
 		@Body({ required: true }) body: AnswerQuizRequest,
 		@CurrentUser({ required: true }) id: number
 	) {
-		console.log("bodyyyyy   ", body);
 		return this.service.AnswerQuiz(body, id);
 	}
 
@@ -143,4 +141,3 @@ export class VirtualEntityController {
 }
 
 //TODO add endpoint to make snapshot of 3d model
-
