@@ -3,4 +3,5 @@ export interface Subject {
     title: string;
     grade: number;
     image: string;
+    educator?:string
 }

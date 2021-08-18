@@ -14,7 +14,7 @@ import { Answer } from "./Answer";
 import { Lesson } from "./Lesson";
 import { Quiz } from "./Quiz";
 import { Student } from "./Student";
-@Index(["student", "quiz"], { unique: true })
+@Index(["student", "quiz", "lesson"], { unique: true })
 @Entity()
 export class Grade {
 	@PrimaryGeneratedColumn()
