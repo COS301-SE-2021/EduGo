@@ -15,6 +15,8 @@ import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError 
 
 @Service()
 export default class AuthService {
+	
+	
 	@InjectRepository(User) private userRepository: Repository<User>;
 	@InjectRepository(UnverifiedUser) private unverifiedUserRepository: Repository<UnverifiedUser>;
 	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>;

@@ -4,17 +4,14 @@ import passport from "passport";
 import { LoginRequest } from "../models/auth/LoginRequest";
 import { RegisterRequest } from "../models/auth/RegisterRequest";
 import { VerifyInvitationRequest } from "../models/auth/VerifyInvitationRequest";
-import  AuthService  from "../services/AuthService";
+import AuthService from "../services/AuthService";
 import { Container, Inject, Service } from "typedi";
 import { Body, JsonController, Post } from "routing-controllers";
 
 @Service()
 @JsonController("/auth")
 export class AuthController {
-
-	constructor(@Inject() private service: AuthService){
-
-	}
+	constructor(@Inject() private service: AuthService) {}
 
 	@Post("/login")
 	Login(@Body({ required: true }) body: LoginRequest) {
