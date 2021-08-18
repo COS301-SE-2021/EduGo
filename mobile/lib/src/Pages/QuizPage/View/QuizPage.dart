@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
@@ -35,13 +36,17 @@ class _QuizPageState extends State<QuizPage> {
   late int noOfQuestions; //TODO get no of questions via controller
   // Will hold a List of questions for each quiz in the total noOfQuizzzes
   late List<Quiz> listOfQuizzes;
-
+  //Stores answers that can be passed as parameters among pages using RouterParam
+  late List<String?> _selectedAnswers;
+  late List<String?> _correctAnswers;
   @override
   void initState() {
     super.initState();
     listOfQuizzes = [];
     noOfQuizzes = 0;
     noOfQuestions = 0;
+    _selectedAnswers = [];
+    _correctAnswers = [];
   }
   //int index = -1;
 
@@ -70,7 +75,19 @@ class _QuizPageState extends State<QuizPage> {
       return tabBarDecor;
     }
 
-    //View of questions
+    // Button to sumbit quiz placed outside the loop as it is only displayed at
+    // the end of the page not after each and every question
+    Widget endQuizBtn() {
+      return Padding(
+        padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
+        child: ElevatedButton(
+          onPressed: (null),
+          child: const Text('End Quiz'),
+        ),
+      );
+    }
+
+    // View of questions
     TabBarView _buildTabBarView() {
       TabBarView _tabBarView = TabBarView(children: <Widget>[]);
       // For loop below dynamically disyplays ALL THE QUESTIONS of a quiz in
@@ -106,7 +123,7 @@ class _QuizPageState extends State<QuizPage> {
                   onSelected: (bool selected) {
                     setState(() {
                       //TODO fix does not change color
-                      _value = selected ? optionalAnswer : '';
+                      _value = selected ? optionalAnswer : 'N/A';
                     });
                   },
                 ));
@@ -120,7 +137,7 @@ class _QuizPageState extends State<QuizPage> {
                     selectedColor: Colors.green,
                     onSelected: (bool selected) {
                       setState(() {
-                        _value = selected ? optionalAnswer : null;
+                        _value = selected ? optionalAnswer : 'N/A';
                       });
                     }));
               }
@@ -128,20 +145,23 @@ class _QuizPageState extends State<QuizPage> {
             //Space between all questions
             columnWidget
                 .add(Padding(padding: const EdgeInsets.only(top: 25.0)));
-
-            //TODO Button to end quiz, leads to lessons specific page
           }
+
+          columnWidget.add(endQuizBtn());
           return columnWidget;
         }
 
         // Adding all the contents we gathered in a neat display by calling the function
         _tabBarView.children.add(
           Container(
-            child: new SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: getColumnWidget(questions.length),
+            child: Scrollbar(
+              isAlwaysShown: true, //TODO wants a controller ugh
+              child: new SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: getColumnWidget(questions.length),
+                ),
               ),
             ),
           ),
@@ -196,25 +216,7 @@ class _QuizPageState extends State<QuizPage> {
           quizController.getQuizzes(lessonId);
           noOfQuizzes = quizzes.quizes.length;
           listOfQuizzes = List.from(quizzes.quizes);
-          // // For each quiz display all the questions
-          // for (var quiz in quizzes.quizes) {
-          //   noOfQuestions = quiz.questions!.length;
-          //   questions = quiz.questions;
-          //   print(questions!.first.question);
-          //   _buildTabBarView();
-          //   questions = [];
-          // }
 
-          /*
-          // Get the list of questions so that I can dynamically edit UI
-          final questionController =
-              Momentum.controller<QuestionPageController>(context);
-          questionController
-              .updateQuestionDetails(quizzes.quizes.first.questions);
-          //noOfQuestions = qu
-          final questions = snapshot<QuestionPageModel>();
-          print(questions.questionText);
-          */
           return _getChild();
         });
     //Display page
