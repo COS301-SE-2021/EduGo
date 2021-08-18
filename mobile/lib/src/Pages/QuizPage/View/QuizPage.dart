@@ -37,6 +37,7 @@ class _QuizPageState extends State<QuizPage> {
   // End quiz button
   late int lessonId;
   late int quizId;
+  late int questionId;
 
   @override
   void initState() {
@@ -48,8 +49,8 @@ class _QuizPageState extends State<QuizPage> {
     _correctAnswers = [];
     lessonId = 0;
     quizId = 0;
+    questionId = 0;
   }
-  //int index = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     // View of questions
-    TabBarView _buildTabBarView() {
+    TabBarView _buildTabBarView(lessonId, quizId, questionId) {
       TabBarView _tabBarView = TabBarView(children: <Widget>[]);
       // For loop below dynamically disyplays ALL THE QUESTIONS of a quiz in
       // the LIST at a particular index
@@ -88,7 +89,6 @@ class _QuizPageState extends State<QuizPage> {
         // iterated later for contents of a specific question.
         List<Question> questions =
             List.from(listOfQuizzes.elementAt(i).questions!);
-        // TODO API QUIZ ID listOfQuizzes.elementAt(i).id
         List<Widget> columnWidget = [];
         columnWidget.add(Padding(padding: const EdgeInsets.only(top: 50.0)));
         // For each question in the quiz, create the widgets so thatt they may be
@@ -117,7 +117,8 @@ class _QuizPageState extends State<QuizPage> {
                       _value = selected ? optionalAnswer : 'N/A';
 
                       // Selected answer of each question
-                      _selectedAnswers.add(new Answer(q, optionalAnswer));
+                      _selectedAnswers
+                          .add(new Answer(questionId, optionalAnswer));
                     });
                   },
                 ));
@@ -151,8 +152,14 @@ class _QuizPageState extends State<QuizPage> {
             Padding(
               padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
               child: ElevatedButton(
-                onPressed: () => quizController.answerQuizByLessonId(
-                    lessonId, quizId, _selectedAnswers),
+                onPressed: () {
+                  quizController.answerQuizByLessonId(
+                      lessonId, quizId, _selectedAnswers);
+                  MomentumRouter.goto(
+                    context,
+                    LessonInformationPage,
+                  );
+                },
                 child: const Text('Submit Answers'),
               ),
             ),
@@ -182,35 +189,39 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     // Add UI pazzazz to view
-    Widget _getTabBarViewDecor() {
+    Widget _getTabBarViewDecor(lessonId, quizId, questionId) {
       Widget _tabBarViewDecor = Container(
           height:
               400, //height of TabBarView //TODO might have to use frationally sized box
           decoration: BoxDecoration(
               border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
-          child: _buildTabBarView());
+          child: _buildTabBarView(lessonId, quizId, questionId));
       return _tabBarViewDecor;
     }
 
     // Structure of tabs
-    DefaultTabController _getDefaultTabController() {
+    DefaultTabController _getDefaultTabController(
+        lessonId, quizId, questionId) {
       DefaultTabController _defaultTabController = DefaultTabController(
           length: noOfQuizzes,
           initialIndex: 0,
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[_getTabBarDecor(), _getTabBarViewDecor()]));
+              children: <Widget>[
+                _getTabBarDecor(),
+                _getTabBarViewDecor(lessonId, quizId, questionId)
+              ]));
       return _defaultTabController;
     }
 
     // The contents of the screen
-    Widget _getChild() {
+    Widget _getChild(lessonId, quizId, questionId) {
       Widget child = Container(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(height: 20.0),
-              _getDefaultTabController(),
+              _getDefaultTabController(lessonId, quizId, questionId),
             ]),
       );
       return child;
@@ -222,14 +233,15 @@ class _QuizPageState extends State<QuizPage> {
           // Get the list of quizzes so that I can dynamically edit UI
           final quizzes = snapshot<QuizPageModel>();
           quizController = Momentum.controller<QuizController>(context);
-          int lessonId = 3; //TODO pass in id dynamically lessonId
+          //WidgetsBinding.instance!.addPostFrameCallback((_) {
+          lessonId = 3; //TODO pass in id dynamically lessonId
           quizController.getQuizzes(lessonId);
-          int quizId = quizzes.quizes.elementAt(0).id;
+          quizId = quizzes.quizes.elementAt(0).id;
+          questionId = quizzes.quizes.first.id;
           noOfQuizzes = quizzes.quizes.length;
           listOfQuizzes = List.from(quizzes.quizes);
-
-          //{"lesson_id": 2, "quiz_id": 2, "answers": [{"question_id":1,"answer":"False"},{"question_id":2,"answer":"B"} ]}
-          return _getChild();
+          //});
+          return _getChild(lessonId, quizId, questionId);
         });
     //Display page
     return MobilePageLayout(false, false, _momentumBuilder, 'Quizzes');

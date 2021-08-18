@@ -147,10 +147,6 @@ class _QuestionPageState extends State<QuestionPage> {
                 onPressed: () {
                   _selectedAnswers.add(_value);
                   _correctAnswers.add(question.correctAnswer);
-                  print('correct answers');
-                  for (var c in _correctAnswers) {
-                    print(c);
-                  }
 
                   MomentumRouter.goto(context, QuizResultView,
                       params:
@@ -163,19 +159,6 @@ class _QuestionPageState extends State<QuestionPage> {
               return Center(
                 child: child,
               );
-              /*print(questions.quizes.first.questions!.first.question);
-              var allQuestions =
-                  questions.quizes.map((e) => e.questions!.map((e) ,
-                        questions.add(e);
-                        print("ek is hier");
-                        print(questions.elementAt(0).question);
-                      }));
-              if (index <= allQuestions.length) {
-                index++;
-                return Row(children: [
-                  //Text(questions.elementAt(index).question)
-                ]); //return Row(children: [Text(index.toString())]);
-              }*/
             }),
         'Question');
   }

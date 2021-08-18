@@ -9,6 +9,7 @@ import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
 import 'package:mobile/src/Pages/HomePage/Service/HomeService.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
@@ -58,6 +59,8 @@ Momentum momentum({bool mock = true}) {
           title: '',
           subjectID: 0,
         ),
+        LessonInformationPage(
+            lessonTitle: '', lessonID: 0, lessonDescription: ''),
         OrganisationsPage(),
         PreferencesPage(),
         QuestionPage(),
