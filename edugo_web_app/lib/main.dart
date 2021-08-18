@@ -20,6 +20,7 @@ void main() {
         LessonsController(),
         SubjectsController(),
         QuizBuilderController(),
+        VirtualEntityStoreController(),
         LogInController(),
       ],
       services: [
@@ -29,6 +30,7 @@ void main() {
             Home(),
             AdminView(),
             InviteEducatorsView(),
+            VirtualEntityStoreView(),
             InviteStudentsView(),
             CreateVirtualEntityView(),
             CreateSubjectView(),

@@ -22,11 +22,14 @@ export 'package:edugo_web_app/src/Pages/InviteEducators/Model/InviteEducatorsMod
 // Info: Invite Students Model Exports
 export 'package:edugo_web_app/src/Pages/InviteStudents/Model/InviteStudentsModel.dart';
 
-// Info: Lessons ModelModel Exports
+// Info: Lessons Model Exports
 export 'package:edugo_web_app/src/Pages/Lessons/Model/LessonsModel.dart';
 
 // Info: Login Model Exports
 export 'package:edugo_web_app/src/Pages/Login/Model/LoginModel.dart';
+
+// Info: Virtual Entity Store Model Exports
+export 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/VirtualEntityStoreModel.dart';
 
 // Info: Subjects Model Exports
 export 'package:edugo_web_app/src/Pages/Subjects/Model/SubjectsModel.dart';

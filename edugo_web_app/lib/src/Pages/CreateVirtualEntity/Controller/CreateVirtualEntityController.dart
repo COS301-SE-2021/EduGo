@@ -85,8 +85,7 @@ class CreateVirtualEntityController
   Future<void> send3DModelToStorage(context) async {
     String linkTo3DModel;
 
-    var url =
-        Uri.parse("http://43e6071f3a8e.ngrok.io/virtualEntity/uploadModel");
+    var url = Uri.parse("http://34.65.226.152:8080/virtualEntity/uploadModel");
 
     var request = new MultipartRequest(
       "POST",
@@ -118,5 +117,30 @@ class CreateVirtualEntityController
     );
   }
 
-  void createVirtualEntity(context) {}
+  Future createVirtualEntity(context) async {
+    var url = Uri.parse(
+        'http://34.65.226.152:8080/virtualEntity/createVirtualEntity');
+    await post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':
+            Momentum.controller<AdminController>(context).getToken()
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          "title": model.name,
+          "description": model.description,
+          "quiz": Momentum.controller<QuizBuilderController>(context)
+              .getQuizBuilderResult()
+        },
+      ),
+    ).then(
+      (response) {
+        print(response.body);
+        if (response.statusCode == 200)
+          MomentumRouter.goto(context, LessonsView);
+      },
+    );
+  }
 }

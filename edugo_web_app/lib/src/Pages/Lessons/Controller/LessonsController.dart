@@ -9,8 +9,7 @@ class LessonsController extends MomentumController<LessonsModel> {
 
 // Info: Get all lessons created by the educator
   Future<void> getSubjectLessons(context) async {
-    var url =
-        Uri.parse('http://43e6071f3a8e.ngrok.io/lesson/getLessonsBySubject');
+    var url = Uri.parse('http://34.65.226.152:8080/lesson/getLessonsBySubject');
     await post(url,
         headers: {
           'Content-Type': 'application/json',
@@ -24,6 +23,7 @@ class LessonsController extends MomentumController<LessonsModel> {
       if (response.statusCode == 200) {
         Map<String, dynamic> _lessons = jsonDecode(response.body);
         model.updateLessons(Lessons.fromJson(_lessons).lessons);
+        model.updateLessonCards();
         return;
       }
     });

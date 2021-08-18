@@ -40,7 +40,7 @@ class QuestionCard extends StatelessWidget {
                           value:
                               (quizBuilder.questions[questionId].type != null)
                                   ? '${quizBuilder.questions[questionId].type}'
-                                  : "True or False",
+                                  : "TrueFalse",
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 40,
                           underline: Container(
@@ -52,7 +52,7 @@ class QuestionCard extends StatelessWidget {
                             Momentum.controller<QuizBuilderController>(context)
                                 .inputQuestionType(type, questionId);
                           },
-                          items: <String>['True or False', 'Multiple Choice']
+                          items: <String>['TrueFalse', 'Multiple Choice']
                               .map<DropdownMenuItem<String>>(
                             (String value) {
                               return DropdownMenuItem<String>(

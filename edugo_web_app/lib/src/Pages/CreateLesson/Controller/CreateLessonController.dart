@@ -17,7 +17,7 @@ class CreateLessonController extends MomentumController<CreateLessonModel> {
   }
 
   Future createLesson(context) async {
-    var url = Uri.parse('http://localhost:8080/lesson/createLesson');
+    var url = Uri.parse('http://34.65.226.152:8080/lesson/createLesson');
     await post(
       url,
       headers: {
@@ -26,17 +26,18 @@ class CreateLessonController extends MomentumController<CreateLessonModel> {
             Momentum.controller<AdminController>(context).getToken()
       },
       body: jsonEncode(
-        <String, String>{
+        <String, dynamic>{
           "title": model.lessonTitle,
           "description": model.lessonDescription,
           "subjectId": Momentum.controller<AdminController>(context)
               .getCurrentSubjectId()
-              .toString()
         },
       ),
     ).then(
-      (value) => {
-        MomentumRouter.goto(context, LessonsView),
+      (response) {
+        print(response.body);
+        if (response.statusCode == 200)
+          MomentumRouter.goto(context, LessonsView);
       },
     );
   }

@@ -50,7 +50,7 @@ class QuizBuilderController extends MomentumController<QuizBuilderModel> {
     model.editOption(questionId: questionID, optionValue: optionValue);
   }
 
-  String getQuizBuilderResult() {
-    return model.getQuizBuilderResult();
+  Map<String, dynamic> getQuizBuilderResult() {
+    return <String, dynamic>{"questions": model.getQuizBuilderResult()};
   }
 }

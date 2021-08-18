@@ -97,7 +97,7 @@ class DesktopNavBar extends StatelessWidget {
                         child: Icon(Icons.store_outlined,
                             size: 30, color: Colors.white),
                         onTap: () {
-                          //MomentumRouter.goto(context, VirtualEntityStoreView);
+                          MomentumRouter.goto(context, VirtualEntityStoreView);
                         },
                       ),
                     ),

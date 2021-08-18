@@ -16,10 +16,10 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
     tempQuestions[id].type = questionType;
     tempQuestions[id].options.clear();
     tempQuestions[id].correctAnswer = "";
-    if (questionType == "True or False") {
+    if (questionType == "TrueFalse") {
       tempQuestions[id].options.add("True");
       tempQuestions[id].options.add("False");
-      tempQuestions[id].type = "True or False";
+      tempQuestions[id].type = "TrueFalse";
       tempQuestions[id].correctAnswer = "True";
     }
     update(questions: tempQuestions);
@@ -46,7 +46,7 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
   void newQuestion() {
     List<QuestionObject> tempQuestions = questions;
     tempQuestions.add(new QuestionObject());
-    tempQuestions[tempQuestions.length - 1].type = "True or False";
+    tempQuestions[tempQuestions.length - 1].type = "TrueFalse";
     tempQuestions[tempQuestions.length - 1].options.add("True");
     tempQuestions[tempQuestions.length - 1].options.add("False");
     tempQuestions[tempQuestions.length - 1].correctAnswer = "True";
@@ -110,25 +110,18 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
     update(questions: tempQuestions);
   }
 
-  String getQuizBuilderResult() {
-    List<String> quizBuilderResult = [];
-    String retString;
+  List<Map<String, dynamic>> getQuizBuilderResult() {
+    List<Map<String, dynamic>> quizBuilderResult = [];
     if (questions.isNotEmpty) {
       questions.forEach(
         (question) {
-          if (question.questionToString() != "Quiz is not valid") {
-            quizBuilderResult.add(
-              question.questionToString(),
-            );
-          } else
-            retString = "Quiz is not valid";
-          return retString;
+          quizBuilderResult.add(
+            question.toJson(),
+          );
         },
       );
-      if (retString == "Quiz is not valid") return retString;
-      return '{"questions:"' + quizBuilderResult.toString() + "}";
-    } else
-      return "Quiz is not valid";
+    }
+    return quizBuilderResult;
   }
 
   List<Widget> getQuizBuilderView() {

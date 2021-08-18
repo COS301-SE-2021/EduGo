@@ -10,8 +10,8 @@ class LessonsModel extends MomentumModel<LessonsController> {
 
 // Info: Update list of lessons
   void updateLessons(List<Lesson> lessonsUpdate) {
+    print(lessonsUpdate);
     update(lessons: lessonsUpdate);
-    updateLessonCards();
   }
 
 // Info: Update lesson cards

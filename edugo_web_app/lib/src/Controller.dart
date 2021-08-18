@@ -16,6 +16,9 @@ export 'package:edugo_web_app/src/Pages/CreateSubject/Controller/CreateSubjectCo
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Controller/CreateVirtualEntityController.dart';
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Controller/QuizBuilderController.dart';
 
+// Info: Virtual Entity Store Controller Exports
+export 'package:edugo_web_app/src/Pages/VirtualEntityStore/Controller/VirtualEntityStoreController.dart';
+
 // Info: Invite Educators Contoller Exports
 export 'package:edugo_web_app/src/Pages/InviteEducators/Controller/InviteEducatorsController.dart';
 

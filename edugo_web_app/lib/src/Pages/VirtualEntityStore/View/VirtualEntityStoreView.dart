@@ -1,20 +1,21 @@
-import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:edugo_web_app/src/Pages/VirtualEntityStore/View/Widgets/VirtualEntitiesStoreWidgets.dart';
 
 class VirtualEntityStoreView extends StatelessWidget {
-  const VirtualEntityStoreView({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    // //* Controller loading virtual entities on build on the VirtualEntityStoreView
-    // Momentum.controller<VirtualEntityApiController>(context)
-    //     .getVirtualEntities(context);
-    // //*
+    //Info: Getting educator virtual entites from API
+    Momentum.controller<VirtualEntityStoreController>(context)
+        .getEducatorVirtualEntityStore(context);
+
+    //Info: Buiding virtual entities user interface
     return MomentumBuilder(
-      controllers: [AdminController],
+      controllers: [VirtualEntityStoreController],
       builder: (context, snapshot) {
-        // var entity = snapshot<AdminModel>();
-        bool public = true;
+        //Info: reading virtual entity cards from model
+        var educatorVirtualEntities = snapshot<VirtualEntityStoreModel>();
+
+        //Info: rendering subject cards
         return PageLayout(
           top: 0,
           left: 0,
@@ -43,7 +44,7 @@ class VirtualEntityStoreView extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Virtual Entities",
+                                    "Created Virtual Entities",
                                     style: TextStyle(
                                       fontSize: 32,
                                     ),
@@ -52,24 +53,30 @@ class VirtualEntityStoreView extends StatelessWidget {
                                   MouseRegion(
                                     cursor: SystemMouseCursors.click,
                                     child: GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Momentum.controller<
+                                                    VirtualEntityStoreController>(
+                                                context)
+                                            .changePublic(false);
+                                      },
                                       child: Container(
                                         padding: EdgeInsets.only(
                                           bottom:
                                               5, // Space between underline and text
                                         ),
-                                        decoration: public
-                                            ? BoxDecoration(
-                                                border: Border(
-                                                  bottom: BorderSide(
-                                                    color: Color.fromARGB(
-                                                        255, 97, 211, 87),
-                                                    width:
-                                                        4.0, // Underline thickness
-                                                  ),
-                                                ),
-                                              )
-                                            : BoxDecoration(),
+                                        decoration:
+                                            educatorVirtualEntities.public
+                                                ? BoxDecoration(
+                                                    border: Border(
+                                                      bottom: BorderSide(
+                                                        color: Color.fromARGB(
+                                                            255, 97, 211, 87),
+                                                        width:
+                                                            4.0, // Underline thickness
+                                                      ),
+                                                    ),
+                                                  )
+                                                : BoxDecoration(),
                                         child: Text(
                                           "Public",
                                           style: TextStyle(
@@ -86,24 +93,30 @@ class VirtualEntityStoreView extends StatelessWidget {
                                   MouseRegion(
                                     cursor: SystemMouseCursors.click,
                                     child: GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Momentum.controller<
+                                                    VirtualEntityStoreController>(
+                                                context)
+                                            .changePublic(true);
+                                      },
                                       child: Container(
                                         padding: EdgeInsets.only(
                                           bottom:
                                               5, // Space between underline and text
                                         ),
-                                        decoration: !public
-                                            ? BoxDecoration(
-                                                border: Border(
-                                                  bottom: BorderSide(
-                                                    color: Color.fromARGB(
-                                                        255, 97, 211, 87),
-                                                    width:
-                                                        4.0, // Underline thickness
-                                                  ),
-                                                ),
-                                              )
-                                            : BoxDecoration(),
+                                        decoration:
+                                            !educatorVirtualEntities.public
+                                                ? BoxDecoration(
+                                                    border: Border(
+                                                      bottom: BorderSide(
+                                                        color: Color.fromARGB(
+                                                            255, 97, 211, 87),
+                                                        width:
+                                                            4.0, // Underline thickness
+                                                      ),
+                                                    ),
+                                                  )
+                                                : BoxDecoration(),
                                         child: Text(
                                           "Private",
                                           style: TextStyle(
@@ -115,7 +128,7 @@ class VirtualEntityStoreView extends StatelessWidget {
                                     ),
                                   ),
                                   Spacer(),
-                                  VirtualEntityButton(
+                                  VirtualEntitiesStoreButton(
                                     onPressed: () {
                                       MomentumRouter.goto(
                                           context, CreateVirtualEntityView);
@@ -144,29 +157,18 @@ class VirtualEntityStoreView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      content: public
-                          ? GridView.count(
-                              physics: NeverScrollableScrollPhysics(),
-                              primary: false,
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.only(
-                                  right: 30, left: 30, top: 50, bottom: 80),
-                              crossAxisSpacing: 40,
-                              mainAxisSpacing: 40,
-                              crossAxisCount: 4,
-                              children: [],
-                            )
-                          : GridView.count(
-                              physics: NeverScrollableScrollPhysics(),
-                              primary: false,
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.only(
-                                  right: 30, left: 30, top: 50, bottom: 80),
-                              crossAxisSpacing: 40,
-                              mainAxisSpacing: 40,
-                              crossAxisCount: 4,
-                              children: [],
-                            ),
+                      content: GridView.count(
+                        physics: NeverScrollableScrollPhysics(),
+                        primary: false,
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.only(
+                            right: 30, left: 30, top: 40, bottom: 80),
+                        crossAxisSpacing: 40,
+                        mainAxisSpacing: 40,
+                        crossAxisCount: 4,
+                        childAspectRatio: 1 / 1.1,
+                        children: educatorVirtualEntities.virtualEntityCards,
+                      ),
                     ),
                   ],
                 ),
