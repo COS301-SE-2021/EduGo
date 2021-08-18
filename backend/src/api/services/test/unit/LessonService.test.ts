@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 import { LessonService } from '../../LessonService';
 import { Repository } from 'typeorm';
-import * as mocks from "../RepositoryMocks";
 import { Lesson } from '../../../database/Lesson';
 import { Subject } from '../../../database/Subject';
 import { VirtualEntity } from '../../../database/VirtualEntity';

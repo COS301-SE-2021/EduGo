@@ -55,22 +55,20 @@ export class LessonService {
 	}
 
 	public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
+		let subject: Subject | undefined;
 		try {
-			let subject = await this.subjectRepository.findOne(
-				request.subjectId,
-				{ relations: ["lessons"] }
-			);
-			if (subject) {
-				let lessons = subject.lessons;
-				let LessonsData: GetLessonsBySubjectResponse = {
-					data: lessons,
-					statusMessage: "Successful",
-				};
-				return LessonsData;
-			} else throw new BadRequestError("Subject does not exist");
+			subject = await this.subjectRepository.findOne(request.subjectId,{ relations: ["lessons"] });
 		} catch (err) {
-			throw new Error(err);
+			throw new BadRequestError("Subject does not exist");
 		}
+		if (subject) {
+			let lessons = subject.lessons;
+			let LessonsData: GetLessonsBySubjectResponse = {
+				data: lessons,
+				statusMessage: "Successful",
+			};
+			return LessonsData;
+		} else throw new BadRequestError("Subject does not exist");
 	}
 
 	async AddVirtualEntityToLesson(request: AddVirtualEntityToLessonRequest) {
