@@ -67,16 +67,14 @@ class QuizBuilder extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () {
-                    if (Momentum.controller<QuizBuilderController>(context)
-                            .getQuizBuilderResult() !=
-                        "Quiz is not valid") {
-                      Momentum.controller<CreateVirtualEntityController>(
-                              context)
-                          .createVirtualEntity(context);
-                    }
+                    Momentum.controller<CreateVirtualEntityController>(context)
+                        .createVirtualEntity(context);
                   },
                   width: 450,
                   height: 65),
+              SizedBox(
+                height: 70,
+              ),
             ],
           ),
         );

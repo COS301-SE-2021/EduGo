@@ -1,13 +1,12 @@
 import 'package:edugo_web_app/src/Pages/Admin/Model/Data/User.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'package:http/http.dart' as http;
 
 class AdminController extends MomentumController<AdminModel> {
   @override
   AdminModel init() {
     return AdminModel(this,
-        organisationName: "EduGo University",
-        educators: [],
-        virtualEntityViewerModelLink: "");
+        organisationName: "", educators: [], virtualEntityViewerModelLink: "");
   }
 
   void makeEducatorAdmin(String username) {
@@ -92,5 +91,41 @@ class AdminController extends MomentumController<AdminModel> {
     }
     model.updateEducators(educators);
     getOrganisationEducatorsView();
+  }
+
+  Future<void> getOrganisationId() async {
+    var url = Uri.parse('http://34.65.226.152:8080/user/getUserDetails');
+    await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getToken()
+      },
+    ).then((response) async {
+      Map<String, dynamic> _user = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        int organisationId = _user['organisation_id'];
+        await getOrganisationName(organisationId);
+      }
+    });
+  }
+
+  Future<void> getOrganisationName(int id) async {
+    var url =
+        Uri.parse('http://34.65.226.152:8080/organisation/getOrganisation');
+    await http
+        .post(url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': getToken()
+            },
+            body: jsonEncode(<String, int>{"id": id}))
+        .then((response) {
+      Map<String, dynamic> _organisation = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        String organisationName = _organisation['organisation_name'];
+        model.setOrganisationName(organisationName);
+      }
+    });
   }
 }

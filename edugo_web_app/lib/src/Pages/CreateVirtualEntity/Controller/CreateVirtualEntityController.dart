@@ -134,9 +134,8 @@ class CreateVirtualEntityController
       ),
     ).then(
       (response) {
-        print(response.body);
         if (response.statusCode == 200)
-          MomentumRouter.goto(context, LessonsView);
+          MomentumRouter.goto(context, VirtualEntityStoreView);
       },
     );
   }

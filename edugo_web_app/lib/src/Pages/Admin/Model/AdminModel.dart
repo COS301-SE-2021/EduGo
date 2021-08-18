@@ -57,6 +57,10 @@ class AdminModel extends MomentumModel<AdminController> {
     update(virtualEntityViewerModelLink: link);
   }
 
+  void setOrganisationName(String name) {
+    update(organisationName: name);
+  }
+
   String getToken() {
     return token;
   }
