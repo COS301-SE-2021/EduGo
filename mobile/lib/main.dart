@@ -4,6 +4,7 @@ import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/User/Service/UserService.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
@@ -37,6 +38,7 @@ Momentum momentum({bool mock = true}) {
     controllers: [
       QuizController(mock: false),
       QuestionPageController(mock: mock),
+      //GradesQuizSpecificsPage(mock: mock),
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
       GradesController(mock: true),

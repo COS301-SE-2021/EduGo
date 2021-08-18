@@ -1,13 +1,13 @@
 //Hourly
 //7am, fix question display uisn momenutm
 //8am, fix button click
-//TODO 8:30am selected chips animation
-//TODO 9am, selected answers (when click button) and correct answers array
-//TODO 10 am answer page get actual mark
+//TODO 11:30am, FIX ARRAY selected answers (when click button) and correct answers array
+//10 am answer page get actual mark
 //TODO 11am answer quiz api call
 //TODO 12pm remove quiz from sidebar, make password visible onlcik
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
@@ -30,6 +30,15 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionPageState extends State<QuestionPage> {
+  late List<String> _filters;
+  late String? _value;
+  @override
+  void initState() {
+    super.initState();
+    _value = '';
+    _filters = <String>[];
+  }
+
   @override
   Widget build(BuildContext context) {
     // questions stored in param variable as it was passed as a parameter
@@ -60,35 +69,28 @@ class _QuestionPageState extends State<QuestionPage> {
               Widget questionTextWidget = Text(question.questionText);
               child.children.add(questionTextWidget);
 
-              // Optional answers to select from
-              String? _value = '';
-              List<String> _selectedAnswers = [];
+              // Optional answers to select from. These answers will be stored in the list
+              // ONLY when the next question button is clicked
+              List<String?> _selectedAnswers = [];
+              List<String?> _correctAnswers = [];
               List<Widget> _optionsTextWidgets = List<Widget>.generate(
                   question.optionsText!.length, (int index) {
                 String optionText = question.optionsText!.elementAt(index);
+                //TODO FIX SET STATE selected chip animation (fix color change once widget selected)
                 if (question.type == QuestionType.TrueFalse) {
-                  /*
-                  ChoiceChip(
-                  label: Text(_choices[index]),
-                  selected: _choiceIndex == index,
-                  selectedColor: Colors.red,
-                  onSelected: (bool selected) {
-                    setState(() {
-                      _choiceIndex = selected ? index : 0;
-                    });
-                  },
-                  backgroundColor: Colors.green,
-                  labelStyle: TextStyle(color: Colors.white),
-                );
-                  */
+                  //_value == optionText ? print('yes') : print('no');
                   return ChoiceChip(
-                    backgroundColor: Colors.grey,
                     selectedColor: Colors.green,
+                    backgroundColor: Colors.grey,
                     label: Text(optionText),
+                    //labelStyle: TextStyle(color: Colors.white),
                     selected: _value == optionText,
                     onSelected: (bool selected) {
+                      //print(selected.toString());
                       setState(() {
-                        _value = selected ? optionText : null;
+                        _value = selected ? optionText : '';
+                        _isEnabled = true;
+                        //print(_value);
                       });
                     },
                   );
@@ -102,6 +104,7 @@ class _QuestionPageState extends State<QuestionPage> {
                       selectedColor: Colors.green,
                       onSelected: (bool selected) {
                         setState(() {
+                          _isEnabled = true;
                           _value = selected ? optionText : null;
                         });
                       });
@@ -122,10 +125,16 @@ class _QuestionPageState extends State<QuestionPage> {
                             //ANSWER DETAILS
                             _isEnabled = true,
                             //print('true'),
+                            _selectedAnswers.add(_value),
+                            _correctAnswers.add(question.correctAnswer),
+                            //print(_value), print(question.correctAnswer),
                           }
                         : {
                             _isEnabled = false,
                             //print('false'),
+                            _selectedAnswers.add(_value),
+                            _correctAnswers.add(question.correctAnswer),
+                            //print(_value), print(question.correctAnswer),
                           }
                     : null,
                 child: const Text('Next Question'),
@@ -135,8 +144,16 @@ class _QuestionPageState extends State<QuestionPage> {
               //End quiz button
               Widget endQuizBtn = ElevatedButton(
                 onPressed: () {
-                  MomentumRouter.goto(context, QuizResultView);
-                  //params: QuizResultParam(finalMark, markPerQuestion));
+                  _selectedAnswers.add(_value);
+                  _correctAnswers.add(question.correctAnswer);
+                  print('correct answers');
+                  for (var c in _correctAnswers) {
+                    print(c);
+                  }
+
+                  MomentumRouter.goto(context, QuizResultView,
+                      params:
+                          QuizResultParam(_selectedAnswers, _correctAnswers));
                 },
                 child: const Text('End Quiz'),
               );
