@@ -22,7 +22,6 @@ Future<List<Quiz>> getQuizesByLesson(int id,
             'Authorization': token,
           },
           body: jsonEncode(<String, int>{"id": id}));
-  //print('here');
   //print(response);
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);

@@ -33,51 +33,69 @@ class _QuizPageState extends State<QuizPage> {
   }
   //int index = -1;
 
-  // Number of quizzes = number
+  // Number of quizzes = number of tabs
   int noOfQuizzes = 2; //TODO get no of quizzes via controller
+  // Number of questions = number of tab views
+  int noOfQuestions = 3; //TODO get no of questions via controller
 
-  Widget child = Container(
-    child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          SizedBox(height: 20.0),
-          DefaultTabController(
-              length: 2, // TODO lenth of list of quizes
-              initialIndex: 0,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Container(
-                      child: TabBar(
-                        labelColor: Colors.green,
-                        unselectedLabelColor: Colors.black,
-                        tabs: [
-                          Tab(text: '1'),
-                          Tab(text: '2'),
-                        ],
-                      ),
-                    ),
-                    Container(
-                        height: 400, //height of TabBarView
-                        decoration: BoxDecoration(
-                            border: Border(
-                                top: BorderSide(
-                                    color: Colors.grey, width: 0.5))),
-                        child: TabBarView(children: <Widget>[
-                          Container(
-                            child: Center(
-                              child: Text('Start Quiz 1',
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                        ]))
-                  ])),
-        ]),
-  );
+  // Create numbered tabs
+  List<Widget> _buildTabs(int noOfQuizzes) {
+    List<Widget> tabs = [];
+    for (int i = 0; i < noOfQuizzes; i++) {
+      tabs.add(Tab(
+        text: i.toString(),
+      ));
+    }
+    return tabs;
+  }
+
+  TabBarView _buildTabBarView(int noOfQuestions) {
+    //View of questions
+    TabBarView _tabBarView = TabBarView(children: <Widget>[]);
+    for (int i = 0; i < noOfQuizzes; i++) {
+      _tabBarView.children.add(
+        Container(
+          child: Center(
+            child: Text('Question ' + i.toString(),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+          ),
+        ),
+      );
+    }
+    return _tabBarView;
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget child = Container(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(height: 20.0),
+            DefaultTabController(
+                length: noOfQuizzes,
+                initialIndex: 0,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Container(
+                        child: TabBar(
+                          labelColor: Colors.green,
+                          unselectedLabelColor: Colors.black,
+                          tabs: _buildTabs(noOfQuizzes),
+                        ),
+                      ),
+                      Container(
+                          height:
+                              400, //height of TabBarView //TODO might have to use frationally sized box
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  top: BorderSide(
+                                      color: Colors.grey, width: 0.5))),
+                          child: _buildTabBarView(noOfQuestions))
+                    ])),
+          ]),
+    );
     //Display page
     return MobilePageLayout(false, false, child, 'Quizzes');
   }

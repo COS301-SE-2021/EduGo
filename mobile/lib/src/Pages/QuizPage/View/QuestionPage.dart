@@ -142,6 +142,7 @@ class _QuestionPageState extends State<QuestionPage> {
               child.children.add(nextButton);
 
               //End quiz button
+              //TODO redirect to Lesson specifics page
               Widget endQuizBtn = ElevatedButton(
                 onPressed: () {
                   _selectedAnswers.add(_value);
