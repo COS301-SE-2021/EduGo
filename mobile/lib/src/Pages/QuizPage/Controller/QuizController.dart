@@ -32,7 +32,34 @@ Future<List<Quiz>> getQuizesByLesson(int id,
     } else
       throw new BadResponse('No data property');
   }
+  //print(response.statusCode);
+  throw Exception('Not a code 200');
+}
+
+//Takes lessonId
+Future<void> answerQuiz(int lesson_id, int quiz_id, List<Answer> answers,
+    {required http.Client client}) async {
+  final preferences = await SharedPreferences.getInstance();
+  final String? token = preferences.getString("user_token") ?? null;
+
+  if (token == null) throw NoToken();
+  final response =
+      await client.post(Uri.parse("${baseUrl}virtualEntity/answerQuiz"),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Authorization': token,
+          },
+          body: jsonEncode(<String, dynamic>{
+            "lesson_id": lesson_id,
+            "quiz_id": quiz_id,
+            "answers": answers,
+          }));
+
   print(response.statusCode);
+  if (response.statusCode == 200) {
+    print(response);
+    return;
+  }
   throw Exception('Not a code 200');
 }
 
@@ -54,5 +81,14 @@ class QuizController extends MomentumController<QuizPageModel> {
       //get the quizzes
       model.update(quizes: value);
     });
+  }
+
+  Future<void> answerQuizByLessonId(
+    int lessonId,
+    int quiz_id,
+    List<Answer> answers,
+  ) {
+    return answerQuiz(lessonId, quiz_id, answers, client: http.Client())
+        .then((value) {});
   }
 }

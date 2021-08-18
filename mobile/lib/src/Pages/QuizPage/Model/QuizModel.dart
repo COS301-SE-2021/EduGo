@@ -17,6 +17,20 @@ class Quiz {
 }
 
 @JsonSerializable()
+class Answer {
+  @JsonKey(required: true)
+  int question_id;
+
+  @JsonKey(required: true)
+  String answer;
+
+  Answer(this.question_id, this.answer);
+
+  factory Answer.fromJson(Map<String, dynamic> json) => _$AnswerFromJson(json);
+  Map<String, dynamic> toJson() => _$AnswerToJson(this);
+}
+
+@JsonSerializable()
 class Question {
   @JsonKey(required: true)
   int id;

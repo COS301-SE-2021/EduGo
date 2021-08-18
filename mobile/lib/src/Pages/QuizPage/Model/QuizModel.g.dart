@@ -21,6 +21,19 @@ Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'questions': instance.questions?.map((e) => e.toJson()).toList(),
     };
 
+Answer _$AnswerFromJson(Map<String, dynamic> json) {
+  $checkKeys(json, requiredKeys: const ['question_id', 'answer']);
+  return Answer(
+    json['question_id'] as int,
+    json['answer'] as String,
+  );
+}
+
+Map<String, dynamic> _$AnswerToJson(Answer instance) => <String, dynamic>{
+      'question_id': instance.question_id,
+      'answer': instance.answer,
+    };
+
 Question _$QuestionFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['id', 'type', 'question']);
   return Question(

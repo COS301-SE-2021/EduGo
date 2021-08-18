@@ -9,12 +9,7 @@ import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
 import 'package:momentum/momentum.dart';
 
-// 12:40 base quiz
-// 13:00 get quiz by lesson id 3
-// 13:30 Edit display (hardcode)
-// 13:30 TODO: get and display questions
-// 14:00 TODO: Modify to be dynamict
-//15:00 TODO: link with Kieran
+//TODO ErrorWidget
 class QuizPage extends StatefulWidget {
   //final int lessonId;
   QuizPage({
@@ -37,8 +32,12 @@ class _QuizPageState extends State<QuizPage> {
   // Will hold a List of questions for each quiz in the total noOfQuizzzes
   late List<Quiz> listOfQuizzes;
   //Stores answers that can be passed as parameters among pages using RouterParam
-  late List<String?> _selectedAnswers;
+  late List<Answer> _selectedAnswers;
   late List<String?> _correctAnswers;
+  // End quiz button
+  late int lessonId;
+  late int quizId;
+
   @override
   void initState() {
     super.initState();
@@ -47,11 +46,15 @@ class _QuizPageState extends State<QuizPage> {
     noOfQuestions = 0;
     _selectedAnswers = [];
     _correctAnswers = [];
+    lessonId = 0;
+    quizId = 0;
   }
   //int index = -1;
 
   @override
   Widget build(BuildContext context) {
+    late var quizController;
+
     // Create numbered tabs
     List<Widget> _buildTabs(int noOfQuizzes) {
       List<Widget> tabs = [];
@@ -75,18 +78,6 @@ class _QuizPageState extends State<QuizPage> {
       return tabBarDecor;
     }
 
-    // Button to sumbit quiz placed outside the loop as it is only displayed at
-    // the end of the page not after each and every question
-    Widget endQuizBtn() {
-      return Padding(
-        padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
-        child: ElevatedButton(
-          onPressed: (null),
-          child: const Text('End Quiz'),
-        ),
-      );
-    }
-
     // View of questions
     TabBarView _buildTabBarView() {
       TabBarView _tabBarView = TabBarView(children: <Widget>[]);
@@ -97,7 +88,7 @@ class _QuizPageState extends State<QuizPage> {
         // iterated later for contents of a specific question.
         List<Question> questions =
             List.from(listOfQuizzes.elementAt(i).questions!);
-
+        // TODO API QUIZ ID listOfQuizzes.elementAt(i).id
         List<Widget> columnWidget = [];
         columnWidget.add(Padding(padding: const EdgeInsets.only(top: 50.0)));
         // For each question in the quiz, create the widgets so thatt they may be
@@ -124,11 +115,15 @@ class _QuizPageState extends State<QuizPage> {
                     setState(() {
                       //TODO fix does not change color
                       _value = selected ? optionalAnswer : 'N/A';
+
+                      // Selected answer of each question
+                      _selectedAnswers.add(new Answer(q, optionalAnswer));
                     });
                   },
                 ));
               } else if (questions.elementAt(q).type ==
                   QuestionType.MultipleChoice) {
+                //questions.elementAt(q).id
                 columnWidget.add(FilterChip(
                     label: Text(optionalAnswer),
                     labelStyle: TextStyle(color: Colors.white),
@@ -138,6 +133,9 @@ class _QuizPageState extends State<QuizPage> {
                     onSelected: (bool selected) {
                       setState(() {
                         _value = selected ? optionalAnswer : 'N/A';
+
+                        // Selected answer of each question
+                        _selectedAnswers.add(new Answer(q, optionalAnswer));
                       });
                     }));
               }
@@ -146,8 +144,20 @@ class _QuizPageState extends State<QuizPage> {
             columnWidget
                 .add(Padding(padding: const EdgeInsets.only(top: 25.0)));
           }
+          //End quiz aka section of quizzes button
+          columnWidget.add(
+            // Button to sumbit quiz placed outside the loop as it is only displayed at
+            // the end of the page not after each and every question
+            Padding(
+              padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
+              child: ElevatedButton(
+                onPressed: () => quizController.answerQuizByLessonId(
+                    lessonId, quizId, _selectedAnswers),
+                child: const Text('Submit Answers'),
+              ),
+            ),
+          ); //endQuizBtn());
 
-          columnWidget.add(endQuizBtn());
           return columnWidget;
         }
 
@@ -155,7 +165,7 @@ class _QuizPageState extends State<QuizPage> {
         _tabBarView.children.add(
           Container(
             child: Scrollbar(
-              isAlwaysShown: true, //TODO wants a controller ugh
+              // isAlwaysShown: true, //TODO wants a controller ugh
               child: new SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -211,12 +221,14 @@ class _QuizPageState extends State<QuizPage> {
         builder: (context, snapshot) {
           // Get the list of quizzes so that I can dynamically edit UI
           final quizzes = snapshot<QuizPageModel>();
-          final quizController = Momentum.controller<QuizController>(context);
-          final int lessonId = 3; //TODO pass in id dynamically lessonId
+          quizController = Momentum.controller<QuizController>(context);
+          int lessonId = 3; //TODO pass in id dynamically lessonId
           quizController.getQuizzes(lessonId);
+          int quizId = quizzes.quizes.elementAt(0).id;
           noOfQuizzes = quizzes.quizes.length;
           listOfQuizzes = List.from(quizzes.quizes);
 
+          //{"lesson_id": 2, "quiz_id": 2, "answers": [{"question_id":1,"answer":"False"},{"question_id":2,"answer":"B"} ]}
           return _getChild();
         });
     //Display page
