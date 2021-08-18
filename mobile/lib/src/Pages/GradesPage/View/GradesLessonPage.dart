@@ -12,6 +12,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/GradesLessonCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
@@ -102,13 +103,12 @@ class _GradesLessonState extends State<GradesLessonPage> {
       );
       //Display error card if no mark for lessons
     } else
-      return MobilePageLayout(
-        false,
-        false,
-        ErrorCard(
-          errorDescription:
-              "There is currently no mark for this lesson to be displayed",
-        ),
+      // return MobilePageLayout(
+      //   false,
+      //   false,
+      return SpinKitCircle(
+        color: Colors.black,
       );
+    //);
   }
 }

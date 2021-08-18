@@ -7,6 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/LessonsCardWidgets.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
@@ -139,9 +140,12 @@ class _LessonsPageState extends State<LessonsPage> {
           }
           //If there are no lessons
           else
-            return ErrorCard(
-              errorDescription:
-                  "There are currently no lessons to be displayed",
+            // return ErrorCard(
+            //   errorDescription:
+            //       "There are currently no lessons to be displayed",
+            // );
+            return SpinKitCircle(
+              color: Colors.black,
             );
         },
       ),

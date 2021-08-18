@@ -7,6 +7,7 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/GradesQuizCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
@@ -116,9 +117,8 @@ class _GradesQuizState extends State<GradesQuizPage> {
       return MobilePageLayout(
         false,
         false,
-        ErrorCard(
-          errorDescription:
-              "There is currently no mark for this quiz to be displayed",
+        SpinKitCircle(
+          color: Colors.black,
         ),
       );
   }
