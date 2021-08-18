@@ -37,13 +37,13 @@ class _QuizResultViewState extends State<QuizResultView> {
 
     //Store answers from student's list of answers
     //and display as a comma sepatated string string
-    String array = param!.selectedAnswers.join(', ');
+    String concatSelAns = param!.selectedAnswers.join(', ');
     //Store answers from correct list of answers
     //and display as a comma sepatated string string
-    String array2 = param.correctAnswers.join(', ');
+    String concatCorAns = param.correctAnswers.join(', ');
     return MobilePageLayout(
-      false,
-      false,
+      true,
+      true,
       Container(
         //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
         //child: SingleChildScrollView(
@@ -137,17 +137,11 @@ class _QuizResultViewState extends State<QuizResultView> {
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       side: BorderSide(color: Colors.black),
                     ),
-                    onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => DetectMarkerPage()),
-                      // );
-                    },
+                    onPressed: () {},
                     minWidth: 10,
                     height: 60,
                     child: Text(
-                      "Your answers: " + array,
+                      "Your answers: " + concatSelAns,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20,
@@ -180,7 +174,7 @@ class _QuizResultViewState extends State<QuizResultView> {
                     minWidth: 10,
                     height: 60,
                     child: Text(
-                      "Correct answers: " + array2,
+                      "Correct answers: " + concatCorAns,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20,
@@ -194,7 +188,7 @@ class _QuizResultViewState extends State<QuizResultView> {
           ],
         ),
       ),
-      'Grades Quiz Specific Page',
+      'Quiz Result',
     );
   }
 }
