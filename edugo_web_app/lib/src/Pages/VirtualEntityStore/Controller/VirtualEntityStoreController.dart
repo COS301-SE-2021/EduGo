@@ -9,14 +9,16 @@ class VirtualEntityStoreController
         virtualEntities: [], virtualEntityCards: [], public: false);
   }
 
-  void changePublic(bool public) {
+  void changePublic(bool public, context) {
     model.changePublic(public);
+    getEducatorVirtualEntityStore(context);
   }
 
 // Info: Get all subjects created by the educator
   Future<void> getEducatorVirtualEntityStore(context) async {
-    var url = Uri.parse(
-        'http://34.65.226.152:8080/virtualEntity/getPrivateVirtualEntities');
+    var url = Uri.parse(model.public
+        ? 'http://34.65.226.152:8080/virtualEntity/getPublicVirtualEntities'
+        : 'http://34.65.226.152:8080/virtualEntity/getPrivateVirtualEntities');
     await post(
       url,
       headers: {

@@ -4,11 +4,10 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class AdminController extends MomentumController<AdminModel> {
   @override
   AdminModel init() {
-    return AdminModel(
-      this,
-      organisationName: "EduGo University",
-      educators: [],
-    );
+    return AdminModel(this,
+        organisationName: "EduGo University",
+        educators: [],
+        virtualEntityViewerModelLink: "");
   }
 
   void makeEducatorAdmin(String username) {
@@ -27,6 +26,10 @@ class AdminController extends MomentumController<AdminModel> {
 
   void getOrganisationEducatorsView() {
     model.updateEducatorsView();
+  }
+
+  void setVirtualEntity3dModelLink(String link) {
+    model.setVirtualEntityViewerModelLink(link);
   }
 
   // Future<void> getOrganisation(context) async {

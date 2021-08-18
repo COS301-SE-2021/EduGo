@@ -5,12 +5,12 @@ class DesktopRightContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-      controllers: [CreateVirtualEntityController],
+      controllers: [CreateVirtualEntityController, AdminController],
       builder: (context, snapshot) {
-        var entity = snapshot<CreateVirtualEntityModel>();
+        var entity = snapshot<AdminModel>();
         return Container(
           width: ScreenUtil().setWidth(230),
-          child: ('${entity.viewBoundVirtualEntity3dModelLink}' == "null")
+          child: (entity.virtualEntityViewerModelLink == "")
               ? Center(
                   child: VirtualEntityButton(
                       elevation: 40,
@@ -36,9 +36,8 @@ class DesktopRightContainer extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () {
-                            Momentum.controller<CreateVirtualEntityController>(
-                                    context)
-                                .clearLinkTo3DModel();
+                            Momentum.controller<AdminController>(context)
+                                .setVirtualEntity3dModelLink("");
                           },
                           width: ScreenUtil().setWidth(200),
                           height: 50),

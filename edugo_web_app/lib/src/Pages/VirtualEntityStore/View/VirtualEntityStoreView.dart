@@ -57,7 +57,7 @@ class VirtualEntityStoreView extends StatelessWidget {
                                         Momentum.controller<
                                                     VirtualEntityStoreController>(
                                                 context)
-                                            .changePublic(false);
+                                            .changePublic(true, context);
                                       },
                                       child: Container(
                                         padding: EdgeInsets.only(
@@ -97,7 +97,7 @@ class VirtualEntityStoreView extends StatelessWidget {
                                         Momentum.controller<
                                                     VirtualEntityStoreController>(
                                                 context)
-                                            .changePublic(true);
+                                            .changePublic(false, context);
                                       },
                                       child: Container(
                                         padding: EdgeInsets.only(
@@ -105,8 +105,9 @@ class VirtualEntityStoreView extends StatelessWidget {
                                               5, // Space between underline and text
                                         ),
                                         decoration:
-                                            !educatorVirtualEntities.public
-                                                ? BoxDecoration(
+                                            educatorVirtualEntities.public
+                                                ? BoxDecoration()
+                                                : BoxDecoration(
                                                     border: Border(
                                                       bottom: BorderSide(
                                                         color: Color.fromARGB(
@@ -115,8 +116,7 @@ class VirtualEntityStoreView extends StatelessWidget {
                                                             4.0, // Underline thickness
                                                       ),
                                                     ),
-                                                  )
-                                                : BoxDecoration(),
+                                                  ),
                                         child: Text(
                                           "Private",
                                           style: TextStyle(

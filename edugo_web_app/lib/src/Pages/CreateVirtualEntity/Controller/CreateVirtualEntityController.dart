@@ -29,12 +29,9 @@ class CreateVirtualEntityController
     return model.getCreateVirtualEntityDescription();
   }
 
-  String get3dModelLink() {
-    return model.getCreateVirtualEntity3dModelLink();
-  }
-
-  void clearLinkTo3DModel() {
-    model.setCreateVirtualEntity3dModelLink("null");
+  void clearLinkTo3DModel(context) {
+    Momentum.controller<AdminController>(context)
+        .setVirtualEntity3dModelLink(null);
   }
 
   //! Virtual Entity Controller Helper Methods and Attributes
@@ -108,8 +105,8 @@ class CreateVirtualEntityController
             if (response.statusCode == 200) {
               Map<String, dynamic> _decoded3DModel = jsonDecode(response.body);
               linkTo3DModel = _decoded3DModel['file_link'];
-              print(linkTo3DModel);
-              model.setCreateVirtualEntity3dModelLink(linkTo3DModel);
+              Momentum.controller<AdminController>(context)
+                  .setVirtualEntity3dModelLink(linkTo3DModel);
             }
           },
         );
