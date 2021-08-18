@@ -37,19 +37,6 @@ class _SideBarState extends State<SideBar> {
             ),
             ListTile(
               leading: Icon(Icons.verified_user),
-              title: Text('Quiz'),
-              onTap: () =>
-                  //Leads to Preferences page
-                  MomentumRouter.goto(
-                context,
-                QuizPage,
-                transition: (context, page) {
-                  return MaterialPageRoute(builder: (context) => page);
-                },
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.verified_user),
               title: Text('Preferences'),
               onTap: () =>
                   //Leads to Preferences page

@@ -7,6 +7,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                        Lesson details View Page 
@@ -134,12 +136,14 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                       side: BorderSide(color: Colors.black),
                     ),
                     onPressed: () {
-                      //TODO: Redirect to quiz page that will show all the quizzes
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => QuizModelPage(lessonId: lessonID)),
-                      // );
+                      MomentumRouter.goto(
+                        context,
+                        QuizPage,
+                        params: QuizParam(lessonID),
+                        transition: (context, page) {
+                          return MaterialPageRoute(builder: (context) => page);
+                        },
+                      );
                     },
                     minWidth: 10,
                     height: 60,
