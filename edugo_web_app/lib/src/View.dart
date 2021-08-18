@@ -14,6 +14,7 @@ export 'package:edugo_web_app/src/Pages/CreateSubject/View/CreateSubjectView.dar
 
 // Info: Create Virtual Entity View Exports
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/CreateVirtualEntityView.dart';
+export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/ViewVirtualEntityView.dart';
 
 // Info: Virtual Entity Store View Exports
 export 'package:edugo_web_app/src/Pages/VirtualEntityStore/View/VirtualEntityStoreView.dart';

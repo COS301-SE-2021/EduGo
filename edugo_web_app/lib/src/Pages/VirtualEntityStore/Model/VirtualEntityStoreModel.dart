@@ -25,6 +25,7 @@ class VirtualEntityStoreModel
         virtualEntityCardsUpdate.add(new VirtualEntitiesStoreCard(
           name: virtualEntity.getVirtualEntityName(),
           virtualEntityId: virtualEntity.getVirtualEntityId(),
+          virtualEntityDescription: virtualEntity.getVirtualEntityDescription(),
         ));
       },
     );

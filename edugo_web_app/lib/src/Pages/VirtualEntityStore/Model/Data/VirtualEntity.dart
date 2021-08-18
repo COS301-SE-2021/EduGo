@@ -1,12 +1,12 @@
 class VirtualEntity {
   String _name;
-  String _descrption;
+  String _description;
   int _id;
   VirtualEntity({
     name,
     description,
     id,
-  })  : _descrption = description,
+  })  : _description = description,
         _name = name,
         _id = id;
 
@@ -19,13 +19,13 @@ class VirtualEntity {
   }
 
   String getVirtualEntityDescription() {
-    return _descrption;
+    return _description;
   }
 
   factory VirtualEntity.fromJson(Map<String, dynamic> json) {
     return VirtualEntity(
         name: json['title'] as String,
         id: json['id'] as int,
-        description: json['description']);
+        description: json['description'] as String);
   }
 }

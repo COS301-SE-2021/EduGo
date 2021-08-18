@@ -4,11 +4,10 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class ViewVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //Momentum.controller<>(context).preview3DModel();
     return MomentumBuilder(
-      controllers: [AdminController],
+      controllers: [ViewVirtualEntityController],
       builder: (context, snapshot) {
-        //var entity = snapshot<AdminModel>();
+        var entity = snapshot<ViewVirtualEntityModel>();
         return PageLayout(
           top: 50,
           left: 150,
@@ -46,41 +45,46 @@ class ViewVirtualEntityView extends StatelessWidget {
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 70, vertical: 40),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                      child: Column(
                         children: [
-                          Column(
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  'name',
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 97, 211, 87),
-                                    fontSize: 34,
+                              Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      entity.name,
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 97, 211, 87),
+                                        fontSize: 34,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Viewer(),
+                                ],
                               ),
-                              Viewer(),
-                            ],
-                          ),
-                          Spacer(),
-                          Column(
-                            children: [
+                              Spacer(),
                               SizedBox(
                                 width: ScreenUtil().setWidth(300),
                                 child: Text(
-                                  "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose.",
+                                  entity.description,
                                   overflow: TextOverflow.visible,
                                 ),
                               ),
-                              SizedBox(
-                                height: 50,
-                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
                               VirtualEntityButton(
-                                  child: Text("Add Entity to Lesson"),
+                                  child: Text(
+                                    "Print Marker",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                   onPressed: () {
-                                    MomentumRouter.goto(context, LessonsView);
+                                    MomentumRouter.goto(
+                                        context, VirtualEntityStoreView);
                                   },
                                   width: 300,
                                   height: 65),

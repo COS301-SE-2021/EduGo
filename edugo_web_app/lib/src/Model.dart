@@ -14,6 +14,7 @@ export 'package:edugo_web_app/src/Pages/CreateSubject/Model/CreateSubjectModel.d
 
 // Info: Create Virtual Entity Model Exports
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/CreateVirtualEntityModel.dart';
+export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/ViewVirtualEntityModel.dart';
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/QuizBuilderModel.dart';
 
 // Info: Invite Educators Model Exports

@@ -12,6 +12,7 @@ class AdminModel extends MomentumModel<AdminController> {
   final List<User> educators;
   final List<Widget> educatorCards;
   final String virtualEntityViewerModelLink;
+
   AdminModel(AdminController controller,
       {this.organisationName,
       this.organisationId,
