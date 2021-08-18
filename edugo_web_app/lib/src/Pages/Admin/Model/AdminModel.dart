@@ -8,11 +8,13 @@ class AdminModel extends MomentumModel<AdminController> {
   final int currentSubjectId;
   final int currentLessonId;
   final String organisationName;
+  final int organisationId;
   final List<User> educators;
   final List<Widget> educatorCards;
   final String virtualEntityViewerModelLink;
   AdminModel(AdminController controller,
       {this.organisationName,
+      this.organisationId,
       this.currentLessonId,
       this.virtualEntityViewerModelLink,
       this.currentSubjectId,
@@ -27,8 +29,6 @@ class AdminModel extends MomentumModel<AdminController> {
 
   void updateEducatorsView() {
     List<Widget> educatorsWidgets = [];
-    //*make request to get organisation educators and map to User object
-
     educators.forEach((educator) {
       educatorsWidgets.add(new EducatorCard(
         name: educator.getName(),
@@ -57,6 +57,10 @@ class AdminModel extends MomentumModel<AdminController> {
     update(virtualEntityViewerModelLink: link);
   }
 
+  void setOrganisationId(int id) {
+    update(organisationId: id);
+  }
+
   void setOrganisationName(String name) {
     update(organisationName: name);
   }
@@ -77,9 +81,14 @@ class AdminModel extends MomentumModel<AdminController> {
     return currentLessonId;
   }
 
+  int getOrganisationId() {
+    return currentLessonId;
+  }
+
   @override
   void update(
       {organisationName,
+      organisationId,
       educators,
       educatorCards,
       token,
@@ -88,6 +97,7 @@ class AdminModel extends MomentumModel<AdminController> {
       currentLessonId}) {
     AdminModel(controller,
             organisationName: organisationName ?? this.organisationName,
+            organisationId: organisationId ?? this.organisationId,
             educators: educators ?? this.educators,
             educatorCards: educatorCards ?? this.educatorCards,
             token: token ?? this.token,

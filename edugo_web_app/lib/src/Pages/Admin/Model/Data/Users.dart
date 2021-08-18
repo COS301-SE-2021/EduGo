@@ -6,9 +6,8 @@ class Users {
   Users({this.users});
 
   factory Users.fromJson(Map<String, dynamic> usersJson) {
-    var list = usersJson['data'] as List;
-    List<User> usersList =
-        list.map((subject) => User.fromJson(subject)).toList();
+    var list = usersJson['educator'] as List;
+    List<User> usersList = list.map((user) => User.fromJson(user)).toList();
     return Users(users: usersList);
   }
 }

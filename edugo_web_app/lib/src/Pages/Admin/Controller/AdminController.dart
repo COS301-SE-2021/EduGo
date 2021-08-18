@@ -1,4 +1,4 @@
-import 'package:edugo_web_app/src/Pages/Admin/Model/Data/User.dart';
+import 'package:edugo_web_app/src/Pages/Admin/Model/Data/Users.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:http/http.dart' as http;
 
@@ -6,21 +6,46 @@ class AdminController extends MomentumController<AdminModel> {
   @override
   AdminModel init() {
     return AdminModel(this,
-        organisationName: "", educators: [], virtualEntityViewerModelLink: "");
+        organisationName: "",
+        educators: [],
+        educatorCards: [],
+        virtualEntityViewerModelLink: "");
   }
 
-  void makeEducatorAdmin(String username) {
+  Future<void> makeEducatorAdmin(String username) async {
     // * Send make admin request
-
-    // * update educators View
-    getOrganisationEducatorsView();
+    var url = Uri.parse('http://34.65.226.152:8080/user/setUserToAdmin');
+    await post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getToken()
+        },
+        body: jsonEncode(<String, String>{
+          "username": username,
+        })).then((response) async {
+      if (response.statusCode == 200) {
+        await getOrganisationEducators();
+        return;
+      }
+    });
   }
 
-  void revokeEducatorAdmin(String username) {
+  Future<void> revokeEducatorAdmin(String username) async {
     // * Send make admin request
-
-    // * update educators View
-    getOrganisationEducatorsView();
+    var url = Uri.parse('http://34.65.226.152:8080/user/revokeUserFromAdmin');
+    await post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getToken()
+        },
+        body: jsonEncode(<String, String>{
+          "username": username,
+        })).then((response) async {
+      if (response.statusCode == 200) {
+        await getOrganisationEducators();
+        return;
+      }
+    });
   }
 
   void getOrganisationEducatorsView() {
@@ -31,29 +56,25 @@ class AdminController extends MomentumController<AdminModel> {
     model.setVirtualEntityViewerModelLink(link);
   }
 
-  // Future<void> getOrganisation(context) async {
-  //   var url = Uri.parse('http://localhost:8080/organisation/GetOrganisation');
-  //   await post(url,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization':
-  //             Momentum.controller<SessionController>(context).getToken()
-  //       },
-  //       body: jsonEncode(<String, String>{
-  //         "id": model.getOrganisationId(),
-  //       })).then((response) {
-  //     if (response.statusCode == 200) {
-  //       Map<String, dynamic> _organisation = jsonDecode(response.body);
-  //       model.update(organisationName: _organisation["organisation_name"]);
-  //       var subjectObjsJson = jsonDecode(_organisation['subjects']) as List;
-  //       model.update(
-  //           subjects: subjectObjsJson
-  //               .map((subjectJson) => Subject.fromJson(subjectJson))
-  //               .toList());
-  //       return;
-  //     }
-  //   });
-  // }
+  Future<void> getOrganisationEducators() async {
+    var url =
+        Uri.parse('http://34.65.226.152:8080/organisation/getOrganisation');
+    await post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getToken()
+        },
+        body: jsonEncode(<String, int>{
+          "id": model.organisationId,
+        })).then((response) {
+      if (response.statusCode == 200) {
+        Map<String, dynamic> _organisation = jsonDecode(response.body);
+        model.updateEducators(Users.fromJson(_organisation).users);
+        model.updateEducatorsView();
+        return;
+      }
+    });
+  }
 
   void setToken(String token) {
     model.setToken(token);
@@ -79,23 +100,7 @@ class AdminController extends MomentumController<AdminModel> {
     return model.getToken();
   }
 
-  void getOrganisationEducators(context) {
-    Momentum.controller<SubjectsController>(context)
-        .getEducatorSubjects(context);
-    List<User> educators = [];
-    //*make request to get organisation educators and map to User object
-    for (int i = 0; i < 10; i++) {
-      User user = new User(
-        name: "Educator: " + i.toString(),
-        admin: false,
-      );
-      educators.add(user);
-    }
-    model.updateEducators(educators);
-    getOrganisationEducatorsView();
-  }
-
-  Future<void> getOrganisationId() async {
+  Future<void> getOrganisationId(context) async {
     var url = Uri.parse('http://34.65.226.152:8080/user/getUserDetails');
     await http.get(
       url,
@@ -107,7 +112,11 @@ class AdminController extends MomentumController<AdminModel> {
       Map<String, dynamic> _user = jsonDecode(response.body);
       if (response.statusCode == 200) {
         int organisationId = _user['organisation_id'];
-        await getOrganisationName(organisationId);
+        model.setOrganisationId(organisationId);
+        await getOrganisationName(organisationId).then((value) {
+          Momentum.controller<AdminController>(context)
+              .getOrganisationEducators();
+        });
       }
     });
   }

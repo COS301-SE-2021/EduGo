@@ -27,7 +27,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       name: json['username'] as String,
-      admin: json['admin'] as bool,
+      admin: json['isAdmin'] as bool,
     );
   }
 }
