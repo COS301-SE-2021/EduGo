@@ -74,24 +74,26 @@ class _QuizPageState extends State<QuizPage> {
     TabBarView _buildTabBarView() {
       TabBarView _tabBarView = TabBarView(children: <Widget>[]);
       // For loop below dynamically disyplays ALL THE QUESTIONS of a quiz in
-      // the list at a particular index
+      // the LIST at a particular index
       for (int i = 0; i < noOfQuizzes; i++) {
-        // i=0 because questions are in a list
+        // Questions contents to be diplsayed on the view. The lists below are
+        // iterated later for contents of a specific question.
+        List<Question> questions =
+            List.from(listOfQuizzes.elementAt(i).questions!);
+        List<Widget> questionTextWidget = [];
 
-        // Question to be asked
-        //Widget questionTextWidget = Text(question.questionText);
-        //child.children.add(questionTextWidget);
-
+        // For each question in the quiz, create the widgets so thatt they may be
+        // added to the view
+        for (int q = 0; q < questions.length; q++) {
+          // Questions to be asked
+          questionTextWidget.add(Text(questions.elementAt(q).question));
+        }
         _tabBarView.children.add(
           Container(
-            child: Center(
-              child: Text(
-                  'no questions for Quiz ' +
-                      i.toString() +
-                      ' ' +
-                      listOfQuizzes.elementAt(i).questions!.length.toString(),
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            ),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: questionTextWidget),
           ),
         );
       }
