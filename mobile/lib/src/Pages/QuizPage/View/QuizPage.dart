@@ -7,6 +7,11 @@ import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
 import 'package:momentum/momentum.dart';
 
+// 12:40 TODO: base quiz
+// 13:00 TODO get quiz by lesson id 3
+// 13:30 Edit display (hardcode)
+// 14:00 Modify to be dynamict
+//15:00 link with Kieran
 class QuizPage extends StatefulWidget {
   //final int lessonId;
   QuizPage({
@@ -24,63 +29,140 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
-    int index = -1;
+    //int index = -1;
   }
+  //int index = -1;
 
-  int index = -1;
+  // Number of quizzes = number
+  int noOfQuizzes = 2; //TODO get no of quizzes via controller
+
+  Widget child = Container(
+    child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          SizedBox(height: 20.0),
+          DefaultTabController(
+              length: 2, // TODO lenth of list of quizes
+              initialIndex: 0,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Container(
+                      child: TabBar(
+                        labelColor: Colors.green,
+                        unselectedLabelColor: Colors.black,
+                        tabs: [
+                          Tab(text: '1'),
+                          Tab(text: '2'),
+                        ],
+                      ),
+                    ),
+                    Container(
+                        height: 400, //height of TabBarView
+                        decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(
+                                    color: Colors.grey, width: 0.5))),
+                        child: TabBarView(children: <Widget>[
+                          Container(
+                            child: Center(
+                              child: Text('Start Quiz 1',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                        ]))
+                  ])),
+        ]),
+  );
   @override
   Widget build(BuildContext context) {
     //Display page
-    return MobilePageLayout(
-        false,
-        false,
-        MomentumBuilder(
-            // Quiz controller fetches JSON data of the Quiz
-            // Question controller displays a question at a time while maintaining state (has index and list if questions)
-            controllers: [QuizController, QuestionPageController],
-            builder: (context, snapshot) {
-              //List of quizes
-              final quizzes = snapshot<QuizPageModel>();
-              final quizController =
-                  Momentum.controller<QuizController>(context);
-              //TODO pass in id dynamically lessonId
-              quizController.getQuizzes(1);
-              return Container(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    textStyle: const TextStyle(fontSize: 20),
-                  ),
-                  onPressed: () {
-                    //Display first question as soon as it loads
-                    // Update question
-                    final questionController =
-                        Momentum.controller<QuestionPageController>(context);
-                    questionController.updateQuestionDetails(
-                        quizzes.quizes.elementAt(0).questions);
-
-                    MomentumRouter.goto(context, QuestionPage,
-                        params: QuestionParam(
-                            //TODO pass in id dynamically lessonId instead of 1
-                            quizzes.quizes.elementAt(0).questions));
-                  },
-                  child: const Text('Start Quiz'),
-                ),
-              );
-              /*print(quizzes.quizes.first.questions!.first.question);
-              var allQuestions =
-                  quizzes.quizes.map((e) => e.questions!.map((e) {
-                        questions.add(e);
-                        print("ek is hier");
-                        print(questions.elementAt(0).question);
-                      }));
-              if (index <= allQuestions.length) {
-                index++;
-                return Row(children: [
-                  //Text(questions.elementAt(index).question)
-                ]); //return Row(children: [Text(index.toString())]);
-              }*/
-            }),
-        'Quiz');
+    return MobilePageLayout(false, false, child, 'Quizzes');
   }
 }
-//TODO get virtual entity
+/* RESPONSE
+{
+    "data": [
+        {
+            "id": 7,
+            "questions": [
+                {
+                    "id": 9,
+                    "type": "TrueFalse",
+                    "question": "What is the answer",
+                    "correctAnswer": "True",
+                    "options": [
+                        "True",
+                        "False"
+                    ]
+                },
+                {
+                    "id": 10,
+                    "type": "MultipleChoice",
+                    "question": "What is the second answer",
+                    "correctAnswer": "B",
+                    "options": [
+                        "A",
+                        "B",
+                        "C",
+                        "D"
+                    ]
+                },
+                {
+                    "id": 11,
+                    "type": "MultipleChoice",
+                    "question": "What is the third answer",
+                    "correctAnswer": "Maybe",
+                    "options": [
+                        "Yes",
+                        "No",
+                        "Maybe",
+                        "Wait"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "questions": [
+                {
+                    "id": 12,
+                    "type": "TrueFalse",
+                    "question": "What is the answer",
+                    "correctAnswer": "True",
+                    "options": [
+                        "True",
+                        "False"
+                    ]
+                },
+                {
+                    "id": 13,
+                    "type": "MultipleChoice",
+                    "question": "What is the second answer",
+                    "correctAnswer": "B",
+                    "options": [
+                        "A",
+                        "B",
+                        "C",
+                        "D"
+                    ]
+                },
+                {
+                    "id": 14,
+                    "type": "MultipleChoice",
+                    "question": "What is the third answer",
+                    "correctAnswer": "Maybe",
+                    "options": [
+                        "Yes",
+                        "No",
+                        "Maybe",
+                        "Wait"
+                    ]
+                }
+            ]
+        }
+    ]
+}
+ */
