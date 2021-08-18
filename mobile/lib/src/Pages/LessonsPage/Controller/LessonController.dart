@@ -15,13 +15,18 @@ import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
 import 'package:momentum/momentum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+//UNCOMMENT THIS IMPORT WHEN MERGED INTO DEVELOP-MOBILE-APP-COMBINED
+//USED FOR SHARED PREFERENCES
+//import 'package:shared_preferences/shared_preferences.dart';
+
 /*------------------------------------------------------------------------------
  *                          Lesson controller
  *------------------------------------------------------------------------------
 */
 
 //Function to get the list of lessons from the database
-Future<List<Lesson>> getLessonsBySubject(int subject_id, {required http.Client client}) async {
+Future<List<Lesson>> getLessonsBySubject(int subject_id,
+    {required http.Client client}) async {
   final prefs = await SharedPreferences.getInstance();
   final String? token = prefs.getString('user_token') ?? null;
 

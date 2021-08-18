@@ -27,12 +27,16 @@ class Lesson {
   @JsonKey(defaultValue: '')
   String description;
 
+  //Lesson completed value
+  @JsonKey(defaultValue: '')
+  String lessonCompleted;
+
   //Lesson entities
   // @JsonKey(defaultValue: [])
   // List<VirtualEntity> virtualEntities;
 
   //Lesson constructor
-  Lesson(this.id, this.title, this.description);
+  Lesson(this.id, this.title, this.description, this.lessonCompleted);
 
   //Factory method used in lessonController to map lesson attributes to json
   factory Lesson.fromJson(Map<String, dynamic> json) => _$LessonFromJson(json);

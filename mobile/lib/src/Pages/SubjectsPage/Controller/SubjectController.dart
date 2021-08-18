@@ -29,12 +29,12 @@ Future<List<Subject>> getSubjectsByUser({required http.Client client}) async {
 
   if (token == null) throw NoToken();
 
-  final response =
-      await client.post(Uri.parse("${baseUrl}subject/getSubjectsByUser"),
-          headers: <String, String>{
-            "Content-Type": "application/json",
-            "Authorization": token,
-          });
+  final response = await client.post(
+      Uri.parse("${baseUrl}subject/getSubjectsByUser"),
+      headers: <String, String>{
+        "Content-Type": "application/json",
+        "Authorization": token,
+      });
 
   //If there is a list of subjects that is returned,
   //convert it to a json object, else throw an exception
@@ -78,8 +78,8 @@ class SubjectsController extends MomentumController<SubjectsModel> {
                 ? httpMock.MockClient(mockApi.getSubjectsByUserClient)
                 : http.Client())
         .then((value) {
-          print('Value');
-          print(value);
+      print('Value');
+      print(value);
       model.update(subjects: value);
     });
   }

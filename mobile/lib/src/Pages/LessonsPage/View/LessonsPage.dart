@@ -7,6 +7,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/LessonsCardWidgets.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
@@ -126,6 +127,7 @@ class _LessonsPageState extends State<LessonsPage> {
                               lessonTitle: lesson.title,
                               lessonID: lesson.id,
                               lessonDescription: lesson.description,
+                              lessonCompleted: lesson.lessonCompleted,
                             ),
                           )
                           .toList(),
@@ -137,8 +139,9 @@ class _LessonsPageState extends State<LessonsPage> {
           }
           //If there are no lessons
           else
-            return Container(
-              child: Text('There are no lessons for this subject'),
+            return ErrorCard(
+              errorDescription:
+                  "There are currently no lessons to be displayed",
             );
         },
       ),

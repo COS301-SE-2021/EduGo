@@ -33,7 +33,7 @@ void main() {
   //PaintingBinding.instance!.imageCache!.clear();
 }
 
-Momentum momentum({bool mock = true}) {
+Momentum momentum({bool mock = false}) {
   return Momentum(
     child: MyApp(),
     controllers: [
@@ -42,7 +42,7 @@ Momentum momentum({bool mock = true}) {
       //GradesQuizSpecificsPage(mock: mock),
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
-      GradesController(mock: true),
+      GradesController(mock: mock),
       BottomBarController(),
       UserController(mock: mock),
       HomeController(mock: mock)
@@ -59,8 +59,6 @@ Momentum momentum({bool mock = true}) {
           title: '',
           subjectID: 0,
         ),
-        LessonInformationPage(
-            lessonTitle: '', lessonID: 0, lessonDescription: ''),
         OrganisationsPage(),
         PreferencesPage(),
         QuestionPage(),

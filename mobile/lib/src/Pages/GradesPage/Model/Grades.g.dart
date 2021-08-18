@@ -7,67 +7,58 @@ part of 'Grades.dart';
 // **************************************************************************
 
 Subject _$SubjectFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['id', 'title', 'mark', 'lessons']);
+  $checkKeys(json, requiredKeys: const [
+    'id',
+    'subjectName',
+    'gradeAchieved',
+    'lessonGrades'
+  ]);
   return Subject(
     json['id'] as int,
-    (json['lessons'] as List<dynamic>)
+    (json['lessonGrades'] as List<dynamic>)
         .map((e) => Lesson.fromJson(e as Map<String, dynamic>))
         .toList(),
-    json['mark'] as int,
-    json['title'] as String,
+    json['gradeAchieved'] as int,
+    json['subjectName'] as String,
   );
 }
 
 Map<String, dynamic> _$SubjectToJson(Subject instance) => <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
-      'mark': instance.mark,
-      'lessons': instance.lessons,
+      'subjectName': instance.subjectName,
+      'gradeAchieved': instance.gradeAchieved,
+      'lessonGrades': instance.lessonGrades,
     };
 
 Lesson _$LessonFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['id', 'mark', 'title', 'quizzes']);
+  $checkKeys(json,
+      requiredKeys: const ['id', 'gradeAchieved', 'lessonName', 'quizGrades']);
   return Lesson(
     json['id'] as int,
-    json['mark'] as int,
-    (json['quizzes'] as List<dynamic>)
+    json['gradeAchieved'] as int,
+    (json['quizGrades'] as List<dynamic>)
         .map((e) => Quiz.fromJson(e as Map<String, dynamic>))
         .toList(),
-    json['title'] as String,
+    json['lessonName'] as String,
   );
 }
 
 Map<String, dynamic> _$LessonToJson(Lesson instance) => <String, dynamic>{
       'id': instance.id,
-      'mark': instance.mark,
-      'title': instance.title,
-      'quizzes': instance.quizzes,
+      'gradeAchieved': instance.gradeAchieved,
+      'lessonName': instance.lessonName,
+      'quizGrades': instance.quizGrades,
     };
 
 Quiz _$QuizFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const [
-    'id',
-    'title',
-    'studentMark',
-    'quizTotal',
-    'studentAnswers',
-    'correctAnswers'
-  ]);
+  $checkKeys(json, requiredKeys: const ['student_score', 'quiz_total']);
   return Quiz(
-    json['id'] as int,
-    json['quizTotal'] as int,
-    json['studentMark'] as int,
-    json['title'] as String,
-    (json['correctAnswers'] as List<dynamic>).map((e) => e as String).toList(),
-    (json['studentAnswers'] as List<dynamic>).map((e) => e as String).toList(),
+    json['quiz_total'] as int,
+    json['student_score'] as int,
   );
 }
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
-      'id': instance.id,
-      'title': instance.title,
-      'studentMark': instance.studentMark,
-      'quizTotal': instance.quizTotal,
-      'studentAnswers': instance.studentAnswers,
-      'correctAnswers': instance.correctAnswers,
+      'student_score': instance.student_score,
+      'quiz_total': instance.quiz_total,
     };
