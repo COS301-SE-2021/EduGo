@@ -30,13 +30,6 @@ class _QuestionPageState extends State<QuestionPage> {
     // questions stored in param variable as it was passed as a parameter
     // from another page to this one.
     final param = MomentumRouter.getParam<QuestionParam>(context);
-
-    // Additional text and button widgets are added to the children's array,
-    // which builds thhe UI.
-    var child = Column(
-      children: [],
-    );
-
     // Toggle enable or disable for next button
     bool _isEnabled = true;
 
@@ -51,6 +44,12 @@ class _QuestionPageState extends State<QuestionPage> {
             builder: (context, snapshot) {
               // Question Model snapshot of details
               final question = snapshot<QuestionPageModel>();
+
+              // Additional text and button widgets are added to the children's array,
+              // which builds thhe UI.
+              var child = Column(
+                children: [],
+              );
 
               // Question to be asked
               Widget questionTextWidget = Text(question.questionText);
