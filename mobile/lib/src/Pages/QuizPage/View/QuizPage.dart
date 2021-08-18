@@ -7,11 +7,11 @@ import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
 import 'package:momentum/momentum.dart';
 
-// 12:40 TODO: base quiz
+// 12:40 base quiz
 // 13:00 TODO get quiz by lesson id 3
-// 13:30 Edit display (hardcode)
-// 14:00 Modify to be dynamict
-//15:00 link with Kieran
+// 13:30 TODO: Edit display (hardcode)
+// 14:00 TODO: Modify to be dynamict
+//15:00 TODO: link with Kieran
 class QuizPage extends StatefulWidget {
   //final int lessonId;
   QuizPage({
@@ -38,64 +38,72 @@ class _QuizPageState extends State<QuizPage> {
   // Number of questions = number of tab views
   int noOfQuestions = 3; //TODO get no of questions via controller
 
-  // Create numbered tabs
-  List<Widget> _buildTabs(int noOfQuizzes) {
-    List<Widget> tabs = [];
-    for (int i = 0; i < noOfQuizzes; i++) {
-      tabs.add(Tab(
-        text: i.toString(),
-      ));
-    }
-    return tabs;
-  }
-
-  TabBarView _buildTabBarView(int noOfQuestions) {
-    //View of questions
-    TabBarView _tabBarView = TabBarView(children: <Widget>[]);
-    for (int i = 0; i < noOfQuizzes; i++) {
-      _tabBarView.children.add(
-        Container(
-          child: Center(
-            child: Text('Question ' + i.toString(),
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-          ),
-        ),
-      );
-    }
-    return _tabBarView;
-  }
-
   @override
   Widget build(BuildContext context) {
+    // Create numbered tabs
+    List<Widget> _buildTabs(int noOfQuizzes) {
+      List<Widget> tabs = [];
+      for (int i = 0; i < noOfQuizzes; i++) {
+        tabs.add(Tab(
+          text: (i + 1).toString(),
+        ));
+      }
+      return tabs;
+    }
+
+    // Add UI pazzazz to tab bar
+    Widget tabBarDecor = Container(
+      child: TabBar(
+        labelColor: Colors.green,
+        unselectedLabelColor: Colors.black,
+        tabs: _buildTabs(noOfQuizzes),
+      ),
+    );
+
+    //View of questions
+    TabBarView _buildTabBarView(int noOfQuestions) {
+      TabBarView _tabBarView = TabBarView(children: <Widget>[]);
+      for (int i = 0; i < noOfQuizzes; i++) {
+        // i=0 because questions are in a list
+        _tabBarView.children.add(
+          Container(
+            child: Center(
+              //TODO display all questions here
+              child: Text('all questions',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            ),
+          ),
+        );
+      }
+      return _tabBarView;
+    }
+
+    // Add UI pazzazz to view
+    Widget _tabBarDecor = Container(
+        height:
+            400, //height of TabBarView //TODO might have to use frationally sized box
+        decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
+        child: _buildTabBarView(noOfQuestions));
+
+    // Structure of tabs
+    DefaultTabController _defaultTabController = DefaultTabController(
+        length: noOfQuizzes,
+        initialIndex: 0,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[tabBarDecor, _tabBarDecor]));
+
+    // The contents of the screen
     Widget child = Container(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             SizedBox(height: 20.0),
-            DefaultTabController(
-                length: noOfQuizzes,
-                initialIndex: 0,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                        child: TabBar(
-                          labelColor: Colors.green,
-                          unselectedLabelColor: Colors.black,
-                          tabs: _buildTabs(noOfQuizzes),
-                        ),
-                      ),
-                      Container(
-                          height:
-                              400, //height of TabBarView //TODO might have to use frationally sized box
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(
-                                      color: Colors.grey, width: 0.5))),
-                          child: _buildTabBarView(noOfQuestions))
-                    ])),
+            _defaultTabController,
           ]),
     );
+
     //Display page
     return MobilePageLayout(false, false, child, 'Quizzes');
   }
