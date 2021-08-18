@@ -1,12 +1,17 @@
 //Hourly
 //7am, fix question display uisn momenutm
-//TODO 8am, fix button click
-//TODO 9am, answer page get actual mark
+//8am, fix button click
+//TODO 8:30am selected chips animation
+//TODO 9am, selected answers (when click button) and correct answers array
+//TODO 10 am answer page get actual mark
+//TODO 11am answer quiz api call
+//TODO 12pm remove quiz from sidebar, make password visible onlcik
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuizResultView.dart';
 import 'package:momentum/momentum.dart';
 
 // This class is used to pass a list of questions as a paramter when you click on the 'Start Quiz' button on the Quiz
@@ -54,7 +59,7 @@ class _QuestionPageState extends State<QuestionPage> {
               // Question to be asked
               Widget questionTextWidget = Text(question.questionText);
               child.children.add(questionTextWidget);
-              print(question.questionText);
+
               // Optional answers to select from
               String? _value = '';
               List<String> _selectedAnswers = [];
@@ -62,9 +67,23 @@ class _QuestionPageState extends State<QuestionPage> {
                   question.optionsText!.length, (int index) {
                 String optionText = question.optionsText!.elementAt(index);
                 if (question.type == QuestionType.TrueFalse) {
-                  print('TF');
-                  print(optionText);
+                  /*
+                  ChoiceChip(
+                  label: Text(_choices[index]),
+                  selected: _choiceIndex == index,
+                  selectedColor: Colors.red,
+                  onSelected: (bool selected) {
+                    setState(() {
+                      _choiceIndex = selected ? index : 0;
+                    });
+                  },
+                  backgroundColor: Colors.green,
+                  labelStyle: TextStyle(color: Colors.white),
+                );
+                  */
                   return ChoiceChip(
+                    backgroundColor: Colors.grey,
+                    selectedColor: Colors.green,
                     label: Text(optionText),
                     selected: _value == optionText,
                     onSelected: (bool selected) {
@@ -75,8 +94,6 @@ class _QuestionPageState extends State<QuestionPage> {
                   );
                 }
                 if (question.type == QuestionType.MultipleChoice) {
-                  print('MC');
-                  print(optionText);
                   return FilterChip(
                       label: Text(optionText),
                       labelStyle: TextStyle(color: Colors.white),
@@ -114,6 +131,16 @@ class _QuestionPageState extends State<QuestionPage> {
                 child: const Text('Next Question'),
               );
               child.children.add(nextButton);
+
+              //End quiz button
+              Widget endQuizBtn = ElevatedButton(
+                onPressed: () {
+                  MomentumRouter.goto(context, QuizResultView);
+                  //params: QuizResultParam(finalMark, markPerQuestion));
+                },
+                child: const Text('End Quiz'),
+              );
+              child.children.add(endQuizBtn);
 
               return Center(
                 child: child,
