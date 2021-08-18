@@ -47,6 +47,12 @@ https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=shari
 https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=sharing
 ### Architectural requirements specification (Demo 2)
 https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing
+### Software requirements specification (Demo 3)
+xxx
+### Architectural requirements specification (Demo 3)
+xxx
+### User Manuel (Demo 3)
+xxx
 ## Project Management Tool
 https://3.basecamp.com/5098601/projects/22442122
 
