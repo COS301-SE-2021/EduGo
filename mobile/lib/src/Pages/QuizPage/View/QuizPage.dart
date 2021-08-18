@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
 import 'package:momentum/momentum.dart';
 
 // 12:40 base quiz
-// 13:00 TODO get quiz by lesson id 3
-// 13:30 TODO: Edit display (hardcode)
+// 13:00 get quiz by lesson id 3
+// 13:30 Edit display (hardcode)
+// 13:30 TODO: get and display questions
 // 14:00 TODO: Modify to be dynamict
 //15:00 TODO: link with Kieran
 class QuizPage extends StatefulWidget {
@@ -30,11 +32,14 @@ class _QuizPageState extends State<QuizPage> {
   // Number of quizzes = number of tabs
   late int noOfQuizzes; //TODO get no of quizzes via controller
   // Number of questions = number of tab views
-  late int noOfQuestions = 0; //TODO get no of questions via controller
+  late int noOfQuestions; //TODO get no of questions via controller
+  // Will hold a List of questions for each quiz in the total noOfQuizzzes
+  late List<Quiz> listOfQuizzes;
 
   @override
   void initState() {
     super.initState();
+    listOfQuizzes = [];
     noOfQuizzes = 0;
     noOfQuestions = 0;
   }
@@ -66,20 +71,31 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     //View of questions
-    TabBarView _buildTabBarView(int noOfQuestions) {
+    TabBarView _buildTabBarView() {
       TabBarView _tabBarView = TabBarView(children: <Widget>[]);
+      // For loop below dynamically disyplays ALL THE QUESTIONS of a quiz in
+      // the list at a particular index
       for (int i = 0; i < noOfQuizzes; i++) {
         // i=0 because questions are in a list
+
+        // Question to be asked
+        //Widget questionTextWidget = Text(question.questionText);
+        //child.children.add(questionTextWidget);
+
         _tabBarView.children.add(
           Container(
             child: Center(
-              //TODO display all questions here
-              child: Text('all questions',
+              child: Text(
+                  'no questions for Quiz ' +
+                      i.toString() +
+                      ' ' +
+                      listOfQuizzes.elementAt(i).questions!.length.toString(),
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             ),
           ),
         );
       }
+
       return _tabBarView;
     }
 
@@ -90,7 +106,7 @@ class _QuizPageState extends State<QuizPage> {
               400, //height of TabBarView //TODO might have to use frationally sized box
           decoration: BoxDecoration(
               border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
-          child: _buildTabBarView(noOfQuestions));
+          child: _buildTabBarView());
       return _tabBarViewDecor;
     }
 
@@ -121,98 +137,35 @@ class _QuizPageState extends State<QuizPage> {
     MomentumBuilder _momentumBuilder = MomentumBuilder(
         controllers: [QuizController, QuestionPageController],
         builder: (context, snapshot) {
+          // Get the list of quizzes so that I can dynamically edit UI
           final quizzes = snapshot<QuizPageModel>();
           final quizController = Momentum.controller<QuizController>(context);
           final int lessonId = 3; //TODO pass in id dynamically lessonId
           quizController.getQuizzes(lessonId);
           noOfQuizzes = quizzes.quizes.length;
+          listOfQuizzes = List.from(quizzes.quizes);
+          // // For each quiz display all the questions
+          // for (var quiz in quizzes.quizes) {
+          //   noOfQuestions = quiz.questions!.length;
+          //   questions = quiz.questions;
+          //   print(questions!.first.question);
+          //   _buildTabBarView();
+          //   questions = [];
+          // }
+
+          /*
+          // Get the list of questions so that I can dynamically edit UI
+          final questionController =
+              Momentum.controller<QuestionPageController>(context);
+          questionController
+              .updateQuestionDetails(quizzes.quizes.first.questions);
+          //noOfQuestions = qu
+          final questions = snapshot<QuestionPageModel>();
+          print(questions.questionText);
+          */
           return _getChild();
         });
     //Display page
     return MobilePageLayout(false, false, _momentumBuilder, 'Quizzes');
   }
 }
-/* RESPONSE
-{
-    "data": [
-        {
-            "id": 7,
-            "questions": [
-                {
-                    "id": 9,
-                    "type": "TrueFalse",
-                    "question": "What is the answer",
-                    "correctAnswer": "True",
-                    "options": [
-                        "True",
-                        "False"
-                    ]
-                },
-                {
-                    "id": 10,
-                    "type": "MultipleChoice",
-                    "question": "What is the second answer",
-                    "correctAnswer": "B",
-                    "options": [
-                        "A",
-                        "B",
-                        "C",
-                        "D"
-                    ]
-                },
-                {
-                    "id": 11,
-                    "type": "MultipleChoice",
-                    "question": "What is the third answer",
-                    "correctAnswer": "Maybe",
-                    "options": [
-                        "Yes",
-                        "No",
-                        "Maybe",
-                        "Wait"
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 8,
-            "questions": [
-                {
-                    "id": 12,
-                    "type": "TrueFalse",
-                    "question": "What is the answer",
-                    "correctAnswer": "True",
-                    "options": [
-                        "True",
-                        "False"
-                    ]
-                },
-                {
-                    "id": 13,
-                    "type": "MultipleChoice",
-                    "question": "What is the second answer",
-                    "correctAnswer": "B",
-                    "options": [
-                        "A",
-                        "B",
-                        "C",
-                        "D"
-                    ]
-                },
-                {
-                    "id": 14,
-                    "type": "MultipleChoice",
-                    "question": "What is the third answer",
-                    "correctAnswer": "Maybe",
-                    "options": [
-                        "Yes",
-                        "No",
-                        "Maybe",
-                        "Wait"
-                    ]
-                }
-            ]
-        }
-    ]
-}
- */
