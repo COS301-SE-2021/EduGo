@@ -17,7 +17,6 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   final List<TitledNavigationBarItem> items = [
-    TitledNavigationBarItem(title: Text('Home'), icon: Icons.cottage_rounded),
     TitledNavigationBarItem(
         title: Text('Subjects'), icon: Icons.library_books_rounded),
     TitledNavigationBarItem(
@@ -27,7 +26,6 @@ class _BottomBarState extends State<BottomBar> {
   ];
 
   List<Type> widgetOptions = <Type>[
-    HomePage,
     SubjectsPage,
     GradesSubjectPage,
     DetectMarkerPage,
