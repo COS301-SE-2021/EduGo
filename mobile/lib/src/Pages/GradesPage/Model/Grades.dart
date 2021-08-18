@@ -22,20 +22,20 @@ class Subject {
   @JsonKey(required: true)
   int id;
 
-  //Subject title
+  //Subject title/name
   @JsonKey(required: true)
-  String title;
+  String subjectName;
 
   //Overall subject mark in a percentage
   @JsonKey(required: true)
-  int mark;
+  int gradeAchieved;
 
-  //List of lessons
+  //List of lessons grades and info
   @JsonKey(required: true)
-  List<Lesson> lessons;
+  List<Lesson> lessonGrades;
 
   //Subject constructor
-  Subject(this.id, this.lessons, this.mark, this.title);
+  Subject(this.id, this.lessonGrades, this.gradeAchieved, this.subjectName);
 
   //Factory method used in gradesController to map subject attributes to json
   factory Subject.fromJson(Map<String, dynamic> json) =>
@@ -56,20 +56,20 @@ class Lesson {
 
   //Overall lesson mark in a percentage
   @JsonKey(required: true)
-  int mark;
+  int gradeAchieved;
 
-  //Lesson title
+  //Lesson title/name
   @JsonKey(required: true)
-  String title;
+  String lessonName;
 
   //List of quizzes for each lesson.
   //(A lesson can have many virtual entities therefore many quizzes
   //as a quiz is attached to the virtual entity and not the lesson)
   @JsonKey(required: true)
-  List<Quiz> quizzes;
+  List<Quiz> quizGrades;
 
   //Lesson constructor
-  Lesson(this.id, this.mark, this.quizzes, this.title);
+  Lesson(this.id, this.gradeAchieved, this.quizGrades, this.lessonName);
 
   //Factory method used in gradesController to map lesson attributes to json
   factory Lesson.fromJson(Map<String, dynamic> json) => _$LessonFromJson(json);
@@ -83,34 +83,33 @@ class Lesson {
 
 @JsonSerializable()
 class Quiz {
-  //Quiz id
-  @JsonKey(required: true)
-  int id;
+  // //Quiz id
+  // @JsonKey(required: true)
+  // int id;
 
-  //Quiz title
-  @JsonKey(required: true)
-  String title;
+  // //Quiz title
+  // @JsonKey(required: true)
+  // String title;
 
   //Overall student mark for the quiz
   //(Not a percentage)
   @JsonKey(required: true)
-  int studentMark;
+  int student_score;
 
   //Overall quiz mark
   @JsonKey(required: true)
-  int quizTotal;
+  int quiz_total;
 
-  //List of student quiz answers
-  @JsonKey(required: true)
-  List<String> studentAnswers;
+  // //List of student quiz answers
+  // @JsonKey(required: true)
+  // List<String> studentAnswers;
 
-  //List of correct quiz answers
-  @JsonKey(required: true)
-  List<String> correctAnswers;
+  // //List of correct quiz answers
+  // @JsonKey(required: true)
+  // List<String> correctAnswers;
 
   //Quiz constructor
-  Quiz(this.id, this.quizTotal, this.studentMark, this.title,
-      this.correctAnswers, this.studentAnswers);
+  Quiz(this.quiz_total, this.student_score);
 
   //Factory method used in gradesController to map quiz attributes to json
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);

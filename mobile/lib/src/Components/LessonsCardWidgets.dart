@@ -24,15 +24,34 @@ class LessonsCard extends StatelessWidget {
   //Holds the lesson objectives
   //final String lessonObjectives
 
+  final String lessonCompleted;
+
 //LessonCardConstructor. Takes in 4 arguments
-  LessonsCard({
-    required this.lessonTitle,
-    required this.lessonID,
-    required this.lessonDescription,
-  });
+  LessonsCard(
+      {required this.lessonTitle,
+      required this.lessonID,
+      required this.lessonDescription,
+      required this.lessonCompleted});
 
   @override
   Widget build(BuildContext context) {
+    //Holds the background colour for the container if it
+    //is completed or not. Green=completed. Red=not completed.
+    //A lesson is comoleted if all the quizes have been answered
+    //for that lesson
+    Color backgroundColour;
+
+    //Holds the lesson status. Completed or not completed
+    String lessonStatus;
+
+    if (lessonCompleted == "true") {
+      lessonStatus = 'Completed';
+      backgroundColour = Color.fromRGBO(34, 139, 34, 1);
+    } else {
+      lessonStatus = 'Not Completed';
+      backgroundColour = Color.fromRGBO(178, 34, 34, 1);
+    }
+
     return Container(
       height: 250,
       width: 250,
@@ -63,21 +82,47 @@ class LessonsCard extends StatelessWidget {
               ),
             );
           },
-          child: Container(
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                "$lessonTitle",
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-                softWrap: false,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+          child: Column(
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: Container(
+                  color: backgroundColour,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "$lessonTitle",
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Expanded(
+                child: Container(
+                  color: backgroundColour,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "$lessonStatus",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    softWrap: true,
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ),

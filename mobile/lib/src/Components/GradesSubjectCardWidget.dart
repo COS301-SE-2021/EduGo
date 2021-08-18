@@ -50,7 +50,9 @@ class GradesSubjectCard extends StatelessWidget {
     //Checks if there is a mark and changes the bool value
     //It also changes the background colour of the mark container
     //depending on what catagory of percent the student falls in
-    if (subjectMark < 0) {
+    if (subjectMark < 0 ||
+        subjectLessons.isEmpty ||
+        subjectLessons.length < 0) {
       hasMark = false;
       backgroundOfMarkColour = Colors.white;
     } else if (subjectMark >= 0 && subjectMark < 50) {
@@ -79,20 +81,25 @@ class GradesSubjectCard extends StatelessWidget {
             ),
             clipBehavior: Clip.antiAlias,
             color: Color.fromARGB(0, 246, 246, 246),
-            //This allows the card to be clickable so that when clicked,
-            // it will go to the lessons description for that lesson
             child: new InkWell(
-              //This redirects the page to the gradespecific page on tap
-              //and passes in the marks array, subject title and total grade
+              //This allows the card to be clickable so that when clicked,
+              // it will go to the lessons description for that lesson
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GradesLessonPage(
-                      lessonList: subjectLessons,
+                //If the subject has a mark, make the card clickable and redirect
+                //to the GradesLessonPage and show the lesson marks. Else don't
+                //make the card clickable
+                if (hasMark) {
+                  //This redirects the page to the gradespecific page on tap
+                  //and passes in the marks array, subject title and total grade
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GradesLessonPage(
+                        lessonList: subjectLessons,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               },
               child: Container(
                 child: Column(
@@ -117,7 +124,7 @@ class GradesSubjectCard extends StatelessWidget {
                             ),
                             onPressed: () {},
                             child: Text(
-                              //If there is a mark, display it.
+                              //If there is a subject mark, display it.
                               //Else display the two dashes
                               hasMark ? '$subjectMark' + '%' : "--",
                               textAlign: TextAlign.center,
