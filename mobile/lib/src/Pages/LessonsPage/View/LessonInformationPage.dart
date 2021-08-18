@@ -62,7 +62,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
       //the two bool represent side bar and navbar. so if true and true, them
       //the side bar and nav bar will be displayed.
       //i.e true=yes display, false=no do not display
-      false,
+      true,
       true,
       Container(
         //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
