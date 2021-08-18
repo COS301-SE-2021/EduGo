@@ -96,31 +96,17 @@ class QuestionCard extends StatelessWidget {
                     ? Momentum.controller<QuizBuilderController>(context)
                         .buildQuizBuilderOptionView(questionId)
                     : SizedBox(),
-                SizedBox(
-                  height: 40,
-                ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30.0, bottom: 10.0),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Correct Answer",
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 32.0),
+                  padding: const EdgeInsets.only(left: 32.0, bottom: 40),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: DropdownButton<String>(
-                      value: (quizBuilder.questions[questionId].correctAnswer !=
-                              null)
-                          ? '${quizBuilder.questions[questionId].correctAnswer}'
-                          : (quizBuilder
-                                  .questions[questionId].options.isNotEmpty)
-                              ? '${quizBuilder.questions[questionId].options.elementAt(0)}'
-                              : null,
+                      hint: Text(
+                        "Choose correct answer",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      value:
+                          '${quizBuilder.questions[questionId].correctAnswer}',
                       icon: const Icon(Icons.arrow_drop_down),
                       iconSize: 40,
                       underline: Container(

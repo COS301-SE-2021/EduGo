@@ -3,7 +3,8 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class AdminView extends StatelessWidget {
   Widget build(BuildContext context) {
-    Momentum.controller<AdminController>(context).getOrganisationEducators();
+    Momentum.controller<AdminController>(context)
+        .getOrganisationEducators(context);
     Momentum.controller<AdminController>(context).getOrganisationId();
     return MomentumBuilder(
         controllers: [AdminController],

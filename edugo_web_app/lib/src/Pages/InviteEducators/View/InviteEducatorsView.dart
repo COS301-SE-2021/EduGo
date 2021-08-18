@@ -12,7 +12,7 @@ class InviteEducatorsView extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.only(top: 50),
+              padding: EdgeInsets.only(top: 50, left: 100, right: 100),
               child: ListView(
                 children: <Widget>[
                   Material(
@@ -21,7 +21,7 @@ class InviteEducatorsView extends StatelessWidget {
                     child: Container(
                       width: ScreenUtil().setWidth(1100),
                       padding: EdgeInsets.only(
-                          left: 20, right: 20, top: 30, bottom: 70),
+                          left: 50, right: 50, top: 50, bottom: 80),
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -67,7 +67,7 @@ class InviteEducatorsView extends StatelessWidget {
                                 "Send Invitations",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () {},
+                              onPressed: () {Momentum.controller<>(context)},
                               width: 450,
                               height: 65),
                         ],

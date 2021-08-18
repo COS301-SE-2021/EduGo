@@ -26,4 +26,17 @@ class SubjectsController extends MomentumController<SubjectsModel> {
       }
     });
   }
+
+  int getSubjectIdByName(String name) {
+    int id = 0;
+    model.subjects.forEach(
+      (subject) {
+        if (subject.getSubjectTitle() == name) {
+          id = subject.getSubjectId();
+          return id;
+        }
+      },
+    );
+    return id;
+  }
 }

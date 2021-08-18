@@ -1,5 +1,6 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/InviteStudents/View/Widgets/InviteStudentsWidgets.dart';
+import 'package:edugo_web_app/src/Pages/Subjects/Model/Data/Subject.dart';
 
 class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
   final String currentEmailInput;
@@ -16,6 +17,10 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
     update(currentEmailInput: email);
   }
 
+  void inputSubjectName(String name) {
+    update(subjectName: name);
+  }
+
   void addEmail() {
     if (currentEmailInput != null) {
       List<String> tempEmails = emails;
@@ -23,6 +28,14 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
       update(emails: tempEmails);
       getEmailView();
     }
+  }
+
+  List<String> getSubjectsString(List<Subject> subjects) {
+    List<String> subjectsString = [];
+    subjects.forEach((subject) {
+      subjectsString.add(subject.getSubjectTitle());
+    });
+    return subjectsString;
   }
 
   void removeEmail(int emailId) {

@@ -5,15 +5,22 @@ class InviteStudentsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-        controllers: [InviteStudentsController],
+        controllers: [
+          InviteStudentsController,
+          SubjectsController,
+          AdminController
+        ],
         builder: (context, snapshot) {
+          var students = snapshot<InviteStudentsModel>();
+          var subjects = snapshot<SubjectsModel>();
           return PageLayout(
             top: 0,
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.only(top: 50),
+              padding: EdgeInsets.only(left: 100, right: 100),
               child: ListView(
+                padding: EdgeInsets.only(top: 50),
                 children: <Widget>[
                   Material(
                     elevation: 40,
@@ -21,7 +28,7 @@ class InviteStudentsView extends StatelessWidget {
                     child: Container(
                       width: ScreenUtil().setWidth(1100),
                       padding: EdgeInsets.only(
-                          left: 20, right: 20, top: 30, bottom: 70),
+                          left: 50, right: 50, top: 50, bottom: 80),
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -41,6 +48,49 @@ class InviteStudentsView extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 32,
                                   color: Color.fromARGB(255, 97, 211, 87),
+                                ),
+                              ),
+                              Spacer(),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: DropdownButton<String>(
+                                  hint: Text("Choose subject"),
+                                  value: students.subjectName,
+                                  icon: const Icon(Icons.arrow_drop_down),
+                                  iconSize: 40,
+                                  underline: Container(
+                                    height: 2,
+                                    color: Color.fromARGB(255, 97, 211, 87),
+                                  ),
+                                  elevation: 20,
+                                  onChanged: (String name) {
+                                    Momentum.controller<
+                                            InviteStudentsController>(context)
+                                        .inputSubjectName(name);
+                                    Momentum.controller<AdminController>(
+                                            context)
+                                        .setCurrentSubjectId(
+                                            Momentum.controller<
+                                                    SubjectsController>(context)
+                                                .getSubjectIdByName(name));
+                                  },
+                                  items: Momentum.controller<
+                                          InviteStudentsController>(context)
+                                      .getSubjectsString(subjects.subjects)
+                                      .map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: SizedBox(
+                                          width: ScreenUtil().setWidth(300),
+                                          child: Text(
+                                            value,
+                                            overflow: TextOverflow.visible,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).toList(),
                                 ),
                               ),
                             ],
@@ -67,7 +117,11 @@ class InviteStudentsView extends StatelessWidget {
                                 "Send Invitations",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Momentum.controller<InviteStudentsController>(
+                                        context)
+                                    .sendInvitations(context);
+                              },
                               width: 450,
                               height: 65),
                         ],

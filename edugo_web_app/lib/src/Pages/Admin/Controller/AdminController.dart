@@ -79,7 +79,9 @@ class AdminController extends MomentumController<AdminModel> {
     return model.getToken();
   }
 
-  void getOrganisationEducators() {
+  void getOrganisationEducators(context) {
+    Momentum.controller<SubjectsController>(context)
+        .getEducatorSubjects(context);
     List<User> educators = [];
     //*make request to get organisation educators and map to User object
     for (int i = 0; i < 10; i++) {
