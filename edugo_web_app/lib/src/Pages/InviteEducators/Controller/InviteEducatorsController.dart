@@ -36,7 +36,6 @@ class InviteEducatorsController
         <String, dynamic>{"educators": model.emails},
       ),
     ).then((response) {
-      print(response.body);
       if (response.statusCode == 200) {
         MomentumRouter.goto(context, AdminView);
         return;

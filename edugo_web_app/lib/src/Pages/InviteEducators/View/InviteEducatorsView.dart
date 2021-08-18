@@ -67,7 +67,11 @@ class InviteEducatorsView extends StatelessWidget {
                                 "Send Invitations",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () {Momentum.controller<>(context)},
+                              onPressed: () {
+                                Momentum.controller<InviteEducatorsController>(
+                                        context)
+                                    .sendInvitations(context);
+                              },
                               width: 450,
                               height: 65),
                         ],
