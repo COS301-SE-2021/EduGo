@@ -7,7 +7,6 @@
 //TODO 12pm remove quiz from sidebar, make password visible onlcik
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
@@ -32,11 +31,14 @@ class QuestionPage extends StatefulWidget {
 class _QuestionPageState extends State<QuestionPage> {
   late List<String> _filters;
   late String? _value;
+  late List<String?> _selectedAnswers;
+  late List<String?> _correctAnswers;
   @override
   void initState() {
     super.initState();
     _value = '';
-    _filters = <String>[];
+    _selectedAnswers = [];
+    _correctAnswers = [];
   }
 
   @override
@@ -70,9 +72,7 @@ class _QuestionPageState extends State<QuestionPage> {
               child.children.add(questionTextWidget);
 
               // Optional answers to select from. These answers will be stored in the list
-              // ONLY when the next question button is clicked
-              List<String?> _selectedAnswers = [];
-              List<String?> _correctAnswers = [];
+              // ONLY when the next question button is clicke.
               List<Widget> _optionsTextWidgets = List<Widget>.generate(
                   question.optionsText!.length, (int index) {
                 String optionText = question.optionsText!.elementAt(index);
