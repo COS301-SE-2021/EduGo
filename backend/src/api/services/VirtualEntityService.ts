@@ -40,12 +40,14 @@ import { GetQuizesByLessonResponse } from "../models/virtualEntity/GetQuizesByLe
 
 @Service()
 export class VirtualEntityService {
-	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
-	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
-	@InjectRepository(Question) private questionRepository: Repository<Question>;
-	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(Student) private studentRepository: Repository<Student>;
-	@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>;
+	constructor(
+		@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>,
+		@InjectRepository(Quiz) private quizRepository: Repository<Quiz>,
+		@InjectRepository(Question) private questionRepository: Repository<Question>,
+		@InjectRepository(User) private userRepository: Repository<User>,
+		@InjectRepository(Student) private studentRepository: Repository<Student>,
+		@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>
+	) {}
 
 	/**
 	 * @description This function will add a 3d model to a virtual entity. It will include checks to see if the virtual entity already has a model attached
