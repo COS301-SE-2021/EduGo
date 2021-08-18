@@ -8,7 +8,7 @@ interface validationResult {
 export const validateCreateVirtualEntityRequest = (
 	body: any
 ): validationResult => {
-	let keys = ["lesson_id", "title", "description"];
+	let keys = ["title", "description"];
 	let model_keys = [
 		"name",
 		"file_link",
@@ -52,8 +52,6 @@ export const validateCreateVirtualEntityRequest = (
 		}
 	}
 
-	if (typeof body.lesson_id !== "number" || body.lesson_id <= 0)
-		return invalid("lesson_id");
 	return { ok: true, message: "" };
 };
 

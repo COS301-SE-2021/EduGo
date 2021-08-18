@@ -1,3 +1,3 @@
-export interface GetVirtualEntityRequest {
-    id: number;
+export class GetVirtualEntityRequest {
+	id: number;
 }
