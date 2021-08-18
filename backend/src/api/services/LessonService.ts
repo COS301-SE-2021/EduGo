@@ -80,16 +80,17 @@ export class LessonService {
 		let virtualEntity = await this.virtualEntityRepository.findOne(
 			request.virtualEntityId
 		);
-		if (lesson) {
-			if (virtualEntity) {
-				lesson.virtualEntities.push(virtualEntity);
-				try {
-					await this.lessonRepository.save(lesson);
-					return "ok";
-				} catch (err) {
-					throw handleSavetoDBErrors(err);
-				}
-			} else throw new BadRequestError("Virtual Entity does not exist");
-		} else throw new BadRequestError("Lesson does not exist");
+
+		if (!lesson) throw new BadRequestError("Lesson does not exist"); 
+		if (!virtualEntity) throw new BadRequestError("Virtual Entity does not exist");
+		if (lesson.virtualEntities.find(e => e.id === virtualEntity!.id) !== undefined) throw new BadRequestError("Virtual Entity has already been added");
+
+		lesson.virtualEntities.push(virtualEntity);
+		try {
+			await this.lessonRepository.save(lesson);
+			return "ok";
+		} catch (err) {
+			throw handleSavetoDBErrors(err);
+		}
 	}
 }
