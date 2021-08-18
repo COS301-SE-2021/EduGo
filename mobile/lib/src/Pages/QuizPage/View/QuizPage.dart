@@ -80,20 +80,39 @@ class _QuizPageState extends State<QuizPage> {
         // iterated later for contents of a specific question.
         List<Question> questions =
             List.from(listOfQuizzes.elementAt(i).questions!);
-        List<Widget> questionTextWidget = [];
 
+        List<Widget> columnWidget = [];
         // For each question in the quiz, create the widgets so thatt they may be
         // added to the view
-        for (int q = 0; q < questions.length; q++) {
-          // Questions to be asked
-          questionTextWidget.add(Text(questions.elementAt(q).question));
+        List<Widget> getColumnWidget(int noOfQsforThisQuiz) {
+          for (int q = 0; q < questions.length; q++) {
+            // Questions to be asked
+            columnWidget.add(Text(questions.elementAt(q).question));
+
+            //Optional answers
+            if (questions.elementAt(q).type == QuestionType.TrueFalse) {
+              columnWidget.add();
+            }
+
+            //Space between all questions
+            columnWidget
+                .add(Padding(padding: const EdgeInsets.only(top: 25.0)));
+
+            //TODO Button to end quiz, leads to lessons specific page
+          }
+          return columnWidget;
         }
+
+        // Adding all the contents we gathered in a neat display by calling the function
         _tabBarView.children.add(
           Container(
-            child: Column(
+            child: new SingleChildScrollView(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: questionTextWidget),
+                children: getColumnWidget(questions.length),
+              ),
+            ),
           ),
         );
       }
