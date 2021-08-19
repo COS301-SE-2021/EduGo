@@ -7,3 +7,8 @@ backend/src/auth/lib/id_rsa_pub.pem
 backend/src/auth/lib/id_rsa_priv.pem
 .vscode
 *.log
+mobile/.dart_tool/package_config.json
+mobile/.dart_tool/package_config_subset
+mobile/.dart_tool/version
+mobile/.packages
+
