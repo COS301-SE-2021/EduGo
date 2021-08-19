@@ -11,6 +11,7 @@ class ViewVirtualEntityModelViewer extends StatelessWidget {
         controllers: [ViewVirtualEntityController],
         builder: (context, snapshot) {
           var entity = snapshot<ViewVirtualEntityModel>();
+
           String modelview = "<html>" +
               "   <head>" +
               "        <meta charset=\"UTF-8\">" +

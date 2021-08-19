@@ -26,6 +26,10 @@ class CreateOrganisationController
     return model.getAdminPassword();
   }
 
+  String getAdminUserName() {
+    return model.getAdminUserName();
+  }
+
   void inputAdminFirstName(String firstName) {
     model.setAdminFirstName(firstName);
   }
@@ -46,14 +50,16 @@ class CreateOrganisationController
     model.setAdminUserName(adminUserName);
   }
 
-  Future<void> createOrganisation(context) async {
+  Future<void> createOrganisation() async {
     var url =
         Uri.parse('http://34.65.226.152:8080/organisation/createOrganisation');
-    await post(url,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(<String, String>{
+    await post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(
+        <String, String>{
           "organisation_name": model.getOrganisationName(),
           "organisation_email": model.getOrganisationEmail(),
           "organisation_phone": model.getOrganisationPhoneNumber(),
@@ -62,39 +68,40 @@ class CreateOrganisationController
           "user_lastName": model.getAdminLastName(),
           "user_email": model.getAdminEmail(),
           "username": model.getAdminUserName()
-        })).then((response) {
-      print(response.body);
-      if (response.statusCode == 200) {
-        Map<String, dynamic> _organisation = jsonDecode(response.body);
-        Momentum.controller<AdminController>(context)
-            .getOrganisationName(_organisation['organisation_id']);
-        loginAdmin(context);
-        return;
-      }
-    });
+        },
+      ),
+    ).then((response) async {});
   }
 
-  Future<void> loginAdmin(context) async {
-    var url = Uri.parse('http://34.65.226.152:8080/auth/login');
-    await http
-        .post(url,
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: jsonEncode(<String, String>{
-              "username": model.getAdminUserName(),
-              "password": model.getAdminPassword()
-            }))
-        .then((response) {
-      print(response.body);
-      Map<String, dynamic> _user = jsonDecode(response.body);
+  Future<void> loginUser(
+    context,
+  ) async {
+    if (model.adminPassword != null &&
+        model.adminUserName != null &&
+        model.adminUserName != "" &&
+        model.adminPassword != "") {
+      var url = Uri.parse('http://34.65.226.152:8080/auth/login');
+      await http
+          .post(url,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: jsonEncode(<String, String>{
+                "username": model.adminUserName,
+                "password": model.adminPassword
+              }))
+          .then((response) {
+        Map<String, dynamic> _user = jsonDecode(response.body);
 
-      if (response.statusCode == 200) {
-        String bearerToken = _user['token'];
-        Momentum.controller<AdminController>(context).setToken(bearerToken);
-        MomentumRouter.goto(context, AdminView);
-        return;
-      }
-    });
+        if (response.statusCode == 200) {
+          String bearerToken = _user['token'];
+          Momentum.controller<AdminController>(context).setToken(bearerToken);
+          Momentum.controller<AdminController>(context)
+              .setUserName(model.adminUserName);
+          MomentumRouter.goto(context, AdminView);
+          return;
+        }
+      });
+    }
   }
 }

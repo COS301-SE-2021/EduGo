@@ -330,11 +330,17 @@ class CreateOrganisationContent extends StatelessWidget {
                       "Create Organisation",
                       style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState.validate())
-                        Momentum.controller<CreateOrganisationController>(
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        await Momentum.controller<CreateOrganisationController>(
                                 context)
-                            .createOrganisation(context);
+                            .createOrganisation()
+                            .then((value) async {
+                          await Momentum.controller<
+                                  CreateOrganisationController>(context)
+                              .loginUser(context);
+                        });
+                      }
                     },
                     width: 450,
                     height: 65),

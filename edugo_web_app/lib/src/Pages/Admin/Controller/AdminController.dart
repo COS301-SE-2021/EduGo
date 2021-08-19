@@ -125,6 +125,10 @@ class AdminController extends MomentumController<AdminModel> {
     });
   }
 
+  int getId() {
+    return model.organisationId;
+  }
+
   Future<void> getOrganisationName(int id) async {
     var url =
         Uri.parse('http://34.65.226.152:8080/organisation/getOrganisation');
