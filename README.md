@@ -50,7 +50,7 @@ https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=shari
 ### Architectural requirements specification (Demo 2)
 https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing
 ### Software requirements specification (Demo 3)
-xxx To be added
+https://drive.google.com/file/d/1yz29wqZXcBQZ2XHFUbllYDV1l_CuMyuZ/view?usp=sharing
 ### Architectural requirements specification (Demo 3)
 xxx as a pds link
 ### User Manual (Demo 3)
