@@ -4,16 +4,13 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class DesktopRightContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Momentum.controller<CreateVirtualEntityController>(context).reset();
     return MomentumBuilder(
-      controllers: [
-        CreateVirtualEntityController,
-      ],
+      controllers: [CreateVirtualEntityController, AdminController],
       builder: (context, snapshot) {
         var entity = snapshot<CreateVirtualEntityModel>();
         return Container(
           width: ScreenUtil().setWidth(230),
-          child: ('${entity.modelLink}' == "null")
+          child: (entity.modelLink == "")
               ? Center(
                   child: VirtualEntityButton(
                       elevation: 40,

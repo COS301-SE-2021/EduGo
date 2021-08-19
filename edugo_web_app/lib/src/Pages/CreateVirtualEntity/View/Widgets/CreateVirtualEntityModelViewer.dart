@@ -11,6 +11,7 @@ class CreateVirtualEntityModelViewer extends StatelessWidget {
         controllers: [CreateVirtualEntityController],
         builder: (context, snapshot) {
           var entity = snapshot<CreateVirtualEntityModel>();
+
           String modelview = "<html>" +
               "   <head>" +
               "        <meta charset=\"UTF-8\">" +
@@ -22,7 +23,7 @@ class CreateVirtualEntityModelViewer extends StatelessWidget {
               "<body>" +
               "" +
               "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
-              '${entity.modelLink}' +
+              entity.modelLink +
               "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
               "" +
               "</body>" +

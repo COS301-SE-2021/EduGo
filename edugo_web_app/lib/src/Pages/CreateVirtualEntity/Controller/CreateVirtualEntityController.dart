@@ -1,20 +1,26 @@
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/Data/ArModel.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateVirtualEntityController
     extends MomentumController<CreateVirtualEntityModel> {
   @override
   CreateVirtualEntityModel init() {
-    return CreateVirtualEntityModel(
-      this,
-    );
+    return CreateVirtualEntityModel(this,
+        modelLink: "", arModel: new ArModel());
   }
 
   void inputName(String name) {
     model.setCreateVirtualEntityName(name);
+    ArModel modelClone = model.arModel;
+    modelClone.setName(name);
+    model.update(arModel: modelClone);
   }
 
   void inputDescription(String description) {
     model.setCreateVirtualEntityDescription(description);
+    ArModel modelClone = model.arModel;
+    modelClone.setDescription(description);
+    model.update(arModel: modelClone);
   }
 
   void upload3dModel(context) {
@@ -53,13 +59,20 @@ class CreateVirtualEntityController
       final file = files[0];
       final reader = new FileReader();
 
+      reader.readAsDataUrl(file);
+
       reader.onLoadEnd.listen((e) async {
         _handleResult(reader.result);
         filename = file.name;
-        await send3DModelToStorage(context).then((value) {});
-      });
 
-      reader.readAsDataUrl(file);
+        await send3DModelToStorage(
+          context,
+        ).then((value) {
+          model.setFileName(file.name);
+          model.setFileSize(file.size);
+          model.setFileType(file.type);
+        });
+      });
     });
   }
 
@@ -105,6 +118,9 @@ class CreateVirtualEntityController
               Map<String, dynamic> _decoded3DModel = jsonDecode(response.body);
               linkTo3DModel = _decoded3DModel['file_link'];
               model.setCreateVirtualEntityModelLink(linkTo3DModel);
+              ArModel modelClone = model.arModel;
+              modelClone.setFileLink(linkTo3DModel);
+              model.update(arModel: modelClone);
             }
           },
         );
@@ -127,7 +143,8 @@ class CreateVirtualEntityController
           "title": model.name,
           "description": model.description,
           "quiz": Momentum.controller<QuizBuilderController>(context)
-              .getQuizBuilderResult()
+              .getQuizBuilderResult(),
+          "model": model.arModel.toJson()
         },
       ),
     ).then(

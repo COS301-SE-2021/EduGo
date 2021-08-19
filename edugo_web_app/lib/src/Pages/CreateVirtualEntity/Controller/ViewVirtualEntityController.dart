@@ -15,6 +15,10 @@ class ViewVirtualEntityController
     model.setVirtualEntityId(id);
   }
 
+  String getLink() {
+    return model.viewEntityLink;
+  }
+
   Future<void> getVirtualEntity(context) async {
     var url =
         Uri.parse('http://34.65.226.152:8080/virtualEntity/getVirtualEntity');
@@ -34,7 +38,11 @@ class ViewVirtualEntityController
         Map<String, dynamic> _model = _virtualEntity['model'];
         if (_model != null) {
           String modelLink = _model['file_link'];
-          model.setVirtualEntityModel(modelLink);
+          if (modelLink == null)
+            return;
+          else {
+            model.setVirtualEntityModel(modelLink);
+          }
         }
         return;
       }

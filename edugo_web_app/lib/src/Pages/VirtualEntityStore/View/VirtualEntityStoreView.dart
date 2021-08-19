@@ -7,6 +7,7 @@ class VirtualEntityStoreView extends StatelessWidget {
     //Info: Getting educator virtual entites from API
     Momentum.controller<VirtualEntityStoreController>(context)
         .getEducatorVirtualEntityStore(context);
+    Momentum.controller<ViewVirtualEntityController>(context).reset();
 
     //Info: Buiding virtual entities user interface
     return MomentumBuilder(

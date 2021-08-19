@@ -4,6 +4,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class ViewVirtualEntityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Momentum.controller<ViewVirtualEntityController>(context).reset();
     Momentum.controller<ViewVirtualEntityController>(context)
         .getVirtualEntity(context);
     return MomentumBuilder(
@@ -60,7 +61,7 @@ class ViewVirtualEntityView extends StatelessWidget {
                                       entity.name,
                                       style: TextStyle(
                                         color: Color.fromARGB(255, 97, 211, 87),
-                                        fontSize: 34,
+                                        fontSize: 36,
                                       ),
                                     ),
                                   ),
@@ -68,12 +69,26 @@ class ViewVirtualEntityView extends StatelessWidget {
                                 ],
                               ),
                               Spacer(),
-                              SizedBox(
-                                width: ScreenUtil().setWidth(300),
-                                child: Text(
-                                  entity.description,
-                                  overflow: TextOverflow.visible,
-                                ),
+                              Column(
+                                children: [
+                                  Text(
+                                    "Description:",
+                                    overflow: TextOverflow.visible,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Color.fromARGB(255, 97, 211, 87),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20),
+                                  SizedBox(
+                                    width: ScreenUtil().setWidth(300),
+                                    child: Text(
+                                      entity.description,
+                                      overflow: TextOverflow.visible,
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
