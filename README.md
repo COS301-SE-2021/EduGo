@@ -38,7 +38,9 @@ master ( build )
 ### Recorded Demo 1 Video
 https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing
 ### Recorded Demo 2 video
-Demo 2 Video: https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing
+https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing
+### Recorded Demo 3 Video
+https://drive.google.com/file/d/1WuS3KmJ2zxvCAIW9hqg81GTnNJTXkC86/view?usp=sharing
 
 ## Documententation
 ### Software requirements specification (Demo 1)
@@ -48,7 +50,7 @@ https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=shari
 ### Architectural requirements specification (Demo 2)
 https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing
 ### Software requirements specification (Demo 3)
-https://drive.google.com/file/d/1WuS3KmJ2zxvCAIW9hqg81GTnNJTXkC86/view?usp=sharing
+xxx To be added
 ### Architectural requirements specification (Demo 3)
 xxx as a pds link
 ### User Manual (Demo 3)
@@ -56,7 +58,7 @@ xxx as a pds link
 ### Technical Installation Manual (Demo 3)
 xxx as a pds link
 ### Coding Standards/Quality Manual (Demo 3)
-https://drive.google.com/file/d/1TuEzcp6fMUr_MiHK9xxviG-Ryi9HiWqq/view?usp=sharing
+https://drive.google.com/file/d/1VxXKEbBxQcWWsdXt4YX5bfSE-s9wrMea/view?usp=sharing
 ## Project Management Tool
 https://3.basecamp.com/5098601/projects/22442122
 
