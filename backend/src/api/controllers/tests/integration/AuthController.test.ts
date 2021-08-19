@@ -126,12 +126,28 @@ describe('user registration ', ()=>{
 				undefined
 			);
             await expect(() =>authController.Register(request)).rejects.toThrow(NotFoundError);});
-
-
     })
 
     
+    it('User has not been invited to organisation', async ()=> {
+        let request: RegisterRequest= { 
+            password: "test", 
+            user_firstName: "simk", 
+            user_lastName: "mab", 
+            username: "simk", 
+            user_email: "simekani.mabambe@gmail.com", 
+            userType: userType.educator, 
+            organisation_id: 0
+        }
+
+        when(mockedUserRepo.findOne(anything())).thenResolve(undefined);
+        when(mockedUnverifiedRepo.findOne(anything())).thenResolve(
+            new UnverifiedUser()
+        );
+        await expect(() =>authController.Register(request)).rejects.toThrow(NotFoundError);});
 })
+
+    
 
 
 

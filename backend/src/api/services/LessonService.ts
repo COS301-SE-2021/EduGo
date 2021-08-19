@@ -23,8 +23,15 @@ export class LessonService {
 		@InjectRepository(VirtualEntity)
 		private virtualEntityRepository: Repository<VirtualEntity>
 	) {}
-
-	public async CreateLesson(request: CreateLessonRequest) {
+/**
+ * @description This endpooint allows a educator to create a lesson for a subject 
+ * 1. It checks if the subject for the lesson that the user is creating exists 
+ * 2. if it does it instantioates the lesson and saves to the DB  
+ * @param {CreateLessonRequest} request
+ * @returns {*} 
+ * @memberof LessonService
+ */
+public async CreateLesson(request: CreateLessonRequest) {
 		// Set all attributes of a lesson
 		let lesson: Lesson = new Lesson();
 		lesson.title = request.title;
@@ -53,8 +60,15 @@ export class LessonService {
 			throw new BadRequestError("Subject does not exist");
 		}
 	}
-
-	public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
+/**
+ * @description This endpoint allows a user to get information about a lesson by specifying the subject id 
+ * 1. Checks if the subject exists for specified id 
+ * 2. if  it does it returns the asssociated information of the subject 
+ * @param {GetLessonsBySubjectRequest} request
+ * @returns {*} 
+ * @memberof LessonService
+ */
+public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
 		let subject: Subject | undefined;
 		try {
 			subject = await this.subjectRepository.findOne(request.subjectId,{ relations: ["lessons"] });
@@ -70,8 +84,16 @@ export class LessonService {
 			return LessonsData;
 		} else throw new BadRequestError("Subject does not exist");
 	}
-
-	async AddVirtualEntityToLesson(request: AddVirtualEntityToLessonRequest) {
+/**
+ * @description This endpoint allows educators to add virtual entities to a lesson  by soecifying the lesson id 
+ * 1. Two checks occur, one is o check if the lesson exists for specified Lesson 
+ *                      two is to check if virtual enttiy already exists in the lesson 
+ * 2. if those checks passed then the virtual entity id added to the lesson 
+ * @param {AddVirtualEntityToLessonRequest} request
+ * @returns {*} 
+ * @memberof LessonService
+ */
+async AddVirtualEntityToLesson(request: AddVirtualEntityToLessonRequest) {
 		let lesson = await this.lessonRepository.findOne(request.lessonId, {
 			relations: ["virtualEntities"],
 		});

@@ -13,8 +13,13 @@ import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 @Service()
 export class UserService {
 	@InjectRepository(User) private userRepository: Repository<User>;
-
-	public async SetUserToAdmin(request: SetUserToAdminRequest): Promise<String> {
+/**
+ * @description This allows a admin to set other educators to admin 
+ * @param {SetUserToAdminRequest} request
+ * @returns  {Promise<String>}
+ * @memberof UserService
+ */
+public async SetUserToAdmin(request: SetUserToAdminRequest): Promise<String> {
 		if (request.username == null) {
 			throw new BadRequestError("Username not provided");
 		}
@@ -47,8 +52,13 @@ export class UserService {
 			throw new NotFoundError("user not found");
 		}
 	}
-
-	public async getUserDetails(user_id: number) {
+/**
+ * @description This returns the important inforamation about a user by specifying a user id
+ * @param {number} user_id
+ * @returns {*} 
+ * @memberof UserService
+ */
+public async getUserDetails(user_id: number) {
 		let user: User;
 		try {
 			user = await getUserDetails(user_id);
@@ -68,8 +78,13 @@ export class UserService {
 			return response;
 		}
 	}
-
-	public async RevokeUserFromAdmin(request: RevokeUserFromAdminRequest): Promise<String> {
+/**
+ * @description This Allows an admin to revoke the admin rights of another admin 
+ * @param {RevokeUserFromAdminRequest} request
+ * @returns  {Promise<String>}
+ * @memberof UserService
+ */
+public async RevokeUserFromAdmin(request: RevokeUserFromAdminRequest): Promise<String> {
 		if (request.username == undefined) {
 			throw new BadRequestError("Username not provided");
 		}
