@@ -9,11 +9,10 @@ class ViewVirtualEntityController
     );
   }
 
-  void viewEntity(String name, String description, String id, context) {
+  void viewEntity(String name, String description, String id) {
     model.setViewVirtualEntityName(name);
     model.setViewVirtualEntityDescription(description);
     model.setVirtualEntityId(id);
-    getVirtualEntity(context);
   }
 
   Future<void> getVirtualEntity(context) async {
@@ -33,10 +32,10 @@ class ViewVirtualEntityController
       if (response.statusCode == 200) {
         Map<String, dynamic> _virtualEntity = jsonDecode(response.body);
         Map<String, dynamic> _model = _virtualEntity['model'];
-        if (_model != null)
-          model.setVirtualEntityModel(
-            _model['file_link'] == null ? "" : _model['file_link'],
-          );
+        if (_model != null) {
+          String modelLink = _model['file_link'];
+          model.setVirtualEntityModel(modelLink);
+        }
         return;
       }
     });

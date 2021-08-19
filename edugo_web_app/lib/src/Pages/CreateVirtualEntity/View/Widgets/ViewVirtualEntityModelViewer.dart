@@ -23,7 +23,7 @@ class ViewVirtualEntityModelViewer extends StatelessWidget {
               "<body>" +
               "" +
               "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
-              '${entity.modelLink}' +
+              entity.viewEntityLink +
               "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
               "" +
               "</body>" +

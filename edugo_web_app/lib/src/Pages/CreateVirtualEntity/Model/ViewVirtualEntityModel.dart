@@ -5,14 +5,14 @@ class ViewVirtualEntityModel
   final String name;
   final String description;
   final String virtualEntityId;
-  final String modelLink;
+  final String viewEntityLink;
 
   ViewVirtualEntityModel(
     ViewVirtualEntityController controller, {
     this.name,
     this.virtualEntityId,
     this.description,
-    this.modelLink,
+    this.viewEntityLink,
   }) : super(controller);
 
   void setViewVirtualEntityName(String name) {
@@ -28,22 +28,17 @@ class ViewVirtualEntityModel
   }
 
   void setVirtualEntityModel(String link) {
-    update(modelLink: link);
+    update(viewEntityLink: link);
   }
 
   @override
-  void update(
-      {createVirtualEntity3dModelLink,
-      name,
-      description,
-      virtualEntityId,
-      modelLink}) {
+  void update({name, description, virtualEntityId, viewEntityLink}) {
     ViewVirtualEntityModel(
       controller,
-      modelLink: modelLink ?? this.modelLink,
       virtualEntityId: virtualEntityId ?? this.virtualEntityId,
       name: name ?? this.name,
       description: description ?? this.description,
+      viewEntityLink: viewEntityLink ?? this.viewEntityLink,
     ).updateMomentum();
   }
 }
