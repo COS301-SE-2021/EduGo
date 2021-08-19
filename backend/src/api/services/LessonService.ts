@@ -24,7 +24,7 @@ export class LessonService {
 		private virtualEntityRepository: Repository<VirtualEntity>
 	) {}
 
-	public async createLesson(request: CreateLessonRequest) {
+	public async CreateLesson(request: CreateLessonRequest) {
 		// Set all attributes of a lesson
 		let lesson: Lesson = new Lesson();
 		lesson.title = request.title;
@@ -55,22 +55,20 @@ export class LessonService {
 	}
 
 	public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
+		let subject: Subject | undefined;
 		try {
-			let subject = await this.subjectRepository.findOne(
-				request.subjectId,
-				{ relations: ["lessons"] }
-			);
-			if (subject) {
-				let lessons = subject.lessons;
-				let LessonsData: GetLessonsBySubjectResponse = {
-					data: lessons,
-					statusMessage: "Successful",
-				};
-				return LessonsData;
-			} else throw new BadRequestError("Subject does not exist");
+			subject = await this.subjectRepository.findOne(request.subjectId,{ relations: ["lessons"] });
 		} catch (err) {
-			throw new Error(err);
+			throw new BadRequestError("Subject does not exist");
 		}
+		if (subject) {
+			let lessons = subject.lessons;
+			let LessonsData: GetLessonsBySubjectResponse = {
+				data: lessons,
+				statusMessage: "Successful",
+			};
+			return LessonsData;
+		} else throw new BadRequestError("Subject does not exist");
 	}
 
 	async AddVirtualEntityToLesson(request: AddVirtualEntityToLessonRequest) {
