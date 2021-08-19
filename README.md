@@ -56,7 +56,7 @@ https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=shari
 ### User Manual (Demo 3)
 https://drive.google.com/file/d/12bmn0Kbi0PfIHuXWqHJLEuYA1g0kJecB/view?usp=sharing
 ### Technical Installation Manual (Demo 3)
-xxx as a pds link
+https://drive.google.com/file/d/1LGXCdM1HO4nKuoEqfs2IvMp3n0urwK9y/view?usp=sharing
 ### Coding Standards/Quality Manual (Demo 3)
 https://drive.google.com/file/d/1lD0U4w0lQHLxK8LwYes7YboLhW3yFTVA/view?usp=sharing
 ## Project Management Tool
