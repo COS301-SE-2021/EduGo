@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_dropzone: ^2.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -34,6 +35,10 @@ dependencies:
   http: ^0.12.0+2
   json_annotation: ^4.0.1
   provider: ^5.0.0
+  flutter_screenutil: ^5.0.0+2
+  qr_flutter: ^4.0.0
+  momentum: ^2.0.1
+  catcher: ^0.3.20
 
 
 
