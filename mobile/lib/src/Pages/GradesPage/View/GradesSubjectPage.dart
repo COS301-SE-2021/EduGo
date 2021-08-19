@@ -11,7 +11,6 @@
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/GradesSubjectCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
@@ -43,7 +42,6 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
           //Stores a snapshot of the current subject
           //list in the GradesModel page
           final subjects = snapshot<GradesModel>();
-
           if (subjects.subjects.isNotEmpty && subjects.subjects.length > 0) {
             return Container(
               child: SingleChildScrollView(
@@ -97,16 +95,9 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
               ),
             );
           }
-          //Will never be a case where student has no subjects
-          //Display error card if no mark for subjects
+          //Display a spinner card if no mark for lessons
+          //or between api calls
           else
-            // return MobilePageLayout(
-            //   false,
-            //   false,
-            //   SpinKitCircle(
-            //     color: Colors.black,
-            //   ),
-            // );
             return SpinKitCircle(
               color: Colors.black,
             );

@@ -13,6 +13,8 @@ import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
  *------------------------------------------------------------------------------
 */
 
+//TODO: REDESIGN LESSON PAGE TO LOOK NICE
+
 class LessonInformationPage extends StatefulWidget {
   //This title variable holds the lesson
   //title of the card that was clicked on
@@ -63,10 +65,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
       false,
       false,
       Container(
-        //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-        //child: SingleChildScrollView(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Align(
               alignment: Alignment.center,
@@ -133,14 +132,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       side: BorderSide(color: Colors.black),
                     ),
-                    onPressed: () {
-                      //TODO: Redirect to quiz page that will show all the quizzes
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => QuizModelPage(lessonId: lessonID)),
-                      // );
-                    },
+                    onPressed: () {},
                     minWidth: 10,
                     height: 60,
                     child: Text(

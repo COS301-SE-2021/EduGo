@@ -46,11 +46,6 @@ Future<List<Subject>> getGrades({required http.Client client}) async {
 
   //If there is a list of subjects that is returned,
   //convert it to a json object, else throw an exception
-  print(response.statusCode);
-
-  // json.toString(response);
-
-  print(response.body);
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
     if (json['subjects'] != null) {
