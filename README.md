@@ -54,7 +54,7 @@ https://drive.google.com/file/d/1yz29wqZXcBQZ2XHFUbllYDV1l_CuMyuZ/view?usp=shari
 ### Architectural requirements specification (Demo 3)
 https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing
 ### User Manual (Demo 3)
-xxx as a pds link
+https://drive.google.com/file/d/1r1fmOjVWOTj_WgkJylgrUPgojcU9Z_9h/view?usp=sharing
 ### Technical Installation Manual (Demo 3)
 xxx as a pds link
 ### Coding Standards/Quality Manual (Demo 3)
