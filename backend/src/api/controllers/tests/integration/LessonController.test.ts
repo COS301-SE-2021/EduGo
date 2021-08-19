@@ -29,61 +29,61 @@ let lessonService: LessonService = new LessonService(lessonRepository, subjectRe
 let validUser: User = new User();
 validUser.id = 1;
 
-let {token: validToken} = issueJWT(validUser);
+// let {token: validToken} = issueJWT(validUser);
 
-Container.set(LessonService, lessonService);
-useContainer(Container);
+// Container.set(LessonService, lessonService);
+// useContainer(Container);
 
-const app = createExpressServer({
-    controllers: [LessonController],
-    currentUserChecker: (action: Action) => action.request.user_id,
-});
+// const app = createExpressServer({
+//     controllers: [LessonController],
+//     currentUserChecker: (action: Action) => action.request.user_id,
+// });
 
 let lessonController: LessonController = new LessonController(lessonService);
 
-describe('Lesson controller integration tests', () => {
-    beforeEach(() => {
-        reset(mockedLessonRepository);
-        reset(mockedSubjectRepository);
-        reset(mockedVirtualEntityRepository);
-    })
+// describe('Lesson controller integration tests', () => {
+//     beforeEach(() => {
+//         reset(mockedLessonRepository);
+//         reset(mockedSubjectRepository);
+//         reset(mockedVirtualEntityRepository);
+//     })
 
-    describe('Something', () => {
-        it('should work', async () => {
-            let r: CreateLessonRequest = {
-                title: 'Lesson',
-                description: 'Description',
-                subjectId: 1,
-            }
+//     describe('Something', () => {
+//         it('should work', async () => {
+//             let r: CreateLessonRequest = {
+//                 title: 'Lesson',
+//                 description: 'Description',
+//                 subjectId: 1,
+//             }
 
-            let lesson: Lesson = new Lesson();
-            lesson.id = 1;
+//             let lesson: Lesson = new Lesson();
+//             lesson.id = 1;
 
-            when(mockedLessonRepository.save(anything())).thenResolve(lesson);
-            when(mockedSubjectRepository.findOne(anything(), anything())).thenResolve(new Subject());
+//             when(mockedLessonRepository.save(anything())).thenResolve(lesson);
+//             when(mockedSubjectRepository.findOne(anything(), anything())).thenResolve(new Subject());
 
-            let response = await request(app)
-                .post('/lesson/createLesson')
-                .set('Authorization', validToken)
-                .send(r);
+//             let response = await request(app)
+//                 .post('/lesson/createLesson')
+//                 .set('Authorization', validToken)
+//                 .send(r);
 
-            console.log(response);
+//             console.log(response);
             
-            verify(mockedLessonRepository.save(anything())).once();
-            verify(mockedSubjectRepository.findOne(anything(), anything())).once();
+//             verify(mockedLessonRepository.save(anything())).once();
+//             verify(mockedSubjectRepository.findOne(anything(), anything())).once();
 
-            expect(response.statusCode).toBe(200);
-            expect(response.body).toEqual({
-                id: 1,
-            });
+//             expect(response.statusCode).toBe(200);
+//             expect(response.body).toEqual({
+//                 id: 1,
+//             });
 
-            const [arg] = capture(mockedLessonRepository.save).last();
-            expect(arg).toBeInstanceOf(Lesson);
-        });
-    })
-})
+//             const [arg] = capture(mockedLessonRepository.save).last();
+//             expect(arg).toBeInstanceOf(Lesson);
+//         });
+//     })
+// })
 
-describe.skip('Lesson controller integration tests', () => {
+describe('Lesson controller integration tests', () => {
     beforeEach(() => {
         reset(mockedLessonRepository);
         reset(mockedSubjectRepository);
