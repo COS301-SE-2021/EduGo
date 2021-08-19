@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { VirtualEntity } from '../../../database/VirtualEntity';
 import { Student } from '../../../database/Student';
 import { User } from '../../../database/User';
@@ -9,7 +10,11 @@ import { Repository } from 'typeorm';
 import { VirtualEntityService } from '../../../services/VirtualEntityService';
 import { VirtualEntityController } from '../../virtualEntityController';
 import { CreateVirtualEntityRequest } from '../../../models/virtualEntity/CreateVirtualEntityRequest';
-import { InternalServerError } from 'routing-controllers';
+import { InternalServerError, NotFoundError } from 'routing-controllers';
+import { GetVirtualEntityRequest } from '../../../models/virtualEntity/GetVirtualEntityRequest';
+import { Model } from '../../../database/Model';
+import { GVE_Model } from '../../../models/virtualEntity/GetVirtualEntityResponse';
+import { GVE_Quiz } from '../../../models/virtualEntity/GetVirtualEntityResponse';
 
 let mockedVirtualEntityRepository: Repository<VirtualEntity> = mock(Repository);
 let virtualEntityRepository: Repository<VirtualEntity> = instance(mockedVirtualEntityRepository);
@@ -101,6 +106,60 @@ describe('Virtual Entity controller integration tests', () => {
         it('should throw a save error when unsuccessfully creating a new virtual entity', async () => {
             when(mockedVirtualEntityRepository.save(anything())).thenReject(new Error('Some Error'));
             expect(() => virtualEntityController.CreateVirtualEntity(request, studentUser.id)).rejects.toThrow(InternalServerError);
+        })
+    })
+
+    describe('Get Virtual Entity', () => {
+        let request: GetVirtualEntityRequest = {
+            id: 1
+        }
+
+        it('should successfully get a virtual entity', async () => {
+            let virtualEntity: VirtualEntity = new VirtualEntity();
+            virtualEntity.id = 1;
+            virtualEntity.title = 'A Virtual Entity';
+            virtualEntity.description = 'A Virtual Entity Description';
+            when(mockedVirtualEntityRepository.findOne(anything(), anything())).thenResolve(virtualEntity);
+
+            let response = await virtualEntityController.GetVirtualEntity(request);
+            expect(response.id).toBe(1);
+            expect(response.title).toBe('A Virtual Entity');
+            expect(response.description).toBe('A Virtual Entity Description');
+            verify(mockedVirtualEntityRepository.findOne(anything(), anything())).once();
+        });
+
+        it('should throw a not found error when unsuccessfully getting a virtual entity', async () => {
+            when(mockedVirtualEntityRepository.findOne(anything(), anything())).thenReject(new Error('Some Error'));
+            expect(() => virtualEntityController.GetVirtualEntity(request)).rejects.toThrow(NotFoundError);
+        })
+
+        it('should throw a not found error when getting a virtual entity returns undefined', async () => {
+            when(mockedVirtualEntityRepository.findOne(anything(), anything())).thenResolve(undefined);
+            expect(() => virtualEntityController.GetVirtualEntity(request)).rejects.toThrow(NotFoundError);
+        });
+
+        it('should successfully get a virtual entity with a model and quiz', async () => {
+            let virtualEntity: VirtualEntity = new VirtualEntity();
+            virtualEntity.id = 1;
+            virtualEntity.title = 'A Virtual Entity';
+            virtualEntity.description = 'A Virtual Entity Description';
+            virtualEntity.model = new Model();
+            virtualEntity.model.id = 1;
+            virtualEntity.model.name = 'A Model';
+            virtualEntity.model.description = 'A Model Description';
+            virtualEntity.quiz = new Quiz();
+            virtualEntity.quiz.id = 1;
+            virtualEntity.quiz.questions = [];
+
+            when(mockedVirtualEntityRepository.findOne(anything(), anything())).thenResolve(virtualEntity);
+
+            let response = await virtualEntityController.GetVirtualEntity(request);
+            expect(response.id).toBe(1);
+            expect(response.title).toBe('A Virtual Entity');
+            expect(response.description).toBe('A Virtual Entity Description');
+            expect(response.model).toBeDefined();
+            expect(response.quiz).toBeDefined();
+            verify(mockedVirtualEntityRepository.findOne(anything(), anything())).once();
         })
     })
 })

@@ -9,7 +9,11 @@ import { LessonController } from '../../lessonController';
 import { CreateLessonRequest } from '../../../models/lesson/CreateLessonRequest';
 import { GetLessonsBySubjectRequest } from '../../../models/lesson/GetLessonsBySubjectRequest'
 import { AddVirtualEntityToLessonRequest } from '../../../models/lesson/AddVirtualEntityToLessonRequest';
-import { BadRequestError } from 'routing-controllers';
+import { Action, BadRequestError, createExpressServer, useContainer } from 'routing-controllers';
+import { Container } from "typedi";
+import request from "supertest";
+import { User } from '../../../database/User';
+import { issueJWT } from '../../../helper/auth/utils';
 
 let mockedLessonRepository: Repository<Lesson> = mock(Repository);
 let lessonRepository: Repository<Lesson> = instance(mockedLessonRepository);
@@ -22,9 +26,64 @@ let virtualEntityRepository: Repository<VirtualEntity> = instance(mockedVirtualE
 
 let lessonService: LessonService = new LessonService(lessonRepository, subjectRepository, virtualEntityRepository);
 
+let validUser: User = new User();
+validUser.id = 1;
+
+let {token: validToken} = issueJWT(validUser);
+
+Container.set(LessonService, lessonService);
+useContainer(Container);
+
+const app = createExpressServer({
+    controllers: [LessonController],
+    currentUserChecker: (action: Action) => action.request.user_id,
+});
+
 let lessonController: LessonController = new LessonController(lessonService);
 
 describe('Lesson controller integration tests', () => {
+    beforeEach(() => {
+        reset(mockedLessonRepository);
+        reset(mockedSubjectRepository);
+        reset(mockedVirtualEntityRepository);
+    })
+
+    describe('Something', () => {
+        it('should work', async () => {
+            let r: CreateLessonRequest = {
+                title: 'Lesson',
+                description: 'Description',
+                subjectId: 1,
+            }
+
+            let lesson: Lesson = new Lesson();
+            lesson.id = 1;
+
+            when(mockedLessonRepository.save(anything())).thenResolve(lesson);
+            when(mockedSubjectRepository.findOne(anything(), anything())).thenResolve(new Subject());
+
+            let response = await request(app)
+                .post('/lesson/createLesson')
+                .set('Authorization', validToken)
+                .send(r);
+
+            console.log(response);
+            
+            verify(mockedLessonRepository.save(anything())).once();
+            verify(mockedSubjectRepository.findOne(anything(), anything())).once();
+
+            expect(response.statusCode).toBe(200);
+            expect(response.body).toEqual({
+                id: 1,
+            });
+
+            const [arg] = capture(mockedLessonRepository.save).last();
+            expect(arg).toBeInstanceOf(Lesson);
+        });
+    })
+})
+
+describe.skip('Lesson controller integration tests', () => {
     beforeEach(() => {
         reset(mockedLessonRepository);
         reset(mockedSubjectRepository);
