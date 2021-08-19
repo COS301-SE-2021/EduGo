@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { VirtualEntity } from '../../../database/VirtualEntity';
 import { Student } from '../../../database/Student';
 import { User } from '../../../database/User';
@@ -11,7 +12,6 @@ import { VirtualEntityController } from '../../virtualEntityController';
 import { CreateVirtualEntityRequest } from '../../../models/virtualEntity/CreateVirtualEntityRequest';
 import { InternalServerError, NotFoundError } from 'routing-controllers';
 import { GetVirtualEntityRequest } from '../../../models/virtualEntity/GetVirtualEntityRequest';
-import { AnswerQuizRequest } from '../../../models/virtualEntity/AnswerQuizRequest';
 import { TogglePublicRequest } from '../../../models/virtualEntity/TogglePublicRequest';
 import { GetQuizesByLessonRequest } from '../../../models/virtualEntity/GetQuizesByLessonRequest';
 import { Organisation } from '../../../database/Organisation';
@@ -115,13 +115,14 @@ describe('Virtual Entity controller integration tests', () => {
 
     describe('Get Virtual Entity', () => {
         let request: GetVirtualEntityRequest = {
-            id: 0
+            id: 1
         }
 
-        it('should successfully return a virtual entity', async () => {
+        it('should successfully get a virtual entity', async () => {
             let virtualEntity: VirtualEntity = new VirtualEntity();
             virtualEntity.id = 1;
-
+            virtualEntity.title = 'A Virtual Entity';
+            virtualEntity.description = 'A Virtual Entity Description';
             when(mockedVirtualEntityRepository.findOne(anything(), anything())).thenResolve(virtualEntity);
 
             let response = await virtualEntityController.GetVirtualEntity(request);
