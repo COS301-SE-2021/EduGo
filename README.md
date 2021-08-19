@@ -52,7 +52,7 @@ https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=shari
 ### Software requirements specification (Demo 3)
 https://drive.google.com/file/d/1yz29wqZXcBQZ2XHFUbllYDV1l_CuMyuZ/view?usp=sharing
 ### Architectural requirements specification (Demo 3)
-xxx as a pds link
+https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing
 ### User Manual (Demo 3)
 xxx as a pds link
 ### Technical Installation Manual (Demo 3)
