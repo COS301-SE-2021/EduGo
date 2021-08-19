@@ -20,4 +20,4 @@ jobs:
             #- run: docker-compose run --rm edugo-server npm run test
             - run: npm test
               working-directory: ./backend
-            - uses: SonarSource/sonarcloud-github-action@master
+            #- uses: SonarSource/sonarcloud-github-action@master
