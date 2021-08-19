@@ -27,17 +27,8 @@ export class SubjectService {
 	@InjectRepository(Educator)
 	private educatorRepository: Repository<Educator>;
 	@InjectRepository(Student) private studentRepository: Repository<Student>;
-/**
- * @description THis allows a n educator to create a subject by specifying associated information 
- * and it also requires a link to a photo which will the display picture of that image 
- * 
- * @param {CreateSubjectRequest} request
- * @param {number} user_id
- * @param {string} imageLink
- * @returns  {Promise<CreateSubjectResponse>}
- * @memberof SubjectService
- */
-async CreateSubject(
+
+	async CreateSubject(
 		request: CreateSubjectRequest,
 		user_id: number,
 		imageLink: string
@@ -97,13 +88,8 @@ async CreateSubject(
 		}
 		throw new NotFoundError("Could not find educator user");
 	}
-/**
- * @description This returns the information about all the subjects that a user takes
- * @param {number} user_id
- * @returns  {Promise<GetSubjectsByUserResponse>}
- * @memberof SubjectService
- */
-async GetSubjectsByUser(
+
+	async GetSubjectsByUser(
 		user_id: number
 	): Promise<GetSubjectsByUserResponse> {
 		//TODO - use the educator.subjects or the student.subjects relations
