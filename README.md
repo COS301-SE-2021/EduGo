@@ -56,7 +56,7 @@ xxx as a pds link
 ### Technical Installation Manual (Demo 3)
 xxx as a pds link
 ### Coding Standards/Quality Manual (Demo 3)
-xxx as a pds link
+https://drive.google.com/file/d/1TuEzcp6fMUr_MiHK9xxviG-Ryi9HiWqq/view?usp=sharing
 ## Project Management Tool
 https://3.basecamp.com/5098601/projects/22442122
 
