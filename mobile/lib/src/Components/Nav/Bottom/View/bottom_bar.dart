@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
+import 'package:momentum/momentum.dart';
 
 class BottomBar extends StatefulWidget {
   //function that updates the scaffolds body based on the tab selected in the
@@ -20,11 +21,11 @@ class BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     //all the different pages that will display based on the tab selected
-    List<String> widgetOptions = <String>[
-      HomePage.id,
-      SubjectsPage.id,
-      GradesPage.id,
-      DetectMarkerPage.id,
+    List<Type> widgetOptions = <Type>[
+      HomePage,
+      SubjectsPage,
+      GradesSubjectPage,
+      DetectMarkerPage,
     ];
     //selectedIndex is used to determine which tab was selected in the bottom nav
     int selectedIndex = 0;
@@ -33,10 +34,11 @@ class BottomBarState extends State<BottomBar> {
     return BottomNavigationBar(
       //current page displayed based on the index selected
       currentIndex: selectedIndex,
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      type: BottomNavigationBarType.shifting,
       items: [
-        BottomNavigationBarItem(
+        new BottomNavigationBarItem(
           icon: Icon(
             Icons.cottage_rounded,
             color: Colors.grey,
@@ -47,36 +49,36 @@ class BottomBarState extends State<BottomBar> {
             color: Color.fromARGB(255, 97, 211, 87),
           ),
         ),
-        BottomNavigationBarItem(
+        new BottomNavigationBarItem(
           icon: Icon(
             Icons.library_books_rounded,
             color: Colors.grey,
           ),
           label: 'SUBJECTS',
           activeIcon: Icon(
-            Icons.library_books_rounded,
+            Icons.cottage_rounded,
             color: Color.fromARGB(255, 97, 211, 87),
           ),
         ),
-        BottomNavigationBarItem(
+        new BottomNavigationBarItem(
           icon: Icon(
             Icons.checklist_rtl_outlined,
             color: Colors.grey,
           ),
           label: 'GRADES',
           activeIcon: Icon(
-            Icons.checklist_rtl_outlined,
+            Icons.cottage_rounded,
             color: Color.fromARGB(255, 97, 211, 87),
           ),
         ),
-        BottomNavigationBarItem(
+        new BottomNavigationBarItem(
           icon: Icon(
             Icons.center_focus_weak,
             color: Colors.grey,
           ),
           label: 'DETECT MARKER',
           activeIcon: Icon(
-            Icons.center_focus_weak,
+            Icons.cottage_rounded,
             color: Color.fromARGB(255, 97, 211, 87),
           ),
         ),
@@ -86,9 +88,16 @@ class BottomBarState extends State<BottomBar> {
           //update selected index based on tab selected
           selectedIndex = index;
           //display screen of selected tab
-          Navigator.pushNamed(context, widgetOptions.elementAt(selectedIndex));
+          MomentumRouter.goto(
+            context,
+            widgetOptions.elementAt(selectedIndex),
+          );
         });
       },
     );
   }
 }
+//cottage_rounded Home
+//library_books_rounded Subject
+//checklist_rtl_outlined Grades
+//center_focus_weak Detect marker

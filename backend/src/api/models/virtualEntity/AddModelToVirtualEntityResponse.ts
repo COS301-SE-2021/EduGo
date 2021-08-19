@@ -1,10 +1,10 @@
-import {Model} from './Default'
+import { Model } from "./Default";
 
-export interface AddModelToVirtualEntityResponse extends Model {
-    virtualEntity_id: number;
-    model_id: number;
+export class AddModelToVirtualEntityResponse extends Model {
+	virtualEntity_id: number;
+	model_id: number;
 }
 
-export interface AddModelToVirtualEntityDatabaseResult {
-    model_id: number;
+export class AddModelToVirtualEntityDatabaseResult {
+	model_id: number;
 }

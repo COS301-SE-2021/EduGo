@@ -22,35 +22,36 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
   @override
   Widget build(BuildContext context) {
     return MobilePageLayout(
-      false,
-      false,
-      Scaffold(
-          body: Column(children: <Widget>[
-        Expanded(
-            flex: 5,
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: (QRViewController controller) {
-                this.controller = controller;
+        false,
+        false,
+        Scaffold(
+            body: Column(children: <Widget>[
+          Expanded(
+              flex: 5,
+              child: QRView(
+                key: qrKey,
+                onQRViewCreated: (QRViewController controller) {
+                  this.controller = controller;
 
-                controller.scannedDataStream.listen((qr) {
-                  if (result == null) {
-                    result = qr;
+                  controller.scannedDataStream.listen((qr) {
+                    if (result == null) {
+                      result = qr;
 
-                    try {
-                      VirtualEntityData data = validateMarker(result!.code);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => VirtualEntityView(data: data)));
-                    } catch (err) {
-                      //TODO handle error
+                      try {
+                        VirtualEntityData data = validateMarker(result!.code);
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                VirtualEntityView(data: data)));
+                      } catch (err) {
+                        //TODO handle error
+                      }
                     }
-                  }
-                });
-              },
-            )),
-        Expanded(flex: 1, child: Center(child: Text('Scan a marker')))
-      ])),
-    );
+                  });
+                },
+              )),
+          Expanded(flex: 1, child: Center(child: Text('Scan a marker')))
+        ])),
+        'Detect Marker');
   }
 
   @override

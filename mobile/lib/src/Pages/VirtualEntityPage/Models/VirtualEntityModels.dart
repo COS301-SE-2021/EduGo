@@ -28,7 +28,8 @@ class VirtualEntity {
 
   VirtualEntity(this.id, this.title, this.description);
 
-  factory VirtualEntity.fromJson(Map<String, dynamic> json) => _$VirtualEntityFromJson(json);
+  factory VirtualEntity.fromJson(Map<String, dynamic> json) =>
+      _$VirtualEntityFromJson(json);
   Map<String, dynamic> toJson() => _$VirtualEntityToJson(this);
 }
 
@@ -52,12 +53,14 @@ class Model {
   @JsonKey(required: false, defaultValue: '')
   String file_type;
 
-  Model(this.name, this.description, this.file_name, this.file_link, this.file_size, this.file_type);
+  Model(this.name, this.description, this.file_name, this.file_link,
+      this.file_size, this.file_type);
 
   factory Model.fromJson(Map<String, dynamic> json) => _$ModelFromJson(json);
   Map<String, dynamic> toJson() => _$ModelToJson(this);
 }
 
+/*
 @JsonSerializable(explicitToJson: true)
 class Quiz {
   @JsonKey(required: true)
@@ -77,18 +80,15 @@ class Quiz {
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
   Map<String, dynamic> toJson() => _$QuizToJson(this);
 }
+*/
 
-enum QuestionType {
-  @JsonValue("TrueFalse") TrueFalse, 
-  @JsonValue("MultipleChoice") MultipleChoice,
-  @JsonValue("FreeText") FreeText,
-}
-
+/*
 QuestionType toQuestionType(String type) {
-    QuestionType t = QuestionType.values.firstWhere((element) => element.toString() == "QuestionType.${type}", orElse: () => QuestionType.TrueFalse);
-    return t;
+  QuestionType t = QuestionType.values.firstWhere(
+      (element) => element.toString() == "QuestionType.${type}",
+      orElse: () => QuestionType.TrueFalse);
+  return t;
 }
-
 @JsonSerializable()
 class Question {
   @JsonKey(required: true)
@@ -108,6 +108,17 @@ class Question {
 
   Question(this.id, this.type, this.question, this.correctAnswer, this.options);
 
-  factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
+  factory Question.fromJson(Map<String, dynamic> json) =>
+      _$QuestionFromJson(json);
   Map<String, dynamic> toJson() => _$QuestionToJson(this);
 }
+
+enum QuestionType {
+  @JsonValue("TrueFalse")
+  TrueFalse,
+  @JsonValue("MultipleChoice")
+  MultipleChoice,
+  @JsonValue("FreeText")
+  FreeText,
+}
+*/

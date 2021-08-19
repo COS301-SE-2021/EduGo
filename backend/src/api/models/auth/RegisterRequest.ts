@@ -1,15 +1,35 @@
-export enum userType{ 
-	student = "student", 
-	educator= "educator", 
-	firstAdmin = "firstTimeAdmin"
+import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+
+export enum userType {
+	student = "student",
+	educator = "educator",
+	firstAdmin = "firstTimeAdmin",
 }
 
-export interface RegisterRequest {
-	organisation_id: number;
-	password: any;
+export class RegisterRequest {
+	@IsNotEmpty()
+	@IsString()
+	password: string;
+
+	@IsNotEmpty()
+	@IsString()
 	user_firstName: string;
+
+	@IsNotEmpty()
+	@IsString()
 	user_lastName: string;
+
+	@IsNotEmpty()
+	@IsEmail()
 	user_email: string;
+
 	userType: userType;
+
+	@IsNotEmpty()
+	@IsString()
 	username: string;
+
+	//Should be optional
+	//Only used for first time admins
+	organisation_id: number;
 }

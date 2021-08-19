@@ -1,30 +1,69 @@
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-import 'package:mobile/globals.dart';
-import 'package:mobile/src/Exceptions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/testing.dart' as httpMock;
+import 'package:mobile/mockApi.dart' as mockApi;
+import 'package:mobile/src/Components/User/Models/UserModel.dart';
+import 'package:mobile/src/Components/User/Service/UserService.dart';
+import 'package:momentum/momentum.dart';
 
-Future<bool> login({required String username, required String password, required http.Client client}) async {
-  final response = await client.post(
-    Uri.parse("${baseUrl}auth/login"),
-    headers: <String, String>{'Content-Type': 'application/json'},
-    body: jsonEncode(<String, String>{
-      'username': username,
-      'password': password
-    })
-  );
+///Momentum controller for the User Controller
+class UserController extends MomentumController<UserModel> {
+  UserController({this.mock = false});
 
-  if (response.statusCode == 200) {
-    Map<String, dynamic> json = jsonDecode(response.body);
-    if (json['token'] != null) {
-      String token = json['token'] as String;
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('user_token', token);
-      return true;
-    }
-    else throw new BadResponse('No token property');
+  bool mock;
+
+  @override
+  UserModel init() {
+    return UserModel(this);
   }
-  else if (response.statusCode == 401) return false;
-  throw new Exception('Unexpected server error');
+
+  Future<bool> login({required String username, required String password}) {
+    final api = service<UserApiService>();
+    return api.login(
+        username: username,
+        password: password,
+        client: mock == true
+            ? httpMock.MockClient(mockApi.loginClient)
+            : http.Client());
+  }
+
+  //TODO: Logout
+
+  Future<User> loadUser() {
+    final api = service<UserApiService>();
+    return api.getUser(
+        client: mock == true
+            ? httpMock.MockClient(mockApi.loadUserClient)
+            : http.Client());
+  }
+
+  Future<bool> verify({required String email, required String code}) {
+    final api = service<UserApiService>();
+    return api.verify(
+        email: email,
+        code: code,
+        client:
+            mock == true ? httpMock.MockClient(mockApi.verify) : http.Client());
+  }
+
+  Future<bool> register(
+      {required String username,
+      required String password,
+      required String email,
+      required String firstName,
+      required String lastName,
+      required String organisation_id,
+      required String type}) {
+    final api = service<UserApiService>();
+    return api.register(
+        username: username,
+        password: password,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        organisation_id: organisation_id,
+        type: type,
+        client: mock == true
+            ? httpMock.MockClient(mockApi.register)
+            : http.Client());
+  }
 }
