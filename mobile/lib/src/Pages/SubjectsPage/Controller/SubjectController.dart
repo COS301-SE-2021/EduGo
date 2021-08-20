@@ -12,6 +12,7 @@ import 'package:mobile/globals.dart';
 import 'package:mobile/src/Exceptions.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/Subject.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
+import 'package:mobile/src/Pages/SubjectsPage/Service/SubjectService.dart';
 import 'package:momentum/momentum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,37 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
  *------------------------------------------------------------------------------
  */
 
-//Function to get the list of subjects from the database
-Future<List<Subject>> getSubjectsByUser({required http.Client client}) async {
-  final prefs = await SharedPreferences.getInstance();
-  final String? token = prefs.getString('user_token') ?? null;
-  print('--- TOKEN ---');
-  print(token);
 
-  if (token == null) throw NoToken();
-
-  final response = await client.post(
-      Uri.parse("${baseUrl}subject/getSubjectsByUser"),
-      headers: <String, String>{
-        "Content-Type": "application/json",
-        "Authorization": token,
-      });
-
-  //If there is a list of subjects that is returned,
-  //convert it to a json object, else throw an exception
-  if (response.statusCode == 200) {
-    Map<String, dynamic> json = jsonDecode(response.body);
-    if (json['data'] != null) {
-      print(json['data']);
-      List<Subject> subjects =
-          (json['data'] as List).map((e) => Subject.fromJson(e)).toList();
-      print("Length: ${subjects.length}");
-      return subjects;
-    } else
-      throw new BadResponse('No data property');
-  }
-  throw new Exception('Not a code 200');
-}
 
 //SubjectsController constructor with a default value of mock set to false
 class SubjectsController extends MomentumController<SubjectsModel> {
@@ -69,7 +40,8 @@ class SubjectsController extends MomentumController<SubjectsModel> {
   //Bootstrap function is run immediately/automatically when page is opened
   @override
   Future<void> bootstrapAsync() {
-    return getSubjectsByUser(
+    final api = service<SubjectService>();
+    return api.getSubjectsByUser(
             //If bool is set to true in the controller constructor in the main file,
             //it uses mock the actual api end point
             //If bool is set to true in the controller constructor in the main file,
@@ -78,8 +50,21 @@ class SubjectsController extends MomentumController<SubjectsModel> {
                 ? httpMock.MockClient(mockApi.getSubjectsByUserClient)
                 : http.Client())
         .then((value) {
-      print('Value');
-      print(value);
+      model.update(subjects: value);
+    });
+  }
+
+  Future<void> refreshAsync() {
+    final api = service<SubjectService>();
+    return api.getSubjectsByUser(
+            //If bool is set to true in the controller constructor in the main file,
+            //it uses mock the actual api end point
+            //If bool is set to true in the controller constructor in the main file,
+            //it uses mock data
+            client: mock
+                ? httpMock.MockClient(mockApi.getSubjectsByUserClient)
+                : http.Client())
+        .then((value) {
       model.update(subjects: value);
     });
   }

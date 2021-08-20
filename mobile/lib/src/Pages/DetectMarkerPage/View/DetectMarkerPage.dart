@@ -41,7 +41,7 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
                         VirtualEntityData data = validateMarker(result!.code);
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                VirtualEntityView(data: data)));
+                                VirtualEntityView(ve_id: data.ve_id)));
                       } catch (err) {
                         //TODO handle error
                       }
