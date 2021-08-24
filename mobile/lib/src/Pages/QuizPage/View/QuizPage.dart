@@ -228,7 +228,7 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     MomentumBuilder _momentumBuilder = MomentumBuilder(
-        controllers: [QuizController, QuestionPageController],
+        controllers: [QuizController],
         builder: (context, snapshot) {
           // Get the list of quizzes so that I can dynamically edit UI
           final quizzes = snapshot<QuizPageModel>();
