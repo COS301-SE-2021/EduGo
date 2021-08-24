@@ -86,7 +86,7 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     // View of questions
-    TabBarView _buildTabBarView(lessonId, quizId, questionId) {
+    TabBarView _buildTabBarView() {
       TabBarView _tabBarView = TabBarView(children: <Widget>[]);
       // For loop below dynamically disyplays ALL THE QUESTIONS of a quiz in
       // the LIST at a particular index
@@ -108,15 +108,17 @@ class _QuizPageState extends State<QuizPage> {
             // question so that I may create a UI widget that a student may select
             List<String> _options = List.from(questions.elementAt(q).options!);
             String? _selectedOption;
+            Key key = Key("dropdown " + q.toString());
+            print("key: " + key.toString());
             //Dynamically create dropdown so options can be displayed dynamically
             columnWidget.add(
               DropdownButton(
+                key: key,
                 hint: Text('Please choose an answer'),
                 value: _selectedOption,
                 onChanged: (String? newValue) {
                   setState(() {
                     _selectedOption = newValue;
-                    print("selected:" + newValue!);
                   });
                 },
                 items: _options.map((option) {
@@ -175,39 +177,51 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     // Add UI pazzazz to view
-    Widget _getTabBarViewDecor(lessonId, quizId, questionId) {
+    Widget _getTabBarViewDecor() {
       Widget _tabBarViewDecor = Container(
           height:
               400, //height of TabBarView //TODO might have to use frationally sized box
           decoration: BoxDecoration(
               border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
-          child: _buildTabBarView(lessonId, quizId, questionId));
+          child: _buildTabBarView());
       return _tabBarViewDecor;
     }
 
     // Structure of tabs
-    DefaultTabController _getDefaultTabController(
-        lessonId, quizId, questionId) {
+    DefaultTabController _getDefaultTabController() {
       DefaultTabController _defaultTabController = DefaultTabController(
           length: noOfQuizzes,
           initialIndex: 0,
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                _getTabBarDecor(),
-                _getTabBarViewDecor(lessonId, quizId, questionId)
-              ]));
+              children: <Widget>[_getTabBarDecor(), _getTabBarViewDecor()]));
       return _defaultTabController;
     }
 
     // The contents of the screen
-    Widget _getChild(lessonId, quizId, questionId) {
+    Widget _getChild() {
+      MomentumBuilder(
+          controllers: [QuizController, QuestionPageController],
+          builder: (context, snapshot) {
+            // Get the list of quizzes so that I can dynamically edit UI
+            final quizzes = snapshot<QuizPageModel>();
+            quizController = Momentum.controller<QuizController>(context);
+            lessonId = param!.lessonId;
+            quizController.getQuizzes(lessonId);
+            quizId = quizzes.quizes.elementAt(0).id;
+            questionId = quizzes.quizes.first.id;
+            noOfQuizzes = quizzes.quizes.length;
+            listOfQuizzes = List.from(quizzes.quizes);
+            return Row(
+              children: [Text('sup, momens')],
+            );
+          });
       Widget child = Container(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(height: 20.0),
-              _getDefaultTabController(lessonId, quizId, questionId),
+              _getDefaultTabController(),
             ]),
       );
       return child;
@@ -219,15 +233,13 @@ class _QuizPageState extends State<QuizPage> {
           // Get the list of quizzes so that I can dynamically edit UI
           final quizzes = snapshot<QuizPageModel>();
           quizController = Momentum.controller<QuizController>(context);
-          //WidgetsBinding.instance!.addPostFrameCallback((_) {
           lessonId = param!.lessonId;
           quizController.getQuizzes(lessonId);
           quizId = quizzes.quizes.elementAt(0).id;
           questionId = quizzes.quizes.first.id;
           noOfQuizzes = quizzes.quizes.length;
           listOfQuizzes = List.from(quizzes.quizes);
-          //});
-          return _getChild(lessonId, quizId, questionId);
+          return _getChild();
         });
     //Display page
     return MobilePageLayout(false, false, _momentumBuilder, 'Quizzes');
