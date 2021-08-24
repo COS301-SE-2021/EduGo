@@ -40,12 +40,14 @@ import { GetQuizesByLessonResponse } from "../models/virtualEntity/GetQuizesByLe
 
 @Service()
 export class VirtualEntityService {
-	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
-	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
-	@InjectRepository(Question) private questionRepository: Repository<Question>;
-	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(Student) private studentRepository: Repository<Student>;
-	@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>;
+	constructor(
+		@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>,
+		@InjectRepository(Quiz) private quizRepository: Repository<Quiz>,
+		@InjectRepository(Question) private questionRepository: Repository<Question>,
+		@InjectRepository(User) private userRepository: Repository<User>,
+		@InjectRepository(Student) private studentRepository: Repository<Student>,
+		@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>
+	) {}
 
 	/**
 	 * @description This function will add a 3d model to a virtual entity. It will include checks to see if the virtual entity already has a model attached
@@ -239,11 +241,11 @@ export class VirtualEntityService {
 		request: AnswerQuizRequest,
 		user_id: number
 	): Promise<String> {
-		let user: User;
+		let user: User | undefined;
 		let quiz: Quiz | undefined;
 		let lesson: Lesson | undefined;
 		try {
-			user = await getUserDetails(user_id);
+			user = await this.userRepository.findOne(user_id, {relations: ["organisation", "educator", "student"]});
 			quiz = await this.quizRepository.findOne(request.quiz_id, {
 				relations: ["questions"],
 			});
@@ -252,6 +254,7 @@ export class VirtualEntityService {
 			throw error;
 		}
 
+		if (!user) throw new NotFoundError("Could not find user");
 		if (!user.student) throw new NotFoundError("Could not find student");
 		if (!quiz) throw new NotFoundError("Could not find quiz");
 		if (!lesson) throw new NotFoundError("Could not find lesson");

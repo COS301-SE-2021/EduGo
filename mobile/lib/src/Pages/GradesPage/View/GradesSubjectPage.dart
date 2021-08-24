@@ -10,6 +10,7 @@
  * 
 */
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/GradesSubjectCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
@@ -99,14 +100,15 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
           //Will never be a case where student has no subjects
           //Display error card if no mark for subjects
           else
-            return MobilePageLayout(
-              false,
-              true,
-              ErrorCard(
-                errorDescription:
-                    "There are currently no marks published for any subject",
-              ),
-              ''
+            // return MobilePageLayout(
+            //   false,
+            //   false,
+            //   SpinKitCircle(
+            //     color: Colors.black,
+            //   ),
+            // );
+            return SpinKitCircle(
+              color: Colors.black,
             );
         },
       ),

@@ -1,46 +1,45 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Quiz } from "./Quiz";
+import {
+	Column,
+	Entity,
+	ManyToOne,
+	OneToMany,
+	PrimaryGeneratedColumn,
+} from "typeorm";
 import { Answer } from "./Answer";
+import { Quiz } from "./Quiz";
 
 export enum QuestionType {
-    TrueFalse = 'TrueFalse',
-    MultipleChoice = 'MultipleChoice',
-    FreeText = 'FreeText'
+	TrueFalse = "TrueFalse",
+	MultipleChoice = "MultipleChoice",
+	FreeText = "FreeText",
 }
 
 @Entity()
 export class Question {
-    @PrimaryGeneratedColumn()
-    id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-    @Column({
-        type: "enum",
-        enum: QuestionType,
-        default: QuestionType.TrueFalse
-    })
-    type: QuestionType;
+	@Column({
+		type: "enum",
+		enum: QuestionType,
+		default: QuestionType.TrueFalse,
+	})
+	type: QuestionType;
 
-    @Column()
-    question: string;
+	@Column()
+	question: string;
 
-    @Column({
-        nullable: true
-    })
-    correctAnswer?: string;
+	@OneToMany((type) => Answer, (answer) => answer.question)
+	answers: Answer[];
 
-    // @Column('string', {
-    //     nullable: true,
-    //     array: true
-    // })
-    @Column('character varying', {
-        nullable: true,
-        array: true
-    })
-    options?: string[];
+	@Column()
+	correctAnswer: string;
 
-    @ManyToOne(type => Quiz, quiz => quiz.questions)
-    quiz: Quiz;
+	@Column("character varying", {
+		array: true,
+	})
+	options: string[];
 
-    @OneToMany((type) => Answer, (answer) => answer.question)
-    answers: Answer[];
+	@ManyToOne((type) => Quiz, (quiz) => quiz.questions)
+	quiz: Quiz;
 }

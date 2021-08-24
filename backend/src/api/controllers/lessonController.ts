@@ -15,13 +15,14 @@ import { JsonController, Post, Body, UseBefore } from "routing-controllers";
 @JsonController('/lesson')
 @UseBefore(passport.authenticate('jwt', { session: false }))
 export class LessonController {
-	@Inject()
-	private service: LessonService;
+	constructor(
+		@Inject() private service: LessonService
+	) {}
 
 	@Post('/createLesson')
 	@UseBefore(isEducator)
 	CreateLesson(@Body({required: true}) body: CreateLessonRequest) {
-		return this.service.createLesson(body);
+		return this.service.CreateLesson(body);
 	}
 
 	@Post('/getLessonsBySubject')

@@ -20,6 +20,11 @@ class QuizPage extends StatefulWidget {
   _QuizPageState createState() => _QuizPageState(/*lessonId: this.lessonId*/);
 }
 
+class QuizParam extends RouterParam {
+  int lessonId;
+  QuizParam(this.lessonId);
+}
+
 class _QuizPageState extends State<QuizPage> {
   //final int lessonId;
   _QuizPageState();
@@ -54,6 +59,7 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
+    final param = MomentumRouter.getParam<QuizParam>(context);
     late var quizController;
 
     // Create numbered tabs
@@ -118,7 +124,8 @@ class _QuizPageState extends State<QuizPage> {
 
                       // Selected answer of each question
                       _selectedAnswers.add(new Answer(
-                          questions.elementAt(q).id, optionalAnswer));
+                          listOfQuizzes.elementAt(i).questions!.elementAt(q).id,
+                          optionalAnswer));
                     });
                   },
                 ));
@@ -136,7 +143,13 @@ class _QuizPageState extends State<QuizPage> {
                         _value = selected ? optionalAnswer : 'N/A';
 
                         // Selected answer of each question
-                        _selectedAnswers.add(new Answer(q, optionalAnswer));
+                        _selectedAnswers.add(new Answer(
+                            listOfQuizzes
+                                .elementAt(i)
+                                .questions!
+                                .elementAt(q)
+                                .id,
+                            optionalAnswer));
                       });
                     }));
               }
@@ -153,8 +166,8 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
               child: ElevatedButton(
                 onPressed: () {
-                  quizController.answerQuizByLessonId(
-                      lessonId, quizId, _selectedAnswers);
+                  quizController.answerQuizByLessonId(lessonId,
+                      listOfQuizzes.elementAt(i).id, _selectedAnswers);
                   MomentumRouter.goto(
                     context,
                     LessonInformationPage,
@@ -234,7 +247,7 @@ class _QuizPageState extends State<QuizPage> {
           final quizzes = snapshot<QuizPageModel>();
           quizController = Momentum.controller<QuizController>(context);
           //WidgetsBinding.instance!.addPostFrameCallback((_) {
-          lessonId = 3; //TODO pass in id dynamically lessonId
+          lessonId = param!.lessonId;
           quizController.getQuizzes(lessonId);
           quizId = quizzes.quizes.elementAt(0).id;
           questionId = quizzes.quizes.first.id;

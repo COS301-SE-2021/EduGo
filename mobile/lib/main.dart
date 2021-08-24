@@ -68,6 +68,7 @@ Momentum momentum({bool mock = false}) {
         RegistrationVerificationPage(Key('registration_verification')),
         SettingsPage(),
         SubjectsPage(),
+        LessonInformationPage(lessonTitle: '', lessonID: 0, lessonDescription: '')
       ]),
     ],
   );
