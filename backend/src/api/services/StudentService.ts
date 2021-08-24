@@ -312,22 +312,34 @@ export class StudentService {
 			}
 
 			//Create the quiz grade object and push it to the current lesson object
-			let grade: QuizGrade = {
+			let grade: QuizGrade = {					
 				name: "",
 				quiz_total: value.total,
 				student_score: value.score,
 			}
 			lesson.quizGrades.push(grade);
-			lesson.gradeAchieved += value.score;
-			subject.gradeAchieved += value.score;
+			lesson.gradeAchieved += (value.score/value.total)*100;
+			
 		});
 
 		//Get all the subjects that have grades for the user then get the remaining user subjects that do not have grades
 		let existingSubjectIds: number[] = response.subjects.map(sub => sub.id);
 		let remainingSubjects: Subject[] = user.student.subjects.filter(sub => !existingSubjectIds.includes(sub.id));
 
+		//calculate the running total fot the lessons 
+		response.subjects.map(sub=>{
+			sub.lessonGrades.map(les=>{
+				les.gradeAchieved = les.gradeAchieved/les.quizGrades.length
+				sub.gradeAchieved+=les.gradeAchieved
+			})
+			sub.gradeAchieved+=sub.gradeAchieved/sub.lessonGrades.length
+		})
 		//For each remaining subject create a new SubjectGrades object and push it to the response object
 		remainingSubjects.map(sub => {
+
+			sub.lessons.map(les=>{
+				
+			})
 			let subject: SubjectGrades = {
 				id: sub.id,
 				subjectName: sub.title,
