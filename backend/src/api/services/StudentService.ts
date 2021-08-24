@@ -327,12 +327,16 @@ export class StudentService {
 		let remainingSubjects: Subject[] = user.student.subjects.filter(sub => !existingSubjectIds.includes(sub.id));
 
 		//calculate the running total fot the lessons 
-		response.subjects.map(sub=>{
+		response.subjects = response.subjects.map(sub=>{
+			sub.lessonGrades= 
 			sub.lessonGrades.map(les=>{
 				les.gradeAchieved = les.gradeAchieved/les.quizGrades.length
 				sub.gradeAchieved+=les.gradeAchieved
+
+				return les
 			})
 			sub.gradeAchieved+=sub.gradeAchieved/sub.lessonGrades.length
+			return sub
 		})
 		//For each remaining subject create a new SubjectGrades object and push it to the response object
 		remainingSubjects.map(sub => {
