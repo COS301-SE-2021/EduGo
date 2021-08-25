@@ -28,34 +28,32 @@ export class Subject {
 	@Column()
 	grade: number;
 
-	@OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true })
+	@OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true , onDelete: "CASCADE"})
 	@JoinColumn()
 	lessons: Lesson[];
 
-	@OneToMany((type) => Grade, (grade) => grade.subject, { cascade: true })
+	@OneToMany((type) => Grade, (grade) => grade.subject, { cascade: true, onDelete: "CASCADE" })
 	@JoinColumn()
 	grades: Grade[];
 
 	@Column({ nullable: true })
 	image: string;
 
-	@ManyToOne(() => Organisation, (organisation) => organisation.subjects)
+	@ManyToOne(() => Organisation, (organisation) => organisation.subjects,  {onDelete: "CASCADE"})
 	@JoinColumn()
 	organisation: Organisation;
 
-	@ManyToMany((type) => Student, (student) => student.subjects, {
-		cascade: true,
-	})
+	@ManyToMany((type) => Student, (student) => student.subjects, {cascade: true, onDelete: "CASCADE"})
 	students: Student[];
 
 	@ManyToMany((type) => Educator, (educator) => educator.subjects, {
-		cascade: true,
+		cascade: true,onDelete: "CASCADE"
 	})
 	educators: Educator[];
 
 	@ManyToMany(
 		(type) => UnverifiedUser,
-		(unverifiedUser) => unverifiedUser.subjects
+		(unverifiedUser) => unverifiedUser.subjects , {onDelete:"CASCADE" }
 	)
 	unverifiedUsers: UnverifiedUser[];
 }

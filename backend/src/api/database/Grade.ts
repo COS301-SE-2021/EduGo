@@ -37,7 +37,9 @@ export class Grade {
 	@ManyToOne((type) => Lesson, (lesson) => lesson.grades, { cascade: true })
 	lesson: Lesson;
 
-	@ManyToOne((type) => Subject, (subject) => subject.grades)
+	@ManyToOne((type) => Subject, (subject) => subject.grades, {
+		onDelete: "CASCADE",
+	})
 	subject: Subject;
 
 	@OneToMany((type) => Answer, (answer) => answer.grade, { cascade: true })
