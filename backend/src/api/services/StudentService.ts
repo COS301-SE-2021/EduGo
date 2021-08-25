@@ -369,7 +369,6 @@ export class StudentService {
 	}
 
 
-	async getUserSubjects() {}
 	async getGradeInfo(grade_id: number) {
 		try {
 			let Quiz = await this.gradeRepository.findOne(grade_id, {
@@ -397,48 +396,5 @@ export class StudentService {
 			throw new InternalServerError(err);
 		}
 	}
-	/**
-	 * @description Get all the grades for a student (including grades from lessons without any marks)
-	 * @param {Student} student - Database Student entity
-	 * @returns {Promise<GetStudentGradesResponse>}
-	 */
-	async populateGrades(student: Student): Promise<GetStudentGradesResponse> {
-		console.log(student);
 
-		let studentSubjects = student.subjects.map((subject) => {
-			let createdSubject: SubjectGrades = {
-				id: subject.id,
-				subjectName: subject.title,
-				gradeAchieved: -1,
-				lessonGrades: [],
-			};
-			return createdSubject;
-		});
-
-		console.log(studentSubjects);
-		let ids = studentSubjects.map((subject) => subject.id);
-		let subjects: Subject[] = await this.subjectRepository.find({
-			where: { id: In(ids) },
-			relations: ["lessons"],
-		});
-		studentSubjects.map(async (subject) => {
-			let subjectLesson = subjects.find((sub) => sub.id == subject.id);
-			if (!subjectLesson) throw new NotFoundError("Subject not found");
-
-			subject.lessonGrades = subjectLesson.lessons.map((lesson) => {
-				return {
-					id: lesson.id,
-					gradeAchieved: -1,
-					lessonName: lesson.title,
-					quizGrades: [],
-				};
-			});
-		});
-		let StudentGrades: GetStudentGradesResponse = {
-			subjects: studentSubjects,
-		};
-
-		return StudentGrades;
-	}
-	async GenerateAverages(studentGrade: GetStudentGradesResponse) {}
 }
