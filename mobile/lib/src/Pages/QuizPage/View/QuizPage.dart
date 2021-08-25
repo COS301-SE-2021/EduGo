@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/AnswerController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
@@ -45,8 +46,8 @@ class _QuizPageState extends State<QuizPage> {
   late int lessonId;
   late int quizId;
   late int questionId;
-  late AnswerController answerController;
-  late AnswerPageModel answerModel;
+  //late AnswerController answerController;
+  //late AnswerPageModel answerModel;
   List<Answer> tempAnswer = [];
 
   @override
@@ -112,7 +113,7 @@ class _QuizPageState extends State<QuizPage> {
             // Optional answers: iterarting through all the options of this particular
             // question so that I may create a UI widget that a student may select
             List<String> _options = List.from(questions.elementAt(q).options!);
-            _options.insert(0, answerModel.answer);
+            _options.insert(0, "Please select answer");
             //String key = answerModel.answers!.elementAt(q).answer
             //Dynamically create dropdown so options can be displayed dynamically
             columnWidget.add(
@@ -123,15 +124,12 @@ class _QuizPageState extends State<QuizPage> {
                     value: option,
                   );
                 }).toList(),
-                hint: Text(answerModel.answer),
-                value: answerModel.answer,
+                hint: Text('Please select answer'), //Text(answerModel.answer),
+                value: 'Please select answer',
                 onChanged: (String? newValue) {
                   setState(() {
                     print(newValue!);
-                    answerController.update(newValue);
-
-                    //_selectedAnswers.elementAt(q).answer = answerModel.answer; //TODO as soon as I get number of questions fill with default answers
-                    //print(_selectedAnswers.elementAt(q).answer);
+                    //answerController.update(newValue);
                   });
                 },
               ),
@@ -148,12 +146,15 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
               child: ElevatedButton(
                 onPressed: () {
-                  quizController.answerQuizByLessonId(lessonId,
-                      listOfQuizzes.elementAt(i).id, _selectedAnswers);
-                  MomentumRouter.goto(
-                    context,
-                    LessonInformationPage,
-                  );
+                  //quizController.answerQuizByLessonId(lessonId,listOfQuizzes.elementAt(i).id, _selectedAnswers);
+                  List<bool> isQuizGraded = [
+                    //TODO MOCKED
+                    true,
+                    false
+                  ]; //2 quizzes here for SPECIFIC LESSON, frst one taken, second one not
+                  MomentumRouter.goto(context, GradesQuizSpecificsPage,
+                      params: GradesQuizSpecificsParam(
+                          isQuizGraded, param!.lessonId, 0, 0));
                 },
                 child: const Text('Submit Answers'),
               ),
@@ -217,7 +218,7 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     MomentumBuilder _momentumBuilder = MomentumBuilder(
-        controllers: [QuizController, AnswerController],
+        controllers: [QuizController],
         builder: (context, snapshot) {
           // Get the list of quizzes so that I can dynamically edit UI
           final quizzes = snapshot<QuizPageModel>();
@@ -230,8 +231,8 @@ class _QuizPageState extends State<QuizPage> {
           listOfQuizzes = List.from(quizzes.quizes);
 
           //Get and store answers
-          answerModel = snapshot<AnswerPageModel>();
-          answerController = Momentum.controller<AnswerController>(context);
+          //answerModel = snapshot<AnswerPageModel>();
+          //answerController = Momentum.controller<AnswerController>(context);
           return _getChild();
         });
     //Display page

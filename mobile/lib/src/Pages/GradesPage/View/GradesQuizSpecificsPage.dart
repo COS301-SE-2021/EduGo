@@ -7,76 +7,46 @@
 
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                   Grade Quiz Specific View Page 
  *------------------------------------------------------------------------------
 */
+class GradesQuizSpecificsParam extends RouterParam {
+  final int studentQuizMark; //total scored on...
+  final int quizTotalMark; // for each quiz out of...
+  final List<bool> isQuizGraded; // all the quizzes...
+  final int lessonId; // ...for a specific lesson
+  GradesQuizSpecificsParam(this.isQuizGraded, this.lessonId,
+      this.studentQuizMark, this.quizTotalMark);
+}
 
 class GradesQuizSpecificsPage extends StatefulWidget {
-  //Holds the quiz title
-  // final String quizTitle;
-
-  //Holds the quizid
-  // final int id;
-
-  //Holds the mark that the
-  //student received for the quiz
-  final int studentQuizMark;
-
-  //Holds the total mark
-  //that the quiz was out of
-  final int quizTotalMark;
-
-  // // Holds the list of the correct answers
-  // final List<String> correctAnswers;
-
-  // // Holds the list of the student answers
-  // final List<String> studentAnswers;
-
   //LessonPage constructor
   GradesQuizSpecificsPage({
     Key? key,
-    required this.studentQuizMark,
-    required this.quizTotalMark,
   }) : super(key: key);
   // static String id = "lessons";
 
   @override
-  _GradesQuizSpecificsPageState createState() => _GradesQuizSpecificsPageState(
-        quizTotalMark: this.quizTotalMark,
-        studentQuizMark: this.studentQuizMark,
-      );
+  _GradesQuizSpecificsPageState createState() =>
+      _GradesQuizSpecificsPageState();
 }
 
 class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
-  //Holds the quiz title
-  // final String quizTitle;
-
-  //Holds the quizid
-  // final int id;
-
-  //Holds the mark that the student received for the quiz
-  final int studentQuizMark;
-
-  //Holds the total mark that the quiz was out of
-  final int quizTotalMark;
-
-  //Holds the list of student answers to be
-  //passed in from the GradesQuizCard
-  // final List<String> studentAnswers;
-
-  // //Holds the list of quizzes to be
-  // //passed in from the GradesQuizCard
-  // final List<String> correctAnswers;
-
-  _GradesQuizSpecificsPageState({
-    required this.quizTotalMark,
-    required this.studentQuizMark,
-  });
-
   @override
   Widget build(BuildContext context) {
+    //TODO access which quizzes were complete to display grades for only quizzes taken
+    final param = MomentumRouter.getParam<GradesQuizSpecificsParam>(context);
+    print('For this specific lessonId: ' + param!.lessonId.toString());
+    for (var isGraded in param.isQuizGraded) {
+      if (isGraded) {
+        print('Quiz is graded, display grades');
+      } else {
+        print('Quiz is NOT graded, DO NOT display grades');
+      }
+    }
     //Store answers from student's list of answers
     //and display as a comma sepatated string string
     // String array = studentAnswers.join(', ');
@@ -117,7 +87,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 60),
                 child: Text(
-                  'Your Mark:',
+                  'Your Mark for:',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   softWrap: false,
@@ -137,7 +107,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
-                  '$studentQuizMark',
+                  param.studentQuizMark.toString(),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,
@@ -174,7 +144,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 25),
                 child: Text(
-                  '$quizTotalMark',
+                  param.quizTotalMark.toString(),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,

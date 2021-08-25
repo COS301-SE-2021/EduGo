@@ -54,6 +54,7 @@ Momentum momentum({bool mock = false}) {
         LoginPage(),
         DetectMarkerPage(),
         GradesSubjectPage(),
+        GradesQuizSpecificsPage(),
         HomePage(Key('homePageKey')),
         LessonsPage(
           title: '',
@@ -68,7 +69,8 @@ Momentum momentum({bool mock = false}) {
         RegistrationVerificationPage(Key('registration_verification')),
         SettingsPage(),
         SubjectsPage(),
-        LessonInformationPage(lessonTitle: '', lessonID: 0, lessonDescription: '')
+        LessonInformationPage(
+            lessonTitle: '', lessonID: 0, lessonDescription: '')
       ]),
     ],
   );
