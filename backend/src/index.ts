@@ -126,7 +126,7 @@ useExpressServer(app, {
 		UserController,
 		VirtualEntityController
 	],
-	currentUserChecker: (action: Action) => action.request.user_id,
+	currentUserChecker: (action: Action) => {console.log(action.request.user_id);return action.request.user_id},
 });
 
 // let educatorSer = new EducatorService(); 

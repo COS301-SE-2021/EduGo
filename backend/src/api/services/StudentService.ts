@@ -259,12 +259,23 @@ export class StudentService {
 	 * @param {number} id - The user id of the student
 	 * @returns {Promise<GetStudentGradesResponse>} The grades of the student
 	 */
-	public async GetStudentGrades(id: number): Promise<GetStudentGradesResponse> {
+	public async GetStudentGrades(
+		id: number
+	): Promise<GetStudentGradesResponse> {
 		let user: User | undefined;
 		try {
-			user = await this.userRepository.findOne({where: {id: id}, relations: ["student", "student.subjects", "student.grades", "student.grades.quiz", "student.grades.lesson", "student.grades.lesson.subject"]});
-		}
-		catch (err) {
+			user = await this.userRepository.findOne({
+				where: { id: id },
+				relations: [
+					"student",
+					"student.subjects",
+					"student.grades",
+					"student.grades.quiz",
+					"student.grades.lesson",
+					"student.grades.lesson.subject",
+				],
+			});
+		} catch (err) {
 			throw new BadRequestError("Could not find user");
 		}
 
@@ -272,16 +283,18 @@ export class StudentService {
 		if (!user.student) throw new BadRequestError("Could not find student");
 
 		let response: GetStudentGradesResponse = {
-			subjects: []
-		}
+			subjects: [],
+		};
 
 		//For each grade
-		user.student.grades.map(value => {
+		user.student.grades.map((value) => {
 			//Get the subject name
 			let subjectName: string = value.lesson.subject.title;
-			
+
 			//Search for the corresponding SubjectGrades object in the response object
-			let subject: SubjectGrades | undefined = response.subjects.find(sub => sub.subjectName === subjectName);
+			let subject: SubjectGrades | undefined = response.subjects.find(
+				(sub) => sub.subjectName === subjectName
+			);
 
 			//If the SubjectGrades object does not exist, create one and store it in the response object then push to the response object
 			if (!subject) {
@@ -289,8 +302,8 @@ export class StudentService {
 					id: value.lesson.subject.id,
 					subjectName: subjectName,
 					gradeAchieved: 0,
-					lessonGrades: []
-				}
+					lessonGrades: [],
+				};
 				response.subjects.push(subject);
 			}
 
@@ -298,7 +311,9 @@ export class StudentService {
 			let lessonName: string = value.lesson.title;
 
 			//Search for the corresponding LessonGrades object in the current subject object
-			let lesson: LessonGrades | undefined = subject.lessonGrades.find(sub => sub.lessonName === lessonName);
+			let lesson: LessonGrades | undefined = subject.lessonGrades.find(
+				(sub) => sub.lessonName === lessonName
+			);
 
 			//If the LessonGrades object does not exist, create one and store it in the current subject object then push to the current subject object
 			if (!lesson) {
@@ -306,135 +321,53 @@ export class StudentService {
 					id: value.lesson.id,
 					lessonName: lessonName,
 					gradeAchieved: 0,
-					quizGrades: []
-				}
+					quizGrades: [],
+				};
 				subject.lessonGrades.push(lesson);
 			}
 
 			//Create the quiz grade object and push it to the current lesson object
-			let grade: QuizGrade = {					
+			let grade: QuizGrade = {
 				name: "",
 				quiz_total: value.total,
 				student_score: value.score,
-			}
+			};
 			lesson.quizGrades.push(grade);
-			lesson.gradeAchieved += (value.score/value.total)*100;
-			
+			lesson.gradeAchieved += (value.score / value.total) * 100;
 		});
 
 		//Get all the subjects that have grades for the user then get the remaining user subjects that do not have grades
-		let existingSubjectIds: number[] = response.subjects.map(sub => sub.id);
-		let remainingSubjects: Subject[] = user.student.subjects.filter(sub => !existingSubjectIds.includes(sub.id));
+		let existingSubjectIds: number[] = response.subjects.map(
+			(sub) => sub.id
+		);
+		let remainingSubjects: Subject[] = user.student.subjects.filter(
+			(sub) => !existingSubjectIds.includes(sub.id)
+		);
 
-		//calculate the running total fot the lessons 
-		response.subjects = response.subjects.map(sub=>{
-			sub.lessonGrades= 
-			sub.lessonGrades.map(les=>{
-				les.gradeAchieved = les.gradeAchieved/les.quizGrades.length
-				sub.gradeAchieved+=les.gradeAchieved
+		//calculate the running total fot the lessons
+		response.subjects = response.subjects.map((sub) => {
+			sub.lessonGrades = sub.lessonGrades.map((les) => {
+				les.gradeAchieved = les.gradeAchieved / les.quizGrades.length;
+				sub.gradeAchieved += les.gradeAchieved;
 
-				return les
-			})
-			sub.gradeAchieved+=sub.gradeAchieved/sub.lessonGrades.length
-			return sub
-		})
+				return les;
+			});
+			sub.gradeAchieved = sub.gradeAchieved / sub.lessonGrades.length;
+			return sub;
+		});
 		//For each remaining subject create a new SubjectGrades object and push it to the response object
-		remainingSubjects.map(sub => {
-
-			sub.lessons.map(les=>{
-				
-			})
+		remainingSubjects.map((sub) => {
 			let subject: SubjectGrades = {
 				id: sub.id,
 				subjectName: sub.title,
 				gradeAchieved: 0,
-				lessonGrades: []
-			}
+				lessonGrades: [],
+			};
 			response.subjects.push(subject);
 		});
 		return response;
 	}
 
-
-	// public async GetStudentGrades(
-	// 	user_id: number
-	// ): Promise<GetStudentGradesResponse> {
-	// 	let user: User;
-	// 	try {
-	// 		user = await getUserDetails(user_id);
-	// 	} catch (err) {
-	// 		throw err;
-	// 	}
-	// 	if (!user.student) throw new ForbiddenError("Only student grades can be displayed");
-
-	// 	try {
-	// 		let student = await this.studentRepository.findOne(
-	// 			user.student.id,
-	// 			{ relations: ["grades", "subjects"] }
-	// 		);
-	// 		if (!student) throw new BadRequestError("Could not find student");
-
-	// 		let studentGrade = await this.populateGrades(student);
-	// 		let quizGrades = await Promise.all(
-	// 			student.grades.map(async (grade) => {
-	// 				let quizGrade = {
-	// 					name: "",
-	// 					students_score: 0,
-	// 					quiz_total: 0,
-	// 					VirtualEntityId: 0,
-	// 					lessonId: 0,
-	// 				};
-	// 				let gradeInfo = await this.getGradeInfo(grade.id);
-
-	// 				if (gradeInfo) {
-	// 					quizGrade.students_score = gradeInfo.score;
-	// 					quizGrade.quiz_total = gradeInfo.total;
-	// 					quizGrade.lessonId = gradeInfo.lesson?.id;
-	// 					quizGrade.VirtualEntityId =
-	// 						await this.getvirtualEntityId(
-	// 							gradeInfo.quiz.id
-	// 						);
-	// 					return await quizGrade;
-	// 				}
-	// 			})
-	// 		);
-	// 		console.log(studentGrade);
-	// 		if(!studentGrade.subjects) throw new NotFoundError("blank not created")
-
-	// 		studentGrade.subjects = studentGrade.subjects.map(
-	// 			(subject) => {
-	// 				let subjectG = subject.lessonGrades.map(
-	// 					(lesson) => {
-	// 						let lessonG = quizGrades.map((quizMark) => {
-	// 							if (quizMark?.lessonId == lesson.id) {
-	// 								let quizes = quizGrades.map(
-	// 									(quiz) => {
-	// 										let quizer: QuizGrade={};
-	// 										if (quiz && quizMark) {
-	// 											quizer.name = quiz.name;
-	// 											quizer.student_score = quiz.students_score;
-	// 											quizer.quiz_total = quiz.quiz_total;
-	// 										}
-	// 										return quizer;
-	// 									}
-	// 								);
-
-	// 								lesson.quizGrades = quizes;
-	// 							}
-	// 							return lesson;
-	// 						});
-	// 						subject.lessonGrades = lessonG;
-	// 						return subject;
-	// 					}
-	// 				);
-	// 				return subject;
-	// 			}
-	// 		);
-	// 		return studentGrade;
-	// 	} catch (err) {
-	// 		throw err;
-	// 	}
-	// }
 
 	async getUserSubjects() {}
 	async getGradeInfo(grade_id: number) {

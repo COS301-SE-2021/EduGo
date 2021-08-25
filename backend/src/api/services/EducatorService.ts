@@ -13,8 +13,14 @@ import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorT
 import { Subject } from "../database/Subject";
 import { Service, Inject } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { BadRequestError, InternalServerError, NotFoundError } from "routing-controllers";
+import {
+	BadRequestError,
+	InternalServerError,
+	NotFoundError,
+} from "routing-controllers";
 import { NodemailerService } from "../helper/email/NodemailerService";
+import { Educator } from "../database/Educator";
+import { anyFunction } from "ts-mockito";
 
 /**
  * A class consisting of the functions that make up the educator service
@@ -24,8 +30,12 @@ import { NodemailerService } from "../helper/email/NodemailerService";
 export class EducatorService {
 	@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
 	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>;
-	@InjectRepository(UnverifiedUser) private unverifiedUserRepository: Repository<UnverifiedUser>;
+	@InjectRepository(Organisation)
+	private organisationRepository: Repository<Organisation>;
+	@InjectRepository(UnverifiedUser)
+	private unverifiedUserRepository: Repository<UnverifiedUser>;
+	@InjectRepository(Educator)
+	private educatorRepository: Repository<Educator>;
 
 	//TODO check error regarding mockEmailService injectable
 	// @Inject("mailgunemailservice")
@@ -36,37 +46,52 @@ export class EducatorService {
 	 * @param  {number} user_id
 	 * @returns Promise
 	 */
-	async AddEducatorToExistingSubject(body: AddEducatorToExistingSubjectRequest, user_id: number): Promise<String> {
+	async AddEducatorToExistingSubject(
+		body: AddEducatorToExistingSubjectRequest,
+		user_id: number
+	): Promise<String> {
 		let adminDetails: User;
 		let subjectDetails: Subject | undefined;
 		let educatorDetails: User | undefined;
-		try {adminDetails = await getUserDetails(user_id);} 
-		catch (error) {throw error;}
+		try {
+			adminDetails = await getUserDetails(user_id);
+		} catch (error) {
+			throw error;
+		}
 
 		try {
-			educatorDetails = await this.userRepository.findOne({username: body.username});
-		} 
-		catch (error) {
+			educatorDetails = await this.userRepository.findOne({
+				username: body.username,
+			});
+		} catch (error) {
 			throw new NotFoundError("Educator not found");
 		}
 
 		try {
-			subjectDetails = await this.subjectRepository.findOne(body.subject_id, { relations: ["user"] });
+			subjectDetails = await this.subjectRepository.findOne(
+				body.subject_id,
+				{ relations: ["user"] }
+			);
 		} catch (error) {
 			throw new NotFoundError("Subject not found");
 		}
 
 		if (adminDetails && educatorDetails && subjectDetails) {
-			if (adminDetails.organisation.id == educatorDetails.organisation.id) {
+			if (
+				adminDetails.organisation.id == educatorDetails.organisation.id
+			) {
 				if (educatorDetails.educator != undefined) {
 					educatorDetails.educator.subjects.push(subjectDetails);
-					return 'ok';
-				} 
-				else throw new BadRequestError("User is not an educator");
+					return "ok";
+				} else throw new BadRequestError("User is not an educator");
 			} else
-				throw new BadRequestError("Admin doesn't belong to same organisation as educator");
-		}
-		else throw new InternalServerError("Could not determine admin, educator or subject");
+				throw new BadRequestError(
+					"Admin doesn't belong to same organisation as educator"
+				);
+		} else
+			throw new InternalServerError(
+				"Could not determine admin, educator or subject"
+			);
 	}
 
 	/**
@@ -81,26 +106,38 @@ export class EducatorService {
 	 * 3. A categorised list will be created from the emails {@see CategoriseEducatorsFromEmails}
 	 * 4. The appropriate handlers will be called based on the categories
 	 */
-	public async AddEducators(request: AddEducatorsRequest, user_id: number): Promise<string> {
+	public async AddEducators(
+		request: AddEducatorsRequest,
+		user_id: number
+	): Promise<string> {
 		let emails: string[] = request.educators;
 
 		if (validateEmails(emails)) {
 			let user: User | undefined;
 			try {
-				user = await this.userRepository.findOne({where: { id: user_id }, relations: ["organisation", "organisation.users", "organisation.unverifiedUsers"]});
+				user = await this.userRepository.findOne({
+					where: { id: user_id },
+					relations: [
+						"organisation",
+						"organisation.users",
+						"organisation.unverifiedUsers",
+					],
+				});
+			} catch (err) {
+				throw new NotFoundError("User not found");
 			}
-			catch (err) {throw new NotFoundError("User not found")};
-			
+
 			if (user && user.organisation) {
 				let org = user.organisation;
 				let list = this.CategoriseEducatorsFromEmails(emails, org);
 				this.HandleNonExistentEducators(list.nonexistent, org);
 				this.HandleUnverifiedEducators(list.unverified);
 				return "ok";
-			}
-			else throw new InternalServerError('Could not determine organisation');
-		}
-		else throw new BadRequestError('Could not validate emails');
+			} else
+				throw new InternalServerError(
+					"Could not determine organisation"
+				);
+		} else throw new BadRequestError("Could not validate emails");
 	}
 
 	/**
@@ -114,9 +151,12 @@ export class EducatorService {
 	private async HandleUnverifiedEducators(emails: string[]) {
 		let users: UnverifiedUser[];
 		try {
-			users = await this.unverifiedUserRepository.find({ where: { email: In(emails) } });
+			users = await this.unverifiedUserRepository.find({
+				where: { email: In(emails) },
+			});
+		} catch (err) {
+			throw new InternalServerError("Could not find unverified users");
 		}
-		catch (err) {throw new InternalServerError('Could not find unverified users')};
 
 		let reminderEmails: VerificationEmail[] = users
 			.filter((value) => value)
@@ -127,8 +167,10 @@ export class EducatorService {
 				};
 			});
 
-		let status = await this.emailService.SendBulkVerificationReminderEmails(reminderEmails)
-		if (!status) 
+		let status = await this.emailService.SendBulkVerificationReminderEmails(
+			reminderEmails
+		);
+		if (!status)
 			throw new InternalServerError("Could not send all reminder emails");
 	}
 
@@ -143,7 +185,10 @@ export class EducatorService {
 	 * 4. Save the new users to the Unverified User repository
 	 * 5. Send the emails by invoking the SendBulkVerificationEmails function from the email service
 	 */
-	private async HandleNonExistentEducators(emails: string[], org: Organisation) {
+	private async HandleNonExistentEducators(
+		emails: string[],
+		org: Organisation
+	) {
 		let users: UnverifiedUser[] = emails.map((value) => {
 			let user: UnverifiedUser = new UnverifiedUser();
 			user.email = value;
@@ -159,10 +204,14 @@ export class EducatorService {
 			return { code: value.verificationCode, email: value.email };
 		});
 
-		await this.unverifiedUserRepository.save(users)
-		let status = await this.emailService.SendBulkVerificationEmails(unverifiedEmails)
+		await this.unverifiedUserRepository.save(users);
+		let status = await this.emailService.SendBulkVerificationEmails(
+			unverifiedEmails
+		);
 		if (!status)
-			throw new InternalServerError("Could not send all verification emails");
+			throw new InternalServerError(
+				"Could not send all verification emails"
+			);
 	}
 
 	/**
@@ -201,6 +250,48 @@ export class EducatorService {
 			.filter((value) => !allVerifiedUserEmails.includes(value));
 
 		return list;
+	}
+
+	public async getStudentGrades(userId: number) {
+		let user: User;
+		try {
+			let dUser = await this.userRepository.findOne(userId, {
+				relations: [
+					"educator",
+					"educator.subjects",
+					"educator.subjects.students",
+					"educator.subjects.students.user",
+					"educator.subjects.students.grades",
+					"educator.subjects.students.grades.subject",
+				],
+			});
+			if (!dUser) throw new NotFoundError("User not found");
+			user = dUser;
+		} catch (err) {
+			throw new InternalServerError(err);
+		}
+
+		interface response {
+			allGrades: any;
+		}
+
+		let educatorGrades: response = { allGrades: [] };
+
+		educatorGrades.allGrades = user.educator.subjects.map((sub) => {
+			return {
+				subject: sub.title,
+				students: sub.students.map((student) => {
+					return {
+						user: student.user,
+						studentgrade: student.grades.filter(
+							(grad) => grad.subject.id == sub.id
+						),
+					};
+				}),
+			};
+		});
+
+		return educatorGrades;
 	}
 
 	/**

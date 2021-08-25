@@ -9,13 +9,14 @@ import {
 	PrimaryGeneratedColumn,
 } from "typeorm";
 import { Educator } from "./Educator";
+import { Grade } from "./Grade";
 import { Lesson } from "./Lesson";
 import { Organisation } from "./Organisation";
 import { Student } from "./Student";
 import { UnverifiedUser } from "./UnverifiedUser";
 import { User } from "./User";
 
-@Index(["organisation", "title", "grade"],{unique:true})
+@Index(["organisation", "title", "grade"], { unique: true })
 @Entity()
 export class Subject {
 	@PrimaryGeneratedColumn()
@@ -30,6 +31,11 @@ export class Subject {
 	@OneToMany((type) => Lesson, (lesson) => lesson.subject, { cascade: true })
 	@JoinColumn()
 	lessons: Lesson[];
+
+	@OneToMany((type) => Grade, (grade) => grade.subject, { cascade: true })
+	@JoinColumn()
+	grades: Grade[];
+
 	@Column({ nullable: true })
 	image: string;
 
