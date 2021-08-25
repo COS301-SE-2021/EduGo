@@ -4,7 +4,6 @@ import { Subject } from "../database/Subject";
 import { UnverifiedUser } from "../database/UnverifiedUser";
 import { User } from "../database/User";
 import { EmailService } from "../helper/email/EmailService";
-import { MockEmailService } from "../helper/email/MockEmailService";
 import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail";
 import { VerificationEmail } from "../helper/email/models/VerificationEmail";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
@@ -18,18 +17,14 @@ import {
 	QuizGrade,
 	SubjectGrades,
 } from "../models/user/GetStudentGradesResponse";
-import { getUserDetails } from "../helper/auth/Userhelper";
 import {
 	BadRequestError,
-	ForbiddenError,
 	InternalServerError,
 	NotFoundError,
 } from "routing-controllers";
 import { Grade } from "../database/Grade";
-import { VirtualEntity } from "../database/VirtualEntity";
 import { Quiz } from "../database/Quiz";
 import { NodemailerService } from "../helper/email/NodemailerService";
-import { lchmod } from "fs";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -368,19 +363,6 @@ export class StudentService {
 		return response;
 	}
 
-
-	async getGradeInfo(grade_id: number) {
-		try {
-			let Quiz = await this.gradeRepository.findOne(grade_id, {
-				relations: ["quiz", "lesson"],
-			});
-			if (Quiz) {
-				return Quiz;
-			} else throw new NotFoundError("Quiz not found");
-		} catch (err) {
-			throw new InternalServerError(err);
-		}
-	}
 
 	async getvirtualEntityId(quiz_id: number) {
 		try {
