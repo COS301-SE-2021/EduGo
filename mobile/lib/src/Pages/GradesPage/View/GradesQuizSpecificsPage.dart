@@ -5,6 +5,8 @@
  * and the student's answers. 
 */
 
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:momentum/momentum.dart';
@@ -14,10 +16,18 @@ import 'package:momentum/momentum.dart';
  *------------------------------------------------------------------------------
 */
 class GradesQuizSpecificsParam extends RouterParam {
-  final int studentQuizMark; //total scored on...
-  final int quizTotalMark; // for each quiz out of...
-  final List<bool> isQuizGraded; // all the quizzes...
+  final LinkedHashMap<int, int>
+      studentQuizMark; //mark scored ... (map quizId with what student scored)
+  final LinkedHashMap<int, int>
+      quizTotalMark; // out of total for... (map quizId with total score)
+  final LinkedHashMap<int, bool>
+      isQuizGraded; // all the quizzes (int is quizId, bool is whether or not quz completed)...
   final int lessonId; // ...for a specific lesson
+
+  //e.g. There's a lesson with an Id of 1 that has 3 quizzes.
+  // thee first 2 were completed and graded. the last one wasn't
+  // mapping the quizId and a bool can be used to determine which quizzes were answered for that lesson
+  //
   GradesQuizSpecificsParam(this.isQuizGraded, this.lessonId,
       this.studentQuizMark, this.quizTotalMark);
 }
@@ -40,7 +50,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
     //TODO access which quizzes were complete to display grades for only quizzes taken
     final param = MomentumRouter.getParam<GradesQuizSpecificsParam>(context);
     print('For this specific lessonId: ' + param!.lessonId.toString());
-    for (var isGraded in param.isQuizGraded) {
+    for (var isGraded in param.isQuizGraded.values) {
       if (isGraded) {
         print('Quiz is graded, display grades');
       } else {
@@ -107,7 +117,8 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Text(
-                  param.studentQuizMark.toString(),
+                  param.studentQuizMark[0]
+                      .toString(), //mark that the student scored on the first quiz, iterate it however you'd like
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,
@@ -144,7 +155,8 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 25),
                 child: Text(
-                  param.quizTotalMark.toString(),
+                  param.quizTotalMark[0]
+                      .toString(), //total of the first quiz, iterate it however you'd like
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,

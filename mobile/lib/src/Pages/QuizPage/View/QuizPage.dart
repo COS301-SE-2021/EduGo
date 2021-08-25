@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
@@ -146,15 +148,28 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
               child: ElevatedButton(
                 onPressed: () {
+                  //TODO uncomment API, undo mocks
                   //quizController.answerQuizByLessonId(lessonId,listOfQuizzes.elementAt(i).id, _selectedAnswers);
-                  List<bool> isQuizGraded = [
-                    //TODO MOCKED
-                    true,
-                    false
-                  ]; //2 quizzes here for SPECIFIC LESSON, frst one taken, second one not
+                  int mockQuizId1 = 0;
+                  int mockQuizId2 = 1;
+                  LinkedHashMap<int, bool> isQuizGraded = new LinkedHashMap<int,
+                      bool>(); //2 quizzes here for SPECIFIC LESSON, frst one taken, second one not
+                  isQuizGraded[mockQuizId1] = true;
+                  isQuizGraded[mockQuizId1] = false;
+                  final LinkedHashMap<int, int> studentQuizMark = new LinkedHashMap<
+                      int,
+                      int>(); //mark scored ... (map quizId with what student scored)
+                  studentQuizMark[mockQuizId1] = 0;
+                  //studentQuizMark[mockQuizId2] = 2;
+                  final LinkedHashMap<int, int> quizTotalMark = new LinkedHashMap<
+                      int,
+                      int>(); // out of total for... (map quizId with total score)
+                  quizTotalMark[mockQuizId1] = 2;
+                  quizTotalMark[mockQuizId2] = 2;
+
                   MomentumRouter.goto(context, GradesQuizSpecificsPage,
-                      params: GradesQuizSpecificsParam(
-                          isQuizGraded, param!.lessonId, 0, 0));
+                      params: GradesQuizSpecificsParam(isQuizGraded,
+                          param!.lessonId, studentQuizMark, quizTotalMark));
                 },
                 child: const Text('Submit Answers'),
               ),
