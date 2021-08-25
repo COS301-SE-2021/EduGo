@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/AnswerController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+import 'package:mobile/src/Pages/QuizPage/Model/AnswerPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
 import 'package:momentum/momentum.dart';
 
-//TODO ErrorWidget
+//TODO when click dropdown option, model gets updated with opton pick. the model.update rebuiilds the widget
 class QuizPage extends StatefulWidget {
   //final int lessonId;
   QuizPage({
@@ -39,10 +41,13 @@ class _QuizPageState extends State<QuizPage> {
   //Stores answers that can be passed as parameters among pages using RouterParam
   late List<Answer> _selectedAnswers;
   late List<String?> _correctAnswers;
-  // End quiz button
+  // everything associated with quiz
   late int lessonId;
   late int quizId;
   late int questionId;
+  late AnswerController answerController;
+  late AnswerPageModel answerModel;
+  List<Answer> tempAnswer = [];
 
   @override
   void initState() {
@@ -107,26 +112,28 @@ class _QuizPageState extends State<QuizPage> {
             // Optional answers: iterarting through all the options of this particular
             // question so that I may create a UI widget that a student may select
             List<String> _options = List.from(questions.elementAt(q).options!);
-            String? _selectedOption;
-            Key key = Key("dropdown " + q.toString());
-            print("key: " + key.toString());
+            _options.insert(0, answerModel.answer);
+            //String key = answerModel.answers!.elementAt(q).answer
             //Dynamically create dropdown so options can be displayed dynamically
             columnWidget.add(
               DropdownButton(
-                key: key,
-                hint: Text('Please choose an answer'),
-                value: _selectedOption,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _selectedOption = newValue;
-                  });
-                },
-                items: _options.map((option) {
-                  return DropdownMenuItem(
+                items: _options.map((String option) {
+                  return DropdownMenuItem<String>(
                     child: new Text(option),
                     value: option,
                   );
                 }).toList(),
+                hint: Text(answerModel.answer),
+                value: answerModel.answer,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    print(newValue!);
+                    answerController.update(newValue);
+
+                    //_selectedAnswers.elementAt(q).answer = answerModel.answer; //TODO as soon as I get number of questions fill with default answers
+                    //print(_selectedAnswers.elementAt(q).answer);
+                  });
+                },
               ),
             );
             //Space between all questions
@@ -160,7 +167,6 @@ class _QuizPageState extends State<QuizPage> {
         _tabBarView.children.add(
           Container(
             child: Scrollbar(
-              // isAlwaysShown: true, //TODO wants a controller ugh
               child: new SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -179,8 +185,7 @@ class _QuizPageState extends State<QuizPage> {
     // Add UI pazzazz to view
     Widget _getTabBarViewDecor() {
       Widget _tabBarViewDecor = Container(
-          height:
-              400, //height of TabBarView //TODO might have to use frationally sized box
+          height: 400,
           decoration: BoxDecoration(
               border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
           child: _buildTabBarView());
@@ -200,22 +205,6 @@ class _QuizPageState extends State<QuizPage> {
 
     // The contents of the screen
     Widget _getChild() {
-      MomentumBuilder(
-          controllers: [QuizController, QuestionPageController],
-          builder: (context, snapshot) {
-            // Get the list of quizzes so that I can dynamically edit UI
-            final quizzes = snapshot<QuizPageModel>();
-            quizController = Momentum.controller<QuizController>(context);
-            lessonId = param!.lessonId;
-            quizController.getQuizzes(lessonId);
-            quizId = quizzes.quizes.elementAt(0).id;
-            questionId = quizzes.quizes.first.id;
-            noOfQuizzes = quizzes.quizes.length;
-            listOfQuizzes = List.from(quizzes.quizes);
-            return Row(
-              children: [Text('sup, momens')],
-            );
-          });
       Widget child = Container(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -228,7 +217,7 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     MomentumBuilder _momentumBuilder = MomentumBuilder(
-        controllers: [QuizController],
+        controllers: [QuizController, AnswerController],
         builder: (context, snapshot) {
           // Get the list of quizzes so that I can dynamically edit UI
           final quizzes = snapshot<QuizPageModel>();
@@ -239,6 +228,10 @@ class _QuizPageState extends State<QuizPage> {
           questionId = quizzes.quizes.first.id;
           noOfQuizzes = quizzes.quizes.length;
           listOfQuizzes = List.from(quizzes.quizes);
+
+          //Get and store answers
+          answerModel = snapshot<AnswerPageModel>();
+          answerController = Momentum.controller<AnswerController>(context);
           return _getChild();
         });
     //Display page
