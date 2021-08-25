@@ -363,20 +363,4 @@ export class StudentService {
 		return response;
 	}
 
-
-	async getvirtualEntityId(quiz_id: number) {
-		try {
-			let quiz = await this.quizRepository.findOne(quiz_id, {
-				relations: ["virtualEntity"],
-			});
-
-			if (quiz) {
-				return quiz.virtualEntity.id;
-			}
-			return 0;
-		} catch (err) {
-			throw new InternalServerError(err);
-		}
-	}
-
 }

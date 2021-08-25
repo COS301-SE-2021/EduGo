@@ -21,6 +21,13 @@ import {
 import { NodemailerService } from "../helper/email/NodemailerService";
 import { Educator } from "../database/Educator";
 import { anyFunction } from "ts-mockito";
+import { GetStudentGradesResponse } from "../models/user/GetStudentGradesResponse";
+import { Grade } from "../database/Grade";
+import {
+	GetGradesByEducatorResponse,
+	StudentG,
+	SubjectGrade,
+} from "../models/user/GetGradesByEducatorResponse";
 
 /**
  * A class consisting of the functions that make up the educator service
@@ -275,23 +282,43 @@ export class EducatorService {
 			allGrades: any;
 		}
 
-		let educatorGrades: response = { allGrades: [] };
+		let educatorGrades: GetGradesByEducatorResponse = { subjects: [] };
 
-		educatorGrades.allGrades = user.educator.subjects.map((sub) => {
-			return {
-				subject: sub.title,
+		educatorGrades.subjects = user.educator.subjects.map((sub) => {
+			let subjectG: SubjectGrade = {
+				subjectName: sub.title,
 				students: sub.students.map((student) => {
-					return {
-						user: student.user,
-						studentgrade: student.grades.filter(
-							(grad) => grad.subject.id == sub.id
-						),
+					let grades = student.grades.filter(
+						(grad) => grad.subject.id == sub.id
+					);
+
+					let studentData: StudentG = {
+						username: student.user.username,
+						firstname: student.user.firstName,
+						lastname: student.user.lastName,
+						studentgrade: this.generateSubjectTotal(grades),
 					};
+
+					return studentData;
 				}),
 			};
+
+			return subjectG;
 		});
 
 		return educatorGrades;
+	}
+
+	private generateSubjectTotal(grades: Grade[]) {
+		let score = 0;
+		let total = 0;
+
+		grades.map((grade) => {
+			score += grade.score;
+			total += grade.total;
+		});
+
+		return (score / total) * 100;
 	}
 
 	/**
