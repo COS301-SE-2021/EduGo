@@ -34,43 +34,49 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends MomentumState<QuizPage> {
-  // Number of quizzes = number of tabs
-  late int noOfQuizzes;
-  // Number of questions = number of tab views
-  late int noOfQuestions;
-  // Will hold a List of questions for each quiz in the total noOfQuizzzes
+  // Everything asssociated with quiz initialised with model and controller when page loads
+  // ans state is initliased
+  late var param;
+  late QuizController quizController;
+
   late List<Quiz> listOfQuizzes;
-  //Stores answers that can be passed as parameters among pages using RouterParam
-  late List<Answer> _selectedAnswers;
-  late List<String?> _correctAnswers;
-  List<Answer> tempAnswer = [];
-  // everything associated with quiz
+  late List<Question> listOfQuestions;
+  late List<String> listOfOptions;
+
   late int lessonId;
   late int quizId;
   late int questionId;
 
-  late QuizController quizController;
-  late var param;
+  // Number of quizzes = number of tabs
+  late int noOfQuizzes;
+  // Number of questions = number of tab views
+  late int noOfQuestions;
+
+  //Stores answers that can be passed as parameters among pages using RouterParam
+  late List<Answer> _selectedAnswers;
+  late List<String?> _correctAnswers;
+  List<Answer> tempAnswer = [];
 
   @override
   void initMomentumState() {
     super.initMomentumState();
-
-    //inititalising null values
-    listOfQuizzes = []; // temp array
-    noOfQuizzes = 0;
-    noOfQuestions = 0;
-    _selectedAnswers = [];
-    _correctAnswers = [];
-    //lessonId = 0;
-    quizId = 0;
-    questionId = 0;
 
     // Required for momentum state management
     quizController = Momentum.controller<QuizController>(context);
     param = MomentumRouter.getParam<QuizParam>(context);
     lessonId = param!.lessonId;
     quizController.getQuizzes(lessonId);
+
+    // Inititalising all values
+    listOfQuizzes = []; // temp array
+    listOfQuestions = [];
+    listOfOptions = [];
+    noOfQuizzes = 0;
+    noOfQuestions = 0;
+    _selectedAnswers = [];
+    _correctAnswers = [];
+    quizId = 0;
+    questionId = 0;
   }
 
   @override
@@ -106,27 +112,26 @@ class _QuizPageState extends MomentumState<QuizPage> {
       for (int i = 0; i < noOfQuizzes; i++) {
         // Questions contents to be diplsayed on the view. The lists below are
         // iterated later for contents of a specific question.
-        List<Question> questions =
-            List.from(listOfQuizzes.elementAt(i).questions!);
+        listOfQuestions = List.from(listOfQuizzes.elementAt(i).questions!);
         List<Widget> columnWidget = [];
         columnWidget.add(Padding(padding: const EdgeInsets.only(top: 50.0)));
         // For each question in the quiz, create the widgets so thatt they may be
         // added to the view
         List<Widget> getColumnWidget(int noOfQsforThisQuiz) {
-          for (int q = 0; q < questions.length; q++) {
-            // Questions to be asked
-            columnWidget.add(Text(questions.elementAt(q).question));
+          for (int q = 0; q < listOfQuestions.length; q++) {
+            // Question to be asked
+            columnWidget.add(Text(listOfQuestions.elementAt(q).question));
 
             // Optional answers: iterarting through all the options of this particular
             // question so that I may create a UI widget that a student may select
-            List<String> _options = List.from(questions.elementAt(q).options!);
+            listOfOptions = List.from(listOfQuestions.elementAt(q).options!);
             //_options.insert(0, "Please select answer");
             //String key = answerModel.answers!.elementAt(q).answer
             //Dynamically create dropdown so options can be displayed dynamically
             columnWidget.add(
               DropdownButton(
                 key: Key(q.toString()),
-                items: _options.map((String option) {
+                items: listOfOptions.map((String option) {
                   return DropdownMenuItem<String>(
                     child: new Text(option),
                     value: option,
@@ -196,7 +201,7 @@ class _QuizPageState extends MomentumState<QuizPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: getColumnWidget(questions.length),
+                  children: getColumnWidget(listOfQuestions.length),
                 ),
               ),
             ),
