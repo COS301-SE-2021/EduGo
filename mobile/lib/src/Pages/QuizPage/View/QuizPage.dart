@@ -15,60 +15,66 @@ import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
 import 'package:momentum/momentum.dart';
 
 //TODO when click dropdown option, model gets updated with opton pick. the model.update rebuiilds the widget
-class QuizPage extends StatefulWidget {
-  //final int lessonId;
-  QuizPage({
-    Key? key,
-    /*required this.lessonId*/
-  }) : super(key: key);
-  @override
-  _QuizPageState createState() => _QuizPageState(/*lessonId: this.lessonId*/);
-}
+// https://www.xamantra.dev/momentum/#/router
+//"STATE MANAGEMTN"https://github.com/xamantra/momentum/issues/17#issuecomment-656696841
 
+// class used to pass parameters between pages, naemly the lesson page and quiz page
+// so that the quizzes for that specific lesson can be displayed
 class QuizParam extends RouterParam {
   int lessonId;
   QuizParam(this.lessonId);
 }
 
-class _QuizPageState extends State<QuizPage> {
-  //final int lessonId;
-  _QuizPageState();
-  //_QuizPageState({required this.lessonId});
+class QuizPage extends StatefulWidget {
+  QuizPage({
+    Key? key,
+  }) : super(key: key);
+  @override
+  _QuizPageState createState() => _QuizPageState();
+}
 
+class _QuizPageState extends MomentumState<QuizPage> {
   // Number of quizzes = number of tabs
-  late int noOfQuizzes; //TODO get no of quizzes via controller
+  late int noOfQuizzes;
   // Number of questions = number of tab views
-  late int noOfQuestions; //TODO get no of questions via controller
+  late int noOfQuestions;
   // Will hold a List of questions for each quiz in the total noOfQuizzzes
   late List<Quiz> listOfQuizzes;
   //Stores answers that can be passed as parameters among pages using RouterParam
   late List<Answer> _selectedAnswers;
   late List<String?> _correctAnswers;
+  List<Answer> tempAnswer = [];
   // everything associated with quiz
   late int lessonId;
   late int quizId;
   late int questionId;
-  //late AnswerController answerController;
-  //late AnswerPageModel answerModel;
-  List<Answer> tempAnswer = [];
 
-  String value = 'Please select answer';
+  late QuizController quizController;
+  late var param;
+
   @override
-  void initState() {
-    super.initState();
-    listOfQuizzes = [];
+  void initMomentumState() {
+    super.initMomentumState();
+
+    //inititalising null values
+    listOfQuizzes = []; // temp array
     noOfQuizzes = 0;
     noOfQuestions = 0;
     _selectedAnswers = [];
     _correctAnswers = [];
-    lessonId = 0;
+    //lessonId = 0;
     quizId = 0;
     questionId = 0;
+
+    // Required for momentum state management
+    quizController = Momentum.controller<QuizController>(context);
+    param = MomentumRouter.getParam<QuizParam>(context);
+    lessonId = param!.lessonId;
+    quizController.getQuizzes(lessonId);
   }
 
   @override
   Widget build(BuildContext context) {
-    final param = MomentumRouter.getParam<QuizParam>(context);
     late var quizController;
 
     // Create numbered tabs
@@ -116,7 +122,7 @@ class _QuizPageState extends State<QuizPage> {
             // Optional answers: iterarting through all the options of this particular
             // question so that I may create a UI widget that a student may select
             List<String> _options = List.from(questions.elementAt(q).options!);
-            _options.insert(0, "Please select answer");
+            //_options.insert(0, "Please select answer");
             //String key = answerModel.answers!.elementAt(q).answer
             //Dynamically create dropdown so options can be displayed dynamically
             columnWidget.add(
@@ -129,14 +135,13 @@ class _QuizPageState extends State<QuizPage> {
                   );
                 }).toList(),
                 hint: Text('Please select answer'), //Text(answerModel.answer),
-                value: value,
+                value: '',
                 onChanged: (String? newValue) {
                   setState(() {
                     //{"lesson_id": 10, "quiz_id": 1, "answers": [{"question_id":1,"answer":"False"},{"question_id":2,"answer":"B"} ]}
                     print('key: ' + q.toString());
                     print('questionId ' + questionId.toString());
                     print('answer ' + newValue!);
-                    value = newValue;
                     //answerController.update(newValue);
                   });
                 },
@@ -243,14 +248,10 @@ class _QuizPageState extends State<QuizPage> {
         builder: (context, snapshot) {
           // Get the list of quizzes so that I can dynamically edit UI
           final quizzes = snapshot<QuizPageModel>();
-          quizController = Momentum.controller<QuizController>(context);
-          lessonId = param!.lessonId;
-          quizController.getQuizzes(lessonId);
           quizId = quizzes.quizes.elementAt(0).id;
           questionId = quizzes.quizes.first.id;
           noOfQuizzes = quizzes.quizes.length;
           listOfQuizzes = List.from(quizzes.quizes);
-
           //Get and store answers
           //answerModel = snapshot<AnswerPageModel>();
           //answerController = Momentum.controller<AnswerController>(context);
