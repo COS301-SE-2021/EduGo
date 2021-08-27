@@ -52,6 +52,7 @@ class _QuizPageState extends State<QuizPage> {
   //late AnswerPageModel answerModel;
   List<Answer> tempAnswer = [];
 
+  String value = 'Please select answer';
   @override
   void initState() {
     super.initState();
@@ -120,6 +121,7 @@ class _QuizPageState extends State<QuizPage> {
             //Dynamically create dropdown so options can be displayed dynamically
             columnWidget.add(
               DropdownButton(
+                key: Key(q.toString()),
                 items: _options.map((String option) {
                   return DropdownMenuItem<String>(
                     child: new Text(option),
@@ -127,10 +129,14 @@ class _QuizPageState extends State<QuizPage> {
                   );
                 }).toList(),
                 hint: Text('Please select answer'), //Text(answerModel.answer),
-                value: 'Please select answer',
+                value: value,
                 onChanged: (String? newValue) {
                   setState(() {
-                    print(newValue!);
+                    //{"lesson_id": 10, "quiz_id": 1, "answers": [{"question_id":1,"answer":"False"},{"question_id":2,"answer":"B"} ]}
+                    print('key: ' + q.toString());
+                    print('questionId ' + questionId.toString());
+                    print('answer ' + newValue!);
+                    value = newValue;
                     //answerController.update(newValue);
                   });
                 },
