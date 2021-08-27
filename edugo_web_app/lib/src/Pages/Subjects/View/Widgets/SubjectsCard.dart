@@ -91,7 +91,9 @@ class SubjectsCard extends StatelessWidget {
                 child: MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
-                  onPressed: () {},
+                  onPressed: () {
+                    // Todo: make delete api request
+                  },
                   child: Icon(
                     Icons.delete_outlined,
                     color: Colors.white,
@@ -107,10 +109,10 @@ class SubjectsCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
                   onPressed: () {
-                    //MomentumRouter.goto(context, UpdateSubjectView);
+                    MomentumRouter.goto(context, LessonsView);
                   },
                   child: Icon(
-                    Icons.edit_outlined,
+                    Icons.auto_stories_outlined,
                     color: Colors.white,
                   ),
                 ),

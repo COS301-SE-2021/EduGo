@@ -77,7 +77,7 @@ class LessonsCard extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100)),
                       onPressed: () {
-                        // MomentumRouter.goto(context, UpdateLessonView);
+                        MomentumRouter.goto(context, ViewLesson);
                       },
                       child: Icon(
                         Icons.edit_outlined,

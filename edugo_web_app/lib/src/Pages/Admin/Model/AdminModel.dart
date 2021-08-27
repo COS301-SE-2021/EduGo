@@ -5,6 +5,7 @@ import 'Data/User.dart';
 
 class AdminModel extends MomentumModel<AdminController> {
   final String token;
+  final bool adminLoadController;
   final int currentSubjectId;
   final int currentLessonId;
   final String organisationName;
@@ -18,6 +19,7 @@ class AdminModel extends MomentumModel<AdminController> {
       {this.organisationName,
       this.userName,
       this.organisationId,
+      this.adminLoadController,
       this.currentLessonId,
       this.virtualEntityViewerModelLink,
       this.currentSubjectId,
@@ -105,7 +107,8 @@ class AdminModel extends MomentumModel<AdminController> {
       currentSubjectId,
       virtualEntityViewerModelLink,
       currentLessonId,
-      userName}) {
+      userName,
+      adminLoadController}) {
     AdminModel(controller,
             organisationName: organisationName ?? this.organisationName,
             userName: userName ?? this.userName,
@@ -116,7 +119,9 @@ class AdminModel extends MomentumModel<AdminController> {
             currentSubjectId: currentSubjectId ?? this.currentSubjectId,
             currentLessonId: currentLessonId ?? this.currentLessonId,
             virtualEntityViewerModelLink: virtualEntityViewerModelLink ??
-                this.virtualEntityViewerModelLink)
+                this.virtualEntityViewerModelLink,
+            adminLoadController:
+                adminLoadController ?? this.adminLoadController)
         .updateMomentum();
   }
 }

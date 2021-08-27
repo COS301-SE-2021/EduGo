@@ -1,15 +1,7 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/Lessons/View/Widgets/LessonsWidgets.dart';
 
-class LessonsView extends StatefulWidget {
-  const LessonsView({Key key}) : super(key: key);
-
-  @override
-  State<LessonsView> createState() => _LessonsViewState();
-}
-
-class _LessonsViewState extends State<LessonsView> {
-  bool plublished = true;
+class LessonsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Info: Getting educator lessons from API

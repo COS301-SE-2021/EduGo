@@ -31,6 +31,7 @@ void main() {
             Home(),
             AdminView(),
             InviteEducatorsView(),
+            ViewLesson(),
             VirtualEntityStoreView(),
             ViewVirtualEntityView(),
             InviteStudentsView(),

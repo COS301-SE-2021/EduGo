@@ -34,3 +34,6 @@ export 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/VirtualEntitySt
 
 // Info: Subjects Model Exports
 export 'package:edugo_web_app/src/Pages/Subjects/Model/SubjectsModel.dart';
+
+// Info: ViewLesson Model Exports
+export 'package:edugo_web_app/src/Pages/ViewLesson/Model/ViewLessonModel.dart';

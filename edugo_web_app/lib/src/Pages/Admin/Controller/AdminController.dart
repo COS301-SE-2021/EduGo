@@ -13,6 +13,7 @@ class AdminController extends MomentumController<AdminModel> {
   }
 
   Future<void> makeEducatorAdmin(String username) async {
+    model.update(adminLoadController: false);
     // * Send make admin request
     var url = Uri.parse('http://34.65.226.152:8080/user/setUserToAdmin');
     await post(url,
@@ -24,13 +25,16 @@ class AdminController extends MomentumController<AdminModel> {
           "username": username,
         })).then((response) async {
       if (response.statusCode == 200) {
-        await getOrganisationEducators();
+        await getOrganisationEducators().then((value) {
+          model.update(adminLoadController: true);
+        });
         return;
       }
     });
   }
 
   Future<void> revokeEducatorAdmin(String username) async {
+    model.update(adminLoadController: false);
     // * Send make admin request
     var url = Uri.parse('http://34.65.226.152:8080/user/revokeUserFromAdmin');
     await post(url,
@@ -42,7 +46,9 @@ class AdminController extends MomentumController<AdminModel> {
           "username": username,
         })).then((response) async {
       if (response.statusCode == 200) {
-        await getOrganisationEducators();
+        await getOrganisationEducators().then((value) {
+          model.update(adminLoadController: true);
+        });
         return;
       }
     });
@@ -105,6 +111,7 @@ class AdminController extends MomentumController<AdminModel> {
   }
 
   Future<void> getOrganisationId(context) async {
+    model.update(adminLoadController: true);
     var url = Uri.parse('http://34.65.226.152:8080/user/getUserDetails');
     await http.get(
       url,

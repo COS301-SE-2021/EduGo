@@ -11,27 +11,27 @@ class CreateLessonDesktopBottomContainer extends StatelessWidget {
       builder: (context, snapshot) {
         return Row(
           children: <Widget>[
-            CreateLessonButton(
-              onPressed: () {},
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.storefront_outlined,
-                    color: Colors.white,
-                  ),
-                  SizedBox(width: 20),
-                  Text(
-                    "Add Virtual Entity",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              width: ScreenUtil().setWidth(500),
-              height: 60,
-            ),
-            Spacer(),
+            // CreateLessonButton(
+            //   onPressed: () {},
+            //   child: Row(
+            //     children: <Widget>[
+            //       Icon(
+            //         Icons.storefront_outlined,
+            //         color: Colors.white,
+            //       ),
+            //       SizedBox(width: 20),
+            //       Text(
+            //         "Add Virtual Entity",
+            //         style: TextStyle(
+            //           color: Colors.white,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            //   width: ScreenUtil().setWidth(500),
+            //   height: 60,
+            // ),
+            // Spacer(),
             CreateLessonButton(
                 elevation: 40,
                 child: Text(

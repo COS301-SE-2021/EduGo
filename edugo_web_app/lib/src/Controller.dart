@@ -34,3 +34,6 @@ export 'package:edugo_web_app/src/Pages/Login/Controller/LogInController.dart';
 
 // Info: Subjects Contoller Exports
 export 'package:edugo_web_app/src/Pages/Subjects/Controller/SubjectsController.dart';
+
+// Info: ViewLesson Contoller Exports
+export 'package:edugo_web_app/src/Pages/ViewLesson/Controller/ViewLessonController.dart';
