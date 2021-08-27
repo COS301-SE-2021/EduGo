@@ -75,8 +75,6 @@ class _QuizPageState extends MomentumState<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    late var quizController;
-
     // Create numbered tabs
     List<Widget> _buildTabs(int noOfQuizzes) {
       List<Widget> tabs = [];
@@ -252,6 +250,21 @@ class _QuizPageState extends MomentumState<QuizPage> {
           questionId = quizzes.quizes.first.id;
           noOfQuizzes = quizzes.quizes.length;
           listOfQuizzes = List.from(quizzes.quizes);
+
+          /* TODO "handle loading in controller" https://github.com/exts/momentum_label_manager/blob/master/lib/domain/labels/label_index_controller.dart#L21
+          if (quizzes.loadingResults) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          */
+
+          if (quizzes.quizes.length <= 0) {
+            return Center(
+              child: Text("No quizzes exist"),
+            );
+          }
+
           //Get and store answers
           //answerModel = snapshot<AnswerPageModel>();
           //answerController = Momentum.controller<AnswerController>(context);
