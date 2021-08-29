@@ -37,6 +37,10 @@ export 'package:edugo_web_app/src/Pages/Subjects/View/SubjectsView.dart';
 // Info: ViewLesson View Exports
 export 'package:edugo_web_app/src/Pages/ViewLesson/View/ViewLesson.dart';
 
+// Info: StudentsGrades View Exports
+export 'package:edugo_web_app/src/Pages/StudentsGrades/View/StudentsGradesView.dart';
+
+
 // Info: App Exports
 export 'package:edugo_web_app/src/View.dart';
 export 'package:edugo_web_app/src/Pages/Home/Home.dart';

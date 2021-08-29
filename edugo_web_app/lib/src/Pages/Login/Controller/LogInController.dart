@@ -17,6 +17,10 @@ class LogInController extends MomentumController<LoginModel> {
     model.setLoginPassword(password);
   }
 
+  void resetErrorString() {
+    model.update(errorString: null);
+  }
+
   Future<void> loginUser({context, GlobalKey<FormState> formkey}) async {
     if (model.loginPassword != null &&
         model.loginUserName != null &&
@@ -36,16 +40,23 @@ class LogInController extends MomentumController<LoginModel> {
         Map<String, dynamic> _user = jsonDecode(response.body);
 
         if (_user['name'] == "UnauthorizedError") {
+          model.update(errorString: "Invalid Credentials");
           formkey.currentState.validate();
           return;
         }
 
         if (response.statusCode == 200) {
+          model.update(errorString: null);
+          formkey.currentState.validate();
           String bearerToken = _user['token'];
           Momentum.controller<AdminController>(context).setToken(bearerToken);
           Momentum.controller<AdminController>(context)
               .setUserName(model.loginUserName);
           MomentumRouter.goto(context, AdminView);
+          return;
+        } else {
+          model.update(errorString: "Invalid Credentials");
+          formkey.currentState.validate();
           return;
         }
       });

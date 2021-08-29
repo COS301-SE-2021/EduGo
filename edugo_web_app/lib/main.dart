@@ -42,6 +42,7 @@ void main() {
             LessonsView(),
             LogInView(),
             CreateOrganisationView(),
+            StudentsGradesView()
           ],
         ),
       ],

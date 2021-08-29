@@ -28,3 +28,5 @@ export 'package:edugo_web_app/src/Controller.dart';
 export 'package:flutter/cupertino.dart' hide RefreshCallback;
 export 'package:momentum/momentum.dart';
 export 'package:time_range/time_range.dart';
+export 'package:avatar_letter/avatar_letter.dart';
+export 'package:random_color/random_color.dart' hide Range;
