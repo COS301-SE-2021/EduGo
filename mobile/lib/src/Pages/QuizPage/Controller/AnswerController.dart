@@ -12,14 +12,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AnswerController extends MomentumController<AnswerPageModel> {
   AnswerController({this.mock = false});
   bool mock;
-
   @override
   AnswerPageModel init() {
     return AnswerPageModel(
       this,
-      quiz_id: 0,
-      lessonId: 0,
-      answers: [],
+      // quiz_id: 0,
+      // lessonId: 0,
+      // answers: [],
+      answer: 'Please select answer',
     );
+  }
+
+  void updateAnswer(String? answer) {
+    print('update ' + answer!);
+    model.update(answer: answer);
   }
 }

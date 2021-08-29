@@ -5,21 +5,24 @@ import 'package:momentum/momentum.dart';
 class AnswerPageModel extends MomentumModel<AnswerController> {
   AnswerPageModel(
     AnswerController controller, {
-    required this.lessonId,
-    required this.quiz_id,
-    required this.answers,
+    // required this.lessonId,
+    // required this.quiz_id,
+    // required this.answers,
+    required this.answer,
   }) : super(controller);
 
-  final int? lessonId;
-  final int? quiz_id;
-  final List<Answer>? answers;
+  // final int? lessonId;
+  // final int? quiz_id;
+  // final List<Answer>? answers;
+  final String? answer;
 
   @override
-  void update({List<Answer>? quizes}) {
+  void update({String? answer}) {
     AnswerPageModel(controller,
-            lessonId: lessonId ?? this.lessonId,
-            quiz_id: quiz_id ?? this.quiz_id,
-            answers: answers ?? this.answers)
+            // lessonId: lessonId ?? this.lessonId,
+            // quiz_id: quiz_id ?? this.quiz_id,
+            // answers: answers ?? this.answers,
+            answer: answer ?? this.answer)
         .updateMomentum();
   }
 }

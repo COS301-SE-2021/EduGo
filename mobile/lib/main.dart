@@ -14,6 +14,7 @@ import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/AnswerController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
@@ -28,6 +29,9 @@ import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart'
 import 'package:momentum/momentum.dart';
 
 void main() {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+  };
   //when mock=false it uses api calls. when mock=true, it uses mock data
   runApp(momentum(mock: false));
   //PaintingBinding.instance!.imageCache!.clear();
@@ -37,6 +41,7 @@ Momentum momentum({bool mock = false}) {
   return Momentum(
     child: MyApp(),
     controllers: [
+      AnswerController(),
       QuizController(mock: false),
       QuestionPageController(mock: mock),
       //GradesQuizSpecificsPage(mock: mock),

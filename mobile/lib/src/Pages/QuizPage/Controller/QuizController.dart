@@ -53,18 +53,6 @@ Future<void> answerQuiz(int lesson_id, int quiz_id, List<Answer> answers,
             "quiz_id": quiz_id,
             "answers": answers,
           }));
-  // print('ek is hier');
-  // print('lessonId ' + lesson_id.toString());
-  // print('quiz_id ' + quiz_id.toString());
-  // print('answers:');
-  // print(answers.toString());
-  // for (var answer in answers) {
-  //   print(answer.question_id.toString());
-  //   print(answer.answer);
-  // }
-  // print(response);
-  // print(response.body);
-  // print(response.statusCode);
   if (response.statusCode == 200) {
     print('ok');
     return;
