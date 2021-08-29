@@ -286,7 +286,7 @@ class _QuizPageState extends MomentumState<QuizPage> {
               color: Colors.black,
             );
           }
-
+          //use maps to maintain id and value, which are both needed to answer quiz: https://dev.to/javasampleapproach/dart-flutter-map-tutorial-create-add-delete-iterate-sorting-5e82
           // Get the list of questions and answers so that I can dynamically edit UI
           var allQuestionTypes;
           allQuizzes.entries.forEach((quiz) {
@@ -310,11 +310,113 @@ class _QuizPageState extends MomentumState<QuizPage> {
             };
           });
 
+          print(allQuestionTypes);
+          print(allQuestions);
+          print(allOptionalAnswers);
+          print(allCorrectAnswers);
+
           answerModel = snapshot<AnswerPageModel>();
 
-          return Center(
-            child: Text("Qizzies"),
-          ); //_getChild();
+          // Create numbered tabs whereby each number represents a quiz
+          // allowing the student to toggle between quizzes
+          List<Widget> tabs = [];
+          for (int i = 0; i < noOfQuizzes; i++) {
+            tabs.add(Tab(
+              text: (i + 1).toString(),
+            ));
+          }
+
+          //Dynamically create dropdown so options can be displayed dynamically
+          List<Widget> dropdowns = [];
+          String selectedAnswer;
+          //List<String?> options
+          print(allOptionalAnswers.values.forEach((v) => print(v)));
+          allOptionalAnswers.entries.forEach((id, options) {
+            dropdowns.add(DropdownButton(
+              items: options.map((v) => v).toList(),
+            ));
+          });
+          /*
+          class MyApp extends StatefulWidget {
+  State createState() => new MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  User selectedUser;
+  List<User> users = <User>[const User(1,'Foo'), const User(2,'Bar')];
+
+  @override
+  void initState() {
+    selectedUser=users[0];
+  }
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      home: new Scaffold(
+
+        body: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new Center(
+              child: new DropdownButton<User>(
+                value: selectedUser,
+                onChanged: (User newValue) {
+                  setState(() {
+                    selectedUser = newValue;
+                  });
+                },
+                items: users.map((User user) {
+                  return new DropdownMenuItem<User>(
+                    value: user,
+                    child: new Text(
+                      user.name,
+                      style: new TextStyle(color: Colors.black),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            ne
+          */
+
+          return Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                SizedBox(height: 20.0),
+                // Structure of tabs: how many tabs
+                DefaultTabController(
+                  length: noOfQuizzes,
+                  initialIndex: 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      // Add UI pazzazz to tab bar: how tabs are labeled
+                      Container(
+                        child: TabBar(
+                          labelColor: Colors.green,
+                          unselectedLabelColor: Colors.black,
+                          tabs: tabs,
+                        ),
+                      ),
+                      Container(
+                        height: 400,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(
+                                    color: Colors.grey, width: 0.5))),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: dropdowns,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
         });
     //Display page
     return MobilePageLayout(false, false, _momentumBuilder, 'Quizzes');
