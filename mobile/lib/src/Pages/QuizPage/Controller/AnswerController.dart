@@ -16,15 +16,12 @@ class AnswerController extends MomentumController<AnswerPageModel> {
   AnswerPageModel init() {
     return AnswerPageModel(
       this,
-      // quiz_id: 0,
-      // lessonId: 0,
-      // answers: [],
       answer: 'Please select answer',
     );
   }
 
-  void updateAnswer(String? answer) {
-    print('update ' + answer!);
-    model.update(answer: answer);
+  void updateAnswer(String? selectedAnswer) {
+    model.update(answer: selectedAnswer); // update state (rebuild widgets)
+    print('model answer' + model.answer);
   }
 }
