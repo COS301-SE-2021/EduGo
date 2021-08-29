@@ -328,56 +328,18 @@ class _QuizPageState extends MomentumState<QuizPage> {
 
           //Dynamically create dropdown so options can be displayed dynamically
           List<Widget> dropdowns = [];
-          String selectedAnswer;
-          //List<String?> options
-          print(allOptionalAnswers.values.forEach((v) => print(v)));
-          allOptionalAnswers.entries.forEach((id, options) {
-            dropdowns.add(DropdownButton(
-              items: options.map((v) => v).toList(),
+          List<String> temp;
+          allOptionalAnswers.values.forEach((List<String> v) {
+            dropdowns.add(new DropdownButton<String?>(
+              items: v.map((String option) {
+                return DropdownMenuItem<String>(
+                  child: new Text(option),
+                  value: option,
+                );
+              }).toList(),
+              onChanged: (_) {},
             ));
           });
-          /*
-          class MyApp extends StatefulWidget {
-  State createState() => new MyAppState();
-}
-
-class MyAppState extends State<MyApp> {
-  User selectedUser;
-  List<User> users = <User>[const User(1,'Foo'), const User(2,'Bar')];
-
-  @override
-  void initState() {
-    selectedUser=users[0];
-  }
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new Scaffold(
-
-        body: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            new Center(
-              child: new DropdownButton<User>(
-                value: selectedUser,
-                onChanged: (User newValue) {
-                  setState(() {
-                    selectedUser = newValue;
-                  });
-                },
-                items: users.map((User user) {
-                  return new DropdownMenuItem<User>(
-                    value: user,
-                    child: new Text(
-                      user.name,
-                      style: new TextStyle(color: Colors.black),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-            ne
-          */
 
           return Container(
             child: Column(
