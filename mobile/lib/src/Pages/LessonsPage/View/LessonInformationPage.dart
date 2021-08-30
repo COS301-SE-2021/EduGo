@@ -139,7 +139,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                       MomentumRouter.goto(
                         context,
                         QuizPage,
-                        params: QuizParam(lessonID, false),
+                        params: QuizParam(lessonID, false, []),
                         transition: (context, page) {
                           return MaterialPageRoute(builder: (context) => page);
                         },

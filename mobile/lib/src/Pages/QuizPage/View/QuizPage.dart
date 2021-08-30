@@ -24,7 +24,8 @@ import 'package:momentum/momentum.dart';
 class QuizParam extends RouterParam {
   int lessonId;
   bool showAnswers;
-  QuizParam(this.lessonId, this.showAnswers);
+  List<Answer> selectedAnswers;
+  QuizParam(this.lessonId, this.showAnswers, this.selectedAnswers);
 }
 
 // when page re-routes back to this page with all the answers, answers are passed as parameters
@@ -32,7 +33,9 @@ class AnswerParam extends RouterParam {
   bool displayAnswers = false;
   List<Answer> answers;
   List<String?> correctAnswer;
-  AnswerParam(this.displayAnswers, this.answers, this.correctAnswer);
+  List<Answer> selectedAnswers;
+  AnswerParam(this.displayAnswers, this.answers, this.correctAnswer,
+      this.selectedAnswers);
 }
 
 class QuizPage extends StatefulWidget {
@@ -69,8 +72,6 @@ class _QuizPageState extends MomentumState<QuizPage> {
 
   //Stores answers that can be passed as parameters among pages using RouterParam
   late List<Answer> _selectedAnswers;
-  late List<String?> _correctAnswers;
-  List<Answer> tempAnswer = [];
   late AnswerPageModel answerModel;
 
   late bool isClicked;
@@ -91,13 +92,11 @@ class _QuizPageState extends MomentumState<QuizPage> {
     listOfQuizzes = []; // temp array
     listOfQuestions = [];
     listOfOptions = [];
-    _correctAnswers = [];
     listOfQuizIds = [];
     listOfQuestionIds = [];
     noOfQuizzes = 0;
     noOfQuestions = 0;
     _selectedAnswers = [];
-    _correctAnswers = [];
     quizId = 0;
     questionId = 0;
     isClicked = false;
@@ -165,42 +164,50 @@ class _QuizPageState extends MomentumState<QuizPage> {
           // For each and every quiz, each identified by it's key (aka id), add information
           // to the list of widgets
           allQuizzes.entries.forEach((quiz) {
-            // For each list of dropdowns create a set of option items to select from
-            allOptionalAnswers.forEach((int questionId, List<String> value) {
-              print('here we go again');
-              answerController.updateAnswer(value[0]);
-              answerModel = snapshot<AnswerPageModel>();
-              //print('initial: ' + answerModel.answer);
-              dropdowns.add(new DropdownButton<String?>(
-                  value: answerModel.answer,
-                  items: value.map((String option) {
-                    return DropdownMenuItem<String>(
-                      child: new Text(option),
-                      value: option,
-                    );
-                  }).toList(),
-                  onChanged: (selectedValue) {
-                    print('selected: ' + selectedValue!);
-                    print('prev: ' + answerModel.answer);
-                    _selectedAnswers.add(Answer(questionId, selectedValue));
-                    answerController.updateAnswer(selectedValue);
-                    answerModel = snapshot<AnswerPageModel>();
-                    print('after: ' + answerModel.answer);
-                  }));
-            });
+            // For each and every question, display the queston asked
+            allQuestions.entries.forEach((question) {
+              dropdowns
+                  .add(Text(question.key.toString() + ': ' + question.value));
 
+              // For each list of dropdowns create a set of option items to select from
+              allOptionalAnswers.forEach((int questionId, List<String> value) {
+                if (question.key == questionId) {
+                  print('here we go again');
+                  answerController.updateAnswer(value[0]);
+                  answerModel = snapshot<AnswerPageModel>();
+                  //print('initial: ' + answerModel.answer);
+                  dropdowns.add(new DropdownButton<String?>(
+                      value: answerModel.answer,
+                      items: value.map((String option) {
+                        return DropdownMenuItem<String>(
+                          child: new Text(option),
+                          value: option,
+                        );
+                      }).toList(),
+                      onChanged: (selectedValue) {
+                        print('selected: ' + selectedValue!);
+                        print('prev: ' + answerModel.answer);
+                        _selectedAnswers.add(Answer(questionId, selectedValue));
+                        answerController.updateAnswer(selectedValue);
+                        answerModel = snapshot<AnswerPageModel>();
+                        print('after: ' + answerModel.answer);
+                      }));
+                }
+              }); // all option answers
+            }); // all questions
             dropdowns.add(
               ElevatedButton(
                 onPressed: () {
                   print('lessonId: ' + lessonId.toString());
                   print('quizId: ' + quiz.key.toString());
                   print('selected answer: ' + _selectedAnswers.toString());
+
                   //TODO can only submit quiz once, so when I'm sure submit
                   //quizController.answerQuizByLessonId(lessonId, quizId, _selectedAnswers);
                   MomentumRouter.goto(
                     context,
                     QuizPage,
-                    params: QuizParam(lessonId, true),
+                    params: QuizParam(lessonId, true, _selectedAnswers),
                   );
                 },
                 child: const Text('Submit Answers'),
@@ -208,10 +215,12 @@ class _QuizPageState extends MomentumState<QuizPage> {
             );
 
             if (showAnswers == true) {
+              dropdowns.add(Text(quizParam!.selectedAnswers.toString()));
               dropdowns
                   .add(Text('Correct answers' + allCorrectAnswers.toString()));
-            }
-          });
+            } //all Questions
+          }); // all Quizzes
+
           return Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
