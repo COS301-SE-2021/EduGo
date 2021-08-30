@@ -206,6 +206,11 @@ class _QuizPageState extends MomentumState<QuizPage> {
                 child: const Text('Submit Answers'),
               ),
             );
+
+            if (showAnswers == true) {
+              dropdowns
+                  .add(Text('Correct answers' + allCorrectAnswers.toString()));
+            }
           });
           return Container(
             child: Column(
