@@ -166,14 +166,14 @@ class _QuizPageState extends MomentumState<QuizPage> {
           // to the list of widgets
           allQuizzes.entries.forEach((quiz) {
             // For each list of dropdowns create a set of option items to select from
-            allOptionalAnswers.values.forEach((List<String> v) {
+            allOptionalAnswers.forEach((int questionId, List<String> value) {
               print('here we go again');
-              answerController.updateAnswer(v[0]);
+              answerController.updateAnswer(value[0]);
               answerModel = snapshot<AnswerPageModel>();
               //print('initial: ' + answerModel.answer);
               dropdowns.add(new DropdownButton<String?>(
                   value: answerModel.answer,
-                  items: v.map((String option) {
+                  items: value.map((String option) {
                     return DropdownMenuItem<String>(
                       child: new Text(option),
                       value: option,
