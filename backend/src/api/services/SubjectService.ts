@@ -17,6 +17,7 @@ import {
 	NotFoundError,
 } from "routing-controllers";
 import { Subject as ResponseSubject } from "../models/subject/Default";
+import { DeleteSubjectRequest } from "../models/subject/DeleteSubjectRequest";
 
 @Service()
 export class SubjectService {
@@ -87,6 +88,15 @@ export class SubjectService {
 			}
 		}
 		throw new NotFoundError("Could not find educator user");
+	}
+
+	async DeleteSubject(body: DeleteSubjectRequest) {
+		try {
+			this.subjectRepository.delete({ id: body.subject_id });
+			return "ok";
+		} catch (err) {
+			throw new InternalServerError(err.message);
+		}
 	}
 
 	async GetSubjectsByUser(
