@@ -14,9 +14,11 @@ class AdminModel extends MomentumModel<AdminController> {
   final List<Widget> educatorCards;
   final String userName;
   final String virtualEntityViewerModelLink;
+  final String currentSubjectImageLink;
 
   AdminModel(AdminController controller,
       {this.organisationName,
+      this.currentSubjectImageLink,
       this.userName,
       this.organisationId,
       this.adminLoadController,
@@ -73,6 +75,10 @@ class AdminModel extends MomentumModel<AdminController> {
     update(organisationId: id);
   }
 
+  void setCurrentSubjectImage(String link) {
+    update(currentSubjectImageLink: link);
+  }
+
   void setOrganisationName(String name) {
     update(organisationName: name);
   }
@@ -108,7 +114,8 @@ class AdminModel extends MomentumModel<AdminController> {
       virtualEntityViewerModelLink,
       currentLessonId,
       userName,
-      adminLoadController}) {
+      adminLoadController,
+      currentSubjectImageLink}) {
     AdminModel(controller,
             organisationName: organisationName ?? this.organisationName,
             userName: userName ?? this.userName,
@@ -121,7 +128,9 @@ class AdminModel extends MomentumModel<AdminController> {
             virtualEntityViewerModelLink: virtualEntityViewerModelLink ??
                 this.virtualEntityViewerModelLink,
             adminLoadController:
-                adminLoadController ?? this.adminLoadController)
+                adminLoadController ?? this.adminLoadController,
+            currentSubjectImageLink:
+                currentSubjectImageLink ?? this.currentSubjectImageLink)
         .updateMomentum();
   }
 }

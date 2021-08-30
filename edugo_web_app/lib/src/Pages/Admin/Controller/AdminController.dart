@@ -12,6 +12,14 @@ class AdminController extends MomentumController<AdminModel> {
         virtualEntityViewerModelLink: "");
   }
 
+  void setCurrentSubjectImageLink(String link) {
+    model.setCurrentSubjectImage(link);
+  }
+
+  String getCurrentSubjectImage() {
+    return model.currentSubjectImageLink;
+  }
+
   Future<void> makeEducatorAdmin(String username) async {
     model.update(adminLoadController: false);
     // * Send make admin request
