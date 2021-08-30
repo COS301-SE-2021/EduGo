@@ -28,7 +28,8 @@ class SubjectsCard extends StatelessWidget {
                 //Info: set current subject Id to card's subect ID
                 Momentum.controller<AdminController>(context)
                     .setCurrentSubjectId(this.subjectId);
-
+                Momentum.controller<AdminController>(context)
+                    .setCurrentSubjectImageLink(imageLink);
                 //Info: redirect to lessons view
                 MomentumRouter.goto(context, LessonsView);
               },
@@ -40,9 +41,11 @@ class SubjectsCard extends StatelessWidget {
                       topLeft: Radius.circular(5.0),
                       topRight: Radius.circular(5.0),
                     ),
-                    child: Image.asset(
-                      //Todo: repace with this.imagelink
-                      "../assets/images/maths.jpeg",
+                    child: Image.network(
+                      imageLink,
+                      width: 400,
+                      height: 110,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   //! Subject Card Image

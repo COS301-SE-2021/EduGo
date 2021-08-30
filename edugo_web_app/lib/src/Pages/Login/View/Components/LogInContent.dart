@@ -69,6 +69,7 @@ class LogInContent extends StatelessWidget {
                                 .setLoginUserName(value);
                           },
                           cursorColor: Color.fromARGB(255, 97, 211, 87),
+                          textAlign: TextAlign.center,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -101,6 +102,7 @@ class LogInContent extends StatelessWidget {
                             Momentum.controller<LogInController>(context)
                                 .setLoginPassword(value);
                           },
+                          textAlign: TextAlign.center,
                           cursorColor: Color.fromARGB(255, 97, 211, 87),
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
