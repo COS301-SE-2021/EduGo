@@ -182,6 +182,7 @@ class _QuizPageState extends MomentumState<QuizPage> {
                   onChanged: (selectedValue) {
                     print('selected: ' + selectedValue!);
                     print('prev: ' + answerModel.answer);
+                    _selectedAnswers.add(Answer(questionId, selectedValue));
                     answerController.updateAnswer(selectedValue);
                     answerModel = snapshot<AnswerPageModel>();
                     print('after: ' + answerModel.answer);
