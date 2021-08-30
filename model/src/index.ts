@@ -4,7 +4,10 @@ import express from 'express';
 import cors from 'cors';
 import { HandleResponse } from './errors/Error';
 import dotenv from 'dotenv';
-import { download } from './file';
+import { cleanUp, download, upload } from './file';
+import { generateThumbnail } from './thumbnail';
+import fs from "fs";
+import path from 'path';
 
 dotenv.config();
 
@@ -29,6 +32,14 @@ if (command) {
 }
 else throw new Error('Incompatible platform detected');
 
+//Check if input folder exists, otherwise create it
+if (!fs.existsSync(path.join(__dirname, 'input')))
+    fs.mkdirSync(path.join(__dirname, 'input'));
+
+//Check if output folder exists, otherwise create it
+if (!fs.existsSync(path.join(__dirname, 'output')))
+    fs.mkdirSync(path.join(__dirname, 'output'));
+
 //Initialise the express app
 const app = express();
 app.use(cors(
@@ -41,29 +52,25 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 const PORT = process.env.PORT || 8085;
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
+    if (!('url' in req.body)) res.status(400).send('No URL provided');
+    let url = req.body.url;
     try {
-        res.send('ok');
+        let inputKey = await download(url);
+        let outputKey = generateThumbnail(inputKey);
+        try {
+            let uploadData = await upload(outputKey);
+            res.status(200).send(`Downloaded: ${url}\nUploaded: success`);
+        }
+        catch (err) {
+            console.log('finishing off')
+            throw err;
+        }
+        cleanUp(inputKey, outputKey);
     }
     catch (err) {
         HandleResponse(res, err);
     }
 });
-
-app.post('/download', async (req, res) => {
-    let url: string = req.body.url ?? '';
-    if (url === '') {
-        res.status(400).send('No URL provided');
-        return;
-    }
-    let status: boolean = false;
-    try {
-        status = await download(url);
-    }
-    catch (err) {
-        res.status(500).send(err.message);
-    }
-    res.status(400).send(status ? 'ok' : 'error');
-})
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))

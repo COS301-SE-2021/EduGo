@@ -1,5 +1,6 @@
-import { spawnSync } from "child_process";
+import { spawnSync, SpawnSyncReturns, execSync } from "child_process";
 import fs from 'fs';
+import path from "path";
 import { InternalServerError, NotFoundError } from './errors/Error'
 
 /**
@@ -7,16 +8,22 @@ import { InternalServerError, NotFoundError } from './errors/Error'
  * @param {string} input - The path to the glb file
  * @param {string} output - The path to the output image
  */
-export const generateThumbnail = (input: string, output: string) => {
+export const generateThumbnail = (input: string) => {
     //Check to see if file exists
     if (!fs.existsSync(`${__dirname}/input/${input}`)) {
         throw new NotFoundError("File does not exist");
     }
-    //TODO: check if output folder exists
-    //Try using the fs.mkdir function to create the output folder if it doesn't exist
-    //If the folder already exists, do nothing
-    let run = spawnSync('screenshot-glb', [`-i ${__dirname}/input/${input}`, `${__dirname}/output/${output}`]);
-    if (run.status !== 0) {
-        throw new InternalServerError("Error generating thumbnail");
+    let output = generateOutputName(input);
+    try {
+        const run = execSync(`screenshot-glb -i ${path.join(__dirname, 'input', input)} -o ${path.join(__dirname, 'output', output)}`, {encoding: 'utf8'});
     }
+    catch (err) {
+        console.log(err);
+        throw new InternalServerError(err)
+    }
+    return output;
+}
+
+const generateOutputName = (input: string): string => {
+    return `${input.replace(".glb", ".png")}`;
 }
