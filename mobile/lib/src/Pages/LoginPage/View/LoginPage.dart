@@ -20,6 +20,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   /////////////////////////  VARIABLES & FUNCTIONS  ////////////////////////////
+  late bool _passwordVisible;
   // Unique key that identifies page: https://iiro.dev/writing-widget-tests-for-navigation-events/
   static const navigateToVerificationLinkKey =
       Key('navigateToVerificationLinkKey');
@@ -70,6 +71,13 @@ class _LoginPageState extends State<LoginPage> {
     password_text_controller.dispose();
     super.dispose();
   }
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordVisible = false;
+  }
+
   //////////////////////////////////////////////////////////////////////////////
 
   @override
@@ -178,7 +186,20 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(20.0),
             ),
             hintText: "Password",
-            suffixIcon: Icon(Icons.visibility_off),
+            suffixIcon: GestureDetector(
+              onLongPress: () {
+                setState(() {
+                  _passwordVisible = true;
+                });
+              },
+              onLongPressUp: () {
+                setState(() {
+                  _passwordVisible = false;
+                });
+              },
+              child: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off),
+            ),
           ),
         ),
       ),
