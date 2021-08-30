@@ -4,9 +4,10 @@ import 'package:edugo_web_app/src/Pages/InviteEducators/View/Widgets/InviteEduca
 class InviteEducatorsModel extends MomentumModel<InviteEducatorsController> {
   final String currentEmailInput;
   final List<String> emails;
+  final String inviteResponse;
 
   InviteEducatorsModel(InviteEducatorsController controller,
-      {this.currentEmailInput, this.emails})
+      {this.currentEmailInput, this.emails, this.inviteResponse})
       : super(controller);
 
   void inputEmail(String email) {
@@ -60,11 +61,12 @@ class InviteEducatorsModel extends MomentumModel<InviteEducatorsController> {
   }
 
   @override
-  void update({currentEmailInput, emails}) {
+  void update({currentEmailInput, emails, inviteResponse}) {
     InviteEducatorsModel(
       controller,
       currentEmailInput: currentEmailInput ?? this.currentEmailInput,
       emails: emails ?? this.emails,
+      inviteResponse: inviteResponse ?? this.inviteResponse,
     ).updateMomentum();
   }
 }
