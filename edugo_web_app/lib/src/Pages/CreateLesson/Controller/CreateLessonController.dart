@@ -16,7 +16,8 @@ class CreateLessonController extends MomentumController<CreateLessonModel> {
     model.setLessonDescription(lessonDescription);
   }
 
-  Future createLesson(context) async {
+  Future<String> createLesson(context) async {
+    model.update(createLessonLoadController: false);
     var url = Uri.parse('http://34.65.226.152:8080/lesson/createLesson');
     await post(
       url,
@@ -35,10 +36,16 @@ class CreateLessonController extends MomentumController<CreateLessonModel> {
       ),
     ).then(
       (response) {
-        print(response.body);
-        if (response.statusCode == 200)
-          MomentumRouter.goto(context, LessonsView);
+        if (response.statusCode == 200) {
+          model.update(createRepsonse: "Lesson created");
+
+          model.update(createLessonLoadController: true);
+        } else {
+          model.update(createRepsonse: "Lesson not created");
+          model.update(createLessonLoadController: true);
+        }
       },
     );
+    return model.createRepsonse;
   }
 }
