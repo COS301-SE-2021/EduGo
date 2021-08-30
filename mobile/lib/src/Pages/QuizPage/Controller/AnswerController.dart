@@ -22,6 +22,5 @@ class AnswerController extends MomentumController<AnswerPageModel> {
 
   void updateAnswer(String? selectedAnswer) {
     model.update(answer: selectedAnswer); // update state (rebuild widgets)
-    print('model answer' + model.answer);
   }
 }
