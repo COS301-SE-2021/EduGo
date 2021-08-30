@@ -2,5 +2,5 @@ import { Quiz } from "./Default";
 
 export interface GetQuizesByLessonResponse {
 	data: Quiz[];
-	quizesAnswered: number[];
+	answeredQuiz_ids: number[];
 }
