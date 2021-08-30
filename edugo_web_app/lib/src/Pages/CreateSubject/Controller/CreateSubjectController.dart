@@ -22,7 +22,8 @@ class CreateSubjectController extends MomentumController<CreateSubjectModel> {
     model.update(subjectImage: "null");
   }
 
-  Future<void> createSubject(context) async {
+  Future<String> createSubject(context) async {
+    model.update(createSubjectLoadController: false);
     var url = Uri.parse("http://34.65.226.152:8080/subject/createSubject");
 
     var request = new MultipartRequest(
@@ -40,11 +41,23 @@ class CreateSubjectController extends MomentumController<CreateSubjectModel> {
     request.fields['title'] = model.subjectTitle;
     request.fields['grade'] = model.subjectGrade;
 
-    await request.send().then((value) async {
-      await Response.fromStream(value).then((response) {
-        MomentumRouter.goto(context, SubjectsView);
-      });
-    });
+    await request.send().then(
+      (value) async {
+        await Response.fromStream(value).then(
+          (response) {
+            if (response.statusCode == 200) {
+              model.update(createRepsonse: "Subject created");
+              model.update(subjectImage: null);
+              model.update(createSubjectLoadController: true);
+            } else {
+              model.update(createRepsonse: "Subject not created");
+              model.update(createSubjectLoadController: true);
+            }
+          },
+        );
+      },
+    );
+    return model.createRepsonse;
   }
 
   List<int> _selectedFile;
