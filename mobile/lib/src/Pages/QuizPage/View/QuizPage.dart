@@ -215,7 +215,13 @@ class _QuizPageState extends MomentumState<QuizPage> {
             );
 
             if (showAnswers == true) {
-              dropdowns.add(Text(quizParam!.selectedAnswers.toString()));
+              var selectedAnswersMap = Map.fromIterable(
+                  quizParam!.selectedAnswers,
+                  key: (e) => e.question_id,
+                  value: (e) => e.answer);
+
+              dropdowns.add(
+                  Text('Selected answers' + selectedAnswersMap.toString()));
               dropdowns
                   .add(Text('Correct answers' + allCorrectAnswers.toString()));
             } //all Questions
