@@ -1,7 +1,7 @@
 import 'package:edugo_web_app/src/Pages/CreateLesson/View/Widgets/CreateLessonWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class CreateLessonDesktopTopContainer extends StatelessWidget {
+class CreateLessonContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
