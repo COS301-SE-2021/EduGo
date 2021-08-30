@@ -4,13 +4,18 @@ import 'package:edugo_web_app/src/Pages/Subjects/Model/Data/Subject.dart';
 
 class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
   final String currentEmailInput;
+  final String inviteResponse;
   final List<String> emails;
 
   final String subjectId;
   final String subjectName;
 
   InviteStudentsModel(InviteStudentsController controller,
-      {this.currentEmailInput, this.emails, this.subjectId, this.subjectName})
+      {this.currentEmailInput,
+      this.emails,
+      this.inviteResponse,
+      this.subjectId,
+      this.subjectName})
       : super(controller);
 
   void inputEmail(String email) {
@@ -67,12 +72,14 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
   }
 
   @override
-  void update({currentEmailInput, emails, subjectId, subjectName}) {
+  void update(
+      {currentEmailInput, emails, subjectId, subjectName, inviteResponse}) {
     InviteStudentsModel(controller,
             currentEmailInput: currentEmailInput ?? this.currentEmailInput,
             emails: emails ?? this.emails,
             subjectId: subjectId ?? this.subjectId,
-            subjectName: subjectName ?? this.subjectName)
+            subjectName: subjectName ?? this.subjectName,
+            inviteResponse: inviteResponse ?? this.inviteResponse)
         .updateMomentum();
   }
 }

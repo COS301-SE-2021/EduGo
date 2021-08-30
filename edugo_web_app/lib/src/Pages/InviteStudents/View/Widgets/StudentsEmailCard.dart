@@ -3,6 +3,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class StudentsEmailCard extends StatelessWidget {
   final int emailId;
   final String emailValue;
+
   const StudentsEmailCard({
     Key key,
     this.emailId,

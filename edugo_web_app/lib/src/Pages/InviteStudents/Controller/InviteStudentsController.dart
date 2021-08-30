@@ -4,7 +4,7 @@ import 'package:edugo_web_app/src/Pages/Subjects/Model/Data/Subject.dart';
 class InviteStudentsController extends MomentumController<InviteStudentsModel> {
   @override
   InviteStudentsModel init() {
-    return InviteStudentsModel(this, emails: []);
+    return InviteStudentsModel(this, emails: [], inviteResponse: "init");
   }
 
   void inputEmail(String email) {
@@ -31,7 +31,8 @@ class InviteStudentsController extends MomentumController<InviteStudentsModel> {
     return model.getEmailView();
   }
 
-  Future<void> sendInvitations(context) async {
+  Future<String> sendInvitations(context) async {
+    model.update(inviteResponse: "");
     var url = Uri.parse('http://34.65.226.152:8080/user/addStudentsToSubject');
     await post(
       url,
@@ -49,9 +50,13 @@ class InviteStudentsController extends MomentumController<InviteStudentsModel> {
       ),
     ).then((response) {
       if (response.statusCode == 200) {
-        MomentumRouter.goto(context, AdminView);
-        return;
+        model.update(inviteResponse: "Invitations sent");
+        model.update(emails: <String>[]);
+        return "Invitations sent";
       }
+      model.update(inviteResponse: "Invitations not sent");
+      return "Invitations not sent";
     });
+    return model.inviteResponse;
   }
 }
