@@ -12,7 +12,7 @@ class LessonsCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 50),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 70.0),
+        padding: const EdgeInsets.symmetric(horizontal: 50.0),
         child: Card(
           elevation: 50,
           shape:
@@ -27,10 +27,14 @@ class LessonsCard extends StatelessWidget {
                   Radius.circular(5.0),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Image.asset(
-                    "../assets/images/maths.jpeg",
-                    height: 100,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20.0,
+                  ),
+                  child: Image.network(
+                    Momentum.controller<AdminController>(context)
+                        .getCurrentSubjectImage(),
+                    width: 400,
+                    height: 110,
                   ),
                 ),
               ),
@@ -59,19 +63,6 @@ class LessonsCard extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 30.0),
                 child: Row(
                   children: [
-                    //* Lesson Card Delete Icon
-                    MaterialButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100)),
-                      onPressed: () {},
-                      child: Icon(
-                        Icons.delete_outlined,
-                        color: Color.fromARGB(255, 97, 211, 87),
-                        size: 35,
-                      ),
-                    ),
-                    //! End of Lesson Card Delete Icon
-
                     //* Lesson Card Edit Icon
                     MaterialButton(
                       shape: RoundedRectangleBorder(
