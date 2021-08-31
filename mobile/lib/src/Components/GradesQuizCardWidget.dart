@@ -15,10 +15,7 @@ import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 
 //TODO: CHECK IF THE QUIZ WILL HAVE A QUIZ TITLE. I THINK IT SHOULD.
 //IF IT DOES, ADD IT TO THE PAGE ETC. ALSO ASK IF WE NEED QUIZ ID.
-//ALSO SEE IF I NEED TO HAVE A LIST OF STUDENT AND CORRECT ANSWERS
-//TO BE DISPLAYED. IF NOT, REDIFE MODEL AND RUN
-//flutter pub run build_runner build --delete-conflicting-outputs
-//UNCOMMENT THE ONTAP TO GO TO GRADES SPECIFIC PAGE
+//REDIRECT TO GO TO MISH'S PAGE OF SEEING ALL ANSWERS
 
 class GradesQuizCard extends StatelessWidget {
   //Holds the quiz title

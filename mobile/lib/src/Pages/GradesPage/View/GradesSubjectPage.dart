@@ -42,6 +42,10 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
           //Stores a snapshot of the current subject
           //list in the GradesModel page
           final subjects = snapshot<GradesModel>();
+          final gradesController =
+              Momentum.controller<GradesController>(context);
+          //Call the grades function call every time grades page is reloaded
+          gradesController.getGradesOnload();
           if (subjects.subjects.isNotEmpty && subjects.subjects.length > 0) {
             return Container(
               child: SingleChildScrollView(

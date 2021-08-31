@@ -48,6 +48,11 @@ class _SubjectsPageState extends State<SubjectsPage> {
           //A check to see if there are subjects. If there are no subjects,
           //or if the list is empty display another card saying no
           //subjects are available
+          final subjectsController =
+              Momentum.controller<SubjectsController>(context);
+          //Call this function on every reload or click of
+          //page to display new subjects
+          subjectsController.getSubjects();
           if (subjectsCount > 0 && subjects.subjects.isNotEmpty) {
             return Container(
               child: SingleChildScrollView(

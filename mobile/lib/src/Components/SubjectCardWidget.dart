@@ -67,6 +67,7 @@ class SubjectCard extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
+            color: const Color(0xff7c94b6),
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.hue),

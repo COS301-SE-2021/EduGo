@@ -33,7 +33,7 @@ Future<List<Subject>> getSubjectsByUser({required http.Client client}) async {
     headers: <String, String>{
       "Content-Type": "application/json",
       "Authorization":
-          "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2MjkyODUxNzgsImV4cCI6MTYyOTM3MTU3OH0.nUHp27qXDN2jCpk14YqL1X4BSgHmgrlKQOE1UdkO0FfvU0KZFmOEHKycOXnfzQYTNoBMIJkbKbwbbSnBp1h1zALaKwR8xIM7gWnZ2eW59ZXy741leCWbaH7Fy2JH-lJeT8GAS46DRPZIoddD6s_DXuoFKWYyK_QXJJC_QotuRQWGUH80vz293XvYpm8U7stoOMcjbWCLRJy5c4QyS-cgSGq4b4BpEITFKo4W4A5dqlnDLwRkEVuFzhkPnhnEWTWvfp1SS1YzNhjwv5ObfbuIrrDZ1JvOIkc6_SceFcz40K-JcZX95l8K1YCPs6FtArYA-ZEp8rsLM89zmnl-JiG2hMK-3JyHvmsgSor54LWvDBOpfHYWbFaXY7A2fGFSpJd_BRgxH3NEDqfxa2QVsvXBDYIJu5ELBy3J5DyO9gOAVvgM6nTyMYkPrpmopkhCefYvmT-rR9JXY33ltFd5X3SvBV99SFv69UJ3lUOgjaoQZLT9UC5yOXCIsFTw-IGMv3X5KPU_PIww0f3PimiwXKI0_g-gi-n_sxcVIu6Dia2SKlVSqwDHRazoKx6h61VHIbZkiLD3yQ56T4HeRLohxr6mWyYxK_vl-CHMkx7DMNPvQ9n8BiEZ2uYPhkmh-hdRuajDqobE8JPW0bHdiAwyiMj6xQrPLIQV6dd4Tpd-pd00kXg",
+          "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2Mjk3ODc2NTQsImV4cCI6MTYyOTg3NDA1NH0.XeB_Zt4vcP_gv0wm0Yd6Ho3irrwSyusF3W1_AVjbq1sgXRD7JpLi8QRJ3aVjOpqExB2Y-bYCVLBUHem0R4kUb_7WiUC9crx51vx60jPFFCSMgHjDo2LQwfV-Icw4_121N3_Xk0ieaL63nmqhztWR8GdNga2kfxBb0VI46HvIWO_LihP6YZbW5dovkCMwMInxVWL0LE1xPVNPEDKeQ62O70AsyLzPF0dx4JSbgxjzphJTJPNJiLtdJB0Ap3UgOk7oIgBvWSnwUK740nLD7BLPZIQRgjWdsODK598cNlzoANxorkx1iMqaDDG2pidTGLenaESlC8OvDswc6saK2--JZ-hWkSq6zPx54KtK4j__bZA8ZcRb5_-Q1_7e59PvS4N64LK6d1YG5Mpjr0yCAu8x-yljkcQe74D0MyPctDJeXrONDDGhp6nuzXI5RRGUQWwjNOpuuUxEPOkMK_e8GbZUnATl-OIyW5hlhnf-4Kt2BVWlAChsQyFfRjRU39Hv86ESOsDcDGFyaEJRmWnUKqMPga0YIuxGXEYMQeLrnaYrNk1NkDHS18w6RE8UPuj6YG03td10FPR8TDkNBmPsB69tWVNq38fGNBgfDjmKyNBB6JXfWnBTnTKyAtx-K0Y3fO1Fqa5TRe73Qmm8paYuL1ygVt-RhLXZo8W_EKuphQM0lm8",
     },
   );
 
@@ -66,8 +66,8 @@ class SubjectsController extends MomentumController<SubjectsModel> {
   }
 
   //Bootstrap function is run immediately/automatically when page is opened
-  @override
-  Future<void> bootstrapAsync() {
+
+  Future<void> getSubjects() {
     return getSubjectsByUser(
             //If bool is set to true in the controller constructor in the main file,
             //it uses mock the actual api end point
