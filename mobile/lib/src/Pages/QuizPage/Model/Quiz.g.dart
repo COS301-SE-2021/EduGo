@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'QuizModel.dart';
+part of 'Quiz.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -10,28 +10,15 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['id']);
   return Quiz(
     json['id'] as int,
-    (json['questions'] as List<dynamic>?)
-        ?.map((e) => Question.fromJson(e as Map<String, dynamic>))
+    (json['questions'] as List<dynamic>)
+        .map((e) => Question.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
 
 Map<String, dynamic> _$QuizToJson(Quiz instance) => <String, dynamic>{
       'id': instance.id,
-      'questions': instance.questions?.map((e) => e.toJson()).toList(),
-    };
-
-Answer _$AnswerFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['question_id', 'answer']);
-  return Answer(
-    json['question_id'] as int,
-    json['answer'] as String,
-  );
-}
-
-Map<String, dynamic> _$AnswerToJson(Answer instance) => <String, dynamic>{
-      'question_id': instance.question_id,
-      'answer': instance.answer,
+      'questions': instance.questions,
     };
 
 Question _$QuestionFromJson(Map<String, dynamic> json) {
@@ -42,7 +29,7 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
         unknownValue: QuestionType.TrueFalse),
     json['question'] as String,
     json['correctAnswer'] as String? ?? '',
-    (json['options'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    (json['options'] as List<dynamic>).map((e) => e as String).toList(),
   );
 }
 

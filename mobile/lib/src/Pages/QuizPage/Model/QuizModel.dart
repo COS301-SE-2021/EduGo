@@ -1,64 +1,63 @@
-import 'package:json_annotation/json_annotation.dart';
+// import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
+// import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
+// import 'package:momentum/momentum.dart';
 
-part 'QuizModel.g.dart';
+// class QuestionPageModel extends MomentumModel<QuestionPageController> {
+//   QuestionPageModel(
+//     QuestionPageController controller, {
+//     required this.type,
+//     required this.questionText,
+//     required this.optionsText,
+//     required this.correctAnswer,
+//   }) : super(controller);
 
-@JsonSerializable(explicitToJson: true)
-class Quiz {
-  @JsonKey(required: true)
-  int id;
+//   final QuestionType type;
+//   final String questionText;
+//   final List<String>? optionsText;
+//   final String correctAnswer;
 
-  @JsonKey(defaultValue: null)
-  List<Question>? questions;
+//   int index = 0;
 
-  Quiz(this.id, this.questions);
+//   // Every time the next button is clicked, the question of the quiz at a particular index
+//   // will display. The index will be updated so when clicked again, the next question will display
+//   @override
+//   void update({Question? question}) {
+//     QuestionPageModel(
+//       controller,
+//       type: question!.type,
+//       questionText: question.question,
+//       optionsText: question.options,
+//       correctAnswer: question.correctAnswer,
+//     ).updateMomentum();
+//     index++;
+//   }
+// }
 
-  factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
-  Map<String, dynamic> toJson() => _$QuizToJson(this);
-}
+/**
+ * This is the model for the GradesPage itself. 
+ * The getStudentGrades endpoint will return a list of subjects.  
+*/
 
-@JsonSerializable()
-class Answer {
-  @JsonKey(required: true)
-  int question_id;
+import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+import 'package:mobile/src/Pages/QuizPage/Model/Quiz.dart';
+import 'package:momentum/momentum.dart';
 
-  @JsonKey(required: true)
-  String answer;
+/*------------------------------------------------------------------------------
+ *             Quiz model class for the actual QuizPage
+ *------------------------------------------------------------------------------
+ */
 
-  Answer(this.question_id, this.answer);
+//Momentum constructor
+class QuizModel extends MomentumModel<QuizController> {
+  QuizModel(QuizController controller, {required this.quizzes})
+      : super(controller);
 
-  factory Answer.fromJson(Map<String, dynamic> json) => _$AnswerFromJson(json);
-  Map<String, dynamic> toJson() => _$AnswerToJson(this);
-}
+//List of quizzes to return
+  final List<Quiz> quizzes;
 
-@JsonSerializable()
-class Question {
-  @JsonKey(required: true)
-  int id;
-
-  @JsonKey(required: true, unknownEnumValue: QuestionType.TrueFalse)
-  QuestionType type;
-
-  @JsonKey(required: true)
-  String question;
-
-  @JsonKey(defaultValue: '')
-  String correctAnswer;
-
-  @JsonKey(defaultValue: null)
-  List<String>? options;
-
-  Question(this.id, this.type, this.question, this.correctAnswer, this.options);
-
-  factory Question.fromJson(Map<String, dynamic> json) =>
-      _$QuestionFromJson(json);
-  Map<String, dynamic> toJson() => _$QuestionToJson(this);
-}
-
-enum QuestionType {
-  @JsonValue("TrueFalse")
-  TrueFalse,
-  @JsonValue("MultipleChoice")
-  MultipleChoice
-  // @JsonValue("FreeText")
-  // FreeText,
+  //Used by mvc momentum to update Quizsubject model
+  @override
+  void update({List<Quiz>? quizzes}) {
+    QuizModel(controller, quizzes: quizzes ?? this.quizzes).updateMomentum();
+  }
 }

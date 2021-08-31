@@ -135,14 +135,24 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       side: BorderSide(color: Colors.black),
                     ),
+                    // onPressed: () {
+                    //   MomentumRouter.goto(
+                    //     context,
+                    //     QuizPage,
+                    //     params: QuizParam(lessonID, false, []),
+                    //     transition: (context, page) {
+                    //       return MaterialPageRoute(builder: (context) => page);
+                    //     },
+                    //   );
+                    // },
                     onPressed: () {
-                      MomentumRouter.goto(
+                      Navigator.push(
                         context,
-                        QuizPage,
-                        params: QuizParam(lessonID, false, []),
-                        transition: (context, page) {
-                          return MaterialPageRoute(builder: (context) => page);
-                        },
+                        MaterialPageRoute(
+                          builder: (context) => QuizPage(
+                            lessonID: lessonID,
+                          ),
+                        ),
                       );
                     },
                     minWidth: 10,
