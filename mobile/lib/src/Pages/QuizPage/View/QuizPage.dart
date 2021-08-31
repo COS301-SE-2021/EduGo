@@ -273,7 +273,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Components/QuizCardWidget.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:momentum/momentum.dart';
@@ -342,18 +342,48 @@ class _QuizPageState extends State<QuizPage> {
                       tabs: tabs,
                     ),
                   ),
-                  body: TabBarView(
-                    children: quizzes.quizzes.map((quiz) {
-                      final int label = quiz.id;
-                      return Center(
-                        child: Text(
-                          'This is the $label tab',
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                      );
-                    }).toList(),
+                  body: GridView.count(
+                    //This makes 2 cards appear. So effectively two
+                    //cards per page. (2 rows, 1 card per row)
+                    childAspectRatio: MediaQuery.of(context).size.height / 400,
+                    primary: false,
+                    padding: const EdgeInsets.only(top: 20),
+                    crossAxisSpacing: 0,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    mainAxisSpacing: 10,
+                    //makes 1 cards per row
+                    crossAxisCount: 1,
+                    //Call GradesSubjectubjeCtardWidget here and
+                    //pass in all arguments required
+                    children: quizzes.quizzes
+                        .map((quiz) =>
+                            // final int label = quiz.id;
+                            // return Center(
+                            //   child: Text(
+                            //     'This is the $label tab',
+                            //     style: const TextStyle(fontSize: 20),
+                            //   ),
+                            // );
+                            QuizCard(
+                                questions: quiz.questions.map((e) => e.id)))
+                        .toList(),
                   ),
                 ),
+
+                //   TabBarView(
+
+                //   //   children: quizzes.quizzes.map((quiz) {
+                //   //     final int label = quiz.id;
+                //   //     return Center(
+                //   //       child: Text(
+                //   //         'This is the $label tab',
+                //   //         style: const TextStyle(fontSize: 20),
+                //   //       ),
+                //   //     );
+                //   //   }).toList(),
+                //   // ),
+                // ),
               ),
             );
           } else
