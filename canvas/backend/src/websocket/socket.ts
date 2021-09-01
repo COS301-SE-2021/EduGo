@@ -32,5 +32,8 @@ export const onConnection = (socket: socket.Socket) => {
         io.emit('camera_updated', data);
     })
 
+    socket.on('disconnect', () => {
+        console.log('disconnected');
+    });
     console.log('connected');
 };
