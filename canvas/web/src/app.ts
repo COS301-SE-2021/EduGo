@@ -6,6 +6,9 @@ import * as renderer from './renderer';
 import * as inputs from './inputs';
 // import * as request from './requests';
 // import axios from 'axios';
+import * as socket from 'socket.io-client';
+
+const io = socket.io('http://localhost:8084');
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 const gl: WebGLRenderingContext = canvas.getContext('webgl')!;
@@ -106,6 +109,8 @@ const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
     gl.uniform3f(uniforms.cameraPosition, cameraMatrix.position[0], cameraMatrix.position[1], cameraMatrix.position[2]);
     gl.uniformMatrix4fv(uniforms.pMatrix, false, cameraMatrix.pMatrix);
     gl.uniformMatrix4fv(uniforms.vMatrix, false, cameraMatrix.vMatrix);
+
+    io.emit('new_camera', cam);
 
     renderer.renderModel(gl, model, model.rootNode, model.nodes[model.rootNode].localBindTransform, uniforms)
 
