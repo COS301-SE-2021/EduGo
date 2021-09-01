@@ -3,9 +3,12 @@ import * as cubemap from './cubemap';
 import * as gltf from 'webgl-gltf';
 import * as camera from './camera';
 import * as renderer from './renderer';
-import * as inputs from './inputs';
+// import * as inputs from './inputs';
 // import * as request from './requests';
 // import axios from 'axios';
+import * as socket from 'socket.io-client'
+
+const io = socket.io('http://localhost:8084');
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 const gl: WebGLRenderingContext = canvas.getContext('webgl')!;
@@ -16,6 +19,12 @@ const cam: camera.Camera = {
     distance: 3.0
 }
 
+io.on('camera_updated', (data: any) => {
+    cam.rX = data.rX;
+    cam.rY = data.rY;
+    cam.distance = data.distance;
+})
+
 const setSize = () => {
     const devicePixelRatio = window.devicePixelRatio || 1;
     canvas.width = window.innerWidth * devicePixelRatio;
@@ -23,17 +32,17 @@ const setSize = () => {
     gl.viewport(0, 0, canvas.width, canvas.height);
 }
 
-const rotate = (delta: inputs.Position) => {
-    cam.rX += delta.y;
-    cam.rY += delta.x;
-};
+// const rotate = (delta: inputs.Position) => {
+//     cam.rX += delta.y;
+//     cam.rY += delta.x;
+// };
 
-const zoom = (delta: number) => {
-    cam.distance *= 1.0 + delta;
-    if (cam.distance < 0.0) cam.distance = 0.0;
-};
+// const zoom = (delta: number) => {
+//     cam.distance *= 1.0 + delta;
+//     if (cam.distance < 0.0) cam.distance = 0.0;
+// };
 
-inputs.listen(canvas, rotate, zoom);
+//inputs.listen(canvas, rotate, zoom);
 
 if (!gl) alert('WebGL not available');
 
