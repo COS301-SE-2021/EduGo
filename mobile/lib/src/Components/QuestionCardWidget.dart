@@ -4,10 +4,11 @@
    * can be passed into the constructor when displaying the Quiz cards.
 */
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/AnswerButtons.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/Quiz.dart';
 
 /*------------------------------------------------------------------------------
- *                    Quiz Card used in the Quiz page 
+ *                    Question Card used in the Quiz page 
  *------------------------------------------------------------------------------
  */
 
@@ -34,25 +35,106 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //This is the main subject card design. It is all in a container and
-    //displays info like the subject photo, subject title, subject educator
-    //and how many lessons are in that subject
+    List<String> answersForQuestion = [];
+
+    for (int i = 0; i < answerOptions.length; i++)
+      answersForQuestion.add(answerOptions[i]);
+
+    print("-------------------");
+    print("The answers in the answerForQuestions list are: " +
+        answersForQuestion.asMap().toString());
+
     return Card(
       semanticContainer: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       clipBehavior: Clip.antiAlias,
-      //color: Color.fromARGB(255, 97, 211, 87),
-      //color: Colors.black,
       child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.purple,
-              width: 0.5,
-            ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.purple,
+            width: 0.5,
           ),
-          child: Text(question)),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Container(
+                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.height / 3,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.purple,
+                    width: 0.5,
+                  ),
+                ),
+                alignment: Alignment.center,
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: MediaQuery.of(context).size.height / 4,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 30, left: 10, right: 10),
+                    child: Text(
+                      //If there is a mark, display it.
+                      //Else display the two dashes
+                      '$question',
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 4,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            (QuestionType.TrueFalse == questionType)
+                ? //Padding(
+                //padding: const EdgeInsets.only(top: 30),
+                GridView.count(
+                    //This makes 2 cards appear. So effectively two cards
+                    //per page. (2 rows, 1 card per row)
+                    childAspectRatio: MediaQuery.of(context).size.height / 200,
+                    primary: false,
+                    padding: const EdgeInsets.all(20),
+                    crossAxisSpacing: 30,
+                    shrinkWrap: true,
+                    //mainAxisSpacing: 10,
+                    //makes 1 cards per row
+                    crossAxisCount: answersForQuestion.length,
+                    children: answersForQuestion
+                        .map((e) => AnswerButtons(answer: e))
+                        .toList(),
+                    //),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: GridView.count(
+                      //This makes 2 cards appear. So effectively two cards
+                      //per page. (2 rows, 1 card per row)
+                      childAspectRatio:
+                          MediaQuery.of(context).size.height / 200,
+                      primary: false,
+                      padding: const EdgeInsets.all(20),
+                      crossAxisSpacing: 30,
+                      shrinkWrap: true,
+                      // mainAxisSpacing: 10,
+                      //makes 1 cards per row
+                      crossAxisCount: answersForQuestion.length,
+                      children: answersForQuestion
+                          .map((e) => AnswerButtons(answer: e))
+                          .toList(),
+                    ),
+                  )
+          ],
+        ),
+      ),
     );
   }
 }

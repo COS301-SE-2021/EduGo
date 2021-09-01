@@ -13,19 +13,6 @@ import 'package:mobile/src/Pages/QuizPage/Model/Quiz.dart';
  */
 
 class QuizCard extends StatelessWidget {
-  //Holds the question id
-  // final int id;
-
-  // //Holds the actual question
-  // final String question;
-
-  // //Holds the answer options
-  // final List<String> answerOptions;
-
-  // //Holds the question type. Either multiple
-  // //choice or true of false type
-  // final QuestionType questionType;
-
   //Holds the questions
   final List<Question> questions;
 
@@ -34,56 +21,28 @@ class QuizCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //This is the main subject card design. It is all in a container and
-    //displays info like the subject photo, subject title, subject educator
-    //and how many lessons are in that subject
-    return Card(
-        semanticContainer: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        clipBehavior: Clip.antiAlias,
-        //color: Color.fromARGB(255, 97, 211, 87),
-        color: Colors.black,
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.purple,
-              width: 0.5,
-            ),
-          ),
-          // child: questions.
-          //           map((question) =>
-
-          //               QuestionCard(
-          //                 id: question.id,
-          //                 question: question.question,
-          //                 answerOptions: question.options,
-          //                 questionType: question.type
-          //                 ),
-          //               ).toList(),),
-          child: GridView.count(
-            //This makes 2 cards appear. So effectively two
-            //cards per page. (2 rows, 1 card per row)
-            childAspectRatio: MediaQuery.of(context).size.height / 400,
-            primary: false,
-            padding: const EdgeInsets.only(top: 20),
-            crossAxisSpacing: 0,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            mainAxisSpacing: 10,
-            //makes 1 cards per row
-            crossAxisCount: 1,
-            children: questions
-                .map(
-                  (question) => QuestionCard(
-                      id: question.id,
-                      question: question.question,
-                      answerOptions: question.options,
-                      questionType: question.type),
-                )
-                .toList(),
-          ),
-        ));
+    return GridView.count(
+      //This makes 2 cards appear. So effectively two
+      //cards per page. (2 rows, 1 card per row)
+      childAspectRatio: MediaQuery.of(context).size.height / 400,
+      primary: false,
+      //padding: const EdgeInsets.only(top: 20),
+      crossAxisSpacing: 0,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      // mainAxisSpacing: 5,
+      //makes 1 cards per row
+      crossAxisCount: 1,
+      children: questions
+          .map(
+            (question) => QuestionCard(
+                id: question.id,
+                question: question.question,
+                answerOptions: question.options,
+                questionType: question.type),
+          )
+          .toList(),
+    );
+    //));
   }
 }

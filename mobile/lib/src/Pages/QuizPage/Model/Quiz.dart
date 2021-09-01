@@ -79,6 +79,4 @@ enum QuestionType {
   TrueFalse,
   @JsonValue("MultipleChoice")
   MultipleChoice
-  // @JsonValue("FreeText")
-  // FreeText,
 }

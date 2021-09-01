@@ -301,65 +301,56 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
-      //the two bool represent side bar and navbar. so if true and true, them
-      //the side bar and nav bar will be displayed.
-      //i.e true=yes display, false=no do not display
-      // false,
-      // false,
-      child: MomentumBuilder(
-        controllers: [QuizController],
-        builder: (context, snapshot) {
-          //Stores a snapshot of the current quizes
-          //list in the QuizModel page
-          final quizzes = snapshot<QuizModel>();
-          final quizController = Momentum.controller<QuizController>(context);
-          //Call the quiz function call every time quiz page is reloaded
-          //to update the number of quizzes
-          quizController.getQuizzes(lessonID);
+    return MomentumBuilder(
+      controllers: [QuizController],
+      builder: (context, snapshot) {
+        //Stores a snapshot of the current quizes
+        //list in the QuizModel page
+        final quizzes = snapshot<QuizModel>();
+        final quizController = Momentum.controller<QuizController>(context);
+        //Call the quiz function call every time quiz page is reloaded
+        //to update the number of quizzes
+        quizController.getQuizzes(lessonID);
 
-          int numberOfQuizzes = quizzes.quizzes.length;
+        int numberOfQuizzes = quizzes.quizzes.length;
 
-          // Create numbered tabs whereby each number represents a quiz
-          // allowing the student to toggle between quizzes
-          List<Tab> tabs = <Tab>[];
-          for (int i = 0; i < numberOfQuizzes; i++) {
-            tabs.add(
-              Tab(
-                text: (i + 1).toString(),
-              ),
-            );
-          }
-          if (quizzes.quizzes.isNotEmpty && quizzes.quizzes.length > 0) {
-            return Container(
-              //Used for tabs
-              child: DefaultTabController(
-                length: numberOfQuizzes,
-                child: Scaffold(
-                  appBar: AppBar(
-                    title: Text("Quizzes"),
-                    bottom: TabBar(
-                      tabs: tabs,
-                    ),
-                  ),
-                  body: TabBarView(
-                    children: quizzes.quizzes
-                        .map((question) =>
-                            QuizCard(questions: question.questions))
-                        .toList(),
+        // Create numbered tabs whereby each number represents a quiz
+        // allowing the student to toggle between quizzes
+        List<Tab> tabs = <Tab>[];
+        for (int i = 0; i < numberOfQuizzes; i++) {
+          tabs.add(
+            Tab(
+              text: (i + 1).toString(),
+            ),
+          );
+        }
+        if (quizzes.quizzes.isNotEmpty && quizzes.quizzes.length > 0) {
+          return Container(
+            //Used for tabs
+            child: DefaultTabController(
+              length: numberOfQuizzes,
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text("Quizzes"),
+                  bottom: TabBar(
+                    tabs: tabs,
                   ),
                 ),
+                body: TabBarView(
+                  children: quizzes.quizzes
+                      .map(
+                          (question) => QuizCard(questions: question.questions))
+                      .toList(),
+                ),
               ),
-              //),
-            );
-          } else
-            return SpinKitCircle(
-              color: Colors.black,
-            );
-        },
-      ),
-      //"Quiz"
+            ),
+            //),
+          );
+        } else
+          return SpinKitCircle(
+            color: Colors.black,
+          );
+      },
     );
   }
 }
