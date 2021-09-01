@@ -315,7 +315,8 @@ class _QuizPageState extends State<QuizPage> {
           //list in the QuizModel page
           final quizzes = snapshot<QuizModel>();
           final quizController = Momentum.controller<QuizController>(context);
-          //Call the grades function call every time grades page is reloaded
+          //Call the quiz function call every time quiz page is reloaded
+          //to update the number of quizzes
           quizController.getQuizzes(lessonID);
 
           int numberOfQuizzes = quizzes.quizzes.length;
@@ -342,49 +343,15 @@ class _QuizPageState extends State<QuizPage> {
                       tabs: tabs,
                     ),
                   ),
-                  body: GridView.count(
-                    //This makes 2 cards appear. So effectively two
-                    //cards per page. (2 rows, 1 card per row)
-                    childAspectRatio: MediaQuery.of(context).size.height / 400,
-                    primary: false,
-                    padding: const EdgeInsets.only(top: 20),
-                    crossAxisSpacing: 0,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    mainAxisSpacing: 10,
-                    //makes 1 cards per row
-                    crossAxisCount: 1,
-                    //Call GradesSubjectubjeCtardWidget here and
-                    //pass in all arguments required
+                  body: TabBarView(
                     children: quizzes.quizzes
-                        .map((quiz) =>
-                            // final int label = quiz.id;
-                            // return Center(
-                            //   child: Text(
-                            //     'This is the $label tab',
-                            //     style: const TextStyle(fontSize: 20),
-                            //   ),
-                            // );
-                            QuizCard(
-                                questions: quiz.questions.map((e) => e.id)))
+                        .map((question) =>
+                            QuizCard(questions: question.questions))
                         .toList(),
                   ),
                 ),
-
-                //   TabBarView(
-
-                //   //   children: quizzes.quizzes.map((quiz) {
-                //   //     final int label = quiz.id;
-                //   //     return Center(
-                //   //       child: Text(
-                //   //         'This is the $label tab',
-                //   //         style: const TextStyle(fontSize: 20),
-                //   //       ),
-                //   //     );
-                //   //   }).toList(),
-                //   // ),
-                // ),
               ),
+              //),
             );
           } else
             return SpinKitCircle(
