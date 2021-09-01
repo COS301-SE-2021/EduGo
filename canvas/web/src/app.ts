@@ -4,8 +4,8 @@ import * as gltf from 'webgl-gltf';
 import * as camera from './camera';
 import * as renderer from './renderer';
 import * as inputs from './inputs';
-// import * as request from './requests';
-// import axios from 'axios';
+import * as request from './requests';
+import axios from 'axios';
 import * as socket from 'socket.io-client';
 
 const io = socket.io('http://localhost:8084');
@@ -40,19 +40,33 @@ inputs.listen(canvas, rotate, zoom);
 
 if (!gl) alert('WebGL not available');
 
-// const pre = async () => {
-//     let modelId = request.getParameter('model');
-//     if (!modelId) throw new Error('Missing model id in parameters');
+const pre = async () => {
+    let modelId = request.getParameter('model');
+    if (!modelId) {
+        alert('Missing model id in parameters');
+        throw new Error('Missing model id in parameters')
+    };
     
+    let response = await axios.post(
+        'http://localhost:8084/api/getVirtualEntity', 
+        { virtualEntityId: parseInt(modelId!) },
+        {headers: {authorization: `Bearer ${request.getParameter('token') || ''}`}}
+    );
+    if (response.status === 200) {
+        let {data} = response;
+        if ('model' in data && 'file_link' in data.model) {
+            let url = data.model.file_link;
+            init(url);
+        }
+    }
+    else {
+        let errorText = `Error loading model; CODE: ${response.status}`;
+        alert(errorText);
+        throw new Error(errorText);
+    }
+}
 
-//     let response = await axios.post('http://localhost:8084/api/model', {model: parseInt(modelId)});
-//     if (response.status === 200) {
-//         let url = response.data.url;
-//         console.log(url);
-//     }
-// }
-
-const init = async () => {
+const init = async (url: string) => {
     gl.clearColor(0.3, 0.3, 0.3, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
@@ -94,7 +108,7 @@ const init = async () => {
     const uniforms = defaultShaders.getUniformLocations(gl, program);
 
     const environment = await cubemap.load(gl);
-    const model = await gltf.loadModel(gl, `https://edugo-files.s3.af-south-1.amazonaws.com/test_models/waterbottle/waterbottle.gltf`);
+    const model = await gltf.loadModel(gl, url);
 
     cubemap.bind(gl, environment, uniforms.brdfLut, uniforms.environmentDiffuse, uniforms.environmentSpecular);
 
@@ -117,4 +131,4 @@ const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
     requestAnimationFrame(() => render(uniforms, model));
 }
 
-window.onload = init;
+window.onload = pre;
