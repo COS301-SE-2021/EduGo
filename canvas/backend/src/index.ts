@@ -16,13 +16,14 @@ app.use(express.urlencoded({extended: true}));
 app.set('port', PORT);
 
 import { router as VirtualEntityRouter} from './api/VirtualEntityRouter';
-import { onConnection } from './websocket/socket';
 
 app.use('/api', VirtualEntityRouter);
 
 const server = http.createServer(app);
-const io = new socket.Server(server);
 
+import { onConnection } from './websocket/socket';
+
+const io = new socket.Server(server);
 io.on('connection', onConnection);
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
