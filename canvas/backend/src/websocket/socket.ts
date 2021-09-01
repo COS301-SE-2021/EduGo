@@ -24,6 +24,11 @@ export const onConnection = (socket: socket.Socket) => {
         else if (user.type === 'educator') {
             educators.push(user);
         }
-    })
+    });
+
+    socket.on('new_transformation', (data) => {
+        console.log(data);
+    });
+
     console.log('connected');
 };
