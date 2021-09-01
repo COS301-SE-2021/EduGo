@@ -23,7 +23,8 @@ const server = http.createServer(app);
 
 import { onConnection } from './websocket/socket';
 
-const io = new socket.Server(server);
+export const io = new socket.Server(server);
 io.on('connection', onConnection);
+
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));

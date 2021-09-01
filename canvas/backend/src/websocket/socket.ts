@@ -4,6 +4,7 @@ import * as socket from 'socket.io';
 import { error } from './error';
 import { Init } from './models/Init';
 import { getUser, User } from './user/User';
+import { io } from '../';
 
 let students: User[] = [];
 let educators: User[] = [];
@@ -26,9 +27,10 @@ export const onConnection = (socket: socket.Socket) => {
         }
     });
 
-    socket.on('new_transformation', (data) => {
+    socket.on('new_camera', (data) => {
         console.log(data);
-    });
+        io.emit('camera_updated', data);
+    })
 
     console.log('connected');
 };

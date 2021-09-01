@@ -18,7 +18,12 @@ router.post('/getVirtualEntity', async (req, res) => {
         { id: virtualEntityId }, 
         { headers: {authorization: req.headers.authorization} }
     );
-    res.send(response.data);
+    if (response.status === 200) {
+        res.send(response.data);
+        return;
+    }
+
+    res.sendStatus(response.status);
 });
 
 export { router };
