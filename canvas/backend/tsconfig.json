@@ -10,8 +10,8 @@
     "strictFunctionTypes": true,           /* Enable strict checking of function types. */
     "strictPropertyInitialization": false,  /* Enable strict checking of property initialization in classes. */
     "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
-    "noUnusedLocals": true,                /* Report errors on unused locals. */
-    "noUnusedParameters": true,            /* Report errors on unused parameters. */
+    //"noUnusedLocals": true,                /* Report errors on unused locals. */
+    //"noUnusedParameters": true,            /* Report errors on unused parameters. */
     "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "baseUrl": ".",                       /* Base directory to resolve non-absolute module names. */
