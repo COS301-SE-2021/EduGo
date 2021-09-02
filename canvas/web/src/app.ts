@@ -9,6 +9,7 @@ import axios from 'axios';
 import * as socket from 'socket.io-client';
 
 const io = socket.io('http://localhost:8084');
+let code: string = '';
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 const gl: WebGLRenderingContext = canvas.getContext('webgl')!;
@@ -40,7 +41,22 @@ inputs.listen(canvas, rotate, zoom);
 
 if (!gl) alert('WebGL not available');
 
-const pre = async () => {
+const identify = async () => {
+    let token = request.getParameter('token');
+    if (!token) {
+        alert('Missing token in parameters');
+        throw new Error('Missing token in parameters')
+    }
+
+    io.emit('identify', {
+        token: token
+    });
+}
+
+io.on('accepted', async (data: any) => {
+    document.getElementById('code')!.innerText = data.code;
+    code = data.code;
+
     let modelId = request.getParameter('model');
     if (!modelId) {
         alert('Missing model id in parameters');
@@ -64,7 +80,12 @@ const pre = async () => {
         alert(errorText);
         throw new Error(errorText);
     }
-}
+});
+
+io.on('declined', (data: any) => {
+    alert(data);
+    throw new Error(data);
+})
 
 const init = async (url: string) => {
     gl.clearColor(0.3, 0.3, 0.3, 1.0);
@@ -131,4 +152,4 @@ const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
     requestAnimationFrame(() => render(uniforms, model));
 }
 
-window.onload = pre;
+window.onload = identify;
