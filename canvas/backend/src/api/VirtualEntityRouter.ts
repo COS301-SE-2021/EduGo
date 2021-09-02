@@ -14,7 +14,7 @@ router.post('/getVirtualEntity', async (req, res) => {
 
     let virtualEntityId: number = request.virtualEntityId;
     let response = await axios.post(
-        `${process.env.MAIN_BACKEND_URL}/virtualEntity/getVirtualEntity`, 
+        `${process.env.BACKEND}/virtualEntity/getVirtualEntity`, 
         { id: virtualEntityId }, 
         { headers: {authorization: req.headers.authorization} }
     );
