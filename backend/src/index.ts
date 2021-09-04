@@ -98,7 +98,7 @@ let options: ConnectionOptions = process.env.NODE_ENV === 'production' ?
 		subscribersDir: "src/api/database/subscriber",
 	},
 	ssl: {
-		ca: readFileSync(__dirname + "/Cert.pem").toString()
+		ca: readFileSync("/home/edugo_admin/cert/Cert.pem").toString()
 	}
 } : 
 {
