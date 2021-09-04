@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as socket from 'socket.io';
 import { io } from '../';
 
-let activeRooms: string[] = [];
+let activeRooms: any = {};
 let userMap: any = {};
 
 export const onConnection = (socket: socket.Socket) => {
@@ -11,11 +11,7 @@ export const onConnection = (socket: socket.Socket) => {
     socket.on('disconnect', disconnect.bind(this, socket));
     socket.on('identify', identify.bind(this, socket));
     socket.on('new_camera', new_camera.bind(this, socket));
-
-    // socket.on('new_camera', (data) => {
-    //     io.emit('camera_updated', data);
-    // })
-
+    socket.on('set_link', set_link.bind(this, socket));
 };
 
 /*
@@ -39,19 +35,21 @@ const identify = async (socket: socket.Socket, data: any) => {
                 let code: string = '';
                 while (true) {
                     code = generateCode(4);
-                    if (!activeRooms.includes(code))
+                    if (!Object.keys(activeRooms).includes(code))
                         break; 
                 }
-                activeRooms.push(code);
+                activeRooms[code] = {};
+                activeRooms[code]['educator'] = socket.id;
+                activeRooms[code]['link'] = null; 
                 socket.join(code);
                 userMap[socket.id] = code;
                 socket.emit('accepted', {code: code});
             }
             else if (userData.userType === 'student' && 'code' in data) {
-                if (activeRooms.includes(data.code)) {
+                if (Object.keys(activeRooms).includes(data.code)) {
                     socket.join(data.code);
                     userMap[socket.id] = data.code;
-                    socket.emit('accepted', {code: data.code});
+                    socket.emit('accepted', {code: data.code, link: activeRooms[data.code]['link']});
                 }
                 else socket.emit('declined', 'Invalid code');
             }
@@ -70,11 +68,19 @@ const identify = async (socket: socket.Socket, data: any) => {
 
 const disconnect = (socket: socket.Socket) => {
     console.log(`Disconnected: ${socket.id}`);
+    delete userMap[socket.id];
 }
 
 const new_camera = (socket: socket.Socket, data: any) => {
     let code = userMap[socket.id];
     socket.to(code).emit('camera_updated', data)
+}
+
+const set_link = (socket: socket.Socket, data: any) => {
+    let code = userMap[socket.id];
+    activeRooms[code]['link'] = data.link;
+
+    console.log(activeRooms);
 }
 
 const generateCode = (length: number): string => {
