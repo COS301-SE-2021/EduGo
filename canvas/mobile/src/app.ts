@@ -33,32 +33,35 @@ const setSize = () => {
 
 if (!gl) alert('WebGL not available');
 
-const pre = async () => {
-    let modelId = request.getParameter('model');
-    if (!modelId) {
-        alert('Missing model id in parameters');
-        throw new Error('Missing model id in parameters');
+const identify = () => {
+    let token = request.getParameter('token');
+    if (!token) {
+        alert('Missing token in parameters');
+        throw new Error('Missing token in parameters');
     }
-    
 
-    let response = await axios.post(
-        'http://localhost:8084/api/getVirtualEntity', 
-        { virtualEntityId: parseInt(modelId!) },
-        {headers: {authorization: `Bearer ${request.getParameter('token')}`}}
-    );
-    if (response.status === 200) {
-        let {data} = response;
-        if ('model' in data && 'file_link' in data.model) {
-            let url = data.model.file_link;
-            init(url);
-        }
+    let code = request.getParameter('code');
+    if (!code) {
+        alert('Missing code in parameters');
+        throw new Error('Missing code in parameters');
     }
-    else {
-        let errorText = `Error loading model; CODE: ${response.status}`;
-        alert(errorText);
-        throw new Error(errorText);
-    }
+
+    io.emit('identify', {token, code});
 }
+
+io.on('accepted', (data: any) => {
+    if (!('link' in data)) {
+        alert('Missing link in response');
+        throw new Error('Missing link in response');
+    }
+
+    if (data.link == null) {
+        alert('Link is null');
+        throw new Error('Link is null');
+    }
+
+    init(data.link);
+})
 
 const init = async (url: string) => {
     gl.clearColor(0.3, 0.3, 0.3, 1.0);
@@ -102,7 +105,7 @@ const init = async (url: string) => {
     const uniforms = defaultShaders.getUniformLocations(gl, program);
 
     const environment = await cubemap.load(gl);
-    const model = await gltf.loadModel(gl, `https://edugo-files.s3.af-south-1.amazonaws.com/test_models/waterbottle/waterbottle.gltf`);
+    const model = await gltf.loadModel(gl, url);
 
     cubemap.bind(gl, environment, uniforms.brdfLut, uniforms.environmentDiffuse, uniforms.environmentSpecular);
 
@@ -110,7 +113,6 @@ const init = async (url: string) => {
 }
 
 const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
-    // gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     const cameraMatrix = camera.update(cam, canvas.width, canvas.height);
@@ -123,4 +125,4 @@ const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
     requestAnimationFrame(() => render(uniforms, model));
 }
 
-window.onload = pre;
+window.onload = identify;
