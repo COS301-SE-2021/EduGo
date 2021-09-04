@@ -72,6 +72,7 @@ io.on('accepted', async (data: any) => {
         let {data} = response;
         if ('model' in data && 'file_link' in data.model) {
             let url = data.model.file_link;
+            io.emit('set_link', {link: url});
             init(url);
         }
     }
