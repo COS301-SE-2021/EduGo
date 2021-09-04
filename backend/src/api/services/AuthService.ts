@@ -237,9 +237,11 @@ export default class AuthService {
 					} catch (err) {
 
 						if (err.code == "23505") {
-							throw new BadRequestError(err)
+							console.log(err);
+							throw new BadRequestError('Duplicate entity')
 						}
-						throw new InternalServerError(err);
+						console.log(err);
+						throw new InternalServerError('Could not save user');
 					}
 					// removing user from unverified list after they have registered successfully
 					//TODO figure out what is wrong with the delete function for unverified user

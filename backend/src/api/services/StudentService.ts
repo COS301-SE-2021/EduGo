@@ -430,7 +430,8 @@ export class StudentService {
 				return Quiz;
 			} else throw new NotFoundError("Quiz not found");
 		} catch (err) {
-			throw new InternalServerError(err);
+			console.log(err);
+			throw new InternalServerError(`Could not find grade id: ${grade_id}`);
 		}
 	}
 
@@ -445,7 +446,8 @@ export class StudentService {
 			}
 			return 0;
 		} catch (err) {
-			throw new InternalServerError(err);
+			console.log(err);
+			throw new InternalServerError(`Could not finnd quiz id: ${quiz_id}`);
 		}
 	}
 	/**

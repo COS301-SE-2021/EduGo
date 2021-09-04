@@ -1,7 +1,7 @@
 import { Request } from "express";
 import jwtDecode from "jwt-decode";
 import passport from "passport";
-import { InternalServerError, UnauthorizedError } from "routing-controllers";
+import { BadRequestError, InternalServerError, UnauthorizedError } from "routing-controllers";
 import { getRepository } from "typeorm";
 import { User } from "../database/User";
 
@@ -51,7 +51,7 @@ export async function isAdmin(req: any, res: any, next: any) {
 			 return "Authorization header not set";
 		}
 	} catch (err) {
-		throw console.log(err.message);
+		throw new BadRequestError('No authorization header given');
 	}
 }
 
