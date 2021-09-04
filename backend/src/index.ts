@@ -41,6 +41,7 @@ import { Subject } from "./api/database/Subject";
 import { User } from "./api/database/User";
 import { VirtualEntity } from "./api/database/VirtualEntity";
 import { UnverifiedUser } from "./api/database/UnverifiedUser";
+import { readFileSync } from "fs";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
@@ -60,7 +61,10 @@ require("./api/middleware/passport")(passport);
 
 const PORT = process.env.PORT || 8080;
 
-let options: ConnectionOptions = {
+console.log(__dirname);
+
+let options: ConnectionOptions = process.env.NODE_ENV === 'production' ? 
+{
 	type: "postgres",
 	host: process.env.DB_HOST || "localhost",
 	port: 5432,
@@ -93,7 +97,45 @@ let options: ConnectionOptions = {
 		migrationsDir: "src/api/database/migration",
 		subscribersDir: "src/api/database/subscriber",
 	},
-};
+	ssl: {
+		ca: readFileSync(__dirname + "/Cert.pem").toString()
+	}
+} : 
+{
+	type: "postgres",
+	host: process.env.DB_HOST || "localhost",
+	port: 5432,
+	username: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	database: "edugo",
+	synchronize: true,
+	logging: true,
+	logger: "file",
+	entities: [
+		Answer, 
+		Educator, 
+		Grade, 
+		Image, 
+		Lesson, 
+		Model, 
+		Organisation, 
+		Question, 
+		Quiz, 
+		Student, 
+		Subject, 
+		UnverifiedUser,
+		User, 
+		VirtualEntity
+	],
+	migrations: ["src/api/database/migration/**/*.ts"],
+	subscribers: ["src/api/database/subscriber/**/*.ts"],
+	cli: {
+		entitiesDir: "src/api/database/entity",
+		migrationsDir: "src/api/database/migration",
+		subscribersDir: "src/api/database/subscriber",
+	},
+}
+
 
 createConnection(options)
 	.then((conn) => {
