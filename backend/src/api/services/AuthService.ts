@@ -235,11 +235,12 @@ export default class AuthService {
 						await this.userRepository.save(user);
 						return "ok";
 					} catch (err) {
-
-						if (err.code == "23505") {
-							console.log(err);
-							throw new BadRequestError('Duplicate entity')
-						}
+						//TODO Review this line here
+						//!DO NOT FORGET
+						// if (err.code == "23505") {
+						// 	console.log(err);
+						// 	throw new BadRequestError('Duplicate entity')
+						// }
 						console.log(err);
 						throw new InternalServerError('Could not save user');
 					}
