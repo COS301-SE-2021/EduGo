@@ -1,0 +1,13 @@
+# 'static analysis linter rules' https://dart-lang.github.io/linter/lints/
+include: package:lints/core.yaml
+
+analyzer:
+  exclude: [build/**]
+  language:
+    strict-raw-types: false #true
+  strong-mode:
+    implicit-casts: true #false 
+
+linter:
+  rules:
+    - camel_case_types

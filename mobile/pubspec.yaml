@@ -41,6 +41,7 @@ dependencies:
     version: ^0.0.0
   titled_navigation_bar: ^4.1.0
   flutter_spinkit: "^4.1.2"
+  analyzer: ^1.7.1
 
 
 dev_dependencies:

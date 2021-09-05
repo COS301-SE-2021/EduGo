@@ -1,8 +1,5 @@
 //this file contains the actual test scripts that we are going to write by using
 //tester methods
-
-//TODO ask Sthe about test naming convention
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
@@ -23,12 +20,6 @@ void main() {
 }
 
 void _widget_tests() {
-  //"widget testing" https://www.xamantra.dev/momentum/#/testing?id=widget-test
-  //tester (single widget unit testing): https://stackoverflow.com/questions/62635696/flutter-widget-vs-flutter-driver
-  //"pump()" https://medium.com/flutter/event-loop-in-widget-tester-50b3ca5e9fc5
-  //"side bar" https://stackoverflow.com/questions/55628369/flutter-automatic-testing-tap-on-a-button-dont-work-in-drawer
-  //"nav" https://iiro.dev/writing-widget-tests-for-navigation-events/
-
   _testFormWidget();
   _testTextWidget();
   _testUsernameWidget();
@@ -37,15 +28,8 @@ void _widget_tests() {
   _testVerificationRouting();
 }
 
-void _unit_tests() {
-  //"unit testing controllers, models and services" https://www.xamantra.dev/momentum/#/testing?id=momentumtester https://www.xamantra.dev/momentum/#/momentum-tester
-}
-void _integration_tests() {
-  //user interaction test: https://flutter.dev/docs/cookbook/testing/widget/tap-drag
-  //flutter driver (more complex integretion testing): https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
-  //_connection_to_driver();
-  //_test_username_integration();
-}
+void _unit_tests() {}
+void _integration_tests() {}
 
 ///////////////////////////// WIDGET TESTS /////////////////////////////////////
 void _testFormWidget() {
