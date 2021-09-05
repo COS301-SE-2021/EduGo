@@ -1,3 +1,3 @@
-export interface AddEducatorsRequest {
+export class AddEducatorsRequest {
 	educators: string[];
 }

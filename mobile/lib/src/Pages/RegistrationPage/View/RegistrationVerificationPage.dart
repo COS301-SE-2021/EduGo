@@ -231,7 +231,7 @@ class _RegistrationVerificationPageState
           builder: (context, snapshot) {
             return child;
           }),
-      "Verification",
+      'Verification',
     );
     ////////////////////////////////////////////////////////////////////////////
   }

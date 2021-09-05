@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Bottom/Controller/BottomBarController.dart';
 import 'package:mobile/src/Components/Nav/Bottom/Model/BottomBarModel.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 import 'package:momentum/momentum.dart';
@@ -17,7 +17,6 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   final List<TitledNavigationBarItem> items = [
-    TitledNavigationBarItem(title: Text('Home'), icon: Icons.cottage_rounded),
     TitledNavigationBarItem(
         title: Text('Subjects'), icon: Icons.library_books_rounded),
     TitledNavigationBarItem(
@@ -27,9 +26,8 @@ class _BottomBarState extends State<BottomBar> {
   ];
 
   List<Type> widgetOptions = <Type>[
-    HomePage,
     SubjectsPage,
-    GradesPage,
+    GradesSubjectPage,
     DetectMarkerPage,
   ];
 

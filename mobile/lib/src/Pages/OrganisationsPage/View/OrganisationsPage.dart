@@ -15,7 +15,7 @@ class _OrganisationsPageState extends State<OrganisationsPage> {
       true,
       true,
       Container(child: Text("org")),
-      "Org",
+      'Organisations',
     );
   }
 }

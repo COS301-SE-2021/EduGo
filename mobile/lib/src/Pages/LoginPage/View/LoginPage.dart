@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mobile/src/Components/Common/ValidationClasses.dart';
+import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 import 'package:momentum/momentum.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
@@ -46,26 +47,15 @@ class _LoginPageState extends State<LoginPage> {
   */
   // Function called when login button pressed
   void _submitForm(userController) async {
-    if (_loginFormKey.currentState!.validate()) {
-      if (await userController.login(
-              username: username_text_controller.text,
-              password: password_text_controller.text) ==
-          true) {
-        // Leads to home page
-        MomentumRouter.goto(context, HomePage, transition: (context, page) {
-          return MaterialPageRoute(builder: (context) => page);
-        });
-        return;
-      }
-      // Unsuccessful login: clear fields and display error
-      _clearInputFields();
-      _showSnackbar('Unverified');
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content:
-                Text('Invalid data: Please fill in all the fields correctly.')),
-      );
+    if (await userController.login(
+            username: username_text_controller.text,
+            password: password_text_controller.text) ==
+        true) {
+      // Leads to home page
+      MomentumRouter.goto(context, SubjectsPage, transition: (context, page) {
+        return MaterialPageRoute(builder: (context) => page);
+      });
+      return;
     }
   }
 
@@ -186,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                 errorText: "Invalid password"),
           ]),
           //type of keyboard to use for editing the text.
-          keyboardType: TextInputType.number,
+          //keyboardType: TextInputType.,
           //Input field UI
           style: TextStyle(),
           decoration: InputDecoration(

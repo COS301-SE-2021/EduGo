@@ -386,8 +386,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return MomentumBuilder(
         controllers: [UserController],
         builder: (context, snapshot) {
-          return MobilePageLayout(false, false, child, 
-      "Registration",);
+          return MobilePageLayout(
+            false,
+            false,
+            child,
+            'Registration',
+          );
         });
     ////////////////////////////////////////////////////////////////////////////
   }

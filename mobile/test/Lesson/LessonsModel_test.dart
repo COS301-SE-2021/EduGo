@@ -2,6 +2,7 @@ import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
 import 'package:momentum/momentum.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -18,6 +19,10 @@ void main() {
     });
 
     test('Lessons w/ mock lessons', () async {
+      SharedPreferences.setMockInitialValues({});
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString('user_token', 'value');
+      
       final tester = MomentumTester(momentum(mock: true));
 
       await tester.init();
