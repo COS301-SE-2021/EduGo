@@ -4,7 +4,6 @@ import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/User/Service/UserService.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
@@ -39,7 +38,6 @@ Momentum momentum({bool mock = false}) {
     controllers: [
       QuizController(mock: false),
       QuestionPageController(mock: mock),
-      //GradesQuizSpecificsPage(mock: mock),
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
       GradesController(mock: mock),
@@ -67,8 +65,9 @@ Momentum momentum({bool mock = false}) {
         RegistrationPage(Key('registrationPageKey')),
         RegistrationVerificationPage(Key('registration_verification')),
         SettingsPage(),
-        SubjectsPage(),
-        LessonInformationPage(lessonTitle: '', lessonID: 0, lessonDescription: '')
+        SubjectsPage(Key('subjects_page')),
+        LessonInformationPage(
+            lessonTitle: '', lessonID: 0, lessonDescription: '')
       ]),
     ],
   );

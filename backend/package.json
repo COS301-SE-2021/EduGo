@@ -37,6 +37,9 @@
 		"typeorm-typedi-extensions": "^0.4.1"
 	},
 	"devDependencies": {
+		"@stryker-mutator/core": "^5.4.0",
+		"@stryker-mutator/jest-runner": "^5.4.0",
+		"@stryker-mutator/typescript-checker": "^5.4.0",
 		"@types/cors": "^2.8.10",
 		"@types/express": "^4.17.12",
 		"@types/jest": "^26.0.23",

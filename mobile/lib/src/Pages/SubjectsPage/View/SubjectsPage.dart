@@ -21,8 +21,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 */
 
 class SubjectsPage extends StatefulWidget {
-  SubjectsPage({Key? key}) : super(key: key);
   static String id = "subjects";
+  SubjectsPage(this.key) : super(key: key);
+  Key key = Key('subjects_page');
 
   @override
   _SubjectsPageState createState() => _SubjectsPageState();

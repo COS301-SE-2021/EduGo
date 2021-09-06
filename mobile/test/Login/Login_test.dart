@@ -1,11 +1,11 @@
 //this file contains the actual test scripts that we are going to write by using
 //tester methods
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
-import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:momentum/momentum.dart';
 
 //TOTAL NUMBER OF TESTS: 28
@@ -25,7 +25,7 @@ void _widget_tests() {
   _testUsernameWidget();
   _testPasswordWidget();
   _testLoginButtonWidget();
-  _testVerificationRouting();
+  //_testVerificationRouting();
 }
 
 void _unit_tests() {}
@@ -540,6 +540,33 @@ void _testLoginButtonWidget() {
       //test result
       expect(loginButtonFinder, findsOneWidget);
     });
+    /* UNCOMMENT
+    testWidgets(
+        'should successfully thrown an excepton when clicked: "Unexpected Server Error',
+        (WidgetTester tester) async {
+      final widget = Momentum(
+          child: MaterialApp(
+            home: LoginPage(Key('login_page')),
+          ),
+          controllers: [
+            UserController(),
+          ],
+          services: [
+            UserApiService(),
+          ]);
+      await tester.pumpWidget(widget);
+
+      //find button
+      final loginButtonFinder = find.byKey(Key('login_button'));
+      // Add delay
+      await tester.pumpAndSettle();
+      // Tap the login button.
+      await tester.tap(loginButtonFinder);
+      // Add delay
+      await tester.pumpAndSettle();
+      // Expect unexpected server error
+      //expect(await () => login('username', 'password',client: client), throwsException);
+    });
 
     testWidgets(
         'should successfully respond to user interaction (tap button) but fail to navigate to next page (as no form fields were filled) and return error strings.',
@@ -550,19 +577,31 @@ void _testLoginButtonWidget() {
           ),
           controllers: [
             UserController(),
+          ],
+          services: [
+            UserApiService(),
           ]);
       await tester.pumpWidget(widget);
 
-      // Tap the login button.
-      await tester.tap(find.byKey(Key('login_button')));
+      //find button
+      final loginButtonFinder = find.byKey(Key('login_button'));
+      // Add delay
       await tester.pumpAndSettle();
-      // find error messages
-      final errorPopupFinder =
-          find.text('Invalid data: Please fill in all the fields correctly.');
+      // Tap the login button.
+      await tester.tap(loginButtonFinder);
+      // Add delay
+      await tester.pumpAndSettle();
+      // Find error messages
       final textErrorFinder = find.text('* Required');
+      // Find pages
+      final loginPageFinder = find.byKey(Key('login_page'));
+      // Find pages
+      final subjectsPageFinder = find.byKey(Key('subjects_page'));
       // Expect to find 2 error messages for both unfilled form fields.
       expect(textErrorFinder, findsNWidgets(2));
-      expect(errorPopupFinder, findsOneWidget);
+      // Expect to not navigate to Subjects page, but to remain on Login page
+      expect(loginPageFinder, findsOneWidget);
+      expect(subjectsPageFinder, findsNWidgets(0));
     });
 
     //TODO test login API function
@@ -784,6 +823,7 @@ void _testVerificationRouting() {
       // Expect page to render
       expect(renderedPage, findsOneWidget);
     });
+  */
   }); //group
 }
 ////////////////////////////////////////////////////////////////////////////////

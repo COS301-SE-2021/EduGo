@@ -12,3 +12,6 @@ mobile/.dart_tool/package_config_subset
 mobile/.dart_tool/version
 mobile/.packages
 
+
+# stryker temp files
+.stryker-tmp
