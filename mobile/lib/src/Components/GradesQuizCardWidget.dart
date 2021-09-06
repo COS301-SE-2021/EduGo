@@ -15,10 +15,10 @@ import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 
 class GradesQuizCard extends StatelessWidget {
   //Holds the quiz title
-  final String quizTitle;
+  // final String quizTitle;
 
   //Holds the quiz id
-  final int id;
+  // final int id;
 
   //Holds the mark that the student received for the quiz
   final int studentQuizMark;
@@ -26,20 +26,17 @@ class GradesQuizCard extends StatelessWidget {
   //Holds the total mark that the quiz was out of
   final int quizTotalMark;
 
-  //Holds the student answers from the quiz
-  final List<String> studentAnswers;
+  // //Holds the student answers from the quiz
+  // final List<String> studentAnswers;
 
-  //Holds the correct answers from the quiz
-  final List<String> correctAnswers;
+  // //Holds the correct answers from the quiz
+  // final List<String> correctAnswers;
 
 //QuizCardConstructor. Takes in 4 arguments
-  GradesQuizCard(
-      {required this.quizTitle,
-      required this.quizTotalMark,
-      required this.studentQuizMark,
-      required this.id,
-      required this.correctAnswers,
-      required this.studentAnswers});
+  GradesQuizCard({
+    required this.quizTotalMark,
+    required this.studentQuizMark,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -66,19 +63,15 @@ class GradesQuizCard extends StatelessWidget {
               //This redirects the page to the gradespecific page on tap
               //and passes in the marks array, subject title and total grade
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GradesQuizSpecificsPage(
-                      quizTitle: this.quizTitle,
-                      id: this.id,
-                      studentQuizMark: this.studentQuizMark,
-                      quizTotalMark: this.quizTotalMark,
-                      studentAnswers: this.studentAnswers,
-                      correctAnswers: this.correctAnswers,
-                    ),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => GradesQuizSpecificsPage(
+                //       studentQuizMark: this.studentQuizMark,
+                //       quizTotalMark: this.quizTotalMark,
+                //     ),
+                //   ),
+                // );
               },
               child: Container(
                 child: Column(
@@ -117,23 +110,23 @@ class GradesQuizCard extends StatelessWidget {
                       ),
                     ),
                     // ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: Text(
-                          '$quizTitle',
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 4,
-                          softWrap: false,
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                      ),
-                    ),
+                    // Align(
+                    //   alignment: Alignment.center,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.only(top: 25),
+                    //     child: Text(
+                    //       '$quizTitle',
+                    //       textAlign: TextAlign.center,
+                    //       overflow: TextOverflow.ellipsis,
+                    //       maxLines: 4,
+                    //       softWrap: false,
+                    //       style: TextStyle(
+                    //           fontSize: 22,
+                    //           fontWeight: FontWeight.bold,
+                    //           color: Colors.black),
+                    //     ),
+                    //   ),
+                    // ),
                     // Align(
                     //   alignment: Alignment.bottomCenter,
                     //   child: Padding(

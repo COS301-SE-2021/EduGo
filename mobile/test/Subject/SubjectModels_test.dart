@@ -1,4 +1,5 @@
 import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
@@ -18,6 +19,10 @@ void main() {
     });
 
     test('Subjects w/ mock lessons', () async {
+      SharedPreferences.setMockInitialValues({});
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString('user_token', 'value');
+
       final tester = MomentumTester(momentum(mock: true));
 
       await tester.init();
@@ -27,10 +32,10 @@ void main() {
       expect(controller != null, true);
       expect(controller, isA<SubjectsController>());
       expect(controller?.model, isA<SubjectsModel>());
-      expect(controller?.model.subjects.length, 3);
-      expect(controller?.model.subjects[0].title, 'Test subject 1');
-      expect(controller?.model.subjects[1].title, 'Test subject 2');
-      expect(controller?.model.subjects[2].title, 'Test subject 3');
+      expect(controller?.model.subjects.length, 5);
+      expect(controller?.model.subjects[0].title, 'Maths 101');
+      expect(controller?.model.subjects[1].title, 'Geography 101');
+      expect(controller?.model.subjects[2].title, 'Life Orientation 101');
     });
   });
 }

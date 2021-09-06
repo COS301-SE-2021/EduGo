@@ -10,6 +10,8 @@
  * 
 */
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/GradesSubjectCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
@@ -34,7 +36,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
   Widget build(BuildContext context) {
     return MobilePageLayout(
       true,
-      false,
+      true,
       MomentumBuilder(
         controllers: [GradesController],
         builder: (context, snapshot) {
@@ -42,7 +44,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
           //list in the GradesModel page
           final subjects = snapshot<GradesModel>();
 
-          if (subjects.subjects.isNotEmpty) {
+          if (subjects.subjects.isNotEmpty && subjects.subjects.length > 0) {
             return Container(
               child: SingleChildScrollView(
                 child: Column(
@@ -83,9 +85,9 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                                 //Pass in the entire subjects list of lessons.
                                 //Also pass in the subject title and the subject mark
                                 GradesSubjectCard(
-                              subjectLessons: subject.lessons,
-                              subjectMark: subject.mark,
-                              subjectTitle: subject.title,
+                              subjectLessons: subject.lessonGrades,
+                              subjectMark: subject.gradeAchieved,
+                              subjectTitle: subject.subjectName,
                             ),
                           )
                           .toList(),
@@ -95,10 +97,18 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
               ),
             );
           }
-          //If there are no subjects
+          //Will never be a case where student has no subjects
+          //Display error card if no mark for subjects
           else
-            return Container(
-              child: Text('There are currently no subjects'),
+            // return MobilePageLayout(
+            //   false,
+            //   false,
+            //   SpinKitCircle(
+            //     color: Colors.black,
+            //   ),
+            // );
+            return SpinKitCircle(
+              color: Colors.black,
             );
         },
       ),

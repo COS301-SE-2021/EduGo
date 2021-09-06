@@ -33,10 +33,34 @@ class GradesLessonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO:
-    //Make an if statement to check mark and make a variable to say
-    //'This is the mark ' currently or if no mark available it must say
-    //No marks avaiable yet.. check clickup for reference
+    //Holds the colour of the backround container
+    //of the marks container and changes accordingly
+    Color backgroundOfMarkColour;
+
+    //Used to identify whether there
+    //is a mark of not for the lesson
+    bool hasMark = false;
+
+    //Checks if there is a mark and changes the bool value
+    //It also changes the background colour of the mark container
+    //depending on what catagory of percent the student falls in
+    if (lessonMark < 0) {
+      hasMark = false;
+      backgroundOfMarkColour = Colors.white;
+    } else if (lessonMark >= 0 && lessonMark < 50) {
+      backgroundOfMarkColour = Colors.red;
+      hasMark = true;
+    } else if (lessonMark >= 50 && lessonMark < 60) {
+      backgroundOfMarkColour = Colors.orange;
+      hasMark = true;
+    } else if (lessonMark >= 60 && lessonMark < 75) {
+      backgroundOfMarkColour = Colors.yellow;
+      hasMark = true;
+    } else {
+      backgroundOfMarkColour = Colors.green;
+      hasMark = true;
+    }
+
     return Column(
       children: [
         Expanded(
@@ -47,22 +71,25 @@ class GradesLessonCard extends StatelessWidget {
               //side: BorderSide(color: Colors.purple),
             ),
             clipBehavior: Clip.antiAlias,
-            //color: Colors.green,
             color: Color.fromARGB(0, 246, 246, 246),
+            //color: Colors.green,
+
             //This allows the card to be clickable so that when clicked,
             // it will go to the lessons description for that lesson
             child: new InkWell(
               //This redirects the page to the gradespecific page on tap
-              //and passes in the marks array, subject title and total grade
+              //and passes in the marks array, lesson title and lesson grade
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GradesQuizPage(
-                      quizList: quizList,
-                    ),
-                  ),
-                );
+                // if (hasMark) {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => GradesQuizPage(
+                //         quizList: quizList,
+                //       ),
+                //     ),
+                //   );
+                // }
               },
               child: Container(
                 child: Column(
@@ -79,15 +106,18 @@ class GradesLessonCard extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: MaterialButton(
-                            //color: backgroundColourForMark,
+                            color: backgroundOfMarkColour,
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              side: BorderSide(color: Colors.black),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              side: BorderSide(color: backgroundOfMarkColour),
                             ),
                             onPressed: () {},
                             child: Text(
-                              '$lessonMark',
+                              //If it has a lessonmark, display it.
+                              //Else display "--"
+                              hasMark ? '$lessonMark' + '%' : "--",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 20,

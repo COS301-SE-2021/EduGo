@@ -1,23 +1,143 @@
 import 'package:http/http.dart' as http;
 
+Future<http.Response> getQuestionsByQuizId(request) async {
+  return http.Response('''
+    {
+      "data": 
+      [
+        {
+          "id": 1,
+          "type": "TrueFalse",
+          "question": "Select True",
+          "correctAnswer": "True",
+          "options": ["True","False"],
+        },
+        {
+          "id": 2,
+          "type": "MultipleChoice",
+          "question": "Select A",
+          "correctAnswer": "A",
+          "options": ["A","B","C"],
+        },
+        {
+          "id": 3,
+          "type": "MultipleChoice",
+          "question": "Select B",
+          "correctAnswer": "B",
+          "options": ["A","B","C"],
+        },
+        {
+          "id": 4,
+          "type": "TrueFalse",
+          "question": "Select False",
+          "correctAnswer": "False",
+          "options": ["True","False"],
+        },
+      ]
+    }
+  ''', 200);
+}
+
+Future<http.Response> getQuizesByLesson(request) async {
+  return http.Response('''
+  {
+    "data": [
+      {
+      "id" : 0,
+      "title": "Quiz 1",
+      "description": "Quiz 1 d",
+      "questions": [
+        {
+          "id": 1,
+          "type": "TrueFalse",
+          "question": "Select True",
+          "correctAnswer": "True",
+          "options": ["True","False"]
+        },
+        {
+          "id": 2,
+          "type": "MultipleChoice",
+          "question": "Select A",
+          "correctAnswer": "A",
+          "options": ["A","B","C"]
+        },
+        {
+          "id": 3,
+          "type": "MultipleChoice",
+          "question": "Select B",
+          "correctAnswer": "B",
+          "options": ["A","B","C"]
+        },
+        {
+          "id": 4,
+          "type": "TrueFalse",
+          "question": "Select False",
+          "correctAnswer": "False",
+          "options": ["True","False"]
+        }
+       ]
+      },
+      {
+      "id" : 1,
+      "title": "Quiz 2",
+      "description": "Quiz 2 d",
+      "questions": [
+        {
+          "id": 1,
+          "type": "TrueFalse",
+          "question": "Select False",
+          "correctAnswer": "False",
+          "options": ["True","False"]
+        },
+        {
+          "id": 2,
+          "type": "MultipleChoice",
+          "question": "Select A",
+          "correctAnswer": "A",
+          "options": ["A","B","C"]
+        },
+        {
+          "id": 3,
+          "type": "MultipleChoice",
+          "question": "Select B",
+          "correctAnswer": "B",
+          "options": ["A","B","C"]
+        },
+        {
+          "id": 4,
+          "type": "TrueFalse",
+          "question": "Select False",
+          "correctAnswer": "False",
+          "options": ["True","False"]
+        }
+      ]
+      }
+    ]
+  }
+   ''', 200);
+}
+
 Future<http.Response> getLessonsBySubjectClient(request) async {
   return http.Response('''
     {
       "data": [
         {
           "id": 1,
-          "title": "Lesson test 1",
-          "description": "This is the first lesson..."
+          "title": "Lesson test 1 ",
+          "description": "This is the first lesson. We will learn about the importance of the democratic extinction of dinasours. One day, the patriachal empire of pandas wiol return.",
+          "lessonCompleted": "true"
         },
         {
           "id": 2,
           "title": "Lesson test 2",
-          "description": "This is the second lesson..."
+          "description": "This is the second lesson...",
+          "lessonCompleted": "true"
         },
         {
           "id": 3,
           "title": "Lesson test 3",
-          "description": "This is the third lesson.."
+          "description": "This is the third lesson..",
+          "lessonCompleted": "false"
         }
       ]
     }
@@ -71,163 +191,92 @@ Future<http.Response> getSubjectsByUserClient(request) async {
 Future<http.Response> getGradesByUserClient(request) async {
   return http.Response('''
     {
-      "data": 
+      "subjects": 
       [
         {
           "id": 1,
-          "title": "Maths 101",
-          "mark": 10,
-          "lessons": 
+          "subjectName": "Maths 101",
+          "gradeAchieved": 10,
+          "lessonGrades": 
           [
             {
               "id": 1,
-              "title": "Math Lesson 1",
-              "mark": 20,
-              "quizzes": 
+              "lessonName": "Math Lesson 1",
+              "gradeAchieved": 20,
+              "quizGrades": 
               [
                 {
                   "id": 1,
-                  "studentMark": 67,
-                  "quizTotal": 89,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                    "A", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                  "C", "B", "B", "D"
-                  ]
+                  "student_score": 67,
+                  "quiz_total": 89
                 },
                 {
                   "id": 2,
-                  "studentMark": 20,
-                  "quizTotal": 40,
-                  "title": "quiz 2",
-                  "studentAnswers": 
-                  [
-                    "A", "K", "U", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                  "S", "B", "J", "D"
-                  ]
+                  "student_score": 20,
+                  "quiz_total": 40
                 }
               ]
             },
             {
               "id": 2,
-              "title": "Math Lesson 2",
-              "mark": 15,
-              "quizzes": 
+              "lessonName": "Math Lesson 2",
+              "gradeAchieved": -1,
+              "quizGrades": 
               [
                 {
                   "id": 1,
-                  "studentMark": 29,
-                  "quizTotal": 39,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                    "N", "D", "L", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                    "A", "B", "K", "D"
-                  ]
+                  "student_score": 29,
+                  "quiz_total": 39
                 },
                 {
                   "id": 2,
-                  "studentMark": 12,
-                  "quizTotal": 87,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                    "Q", "B", "L", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                    "A", "L", "A", "D"
-                  ]
+                  "student_score": 12,
+                  "quiz_total": 87
                 }
               ]
             }
+            
           ] 
         },
         {
           "id": 2,
-          "title": "Geography Mock",
-          "mark": 87,
-          "lessons": 
+          "subjectName": "Geography Mock",
+          "gradeAchieved": 87,
+          "lessonGrades": 
           [
             {
               "id": 1,
-              "title": "Geography Lesson 1",
-              "mark": 90,
-              "quizzes": 
+              "lessonName": "Geography Lesson 1",
+              "gradeAchieved": 90,
+              "quizGrades": 
               [
                 {
                   "id": 1,
-                  "studentMark": 80,
-                  "quizTotal": 100,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                    "L", "K", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                    "A", "B", "A", "D"
-                  ]
+                  "student_score": 80,
+                  "quiz_total": 100
                 },
                 { 
                   "id": 2,
-                  "studentMark": 22,
-                  "quizTotal": 48,
-                  "title": "quiz 2",
-                  "studentAnswers": 
-                  [
-                    "B", "B", "B", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                    "B", "B", "A", "D"
-                  ]
+                  "student_score": 22,
+                  "quiz_total": 48
                 }
               ]
             },
             {
               "id": 2,
-              "title": "Geography Lesson 2",
-              "mark": 18,
-              "quizzes": 
+              "lessonName": "Geography Lesson 2",
+              "gradeAchieved": 18,
+              "quizGrades": 
               [
                 {
                   "id": 1,
-                  "studentMark": 76,
-                  "quizTotal": 80,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                    "S", "B", "S", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                    "L", "O", "A", "D"
-                  ]
+                  "student_score": 76,
+                  "quiz_total": 80
                 },
                 {
                   "id": 2,
-                  "studentMark": 19,
-                  "quizTotal": 120,
-                  "title": "quiz 2",
-                  "studentAnswers": 
-                  [
-                    "L", "B", "A", "S"
-                  ],
-                  "correctAnswers":
-                  [
-                    "A", "T", "A", "U"
-                  ]
+                  "student_score": 19,
+                  "quiz_total": 120
                 }
               ]
             }
@@ -235,79 +284,43 @@ Future<http.Response> getGradesByUserClient(request) async {
         },
         {
           "id": 3,
-          "title": "Physics 101",
-          "mark": 65,
-          "lessons": 
+          "subjectName": "Physics 101",
+          "gradeAchieved": 65,
+          "lessonGrades": 
           [
             {
               "id": 1,
-              "title": "Physics Lesson 1",
-              "mark": 20,
-              "quizzes": 
+              "lessonName": "Physics Lesson 1",
+              "gradeAchieved": 20,
+              "quizGrades": 
               [
                 {
                   "id": 1,
-                  "studentMark": 67,
-                  "quizTotal": 89,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                    "S", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                    "A", "S", "A", "D"
-                  ]
+                  "student_score": 67,
+                  "quiz_total": 89
                 },
                 {
                   "id": 2,
-                  "studentMark": 20,
-                  "quizTotal": 40,
-                  "title": "quiz 2",
-                  "studentAnswers": 
-                  [
-                    "D", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                    "U", "B", "A", "D"
-                  ]
+                  "student_score": 20,
+                  "quiz_total": 40
                 }
               ]
             },
             {
               "id": 2,
-              "title": "Physics Lesson 2",
-              "mark": 15,
-              "quizzes": 
+              "lessonName": "Physics Lesson 2",
+              "gradeAchieved": 15,
+              "quizGrades": 
               [
                 {
                   "id": 1,
-                  "studentMark": 29,
-                  "quizTotal": 39,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                    "A", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                    "A", "B", "A", "D"
-                  ]
+                  "student_score": 29,
+                  "quiz_total": 39
                 },
                 {
                   "id": 2,
-                  "studentMark": 12,
-                  "quizTotal": 87,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                  "A", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                  "A", "B", "A", "D"
-                  ]
+                  "student_score": 12,
+                  "quiz_total": 87
                 }
               ]
             }
@@ -315,80 +328,43 @@ Future<http.Response> getGradesByUserClient(request) async {
         },
         {
           "id": 4,
-          "title": "Biology 101",
-          "mark": -1,
-          "lessons": 
+          "subjectName": "Biology 101",
+          "gradeAchieved": -1,
+          "lessonGrades": 
           [
             {
               "id": 1,
-              "title": "Biology Lesson 1",
-              "mark": -1,
-              "quizzes": 
+              "lessonName": "Biology Lesson 1",
+              "gradeAchieved": -1,
+              "quizGrades": 
               [
                 {
                   "id": 1,
-                  "studentMark": -1,
-                  "quizTotal": -1,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                  "A", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                  "A", "B", "A", "D"
-                  ]
-
+                  "student_score": -1,
+                  "quiz_total": -1
                 },
                 {
                   "id": 2,
-                  "studentMark": -1,
-                  "quizTotal": -1,
-                  "title": "quiz 2",
-                  "studentAnswers": 
-                  [
-                  "A", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                  "A", "B", "A", "D"
-                  ]
+                  "student_score": -1,
+                  "quiz_total": -1
                 }
               ]
             },
             {
               "id": 2,
-              "title": "Biology Lesson 2",
-              "mark": -1,
-              "quizzes": 
+              "lessonName": "Biology Lesson 2",
+              "gradeAchieved": -1,
+              "quiquizGradeszzes": 
               [
                 {
                   "id": 1,
-                  "studentMark": -1,
-                  "quizTotal": -1,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                  "A", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                  "A", "B", "A", "D"
-                  ]
+                  "student_score": -1,
+                  "quiz_total": -1
                 },
                 {
                   "id": 2,
-                  "studentMark": -1,
-                  "quizTotal": -1,
-                  "title": "quiz 1",
-                  "studentAnswers": 
-                  [
-                  "A", "B", "A", "D"
-                  ],
-                  "correctAnswers":
-                  [
-                  "A", "B", "A", "D"
-                  ]
+                  "student_score": -1,
+                  "quiz_total": -1
                 }
               ]
             }

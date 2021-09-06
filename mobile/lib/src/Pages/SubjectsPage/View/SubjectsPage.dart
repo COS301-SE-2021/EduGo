@@ -7,11 +7,13 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Components/SubjectCardWidget.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Models/SubjectsModel.dart';
 import 'package:momentum/momentum.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 /*------------------------------------------------------------------------------
  *                            Subject View Page 
@@ -48,7 +50,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
           int subjectsCount = subjects.subjects.length;
 
           //A check to see if there are subjects. If there are no subjects,
-          //display another card saying no subjects are available
+          //or if the list is empty display another card saying no
+          //subjects are available
           if (subjectsCount > 0 && subjects.subjects.isNotEmpty) {
             return Container(
               child: SingleChildScrollView(
@@ -90,7 +93,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
                                 grade: subject.grade,
                                 id: subject.id,
                                 count: subjectsCount,
-                                educator: subject.educator),
+                                educator: subject.educatorName),
                           )
                           .toList(),
                     ),
@@ -101,8 +104,16 @@ class _SubjectsPageState extends State<SubjectsPage> {
           }
           //If there are no subjects
           else
-            return Container(
-              child: Text('There are currently no subjects'),
+            //
+            // return SizedBox(
+            //   height: MediaQuery.of(context).size.height,
+            //   child: CircularProgressIndicator(
+            //     backgroundColor: Colors.black,
+            //     strokeWidth: 10,
+            //   ),
+            // );
+            return SpinKitCircle(
+              color: Colors.black,
             );
         },
       ),

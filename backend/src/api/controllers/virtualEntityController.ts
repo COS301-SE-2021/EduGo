@@ -1,90 +1,77 @@
-import express from "express";
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import { VirtualEntityService } from "../services/VirtualEntityService";
 
-import {
-	validateCreateVirtualEntityRequest,
-	validateAddModelToVirtualEntityRequest,
-	validateGetVirtualEntityRequest,
-} from "../services/validations/VirtualEntityValidate";
 import { uploadFile } from "../helper/aws/fileUpload";
 import {
 	AddModelToVirtualEntityFileData,
 	AddModelToVirtualEntityRequest,
 } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
-import { isEducator, isUser, RequestObjectWithUserId } from "../middleware/validate";
+import { isEducator, isUser } from "../middleware/validate";
+import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
+import { Inject, Service } from "typedi";
+import {
+	BadRequestError,
+	Body,
+	ContentType,
+	Controller,
+	CurrentUser,
+	Get,
+	InternalServerError,
+	JsonController,
+	Post,
+	Req,
+	Res,
+	UploadedFile,
+	UseBefore,
+} from "routing-controllers";
+import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
+import express from "express";
+import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
+@Service()
+@JsonController("/virtualEntity")
+@UseBefore(passport.authenticate("jwt", { session: false }))
+export class VirtualEntityController {
+	@Inject()
+	private service: VirtualEntityService;
 
-const router = express.Router();
-const service: VirtualEntityService = new VirtualEntityService();
-
-router.post(
-	"/createVirtualEntity",
-	passport.authenticate("jwt", { session: false }),
-	isEducator,
-	async (req: RequestObjectWithUserId, res: any) => {
-		let valid = validateCreateVirtualEntityRequest(req.body);
-		if (valid.ok) {
-			let body = <CreateVirtualEntityRequest>req.body;
-			service
-				.CreateVirtualEntity(body)
-				.then((response) => {
-					res.status(200);
-					res.json(response);
-				})
-				.catch((err) => {
-					res.status(400);
-					res.json({ message: "error", error: err });
-				});
-		} else {
-			res.status(400);
-			res.json(valid);
-		}
+	@Post("/createVirtualEntity")
+	@UseBefore(isUser)
+	CreateVirtualEntity(
+		@Body({ required: true }) body: CreateVirtualEntityRequest,
+		@CurrentUser() id: number
+	) {
+		return this.service.CreateVirtualEntity(body, id);
 	}
-);
 
-router.post(
-	"/uploadModel",
-	passport.authenticate("jwt", { session: false }),
-	isEducator,
-	uploadFile.single("file"),
-	async (req: RequestObjectWithUserId, res: any) => {
-		const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
-
-		if (file == undefined)
-			res.status(400).json({ message: "Please upload a file" });
-
-		let response: any = {
-			file_name: file.key,
-			file_size: file.size,
-			file_type: file.key.split(".")[file.key.split(".").length - 1],
-			file_link: file.location,
-		};
-		res.status(200).json(response);
+	@Post("/uploadModel")
+	@UseBefore(isEducator)
+	UploadModel(
+		@UploadedFile("file", { required: true, options: uploadFile })
+		file: Express.MulterS3.File
+	) {
+		//UploadModel(@Req() req: express.Request, @Res() res: express.Response) {
+		if (file) {
+			let response: any = {
+				file_name: file.key,
+				file_size: file.size,
+				file_type: file.key.split(".")[file.key.split(".").length - 1],
+				file_link: file.location,
+			};
+			return response;
+		} else throw new BadRequestError("User is invalid");
 	}
-);
 
-router.post(
-	"addToVirtualEntity",
-	passport.authenticate("jwt", { session: false }),
-	isEducator,
-	uploadFile.single("file"),
-	async (req: RequestObjectWithUserId, res:any) => {
-		let valid = validateAddModelToVirtualEntityRequest(req.body);
-
-		if (valid.ok) {
-			const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
-			let body: AddModelToVirtualEntityRequest = <
-				AddModelToVirtualEntityRequest
-			>req.body;
-
-			if (file == undefined) {
-				res.status(400).json({ message: "Please upload a file" });
-				return;
-			}
-
+	@Post("/addToVirtualEntity")
+	@UseBefore(isEducator)
+	async AddToVirtualEntity(
+		@UploadedFile("file", { required: true, options: uploadFile })
+		file: Express.MulterS3.File,
+		@Body({ required: true }) body: AddModelToVirtualEntityRequest
+	) {
+		if (file) {
 			let baseFile = {
 				file_name: file.key,
 				file_link: file.location,
@@ -98,62 +85,69 @@ router.post(
 				name: body.name,
 				...baseFile,
 			};
-
-			service.AddModelToVirtualEntity(data).then((response) => {
+			let response = await this.service.AddModelToVirtualEntity(data);
+			if (response) {
 				let resp: AddModelToVirtualEntityResponse = {
 					model_id: response.model_id,
 					...body,
 					...baseFile,
 				};
-				res.status(200).json(resp);
-			});
-			return;
-		}
-		res.status(400).send(valid.message);
+				return resp;
+			}
+			throw new InternalServerError("Unable to save to Database");
+		} else throw new BadRequestError("User is invalid");
 	}
-);
 
-router.post(
-	"/getVirtualEntities",
-	passport.authenticate("jwt", { session: false }),
-	isUser,
-	async (req : RequestObjectWithUserId, res: any) => {
-		service
-			.GetVirtualEntities({})
-			.then((response) => {
-				res.status(200);
-				res.json(response);
-			})
-			.catch((err) => {
-				res.status(400);
-				res.json({ message: "error", error: err });
-			});
+	// @Get("/getVirtualEntities")
+	// @UseBefore(isUser)
+	// GetVirtualEntities() {
+	// 	return this.service.GetVirtualEntities();
+	// }
+
+	@Post("/getVirtualEntity")
+	@UseBefore(isUser)
+	GetVirtualEntity(@Body({ required: true }) body: GetVirtualEntityRequest) {
+		return this.service.GetVirtualEntity(body);
 	}
-);
 
-router.post(
-	"/getVirtualEntity",
-	passport.authenticate("jwt", { session: false }),
-	isUser,
-	async (req: RequestObjectWithUserId, res: any) => {
-		let valid = validateGetVirtualEntityRequest(req.body);
-
-		if (valid.ok) {
-			let body = <GetVirtualEntityRequest>req.body;
-			service
-				.GetVirtualEntity(body)
-				.then((response) => {
-					res.status(200);
-					res.json(response);
-				})
-				.catch((err) => {
-					res.status(400);
-					res.json({ message: "error", error: err });
-				});
-		} else {
-			res.status(400).send(valid.message);
-		}
+	@Post("/answerQuiz")
+	@UseBefore(isUser)
+	AnswerQuiz(
+		@Body({ required: true }) body: AnswerQuizRequest,
+		@CurrentUser({ required: true }) id: number
+	) {
+		console.log("bodyyyyy   ", body);
+		return this.service.AnswerQuiz(body, id);
 	}
-);
 
-export { router };
+	@Post("/togglePublic")
+	@UseBefore(isEducator)
+	TogglePublic(
+		@Body({ required: true }) body: TogglePublicRequest,
+		@CurrentUser({ required: true }) id: number
+	) {
+		return this.service.TogglePublic(body, id);
+	}
+
+	@Post("/getPublicVirtualEntities")
+	@UseBefore(isEducator)
+	GetPublicVirtualEntities() {
+		return this.service.GetPublicVirtualEntities();
+	}
+
+	@Post("/getPrivateVirtualEntities")
+	@UseBefore(isEducator)
+	GetPrivateVirtualEntities(@CurrentUser({ required: true }) id: number) {
+		return this.service.GetPrivateVirtualEntities(id);
+	}
+
+	@Post("/getQuizesByLesson")
+	@UseBefore(isUser)
+	GetQuizesByLesson(@Body({ required: true }) body: GetQuizesByLessonRequest) {
+		return this.service.GetQuizesByLesson(body);
+	}
+}
+
+//TODO add endpoint to make snapshot of 3d model
+
+// TODO get virtual entities by lesson

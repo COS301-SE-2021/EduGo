@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
       true,
       true,
       Container(child: Text("Home")),
-      'Home',
+      'Under Construction...',
     );
   }
 }

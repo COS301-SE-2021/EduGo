@@ -7,6 +7,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                        Lesson details View Page 
@@ -18,7 +20,7 @@ class LessonInformationPage extends StatefulWidget {
   //title of the card that was clicked on
   final String lessonTitle;
 
-  //This lesson ID variable holds the subject
+  //This lesson ID variable holds the lesson
   //id of the card that was clicked on
   final int lessonID;
 
@@ -60,8 +62,8 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
       //the two bool represent side bar and navbar. so if true and true, them
       //the side bar and nav bar will be displayed.
       //i.e true=yes display, false=no do not display
-      false,
-      false,
+      true,
+      true,
       Container(
         //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
         //child: SingleChildScrollView(
@@ -92,7 +94,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                   'Lesson Description',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
-                  softWrap: false,
+                  softWrap: true,
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -112,47 +114,8 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                   lessonDescription,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                  softWrap: false,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 80),
-                child: Text(
-                  'Lesson Outcomes',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  softWrap: false,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.solid,
-                    decorationColor: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: Text(
-                  //lessonOutcomes,
-                  'The outcome of this lesson is to ensure every student' +
-                      'is comfortable with the basics of algebra',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                  softWrap: false,
+                  maxLines: 10,
+                  softWrap: true,
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -161,7 +124,45 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 150),
+              padding: const EdgeInsets.only(top: 50),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 1,
+                height: MediaQuery.of(context).size.width / 10,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      side: BorderSide(color: Colors.black),
+                    ),
+                    onPressed: () {
+                      MomentumRouter.goto(
+                        context,
+                        QuizPage,
+                        params: QuizParam(lessonID),
+                        transition: (context, page) {
+                          return MaterialPageRoute(builder: (context) => page);
+                        },
+                      );
+                    },
+                    minWidth: 10,
+                    height: 60,
+                    child: Text(
+                      "Go to lesson quizzes",
+                      maxLines: 2,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width / 1,
                 height: MediaQuery.of(context).size.width / 10,
@@ -182,7 +183,9 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                     minWidth: 10,
                     height: 60,
                     child: Text(
-                      "Get Started",
+                      "Go to virtual entity",
+                      maxLines: 2,
+                      softWrap: true,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 20,
