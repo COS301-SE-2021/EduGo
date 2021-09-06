@@ -1,275 +1,276 @@
-// import 'dart:collection';
+// // import 'dart:collection';
 
 // import 'package:flutter/material.dart';
-// import 'package:flutter_spinkit/flutter_spinkit.dart';
-// import 'package:mobile/src/Components/mobile_page_layout.dart';
-// import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
-// import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
-// import 'package:mobile/src/Pages/QuizPage/Controller/AnswerController.dart';
-// import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
-// import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
-// import 'package:mobile/src/Pages/QuizPage/Model/AnswerPageModel.dart';
-// import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
-// import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
-// import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
-// import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
-// import 'package:momentum/momentum.dart';
+// // import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
+// // import 'package:flutter_spinkit/flutter_spinkit.dart';
+// // import 'package:mobile/src/Components/mobile_page_layout.dart';
+// // import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
+// // import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
+// // import 'package:mobile/src/Pages/QuizPage/Controller/AnswerController.dart';
 
-// //TODO when click dropdown option, model gets updated with opton pick. the model.update rebuiilds the widget
-// // https://www.xamantra.dev/momentum/#/router
-// //"STATE MANAGEMTN"https://github.com/xamantra/momentum/issues/17#issuecomment-656696841
+// // import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+// // import 'package:mobile/src/Pages/QuizPage/Model/AnswerPageModel.dart';
+// // import 'package:mobile/src/Pages/QuizPage/Model/QuestionPageModel.dart';
+// // import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
+// // import 'package:mobile/src/Pages/QuizPage/Model/QuizPageModel.dart';
+// // import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
+// // import 'package:momentum/momentum.dart';
 
-// // class used to pass parameters between pages, naemly the lesson page and quiz page
-// // so that the quizzes for that specific lesson can be displayed
-// class QuizParam extends RouterParam {
-//   int lessonId;
-//   bool showAnswers;
-//   List<Answer> selectedAnswers;
-//   QuizParam(this.lessonId, this.showAnswers, this.selectedAnswers);
-// }
+// // //TODO when click dropdown option, model gets updated with opton pick. the model.update rebuiilds the widget
+// // // https://www.xamantra.dev/momentum/#/router
+// // //"STATE MANAGEMTN"https://github.com/xamantra/momentum/issues/17#issuecomment-656696841
 
-// // when page re-routes back to this page with all the answers, answers are passed as parameters
-// class AnswerParam extends RouterParam {
-//   bool displayAnswers = false;
-//   List<Answer> answers;
-//   List<String?> correctAnswer;
-//   List<Answer> selectedAnswers;
-//   AnswerParam(this.displayAnswers, this.answers, this.correctAnswer,
-//       this.selectedAnswers);
-// }
+// // // class used to pass parameters between pages, naemly the lesson page and quiz page
+// // // so that the quizzes for that specific lesson can be displayed
+// // class QuizParam extends RouterParam {
+// //   int lessonId;
+// //   bool showAnswers;
+// //   List<Answer> selectedAnswers;
+// //   QuizParam(this.lessonId, this.showAnswers, this.selectedAnswers);
+// // }
 
-// class QuizPage extends StatefulWidget {
-//   QuizPage({
-//     Key? key,
-//   }) : super(key: key);
-//   @override
-//   _QuizPageState createState() => _QuizPageState();
-// }
+// // // when page re-routes back to this page with all the answers, answers are passed as parameters
+// // class AnswerParam extends RouterParam {
+// //   bool displayAnswers = false;
+// //   List<Answer> answers;
+// //   List<String?> correctAnswer;
+// //   List<Answer> selectedAnswers;
+// //   AnswerParam(this.displayAnswers, this.answers, this.correctAnswer,
+// //       this.selectedAnswers);
+// // }
 
-// class _QuizPageState extends MomentumState<QuizPage> {
-//   // Everything asssociated with quiz initialised with model and controller when page loads
-//   // ans state is initliased
-//   late var quizParam;
-//   late QuizController quizController;
-//   late var answerParam;
-//   late AnswerController answerController;
+// // class QuizPage extends StatefulWidget {
+// //   QuizPage({
+// //     Key? key,
+// //   }) : super(key: key);
+// //   @override
+// //   _QuizPageState createState() => _QuizPageState();
+// // }
 
-//   late List<Quiz> listOfQuizzes;
-//   late List<Question> listOfQuestions;
-//   late List<String> listOfOptions;
-//   late List<int> listOfQuizIds;
-//   late List<int> listOfQuestionIds;
+// // class _QuizPageState extends MomentumState<QuizPage> {
+// //   // Everything asssociated with quiz initialised with model and controller when page loads
+// //   // ans state is initliased
+// //   late var quizParam;
+// //   late QuizController quizController;
+// //   late var answerParam;
+// //   late AnswerController answerController;
 
-//   late bool showAnswers;
-//   late int lessonId;
-//   late int quizId;
-//   late int questionId;
+// //   late List<Quiz> listOfQuizzes;
+// //   late List<Question> listOfQuestions;
+// //   late List<String> listOfOptions;
+// //   late List<int> listOfQuizIds;
+// //   late List<int> listOfQuestionIds;
 
-//   // Number of quizzes = number of tabs
-//   late int noOfQuizzes;
-//   // Number of questions = number of tab views
-//   late int noOfQuestions;
+// //   late bool showAnswers;
+// //   late int lessonId;
+// //   late int quizId;
+// //   late int questionId;
 
-//   //Stores answers that can be passed as parameters among pages using RouterParam
-//   late List<Answer> _selectedAnswers;
-//   late AnswerPageModel answerModel;
+// //   // Number of quizzes = number of tabs
+// //   late int noOfQuizzes;
+// //   // Number of questions = number of tab views
+// //   late int noOfQuestions;
 
-//   late bool isClicked;
-//   @override
-//   void initMomentumState() {
-//     super.initMomentumState();
+// //   //Stores answers that can be passed as parameters among pages using RouterParam
+// //   late List<Answer> _selectedAnswers;
+// //   late AnswerPageModel answerModel;
 
-//     // Required for momentum state management
-//     answerController = Momentum.controller<AnswerController>(context);
-//     quizController = Momentum.controller<QuizController>(context);
-//     quizParam = MomentumRouter.getParam<QuizParam>(context);
-//     lessonId = quizParam!.lessonId;
-//     showAnswers = quizParam!.showAnswers;
-//     quizController.getQuizzes(lessonId);
-//     answerParam = MomentumRouter.getParam<AnswerParam>(context);
+// //   late bool isClicked;
+// //   @override
+// //   void initMomentumState() {
+// //     super.initMomentumState();
 
-//     // Inititalising all values
-//     listOfQuizzes = []; // temp array
-//     listOfQuestions = [];
-//     listOfOptions = [];
-//     listOfQuizIds = [];
-//     listOfQuestionIds = [];
-//     noOfQuizzes = 0;
-//     noOfQuestions = 0;
-//     _selectedAnswers = [];
-//     quizId = 0;
-//     questionId = 0;
-//     isClicked = false;
-//   }
+// //     // Required for momentum state management
+// //     answerController = Momentum.controller<AnswerController>(context);
+// //     quizController = Momentum.controller<QuizController>(context);
+// //     quizParam = MomentumRouter.getParam<QuizParam>(context);
+// //     lessonId = quizParam!.lessonId;
+// //     showAnswers = quizParam!.showAnswers;
+// //     quizController.getQuizzes(lessonId);
+// //     answerParam = MomentumRouter.getParam<AnswerParam>(context);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     MomentumBuilder _momentumBuilder = MomentumBuilder(
-//         controllers: [QuizController, AnswerController],
-//         builder: (context, snapshot) {
-//           // Get the list of quizzes so that I can dynamically edit UI
-//           final quizzes = snapshot<QuizPageModel>();
-//           var allQuizzes = {
-//             for (var quiz in quizzes.quizes) quiz.id: quiz.questions
-//           };
-//           noOfQuizzes = allQuizzes.length;
-//           // Error handling
-//           if (noOfQuizzes <= 0) {
-//             return SpinKitCircle(
-//               color: Colors.black,
-//             );
-//           }
-//           //use maps to maintain id and value, which are both needed to answer quiz: https://dev.to/javasampleapproach/dart-flutter-map-tutorial-create-add-delete-iterate-sorting-5e82
-//           // Get the list of questions and answers so that I can dynamically edit UI
-//           var allQuestionTypes;
-//           allQuizzes.entries.forEach((quiz) {
-//             allQuestionTypes = {for (var q in quiz.value!) q.id: q.type};
-//           });
+// //     // Inititalising all values
+// //     listOfQuizzes = []; // temp array
+// //     listOfQuestions = [];
+// //     listOfOptions = [];
+// //     listOfQuizIds = [];
+// //     listOfQuestionIds = [];
+// //     noOfQuizzes = 0;
+// //     noOfQuestions = 0;
+// //     _selectedAnswers = [];
+// //     quizId = 0;
+// //     questionId = 0;
+// //     isClicked = false;
+// //   }
 
-//           var allQuestions;
-//           allQuizzes.entries.forEach((quiz) {
-//             allQuestions = {for (var q in quiz.value!) q.id: q.question};
-//           });
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     MomentumBuilder _momentumBuilder = MomentumBuilder(
+// //         controllers: [QuizController, AnswerController],
+// //         builder: (context, snapshot) {
+// //           // Get the list of quizzes so that I can dynamically edit UI
+// //           final quizzes = snapshot<QuizPageModel>();
+// //           var allQuizzes = {
+// //             for (var quiz in quizzes.quizes) quiz.id: quiz.questions
+// //           };
+// //           noOfQuizzes = allQuizzes.length;
+// //           // Error handling
+// //           if (noOfQuizzes <= 0) {
+// //             return SpinKitCircle(
+// //               color: Colors.black,
+// //             );
+// //           }
+// //           //use maps to maintain id and value, which are both needed to answer quiz: https://dev.to/javasampleapproach/dart-flutter-map-tutorial-create-add-delete-iterate-sorting-5e82
+// //           // Get the list of questions and answers so that I can dynamically edit UI
+// //           var allQuestionTypes;
+// //           allQuizzes.entries.forEach((quiz) {
+// //             allQuestionTypes = {for (var q in quiz.value!) q.id: q.type};
+// //           });
 
-//           var allOptionalAnswers;
-//           allQuizzes.entries.forEach((quiz) {
-//             allOptionalAnswers = {for (var q in quiz.value!) q.id: q.options};
-//           });
+// //           var allQuestions;
+// //           allQuizzes.entries.forEach((quiz) {
+// //             allQuestions = {for (var q in quiz.value!) q.id: q.question};
+// //           });
 
-//           var allCorrectAnswers; //Map<int, String> allCorrectAnswers
-//           allQuizzes.entries.forEach((quiz) {
-//             allCorrectAnswers = {
-//               for (var q in quiz.value!) q.id: q.correctAnswer
-//             };
-//           });
+// //           var allOptionalAnswers;
+// //           allQuizzes.entries.forEach((quiz) {
+// //             allOptionalAnswers = {for (var q in quiz.value!) q.id: q.options};
+// //           });
 
-//           // print(allQuestionTypes);
-//           // print(allQuestions);
-//           //print(allOptionalAnswers);
-//           print(allCorrectAnswers);
+// //           var allCorrectAnswers; //Map<int, String> allCorrectAnswers
+// //           allQuizzes.entries.forEach((quiz) {
+// //             allCorrectAnswers = {
+// //               for (var q in quiz.value!) q.id: q.correctAnswer
+// //             };
+// //           });
 
-//           // Create numbered tabs whereby each number represents a quiz
-//           // allowing the student to toggle between quizzes
-//           List<Widget> tabs = [];
-//           for (int i = 0; i < noOfQuizzes; i++) {
-//             tabs.add(Tab(
-//               text: (i + 1).toString(),
-//             ));
-//           }
+// //           // print(allQuestionTypes);
+// //           // print(allQuestions);
+// //           //print(allOptionalAnswers);
+// //           print(allCorrectAnswers);
 
-//           // Dynamically create widgets that contain quiz and questions information
-//           // so that widgets holding this content can be displayed dynamically
-//           List<Widget> dropdowns = [];
+// //           // Create numbered tabs whereby each number represents a quiz
+// //           // allowing the student to toggle between quizzes
+// //           List<Widget> tabs = [];
+// //           for (int i = 0; i < noOfQuizzes; i++) {
+// //             tabs.add(Tab(
+// //               text: (i + 1).toString(),
+// //             ));
+// //           }
 
-//           // For each and every quiz, each identified by it's key (aka id), add information
-//           // to the list of widgets
-//           allQuizzes.entries.forEach((quiz) {
-//             // For each and every question, display the queston asked
-//             allQuestions.entries.forEach((question) {
-//               dropdowns
-//                   .add(Text(question.key.toString() + ': ' + question.value));
+// //           // Dynamically create widgets that contain quiz and questions information
+// //           // so that widgets holding this content can be displayed dynamically
+// //           List<Widget> dropdowns = [];
 
-//               // For each list of dropdowns create a set of option items to select from
-//               allOptionalAnswers.forEach((int questionId, List<String> value) {
-//                 if (question.key == questionId) {
-//                   print('here we go again');
-//                   answerController.updateAnswer(value[0]);
-//                   answerModel = snapshot<AnswerPageModel>();
-//                   //print('initial: ' + answerModel.answer);
-//                   dropdowns.add(new DropdownButton<String?>(
-//                       value: answerModel.answer,
-//                       items: value.map((String option) {
-//                         return DropdownMenuItem<String>(
-//                           child: new Text(option),
-//                           value: option,
-//                         );
-//                       }).toList(),
-//                       onChanged: (selectedValue) {
-//                         print('selected: ' + selectedValue!);
-//                         print('prev: ' + answerModel.answer);
-//                         _selectedAnswers.add(Answer(questionId, selectedValue));
-//                         answerController.updateAnswer(selectedValue);
-//                         answerModel = snapshot<AnswerPageModel>();
-//                         print('after: ' + answerModel.answer);
-//                       }));
-//                 }
-//               }); // all option answers
-//             }); // all questions
-//             dropdowns.add(
-//               ElevatedButton(
-//                 onPressed: () {
-//                   print('lessonId: ' + lessonId.toString());
-//                   print('quizId: ' + quiz.key.toString());
-//                   print('selected answer: ' + _selectedAnswers.toString());
+// //           // For each and every quiz, each identified by it's key (aka id), add information
+// //           // to the list of widgets
+// //           allQuizzes.entries.forEach((quiz) {
+// //             // For each and every question, display the queston asked
+// //             allQuestions.entries.forEach((question) {
+// //               dropdowns
+// //                   .add(Text(question.key.toString() + ': ' + question.value));
 
-//                   //TODO can only submit quiz once, so when I'm sure submit
-//                   //quizController.answerQuizByLessonId(lessonId, quizId, _selectedAnswers);
-//                   MomentumRouter.goto(
-//                     context,
-//                     QuizPage,
-//                     params: QuizParam(lessonId, true, _selectedAnswers),
-//                   );
-//                 },
-//                 child: const Text('Submit Answers'),
-//               ),
-//             );
+// //               // For each list of dropdowns create a set of option items to select from
+// //               allOptionalAnswers.forEach((int questionId, List<String> value) {
+// //                 if (question.key == questionId) {
+// //                   print('here we go again');
+// //                   answerController.updateAnswer(value[0]);
+// //                   answerModel = snapshot<AnswerPageModel>();
+// //                   //print('initial: ' + answerModel.answer);
+// //                   dropdowns.add(new DropdownButton<String?>(
+// //                       value: answerModel.answer,
+// //                       items: value.map((String option) {
+// //                         return DropdownMenuItem<String>(
+// //                           child: new Text(option),
+// //                           value: option,
+// //                         );
+// //                       }).toList(),
+// //                       onChanged: (selectedValue) {
+// //                         print('selected: ' + selectedValue!);
+// //                         print('prev: ' + answerModel.answer);
+// //                         _selectedAnswers.add(Answer(questionId, selectedValue));
+// //                         answerController.updateAnswer(selectedValue);
+// //                         answerModel = snapshot<AnswerPageModel>();
+// //                         print('after: ' + answerModel.answer);
+// //                       }));
+// //                 }
+// //               }); // all option answers
+// //             }); // all questions
+// //             dropdowns.add(
+// //               ElevatedButton(
+// //                 onPressed: () {
+// //                   print('lessonId: ' + lessonId.toString());
+// //                   print('quizId: ' + quiz.key.toString());
+// //                   print('selected answer: ' + _selectedAnswers.toString());
 
-//             if (showAnswers == true) {
-//               var selectedAnswersMap = Map.fromIterable(
-//                   quizParam!.selectedAnswers,
-//                   key: (e) => e.question_id,
-//                   value: (e) => e.answer);
+// //                   //TODO can only submit quiz once, so when I'm sure submit
+// //                   //quizController.answerQuizByLessonId(lessonId, quizId, _selectedAnswers);
+// //                   MomentumRouter.goto(
+// //                     context,
+// //                     QuizPage,
+// //                     params: QuizParam(lessonId, true, _selectedAnswers),
+// //                   );
+// //                 },
+// //                 child: const Text('Submit Answers'),
+// //               ),
+// //             );
 
-//               dropdowns.add(
-//                   Text('Selected answers' + selectedAnswersMap.toString()));
-//               dropdowns
-//                   .add(Text('Correct answers' + allCorrectAnswers.toString()));
-//             } //all Questions
-//           }); // all Quizzes
+// //             if (showAnswers == true) {
+// //               var selectedAnswersMap = Map.fromIterable(
+// //                   quizParam!.selectedAnswers,
+// //                   key: (e) => e.question_id,
+// //                   value: (e) => e.answer);
 
-//           return Container(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.stretch,
-//               children: <Widget>[
-//                 SizedBox(height: 20.0),
-//                 // Structure of tabs: how many tabs
-//                 DefaultTabController(
-//                   length: noOfQuizzes,
-//                   initialIndex: 0,
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.stretch,
-//                     children: <Widget>[
-//                       // Add UI pazzazz to tab bar: how tabs are labeled
-//                       Container(
-//                         child: TabBar(
-//                           labelColor: Colors.green,
-//                           unselectedLabelColor: Colors.black,
-//                           tabs: tabs,
-//                         ),
-//                       ),
-//                       Container(
-//                         height: 400,
-//                         decoration: BoxDecoration(
-//                             border: Border(
-//                                 top: BorderSide(
-//                                     color: Colors.grey, width: 0.5))),
-//                         child: Column(
-//                           mainAxisAlignment: MainAxisAlignment.center,
-//                           crossAxisAlignment: CrossAxisAlignment.center,
-//                           children: dropdowns,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           );
-//         });
-//     //Display page
-//     return MobilePageLayout(false, false, _momentumBuilder, 'Quizzes');
-//   }
-// }
+// //               dropdowns.add(
+// //                   Text('Selected answers' + selectedAnswersMap.toString()));
+// //               dropdowns
+// //                   .add(Text('Correct answers' + allCorrectAnswers.toString()));
+// //             } //all Questions
+// //           }); // all Quizzes
+
+// //           return Container(
+// //             child: Column(
+// //               crossAxisAlignment: CrossAxisAlignment.stretch,
+// //               children: <Widget>[
+// //                 SizedBox(height: 20.0),
+// //                 // Structure of tabs: how many tabs
+// //                 DefaultTabController(
+// //                   length: noOfQuizzes,
+// //                   initialIndex: 0,
+// //                   child: Column(
+// //                     crossAxisAlignment: CrossAxisAlignment.stretch,
+// //                     children: <Widget>[
+// //                       // Add UI pazzazz to tab bar: how tabs are labeled
+// //                       Container(
+// //                         child: TabBar(
+// //                           labelColor: Colors.green,
+// //                           unselectedLabelColor: Colors.black,
+// //                           tabs: tabs,
+// //                         ),
+// //                       ),
+// //                       Container(
+// //                         height: 400,
+// //                         decoration: BoxDecoration(
+// //                             border: Border(
+// //                                 top: BorderSide(
+// //                                     color: Colors.grey, width: 0.5))),
+// //                         child: Column(
+// //                           mainAxisAlignment: MainAxisAlignment.center,
+// //                           crossAxisAlignment: CrossAxisAlignment.center,
+// //                           children: dropdowns,
+// //                         ),
+// //                       ),
+// //                     ],
+// //                   ),
+// //                 ),
+// //               ],
+// //             ),
+// //           );
+// //         });
+// //     //Display page
+// //     return MobilePageLayout(false, false, _momentumBuilder, 'Quizzes');
+// //   }
+// // }
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -279,7 +280,7 @@ import 'package:mobile/src/Pages/QuizPage/Model/QuizModel.dart';
 import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
- *                           Quiz View Page 
+ *                           Quiz View Page
  *------------------------------------------------------------------------------
 */
 
@@ -354,3 +355,32 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// //import 'package:get/get.dart';
+// import 'package:flutter/material.dart';
+// // import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
+// import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
+// import 'Components/QuizPageBody.dart';
+// import 'package:get/get.dart';
+
+// class QuizPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     QuizController _controller = Get.put(QuizController);
+//     return Scaffold(
+
+      
+//       extendBodyBehindAppBar: true,
+//       appBar: AppBar(
+//         // Fluttter show the back button automatically
+//         backgroundColor: Colors.transparent,
+//         elevation: 0,
+//         actions: [
+//           FlatButton(onPressed: _controller.nextQuestion, child: Text("Skip")),
+//         ],
+//       ),
+//       body: Body(),
+//     );
+//   }
+// }
