@@ -25,7 +25,7 @@ class QuizCard extends StatelessWidget {
     return GridView.count(
       //This makes 2 cards appear. So effectively two
       //cards per page. (2 rows, 1 card per row)
-      childAspectRatio: MediaQuery.of(context).size.height / 500,
+      childAspectRatio: MediaQuery.of(context).size.height / 400,
       primary: false,
       //padding: const EdgeInsets.only(top: 20),
       crossAxisSpacing: 0,
@@ -34,17 +34,16 @@ class QuizCard extends StatelessWidget {
       // mainAxisSpacing: 5,
       //makes 1 cards per row
       crossAxisCount: 1,
-      children: questions
-          .map(
-            (question) => QuestionCard(
-                id: question.id,
-                question: question.question,
-                answerOptions: question.options,
-                questionType: question.type,
-                questionLength: questionLength),
-          )
-          .toList(),
+      children: List.generate(
+        questionLength,
+        (index) => QuestionCard(
+            id: questions[index].id,
+            question: questions[index].question,
+            answerOptions: questions[index].options,
+            questionType: questions[index].type,
+            questionLength: questionLength,
+            index: index),
+      ),
     );
-    //));
   }
 }

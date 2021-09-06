@@ -3,6 +3,9 @@
    * responsible for displaying the buttons in the quiz cards. 
 */
 import 'package:flutter/material.dart';
+import 'package:mobile/globals.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/AnswerController.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                    Answer Buttons used in the Quiz page 
@@ -11,30 +14,24 @@ import 'package:flutter/material.dart';
 
 class AnswerButtons extends StatefulWidget {
   final String answer;
+  final int index;
 
 //This is the subject card constructor. it requires 5 arguments to be passed in
-  AnswerButtons({required this.answer});
+  AnswerButtons({required this.answer, required this.index});
 
   @override
-  _AnswerButtonsState createState() => _AnswerButtonsState();
+  _AnswerButtonsState createState() => _AnswerButtonsState(index: index);
 }
 
 class _AnswerButtonsState extends State<AnswerButtons> {
+  _AnswerButtonsState({required this.index});
+  int index;
+
   bool hasBeenPressed1 = false;
-  bool hasBeenPressed2 = false;
-  int finalButtonPressed = -1;
+  bool value = false;
 
   @override
   Widget build(BuildContext context) {
-    //Color backgroundColour = Colors.white;
-    // if (hasBeenPressed == true) {
-    //   hasBeenPressed = true;
-    //   backgroundColour = Colors.green;
-    // } else {
-    //   hasBeenPressed = false;
-    //   backgroundColour = Colors.white;
-    // }
-
     //This is the main subject card design. It is all in a container and
     //displays info like the subject photo, subject title, subject educator
     //and how many lessons are in that subject
@@ -44,33 +41,69 @@ class _AnswerButtonsState extends State<AnswerButtons> {
       children: [
         Expanded(
           child: Container(
-            color: hasBeenPressed1 ? Colors.green : Colors.white,
-            // color: hasBeenPressed ? backgroundColour : backgroundColour,
+            //color: hasBeenPressed1 ? Colors.green : Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: hasBeenPressed1 ? Colors.green : Colors.white,
+            ),
             child: MaterialButton(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(0)),
-                  side: BorderSide(color: Colors.black)),
-              onPressed: () => setState(() {
-                // hasBeenPressed1 = true;
-                // hasBeenPressed2 = false;
-              }),
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  side: BorderSide(
+                      color: hasBeenPressed1 ? Colors.green : Colors.black)),
+              onPressed: () {
+                setState(
+                  () {
+                    this.value = value;
+                    if (value == false) {
+                      this.hasBeenPressed1 = true;
+                      this.value = true;
+                      // for (int k = 0; k < 10; k++) {
+                      //   checkArray.add(false);
+                      // }
+
+                    } else {
+                      this.hasBeenPressed1 = false;
+                      this.value = false;
+                    }
+                  },
+                );
+              },
               minWidth: 5,
               height: 50,
-              child: Text(
-                "${widget.answer}",
-                maxLines: 2,
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${widget.answer}",
+                    maxLines: 2,
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  // Checkbox(
+                  //   value: this.value,
+                  //   onChanged: (bool? value) {
+                  //     setState(() {
+                  //       this.value = value!;
+                  //       if (value == true) {
+                  //         this.hasBeenPressed1 = true;
+                  //       } else
+                  //         this.hasBeenPressed1 = false;
+                  //     });
+                  //   },
+                  // ),
+                ],
               ),
-              //),
             ),
           ),
         ),
       ],
     );
+    // },
+    //);
   }
 }
