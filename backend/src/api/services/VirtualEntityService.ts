@@ -119,6 +119,7 @@ export class VirtualEntityService {
 			let model: GVE_Model = { ...entity.model };
 			response.model = model;
 		}
+	
 		if (entity.quiz) {
 			let quiz: GVE_Quiz = { ...entity.quiz };
 			response.quiz = quiz;
