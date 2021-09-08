@@ -7,7 +7,7 @@ import {
 	AddModelToVirtualEntityRequest,
 } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
-import { isEducator, isUser } from "../middleware/validate";
+import { isEducator, isUser } from "../middleware/ValidationMiddleware";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { Inject, Service } from "typedi";
 import {

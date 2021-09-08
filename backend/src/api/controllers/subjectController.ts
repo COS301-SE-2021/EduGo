@@ -1,6 +1,6 @@
 import { SubjectService } from "../services/SubjectService";
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
-import { isEducator, isUser } from "../middleware/validate";
+import { isEducator, isUser } from "../middleware/ValidationMiddleware";
 import passport from "passport";
 import { uploadFile } from "../helper/aws/fileUpload";
 import { Service, Inject } from "typedi";

@@ -3,7 +3,7 @@ import { LessonService } from "../services/LessonService";
 import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import passport from "passport";
-import {ValidatationMiddleware}  from "../middleware/validate";
+import { ValidationMiddleware }  from "../middleware/ValidationMiddleware";
 import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
 import { Inject, Service } from "typedi";
 import { JsonController, Post, Body, UseBefore } from "routing-controllers";
@@ -17,13 +17,13 @@ import { JsonController, Post, Body, UseBefore } from "routing-controllers";
 export class LessonController {
 	constructor(
 		@Inject() private service: LessonService,
-		@Inject() private validatinMiddleware: ValidatationMiddleware
+		@Inject() private validationMiddleware: ValidationMiddleware
 	) {}
 	
 
 
 	@Post('/createLesson')
-	@UseBefore(this?.validatinMiddleware.isEducator)
+	@UseBefore()
 	CreateLesson(@Body({required: true}) body: CreateLessonRequest) {
 		return this.service.CreateLesson(body);
 	}

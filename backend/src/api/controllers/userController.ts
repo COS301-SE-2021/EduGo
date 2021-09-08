@@ -7,7 +7,7 @@ import { EducatorService } from "../services/EducatorService";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { AddEducatorsRequest } from "../models/user/AddEducatorsRequest";
 import passport from "passport";
-import { isAdmin, isEducator, isUser } from "../middleware/validate";
+import { isAdmin, isEducator, isUser } from "../middleware/ValidationMiddleware";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
 import { Inject, Service } from "typedi";
 import {

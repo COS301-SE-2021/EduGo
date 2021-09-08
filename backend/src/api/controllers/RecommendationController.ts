@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "passport";
-import { isUser, RequestObjectWithUserId } from "../middleware/validate";
+import { isUser, RequestObjectWithUserId } from "../middleware/ValidationMiddleware";
 import { RecommendationService } from "../services/RecommendationService";
 
 const router = express.Router();

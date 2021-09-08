@@ -23,7 +23,7 @@ export interface RequestObjectWithUserId extends Request {
 	user_id: number;
 }
 @Service()
-export class ValidatationMiddleware {
+export class ValidationMiddleware {
 	public async isUser(req: RequestObjectWithUserId, res: any, next: any) {
 		if (req.headers.authorization) {
 			const token = req.headers.authorization.slice(7);
