@@ -3,7 +3,7 @@ import { LessonService } from "../services/LessonService";
 import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import passport from "passport";
-import { ValidationMiddleware }  from "../middleware/ValidationMiddleware";
+import { IsEducatorMiddleware, IsUserMiddleware }  from "../middleware/ValidationMiddleware";
 import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
 import { Inject, Service } from "typedi";
 import { JsonController, Post, Body, UseBefore } from "routing-controllers";
@@ -17,24 +17,24 @@ import { JsonController, Post, Body, UseBefore } from "routing-controllers";
 export class LessonController {
 	constructor(
 		@Inject() private service: LessonService,
-		@Inject() private validationMiddleware: ValidationMiddleware
 	) {}
 	
 
 
 	@Post('/createLesson')
-	@UseBefore()
+	@UseBefore(IsEducatorMiddleware)
 	CreateLesson(@Body({required: true}) body: CreateLessonRequest) {
 		return this.service.CreateLesson(body);
 	}
 
 	@Post('/getLessonsBySubject')
+	@UseBefore(IsUserMiddleware)
 	GetLessonsBySubject(@Body({required: true}) body: GetLessonsBySubjectRequest) {
 		return this.service.GetLessonsBySubject(body);
 	}
 
 	@Post('/addVirtualEntityToLesson')
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	async AddVirtualEntityToLesson(@Body({required: true}) body: AddVirtualEntityToLessonRequest) {
 		return this.service.AddVirtualEntityToLesson(body);
 	}

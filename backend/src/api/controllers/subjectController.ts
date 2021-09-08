@@ -1,6 +1,6 @@
 import { SubjectService } from "../services/SubjectService";
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
-import { isEducator, isUser } from "../middleware/ValidationMiddleware";
+import { IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
 import passport from "passport";
 import { uploadFile } from "../helper/aws/fileUpload";
 import { Service, Inject } from "typedi";
@@ -15,6 +15,7 @@ import {
 	JsonController,
 	ContentType,
 	Header,
+	Authorized,
 } from "routing-controllers";
 
 @Service()
@@ -25,7 +26,7 @@ export class SubjectController {
 	private service: SubjectService;
 
 	@Post("/createSubject")
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	CreateSubject(
 		@UploadedFile("file", { required: true, options: uploadFile })
 		file: Express.MulterS3.File,
@@ -41,7 +42,7 @@ export class SubjectController {
 
 	@Post("/getSubjectsByUser")
 	@ContentType("application/json")
-	@UseBefore(isUser)
+	@UseBefore(IsUserMiddleware)
 	GetSubjectsByUser(@CurrentUser({ required: true }) id: number) {
 		return this.service.GetSubjectsByUser(id);
 	}

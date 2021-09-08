@@ -3,11 +3,12 @@ import jwtDecode from "jwt-decode";
 import passport from "passport";
 import {
 	BadRequestError,
-	InternalServerError,
 	UnauthorizedError,
+	ExpressMiddlewareInterface
 } from "routing-controllers";
-import { Service } from "typedi";
-import { getRepository } from "typeorm";
+import { Inject, Service } from "typedi";
+import { Repository } from "typeorm";
+import { InjectRepository } from "typeorm-typedi-extensions";
 import { User } from "../database/User";
 
 interface MyPayload {
@@ -22,73 +23,77 @@ interface AuthenticateObject {
 export interface RequestObjectWithUserId extends Request {
 	user_id: number;
 }
+
 @Service()
 export class ValidationMiddleware {
-	public async isUser(req: RequestObjectWithUserId, res: any, next: any) {
-		if (req.headers.authorization) {
-			const token = req.headers.authorization.slice(7);
-			const payload = jwtDecode<MyPayload>(token);
-			try {
-				let user: AuthenticateObject = await this.getUserDetails(
-					payload.user_id
-				);
-				if (user) {
-					next();
-				} else throw new UnauthorizedError("User is not authorized");
-			} catch (err) {
-				throw err;
-			}
-		}
-	}
+	constructor(
+		@InjectRepository(User) private readonly userRepository: Repository<User>
+	) {}
+	// public async isUser(req: RequestObjectWithUserId, res: any, next: any) {
+	// 	if (req.headers.authorization) {
+	// 		const token = req.headers.authorization.slice(7);
+	// 		const payload = jwtDecode<MyPayload>(token);
+	// 		try {
+	// 			let user: AuthenticateObject = await this.getUserDetails(
+	// 				payload.user_id
+	// 			);
+	// 			if (user) {
+	// 				next();
+	// 			} else throw new UnauthorizedError("User is not authorized");
+	// 		} catch (err) {
+	// 			throw err;
+	// 		}
+	// 	}
+	// }
 
-	public async isAdmin(req: any, res: any, next: any) {
-		try {
-			if (req.headers.authorization) {
-				const token = req.headers.authorization.slice(7);
-				const payload = jwtDecode<MyPayload>(token);
+	// public async isAdmin(req: any, res: any, next: any) {
+	// 	try {
+	// 		if (req.headers.authorization) {
+	// 			const token = req.headers.authorization.slice(7);
+	// 			const payload = jwtDecode<MyPayload>(token);
 
-				let user: AuthenticateObject = await this.getUserDetails(
-					payload.user_id
-				);
-				if (user.isAdmin) {
-					next();
-				} else throw new UnauthorizedError("User is not an admin");
-			} else {
-				return "Authorization header not set";
-			}
-		} catch (err) {
-			throw new BadRequestError("No authorization header given");
-		}
-	}
+	// 			let user: AuthenticateObject = await this.getUserDetails(
+	// 				payload.user_id
+	// 			);
+	// 			if (user.isAdmin) {
+	// 				next();
+	// 			} else throw new UnauthorizedError("User is not an admin");
+	// 		} else {
+	// 			return "Authorization header not set";
+	// 		}
+	// 	} catch (err) {
+	// 		throw new BadRequestError("No authorization header given");
+	// 	}
+	// }
 
-	public async isEducator(req: RequestObjectWithUserId, res: any, next: any) {
-		if (req.headers.authorization) {
-			const token = req.headers.authorization.slice(7);
-			const payload = jwtDecode<MyPayload>(token);
+	// public async isEducator(req: RequestObjectWithUserId, res: any, next: any) {
+	// 	if (req.headers.authorization) {
+	// 		const token = req.headers.authorization.slice(7);
+	// 		const payload = jwtDecode<MyPayload>(token);
 
-			try {
-				let user: AuthenticateObject = await this.getUserDetails(
-					payload.user_id
-				);
-				if (user.isEducator) {
-					next();
-				} else throw new UnauthorizedError("User is not an Educator");
-			} catch (err) {
-				throw err;
-			}
-		}
-	}
+	// 		try {
+	// 			let user: AuthenticateObject = await this.getUserDetails(
+	// 				payload.user_id
+	// 			);
+	// 			if (user.isEducator) {
+	// 				next();
+	// 			} else throw new UnauthorizedError("User is not an Educator");
+	// 		} catch (err) {
+	// 			throw err;
+	// 		}
+	// 	}
+	// }
 
 	public async getUserDetails(id: number): Promise<AuthenticateObject> {
-		return getRepository(User)
+		return this.userRepository
 			.findOne(id, { relations: ["educator"] })
 			.then((user) => {
 				if (user) {
-					console.log(user.educator);
+					console.log(user);
 					return {
 						id: user.id,
 						isAdmin:
-							user.educator !== undefined
+							user.educator != undefined
 								? user.educator.admin
 								: false,
 						isEducator: user.educator != undefined ? true : false,
@@ -102,5 +107,78 @@ export class ValidationMiddleware {
 
 	public async passportJWT(req: any, res: any, next: any) {
 		passport.authenticate("jwt", { session: false });
+	}
+}
+
+@Service()
+export class IsUserMiddleware implements ExpressMiddlewareInterface {
+	@Inject() validationMiddleware: ValidationMiddleware;
+
+	async use(req: RequestObjectWithUserId, res: any, next: (err?: any) => any) {
+		if (req.headers.authorization) {
+			const token = req.headers.authorization.slice(7);
+			const payload = jwtDecode<MyPayload>(token);
+			try {
+				let user: AuthenticateObject = await this.validationMiddleware.getUserDetails(
+					payload.user_id
+				);
+				if (user) {
+					req.user_id = user.id;
+					next();
+				} else throw new UnauthorizedError("User is not authorized");
+			} catch (err) {
+				throw err;
+			}
+		}
+	}
+}
+
+@Service()
+export class IsAdminMiddleware implements ExpressMiddlewareInterface {
+	@Inject() validationMiddleware: ValidationMiddleware;
+
+	async use(req: any, res: any, next: (err?: any) => any) {
+		try {
+			if (req.headers.authorization) {
+				const token = req.headers.authorization.slice(7);
+				const payload = jwtDecode<MyPayload>(token);
+
+				let user: AuthenticateObject = await this.validationMiddleware.getUserDetails(
+					payload.user_id
+				);
+				if (user.isAdmin) {
+					req.user_id = user.id;
+					next();
+				} else throw new UnauthorizedError("User is not an admin");
+			} else {
+				return "Authorization header not set";
+			}
+		} catch (err) {
+			throw new BadRequestError("No authorization header given");
+		}
+	}
+}
+
+@Service()
+export class IsEducatorMiddleware implements ExpressMiddlewareInterface {
+	@Inject() validationMiddleware: ValidationMiddleware;
+
+	async use(req: RequestObjectWithUserId, res: any, next: (err?: any) => any) {
+		if (req.headers.authorization) {
+			const token = req.headers.authorization.slice(7);
+			const payload = jwtDecode<MyPayload>(token);
+
+			try {
+				let user: AuthenticateObject = await this.validationMiddleware.getUserDetails(
+					payload.user_id
+				);
+				if (user.isEducator) {
+					req.user_id = user.id;
+					next();
+				} else throw new UnauthorizedError("User is not an Educator");
+			} catch (err) {
+				throw err;
+			}
+		}
 	}
 }

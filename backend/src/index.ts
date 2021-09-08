@@ -171,36 +171,4 @@ useExpressServer(app, {
 	currentUserChecker: (action: Action) => action.request.user_id,
 });
 
-// let educatorSer = new EducatorService(); 
-// let req : AddEducatorsRequest = {educators: ["u19134101@tuks.co.za"]}; 
-// educatorSer.AddEducators(req, 1)
-
-
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
-
-// import { router as LessonController } from "./api/controllers/LessonController";
-// import { router as SubjectController } from "./api/controllers/SubjectController";
-// import { router as VirtualEntityController } from "./api/controllers/VirtualEntityController";
-// import { router as OrganisationController } from "./api/controllers/OrganisationController";
-// import { EmailService } from "./api/helper/email/EmailService";
-// import { MailgunEmailService } from "./api/helper/email/MailgunEmailService";
-// import { router as AuthController } from "./api/controllers/AuthController";
-// import { router as UserController } from "./api/controllers/UserController";
-// import { router as SeedController } from "./api/controllers/SeedController";
-// import { router as RecommenderController } from './api/controllers/RecommendationController';
-
-// export const app = express();
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-// app.use(cors());
-// app.use("/lesson", LessonController);
-// app.use("/subject", SubjectController);
-// app.use("/virtualEntity", VirtualEntityController);
-// app.use("/organisation", OrganisationController);
-// app.use("/auth", AuthController);
-// app.use("/user", UserController);
-// app.use("/", SeedController);
-// app.use("/recommender", RecommenderController);
-
-// if (process.env.NODE_ENV !== "test")
-// 	app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
