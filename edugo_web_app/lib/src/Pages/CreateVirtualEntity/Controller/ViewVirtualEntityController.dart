@@ -9,14 +9,12 @@ class ViewVirtualEntityController
     );
   }
 
-  void viewEntity(String name, String description, String id) {
+  void viewEntity(String name, String description, String id, context) {
     model.setViewVirtualEntityName(name);
     model.setViewVirtualEntityDescription(description);
     model.setVirtualEntityId(id);
-  }
-
-  String getLink() {
-    return model.viewEntityLink;
+    Momentum.controller<ViewVirtualEntityController>(context)
+        .getVirtualEntity(context);
   }
 
   Future<void> getVirtualEntity(context) async {
@@ -34,6 +32,7 @@ class ViewVirtualEntityController
       ),
     ).then((response) {
       if (response.statusCode == 200) {
+        print(response.body);
         Map<String, dynamic> _virtualEntity = jsonDecode(response.body);
         Map<String, dynamic> _model = _virtualEntity['model'];
         if (_model != null) {
@@ -42,6 +41,7 @@ class ViewVirtualEntityController
             return;
           else {
             model.setVirtualEntityModel(modelLink);
+            return;
           }
         }
         return;

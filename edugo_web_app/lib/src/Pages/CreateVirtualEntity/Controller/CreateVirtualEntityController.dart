@@ -36,6 +36,7 @@ class CreateVirtualEntityController
   }
 
   void clearLinkTo3DModel() {
+    model.update(loadingModelLink: false);
     model.clearLinkTo3DModel();
   }
 
@@ -93,7 +94,7 @@ class CreateVirtualEntityController
 //*********************************************************************************************
   Future<void> send3DModelToStorage(context) async {
     String linkTo3DModel;
-
+    model.update(loadingModelLink: true);
     var url = Uri.parse("http://34.65.226.152:8080/virtualEntity/uploadModel");
 
     var request = new MultipartRequest(
@@ -121,6 +122,7 @@ class CreateVirtualEntityController
               ArModel modelClone = model.arModel;
               modelClone.setFileLink(linkTo3DModel);
               model.update(arModel: modelClone);
+              model.update(loadingModelLink: false);
             }
           },
         );
@@ -129,6 +131,7 @@ class CreateVirtualEntityController
   }
 
   Future createVirtualEntity(context) async {
+    model.update(creatingEntityLoader: true);
     var url = Uri.parse(
         'http://34.65.226.152:8080/virtualEntity/createVirtualEntity');
     await post(
@@ -149,9 +152,18 @@ class CreateVirtualEntityController
       ),
     ).then(
       (response) {
-        if (response.statusCode == 200)
-          MomentumRouter.goto(context, VirtualEntityStoreView);
+        if (response.statusCode == 200) {
+          model.clearLinkTo3DModel();
+          Momentum.controller<QuizBuilderController>(context)
+              .resetQuizBuilder();
+          model.update(createEntityResponse: "Virtual Entity Created");
+          model.update(creatingEntityLoader: false);
+        } else {
+          model.update(createEntityResponse: "Virtual Entity Not Created");
+          model.update(creatingEntityLoader: false);
+        }
       },
     );
+    return model.createEntityResponse;
   }
 }

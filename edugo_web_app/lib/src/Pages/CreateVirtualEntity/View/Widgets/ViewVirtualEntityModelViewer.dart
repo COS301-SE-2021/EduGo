@@ -5,6 +5,10 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'dart:ui' as ui;
 
 class ViewVirtualEntityModelViewer extends StatelessWidget {
+  final String viewEntityLink;
+
+  const ViewVirtualEntityModelViewer({Key key, this.viewEntityLink})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     String modelview = "<html>" +
@@ -18,7 +22,7 @@ class ViewVirtualEntityModelViewer extends StatelessWidget {
         "<body>" +
         "" +
         "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
-        Momentum.controller<ViewVirtualEntityController>(context).getLink() +
+        viewEntityLink +
         "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
         "" +
         "</body>" +

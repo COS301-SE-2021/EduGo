@@ -30,3 +30,4 @@ export 'package:momentum/momentum.dart';
 export 'package:time_range/time_range.dart';
 export 'package:avatar_letter/avatar_letter.dart';
 export 'package:random_color/random_color.dart' hide Range;
+export 'package:sliding_switch/sliding_switch.dart';

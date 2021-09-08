@@ -6,13 +6,15 @@ class QuestionCard extends StatelessWidget {
   final String question;
   final String questionType;
   final List<String> questionOptions;
+  final GlobalKey<FormState> quizFormKey;
 
   const QuestionCard(
       {Key key,
       this.questionId,
       this.question,
       this.questionOptions,
-      this.questionType})
+      this.questionType,
+      this.quizFormKey})
       : super(
           key: key,
         );
@@ -82,7 +84,9 @@ class QuestionCard extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
-                QuestionInputCard(questionId: questionId),
+                QuestionInputCard(
+                  questionId: questionId,
+                ),
                 SizedBox(
                   height: 40,
                 ),

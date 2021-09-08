@@ -7,9 +7,14 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
   final List<QuestionObject> questions;
   final List<Widget> quizBuilderViewComponents;
 
-  QuizBuilderModel(QuizBuilderController controller,
-      {this.questions, this.quizBuilderViewComponents})
-      : super(controller);
+  final GlobalKey<FormState> createQuizFormKey;
+
+  QuizBuilderModel(
+    QuizBuilderController controller, {
+    this.questions,
+    this.quizBuilderViewComponents,
+    this.createQuizFormKey,
+  }) : super(controller);
 
   void setQuestionType(String questionType, int id) {
     List<QuestionObject> tempQuestions = questions;
@@ -121,6 +126,7 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
         },
       );
     }
+
     return quizBuilderResult;
   }
 
@@ -133,6 +139,7 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
         question: question.question,
         questionType: question.type,
         questionOptions: question.options,
+        quizFormKey: createQuizFormKey,
       ));
       tempComponents.add(SizedBox(
         height: 30,
@@ -144,11 +151,12 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
   }
 
   @override
-  void update({questions, quizBuilderViewComponents}) {
+  void update({questions, quizBuilderViewComponents, createQuizFormKey}) {
     QuizBuilderModel(controller,
             questions: questions ?? this.questions,
             quizBuilderViewComponents:
-                quizBuilderViewComponents ?? this.quizBuilderViewComponents)
+                quizBuilderViewComponents ?? this.quizBuilderViewComponents,
+            createQuizFormKey: createQuizFormKey ?? this.createQuizFormKey)
         .updateMomentum();
   }
 }

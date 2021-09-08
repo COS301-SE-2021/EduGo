@@ -1,15 +1,17 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/Lessons/View/Widgets/LessonsWidgets.dart';
 
-class ViewLesson extends StatelessWidget {
+class ViewLessonView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Info: Getting lesson information from API
 
     //Info: Buiding lesson display interface
     return MomentumBuilder(
-        controllers: [],
+        controllers: [ViewLessonController],
         builder: (context, snapshot) {
+          var viewLesson = snapshot<ViewLessonModel>();
+
           //Info: rendering lesson display
           return PageLayout(
             top: 0,
@@ -42,7 +44,7 @@ class ViewLesson extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    "Lesson Name",
+                                    viewLesson.lessonTitle,
                                     style: TextStyle(
                                       fontSize: 32,
                                     ),
@@ -106,8 +108,7 @@ class ViewLesson extends StatelessWidget {
                                       SizedBox(
                                         height: 20,
                                       ),
-                                      Text(
-                                          "Fdfffffffffffffffffffffffffwwjbigawg agfuiahiufhaiu  auifagreiuf rfeieuryfr feyrifbyeruigsurg seryfyreosgs regegyusersgirueg sergsbuyrusre"),
+                                      Text(viewLesson.lessonDescription),
                                     ],
                                   ),
                                 ),
@@ -145,109 +146,9 @@ class ViewLesson extends StatelessWidget {
                                         height: 50,
                                       ),
                                       Row(children: <Widget>[
-                                        Column(children: <Widget>[
-                                          LessonsButton(
-                                            onPressed: () {
-                                              MomentumRouter.goto(
-                                                  context, LessonsView);
-                                            },
-                                            child: Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.arrow_back,
-                                                  color: Colors.white,
-                                                ),
-                                                SizedBox(width: 20),
-                                                Text(
-                                                  "Back",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            width: 250,
-                                            height: 60,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          LessonsButton(
-                                            onPressed: () {
-                                              MomentumRouter.goto(
-                                                  context, LessonsView);
-                                            },
-                                            child: Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.arrow_back,
-                                                  color: Colors.white,
-                                                ),
-                                                SizedBox(width: 20),
-                                                Text(
-                                                  "Back",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            width: 250,
-                                            height: 60,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          LessonsButton(
-                                            onPressed: () {
-                                              MomentumRouter.goto(
-                                                  context, LessonsView);
-                                            },
-                                            child: Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.arrow_back,
-                                                  color: Colors.white,
-                                                ),
-                                                SizedBox(width: 20),
-                                                Text(
-                                                  "Back",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            width: 250,
-                                            height: 60,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          LessonsButton(
-                                            onPressed: () {
-                                              MomentumRouter.goto(
-                                                  context, LessonsView);
-                                            },
-                                            child: Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.arrow_back,
-                                                  color: Colors.white,
-                                                ),
-                                                SizedBox(width: 20),
-                                                Text(
-                                                  "Back",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            width: 250,
-                                            height: 60,
-                                          ),
-                                        ]),
+                                        Column(
+                                            children: viewLesson
+                                                .lessonVirtualEntityCards),
                                         Spacer(),
                                         Text("ModelViewer")
                                       ]),

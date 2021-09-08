@@ -18,7 +18,7 @@ class LogInContent extends StatelessWidget {
                 elevation: 40,
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  width: 600,
+                  width: ScreenUtil().setWidth(600),
                   padding: EdgeInsets.only(
                     top: 100,
                   ),
@@ -51,7 +51,7 @@ class LogInContent extends StatelessWidget {
                         height: 60,
                       ),
                       SizedBox(
-                        width: 400,
+                        width: ScreenUtil().setWidth(450),
                         height: 100,
                         child: TextFormField(
                           onFieldSubmitted: (value) {
@@ -83,7 +83,7 @@ class LogInContent extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 400,
+                        width: ScreenUtil().setWidth(450),
                         height: 100,
                         child: TextFormField(
                           onFieldSubmitted: (value) {
@@ -129,7 +129,7 @@ class LogInContent extends StatelessWidget {
                             Momentum.controller<LogInController>(context)
                                 .loginUser(context: context, formkey: _formKey);
                           },
-                          width: 450,
+                          width: ScreenUtil().setWidth(550),
                           height: 65),
                       SizedBox(
                         height: 50,

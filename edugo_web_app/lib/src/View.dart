@@ -35,11 +35,13 @@ export 'package:edugo_web_app/src/Pages/Login/View/LogInView.dart';
 export 'package:edugo_web_app/src/Pages/Subjects/View/SubjectsView.dart';
 
 // Info: ViewLesson View Exports
-export 'package:edugo_web_app/src/Pages/ViewLesson/View/ViewLesson.dart';
+export 'package:edugo_web_app/src/Pages/ViewLesson/View/ViewLessonView.dart';
 
 // Info: StudentsGrades View Exports
 export 'package:edugo_web_app/src/Pages/StudentsGrades/View/StudentsGradesView.dart';
 
+// Info: ViewLesson View Exports
+export 'package:edugo_web_app/src/Pages/ViewLesson/View/ViewLessonView.dart';
 
 // Info: App Exports
 export 'package:edugo_web_app/src/View.dart';

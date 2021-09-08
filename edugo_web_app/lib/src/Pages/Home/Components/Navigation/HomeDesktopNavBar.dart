@@ -47,6 +47,7 @@ class HomeDesktopNavbar extends StatelessWidget {
                   width: 30,
                 ),
                 MaterialButton(
+                  key: Key("SignInButton"),
                   minWidth: 150,
                   height: 40,
                   onPressed: () {

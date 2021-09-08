@@ -7,9 +7,18 @@ class CreateVirtualEntityModel
   final String description;
   final String modelLink;
   final ArModel arModel;
+  final bool loadingModelLink;
+  final bool creatingEntityLoader;
+  final String createEntityResponse;
 
   CreateVirtualEntityModel(CreateVirtualEntityController controller,
-      {this.name, this.description, this.modelLink, this.arModel})
+      {this.name,
+      this.description,
+      this.loadingModelLink,
+      this.modelLink,
+      this.arModel,
+      this.createEntityResponse,
+      this.creatingEntityLoader})
       : super(controller);
 
   void setCreateVirtualEntityName(String inName) {
@@ -55,13 +64,23 @@ class CreateVirtualEntityModel
   }
 
   @override
-  void update({modelLink, name, description, arModel}) {
+  void update(
+      {modelLink,
+      name,
+      description,
+      arModel,
+      loadingModelLink,
+      createEntityResponse,
+      creatingEntityLoader}) {
     CreateVirtualEntityModel(
       controller,
       name: name ?? this.name,
       modelLink: modelLink ?? this.modelLink,
       description: description ?? this.description,
       arModel: arModel ?? this.arModel,
+      loadingModelLink: loadingModelLink ?? this.loadingModelLink,
+      createEntityResponse: createEntityResponse ?? this.createEntityResponse,
+      creatingEntityLoader: creatingEntityLoader ?? this.creatingEntityLoader,
     ).updateMomentum();
   }
 }

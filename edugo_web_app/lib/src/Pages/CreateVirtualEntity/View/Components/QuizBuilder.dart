@@ -2,18 +2,23 @@ import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateV
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class QuizBuilder extends StatelessWidget {
+  final GlobalKey<FormState> createQuizFormKey;
+
+  const QuizBuilder({Key key, this.createQuizFormKey}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
       controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
         // var quizBuilder = snapshot<QuizBuilderModel>();
-
+        Momentum.controller<QuizBuilderController>(context)
+            .setFormKey(createQuizFormKey);
         return Container(
           child: Column(
             children: <Widget>[
               Material(
                 elevation: 40,
+                shadowColor: Colors.green,
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 50),
@@ -53,27 +58,12 @@ class QuizBuilder extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              Column(
-                children: Momentum.controller<QuizBuilderController>(context)
-                    .buildQuizBuilderView(),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              VirtualEntityButton(
-                  elevation: 40,
-                  child: Text(
-                    "Create Virtual Entity",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    Momentum.controller<CreateVirtualEntityController>(context)
-                        .createVirtualEntity(context);
-                  },
-                  width: 450,
-                  height: 65),
-              SizedBox(
-                height: 70,
+              Form(
+                key: createQuizFormKey,
+                child: Column(
+                  children: Momentum.controller<QuizBuilderController>(context)
+                      .buildQuizBuilderView(),
+                ),
               ),
             ],
           ),

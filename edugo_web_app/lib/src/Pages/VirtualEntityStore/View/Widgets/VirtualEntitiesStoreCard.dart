@@ -68,11 +68,9 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
                       Momentum.controller<ViewVirtualEntityController>(context)
                           .reset();
                       Momentum.controller<ViewVirtualEntityController>(context)
-                          .viewEntity(
-                        name,
-                        virtualEntityDescription,
-                        virtualEntityId.toString(),
-                      );
+                          .viewEntity(name, virtualEntityDescription,
+                              virtualEntityId.toString(), context);
+
                       MomentumRouter.goto(context, ViewVirtualEntityView);
                     },
                   ),

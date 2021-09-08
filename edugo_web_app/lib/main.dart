@@ -23,6 +23,7 @@ void main() {
         VirtualEntityStoreController(),
         ViewVirtualEntityController(),
         LogInController(),
+        ViewLessonController()
       ],
       services: [
         MomentumRouter(
@@ -31,7 +32,7 @@ void main() {
             Home(),
             AdminView(),
             InviteEducatorsView(),
-            ViewLesson(),
+            ViewLessonView(),
             VirtualEntityStoreView(),
             ViewVirtualEntityView(),
             InviteStudentsView(),

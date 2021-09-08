@@ -3,8 +3,9 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class LessonsCard extends StatelessWidget {
   final String title;
   final int id;
+  final String description;
 
-  LessonsCard({this.title, this.id});
+  LessonsCard({this.title, this.id, this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,9 @@ class LessonsCard extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100)),
                       onPressed: () {
-                        MomentumRouter.goto(context, ViewLesson);
+                        // Momentum.controller<ViewLessonController>(context)
+                        //     .viewLessonDetails(title, description, "");
+                        MomentumRouter.goto(context, ViewLessonView);
                       },
                       child: Icon(
                         Icons.edit_outlined,
