@@ -20,13 +20,15 @@ import { Subject as ResponseSubject } from "../models/subject/Default";
 
 @Service()
 export class SubjectService {
-	@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
-	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(Organisation)
-	private organisationRepository: Repository<Organisation>;
-	@InjectRepository(Educator)
-	private educatorRepository: Repository<Educator>;
-	@InjectRepository(Student) private studentRepository: Repository<Student>;
+	constructor(
+		@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
+		@InjectRepository(User) private userRepository: Repository<User>;
+		@InjectRepository(Organisation)
+		private organisationRepository: Repository<Organisation>;
+		@InjectRepository(Educator)
+		private educatorRepository: Repository<Educator>;
+		@InjectRepository(Student) private studentRepository: Repository<Student>;
+	) {}
 
 	async CreateSubject(
 		request: CreateSubjectRequest,
