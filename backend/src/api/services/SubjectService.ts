@@ -5,7 +5,6 @@ import { GetSubjectsByUserResponse } from "../models/subject/GetSubjectsByUserRe
 import { Organisation } from "../database/Organisation";
 import { CreateSubjectResponse } from "../models/subject/CreateSubjectResponse";
 import { User } from "../database/User";
-import { getUserDetails } from "../helper/auth/Userhelper";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 import { Educator } from "../database/Educator";
 import { Student } from "../database/Student";
@@ -16,18 +15,17 @@ import {
 	InternalServerError,
 	NotFoundError,
 } from "routing-controllers";
-import { Subject as ResponseSubject } from "../models/subject/Default";
 
 @Service()
 export class SubjectService {
 	constructor(
-		@InjectRepository(Subject) private subjectRepository: Repository<Subject>;
-		@InjectRepository(User) private userRepository: Repository<User>;
+		@InjectRepository(Subject) private subjectRepository: Repository<Subject>,
+		@InjectRepository(User) private userRepository: Repository<User>,
 		@InjectRepository(Organisation)
-		private organisationRepository: Repository<Organisation>;
+		private organisationRepository: Repository<Organisation>,
 		@InjectRepository(Educator)
-		private educatorRepository: Repository<Educator>;
-		@InjectRepository(Student) private studentRepository: Repository<Student>;
+		private educatorRepository: Repository<Educator>,
+		@InjectRepository(Student) private studentRepository: Repository<Student>,
 	) {}
 
 	async CreateSubject(
@@ -36,20 +34,20 @@ export class SubjectService {
 		imageLink: string
 	): Promise<CreateSubjectResponse> {
 		// get user information to use for the request
-		let userDetails: User;
+		let userDetails: User | undefined;
 		try {
-			userDetails = await getUserDetails(user_id);
+			userDetails = await this.userRepository.findOne(user_id, {relations: ["organisation", "educator", "student"]})
 		} catch (error) {
-			throw error;
+			throw new InternalServerError("There was an error getting the user");
 		}
 
-		console.log(userDetails.educator.id);
+		if (!userDetails) throw new NotFoundError("Could not find user");
 
 		let subject: Subject = new Subject();
 		subject.title = request.title;
 		subject.grade = request.grade;
 		subject.image = imageLink;
-		userDetails.educator.subjects;
+		// userDetails.educator.subjects;
 		let org: Organisation | undefined;
 		try {
 			org = await this.organisationRepository.findOne(
