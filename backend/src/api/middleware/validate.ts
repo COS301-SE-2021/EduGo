@@ -6,6 +6,7 @@ import {
 	InternalServerError,
 	UnauthorizedError,
 } from "routing-controllers";
+import { Service } from "typedi";
 import { getRepository } from "typeorm";
 import { User } from "../database/User";
 
@@ -21,8 +22,8 @@ interface AuthenticateObject {
 export interface RequestObjectWithUserId extends Request {
 	user_id: number;
 }
-
-class ValidatationMiddleware {
+@Service()
+export class ValidatationMiddleware {
 	public async isUser(req: RequestObjectWithUserId, res: any, next: any) {
 		if (req.headers.authorization) {
 			const token = req.headers.authorization.slice(7);

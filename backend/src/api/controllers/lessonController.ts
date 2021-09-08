@@ -3,7 +3,7 @@ import { LessonService } from "../services/LessonService";
 import { CreateLessonRequest } from "../models/lesson/CreateLessonRequest";
 import { GetLessonsBySubjectRequest } from "../models/lesson/GetLessonsBySubjectRequest";
 import passport from "passport";
-import { isEducator } from "../middleware/validate";
+import {ValidatationMiddleware}  from "../middleware/validate";
 import { AddVirtualEntityToLessonRequest } from "../models/lesson/AddVirtualEntityToLessonRequest";
 import { Inject, Service } from "typedi";
 import { JsonController, Post, Body, UseBefore } from "routing-controllers";
@@ -16,11 +16,14 @@ import { JsonController, Post, Body, UseBefore } from "routing-controllers";
 @UseBefore(passport.authenticate('jwt', { session: false }))
 export class LessonController {
 	constructor(
-		@Inject() private service: LessonService
+		@Inject() private service: LessonService,
+		@Inject() private validatinMiddleware: ValidatationMiddleware
 	) {}
+	
+
 
 	@Post('/createLesson')
-	@UseBefore(isEducator)
+	@UseBefore(this?.validatinMiddleware.isEducator)
 	CreateLesson(@Body({required: true}) body: CreateLessonRequest) {
 		return this.service.CreateLesson(body);
 	}
