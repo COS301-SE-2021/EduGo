@@ -1,4 +1,4 @@
-import { GetTestModelsResponse, TestModel } from "../model/GetTestModelsResponse";
+import { GetTestModelsResponse, TestModel} from "../models/virtualEntity/GetTestModelsResponse";
 
 export class VirtualEntityMockService {
     async GetTestModels(): Promise<GetTestModelsResponse> {
