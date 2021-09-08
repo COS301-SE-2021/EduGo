@@ -19,7 +19,7 @@ export class VirtualEntity {
         cascade: true
     })
     @JoinColumn()
-    quiz?: Quiz;
+    quiz?: Quiz; 
 
     @OneToOne(type => Model, {
         cascade: true, onDelete: "CASCADE"

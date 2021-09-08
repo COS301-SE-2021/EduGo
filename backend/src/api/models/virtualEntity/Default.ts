@@ -8,10 +8,10 @@ export class Question {
     question: string;
 
     @IsArray()
-    options: string[];
+    options?: string[];
 
     @IsString()
-    correctAnswer: string;
+    correctAnswer?: string;
 }
 
 export class Quiz {
