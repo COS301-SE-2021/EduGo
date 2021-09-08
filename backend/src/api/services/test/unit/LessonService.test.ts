@@ -9,9 +9,7 @@ import { BadRequestError } from 'routing-controllers';
 import { mock, instance, when, anyOfClass, anyNumber, anything, verify, capture, reset } from 'ts-mockito';
 import { GetLessonsBySubjectRequest } from '../../../../api/models/lesson/GetLessonsBySubjectRequest';
 import { AddVirtualEntityToLessonRequest } from '../../../../api/models/lesson/AddVirtualEntityToLessonRequest';
-
-let subject: Subject = new Subject();
-subject.lessons = [0, 1, 2, 3].map((value) => ({id: value, grades: [], title: `Lesson ${value}`, description: 'Something', startTime: new Date(), endTime: new Date(), subject: subject, virtualEntities: []}));
+import { subject } from './Defaults';
 
 let mockedLessonRepository: Repository<Lesson> = mock(Repository);
 let lessonRepository: Repository<Lesson> = instance(mockedLessonRepository);
