@@ -4,7 +4,6 @@ import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRe
 import { OrganisationService } from "../services/OrganisationService";
 import { Inject, Service } from "typedi";
 import { Body, JsonController, Post, UseBefore } from "routing-controllers";
-import { isUser } from "../middleware/validate";
 import passport from "passport";
 
 @Service()

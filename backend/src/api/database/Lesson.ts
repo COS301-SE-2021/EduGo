@@ -42,7 +42,7 @@ export class Lesson {
 	// endTime: Date;
 
 	@JoinColumn()
-	@ManyToOne(() => Subject, (subject) => subject.lessons)
+	@ManyToOne(() => Subject, (subject) => subject.lessons, {onDelete: "CASCADE"})
 	subject: Subject;
 
 	
