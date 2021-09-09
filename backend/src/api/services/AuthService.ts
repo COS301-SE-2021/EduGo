@@ -249,6 +249,7 @@ export default class AuthService {
 					//await unverifiedUserRepo.delete(invitedUser);
 					
 				} else {
+					//NOTE will never be reached
 					throw new NotFoundError(
 						"Email address that was invited with doesn't match provided email address"
 					);
