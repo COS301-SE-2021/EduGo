@@ -19,6 +19,7 @@ import { Student } from "../api/database/Student";
 import { Educator } from "../api/database/Educator";
 import { Grade } from "../api/database/Grade";
 import { Quiz } from "../api/database/Quiz";
+import express from "express";
 import * as Default from "./Default";
 
 Error.stackTraceLimit = Infinity;
@@ -29,34 +30,34 @@ let connectionManagerInstance: ConnectionManager = instance(mockedConnectionMana
 let mockedConnection: Connection = mock(Connection);
 let connectionInstance: Connection = instance(mockedConnection);
 
-let mockedEducatorRepository: Repository<Educator> = mock(Repository);
+export let mockedEducatorRepository: Repository<Educator> = mock(Repository);
 let educatorRepository: Repository<Educator> = instance(mockedEducatorRepository);
 
-let mockedGradeRepository: Repository<Grade> = mock(Repository);
+export let mockedGradeRepository: Repository<Grade> = mock(Repository);
 let gradeRepository: Repository<Grade> = instance(mockedGradeRepository);
 
-let mockedLessonRepository: Repository<Lesson> = mock(Repository);
+export let mockedLessonRepository: Repository<Lesson> = mock(Repository);
 let lessonRepository: Repository<Lesson> = instance(mockedLessonRepository);
 
-let mockedOrganisationRepository: Repository<Organisation> = mock(Repository);
+export let mockedOrganisationRepository: Repository<Organisation> = mock(Repository);
 let organisationRepository: Repository<Organisation> = instance(mockedOrganisationRepository);
 
-let mockedQuizRepository: Repository<Quiz> = mock(Repository);
+export let mockedQuizRepository: Repository<Quiz> = mock(Repository);
 let quizRepository: Repository<Quiz> = instance(mockedQuizRepository);
 
-let mockedStudentRepository: Repository<Student> = mock(Repository);
+export let mockedStudentRepository: Repository<Student> = mock(Repository);
 let studentRepository: Repository<Student> = instance(mockedStudentRepository);
 
-let mockedSubjectRepository: Repository<Subject> = mock(Repository);
+export let mockedSubjectRepository: Repository<Subject> = mock(Repository);
 let subjectRepository: Repository<Subject> = instance(mockedSubjectRepository);
 
-let mockedUnverifiedUserRepository: Repository<UnverifiedUser> = mock(Repository);
+export let mockedUnverifiedUserRepository: Repository<UnverifiedUser> = mock(Repository);
 let unverifiedUsersRepository: Repository<UnverifiedUser> = instance(mockedUnverifiedUserRepository);
 
-let mockedUserRepository: Repository<User> = mock(Repository);
+export let mockedUserRepository: Repository<User> = mock(Repository);
 let userRepository: Repository<User> = instance(mockedUserRepository);
 
-let mockedVirtualEntityRepository: Repository<VirtualEntity> = mock(Repository);
+export let mockedVirtualEntityRepository: Repository<VirtualEntity> = mock(Repository);
 let virtualEntityRepository: Repository<VirtualEntity> = instance(mockedVirtualEntityRepository);
 
 when(mockedConnectionManager.has(anything())).thenReturn(true);
@@ -87,7 +88,7 @@ Container.set(Repository, virtualEntityRepository);
 diUseContainer(Container);
 ormUseContainer(Container);
 
-export const app = createExpressServer({
+export const app: express.Express = createExpressServer({
     controllers: [
         AuthController,
         LessonController,
