@@ -15,12 +15,15 @@ eduGoOrg.users = [];
 eduGoOrg.unverifiedUsers = [];
 eduGoOrg.virtualEntities = [];
 
+//Password: password
 export const adminUser = new User();
 adminUser.id = 1;
 adminUser.username = "admin";
 adminUser.email = "admin@edugo.com";
 adminUser.firstName = "Admin";
 adminUser.lastName = "EduGo";
+adminUser.salt = '823b5290ad76a63592760753b0c683bb2769f4d27f391b355ae45176d9a5725c';
+adminUser.hash = '9b0682468581255f592253395146fae1cfcc22bb4a41ba71444329e6d572996bd4596d94f6ff4a51dbabf0d2c09ce496032e6b610df6a402d3bb70fcae49b2aa';
 adminUser.educator = {
     admin: true,
     id: 1,
@@ -30,12 +33,15 @@ adminUser.educator = {
 adminUser.organisation = eduGoOrg;
 eduGoOrg.users.push(adminUser);
 
+//Password: password
 export const educatorUser = new User();
 educatorUser.id = 2;
 educatorUser.username = "educator";
 educatorUser.email = "educator@edugo.com";
 educatorUser.firstName = "Educator";
 educatorUser.lastName = "EduGo";
+educatorUser.salt = '823b5290ad76a63592760753b0c683bb2769f4d27f391b355ae45176d9a5725c';
+educatorUser.hash = '9b0682468581255f592253395146fae1cfcc22bb4a41ba71444329e6d572996bd4596d94f6ff4a51dbabf0d2c09ce496032e6b610df6a402d3bb70fcae49b2aa';
 educatorUser.educator = {
     admin: false,
     id: 2,
@@ -45,12 +51,15 @@ educatorUser.educator = {
 educatorUser.organisation = eduGoOrg;
 eduGoOrg.users.push(educatorUser);
 
+//Password: password
 export const studentUser = new User();
 studentUser.id = 3;
 studentUser.username = "student";
 studentUser.email = "student@edugo.com";
 studentUser.firstName = "Student";
 studentUser.lastName = "EduGo";
+studentUser.salt = '823b5290ad76a63592760753b0c683bb2769f4d27f391b355ae45176d9a5725c';
+studentUser.hash = '9b0682468581255f592253395146fae1cfcc22bb4a41ba71444329e6d572996bd4596d94f6ff4a51dbabf0d2c09ce496032e6b610df6a402d3bb70fcae49b2aa';
 studentUser.student = {
     id: 3,
     grades: [],
