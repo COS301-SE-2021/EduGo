@@ -5,7 +5,6 @@ import passport from "passport";
 import { uploadFile } from "../helper/aws/fileUpload";
 import { Service, Inject } from "typedi";
 import {
-	Controller,
 	UseBefore,
 	Post,
 	UploadedFile,
@@ -14,11 +13,7 @@ import {
 	InternalServerError,
 	JsonController,
 	ContentType,
-	Delete,
-	Header,
-	Authorized,
 } from "routing-controllers";
-import { DeleteSubjectRequest } from "../models/subject/DeleteSubjectRequest";
 
 @Service()
 @JsonController("/subject")
@@ -40,14 +35,6 @@ export class SubjectController {
 			: "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
 		if (file) return this.service.CreateSubject(body, id, link);
 		else throw new InternalServerError("File is invalid");
-	}
-
-	@Delete("/deleteSubject")
-	@UseBefore(isEducator)
-	DeleteSubject(	@Body({ required: true }) body: DeleteSubjectRequest,
-		@CurrentUser({ required: true }) id: number
-	) {
-		this.service.DeleteSubject(body);
 	}
 
 	@Post("/getSubjectsByUser")
