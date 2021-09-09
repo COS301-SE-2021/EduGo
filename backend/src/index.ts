@@ -54,8 +54,7 @@ createConnection(options)
 		}
 	})
 	.catch((err) => {
-		console.log(err);
-		throw new Error("Database connection failed")
+		throw new Error(err)
 	});
 
 const PORT = process.env.PORT || 8080;

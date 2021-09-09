@@ -50,7 +50,10 @@ export default {
 		migrationsDir: "src/api/database/migration",
 		subscribersDir: "src/api/database/subscriber",
 	},
+	extra: {
+		ssl: true
+	},
 	ssl: {
-		ca: process.env.AZURE_DB_SSL_CERT,
+		ca: Buffer.from(process.env.AZURE_DB_SSL_CERT!, 'base64').toString('ascii'),
 	}
 } as ConnectionOptions
