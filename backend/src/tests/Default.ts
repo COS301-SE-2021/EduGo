@@ -4,6 +4,7 @@ import { Subject } from "../api/database/Subject";
 import { Lesson } from "../api/database/Lesson";
 import { VirtualEntity } from "../api/database/VirtualEntity";
 import { Question, QuestionType } from "../api/database/Question";
+import { UnverifiedUser } from "../api/database/UnverifiedUser";
 
 export const eduGoOrg = new Organisation();
 eduGoOrg.id = 1;
@@ -69,6 +70,46 @@ studentUser.student = {
 studentUser.organisation = eduGoOrg;
 eduGoOrg.users.push(studentUser);
 
+export const unverifiedStudent = new UnverifiedUser();
+unverifiedStudent.id = 1;
+unverifiedStudent.email = "unverifiedStudent@edugo.com";
+unverifiedStudent.createdDate = new Date();
+unverifiedStudent.organisation = eduGoOrg;
+unverifiedStudent.type = 'student';
+unverifiedStudent.verified = false;
+unverifiedStudent.verificationCode = '12345';
+eduGoOrg.unverifiedUsers.push(unverifiedStudent);
+
+export const unverifiedEducator = new UnverifiedUser();
+unverifiedEducator.id = 2;
+unverifiedEducator.email = "unverifiedEducator@edugo.com";
+unverifiedEducator.createdDate = new Date();
+unverifiedEducator.organisation = eduGoOrg;
+unverifiedEducator.type = 'educator';
+unverifiedEducator.verified = false;
+unverifiedEducator.verificationCode = '12345';
+eduGoOrg.unverifiedUsers.push(unverifiedEducator);
+
+export const verifiedStudent = new UnverifiedUser();
+verifiedStudent.id = 3;
+verifiedStudent.email = "verifiedStudent@edugo.com";
+verifiedStudent.createdDate = new Date();
+verifiedStudent.organisation = eduGoOrg;
+verifiedStudent.type = 'student';
+verifiedStudent.verified = true;
+verifiedStudent.verificationCode = '12345';
+eduGoOrg.unverifiedUsers.push(verifiedStudent);
+
+export const verifiedEducator = new UnverifiedUser();
+verifiedEducator.id = 4;
+verifiedEducator.email = "verifiedEducator@edugo.com";
+verifiedEducator.createdDate = new Date();
+verifiedEducator.organisation = eduGoOrg;
+verifiedEducator.type = 'educator';
+verifiedEducator.verified = true;
+verifiedEducator.verificationCode = '12345';
+eduGoOrg.unverifiedUsers.push(verifiedEducator);
+
 let lessons: Lesson[] = [];
 
 export const subjects = [1, 2, 3, 4].map((id) => {
@@ -96,6 +137,10 @@ export const subjects = [1, 2, 3, 4].map((id) => {
     return subject;
 });
 eduGoOrg.subjects = subjects;
+unverifiedStudent.subjects = [subjects[0]];
+unverifiedEducator.subjects = [subjects[0]];
+verifiedStudent.subjects = [subjects[0]];
+verifiedEducator.subjects = [subjects[0]];
 
 export const virtualEntities = [1, 2, 3].map(id => {
     let virtualEntity = new VirtualEntity();
