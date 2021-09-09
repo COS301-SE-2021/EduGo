@@ -19,16 +19,15 @@ import { Student } from "../api/database/Student";
 import { Educator } from "../api/database/Educator";
 import { Grade } from "../api/database/Grade";
 import { Quiz } from "../api/database/Quiz";
+import * as Default from "./Default";
 
 Error.stackTraceLimit = Infinity;
 
 let mockedConnectionManager: ConnectionManager = mock(ConnectionManager);
 let connectionManagerInstance: ConnectionManager = instance(mockedConnectionManager);
-when(mockedConnectionManager.has(anything())).thenReturn(true);
 
 let mockedConnection: Connection = mock(Connection);
 let connectionInstance: Connection = instance(mockedConnection);
-when(mockedConnectionManager.get(anything())).thenReturn(connectionInstance);
 
 let mockedEducatorRepository: Repository<Educator> = mock(Repository);
 let educatorRepository: Repository<Educator> = instance(mockedEducatorRepository);
@@ -60,6 +59,8 @@ let userRepository: Repository<User> = instance(mockedUserRepository);
 let mockedVirtualEntityRepository: Repository<VirtualEntity> = mock(Repository);
 let virtualEntityRepository: Repository<VirtualEntity> = instance(mockedVirtualEntityRepository);
 
+when(mockedConnectionManager.has(anything())).thenReturn(true);
+when(mockedConnectionManager.get(anything())).thenReturn(connectionInstance);
 when(mockedConnection.getRepository(Educator)).thenReturn(educatorRepository);
 when(mockedConnection.getRepository(Grade)).thenReturn(gradeRepository);
 when(mockedConnection.getRepository(Lesson)).thenReturn(lessonRepository);
@@ -96,4 +97,4 @@ export const app = createExpressServer({
         VirtualEntityController
     ],
     currentUserChecker: (action: Action) => action.request.user_id,
-})
+});
