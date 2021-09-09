@@ -235,17 +235,21 @@ export default class AuthService {
 						await this.userRepository.save(user);
 						return "ok";
 					} catch (err) {
-
-						if (err.code == "23505") {
-							throw new BadRequestError(err)
-						}
-						throw new InternalServerError(err);
+						//TODO Review this line here
+						//!DO NOT FORGET
+						// if (err.code == "23505") {
+						// 	console.log(err);
+						// 	throw new BadRequestError('Duplicate entity')
+						// }
+						console.log(err);
+						throw new InternalServerError('Could not save user');
 					}
 					// removing user from unverified list after they have registered successfully
 					//TODO figure out what is wrong with the delete function for unverified user
 					//await unverifiedUserRepo.delete(invitedUser);
 					
 				} else {
+					//NOTE will never be reached
 					throw new NotFoundError(
 						"Email address that was invited with doesn't match provided email address"
 					);

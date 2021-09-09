@@ -7,7 +7,7 @@ import {
 	AddModelToVirtualEntityRequest,
 } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
-import { isEducator, isUser } from "../middleware/validate";
+import { IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { Inject, Service } from "typedi";
 import {
@@ -32,7 +32,7 @@ export class VirtualEntityController {
 	) {}
 
 	@Post("/createVirtualEntity")
-	@UseBefore(isUser)
+	@UseBefore(IsUserMiddleware)
 	CreateVirtualEntity(
 		@Body({ required: true }) body: CreateVirtualEntityRequest,
 		@CurrentUser() id: number
@@ -41,7 +41,7 @@ export class VirtualEntityController {
 	}
 
 	@Post("/uploadModel")
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	UploadModel(
 		@UploadedFile("file", { required: true, options: uploadFile })
 		file: Express.MulterS3.File
@@ -58,7 +58,7 @@ export class VirtualEntityController {
 	}
 
 	@Post("/addToVirtualEntity")
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	async AddToVirtualEntity(
 		@UploadedFile("file", { required: true, options: uploadFile })
 		file: Express.MulterS3.File,
@@ -91,20 +91,14 @@ export class VirtualEntityController {
 		} else throw new BadRequestError("User is invalid");
 	}
 
-	// @Get("/getVirtualEntities")
-	// @UseBefore(isUser)
-	// GetVirtualEntities() {
-	// 	return this.service.GetVirtualEntities();
-	// }
-
 	@Post("/getVirtualEntity")
-	@UseBefore(isUser)
+	@UseBefore(IsUserMiddleware)
 	GetVirtualEntity(@Body({ required: true }) body: GetVirtualEntityRequest) {
 		return this.service.GetVirtualEntity(body);
 	}
 
 	@Post("/answerQuiz")
-	@UseBefore(isUser)
+	@UseBefore(IsUserMiddleware)
 	AnswerQuiz(
 		@Body({ required: true }) body: AnswerQuizRequest,
 		@CurrentUser({ required: true }) id: number
@@ -113,7 +107,7 @@ export class VirtualEntityController {
 	}
 
 	@Post("/togglePublic")
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	TogglePublic(
 		@Body({ required: true }) body: TogglePublicRequest,
 		@CurrentUser({ required: true }) id: number
@@ -122,21 +116,21 @@ export class VirtualEntityController {
 	}
 
 	@Post("/getPublicVirtualEntities")
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	GetPublicVirtualEntities() {
 		return this.service.GetPublicVirtualEntities();
 	}
 
 	@Post("/getPrivateVirtualEntities")
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	GetPrivateVirtualEntities(@CurrentUser({ required: true }) id: number) {
 		return this.service.GetPrivateVirtualEntities(id);
 	}
 
 	@Post("/getQuizesByLesson")
-	@UseBefore(isUser)
-	GetQuizesByLesson(@Body({ required: true }) body: GetQuizesByLessonRequest,@CurrentUser({ required: true }) id: number ) {
-		return this.service.GetQuizesByLesson(body, id);
+	@UseBefore(IsUserMiddleware)
+	GetQuizesByLesson(@Body({ required: true }) body: GetQuizesByLessonRequest) {
+		return this.service.GetQuizesByLesson(body);
 	}
 }
 

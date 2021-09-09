@@ -7,7 +7,7 @@ import { EducatorService } from "../services/EducatorService";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { AddEducatorsRequest } from "../models/user/AddEducatorsRequest";
 import passport from "passport";
-import { isAdmin, isEducator, isUser } from "../middleware/validate";
+import { IsAdminMiddleware, IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
 import { Inject, Service } from "typedi";
 import {
@@ -36,13 +36,13 @@ export class UserController {
 	private educatorService: EducatorService;
 
 	@Post("/setUserToAdmin")
-	@UseBefore(isAdmin)
+	@UseBefore(IsAdminMiddleware)
 	SetUserToAdmin(@Body({ required: true }) body: SetUserToAdminRequest) {
 		return this.userService.SetUserToAdmin(body);
 	}
 
 	@Post("/revokeUserFromAdmin")
-	@UseBefore(isAdmin)
+	@UseBefore(IsAdminMiddleware)
 	RevokeUserFromAdmin(
 		@Body({ required: true }) body: RevokeUserFromAdminRequest
 	) {
@@ -50,7 +50,7 @@ export class UserController {
 	}
 
 	@Post("/addStudentsToSubject")
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	AddStudentsToSubject(
 		@Body({ required: true }) body: AddStudentsToSubjectRequest
 	) {
@@ -58,13 +58,13 @@ export class UserController {
 	}
 
 	@Get("/getUserDetails")
-	@UseBefore(isUser)
+	@UseBefore(IsUserMiddleware)
 	GetUserDetails(@CurrentUser({ required: true }) id: number) {
 		return this.userService.getUserDetails(id);
 	}
 
 	@Get("/getStudentGrades")
-	@UseBefore(isUser)
+	@UseBefore(IsUserMiddleware)
 	GetStudentGrades(@CurrentUser({ required: true }) id: number) {
 		return this.studentService.GetStudentGrades(id);
 	}
@@ -78,7 +78,7 @@ export class UserController {
 
 	// TODO Test endpoint
 	@Post("/addEducatorToExistingSubject")
-	@UseBefore(isEducator)
+	@UseBefore(IsEducatorMiddleware)
 	AddEducatorToExistingSubject(
 		@Body({ required: true }) body: AddEducatorToExistingSubjectRequest,
 		@CurrentUser({ required: true }) id: number
@@ -86,7 +86,7 @@ export class UserController {
 		return this.educatorService.AddEducatorToExistingSubject(body, id);
 	}
 	@Post("/addEducators")
-	@UseBefore(isAdmin)
+	@UseBefore(IsAdminMiddleware)
 	AddEducators(
 		@Body({ required: true }) body: AddEducatorsRequest,
 		@CurrentUser({ required: true }) id: number
