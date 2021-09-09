@@ -27,8 +27,8 @@ import ormProduction from "./config/typeorm.production";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
-
 dotenv.config();
+let options: ConnectionOptions = ormDevelopment;
 
 if (!("DB_USER" in process.env)) throw new Error("Database username missing");
 if (!("DB_PASSWORD" in process.env)) throw new Error("Database password missing");
@@ -37,10 +37,13 @@ if (!("AWS_SECRET_ACCESS_KEY" in process.env)) throw new Error("AWS Secret Acces
 if (!("GMAIL_EMAIL" in process.env)) throw new Error("Gmail email missing");
 if (!("GMAIL_PASSWORD" in process.env)) throw new Error("Gmail password missing");
 
+if (process.env.NODE_ENV === "production") { 
+	if (!("AZURE_DB_SSL_CERT" in process.env)) throw new Error("Azure DB SSL Cert missing");
+	options = ormProduction;
+}
+
 // Pass the global passport object into the configuration function
 require("./api/middleware/passport")(passport);
-
-const options: ConnectionOptions = process.env.NODE_ENV === 'production' ? ormProduction : ormDevelopment;
 
 createConnection(options)
 	.then((conn) => {
