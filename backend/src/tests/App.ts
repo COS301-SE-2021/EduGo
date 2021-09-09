@@ -97,5 +97,3 @@ export const app = createExpressServer({
     ],
     currentUserChecker: (action: Action) => action.request.user_id,
 })
-
-app.listen(3000, () => console.log("Listening on port 3000"));
