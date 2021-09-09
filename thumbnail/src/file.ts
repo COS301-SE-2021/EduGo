@@ -1,53 +1,54 @@
-import aws from 'aws-sdk';
+import http from 'http';
+import https from 'https';
 import fs from 'fs';
 import path from 'path';
+import azureStorage from 'azure-storage';
+import dotenv from 'dotenv';
 import { InternalServerError } from './errors/Error';
 
-var s3 = new aws.S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: 'af-south-1',
-});
+dotenv.config();
+
+const blobService = azureStorage.createBlobService();
 
 const getKey = (key: string) => key.substring(key.lastIndexOf('/') + 1);
 
-export const upload = async (key: string) => {
-    let file: Buffer | undefined;
-    try {
-        const filePath = path.join(__dirname, 'output', key);
-        file = fs.readFileSync(filePath);
-    }
-    catch (err) {
-        console.log('uploading')
-        console.log(err);
-        throw err;
-    }
-    let params = {
-        Bucket: 'edugo-files',
-        Key: key,
-        Body: file,
-    };
 
-    return s3.putObject(params).promise()
+export const upload = (key: string) => {
+    return new Promise<string>(function(resolve, reject) {
+        let file: Buffer | undefined;
+        try {
+            file = fs.readFileSync(path.join(__dirname, 'output', key));
+        }
+        catch (err) {
+            throw err;
+        }
+
+        if (!file) {
+            throw new Error('File not found');
+        }
+
+        blobService.createBlockBlobFromLocalFile('edugo', `thumbnails/${key}`, path.join(__dirname, 'output', key), (err, result, response) => {
+            if (err) {
+                reject(err);
+            }
+            let url = blobService.getUrl('edugo', `thumbnails/${key}`);
+            resolve(url);
+        })
+    });
 }
 
-export const download = async (url: string): Promise<string> => {
+export const download = (url: string) => {
     return new Promise<string>(async (resolve, reject) => {
-        let key = getKey(url);
-        let options: aws.S3.GetObjectRequest = {
-            Bucket: 'edugo-files',
-            Key: `test_models/${key}`,
-        }
-        console.log(key);
-        let readStream = await s3.getObject(options).createReadStream();
-        let writeStream = fs.createWriteStream(path.join(__dirname, 'input', key));
-        readStream.pipe(writeStream);
-        readStream.on('end', () => {
-            resolve(key);
+        const response = await getRequest(url);
+        const fileName = getKey(url);
+        const file = fs.createWriteStream(path.join(__dirname, 'input', fileName));
+        (response as http.IncomingMessage).pipe(file);
+        file.on('close', () => {
+            resolve(fileName);
         });
-        readStream.on('error', (err) => {
+        file.on('error', (err) => {
             reject(err);
-        });
+        })
     });
 }
 
@@ -60,4 +61,16 @@ export const cleanUp = (inputKey: string, outputKey: string) => {
         console.log(err);
         throw new InternalServerError('There was an error deleting the files');
     }
+}
+
+function getRequest(url: string) {
+    return new Promise(function(resolve, reject) {
+        https.get(url, function(response) {
+            if (response.statusCode === 200) {
+                resolve(response);
+            } else {
+                reject(response);
+            }
+        });
+    });
 }

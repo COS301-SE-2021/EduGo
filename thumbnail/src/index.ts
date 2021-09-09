@@ -12,8 +12,7 @@ import path from 'path';
 dotenv.config();
 
 //Check to see if necessary environment variables are set
-if (!("AWS_ACCESS_KEY" in process.env)) throw new Error("AWS Access Key missing");
-if (!("AWS_SECRET_ACCESS_KEY" in process.env)) throw new Error("AWS Secret Access Key missing");
+if (!("AZURE_STORAGE_CONNECTION_STRING" in process.env)) throw new Error("Azure Storage Connection String missing");
 
 //Get the current platform
 let p = platform()
@@ -53,14 +52,17 @@ app.use(express.urlencoded({extended: true}));
 const PORT = process.env.PORT || 8085;
 
 app.post('/', async (req, res) => {
-    if (!('url' in req.body)) res.status(400).send('No URL provided');
+    if (!('url' in req.body)) {
+        res.status(400).send('No URL provided')
+        return;
+    }
     let url = req.body.url;
     try {
         let inputKey = await download(url);
         let outputKey = generateThumbnail(inputKey);
         try {
             let uploadData = await upload(outputKey);
-            res.status(200).send(`Downloaded: ${url}\nUploaded: success`);
+            res.status(200).json({download: url, uploaded: uploadData});
         }
         catch (err) {
             console.log('finishing off')
