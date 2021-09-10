@@ -36,6 +36,7 @@ if (!("AWS_ACCESS_KEY" in process.env)) throw new Error("AWS Access Key missing"
 if (!("AWS_SECRET_ACCESS_KEY" in process.env)) throw new Error("AWS Secret Access Key missing");
 if (!("GMAIL_EMAIL" in process.env)) throw new Error("Gmail email missing");
 if (!("GMAIL_PASSWORD" in process.env)) throw new Error("Gmail password missing");
+if (!("GENERATE_THUMBNAIL_URL" in process.env)) throw new Error("Generate thumbnail url missing");
 
 if (process.env.NODE_ENV === "production") { 
 	if (!("AZURE_DB_SSL_CERT" in process.env)) throw new Error("Azure DB SSL Cert missing");

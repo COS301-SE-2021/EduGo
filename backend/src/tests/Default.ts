@@ -149,12 +149,8 @@ export const virtualEntities = [1, 2, 3].map(id => {
     virtualEntity.description = `Test Description ${id}`;
     virtualEntity.model = {
         id: id,
-        name: `Test Model ${id}`,
-        description: `Test Description ${id}`,
-        file_name: `Test File Name ${id}`,
-        file_link: `http://edugo.com`,
-        file_type: `glb`,
-        file_size: 12345,
+        fileLink: `http://edugo.com`,
+        thumbnail: `http://edugo.com/thumbnail`
     };
     virtualEntity.quiz = {
         id: id,

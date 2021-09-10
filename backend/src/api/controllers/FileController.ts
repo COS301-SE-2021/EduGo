@@ -1,20 +1,17 @@
 import express from "express";
-import { uploadFile } from "../helper/aws/fileUpload";
+import { upload, UploadModelToAzure } from "../helper/File";
 
 
 const router = express.Router();
 
-router.post('/uploadModel', uploadFile.single('file'), async (req, res) => {
-    const file: Express.MulterS3.File = <Express.MulterS3.File>req.file;
+router.post('/uploadModel', upload, async (req, res) => {
+    const file: Express.Multer.File = <Express.Multer.File>req.file;
 
     if (file == undefined)
         res.status(400).json({message: 'Please upload a file'});
-
+    let result = await UploadModelToAzure(file);
     let response: any = {
-        file_name: file.key,
-        file_size: file.size,
-        file_type: file.key.split('.')[file.key.split('.').length-1],
-        file_link: file.location
+        fileLink: result
     }
     res.status(200).json(response);
 })

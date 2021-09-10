@@ -1,7 +1,7 @@
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import { VirtualEntityService } from "../services/VirtualEntityService";
-import { uploadFile } from "../helper/aws/fileUpload";
+import { upload, UploadModelToAzure } from "../helper/File";
 import {
 	AddModelToVirtualEntityFileData,
 	AddModelToVirtualEntityRequest,
@@ -42,17 +42,13 @@ export class VirtualEntityController {
 
 	@Post("/uploadModel")
 	@UseBefore(IsEducatorMiddleware)
-	UploadModel(
-		@UploadedFile("file", { required: true, options: uploadFile })
-		file: Express.MulterS3.File
+	async UploadModel(
+		@UploadedFile("file", { required: true, options: upload })
+		file: Express.Multer.File
 	) {
 		if (file) {
-			let response: any = {
-				file_name: file.key,
-				file_size: file.size,
-				file_type: file.key.split(".")[file.key.split(".").length - 1],
-				file_link: file.location,
-			};
+			let result = await UploadModelToAzure(file)
+			let response: any = { fileLink: result };
 			return response;
 		} else throw new BadRequestError("User is invalid");
 	}
@@ -60,22 +56,18 @@ export class VirtualEntityController {
 	@Post("/addToVirtualEntity")
 	@UseBefore(IsEducatorMiddleware)
 	async AddToVirtualEntity(
-		@UploadedFile("file", { required: true, options: uploadFile })
-		file: Express.MulterS3.File,
+		@UploadedFile("file", { required: true, options: upload })
+		file: Express.Multer.File,
 		@Body({ required: true }) body: AddModelToVirtualEntityRequest
 	) {
 		if (file) {
+			let result = await UploadModelToAzure(file);
 			let baseFile = {
-				file_name: file.key,
-				file_link: file.location,
-				file_type: file.key.split(".")[file.key.split(".").length - 1],
-				file_size: file.size,
+				fileLink: result,
 			};
 
 			let data: AddModelToVirtualEntityFileData = {
 				id: body.virtualEntity_id,
-				description: body.description,
-				name: body.name,
 				...baseFile,
 			};
 			let response = await this.service.AddModelToVirtualEntity(data);

@@ -37,6 +37,7 @@ import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicRespon
 import { Lesson } from "../database/Lesson";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
 import { GetQuizesByLessonResponse } from "../models/virtualEntity/GetQuizesByLessonResponse";
+import { GenerateThumbnail } from "../helper/ExternalRequests";
 
 @Service()
 export class VirtualEntityService {
@@ -61,7 +62,7 @@ export class VirtualEntityService {
 		let entity: VirtualEntity | undefined;
 		try {
 			entity = await this.virtualEntityRepository.findOne(request.id, {
-				relations: ["model", "quiz", "quiz.questions"],
+				relations: ["model"],
 			});
 		} catch (err) {
 			throw new NotFoundError("Could not find virtual entity");
@@ -71,13 +72,11 @@ export class VirtualEntityService {
 		if (entity.model)
 			throw new BadRequestError("Virtual Entity already has a Model");
 
+		let thumbnail = await GenerateThumbnail(request.fileLink);
+
 		let model: Model = new Model();
-		model.name = request.name;
-		model.description = request.description;
-		model.file_name = request.file_name;
-		model.file_link = request.file_link;
-		model.file_size = request.file_size;
-		model.file_type = request.file_type;
+		model.fileLink = request.fileLink;
+		model.thumbnail = thumbnail.uploaded;
 
 		entity.model = model;
 		let result: VirtualEntity;
@@ -190,13 +189,7 @@ export class VirtualEntityService {
 
 		if (request.model !== undefined) {
 			let model: Model = new Model();
-			model.name = request.model.name;
-			model.description = request.model.description;
-			model.file_link = request.model.file_link;
-			model.file_name = request.model.file_name;
-			model.file_size = request.model.file_size;
-			model.file_type = request.model.file_type;
-			model.preview_img = request.model.preview_img;
+			model.fileLink = request.model.fileLink;
 			ve.model = model;
 		}
 
