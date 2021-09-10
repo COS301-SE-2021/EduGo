@@ -16,5 +16,4 @@ const getBlobName = (originalName: string) => {
 
 export const UploadToAzure = async (req: express.Request) => {
     let name = getBlobName(req.file.originalname);
-    let stream = Stream.
 }
