@@ -8,6 +8,6 @@ export class Model {
     @Column()
     fileLink: string;
 
-    @Column()
-    thumbnail: string;
+    @Column({nullable: true})
+    thumbnail?: string;
 }

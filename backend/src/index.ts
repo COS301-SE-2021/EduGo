@@ -23,7 +23,6 @@ import { OrganisationController } from "./api/controllers/OrganisationController
 import { UserController } from "./api/controllers/userController";
 import { VirtualEntityController } from "./api/controllers/virtualEntityController";
 import express from "express";
-import {router as FileRouter} from "./api/controllers/FileController";
 import ormDevelopment from "./config/typeorm.development";
 import ormProduction from "./config/typeorm.production";
 
@@ -67,7 +66,6 @@ app.use(cors(
 		methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 	}
 ))
-app.use('/virtualEntity', FileRouter);
 
 useExpressServer(app, {
 	controllers: [
