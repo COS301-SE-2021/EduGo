@@ -275,7 +275,7 @@ export class EducatorService {
 			if (!dUser) throw new NotFoundError("User not found");
 			user = dUser;
 		} catch (err) {
-			throw new InternalServerError(err);
+			throw new InternalServerError('There was an error finding the user');
 		}
 
 		interface response {
