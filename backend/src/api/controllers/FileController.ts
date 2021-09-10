@@ -4,7 +4,7 @@ import { upload, UploadModelToAzure } from "../helper/File";
 
 const router = express.Router();
 
-router.post('/uploadModel', upload, async (req, res) => {
+router.post('/uploadModel', upload.single('file'), async (req, res) => {
     const file: Express.Multer.File = <Express.Multer.File>req.file;
 
     if (file == undefined)

@@ -4,7 +4,7 @@ import { Readable } from 'stream';
 import { InternalServerError } from 'routing-controllers';
 
 const inMemoryStorage = multer.memoryStorage();
-export const upload = multer({ storage: inMemoryStorage }).single('file');
+export const upload = multer({ storage: inMemoryStorage })
 
 const blobService = azureStorage.createBlobService();
 
