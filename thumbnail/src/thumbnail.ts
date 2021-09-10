@@ -16,10 +16,11 @@ export const generateThumbnail = (input: string) => {
     let output = generateOutputName(input);
     try {
         const run = execSync(`screenshot-glb -i ${path.join(__dirname, 'input', input)} -o ${path.join(__dirname, 'output', output)}`, {encoding: 'utf8'});
+        
     }
     catch (err) {
         console.log(err);
-        throw new InternalServerError(err)
+        throw new InternalServerError('There was an error generating the screenshot.')
     }
     return output;
 }
