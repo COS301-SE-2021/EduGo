@@ -1,5 +1,7 @@
 import "reflect-metadata";
 import dotenv from "dotenv";
+dotenv.config();
+
 import passport from "passport";
 import {
 	createConnection,
@@ -27,7 +29,6 @@ import ormProduction from "./config/typeorm.production";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
-dotenv.config();
 let options: ConnectionOptions = ormDevelopment;
 
 if (!("DB_USER" in process.env)) throw new Error("Database username missing");
