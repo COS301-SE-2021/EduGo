@@ -266,34 +266,35 @@ class _LoginPageState extends State<LoginPage> {
         body: Form(
             key: _scaffoldKey,
             child: Stack(key: Key('login_form'), children: <Widget>[
-              Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      style: BorderStyle.solid,
-                      color: Colors.green,
-                    ),
-                  ),
-                  child: SingleChildScrollView(
-                      child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 30,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            textDirection: TextDirection.ltr,
-                            children: [
-                              //loginImage,
-                              loginUserHeading,
-                              loginLoginHeading,
-                              paddingWidget,
-                              usernameInputWidget,
-                              passwordInputWidget,
-                              loginButtonWidget,
-                              registerWidget,
-                            ],
-                          ))))
+              Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 50.0, horizontal: 25.0),
+                  child: Material(
+                      elevation: 40,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                          height: MediaQuery.of(context).size.height,
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.only(top: 50),
+                          child: SingleChildScrollView(
+                              child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 30,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    textDirection: TextDirection.ltr,
+                                    children: [
+                                      //loginImage,
+                                      loginUserHeading,
+                                      loginLoginHeading,
+                                      paddingWidget,
+                                      usernameInputWidget,
+                                      passwordInputWidget,
+                                      loginButtonWidget,
+                                      registerWidget,
+                                    ],
+                                  ))))))
             ])));
     //////////////////////////////////////////////////////////////////////////////
 
