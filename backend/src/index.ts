@@ -25,6 +25,9 @@ import { VirtualEntityController } from "./api/controllers/virtualEntityControll
 import express from "express";
 import ormDevelopment from "./config/typeorm.development";
 import ormProduction from "./config/typeorm.production";
+import azureStorage from "azure-storage";
+
+di_Container.set(azureStorage.BlobService, azureStorage.createBlobService());
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
