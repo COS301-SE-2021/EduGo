@@ -1,5 +1,7 @@
 import "reflect-metadata";
 import dotenv from "dotenv";
+dotenv.config();
+
 import passport from "passport";
 import {
 	createConnection,
@@ -21,13 +23,11 @@ import { OrganisationController } from "./api/controllers/OrganisationController
 import { UserController } from "./api/controllers/userController";
 import { VirtualEntityController } from "./api/controllers/virtualEntityController";
 import express from "express";
-import {router as FileRouter} from "./api/controllers/FileController";
 import ormDevelopment from "./config/typeorm.development";
 import ormProduction from "./config/typeorm.production";
 
 rc_useContainer(di_Container);
 orm_useContainer(orm_Container);
-dotenv.config();
 let options: ConnectionOptions = ormDevelopment;
 
 if (!("DB_USER" in process.env)) throw new Error("Database username missing");
@@ -36,6 +36,7 @@ if (!("AWS_ACCESS_KEY" in process.env)) throw new Error("AWS Access Key missing"
 if (!("AWS_SECRET_ACCESS_KEY" in process.env)) throw new Error("AWS Secret Access Key missing");
 if (!("GMAIL_EMAIL" in process.env)) throw new Error("Gmail email missing");
 if (!("GMAIL_PASSWORD" in process.env)) throw new Error("Gmail password missing");
+if (!("GENERATE_THUMBNAIL_URL" in process.env)) throw new Error("Generate thumbnail url missing");
 
 if (process.env.NODE_ENV === "production") { 
 	if (!("AZURE_DB_SSL_CERT" in process.env)) throw new Error("Azure DB SSL Cert missing");
@@ -65,7 +66,6 @@ app.use(cors(
 		methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 	}
 ))
-app.use('/virtualEntity', FileRouter);
 
 useExpressServer(app, {
 	controllers: [

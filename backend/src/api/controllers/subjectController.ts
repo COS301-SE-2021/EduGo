@@ -2,7 +2,7 @@ import { SubjectService } from "../services/SubjectService";
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
 import { IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
 import passport from "passport";
-import { uploadFile } from "../helper/aws/fileUpload";
+import { upload, UploadImageToAzure } from "../helper/File";
 import { Service, Inject } from "typedi";
 import {
 	UseBefore,
@@ -24,16 +24,19 @@ export class SubjectController {
 
 	@Post("/createSubject")
 	@UseBefore(IsEducatorMiddleware)
-	CreateSubject(
-		@UploadedFile("file", { required: true, options: uploadFile })
-		file: Express.MulterS3.File,
+	async CreateSubject(
+		@UploadedFile("file", { required: true, options: upload })
+		file: Express.Multer.File,
 		@Body({ required: true }) body: CreateSubjectRequest,
 		@CurrentUser({ required: true }) id: number
 	) {
-		let link = file
-			? file.location
-			: "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
-		if (file) return this.service.CreateSubject(body, id, link);
+		if (file) {
+			let result = await UploadImageToAzure(file);
+			let link = file
+				? result
+				: "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
+			return this.service.CreateSubject(body, id, link);
+		}
 		else throw new InternalServerError("File is invalid");
 	}
 

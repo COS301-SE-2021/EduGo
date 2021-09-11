@@ -7,4 +7,5 @@ export class AddModelToVirtualEntityResponse extends Model {
 
 export class AddModelToVirtualEntityDatabaseResult {
 	model_id: number;
+	thumbnail: string;
 }

@@ -1,11 +1,10 @@
 import multer from 'multer';
 import azureStorage from 'azure-storage';
-import getStream from 'get-stream';
-import express from 'express';
-import { Readable, Stream } from 'stream';
+import { Readable } from 'stream';
+import { InternalServerError } from 'routing-controllers';
 
 const inMemoryStorage = multer.memoryStorage();
-export const uploadStrategy = multer({ storage: inMemoryStorage }).single('file');
+export const upload = multer({ storage: inMemoryStorage })
 
 const blobService = azureStorage.createBlobService();
 
@@ -14,6 +13,43 @@ const getBlobName = (originalName: string) => {
     return `${identifier}-${originalName}`;
 };
 
-export const UploadToAzure = async (req: express.Request) => {
-    let name = getBlobName(req.file.originalname);
+export const UploadImageToAzure = async (file: Express.Multer.File): Promise<string> => {
+    return new Promise<string>((resolve, reject) => {
+        let name = getBlobName(file.originalname);
+        let length = file.buffer.length || 0;
+        let stream = new Readable();
+        stream.push(file.buffer);
+        stream.push(null);
+    
+        blobService.createBlockBlobFromStream('edugo', `images/${name}`, stream, length, (err, result, response) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+                throw new InternalServerError('There was an error uploading the file');
+            }
+    
+            resolve(blobService.getUrl('edugo', `images/${name}`))
+        })
+    })
+    
+}
+
+export const UploadModelToAzure = async (file: Express.Multer.File): Promise<string> => {
+    return new Promise<string>((resolve, reject) => {
+        let name = getBlobName(file.originalname);
+        let stream = new Readable();
+        stream.push(file.buffer);
+        stream.push(null);
+        let length = file.buffer.length || 0;
+
+        blobService.createBlockBlobFromStream('edugo', `models/${name}`, stream, length, (err, result, response) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+                throw new InternalServerError('There was an error uploading the file');
+            }
+
+            resolve(blobService.getUrl('edugo', `models/${name}`))
+        });
+    });
 }
