@@ -54,12 +54,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
     //Get a specific controller (UserController) to call needed functions (register)
     UserController userController =
         Momentum.controller<UserController>(context);
-    //Page Title widget
-    Widget _pageTitle = Text(
-      "User Registration",
-      key: Key('regPageHeading'),
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
+
+    //HEADING of the page: User Regsitration
+    Widget _regUserHeading = new Text(
+      'User',
+      key: Key('regUserHeading'),
+      textDirection: TextDirection.ltr,
+      style: TextStyle(
+          fontSize: 35, color: Colors.black, fontWeight: FontWeight.normal),
+    );
+
+    Widget _regLoginHeading = new Text(
+      'Registration',
+      key: Key('regLoginHeading'),
+      textDirection: TextDirection.ltr,
+      style: TextStyle(
+          fontSize: 35,
+          color: Color.fromARGB(255, 97, 211, 87),
+          fontWeight: FontWeight.bold),
     );
 
     //Username input field
@@ -281,22 +293,48 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ));
 
-    Widget child = Form(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.only(
-          top: 30,
-          left: 30,
-        ),
-        child: Column(
-          children: [
-            _pageTitle,
-            _usernameField,
-            _firstNameField,
-            _lastNameField,
-            _emailField,
-            _passwordField,
-            _regButton,
+    Widget child = Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color.fromRGBO(20, 195, 50, 1.0),
+            Color.fromRGBO(11, 36, 54, 1.0)
           ],
+        ),
+      ),
+      child: Form(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+          child: Material(
+            elevation: 40,
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(top: 50),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(
+                  top: 30,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  textDirection: TextDirection.ltr,
+                  children: [
+                    _regUserHeading,
+                    _regLoginHeading,
+                    _usernameField,
+                    _firstNameField,
+                    _lastNameField,
+                    _emailField,
+                    _passwordField,
+                    _regButton,
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

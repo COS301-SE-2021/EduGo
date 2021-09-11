@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
             ),
             border: OutlineInputBorder(),
-            hintStyle: TextStyle(fontSize: 20),
+            hintStyle: TextStyle(fontSize: 15),
             hintText: "Username",
             suffixIcon: Icon(Icons.person),
           ),
@@ -173,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                   color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
             ),
             border: OutlineInputBorder(),
-            hintStyle: TextStyle(fontSize: 20),
+            hintStyle: TextStyle(fontSize: 15),
             hintText: "Password",
             suffixIcon: Icon(Icons.visibility_off),
           ),
@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
               Expanded(
                 child: Text(
                   "Login",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
               Icon(Icons.login_outlined, color: Colors.white),
