@@ -81,17 +81,6 @@ class _LoginPageState extends State<LoginPage> {
     //////////////////////////////////  WIDGETS  /////////////////////////////////
     //These may include the following widgets: input fields, buttons, forms
 
-    /*
-    Widget loginImage (int height, int width) = Container(
-        alignment: Alignment.center,
-        height: height * 0.45,
-        widthFactor: 0.9,
-        child: Image.asset(
-          'assets/login_image',
-          fit: BoxFit.fill,
-        ));
-    */
-
     //HEADING of the page: User Login
     Widget loginUserHeading = new Text(
       'User',
@@ -306,7 +295,6 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         textDirection: TextDirection.ltr,
                         children: [
-                          //loginImage,
                           loginUserHeading,
                           loginLoginHeading,
                           paddingWidget,
