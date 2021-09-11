@@ -19,20 +19,6 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   /////////////////////////  VARIABLES & FUNCTIONS  ////////////////////////////
-  String selected_organisation = 'Select an organisation';
-  final List<String> organisations = <String>[
-    'Select an organisation',
-    'UP',
-    'WITS',
-    'UCT'
-  ];
-
-  String selected_user_type = 'Select a user type';
-  final List<String> user_types = <String>[
-    'Select a user type',
-    'educator',
-    'student'
-  ];
 
   // Text controllers used to retrieve the current value of the input fields
   final usernameTextController = TextEditingController();
@@ -40,8 +26,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final emailTextController = TextEditingController();
   final firstNameTextController = TextEditingController();
   final lastNameTextController = TextEditingController();
-  final orgIdTextController = TextEditingController();
-  final userTypeTextController = TextEditingController();
 
   //Snack bar that displays success or error message
   late SnackBar snackbarWidget;
@@ -55,8 +39,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
     emailTextController.dispose();
     firstNameTextController.dispose();
     lastNameTextController.dispose();
-    orgIdTextController.dispose();
-    userTypeTextController.dispose();
     super.dispose();
   }
 
@@ -78,92 +60,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       key: Key('regPageHeading'),
       style: const TextStyle(
           fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
-    );
-
-    //UserType input field
-    Widget _userTypeField = FractionallySizedBox(
-      widthFactor: 0.8,
-      alignment: Alignment.center,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 30,
-          left: 30,
-        ),
-        child: DropdownButtonFormField<String>(
-          key: Key('userDropdown'),
-          value: selected_user_type,
-          autovalidateMode: AutovalidateMode.always,
-          validator: MultiValidator([
-            RequiredValidator(errorText: "* Required"),
-          ]),
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            key: Key('userTypeIcon'),
-          ),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.black),
-          onChanged: (String? newValue) {
-            setState(() {
-              selected_user_type = newValue!;
-            });
-          },
-          onSaved: (String? newValue) {
-            setState(() {
-              selected_user_type = newValue!;
-            });
-          },
-          items: user_types.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-
-    //Organisations input
-    Widget _orgTypeField = FractionallySizedBox(
-      widthFactor: 0.8,
-      alignment: Alignment.center,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 30,
-          left: 30,
-        ),
-        child: DropdownButtonFormField<String>(
-          key: Key('orgDropdown'),
-          value: selected_organisation,
-          autovalidateMode: AutovalidateMode.always,
-          validator: MultiValidator([
-            RequiredValidator(errorText: "* Required"),
-          ]),
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            key: Key('orgTypeIcon'),
-          ),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.black),
-          onChanged: (String? newValue) {
-            setState(() {
-              selected_organisation = newValue!;
-            });
-          },
-          onSaved: (String? newValue) {
-            setState(() {
-              selected_organisation = newValue!;
-            });
-          },
-          items: organisations.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ),
     );
 
     //Username input field
@@ -306,13 +202,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
         child: MaterialButton(
           onPressed: () async {
             if (await userController.register(
-                    username: usernameTextController.text,
-                    password: passwordTextController.text,
-                    email: emailTextController.text,
-                    firstName: firstNameTextController.text,
-                    lastName: lastNameTextController.text,
-                    organisation_id: orgIdTextController.text,
-                    type: userTypeTextController.text) ==
+                  username: usernameTextController.text,
+                  password: passwordTextController.text,
+                  email: emailTextController.text,
+                  firstName: firstNameTextController.text,
+                  lastName: lastNameTextController.text,
+                ) ==
                 true) {
               //Leads to login page
               MomentumRouter.goto(
@@ -369,8 +264,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
           children: [
             //TODO insert logo image
             _pageTitle,
-            _userTypeField,
-            _orgTypeField,
             _usernameField,
             _firstNameField,
             _lastNameField,
@@ -396,74 +289,3 @@ class _RegistrationPageState extends State<RegistrationPage> {
     ////////////////////////////////////////////////////////////////////////////
   }
 }
-/*
-class RegistrationPage extends StatelessWidget {
-  const RegistrationPage();
-  static String id = "registration";
-
-  /
-//Organisation
-//User Type
-//Username
-  @override
-  Widget build(BuildContext context) {
-    Widget child = Stack(
-      children: [
-        //First Name input field
-        Padding(
-          padding: const EdgeInsets.only(top: 100),
-          child: TextFormField(
-            style: TextStyle(),
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), hintText: "First Name"),
-          ),
-        ),
-        //Last Name input field
-        Padding(
-          padding: const EdgeInsets.only(top: 30, left: 30,),
-          child: TextFormField(
-            style: TextStyle(),
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), hintText: "Last Name"),
-          ),
-        ),
-        //Email input field
-        Padding(
-          padding: const EdgeInsets.only(top: 30, left: 30,),
-          child: TextFormField(
-            style: TextStyle(),
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), hintText: "Email"),
-          ),
-        ),
-        //TODO getOrganisations
-        //Organisations input field
-        DropdownButton<String>(
-          value: "Select an organisations",
-          icon: const Icon(Icons.arrow_downward),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
-          underline: Container(
-            height: 2,
-            color: Colors.deepPurpleAccent,
-          ),
-          onChanged: (String? newValue) {
-            setState(() {
-              selectedOrganisation = newValue!;
-            });
-          },
-          organisations: <String>['One', 'Two', 'Free', 'Four']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        )
-      ],
-    );
-    return MobilePageLayout(true, true, child);
-  }
-}
-*/

@@ -77,8 +77,8 @@ class UserApiService extends MomentumService {
       required String email,
       required String firstName,
       required String lastName,
-      required String organisation_id,
-      required String type,
+      // required String organisation_id,
+      // required String type,
       required http.Client client}) async {
     final response = await client.post(Uri.parse("${baseUrl}auth/register"),
         headers: <String, String>{
@@ -90,8 +90,8 @@ class UserApiService extends MomentumService {
           'user_email': email,
           'user_firstName': firstName,
           'user_lastName': lastName,
-          'userType': type,
-          'organisation_id': organisation_id
+          // 'userType': type,
+          // 'organisation_id': organisation_id
         }));
 
     if (response.statusCode == 200) {
