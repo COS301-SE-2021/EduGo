@@ -169,9 +169,16 @@ class _RegistrationVerificationPageState
           left: 30,
         ),
         child: MaterialButton(
-          onPressed: () => _submitForm(),
+          elevation: 40,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          color: Color.fromARGB(255, 97, 211, 87),
+          disabledColor: Color.fromRGBO(211, 212, 217, 1),
           height: 60,
-          color: Colors.black,
+          onPressed: () => _submitForm(),
           child: Row(
             children: <Widget>[
               Expanded(
