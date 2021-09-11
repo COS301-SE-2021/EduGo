@@ -69,7 +69,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: usernameTextController,
@@ -93,7 +92,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: firstNameTextController,
@@ -117,7 +115,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: lastNameTextController,
@@ -141,7 +138,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: emailTextController,
@@ -167,7 +163,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: passwordTextController,
@@ -192,14 +187,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
     //Register button
     Widget _regButton = FractionallySizedBox(
-      widthFactor: 0.6,
-      alignment: Alignment.center,
+      widthFactor: 0.7,
+      alignment: Alignment.center, //Alignment.centerRight,
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
           bottom: 30,
         ),
         child: MaterialButton(
+          elevation: 40,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          color: Color.fromARGB(255, 97, 211, 87),
+          disabledColor: Color.fromRGBO(211, 212, 217, 1),
+          height: 60,
           onPressed: () async {
             if (await userController.register(
                   username: usernameTextController.text,
@@ -223,8 +227,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
               print('Fail');
             }
           },
-          height: 60,
-          color: Colors.black,
           child: Row(
             children: <Widget>[
               Expanded(
@@ -262,7 +264,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
         child: Column(
           children: [
-            //TODO insert logo image
             _pageTitle,
             _usernameField,
             _firstNameField,
