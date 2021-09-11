@@ -79,7 +79,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ]),
           style: TextStyle(),
           decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              ),
               border: OutlineInputBorder(),
+              hintStyle: TextStyle(fontSize: 20),
               hintText: "Username",
               prefixIcon: Icon(Icons.person)),
         ),
@@ -98,11 +103,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
           autovalidateMode: AutovalidateMode.always,
           validator: MultiValidator([
             RequiredValidator(errorText: "* Required"),
-            LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid name')
+            LengthRangeValidator(min: 4, max: 20, errorText: 'Invalid name')
           ]),
           style: TextStyle(),
           decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              ),
               border: OutlineInputBorder(),
+              hintStyle: TextStyle(fontSize: 20),
               hintText: "First Name",
               prefixIcon: Icon(Icons.person_add)),
         ),
@@ -121,11 +131,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
           autovalidateMode: AutovalidateMode.always,
           validator: MultiValidator([
             RequiredValidator(errorText: "* Required"),
-            LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid name')
+            LengthRangeValidator(min: 4, max: 20, errorText: 'Invalid name')
           ]),
           style: TextStyle(),
           decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              ),
               border: OutlineInputBorder(),
+              hintStyle: TextStyle(fontSize: 20),
               hintText: "Last Name",
               prefixIcon: Icon(Icons.person_add_alt_1)),
         ),
@@ -148,7 +163,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ]),
           style: TextStyle(),
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+            ),
             border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 20),
             hintText: "Email",
             prefixIcon: Icon(Icons.email_outlined),
           ),
@@ -177,7 +197,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
           obscureText: true,
           style: TextStyle(),
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+            ),
             border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 20),
             hintText: "Password",
             prefixIcon: Icon(Icons.visibility_off),
           ),
