@@ -15,6 +15,8 @@ import { GetVirtualEntityRequest } from '../../../models/virtualEntity/GetVirtua
 import { TogglePublicRequest } from '../../../models/virtualEntity/TogglePublicRequest';
 import { GetQuizesByLessonRequest } from '../../../models/virtualEntity/GetQuizesByLessonRequest';
 import { Organisation } from '../../../database/Organisation';
+import { FileManagement } from '../../../helper/File';
+import azureStorage from 'azure-storage';
 
 let mockedVirtualEntityRepository: Repository<VirtualEntity> = mock(Repository);
 let virtualEntityRepository: Repository<VirtualEntity> = instance(mockedVirtualEntityRepository);
@@ -34,6 +36,9 @@ let studentRepository: Repository<Student> = instance(mockedStudentRepository);
 let mockedLessonRepository: Repository<Lesson> = mock(Repository);
 let lessonRepository: Repository<Lesson> = instance(mockedLessonRepository);
 
+let mockedAzureBlobService = mock(azureStorage.BlobService);
+let azureBlobService = instance(mockedAzureBlobService);
+
 let virtualEntityService: VirtualEntityService = new VirtualEntityService(
     virtualEntityRepository,
     quizRepository,
@@ -43,7 +48,9 @@ let virtualEntityService: VirtualEntityService = new VirtualEntityService(
     lessonRepository
 );
 
-let virtualEntityController: VirtualEntityController = new VirtualEntityController(virtualEntityService);
+let fileManagement: FileManagement = new FileManagement(azureBlobService);
+
+let virtualEntityController: VirtualEntityController = new VirtualEntityController(virtualEntityService, fileManagement);
 
 let organisation: Organisation = new Organisation();
 organisation.id = 1;

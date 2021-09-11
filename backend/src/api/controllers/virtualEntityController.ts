@@ -1,7 +1,7 @@
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import { VirtualEntityService } from "../services/VirtualEntityService";
-import { upload, UploadModelToAzure } from "../helper/File";
+import { upload, FileManagement } from "../helper/File";
 import {
 	AddModelToVirtualEntityFileData,
 	AddModelToVirtualEntityRequest,
@@ -29,7 +29,8 @@ import { GenerateThumbnail } from "../helper/ExternalRequests";
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class VirtualEntityController {
 	constructor(
-		@Inject() private service: VirtualEntityService
+		@Inject() private service: VirtualEntityService,
+		@Inject() private fileManagement: FileManagement
 	) {}
 
 	@Post("/createVirtualEntity")
@@ -48,7 +49,7 @@ export class VirtualEntityController {
 		file: Express.Multer.File
 	) {
 		if (file) {
-			let result = await UploadModelToAzure(file)
+			let result = await this.fileManagement.UploadModelToAzure(file)
 			let thumbnail = await GenerateThumbnail(result);
 			let response: any = { fileLink: result, thumbnail: thumbnail.uploaded };
 			return response;
@@ -63,7 +64,7 @@ export class VirtualEntityController {
 		@Body({ required: true }) body: AddModelToVirtualEntityRequest
 	) {
 		if (file) {
-			let result = await UploadModelToAzure(file);
+			let result = await this.fileManagement.UploadModelToAzure(file);
 			let baseFile = {
 				fileLink: result,
 			};
