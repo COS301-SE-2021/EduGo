@@ -2,7 +2,7 @@ import { SubjectService } from "../services/SubjectService";
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
 import { IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
 import passport from "passport";
-import { upload, UploadImageToAzure } from "../helper/File";
+import { upload, FileManagement } from "../helper/File";
 import { Service, Inject } from "typedi";
 import {
 	UseBefore,
@@ -19,8 +19,10 @@ import {
 @JsonController("/subject")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class SubjectController {
-	@Inject()
-	private service: SubjectService;
+	constructor(
+		@Inject() private service: SubjectService,
+		@Inject() private fileManagement: FileManagement
+	) {}
 
 	@Post("/createSubject")
 	@UseBefore(IsEducatorMiddleware)
@@ -31,7 +33,7 @@ export class SubjectController {
 		@CurrentUser({ required: true }) id: number
 	) {
 		if (file) {
-			let result = await UploadImageToAzure(file);
+			let result = await this.fileManagement.UploadImageToAzure(file);
 			let link = file
 				? result
 				: "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";

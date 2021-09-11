@@ -20,6 +20,7 @@ import { Educator } from "../api/database/Educator";
 import { Grade } from "../api/database/Grade";
 import { Quiz } from "../api/database/Quiz";
 import express from "express";
+import azureStorage from 'azure-storage';
 import * as Default from "./Default";
 
 Error.stackTraceLimit = Infinity;
@@ -60,6 +61,9 @@ let userRepository: Repository<User> = instance(mockedUserRepository);
 export let mockedVirtualEntityRepository: Repository<VirtualEntity> = mock(Repository);
 let virtualEntityRepository: Repository<VirtualEntity> = instance(mockedVirtualEntityRepository);
 
+export let mockedAzureBlobService = mock(azureStorage.BlobService);
+let azureBlobService = instance(mockedAzureBlobService);
+
 when(mockedConnectionManager.has(anything())).thenReturn(true);
 when(mockedConnectionManager.get(anything())).thenReturn(connectionInstance);
 when(mockedConnection.getRepository(Educator)).thenReturn(educatorRepository);
@@ -84,6 +88,7 @@ Container.set(Repository, subjectRepository);
 Container.set(Repository, unverifiedUsersRepository);
 Container.set(Repository, userRepository);
 Container.set(Repository, virtualEntityRepository);
+Container.set(azureStorage.BlobService, azureBlobService);
 
 diUseContainer(Container);
 ormUseContainer(Container);
