@@ -221,9 +221,16 @@ class _LoginPageState extends State<LoginPage> {
           bottom: 30,
         ),
         child: MaterialButton(
+          elevation: 40,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
           onPressed: () => _submitForm(userController),
           height: 60,
-          color: Colors.black,
+          color: Color.fromARGB(255, 97, 211, 87),
+          disabledColor: Color.fromRGBO(211, 212, 217, 1),
           child: Row(
             children: <Widget>[
               Expanded(
