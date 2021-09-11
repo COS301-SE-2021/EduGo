@@ -195,35 +195,47 @@ class _RegistrationVerificationPageState
     );
 
     //page to be displayed
-    Widget child = Form(
-      key: _formkey,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              border: Border.all(
-                style: BorderStyle.solid,
-                color: Colors.green,
-              ),
-            ),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: Column(
-                  children: [
-                    registration_heading_widget,
-                    verification_heading_widget,
-                    email_input_widget,
-                    code_input_widget,
-                    next_button_widget,
-                  ],
+    Widget child = Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color.fromRGBO(20, 195, 50, 1.0),
+            Color.fromRGBO(11, 36, 54, 1.0)
+          ],
+        ),
+      ),
+      child: Form(
+        key: _formkey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+          child: Material(
+            elevation: 40,
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(top: 50),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textDirection: TextDirection.ltr,
+                    children: [
+                      registration_heading_widget,
+                      verification_heading_widget,
+                      email_input_widget,
+                      code_input_widget,
+                      next_button_widget,
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
     ////////////////////////////////////////////////////////////////////////////
