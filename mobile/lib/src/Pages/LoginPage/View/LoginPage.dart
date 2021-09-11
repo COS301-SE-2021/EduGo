@@ -92,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
         ));
     */
 
+    //HEADING of the page: User Login
     Widget loginUserHeading = new Text(
       'User',
       key: Key('loginUserHeading'),
@@ -108,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
           fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
     );
 
+    // Username input field
     Widget usernameInputWidget = FractionallySizedBox(
       widthFactor: 0.8,
       alignment: Alignment.center,
@@ -134,9 +136,12 @@ class _LoginPageState extends State<LoginPage> {
           //Input field UI
           style: TextStyle(),
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
             ),
+            border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 20),
             hintText: "Username",
             suffixIcon: Icon(Icons.person),
           ),
