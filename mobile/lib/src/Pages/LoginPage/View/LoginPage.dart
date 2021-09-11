@@ -97,16 +97,18 @@ class _LoginPageState extends State<LoginPage> {
       'User',
       key: Key('loginUserHeading'),
       textDirection: TextDirection.ltr,
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
+      style: TextStyle(
+          fontSize: 35, color: Colors.black, fontWeight: FontWeight.normal),
     );
 
     Widget loginLoginHeading = new Text(
       'Login',
       key: Key('loginLoginHeading'),
       textDirection: TextDirection.ltr,
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
+      style: TextStyle(
+          fontSize: 35,
+          color: Color.fromARGB(255, 97, 211, 87),
+          fontWeight: FontWeight.bold),
     );
 
     // Username input field
@@ -116,7 +118,6 @@ class _LoginPageState extends State<LoginPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         //username input field
         child: new TextFormField(
@@ -155,7 +156,6 @@ class _LoginPageState extends State<LoginPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         //password input field
         child: TextFormField(
@@ -179,9 +179,12 @@ class _LoginPageState extends State<LoginPage> {
           //Input field UI
           style: TextStyle(),
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
             ),
+            border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 20),
             hintText: "Password",
             suffixIcon: Icon(Icons.visibility_off),
           ),
@@ -216,7 +219,6 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.only(
           top: 30,
           bottom: 30,
-          left: 30,
         ),
         child: MaterialButton(
           onPressed: () => _submitForm(userController),
@@ -237,7 +239,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    Widget paddingWidget = Padding(padding: const EdgeInsets.only(top: 50));
+    Widget paddingWidget = Padding(padding: const EdgeInsets.only(top: 25));
 
     error_snackbar = SnackBar(
         key: Key('login_snackbar'),
@@ -263,39 +265,59 @@ class _LoginPageState extends State<LoginPage> {
         ));
 
     Widget child = Scaffold(
-        body: Form(
-            key: _scaffoldKey,
-            child: Stack(key: Key('login_form'), children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 50.0, horizontal: 25.0),
-                  child: Material(
-                      elevation: 40,
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                          height: MediaQuery.of(context).size.height,
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.only(top: 50),
-                          child: SingleChildScrollView(
-                              child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: 30,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    textDirection: TextDirection.ltr,
-                                    children: [
-                                      //loginImage,
-                                      loginUserHeading,
-                                      loginLoginHeading,
-                                      paddingWidget,
-                                      usernameInputWidget,
-                                      passwordInputWidget,
-                                      loginButtonWidget,
-                                      registerWidget,
-                                    ],
-                                  ))))))
-            ])));
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              Color.fromRGBO(20, 195, 50, 1.0),
+              Color.fromRGBO(11, 36, 54, 1.0)
+            ],
+          ),
+        ),
+        child: Form(
+          key: _scaffoldKey,
+          child: Stack(key: Key('login_form'), children: <Widget>[
+            //to see te underlying green color
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+              child: Material(
+                elevation: 40,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(top: 50),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 30,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        textDirection: TextDirection.ltr,
+                        children: [
+                          //loginImage,
+                          loginUserHeading,
+                          loginLoginHeading,
+                          paddingWidget,
+                          usernameInputWidget,
+                          passwordInputWidget,
+                          loginButtonWidget,
+                          registerWidget,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ]),
+        ),
+      ),
+    );
     //////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////  VIEW RETURNED  //////////////////////////////
