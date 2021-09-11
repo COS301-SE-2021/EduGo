@@ -8,6 +8,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "avatar_letter",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/avatar_letter-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0",
       "packageUri": "lib/",
@@ -45,9 +51,9 @@
     },
     {
       "name": "cupertino_icons",
-      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.3",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-0.1.3",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.0"
     },
     {
       "name": "device_info",
@@ -60,6 +66,12 @@
       "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/dio-3.0.10",
       "packageUri": "lib/",
       "languageVersion": "2.4"
+    },
+    {
+      "name": "exifdart",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/exifdart-0.7.0+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
     },
     {
       "name": "fake_async",
@@ -156,6 +168,12 @@
       "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.4",
       "packageUri": "lib/",
       "languageVersion": "2.3"
+    },
+    {
+      "name": "image_whisperer",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/image_whisperer-0.11.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.2"
     },
     {
       "name": "intl",
@@ -260,6 +278,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "random_color",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/random_color-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "sentry",
       "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/sentry-3.0.1",
       "packageUri": "lib/",
@@ -272,6 +296,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "sliding_switch",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/sliding_switch-0.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.7"
+    },
+    {
       "name": "source_span",
       "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.1",
       "packageUri": "lib/",
@@ -280,6 +310,12 @@
     {
       "name": "stack_trace",
       "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "sticky_headers",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/sticky_headers-0.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -296,6 +332,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "syncfusion_flutter_core",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.2.51",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "syncfusion_flutter_datepicker",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_datepicker-19.2.51",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "term_glyph",
       "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0",
       "packageUri": "lib/",
@@ -304,6 +352,12 @@
     {
       "name": "test_api",
       "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "time_range",
+      "rootUri": "file:///D:/Users/u19187166/Documents/flutter_windows_2.2.3-stable/flutter/.pub-cache/hosted/pub.dartlang.org/time_range-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -332,7 +386,7 @@
       "languageVersion": "2.2"
     }
   ],
-  "generated": "2021-09-11T09:57:23.338266Z",
+  "generated": "2021-09-11T08:53:29.600835Z",
   "generator": "pub",
   "generatorVersion": "2.13.4"
 }
