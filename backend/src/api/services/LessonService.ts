@@ -57,7 +57,7 @@ export class LessonService {
 	public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
 		let subject: Subject | undefined;
 		try {
-			subject = await this.subjectRepository.findOne(request.subjectId,{ relations: ["lessons"] });
+			subject = await this.subjectRepository.findOne(request.subjectId,{ relations: ["lessons", "lessons.virtualEntities", "lessons.virtualEntities.model"] });
 		} catch (err) {
 			throw new BadRequestError("Subject does not exist");
 		}
