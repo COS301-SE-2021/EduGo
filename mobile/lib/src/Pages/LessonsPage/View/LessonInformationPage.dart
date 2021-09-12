@@ -62,59 +62,35 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
     required this.lessonDescription,
   });
 
-  // Create numbered tabs
-  List<Widget> _tabs(int noOfTabs) {
-    List<Widget> tabs = [];
-    for (int i = 0; i < noOfTabs; i++) {
-      tabs.add(Tab(
-        text: (i + 1).toString(),
-      ));
-    }
-    return tabs;
-  }
-
-  // Load thumbnail to be displayed when tab clicked
-  List<Widget> _images(int noOfThumbnails) {
-    List<Widget> images = [];
-    for (int i = 0; i < noOfThumbnails; i++) {
-      images.add(
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.4), BlendMode.hue),
-              image:
-                  AssetImage(lessonVirtualEntity.elementAt(i).model!.thumbnail),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Column(),
-        ),
-      );
-    }
-    return images;
-  }
-
-// Load thumbnail to be displayed when tab clicked
+// Load thumbnails
   List<Widget> _mockImages(int noOfThumbnails) {
-    List<Widget> images = [];
+    List<Widget> imagesAndCaptions = [];
+
     for (int i = 0; i < noOfThumbnails; i++) {
-      images.add(
-        Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.4), BlendMode.hue),
-              image: NetworkImage(
-                  'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
-              fit: BoxFit.fill,
+      imagesAndCaptions.add(
+        Column(mainAxisSize: MainAxisSize.min, children: [
+          Material(
+            shape: CircleBorder(),
+            elevation: 3.0,
+            child: Image.asset(
+              lessonVirtualEntity.elementAt(i).model!.thumbnail,
+              fit: BoxFit.fitWidth,
+              height: 100,
+              width: 100,
             ),
           ),
-          child: Column(),
-        ),
+          SizedBox(
+            width: 100,
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child:
+                  Text('id: ' + lessonVirtualEntity.elementAt(i).id.toString()),
+            ),
+          ),
+        ]),
       );
     }
-    return images;
+    return imagesAndCaptions;
   }
 
   @override
@@ -254,15 +230,10 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                   //Virtual entities display:
                   //the number of tabs represent the no of virual entity
                   // each virtual entity is labeled by it's id
-
-                  //Tab controller to keep the selected tab and content sections in sync.
-                  /*DefaultTabController(
-                    // The number of tabs / content sections to display.
-                    length: lessonVirtualEntity.length,
-                    child: TabBar(
-                      tabs: _tabs(lessonVirtualEntity.length),
-                    ),
-                  ),*/
+                  GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 3,
+                      children: _mockImages(lessonVirtualEntity.length)),
                 ],
               ),
             ]),
