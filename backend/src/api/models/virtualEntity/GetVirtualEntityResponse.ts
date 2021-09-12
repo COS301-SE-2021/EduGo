@@ -15,8 +15,7 @@ export class GVE_Quiz extends Quiz {
 export class GetVirtualEntityResponse {
 	id: number;
 	title: string;
-	description: string;
+	description?: string[];
 	quiz?: GVE_Quiz;
 	model?: GVE_Model;
-	information?: string[];
 }
