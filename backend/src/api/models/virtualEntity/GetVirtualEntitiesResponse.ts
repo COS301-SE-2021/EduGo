@@ -8,6 +8,7 @@ export class GVEs_VirtualEntity {
 	title: string;
 	description: string;
 	model?: GVEs_Model;
+	information: string[];
 }
 
 export class GetVirtualEntitiesResponse {
