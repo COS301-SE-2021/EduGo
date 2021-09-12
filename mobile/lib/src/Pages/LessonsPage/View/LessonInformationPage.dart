@@ -15,6 +15,8 @@ import 'package:momentum/momentum.dart';
  *------------------------------------------------------------------------------
 */
 
+//TODO: REDESIGN LESSON PAGE TO LOOK NICE
+
 class LessonInformationPage extends StatefulWidget {
   //This title variable holds the lesson
   //title of the card that was clicked on
@@ -65,10 +67,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
       true,
       true,
       Container(
-        //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-        //child: SingleChildScrollView(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Align(
               alignment: Alignment.center,
@@ -145,18 +144,19 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                         },
                       );
                     },
-                    minWidth: 10,
-                    height: 60,
-                    child: Text(
-                      "Go to lesson quizzes",
-                      maxLines: 2,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
+                    // onPressed: () {},
+                    // minWidth: 10,
+                    // height: 60,
+                    // child: Text(
+                    //   "Go to lesson quizzes",
+                    //   maxLines: 2,
+                    //   softWrap: true,
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(
+                    //       fontSize: 20,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Colors.black),
+                    // ),
                   ),
                 ),
               ),

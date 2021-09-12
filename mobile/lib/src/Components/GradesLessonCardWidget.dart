@@ -14,6 +14,9 @@ import 'package:mobile/src/Pages/GradesPage/View/GradesQuizPage.dart';
  *------------------------------------------------------------------------------
 */
 
+//TODO: UNCOMMENT THE ONTAP TO GO TO GRADE QUIZ CARDS TO
+//SHOW THE QUIZ MARKS
+
 class GradesLessonCard extends StatelessWidget {
   //Holds the list of quizzes
   //returned from the api call
@@ -68,12 +71,9 @@ class GradesLessonCard extends StatelessWidget {
             semanticContainer: true,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
-              //side: BorderSide(color: Colors.purple),
             ),
             clipBehavior: Clip.antiAlias,
             color: Color.fromARGB(0, 246, 246, 246),
-            //color: Colors.green,
-
             //This allows the card to be clickable so that when clicked,
             // it will go to the lessons description for that lesson
             child: new InkWell(
@@ -99,10 +99,6 @@ class GradesLessonCard extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.width / 10,
-                        // child: DecoratedBox(
-                        // decoration: BoxDecoration(color: Colors.purple),
-                        //),
-
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: MaterialButton(
@@ -128,7 +124,6 @@ class GradesLessonCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // ),
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
@@ -146,25 +141,6 @@ class GradesLessonCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Align(
-                    //   alignment: Alignment.bottomCenter,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.only(top: 15),
-                    //     child: Text(
-                    //       //marksDescription,
-                    //       'This is the mark currently',
-                    //       //"",
-                    //       textAlign: TextAlign.center,
-                    //       overflow: TextOverflow.ellipsis,
-                    //       maxLines: 4,
-                    //       softWrap: false,
-                    //       style: TextStyle(
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.bold,
-                    //           color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

@@ -51,9 +51,7 @@ class SubjectCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       clipBehavior: Clip.antiAlias,
-      //color: Color.fromARGB(255, 97, 211, 87),
       color: Colors.black,
-
       //This allows the card to be clickable so that when clicked,
       // it will go to the lessons for that subject
       child: new InkWell(
@@ -70,13 +68,18 @@ class SubjectCard extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
+            color: const Color(0xff7c94b6),
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.hue),
               image: NetworkImage(
+                  //TODO: FIX THE SUBJECT IMAGE SO THAT A SPECIFIC SUBJECT IMAGE
+                  //CAN ALWAYS BE DISPLAYED AND NOT THE MOCK IMAGE. FIX SUBJECT
+                  //CARD AND HAVE SOME OPACITY INVOLVED SO YOU CAN STILL SEE SUBJECT
+                  //TITLE AND EDUCATOR NAME
                   'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
-              // image: AssetImage(
-              //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+              // image: NetworkImage(
+              //     '${subjectImage}'),
               fit: BoxFit.fill,
             ),
           ),
@@ -88,7 +91,6 @@ class SubjectCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 150, left: 20),
                   //TODO: make this text container flexible and according
                   //to side and not have a fixed width and length
-
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.width / 12,

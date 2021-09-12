@@ -13,7 +13,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/GradesLessonCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
@@ -48,67 +47,64 @@ class _GradesLessonState extends State<GradesLessonPage> {
     //as check to see if no subjects are in the list
     if (lessonList.isNotEmpty && lessonList.length > 0) {
       return MobilePageLayout(
-          false,
-          false,
-          Container(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Align(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 25),
-                      child: Text(
-                        'Lesson Marks',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        softWrap: false,
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
+        false,
+        false,
+        Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Align(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: Text(
+                      'Lesson Marks',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: false,
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
                     ),
                   ),
-                  GridView.count(
-                    //This makes 2 cards appear. So effectively
-                    //two cards per page. (2 rows, 1 card per row)
-                    childAspectRatio: MediaQuery.of(context).size.height / 300,
-                    primary: false,
-                    padding: const EdgeInsets.only(top: 20),
-                    crossAxisSpacing: 0,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    mainAxisSpacing: 10,
-                    //makes 1 cards per row
-                    crossAxisCount: 1,
-                    //Call subject card here and pass in all arguments required
-                    children: lessonList
-                        .map(
-                          (lesson) =>
-                              //Pass in the entire lesson list of quizzes
-                              //Also pass in the lesson title and the overall lesson mark
-                              //as a percentage
-                              GradesLessonCard(
-                            lessonTitle: lesson.lessonName,
-                            lessonMark: lesson.gradeAchieved,
-                            quizList: lesson.quizGrades,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ],
-              ),
+                ),
+                GridView.count(
+                  //This makes 2 cards appear. So effectively
+                  //two cards per page. (2 rows, 1 card per row)
+                  childAspectRatio: MediaQuery.of(context).size.height / 300,
+                  primary: false,
+                  padding: const EdgeInsets.only(top: 20),
+                  crossAxisSpacing: 0,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  mainAxisSpacing: 10,
+                  //makes 1 cards per row
+                  crossAxisCount: 1,
+                  //Call subject card here and pass in all arguments required
+                  children: lessonList
+                      .map(
+                        (lesson) =>
+                            //Pass in the entire lesson list of quizzes
+                            //Also pass in the lesson title and the overall lesson mark
+                            //as a percentage
+                            GradesLessonCard(
+                          lessonTitle: lesson.lessonName,
+                          lessonMark: lesson.gradeAchieved,
+                          quizList: lesson.quizGrades,
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
             ),
           ),
-          '');
-      //Display error card if no mark for lessons
+        ),
+      );
+
+      //Display a spinner card if no mark for lessons or between api calls
     } else
-      // return MobilePageLayout(
-      //   false,
-      //   false,
       return SpinKitCircle(
         color: Colors.black,
       );
-    //);
   }
 }

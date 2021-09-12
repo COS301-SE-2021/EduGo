@@ -8,7 +8,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/GradesQuizCardWidget.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
@@ -101,9 +100,6 @@ class _GradesQuizState extends State<GradesQuizPage> {
                           //quizTitle: quiz.title,
                           studentQuizMark: quiz.student_score,
                           quizTotalMark: quiz.quiz_total,
-                          //id: quiz.id,
-                          //studentAnswers: quiz.studentAnswers,
-                          //correctAnswers: quiz.correctAnswers,
                         ),
                       )
                       .toList(),
@@ -112,15 +108,12 @@ class _GradesQuizState extends State<GradesQuizPage> {
             ),
           ),
         ),
-      '');
+      );
+      //Display a spinner card if no mark for lessons
+      //or between api calls
     } else
-      return MobilePageLayout(
-        false,
-        false,
-        SpinKitCircle(
-          color: Colors.black,
-        ),
-        ''
+      return SpinKitCircle(
+        color: Colors.black,
       );
   }
 }

@@ -13,6 +13,10 @@ import 'package:mobile/src/Components/mobile_page_layout.dart';
  *------------------------------------------------------------------------------
 */
 
+//TODO: FIX UP DESIGN OF THIS PAGE. CHECK IF YOU WILL RECEIVE
+//A LIST OF ANSWERS(STUDENT AND CORRECT) AND SEE IF YOU NEED THE
+//ID AND QUIZ TITLE
+
 class GradesQuizSpecificsPage extends StatefulWidget {
   //Holds the quiz title
   // final String quizTitle;
@@ -77,12 +81,6 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Store answers from student's list of answers
-    //and display as a comma sepatated string string
-    // String array = studentAnswers.join(', ');
-    // //Store answers from correct list of answers
-    // //and display as a comma sepatated string string
-    // String array2 = correctAnswers.join(', ');
     return MobilePageLayout(
       //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
       //the two bool represent side bar and navbar. so if true and true, them
@@ -91,27 +89,8 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
       false,
       false,
       Container(
-        //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-        //child: SingleChildScrollView(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // Align(
-            //   alignment: Alignment.center,
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(top: 25),
-            //     child: Text(
-            //       quizTitle,
-            //       overflow: TextOverflow.ellipsis,
-            //       maxLines: 2,
-            //       softWrap: false,
-            //       style: TextStyle(
-            //           fontSize: 30,
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.black),
-            //     ),
-            //   ),
-            // ),
             Align(
               alignment: Alignment.center,
               child: Padding(
@@ -186,72 +165,8 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 70),
-            //   child: SizedBox(
-            //     width: MediaQuery.of(context).size.width / 1,
-            //     height: MediaQuery.of(context).size.width / 10,
-            //     child: Align(
-            //       alignment: Alignment.center,
-            //       child: MaterialButton(
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.all(Radius.circular(20)),
-            //           side: BorderSide(color: Colors.black),
-            //         ),
-            //         onPressed: () {
-            //           // Navigator.push(
-            //           //   context,
-            //           //   MaterialPageRoute(
-            //           //       builder: (context) => DetectMarkerPage()),
-            //           // );
-            //         },
-            //         minWidth: 10,
-            //         height: 60,
-            //         child: Text(
-            //           "Your answers: " + array,
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(
-            //               fontSize: 20,
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.black),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 40),
-            //   child: SizedBox(
-            //     width: MediaQuery.of(context).size.width / 1,
-            //     height: MediaQuery.of(context).size.width / 10,
-            //     child: Align(
-            //       alignment: Alignment.center,
-            //       child: MaterialButton(
-            //         shape: RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.all(Radius.circular(20)),
-            //           side: BorderSide(color: Colors.black),
-            //         ),
-            //         onPressed: () {
-            //           // Navigator.push(
-            //           //   context,
-            //           //   MaterialPageRoute(
-            //           //       builder: (context) => DetectMarkerPage()),
-            //           // );
-            //         },
-            //         minWidth: 10,
-            //         height: 60,
-            //         child: Text(
-            //           "Correct answers: " + array2,
-            //           textAlign: TextAlign.center,
-            //           style: TextStyle(
-            //               fontSize: 20,
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.black),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            //TODO: DISPLAY QUIZ ANSWERS. THE STUDENT'S ANSWERS AS WELL
+            //AS THE CORRECT ANSWERS
           ],
         ),
       ),
