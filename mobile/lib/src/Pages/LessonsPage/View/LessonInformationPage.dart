@@ -61,6 +61,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
     required this.lessonID,
     required this.lessonDescription,
   });
+
   // Create numbered tabs
   List<Widget> _tabs(int noOfTabs) {
     List<Widget> tabs = [];
@@ -70,6 +71,50 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
       ));
     }
     return tabs;
+  }
+
+  // Load thumbnail to be displayed when tab clicked
+  List<Widget> _images(int noOfThumbnails) {
+    List<Widget> images = [];
+    for (int i = 0; i < noOfThumbnails; i++) {
+      images.add(
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4), BlendMode.hue),
+              image:
+                  AssetImage(lessonVirtualEntity.elementAt(i).model!.thumbnail),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Column(),
+        ),
+      );
+    }
+    return images;
+  }
+
+// Load thumbnail to be displayed when tab clicked
+  List<Widget> _mockImages(int noOfThumbnails) {
+    List<Widget> images = [];
+    for (int i = 0; i < noOfThumbnails; i++) {
+      images.add(
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4), BlendMode.hue),
+              image: NetworkImage(
+                  'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Column(),
+        ),
+      );
+    }
+    return images;
   }
 
   @override
@@ -198,8 +243,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                                 size: 20,
                               ),
                               Text(
-                                "Scan QR code " +
-                                    lessonVirtualEntity.first.model!.thumbnail,
+                                "Scan QR code ",
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],
@@ -212,13 +256,13 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                   // each virtual entity is labeled by it's id
 
                   //Tab controller to keep the selected tab and content sections in sync.
-                  DefaultTabController(
+                  /*DefaultTabController(
                     // The number of tabs / content sections to display.
                     length: lessonVirtualEntity.length,
                     child: TabBar(
                       tabs: _tabs(lessonVirtualEntity.length),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ]),
