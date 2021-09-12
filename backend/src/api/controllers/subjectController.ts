@@ -13,6 +13,7 @@ import {
 	InternalServerError,
 	JsonController,
 	ContentType,
+	Delete,
 } from "routing-controllers";
 import { DeleteSubjectRequest } from "../models/subject/DeleteSubjectRequest";
 
@@ -43,7 +44,7 @@ export class SubjectController {
 		else throw new InternalServerError("File is invalid");
 	}
 
-	@Post('/deleteSubject')
+	@Delete('/deleteSubject')
 	@UseBefore(IsEducatorMiddleware)
 	async DeleteSubject(@Body({ required: true }) body: DeleteSubjectRequest) {
 		return this.service.DeleteSubject(body);
