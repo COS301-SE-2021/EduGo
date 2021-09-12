@@ -115,7 +115,6 @@ export class VirtualEntityService {
 			id: entity.id,
 			title: entity.title,
 			description: entity.description,
-			information: entity.information,
 		};
 
 
@@ -153,10 +152,9 @@ export class VirtualEntityService {
 
 		let ve: VirtualEntity = new VirtualEntity();
 		ve.title = request.title;
-		ve.description = request.description;
+		ve.description = request.description?.map((info) => info) || [];
 		ve.public = request.public ?? false;
 		ve.organisation = user.organisation;
-		ve.information = request.information?.map((info) => info) || [];
 
 		if (request.model !== undefined) {
 			let model: Model = new Model();
@@ -336,7 +334,6 @@ export class VirtualEntityService {
 					id: value.id,
 					title: value.title,
 					description: value.description,
-					information: value.information,
 				};
 				if (value.model) {
 					let model: GVEs_Model = {
