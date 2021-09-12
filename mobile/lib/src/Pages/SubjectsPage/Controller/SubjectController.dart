@@ -67,8 +67,8 @@ class SubjectsController extends MomentumController<SubjectsModel> {
   }
 
   //Bootstrap function is run immediately/automatically when page is opened
-  @override
-  Future<void> bootstrapAsync() {
+
+  Future<void> getSubjects() {
     return getSubjectsByUser(
             //If bool is set to true in the controller constructor in the main file,
             //it uses mock the actual api end point

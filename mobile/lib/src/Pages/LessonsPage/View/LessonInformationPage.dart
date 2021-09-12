@@ -16,6 +16,8 @@ import 'package:momentum/momentum.dart';
  *------------------------------------------------------------------------------
 */
 
+//TODO: REDESIGN LESSON PAGE TO LOOK NICE
+
 class LessonInformationPage extends StatefulWidget {
   //This title variable holds the lesson
   //title of the card that was clicked on

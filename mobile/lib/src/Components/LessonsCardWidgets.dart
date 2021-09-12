@@ -12,6 +12,11 @@ import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.da
  *------------------------------------------------------------------------------
 */
 
+//TODO: ADD IN LESSON COMPLETED/NOT COMPLETED BASED ON QUIZ STATUS(HAS QUIZ
+//BEEN TAKEN IN LESSON. YES OR NO). SEE IF YOU NEED THE LESSON COMPLETED VARIABLE.
+//SIMK CAN ADD A BOOL IN THE DATA RETURNED FROM ENDPOINT WHEREBY HE CAN QUECK IF
+//QUIZZES HAVE BEEN ANSWERED..I.E HAVE A MARK..IF YES, MAKE BOOL TRUE, ELSE FALSE
+
 class LessonsCard extends StatelessWidget {
   //Holds the lesson title
   final String lessonTitle;
@@ -22,9 +27,8 @@ class LessonsCard extends StatelessWidget {
   //Holds the lesson description
   final String lessonDescription;
 
-  //Holds the lesson objectives
-  //final String lessonObjectives
-
+  //indicated if all quizzes have been completed and
+  //have a grade. Thus the lesson is completed
   final String lessonCompleted;
 
   //List of all VE for lesson
@@ -87,33 +91,40 @@ class LessonsCard extends StatelessWidget {
               ),
             );
           },
-          child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: Container(
-                  color: backgroundColour,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "$lessonTitle",
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                      softWrap: true,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
+          child: Container(
+            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: Column(
+              children: [
+                // Expanded(
+                //   child: Container(
+                //     color: backgroundColour,
+                //     child: Align(
+                //       alignment: Alignment.center,
+                // child:
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Text(
+                    "$lessonTitle",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    softWrap: true,
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    // ),
+                    //),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  color: backgroundColour,
-                  alignment: Alignment.center,
+                //),
+                // Expanded(
+                //   child: Container(
+                //     color: backgroundColour,
+                //     alignment: Alignment.center,
+                //     child:
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     "$lessonStatus",
                     textAlign: TextAlign.center,
@@ -124,10 +135,12 @@ class LessonsCard extends StatelessWidget {
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
+                    //  ),
+                    //),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
