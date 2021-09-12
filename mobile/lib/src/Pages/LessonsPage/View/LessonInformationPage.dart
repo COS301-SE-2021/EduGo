@@ -73,18 +73,61 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
               Column(
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  //Lesson title, aligned top left
-                  Row(children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        lessonTitle,
-                        style: TextStyle(
-                          fontSize: 25,
+                  //Lesson title, aligned top left. Button leading to Quiz top right
+                  new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        new Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            lessonTitle,
+                            style: TextStyle(
+                              fontSize: 25,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ]),
+                        new Align(
+                          alignment: Alignment.topRight,
+                          child: MaterialButton(
+                              elevation: 20,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
+                                MomentumRouter.goto(
+                                  context,
+                                  QuizPage,
+                                  params: QuizParam(lessonID),
+                                  transition: (context, page) {
+                                    return MaterialPageRoute(
+                                        builder: (context) => page);
+                                  },
+                                );
+                              },
+                              minWidth: 10,
+                              height: 25,
+                              color: Color.fromARGB(255, 97, 211, 87),
+                              disabledColor: Color.fromRGBO(211, 212, 217, 1),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.post_add,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                    Text(
+                                      "Quizzes",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ]),
                   //Lesson description
                   Align(
                     alignment: Alignment.topLeft,
@@ -131,7 +174,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                           minWidth: 10,
                           height: 60,
                           child: Text(
-                            "Go to lesson quizzes",
+                            "Begin Quizzes",
                             maxLines: 2,
                             softWrap: true,
                             textAlign: TextAlign.center,
