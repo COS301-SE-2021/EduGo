@@ -71,16 +71,24 @@ class LessonsCard extends StatelessWidget {
           //This redirects the page to the lessons description page on tap
           //and passes in the lesson description, lesson objectives and lesson title
           onTap: () {
-            Navigator.push(
+            MomentumRouter.goto(
               context,
-              MaterialPageRoute(
-                builder: (context) => LessonInformationPage(
-                  lessonTitle: this.lessonTitle,
-                  lessonDescription: this.lessonDescription,
-                  lessonID: this.lessonID,
-                ),
-              ),
+              LessonInformationPage,
+              params: LessonInformationPageParam(this), //pass lesson through
+              transition: (context, page) {
+                return MaterialPageRoute(builder: (context) => page);
+              },
             );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (context) => LessonInformationPage(
+            //       lessonTitle: this.lessonTitle,
+            //       lessonDescription: this.lessonDescription,
+            //       lessonID: this.lessonID,
+            //     ),
+            //   ),
+            // );
           },
           child: Column(
             //crossAxisAlignment: CrossAxisAlignment.center,
