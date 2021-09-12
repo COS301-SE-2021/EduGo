@@ -12,14 +12,11 @@ export class VirtualEntity {
     @Column()
     title: string;
 
-    @Column()
-    description: string;
-
     @Column("character varying", {
         array: true,
         default: []
     })
-    information: string[];
+    description: string[];
 
     @OneToOne(type => Quiz, quiz =>quiz.virtualEntity, {
         cascade: true

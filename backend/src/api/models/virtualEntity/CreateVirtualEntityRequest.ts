@@ -6,9 +6,6 @@ export class CreateVirtualEntityRequest {
     @IsString()
     title: string;
 
-    @IsString()
-    description: string;
-
     @Type(() => Quiz)
     @ValidateNested()
     quiz: Quiz;
@@ -23,5 +20,5 @@ export class CreateVirtualEntityRequest {
 
     @IsOptional()
     @IsArray()
-    information?: string[];
+    description?: string[];
 }

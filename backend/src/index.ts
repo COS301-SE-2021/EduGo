@@ -35,8 +35,6 @@ let options: ConnectionOptions = ormDevelopment;
 
 if (!("DB_USER" in process.env)) throw new Error("Database username missing");
 if (!("DB_PASSWORD" in process.env)) throw new Error("Database password missing");
-if (!("AWS_ACCESS_KEY" in process.env)) throw new Error("AWS Access Key missing");
-if (!("AWS_SECRET_ACCESS_KEY" in process.env)) throw new Error("AWS Secret Access Key missing");
 if (!("EMAIL" in process.env)) throw new Error("Email address missing");
 if (!("SMTP_HOST" in process.env)) throw new Error("SMTP Host missing");
 if (!("SMTP_USERNAME" in process.env)) throw new Error("SMTP Username missing");
