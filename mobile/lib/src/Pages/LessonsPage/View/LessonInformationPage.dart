@@ -68,32 +68,32 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
 
     for (int i = 0; i < noOfThumbnails; i++) {
       imagesAndCaptions.add(
-        Column(mainAxisSize: MainAxisSize.min, children: [
-          Material(
-            shape: CircleBorder(),
-            elevation: 3.0,
-            child: Image.network(
-              //Mobile app: child: Image.asset(
-              lessonVirtualEntity.elementAt(i).model!.thumbnail,
-              fit: BoxFit.fitWidth,
-              height: 100,
-              width: 100,
-            ),
-          ),
-          SizedBox(
-            width: 100,
-            child: FittedBox(
-              fit: BoxFit.fitWidth,
-              child: Text(
-                'id: ' + lessonVirtualEntity.elementAt(i).id.toString(),
-                style: TextStyle(
-                    fontSize: 35,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
+        Expanded(
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            Material(
+              shape: CircleBorder(),
+              elevation: 3.0,
+              child: Image.network(
+                //Mobile app: child: Image.asset(
+                lessonVirtualEntity.elementAt(i).model!.thumbnail,
+                fit: BoxFit.fill,
+                height: 80,
+                width: 100,
               ),
             ),
-          ),
-        ]),
+            Expanded(
+              child: FittedBox(
+                child: Text(
+                  'id: ' + lessonVirtualEntity.elementAt(i).id.toString(),
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ]),
+        ),
       );
     }
     return imagesAndCaptions;
