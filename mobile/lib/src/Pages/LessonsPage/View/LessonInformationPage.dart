@@ -146,81 +146,58 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                       ),
                     ),
                   ),
-                  //Virtual entities display
 
+                  //Scan QR code
                   Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 1,
-                      height: MediaQuery.of(context).size.width / 10,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: MaterialButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            side: BorderSide(color: Colors.black),
-                          ),
-                          onPressed: () {
-                            MomentumRouter.goto(
-                              context,
-                              QuizPage,
-                              params: QuizParam(lessonID),
-                              transition: (context, page) {
-                                return MaterialPageRoute(
-                                    builder: (context) => page);
-                              },
-                            );
-                          },
-                          minWidth: 10,
-                          height: 60,
-                          child: Text(
-                            "Begin Quizzes",
-                            maxLines: 2,
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                    padding: const EdgeInsets.only(top: 15.0, bottom: 8.0),
+                    child: MaterialButton(
+                        elevation: 20,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
                         ),
-                      ),
-                    ),
+                        onPressed: () {
+                          MomentumRouter.goto(
+                            context,
+                            DetectMarkerPage,
+                            transition: (context, page) {
+                              return MaterialPageRoute(
+                                  builder: (context) => page);
+                            },
+                          );
+                        },
+                        minWidth: 10,
+                        height: 25,
+                        color: Color.fromARGB(255, 97, 211, 87),
+                        disabledColor: Color.fromRGBO(211, 212, 217, 1),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.qr_code,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                              Text(
+                                "Scan QR code",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        )),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width / 1,
-                      height: MediaQuery.of(context).size.width / 10,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: MaterialButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            side: BorderSide(color: Colors.black),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetectMarkerPage()),
-                            );
-                          },
-                          minWidth: 10,
-                          height: 60,
-                          child: Text(
-                            "Go to virtual entity",
-                            maxLines: 2,
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ),
-                    ),
+
+                  //Virtual entities display:
+                  //the number of tabs represent the no of virual entity
+                  // each virtual entity is labeled by it's id
+
+                  //Tab controller to keep the selected tab and content sections in sync.
+                  DefaultTabController(
+                    // The number of tabs / content sections to display.
+                    length: 3,
+                    child: Text(''),
                   ),
                 ],
               ),
