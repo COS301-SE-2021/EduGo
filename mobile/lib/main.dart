@@ -61,8 +61,8 @@ Momentum momentum({bool mock = false}) {
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),
         LessonsPage(
-          title: '',
-          subjectID: 0,
+          title: 'Algebra',
+          subjectID: 1,
         ),
         OrganisationsPage(),
         PreferencesPage(),

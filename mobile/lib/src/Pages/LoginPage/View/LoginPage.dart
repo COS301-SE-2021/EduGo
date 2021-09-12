@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mobile/src/Components/Common/ValidationClasses.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 import 'package:momentum/momentum.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
@@ -43,7 +44,8 @@ class _LoginPageState extends State<LoginPage> {
             password: password_text_controller.text) ==
         true) {
       // Leads to home page
-      MomentumRouter.goto(context, SubjectsPage, transition: (context, page) {
+      MomentumRouter.goto(context, LessonsPage /*SubjectsPage*/,
+          transition: (context, page) {
         return MaterialPageRoute(builder: (context) => page);
       });
       return;
