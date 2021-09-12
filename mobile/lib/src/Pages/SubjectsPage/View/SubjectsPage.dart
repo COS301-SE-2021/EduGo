@@ -49,6 +49,9 @@ class _SubjectsPageState extends State<SubjectsPage> {
           //Stores the number of subjects for a particulat student
           int subjectsCount = subjects.subjects.length;
 
+          if (subjectsCount > 0)
+            print('no of subjects: ' + subjectsCount.toString());
+          if (subjects.subjects.isEmpty) print('no subjects');
           //A check to see if there are subjects. If there are no subjects,
           //or if the list is empty display another card saying no
           //subjects are available
