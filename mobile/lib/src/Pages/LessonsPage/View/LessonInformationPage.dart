@@ -72,7 +72,8 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
           Material(
             shape: CircleBorder(),
             elevation: 3.0,
-            child: Image.asset(
+            child: Image.network(
+              //Mobile app: child: Image.asset(
               lessonVirtualEntity.elementAt(i).model!.thumbnail,
               fit: BoxFit.fitWidth,
               height: 100,
@@ -83,8 +84,13 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
             width: 100,
             child: FittedBox(
               fit: BoxFit.fitWidth,
-              child:
-                  Text('id: ' + lessonVirtualEntity.elementAt(i).id.toString()),
+              child: Text(
+                'id: ' + lessonVirtualEntity.elementAt(i).id.toString(),
+                style: TextStyle(
+                    fontSize: 35,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ]),
