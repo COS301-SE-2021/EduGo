@@ -15,9 +15,6 @@ class SubjectCard extends StatelessWidget {
   //Holds the subject title
   final String title;
 
-  //Holds the subject title
-  //final String educator;
-
   //Holds the subject grade
   final int grade;
 
@@ -28,17 +25,17 @@ class SubjectCard extends StatelessWidget {
   final int count;
 
   //Holds the subject image
-  // final String subjectImage;
+  final String subjectImage;
   final String educator;
 
 //This is the subject card constructor. it requires 5 arguments to be passed in
-  SubjectCard({
-    required this.title,
-    required this.grade,
-    required this.id,
-    required this.count,
-    required this.educator,
-  });
+  SubjectCard(
+      {required this.title,
+      required this.grade,
+      required this.id,
+      required this.count,
+      required this.educator,
+      required this.subjectImage});
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +69,13 @@ class SubjectCard extends StatelessWidget {
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.hue),
-              image: NetworkImage(
-                  //TODO: FIX THE SUBJECT IMAGE SO THAT A SPECIFIC SUBJECT IMAGE
-                  //CAN ALWAYS BE DISPLAYED AND NOT THE MOCK IMAGE. FIX SUBJECT
-                  //CARD AND HAVE SOME OPACITY INVOLVED SO YOU CAN STILL SEE SUBJECT
-                  //TITLE AND EDUCATOR NAME
-                  'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
               // image: NetworkImage(
-              //     '${subjectImage}'),
+              //     //TODO: FIX THE SUBJECT IMAGE SO THAT A SPECIFIC SUBJECT IMAGE
+              //     //CAN ALWAYS BE DISPLAYED AND NOT THE MOCK IMAGE. FIX SUBJECT
+              //     //CARD AND HAVE SOME OPACITY INVOLVED SO YOU CAN STILL SEE SUBJECT
+              //     //TITLE AND EDUCATOR NAME
+              //     'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
+              image: NetworkImage('${subjectImage}'),
               fit: BoxFit.fill,
             ),
           ),

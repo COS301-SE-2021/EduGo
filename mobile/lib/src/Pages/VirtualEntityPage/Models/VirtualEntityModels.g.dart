@@ -11,8 +11,7 @@ VirtualEntity _$VirtualEntityFromJson(Map<String, dynamic> json) {
   return VirtualEntity(
     json['id'] as int,
     json['title'] as String,
-    json['description'] as String? ?? '',
-    (json['information'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+    (json['description'] as List<dynamic>?)?.map((e) => e as String).toList() ??
         [],
     json['model'] == null
         ? null
@@ -25,7 +24,6 @@ Map<String, dynamic> _$VirtualEntityToJson(VirtualEntity instance) =>
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'information': instance.information,
       'model': instance.model?.toJson(),
     };
 

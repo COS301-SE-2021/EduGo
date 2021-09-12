@@ -30,20 +30,15 @@ class VirtualEntity {
   String title;
 
   //Holds the virtual entity description
-  @JsonKey(defaultValue: '')
-  String description;
-
-  //Holds the virtual entity description
   @JsonKey(defaultValue: [])
-  List<String> information;
+  List<String> description;
 
   //Holds the actual model
   @JsonKey(defaultValue: null)
   Model? model;
 
   //Virtual entity constructor
-  VirtualEntity(
-      this.id, this.title, this.description, this.information, this.model);
+  VirtualEntity(this.id, this.title, this.description, this.model);
 
   factory VirtualEntity.fromJson(Map<String, dynamic> json) =>
       _$VirtualEntityFromJson(json);

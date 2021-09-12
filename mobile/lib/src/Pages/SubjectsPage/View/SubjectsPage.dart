@@ -90,13 +90,14 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       children: subjects.subjects
                           .map(
                             (subject) => SubjectCard(
-                                title: subject.title,
-                                grade: subject.grade,
-                                id: subject.id,
-                                count: subjectsCount,
-                                educator: "Ms Kim Possible"
-                                //subject.educatorName
-                                ),
+                              title: subject.title,
+                              grade: subject.grade,
+                              id: subject.id,
+                              count: subjectsCount,
+                              educator: "Ms Kim Possible",
+                              subjectImage: subject.image,
+                              //subject.educatorName
+                            ),
                           )
                           .toList(),
                     ),
