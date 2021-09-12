@@ -82,7 +82,7 @@ describe('Virtual Entity controller integration tests', () => {
     describe('Create Virtual Entity', () => {
         let request: CreateVirtualEntityRequest = {
             title: 'A Virtual Entity',
-            description: 'A Virtual Entity Description',
+            description: [],
             public: true,
             quiz: {
                 questions: [
@@ -129,7 +129,7 @@ describe('Virtual Entity controller integration tests', () => {
             let virtualEntity: VirtualEntity = new VirtualEntity();
             virtualEntity.id = 1;
             virtualEntity.title = 'A Virtual Entity';
-            virtualEntity.description = 'A Virtual Entity Description';
+            virtualEntity.description = [];
             when(mockedVirtualEntityRepository.findOne(anything(), anything())).thenResolve(virtualEntity);
 
             let response = await virtualEntityController.GetVirtualEntity(request);
