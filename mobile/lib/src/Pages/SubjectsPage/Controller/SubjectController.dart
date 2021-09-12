@@ -24,8 +24,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<List<Subject>> getSubjectsByUser({required http.Client client}) async {
   final prefs = await SharedPreferences.getInstance();
   final String? token = prefs.getString('user_token') ?? null;
-  print('--- TOKEN ---');
-  print(token);
+  // print('--- TOKEN ---');
+  // print(token);
 
   if (token == null) throw NoToken();
 
@@ -41,10 +41,10 @@ Future<List<Subject>> getSubjectsByUser({required http.Client client}) async {
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
     if (json['data'] != null) {
-      print(json['data']);
+      // print(json['data']);
       List<Subject> subjects =
           (json['data'] as List).map((e) => Subject.fromJson(e)).toList();
-      print("Length: ${subjects.length}");
+      // print("Length: ${subjects.length}");
       return subjects;
     } else
       throw new BadResponse('No data property');

@@ -42,10 +42,6 @@ class SubjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //   height: 500,
-    //   width: 280,
-
     //This is the main subject card design. It is all in a container and
     //displays info like the subject photo, subject title, subject educator
     //and how many lessons are in that subject
@@ -82,12 +78,9 @@ class SubjectCard extends StatelessWidget {
               // image: AssetImage(
               //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
               fit: BoxFit.fill,
-              //alignment: Alignment.center,
             ),
           ),
           child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
-            //mainAxisAlignment: MainAxisAlignment.
             children: [
               Align(
                 alignment: Alignment.centerLeft,
@@ -100,15 +93,11 @@ class SubjectCard extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.width / 12,
                     child: Text(
-                      //If there is a mark, display it.
-                      //Els display the two dashes
                       '$title',
                       textAlign: TextAlign.left,
-                      //textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       softWrap: true,
-
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -126,21 +115,20 @@ class SubjectCard extends StatelessWidget {
                     height: MediaQuery.of(context).size.width / 16,
                     child: Container(
                       child: Text(
-                        //If there is a mark, display it.
-                        //Els display the two dashes
                         '${educator}',
                         textAlign: TextAlign.left,
-                        //textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         softWrap: true,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ])
+        ),
       ),
-    ));
+    );
   }
 }

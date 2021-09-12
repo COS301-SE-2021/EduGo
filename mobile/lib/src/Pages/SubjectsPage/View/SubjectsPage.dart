@@ -93,7 +93,9 @@ class _SubjectsPageState extends State<SubjectsPage> {
                                 grade: subject.grade,
                                 id: subject.id,
                                 count: subjectsCount,
-                                educator: subject.educatorName),
+                                educator: "Ms Kim Possible"
+                                //subject.educatorName
+                                ),
                           )
                           .toList(),
                     ),
@@ -104,14 +106,6 @@ class _SubjectsPageState extends State<SubjectsPage> {
           }
           //If there are no subjects
           else
-            //
-            // return SizedBox(
-            //   height: MediaQuery.of(context).size.height,
-            //   child: CircularProgressIndicator(
-            //     backgroundColor: Colors.black,
-            //     strokeWidth: 10,
-            //   ),
-            // );
             return SpinKitCircle(
               color: Colors.black,
             );
