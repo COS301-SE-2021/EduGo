@@ -87,19 +87,27 @@ class SubjectCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 150, left: 20),
                   //TODO: make this text container flexible and according
                   //to side and not have a fixed width and length
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 12,
-                    child: Text(
-                      '$title',
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: true,
-                      style: TextStyle(
+                  child: Material(
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    color: Colors.black54,
+                    child: Flexible(
+                      child: Text(
+                        '$title',
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: true,
+                        style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                          color: Colors.white70,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -108,16 +116,26 @@ class SubjectCard extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 16,
-                    child: Container(
+                  child: Material(
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    color: Colors.black54,
+                    child: Flexible(
                       child: Text(
-                        '${educator}',
+                        '$educator',
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                        maxLines: 2,
                         softWrap: true,
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70,
+                        ),
                       ),
                     ),
                   ),
