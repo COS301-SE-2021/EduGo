@@ -110,7 +110,7 @@ class _LessonsPageState extends State<LessonsPage> {
                       //This makes 2 cards appear. So effectively two cards
                       //per page. (2 rows, 1 card per row)
                       childAspectRatio:
-                          MediaQuery.of(context).size.height / 180,
+                          MediaQuery.of(context).size.height / 100,
                       primary: false,
                       padding: const EdgeInsets.all(20),
                       crossAxisSpacing: 0,

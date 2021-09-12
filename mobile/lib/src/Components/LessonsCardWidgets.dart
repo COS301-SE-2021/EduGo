@@ -83,32 +83,40 @@ class LessonsCard extends StatelessWidget {
             ),
           );
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: Container(
-                color: backgroundColour,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "$lessonTitle",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    softWrap: true,
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
+        child: Container(
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Column(
+            children: [
+              // Expanded(
+              //   child: Container(
+              //     color: backgroundColour,
+              //     child: Align(
+              //       alignment: Alignment.center,
+              // child:
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: Text(
+                  "$lessonTitle",
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                  softWrap: true,
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                  // ),
+                  //),
                 ),
               ),
-            ),
-            Expanded(
-              child: Container(
-                color: backgroundColour,
-                alignment: Alignment.center,
+              //),
+              // Expanded(
+              //   child: Container(
+              //     color: backgroundColour,
+              //     alignment: Alignment.center,
+              //     child:
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
                 child: Text(
                   "$lessonStatus",
                   textAlign: TextAlign.center,
@@ -119,10 +127,12 @@ class LessonsCard extends StatelessWidget {
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
+                  //  ),
+                  //),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
