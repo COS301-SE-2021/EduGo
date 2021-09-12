@@ -18,4 +18,5 @@ export class GetVirtualEntityResponse {
 	description: string;
 	quiz?: GVE_Quiz;
 	model?: GVE_Model;
+	information?: string[];
 }

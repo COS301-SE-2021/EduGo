@@ -15,6 +15,12 @@ export class VirtualEntity {
     @Column()
     description: string;
 
+    @Column("character varying", {
+        array: true,
+        default: []
+    })
+    information: string[];
+
     @OneToOne(type => Quiz, quiz =>quiz.virtualEntity, {
         cascade: true
     })
