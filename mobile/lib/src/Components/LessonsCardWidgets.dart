@@ -123,7 +123,7 @@ class LessonsCard extends StatelessWidget {
                 //     color: backgroundColour,
                 //     alignment: Alignment.center,
                 //     child:
-                Padding(
+                /*Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     "$lessonStatus",
@@ -138,7 +138,7 @@ class LessonsCard extends StatelessWidget {
                     //  ),
                     //),
                   ),
-                )
+                )*/
               ],
             ),
           ),
