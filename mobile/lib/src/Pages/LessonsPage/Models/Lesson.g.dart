@@ -13,10 +13,6 @@ Lesson _$LessonFromJson(Map<String, dynamic> json) {
     json['title'] as String,
     json['description'] as String? ?? '',
     json['lessonCompleted'] as String? ?? '',
-    (json['virtualEntities'] as List<dynamic>?)
-            ?.map((e) => VirtualEntity.fromJson(e as Map<String, dynamic>))
-            .toList() ??
-        [],
   );
 }
 
@@ -25,5 +21,4 @@ Map<String, dynamic> _$LessonToJson(Lesson instance) => <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
       'lessonCompleted': instance.lessonCompleted,
-      'virtualEntities': instance.virtualEntities,
     };
