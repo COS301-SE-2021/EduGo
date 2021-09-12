@@ -48,46 +48,51 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 250),
+                    padding: const EdgeInsets.only(top: 30, left: 150),
                     child: Container(
-                      height: MediaQuery.of(context).size.height / 5,
-                      width: MediaQuery.of(context).size.width / 2,
+                      height: MediaQuery.of(context).size.height / 4,
+                      width: MediaQuery.of(context).size.width / 1.5,
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black)),
-                      //child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Text(
-                            "Here is some text about the ${snapshot.data!.title} entity",
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            softWrap: true,
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          GridView.count(
-                            //This makes 2 cards appear. So effectively
-                            //two cards per page. (2 rows, 1 card per row)
-                            childAspectRatio:
-                                MediaQuery.of(context).size.height / 20,
-                            primary: false,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            mainAxisSpacing: 5,
-                            //makes 1 cards per row
-                            crossAxisCount: 1,
-                            //Call subject card here and pass in all arguments required
-                            children: snapshot.data!.description
-                                .map(
-                                  (description) => VirtualEntityInfoCard(
-                                      description: description),
-                                )
-                                .toList(),
-                          ),
-                        ],
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                "Here is some text about the ${snapshot.data!.title} entity",
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                softWrap: true,
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                            ),
+                            GridView.count(
+                              //This makes 2 cards appear. So effectively
+                              //two cards per page. (2 rows, 1 card per row)
+                              childAspectRatio:
+                                  MediaQuery.of(context).size.height / 30,
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              mainAxisSpacing: 5,
+                              //makes 1 cards per row
+                              crossAxisCount: 1,
+                              //Call subject card here and pass in all arguments required
+                              children: snapshot.data!.description
+                                  .map(
+                                    (description) => VirtualEntityInfoCard(
+                                        description: description),
+                                  )
+                                  .toList(),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

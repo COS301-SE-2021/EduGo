@@ -24,24 +24,20 @@ class VirtualEntityInfoCard extends StatelessWidget {
     //displays info like the subject photo, subject title, subject educator
 
     return Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.green)),
+      // decoration: BoxDecoration(border: Border.all(color: Colors.green)),
       child: Column(
-        //crossAxisAlignment: CrossAxisAlignment.stretch,
-        //mainAxisAlignment: MainAxisAlignment.
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Container(
-              width: MediaQuery.of(context).size.width / 2,
-              height: MediaQuery.of(context).size.width / 16,
-              child: Container(
-                child: Text(
-                  '${description}',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                  softWrap: true,
-                ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                '${description}',
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                softWrap: true,
               ),
             ),
           ),
