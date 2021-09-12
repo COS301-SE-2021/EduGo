@@ -75,6 +75,7 @@ class LessonsCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => LessonInformationPage(
+                  //lessonVirtualEntity: this.lessonVirtualEntity,
                   lessonTitle: this.lessonTitle,
                   lessonDescription: this.lessonDescription,
                   lessonID: this.lessonID,

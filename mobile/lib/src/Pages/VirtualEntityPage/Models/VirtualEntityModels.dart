@@ -29,7 +29,8 @@ class VirtualEntity {
   @JsonKey(defaultValue: null)
   Model? model;
 
-  VirtualEntity(this.id, this.title, this.description, this.information, this.model?);
+  VirtualEntity(
+      this.id, this.title, this.description, this.information, this.model);
 
   factory VirtualEntity.fromJson(Map<String, dynamic> json) =>
       _$VirtualEntityFromJson(json);
@@ -43,7 +44,6 @@ class Model {
 
   @JsonKey(required: true)
   String thumbnail;
-
 
   Model(this.fileLink, this.thumbnail);
 

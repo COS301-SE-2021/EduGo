@@ -67,8 +67,7 @@ class SubjectCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    LessonsPage(title: this.title, subjectID: this.id),
+                builder: (context) => LessonsPage(), //use goto and Momentum
               ),
             );
           },

@@ -28,12 +28,12 @@ class LessonInformationPage extends StatefulWidget {
   //This holds the lesson description. i.e What the lesson is about
   final String lessonDescription;
 
-  final List<VirtualEntity> lessonVirtualEntity;
+  //final List<VirtualEntity> lessonVirtualEntity;
 
   //LessonPage constructor
   LessonInformationPage(
       {Key? key,
-      required this.lessonVirtualEntity,
+      //required this.lessonVirtualEntity,
       required this.lessonTitle,
       required this.lessonID,
       required this.lessonDescription})
@@ -42,7 +42,7 @@ class LessonInformationPage extends StatefulWidget {
 
   @override
   _LessonInformationPageState createState() => _LessonInformationPageState(
-        lessonVirtualEntity: this.lessonVirtualEntity,
+        //lessonVirtualEntity: this.lessonVirtualEntity,
         lessonTitle: this.lessonTitle,
         lessonID: this.lessonID,
         lessonDescription: this.lessonDescription,
@@ -53,10 +53,10 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
   final String lessonTitle;
   final int lessonID;
   final String lessonDescription;
-  final List<VirtualEntity> lessonVirtualEntity;
+  //final List<VirtualEntity> lessonVirtualEntity;
 
   _LessonInformationPageState({
-    required this.lessonVirtualEntity,
+    //required this.lessonVirtualEntity,
     required this.lessonTitle,
     required this.lessonID,
     required this.lessonDescription,

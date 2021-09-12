@@ -12,6 +12,7 @@ import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/LessonsCardWidgets.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
+import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
 import 'package:momentum/momentum.dart';
 
@@ -20,32 +21,34 @@ import 'package:momentum/momentum.dart';
  *------------------------------------------------------------------------------
  */
 
-class LessonsPage extends StatefulWidget {
+class LessonsPageParam extends RouterParam {
   //This title variable holds the subject
   //title of the card that was clicked on
-  final String title;
-
+  final int subjectID;
   //This subject ID variable holds the subject
   //id of the card that was clicked on
-  final int subjectID;
+  final String title;
+  LessonsPageParam(this.subjectID, this.title);
+}
 
+// usage
+// MomentumRouter.goto(context, HomePage, params: LessonsPageParam('Hello', 'World'));
+
+class LessonsPage extends StatefulWidget {
   //LessonPage constructor
-  LessonsPage({Key? key, required this.title, required this.subjectID})
-      : super(key: key);
+  LessonsPage({Key? key}) : super(key: key);
 
   @override
-  _LessonsPageState createState() =>
-      _LessonsPageState(title: this.title, subjectID: this.subjectID);
+  _LessonsPageState createState() => _LessonsPageState();
 }
 
 class _LessonsPageState extends State<LessonsPage> {
-  String title;
-  int subjectID;
-
-  _LessonsPageState({required this.subjectID, required this.title});
+  _LessonsPageState();
 
   @override
   Widget build(BuildContext context) {
+    final param = MomentumRouter.getParam<LessonsPageParam>(context);
+
     //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
     //the two bool represent side bar and navbar. so if true and true, them
     //the side bar and nav bar will be displayed.
@@ -68,7 +71,7 @@ class _LessonsPageState extends State<LessonsPage> {
 
           //Call the getLessonsfunction to pass in the subject id.
           //This is needed to map the lessons to the subjects in the controller
-          lessonController.getLessons(subjectID);
+          lessonController.getLessons(param!.subjectID);
 
           //Get the number of lessons for a particular subject
           int lessonsCount = lessons.lessons.length;
@@ -84,7 +87,7 @@ class _LessonsPageState extends State<LessonsPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25),
                         child: Text(
-                          title,
+                          param.title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           softWrap: false,

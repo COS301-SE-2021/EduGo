@@ -54,24 +54,17 @@ Momentum momentum({bool mock = false}) {
       //MomentumRouter is a built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
         LoginPage(), //
-        LessonsPage(
-          title: 'Mathematics',
-          subjectID: 1,
-        ),
+        LessonsPage(),
         LessonInformationPage(
           lessonTitle: 'Algebra',
           lessonID: 1,
           lessonDescription: 'Introduction to Basic Algebra',
-          lessonVirtualEntity: [],
+          //lessonVirtualEntity: [],
         ),
 
         DetectMarkerPage(),
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),
-        // LessonsPage(
-        //   title: 'Algebra',
-        //   subjectID: 1,
-        // ),
         OrganisationsPage(),
         PreferencesPage(),
         QuestionPage(),
@@ -81,8 +74,6 @@ Momentum momentum({bool mock = false}) {
         RegistrationVerificationPage(Key('registration_verification')), //
         SettingsPage(),
         SubjectsPage(),
-        // LessonInformationPage(
-        //     lessonTitle: '', lessonID: 0, lessonDescription: '')
       ]),
     ],
   );
