@@ -3,6 +3,7 @@ import 'package:mobile/src/Pages/VirtualEntityPage/Controller/VirtualEntityContr
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/View/ARWindow.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile/src/VirtualEntityInfoCard.dart';
 
 class VirtualEntityView extends StatefulWidget {
   final VirtualEntityData data;
@@ -34,12 +35,47 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
-                appBar: AppBar(
-                  title: Text('Model Name'), //Text(snapshot.data!.model!.name),
-                ),
-                body: ARWindow(
-                  uri: snapshot.data!.model!.fileLink,
-                ));
+              appBar: AppBar(
+                title: Text(snapshot.data!.title),
+              ),
+              body: Stack(
+                children: [
+                  // if(snapshot.data!.information.isNotEmpty)
+                  Container(
+                    //child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        GridView.count(
+                          //This makes 2 cards appear. So effectively
+                          //two cards per page. (2 rows, 1 card per row)
+                          childAspectRatio:
+                              MediaQuery.of(context).size.height / 520,
+                          primary: false,
+                          padding: const EdgeInsets.all(10),
+                          crossAxisSpacing: 0,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          mainAxisSpacing: 20,
+                          //makes 1 cards per row
+                          crossAxisCount: 1,
+                          //Call subject card here and pass in all arguments required
+                          children: snapshot.data!.information
+                              .map(
+                                (information) => VirtualEntityInfoCard(
+                                    information: information),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    ),
+                    //),
+                  ),
+                  ARWindow(
+                    uri: snapshot.data!.model!.fileLink,
+                  ),
+                ],
+              ),
+            );
           } else if (snapshot.hasError) {
             return Scaffold(
                 appBar: AppBar(

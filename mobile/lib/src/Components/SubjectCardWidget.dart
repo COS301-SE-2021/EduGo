@@ -42,104 +42,92 @@ class SubjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //   height: 500,
-    //   width: 280,
-
     //This is the main subject card design. It is all in a container and
     //displays info like the subject photo, subject title, subject educator
     //and how many lessons are in that subject
     return Card(
-        semanticContainer: true,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        clipBehavior: Clip.antiAlias,
-        //color: Color.fromARGB(255, 97, 211, 87),
-        color: Colors.black,
+      semanticContainer: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      clipBehavior: Clip.antiAlias,
+      //color: Color.fromARGB(255, 97, 211, 87),
+      color: Colors.black,
 
-        //This allows the card to be clickable so that when clicked,
-        // it will go to the lessons for that subject
-        child: new InkWell(
-          onTap: () {
-            //This redirects the page to the lessons page on tap
-            //and passes in the subject title, and subject id
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LessonsPage(), //use goto and Momentum
-              ),
-            );
-          },
-          child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.4), BlendMode.hue),
-                  image: NetworkImage(
-                      'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
-                  //add transparency layer: add white background for name and ahwtaver
-                  // image: AssetImage(
-                  //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
-                  fit: BoxFit.fill,
-                  //alignment: Alignment.center,
+      //This allows the card to be clickable so that when clicked,
+      // it will go to the lessons for that subject
+      child: new InkWell(
+        onTap: () {
+          //This redirects the page to the lessons page on tap
+          //and passes in the subject title, and subject id
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LessonsPage(),
+            ),
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4), BlendMode.hue),
+              image: NetworkImage(
+                  'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
+              // image: AssetImage(
+              //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+              fit: BoxFit.fill,
+            ),
+          ),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 150, left: 20),
+                  //TODO: make this text container flexible and according
+                  //to side and not have a fixed width and length
+
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.width / 12,
+                    child: Text(
+                      '$title',
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
                 ),
               ),
-              child: Column(
-                  //crossAxisAlignment: CrossAxisAlignment.stretch,
-                  //mainAxisAlignment: MainAxisAlignment.
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 150, left: 20),
-                        //TODO: make this text container flexible and according
-                        //to side and not have a fixed width and length
-
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 2,
-                          height: MediaQuery.of(context).size.width / 12,
-                          child: Text(
-                            //If there is a mark, display it.
-                            //Els display the two dashes
-                            '$title',
-                            textAlign: TextAlign.left,
-                            //textAlign: TextAlign.left,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            softWrap: true,
-
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20, left: 20),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.width / 16,
+                    child: Container(
+                      child: Text(
+                        '${educator}',
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20, left: 20),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 2,
-                          height: MediaQuery.of(context).size.width / 16,
-                          child: Container(
-                            child: Text(
-                              //If there is a mark, display it.
-                              //Els display the two dashes
-                              '${educator}',
-                              textAlign: TextAlign.left,
-                              //textAlign: TextAlign.left,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              softWrap: true,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ])),
-        ));
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
