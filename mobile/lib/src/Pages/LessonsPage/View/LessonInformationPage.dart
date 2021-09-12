@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
@@ -27,9 +28,12 @@ class LessonInformationPage extends StatefulWidget {
   //This holds the lesson description. i.e What the lesson is about
   final String lessonDescription;
 
+  final List<VirtualEntity> lessonVirtualEntity;
+
   //LessonPage constructor
   LessonInformationPage(
       {Key? key,
+      required this.lessonVirtualEntity,
       required this.lessonTitle,
       required this.lessonID,
       required this.lessonDescription})
@@ -38,6 +42,7 @@ class LessonInformationPage extends StatefulWidget {
 
   @override
   _LessonInformationPageState createState() => _LessonInformationPageState(
+        lessonVirtualEntity: this.lessonVirtualEntity,
         lessonTitle: this.lessonTitle,
         lessonID: this.lessonID,
         lessonDescription: this.lessonDescription,
@@ -48,8 +53,10 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
   final String lessonTitle;
   final int lessonID;
   final String lessonDescription;
+  final List<VirtualEntity> lessonVirtualEntity;
 
   _LessonInformationPageState({
+    required this.lessonVirtualEntity,
     required this.lessonTitle,
     required this.lessonID,
     required this.lessonDescription,

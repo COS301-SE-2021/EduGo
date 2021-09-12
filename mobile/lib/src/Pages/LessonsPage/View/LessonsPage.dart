@@ -19,6 +19,7 @@ import 'package:momentum/momentum.dart';
  *                          Lesson View Page  
  *------------------------------------------------------------------------------
  */
+
 class LessonsPage extends StatefulWidget {
   //This title variable holds the subject
   //title of the card that was clicked on

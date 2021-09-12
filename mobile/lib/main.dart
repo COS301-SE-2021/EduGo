@@ -53,15 +53,17 @@ Momentum momentum({bool mock = false}) {
       UserApiService(), HomeService(),
       //MomentumRouter is a built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
-        LessonInformationPage(
-            lessonTitle: 'Algebra',
-            lessonID: 1,
-            lessonDescription: 'Introduction to Basic Algebra'),
+        LoginPage(), //
         LessonsPage(
-          title: 'Algebra',
+          title: 'Mathematics',
           subjectID: 1,
         ),
-        LoginPage(), //
+        LessonInformationPage(
+          lessonTitle: 'Algebra',
+          lessonID: 1,
+          lessonDescription: 'Introduction to Basic Algebra',
+          lessonVirtualEntity: [],
+        ),
 
         DetectMarkerPage(),
         GradesSubjectPage(),
