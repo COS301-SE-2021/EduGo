@@ -67,137 +67,121 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
       Container(
         //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
         //child: SingleChildScrollView(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: Text(
-                  lessonTitle,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  softWrap: false,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: Text(
-                  'Lesson Description',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  softWrap: true,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.solid,
-                    decorationColor: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: Text(
-                  lessonDescription,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 10,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 50),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width / 1,
-                height: MediaQuery.of(context).size.width / 10,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: MaterialButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      side: BorderSide(color: Colors.black),
+        child: ListView(
+            padding: EdgeInsets.only(top: 50, bottom: 100, left: 40, right: 40),
+            children: [
+              Column(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  //Lesson title, aligned top left
+                  Row(children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        lessonTitle,
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      ),
                     ),
-                    onPressed: () {
-                      MomentumRouter.goto(
-                        context,
-                        QuizPage,
-                        params: QuizParam(lessonID),
-                        transition: (context, page) {
-                          return MaterialPageRoute(builder: (context) => page);
-                        },
-                      );
-                    },
-                    minWidth: 10,
-                    height: 60,
-                    child: Text(
-                      "Go to lesson quizzes",
-                      maxLines: 2,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                  ]),
+                  //Lesson description
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: Text(
+                        lessonDescription,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 10,
+                        softWrap: true,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width / 1,
-                height: MediaQuery.of(context).size.width / 10,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: MaterialButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      side: BorderSide(color: Colors.black),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetectMarkerPage()),
-                      );
-                    },
-                    minWidth: 10,
-                    height: 60,
-                    child: Text(
-                      "Go to virtual entity",
-                      maxLines: 2,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                  //Virtual entities display
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 1,
+                      height: MediaQuery.of(context).size.width / 10,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: MaterialButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            side: BorderSide(color: Colors.black),
+                          ),
+                          onPressed: () {
+                            MomentumRouter.goto(
+                              context,
+                              QuizPage,
+                              params: QuizParam(lessonID),
+                              transition: (context, page) {
+                                return MaterialPageRoute(
+                                    builder: (context) => page);
+                              },
+                            );
+                          },
+                          minWidth: 10,
+                          height: 60,
+                          child: Text(
+                            "Go to lesson quizzes",
+                            maxLines: 2,
+                            softWrap: true,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 1,
+                      height: MediaQuery.of(context).size.width / 10,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: MaterialButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            side: BorderSide(color: Colors.black),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetectMarkerPage()),
+                            );
+                          },
+                          minWidth: 10,
+                          height: 60,
+                          child: Text(
+                            "Go to virtual entity",
+                            maxLines: 2,
+                            softWrap: true,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            ]),
       ),
       'Lesson Information Page',
     );
