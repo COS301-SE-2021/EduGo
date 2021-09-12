@@ -146,7 +146,7 @@ export const virtualEntities = [1, 2, 3].map(id => {
     let virtualEntity = new VirtualEntity();
     virtualEntity.id = id;
     virtualEntity.title = `Test Virtual Entity ${id}`;
-    virtualEntity.description = `Test Description ${id}`;
+    virtualEntity.description = [];
     virtualEntity.model = {
         id: id,
         fileLink: `http://edugo.com`,
