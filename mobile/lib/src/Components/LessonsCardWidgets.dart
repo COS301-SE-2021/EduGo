@@ -59,82 +59,146 @@ class LessonsCard extends StatelessWidget {
     //This is the main lesson card design. It is all in a container and
     //displays info like the lesson title, lesson objectives and
     //the lesson
+    // return Card(
+    //   semanticContainer: true,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(10),
+    //   ),
+    //   clipBehavior: Clip.antiAlias,
+    //   color: Colors.black,
+    //   //This allows the card to be clickable so that when clicked,
+    //   // it will go to the lessons description for that lesson
+    //   child: new InkWell(
+    //     //This redirects the page to the lessons description page on tap
+    //     //and passes in the lesson description, lesson objectives and lesson title
+    //     onTap: () {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => LessonInformationPage(
+    //             lessonTitle: this.lessonTitle,
+    //             lessonDescription: this.lessonDescription,
+    //             lessonID: this.lessonID,
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //     child: Container(
+    //       child: Column(
+    //         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //         children: [
+    //           Expanded(
+    //             //   child: Container(
+    //             //     color: backgroundColour,
+    //             //     child: Align(
+    //             //       alignment: Alignment.center,
+    //             child: Padding(
+    //               padding: const EdgeInsets.only(top: 30),
+    //               child: Text(
+    //                 "$lessonTitle",
+    //                 textAlign: TextAlign.center,
+    //                 overflow: TextOverflow.ellipsis,
+    //                 maxLines: 3,
+    //                 softWrap: true,
+    //                 style: TextStyle(
+    //                     fontSize: 30,
+    //                     fontWeight: FontWeight.bold,
+    //                     color: Colors.white),
+    //                 // ),
+    //                 //),
+    //               ),
+    //             ),
+    //           ),
+    //           Expanded(
+    //             //   child: Container(
+    //             //     color: backgroundColour,
+    //             //     alignment: Alignment.center,
+    //             child: Padding(
+    //               padding: const EdgeInsets.only(top: 10),
+    //               child: Text(
+    //                 "$lessonStatus",
+    //                 textAlign: TextAlign.center,
+    //                 overflow: TextOverflow.ellipsis,
+    //                 maxLines: 3,
+    //                 softWrap: true,
+    //                 style: TextStyle(
+    //                     fontSize: 17,
+    //                     fontWeight: FontWeight.bold,
+    //                     color: Colors.white),
+    //               ),
+    //               //),
+    //             ),
+    //           )
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
     return Card(
-      semanticContainer: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      clipBehavior: Clip.antiAlias,
-      color: Colors.black,
-      //This allows the card to be clickable so that when clicked,
-      // it will go to the lessons description for that lesson
-      child: new InkWell(
-        //This redirects the page to the lessons description page on tap
-        //and passes in the lesson description, lesson objectives and lesson title
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LessonInformationPage(
-                lessonTitle: this.lessonTitle,
-                lessonDescription: this.lessonDescription,
-                lessonID: this.lessonID,
-              ),
-            ),
-          );
-        },
-        child: Container(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          child: Column(
-            children: [
-              // Expanded(
-              //   child: Container(
-              //     color: backgroundColour,
-              //     child: Align(
-              //       alignment: Alignment.center,
-              // child:
-              Padding(
-                padding: const EdgeInsets.only(top: 30),
-                child: Text(
-                  "$lessonTitle",
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                  // ),
-                  //),
+        semanticContainer: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        clipBehavior: Clip.antiAlias,
+        color: Colors.black,
+        //This allows the card to be clickable so that when clicked,
+        // it will go to the lessons description for that lesson
+        child: new InkWell(
+          //This redirects the page to the lessons description page on tap
+          //and passes in the lesson description, lesson objectives and lesson title
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LessonInformationPage(
+                  lessonTitle: this.lessonTitle,
+                  lessonDescription: this.lessonDescription,
+                  lessonID: this.lessonID,
                 ),
               ),
-              //),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: Container(
+                  color: backgroundColour,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "$lessonTitle",
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
               // Expanded(
               //   child: Container(
               //     color: backgroundColour,
               //     alignment: Alignment.center,
-              //     child:
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Text(
-                  "$lessonStatus",
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                  //  ),
-                  //),
-                ),
-              )
+              //     child: Text(
+              //       "$lessonStatus",
+              //       textAlign: TextAlign.center,
+              //       overflow: TextOverflow.ellipsis,
+              //       maxLines: 3,
+              //       softWrap: true,
+              //       style: TextStyle(
+              //           fontSize: 17,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.white),
+              //     ),
+              //   ),
+              // )
             ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
