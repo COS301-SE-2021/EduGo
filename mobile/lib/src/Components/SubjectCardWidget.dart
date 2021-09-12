@@ -5,6 +5,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                 Subject Card used in the subject page 
@@ -60,12 +61,12 @@ class SubjectCard extends StatelessWidget {
         onTap: () {
           //This redirects the page to the lessons page on tap
           //and passes in the subject title, and subject id
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LessonsPage(),
-            ),
-          );
+          // Leads to subjects page
+          MomentumRouter.goto(context, LessonsPage,
+              params: LessonsPageParam(id, title), transition: (context, page) {
+            return MaterialPageRoute(builder: (context) => page);
+          });
+          return;
         },
         child: Container(
           decoration: BoxDecoration(

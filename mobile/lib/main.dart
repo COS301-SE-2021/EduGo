@@ -59,7 +59,7 @@ Momentum momentum({bool mock = false}) {
           lessonTitle: 'Algebra',
           lessonID: 1,
           lessonDescription: 'Introduction to Basic Algebra',
-          //lessonVirtualEntity: [],
+          lessonVirtualEntity: [],
         ),
 
         DetectMarkerPage(),

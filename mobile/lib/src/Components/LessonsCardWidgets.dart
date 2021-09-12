@@ -5,6 +5,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 
 /*------------------------------------------------------------------------------
  *                  Lesson Card used in the lesson page 
@@ -26,9 +27,12 @@ class LessonsCard extends StatelessWidget {
 
   final String lessonCompleted;
 
+  //List of all VE for lesson
+  final List<VirtualEntity> lessonVirtualEntity;
 //LessonCardConstructor. Takes in 4 arguments
   LessonsCard(
-      {required this.lessonTitle,
+      {required this.lessonVirtualEntity,
+      required this.lessonTitle,
       required this.lessonID,
       required this.lessonDescription,
       required this.lessonCompleted});
@@ -75,7 +79,7 @@ class LessonsCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => LessonInformationPage(
-                  //lessonVirtualEntity: this.lessonVirtualEntity,
+                  lessonVirtualEntity: this.lessonVirtualEntity,
                   lessonTitle: this.lessonTitle,
                   lessonDescription: this.lessonDescription,
                   lessonID: this.lessonID,

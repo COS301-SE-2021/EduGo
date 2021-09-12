@@ -129,6 +129,7 @@ class _LessonsPageState extends State<LessonsPage> {
                       children: lessons.lessons
                           .map(
                             (lesson) => LessonsCard(
+                              lessonVirtualEntity: lesson.virtualEntities,
                               lessonTitle: lesson.title,
                               lessonID: lesson.id,
                               lessonDescription: lesson.description,

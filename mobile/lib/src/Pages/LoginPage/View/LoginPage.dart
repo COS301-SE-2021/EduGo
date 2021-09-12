@@ -43,10 +43,8 @@ class _LoginPageState extends State<LoginPage> {
             username: username_text_controller.text,
             password: password_text_controller.text) ==
         true) {
-      // Leads to home page
-      MomentumRouter.goto(context, SubjectsPage, // LessonsPage,
-          //params: LessonsPageParam(1, 'Mathematics'),
-          transition: (context, page) {
+      // Leads to subjects page
+      MomentumRouter.goto(context, SubjectsPage, transition: (context, page) {
         return MaterialPageRoute(builder: (context) => page);
       });
       return;
