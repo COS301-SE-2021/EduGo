@@ -14,6 +14,7 @@ import {
 	JsonController,
 	ContentType,
 } from "routing-controllers";
+import { DeleteSubjectRequest } from "../models/subject/DeleteSubjectRequest";
 
 @Service()
 @JsonController("/subject")
@@ -40,6 +41,12 @@ export class SubjectController {
 			return this.service.CreateSubject(body, id, link);
 		}
 		else throw new InternalServerError("File is invalid");
+	}
+
+	@Post('/deleteSubject')
+	@UseBefore(IsEducatorMiddleware)
+	async DeleteSubject(@Body({ required: true }) body: DeleteSubjectRequest) {
+		return this.service.DeleteSubject(body);
 	}
 
 	@Post("/getSubjectsByUser")
