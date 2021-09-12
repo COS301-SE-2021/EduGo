@@ -61,6 +61,16 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
     required this.lessonID,
     required this.lessonDescription,
   });
+  // Create numbered tabs
+  List<Widget> _tabs(int noOfTabs) {
+    List<Widget> tabs = [];
+    for (int i = 0; i < noOfTabs; i++) {
+      tabs.add(Tab(
+        text: (i + 1).toString(),
+      ));
+    }
+    return tabs;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +199,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                               ),
                               Text(
                                 "Scan QR code " +
-                                    lessonVirtualEntity.isNotEmpty.toString(),
+                                    lessonVirtualEntity.first.model!.thumbnail,
                                 style: TextStyle(color: Colors.white),
                               ),
                             ],
@@ -204,8 +214,10 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                   //Tab controller to keep the selected tab and content sections in sync.
                   DefaultTabController(
                     // The number of tabs / content sections to display.
-                    length: 3,
-                    child: Text(''),
+                    length: lessonVirtualEntity.length,
+                    child: TabBar(
+                      tabs: _tabs(lessonVirtualEntity.length),
+                    ),
                   ),
                 ],
               ),
