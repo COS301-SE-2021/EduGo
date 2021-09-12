@@ -7,7 +7,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
-import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
 import 'package:momentum/momentum.dart';
 
@@ -15,12 +14,6 @@ import 'package:momentum/momentum.dart';
  *                        Lesson details View Page 
  *------------------------------------------------------------------------------
 */
-// Pass parameters with state management
-class LessonInformationPageParam extends RouterParam {
-  final Lesson lesson;
-
-  LessonInformationPageParam(this.lesson);
-}
 
 class LessonInformationPage extends StatefulWidget {
   //This title variable holds the lesson
