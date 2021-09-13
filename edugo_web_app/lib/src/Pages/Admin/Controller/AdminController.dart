@@ -23,7 +23,8 @@ class AdminController extends MomentumController<AdminModel> {
   Future<void> makeEducatorAdmin(String username) async {
     model.update(adminLoadController: false);
     // * Send make admin request
-    var url = Uri.parse('http://34.65.226.152:8080/user/setUserToAdmin');
+    var url =
+        Uri.parse(EduGoHttpModule().getBaseUrl() + '/user/setUserToAdmin');
     await post(url,
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +45,8 @@ class AdminController extends MomentumController<AdminModel> {
   Future<void> revokeEducatorAdmin(String username) async {
     model.update(adminLoadController: false);
     // * Send make admin request
-    var url = Uri.parse('http://34.65.226.152:8080/user/revokeUserFromAdmin');
+    var url =
+        Uri.parse(EduGoHttpModule().getBaseUrl() + 'user/revokeUserFromAdmin');
     await post(url,
         headers: {
           'Content-Type': 'application/json',
@@ -75,8 +77,8 @@ class AdminController extends MomentumController<AdminModel> {
   }
 
   Future<void> getOrganisationEducators() async {
-    var url =
-        Uri.parse('http://34.65.226.152:8080/organisation/getOrganisation');
+    var url = Uri.parse(
+        EduGoHttpModule().getBaseUrl() + '/organisation/getOrganisation');
     await post(url,
         headers: {
           'Content-Type': 'application/json',
@@ -89,6 +91,7 @@ class AdminController extends MomentumController<AdminModel> {
         Map<String, dynamic> _organisation = jsonDecode(response.body);
         model.updateEducators(Users.fromJson(_organisation).users);
         model.updateEducatorsView();
+
         return;
       }
     });
@@ -120,7 +123,8 @@ class AdminController extends MomentumController<AdminModel> {
 
   Future<void> getOrganisationId(context) async {
     model.update(adminLoadController: true);
-    var url = Uri.parse('http://34.65.226.152:8080/user/getUserDetails');
+    var url =
+        Uri.parse(EduGoHttpModule().getBaseUrl() + '/user/getUserDetails');
     await http.get(
       url,
       headers: {
@@ -145,8 +149,8 @@ class AdminController extends MomentumController<AdminModel> {
   }
 
   Future<void> getOrganisationName(int id) async {
-    var url =
-        Uri.parse('http://34.65.226.152:8080/organisation/getOrganisation');
+    var url = Uri.parse(
+        EduGoHttpModule().getBaseUrl() + '/organisation/getOrganisation');
     await http
         .post(url,
             headers: {

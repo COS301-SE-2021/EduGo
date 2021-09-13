@@ -10,6 +10,7 @@ export 'dart:html'
 export 'dart:convert';
 export 'dart:typed_data';
 export 'package:edugo_web_app/src/Components/Components.dart';
+export 'package:edugo_web_app/EduGoHttpModule.dart';
 export 'package:edugo_web_app/src/Controller.dart';
 export 'package:edugo_web_app/src/Model.dart';
 export 'package:edugo_web_app/src/Pages/EduGo.dart';
