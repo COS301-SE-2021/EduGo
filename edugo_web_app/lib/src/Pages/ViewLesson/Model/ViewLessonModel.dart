@@ -32,7 +32,11 @@ class ViewLessonModel extends MomentumModel<ViewLessonController> {
         );
       },
     );
-    update(currentEntityImage: entities[0].getThumbNail());
+    if (lessonVirtualEntityCardsUpdate.isEmpty) {
+      lessonVirtualEntityCardsUpdate.add(Text('No Entities'));
+    }
+    update(
+        currentEntityImage: entities.isEmpty ? '' : entities[0].getThumbNail());
     update(lessonVirtualEntityCards: lessonVirtualEntityCardsUpdate);
   }
 

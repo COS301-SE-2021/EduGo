@@ -19,7 +19,8 @@ class ViewLessonController extends MomentumController<ViewLessonModel> {
     model.update(lessonId: id);
     model.update(lessonDescription: description);
     model.update(entities: entities);
-    model.update(currentEntityImage: entities[0].getThumbNail());
+    model.update(
+        currentEntityImage: entities.isEmpty ? '' : entities[0].getThumbNail());
     model.updateLessonVirtualEntityCards();
   }
 
@@ -60,12 +61,14 @@ class ViewLessonController extends MomentumController<ViewLessonModel> {
         body: jsonEncode(<String, int>{
           "lessonId": int.parse(model.lessonId),
           'virtualEntityId': int.parse(entityId)
-        })).then((response) {
-      //if (response.statusCode == 200) {
+        })).then(
+      (response) {
+        //if (response.statusCode == 200) {
 
-      MomentumRouter.goto(context, LessonsView);
-      return;
-      //}
-    });
+        MomentumRouter.goto(context, LessonsView);
+        return;
+        //}
+      },
+    );
   }
 }

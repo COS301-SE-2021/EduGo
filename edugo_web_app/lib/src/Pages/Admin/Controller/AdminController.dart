@@ -46,7 +46,7 @@ class AdminController extends MomentumController<AdminModel> {
     model.update(adminLoadController: false);
     // * Send make admin request
     var url =
-        Uri.parse(EduGoHttpModule().getBaseUrl() + 'user/revokeUserFromAdmin');
+        Uri.parse(EduGoHttpModule().getBaseUrl() + '/user/revokeUserFromAdmin');
     await post(url,
         headers: {
           'Content-Type': 'application/json',

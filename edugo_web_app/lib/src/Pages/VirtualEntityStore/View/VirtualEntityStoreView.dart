@@ -62,7 +62,7 @@ class VirtualEntityStoreView extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: <Widget>[
                                           Text(
-                                            "Created Virtual Entities",
+                                            "Entity Store",
                                             style: TextStyle(
                                               fontSize: 32,
                                             ),

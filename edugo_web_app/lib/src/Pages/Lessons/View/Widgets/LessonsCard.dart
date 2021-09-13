@@ -75,12 +75,14 @@ class LessonsCard extends StatelessWidget {
                             onPressed: () {
                               Momentum.controller<ViewLessonController>(context)
                                   .viewLessonDetails(
-                                      title,
-                                      description,
-                                      id.toString(),
-                                      Momentum.controller<LessonsController>(
-                                              context)
-                                          .getLessonEntities(id.toString()));
+                                title,
+                                description,
+                                id.toString(),
+                                Momentum.controller<LessonsController>(context)
+                                    .getLessonEntities(
+                                  id.toString(),
+                                ),
+                              );
                               MomentumRouter.goto(context, ViewLessonView);
                             },
                             child: Icon(
