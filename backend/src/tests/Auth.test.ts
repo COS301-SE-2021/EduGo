@@ -5,6 +5,7 @@ import request from "supertest";
 import * as Default from "./Default";
 import { anything, capture, reset, verify, when } from "ts-mockito";
 import { VerifyInvitationRequest } from "../api/models/auth/VerifyInvitationRequest";
+import { UnverifiedUser } from "../api/database/UnverifiedUser";
 
 describe("Auth API tests", () => {
 	beforeEach(() => {
@@ -340,26 +341,79 @@ describe("Auth API tests", () => {
 				.send(req)
 				.expect(404)
 				.expect("Content-Type", /json/);
-			    expect(response.body).toBeDefined();
 		});
 
-        it("should not allow verify for verified user", async () => {
+		it("should not allow verify for uninvited user", async () => {
+			const req: VerifyInvitationRequest = {
+				email: "unverifiedStudent@edugo.com",
+				verificationCode: "1234",
+			};
+
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(
+				undefined
+			);
+			when(
+				App.mockedUnverifiedUserRepository.findOne(anything())
+			).thenResolve(undefined);
+
+			const response = await request(App.app)
+				.post("/auth/verifyInvitation")
+				.set("Accept", "application/json")
+				.send(req)
+				.expect(400)
+				.expect("Content-Type", /json/);
+		});
+
+		it("should not allow verify for invalid invitation code", async () => {
+			const req: VerifyInvitationRequest = {
+				email: "unverifiedStudent@edugo.com",
+				verificationCode: "125",
+			};
+
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(
+				undefined
+			);
+			when(
+				App.mockedUnverifiedUserRepository.findOne(anything())
+			).thenResolve(Default.unverifiedStudent);
+
+			const response = await request(App.app)
+				.post("/auth/verifyInvitation")
+				.set("Accept", "application/json")
+				.send(req)
+				.expect(400)
+				.expect("Content-Type", /json/);
+			console.log(response.body);
+		});
+
+		it("should allow to verify a user", async () => {
 			const req: VerifyInvitationRequest = {
 				email: "unverifiedStudent@edugo.com",
 				verificationCode: "12345",
 			};
 
 			when(App.mockedUserRepository.findOne(anything())).thenResolve(
-				Default.studentUser
+				undefined
 			);
+			when(
+				App.mockedUnverifiedUserRepository.findOne(anything())
+			).thenResolve(Default.unverifiedStudent);
+			when(
+				App.mockedUnverifiedUserRepository
+					.createQueryBuilder()
+					.update(UnverifiedUser)
+					.set(anything())
+					.where(anything())
+					.execute()
+			).thenReturn(anything());
 
 			const response = await request(App.app)
 				.post("/auth/verifyInvitation")
 				.set("Accept", "application/json")
 				.send(req)
-				.expect(404)
+				.expect(200)
 				.expect("Content-Type", /json/);
-			    expect(response.body).toBeDefined();
+			console.log(response.body);
 		});
 	});
 });
