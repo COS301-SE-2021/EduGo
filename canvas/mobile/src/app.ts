@@ -4,10 +4,13 @@ import * as gltf from 'webgl-gltf';
 import * as camera from './camera';
 import * as renderer from './renderer';
 import * as request from './requests';
+import * as helper from './helper';
 import axios from 'axios';
 import * as socket from 'socket.io-client'
 
-const io = socket.io('http://localhost:8084');
+const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+
+const io = socket.io(BACKEND);
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 const gl: WebGLRenderingContext = canvas.getContext('webgl')!;
@@ -105,7 +108,7 @@ const init = async (url: string) => {
     const uniforms = defaultShaders.getUniformLocations(gl, program);
 
     const environment = await cubemap.load(gl);
-    const model = await gltf.loadModel(gl, url);
+    const model = await gltf.loadModel(gl, helper.getGltfLink(url));
 
     cubemap.bind(gl, environment, uniforms.brdfLut, uniforms.environmentDiffuse, uniforms.environmentSpecular);
 
