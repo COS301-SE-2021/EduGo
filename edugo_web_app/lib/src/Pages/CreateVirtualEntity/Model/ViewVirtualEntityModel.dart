@@ -6,11 +6,13 @@ class ViewVirtualEntityModel
   final String description;
   final String virtualEntityId;
   final String viewEntityLink;
+  final bool public;
 
   ViewVirtualEntityModel(
     ViewVirtualEntityController controller, {
     this.name,
     this.virtualEntityId,
+    this.public,
     this.description,
     this.viewEntityLink,
   }) : super(controller);
@@ -31,11 +33,21 @@ class ViewVirtualEntityModel
     update(viewEntityLink: link);
   }
 
+  void setVirtualEntityBool(bool public) {
+    update(public: public);
+  }
+
   @override
-  void update({name, description, virtualEntityId, viewEntityLink}) {
+  void update(
+      {String name,
+      String description,
+      String virtualEntityId,
+      String viewEntityLink,
+      bool public}) {
     ViewVirtualEntityModel(
       controller,
       virtualEntityId: virtualEntityId ?? this.virtualEntityId,
+      public: public ?? this.public,
       name: name ?? this.name,
       description: description ?? this.description,
       viewEntityLink: viewEntityLink ?? this.viewEntityLink,

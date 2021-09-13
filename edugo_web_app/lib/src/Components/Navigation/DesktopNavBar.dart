@@ -1,5 +1,6 @@
 // * General Desktop Navigation applied on most of the pages inside the web app, for devices with bigger screens
 
+import 'package:edugo_web_app/main.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class DesktopNavBar extends StatelessWidget {
@@ -123,9 +124,12 @@ class DesktopNavBar extends StatelessWidget {
                   MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: GestureDetector(
-                      child: Icon(Icons.settings_outlined,
+                      child: Icon(Icons.logout_outlined,
                           size: 30, color: Colors.white),
-                      onTap: () {},
+                      onTap: () async {
+                        await MomentumRouter.resetWithContext<Home>(context);
+                        Momentum.restart(context, momentum());
+                      },
                     ),
                   )
                 ],

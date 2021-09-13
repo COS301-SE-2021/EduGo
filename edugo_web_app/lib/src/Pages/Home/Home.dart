@@ -2,6 +2,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'Components/HomeComponents.dart';
 
 class Home extends StatelessWidget {
+  Home() : super(key: Key("HomeView"));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,7 @@ class Home extends StatelessWidget {
               HomeNavigation(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60),
-                child: Content(),
+                child: HomeContent(),
               ),
               HomeFooter()
             ],

@@ -6,9 +6,11 @@ class SubjectsModel extends MomentumModel<SubjectsController> {
   final List<Subject> subjects;
   final List<Widget> subjectCards;
 
-  SubjectsModel(SubjectsController controller,
-      {this.subjects, this.subjectCards})
-      : super(controller);
+  SubjectsModel(
+    SubjectsController controller, {
+    this.subjects,
+    this.subjectCards,
+  }) : super(controller);
 
 // Info: Update list of subjects
   void updateSubjects(List<Subject> subjectsUpdate) {
@@ -30,7 +32,9 @@ class SubjectsModel extends MomentumModel<SubjectsController> {
         );
       },
     );
-
+    if (subjects.isEmpty) {
+      subjectCardsUpdate.add(Text("No Subjects"));
+    }
     update(subjectCards: subjectCardsUpdate);
   }
 

@@ -33,7 +33,8 @@ class InviteStudentsController extends MomentumController<InviteStudentsModel> {
 
   Future<String> sendInvitations(context) async {
     model.update(inviteResponse: "");
-    var url = Uri.parse('http://34.65.226.152:8080/user/addStudentsToSubject');
+    var url = Uri.parse(
+        EduGoHttpModule().getBaseUrl() + '/user/addStudentsToSubject');
     await post(
       url,
       headers: {

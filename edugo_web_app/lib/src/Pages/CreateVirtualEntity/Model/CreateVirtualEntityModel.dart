@@ -1,20 +1,24 @@
 import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/Data/ArModel.dart';
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/VirtualEntityInfoAdderCard.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateVirtualEntityModel
     extends MomentumModel<CreateVirtualEntityController> {
   final String name;
-  final String description;
   final String modelLink;
   final ArModel arModel;
   final bool loadingModelLink;
   final bool creatingEntityLoader;
   final String createEntityResponse;
-
+  final String currentInfoInput;
+  final List<String> informationString;
+  final List<Widget> informationCards;
   CreateVirtualEntityModel(CreateVirtualEntityController controller,
       {this.name,
-      this.description,
+      this.currentInfoInput,
+      this.informationCards,
       this.loadingModelLink,
+      this.informationString,
       this.modelLink,
       this.arModel,
       this.createEntityResponse,
@@ -25,30 +29,15 @@ class CreateVirtualEntityModel
     update(name: inName);
   }
 
-  void setCreateVirtualEntityDescription(String inDescription) {
-    update(description: inDescription);
+  void setCreateVirtualEntityDescription() {
+    List<String> stringArr = [];
+    stringArr = informationString;
+    stringArr.add(currentInfoInput);
+    update(informationString: stringArr);
   }
 
   void setCreateVirtualEntityModelLink(String inModelLink) {
     update(modelLink: inModelLink);
-  }
-
-  void setFileSize(int size) {
-    ArModel modelClone = arModel;
-    modelClone.setFileSize(size);
-    update(arModel: modelClone);
-  }
-
-  void setFileType(String type) {
-    ArModel modelClone = arModel;
-    modelClone.setFileType(type);
-    update(arModel: modelClone);
-  }
-
-  void setFileName(String name) {
-    ArModel modelClone = arModel;
-    modelClone.setFileName(name);
-    update(arModel: modelClone);
   }
 
   void clearLinkTo3DModel() {
@@ -59,28 +48,52 @@ class CreateVirtualEntityModel
     return name;
   }
 
-  String getCreateVirtualEntityDescription() {
-    return description;
+  void getInfoView() {
+    List<Widget> infoCards = [];
+    int id = 0;
+    infoCards.add(
+      SizedBox(
+        height: 20,
+      ),
+    );
+    informationString.forEach(
+      (email) {
+        infoCards.add(VirtualEntityInfoAdderCard(infoId: id, infoValue: email));
+        infoCards.add(
+          SizedBox(
+            height: 20,
+          ),
+        );
+        id++;
+      },
+    );
+
+    update(informationCards: infoCards);
   }
 
   @override
   void update(
-      {modelLink,
-      name,
-      description,
-      arModel,
-      loadingModelLink,
-      createEntityResponse,
-      creatingEntityLoader}) {
-    CreateVirtualEntityModel(
-      controller,
-      name: name ?? this.name,
-      modelLink: modelLink ?? this.modelLink,
-      description: description ?? this.description,
-      arModel: arModel ?? this.arModel,
-      loadingModelLink: loadingModelLink ?? this.loadingModelLink,
-      createEntityResponse: createEntityResponse ?? this.createEntityResponse,
-      creatingEntityLoader: creatingEntityLoader ?? this.creatingEntityLoader,
-    ).updateMomentum();
+      {String modelLink,
+      String name,
+      List<String> informationString,
+      ArModel arModel,
+      bool loadingModelLink,
+      String createEntityResponse,
+      bool creatingEntityLoader,
+      String currentInfoInput,
+      List<Widget> informationCards}) {
+    CreateVirtualEntityModel(controller,
+            name: name ?? this.name,
+            informationString: informationString ?? this.informationString,
+            modelLink: modelLink ?? this.modelLink,
+            arModel: arModel ?? this.arModel,
+            loadingModelLink: loadingModelLink ?? this.loadingModelLink,
+            createEntityResponse:
+                createEntityResponse ?? this.createEntityResponse,
+            creatingEntityLoader:
+                creatingEntityLoader ?? this.creatingEntityLoader,
+            currentInfoInput: currentInfoInput ?? this.currentInfoInput,
+            informationCards: informationCards ?? this.informationCards)
+        .updateMomentum();
   }
 }

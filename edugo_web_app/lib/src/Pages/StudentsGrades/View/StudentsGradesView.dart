@@ -1,19 +1,18 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/Pages/StudentsGrades/View/Widgets/StudentsGradesWidgets.dart';
 
 class StudentsGradesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Info: Getting educator lessons from API
-    // Momentum.controller<LessonsController>(context).getSubjectLessons(context);
+    Momentum.controller<StudentsGradesController>(context)
+        .getEducatorGrades(context);
 
     //Info: Buiding lessons user interface
     return MomentumBuilder(
-        controllers: [LessonsController],
+        controllers: [StudentsGradesController],
         builder: (context, snapshot) {
           //Info: reading lesson cards from model
-          // var educatorLessons = snapshot<LessonsModel>();
-          List<String> mock = ["1", "2", "3", "4"];
+          var educatorGrades = snapshot<StudentsGradesModel>();
           //Info: rendering lesson cards
           return PageLayout(
             top: 0,
@@ -29,82 +28,79 @@ class StudentsGradesView extends StatelessWidget {
                     ),
                     children: <Widget>[
                       StickyHeader(
-                          header: Material(
-                            elevation: 40,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              padding: EdgeInsets.only(
-                                  right: 50, left: 100, top: 25, bottom: 25),
-                              child: Column(
-                                children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        "Student Progress",
-                                        style: TextStyle(
-                                          fontSize: 32,
-                                        ),
+                        header: Material(
+                          elevation: 40,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            padding: EdgeInsets.only(
+                                right: 50, left: 100, top: 25, bottom: 25),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Student Progress",
+                                      style: TextStyle(
+                                        fontSize: 32,
                                       ),
-                                      Spacer(),
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: DropdownButton<String>(
-                                          hint: Text("Filter by subject"),
-                                          icon:
-                                              const Icon(Icons.arrow_drop_down),
-                                          iconSize: 40,
-                                          underline: Container(
-                                            height: 2,
-                                            color: Color.fromARGB(
-                                                255, 97, 211, 87),
-                                          ),
-                                          elevation: 20,
-                                          onChanged: (String name) {},
-                                          items: mock
-                                              .map<DropdownMenuItem<String>>(
-                                            (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: SizedBox(
-                                                  width: ScreenUtil()
-                                                      .setWidth(300),
-                                                  child: Text(
-                                                    value,
-                                                    overflow:
-                                                        TextOverflow.visible,
-                                                  ),
+                                    ),
+                                    Spacer(),
+                                    Align(
+                                      alignment: Alignment.topLeft,
+                                      child: DropdownButton<String>(
+                                        hint: Text("Filter by subject"),
+                                        icon: const Icon(Icons.arrow_drop_down),
+                                        iconSize: 40,
+                                        underline: Container(
+                                          height: 2,
+                                          color:
+                                              Color.fromARGB(255, 97, 211, 87),
+                                        ),
+                                        elevation: 20,
+                                        onChanged: (String name) {
+                                          Momentum.controller<
+                                                      StudentsGradesController>(
+                                                  context)
+                                              .selectSubject(name: name);
+                                        },
+                                        items: educatorGrades.subjectsStrings
+                                            .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value:
+                                                  educatorGrades.currentSubject,
+                                              child: SizedBox(
+                                                width:
+                                                    ScreenUtil().setWidth(300),
+                                                child: Text(
+                                                  value,
+                                                  overflow:
+                                                      TextOverflow.visible,
                                                 ),
-                                              );
-                                            },
-                                          ).toList(),
-                                        ),
+                                              ),
+                                            );
+                                          },
+                                        ).toList(),
                                       ),
-                                    ],
-                                  )
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
-                          content: ListView(
-                            physics: NeverScrollableScrollPhysics(),
-                            primary: false,
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.only(
-                                right: 30, left: 30, top: 50, bottom: 80),
-                            children: [
-                              StudentsGradesCard(
-                                grade: 10,
-                                name: "noah",
-                              ),
-                              StudentsGradesCard(
-                                grade: 50,
-                                name: "tshepo",
-                              )
-                            ],
-                          )),
+                        ),
+                        content: ListView(
+                          physics: NeverScrollableScrollPhysics(),
+                          primary: false,
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(
+                              right: 30, left: 30, top: 50, bottom: 80),
+                          children: educatorGrades.studentCards,
+                        ),
+                      ),
                     ],
                   ),
                 ),

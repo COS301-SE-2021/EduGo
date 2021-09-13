@@ -6,50 +6,53 @@ void main() {
     return Container();
   };
   //* Wrapping the App in a Momentum instance for state and MVC Management
-  runApp(
-    Momentum(
-      //* controllers used withing the application
-      controllers: [
-        AdminController(),
-        CreateLessonController(),
-        CreateOrganisationController(),
-        CreateSubjectController(),
-        CreateVirtualEntityController(),
-        InviteEducatorsController(),
-        InviteStudentsController(),
-        LessonsController(),
-        SubjectsController(),
-        QuizBuilderController(),
-        VirtualEntityStoreController(),
-        ViewVirtualEntityController(),
-        LogInController(),
-        ViewLessonController()
-      ],
-      services: [
-        MomentumRouter(
-          [
-            //* All pages that the Router is going to use
-            Home(),
-            AdminView(),
-            InviteEducatorsView(),
-            ViewLessonView(),
-            VirtualEntityStoreView(),
-            ViewVirtualEntityView(),
-            InviteStudentsView(),
-            CreateVirtualEntityView(),
-            CreateSubjectView(),
-            SubjectsView(),
-            CreateLessonView(),
-            LessonsView(),
-            LogInView(),
-            CreateOrganisationView(),
-            StudentsGradesView()
-          ],
-        ),
-      ],
-      //* App Widget to be rendered
-      child: MyApp(),
-    ),
+  runApp(momentum());
+}
+
+Momentum momentum() {
+  return Momentum(
+    //* controllers used withing the application
+    controllers: [
+      AdminController(),
+      CreateLessonController(),
+      CreateOrganisationController(),
+      CreateSubjectController(),
+      CreateVirtualEntityController(),
+      InviteEducatorsController(),
+      InviteStudentsController(),
+      LessonsController(),
+      SubjectsController(),
+      QuizBuilderController(),
+      VirtualEntityStoreController(),
+      ViewVirtualEntityController(),
+      LogInController(),
+      ViewLessonController(),
+      StudentsGradesController()
+    ],
+    services: [
+      MomentumRouter(
+        [
+          //* All pages that the Router is going to use
+          Home(),
+          AdminView(),
+          InviteEducatorsView(),
+          ViewLessonView(),
+          VirtualEntityStoreView(),
+          ViewVirtualEntityView(),
+          InviteStudentsView(),
+          CreateVirtualEntityView(),
+          CreateSubjectView(),
+          SubjectsView(),
+          CreateLessonView(),
+          LessonsView(),
+          LogInView(),
+          CreateOrganisationView(),
+          StudentsGradesView()
+        ],
+      ),
+    ],
+    //* App Widget to be rendered
+    child: MyApp(),
   );
 }
 

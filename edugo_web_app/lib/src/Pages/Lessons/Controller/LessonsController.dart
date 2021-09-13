@@ -1,5 +1,6 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/Lessons/Model/Data/Lessons.dart';
+import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntity.dart';
 
 class LessonsController extends MomentumController<LessonsModel> {
   @override
@@ -9,7 +10,8 @@ class LessonsController extends MomentumController<LessonsModel> {
 
 // Info: Get all lessons created by the educator
   Future<void> getSubjectLessons(context) async {
-    var url = Uri.parse('http://34.65.226.152:8080/lesson/getLessonsBySubject');
+    var url = Uri.parse(
+        EduGoHttpModule().getBaseUrl() + '/lesson/getLessonsBySubject');
     await post(url,
         headers: {
           'Content-Type': 'application/json',
@@ -27,5 +29,18 @@ class LessonsController extends MomentumController<LessonsModel> {
         return;
       }
     });
+  }
+
+  List<VirtualEntity> getLessonEntities(String id) {
+    List<VirtualEntity> list = [];
+    model.lessons.forEach(
+      (lesson) {
+        if (lesson.getLessonId().toString() == id) {
+          list = lesson.getLessonEntities();
+          return;
+        }
+      },
+    );
+    return list;
   }
 }

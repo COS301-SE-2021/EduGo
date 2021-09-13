@@ -6,33 +6,42 @@ class CreateVirtualEntityController
   @override
   CreateVirtualEntityModel init() {
     return CreateVirtualEntityModel(this,
-        modelLink: "", arModel: new ArModel());
+        modelLink: "",
+        arModel: new ArModel(),
+        informationString: [],
+        informationCards: []);
   }
 
   void inputName(String name) {
     model.setCreateVirtualEntityName(name);
-    ArModel modelClone = model.arModel;
-    modelClone.setName(name);
-    model.update(arModel: modelClone);
   }
 
-  void inputDescription(String description) {
-    model.setCreateVirtualEntityDescription(description);
-    ArModel modelClone = model.arModel;
-    modelClone.setDescription(description);
-    model.update(arModel: modelClone);
+  void inputDescription() {
+    model.setCreateVirtualEntityDescription();
+    getInfoView();
+  }
+
+  void removeInfo({int infoId}) {
+    List<String> tempString = model.informationString;
+    tempString.removeAt(infoId);
+    model.update(informationString: tempString);
+    getInfoView();
   }
 
   void upload3dModel(context) {
     startWebFilePicker(context);
   }
 
+  void inputInfo({String infoValue}) {
+    model.update(currentInfoInput: infoValue);
+  }
+
   String getName() {
     return model.getCreateVirtualEntityName();
   }
 
-  String getDescription() {
-    return model.getCreateVirtualEntityDescription();
+  void getInfoView() {
+    model.getInfoView();
   }
 
   void clearLinkTo3DModel() {
@@ -55,26 +64,25 @@ class CreateVirtualEntityController
     uploadInput.draggable = true;
     uploadInput.click();
 
-    uploadInput.onChange.listen((e) {
-      final files = uploadInput.files;
-      final file = files[0];
-      final reader = new FileReader();
+    uploadInput.onChange.listen(
+      (e) {
+        final files = uploadInput.files;
+        final file = files[0];
+        final reader = new FileReader();
 
-      reader.readAsDataUrl(file);
+        reader.readAsDataUrl(file);
 
-      reader.onLoadEnd.listen((e) async {
-        _handleResult(reader.result);
-        filename = file.name;
-
-        await send3DModelToStorage(
-          context,
-        ).then((value) {
-          model.setFileName(file.name);
-          model.setFileSize(file.size);
-          model.setFileType(file.type);
-        });
-      });
-    });
+        reader.onLoadEnd.listen(
+          (e) async {
+            _handleResult(reader.result);
+            filename = file.name;
+            send3DModelToStorage(
+              context,
+            );
+          },
+        );
+      },
+    );
   }
 
 //*********************************************************************************************
@@ -95,7 +103,8 @@ class CreateVirtualEntityController
   Future<void> send3DModelToStorage(context) async {
     String linkTo3DModel;
     model.update(loadingModelLink: true);
-    var url = Uri.parse("http://34.65.226.152:8080/virtualEntity/uploadModel");
+    var url = Uri.parse(
+        EduGoHttpModule().getBaseUrl() + "/virtualEntity/uploadModel");
 
     var request = new MultipartRequest(
       "POST",
@@ -117,10 +126,12 @@ class CreateVirtualEntityController
           (response) {
             if (response.statusCode == 200) {
               Map<String, dynamic> _decoded3DModel = jsonDecode(response.body);
-              linkTo3DModel = _decoded3DModel['file_link'];
+              linkTo3DModel = _decoded3DModel['fileLink'];
+              String thumbNailString = _decoded3DModel["thumbnail"];
               model.setCreateVirtualEntityModelLink(linkTo3DModel);
               ArModel modelClone = model.arModel;
               modelClone.setFileLink(linkTo3DModel);
+              modelClone.setPreviewImage(thumbNailString);
               model.update(arModel: modelClone);
               model.update(loadingModelLink: false);
             }
@@ -133,7 +144,7 @@ class CreateVirtualEntityController
   Future createVirtualEntity(context) async {
     model.update(creatingEntityLoader: true);
     var url = Uri.parse(
-        'http://34.65.226.152:8080/virtualEntity/createVirtualEntity');
+        EduGoHttpModule().getBaseUrl() + '/virtualEntity/createVirtualEntity');
     await post(
       url,
       headers: {
@@ -144,7 +155,7 @@ class CreateVirtualEntityController
       body: jsonEncode(
         <String, dynamic>{
           "title": model.name,
-          "description": model.description,
+          "description": model.informationString,
           "quiz": Momentum.controller<QuizBuilderController>(context)
               .getQuizBuilderResult(),
           "model": model.arModel.toJson()

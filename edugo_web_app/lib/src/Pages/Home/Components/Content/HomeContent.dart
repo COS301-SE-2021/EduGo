@@ -1,6 +1,7 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class Content extends StatelessWidget {
+class HomeContent extends StatelessWidget {
+  HomeContent() : super(key: Key("HomeContent"));
   List<Widget> pageChildren(double width, context) {
     return <Widget>[
       Container(

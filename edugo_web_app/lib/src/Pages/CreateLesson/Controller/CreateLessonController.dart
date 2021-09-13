@@ -18,7 +18,8 @@ class CreateLessonController extends MomentumController<CreateLessonModel> {
 
   Future<String> createLesson(context) async {
     model.update(createLessonLoadController: false);
-    var url = Uri.parse('http://34.65.226.152:8080/lesson/createLesson');
+    var url =
+        Uri.parse(EduGoHttpModule().getBaseUrl() + '/lesson/createLesson');
     await post(
       url,
       headers: {

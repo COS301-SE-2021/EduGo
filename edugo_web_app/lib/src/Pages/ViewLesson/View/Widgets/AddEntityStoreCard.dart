@@ -1,17 +1,21 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class VirtualEntitiesStoreCard extends StatelessWidget {
+class AddEntityStoreCard extends StatelessWidget {
   //Info: Virtual Entities Store Card attributes
   final String name;
-  final int virtualEntityId;
   final String virtualEntityDescription;
-  final bool public;
+  final Function addFunction;
+  final Function viewFunction;
+  final String thumbNailLink;
+  final String id;
 
-  VirtualEntitiesStoreCard({
+  AddEntityStoreCard({
+    this.id,
     this.name,
-    this.public,
-    this.virtualEntityId,
     this.virtualEntityDescription,
+    this.addFunction,
+    this.viewFunction,
+    this.thumbNailLink,
   });
 
   @override
@@ -67,13 +71,10 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
                           fontSize: 18),
                     ),
                     onPressed: () {
-                      Momentum.controller<ViewVirtualEntityController>(context)
-                          .reset();
-                      Momentum.controller<ViewVirtualEntityController>(context)
-                          .viewEntity(name, virtualEntityDescription,
-                              virtualEntityId.toString(), public, context);
-
-                      MomentumRouter.goto(context, ViewVirtualEntityView);
+                      viewFunction(
+                          name: name,
+                          description: virtualEntityDescription,
+                          id: id);
                     },
                   ),
                 ],

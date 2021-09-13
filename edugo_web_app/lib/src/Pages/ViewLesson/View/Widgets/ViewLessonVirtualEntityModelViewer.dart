@@ -4,20 +4,20 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'dart:ui' as ui;
 
-class ViewVirtualEntityModelViewer extends StatefulWidget {
+class ViewLessonVirtualEntityModelViewer extends StatefulWidget {
   @override
-  _ViewVirtualEntityModelViewerState createState() =>
-      _ViewVirtualEntityModelViewerState();
+  _ViewLessonVirtualEntityModelViewerState createState() =>
+      _ViewLessonVirtualEntityModelViewerState();
 }
 
-class _ViewVirtualEntityModelViewerState
-    extends State<ViewVirtualEntityModelViewer> {
+class _ViewLessonVirtualEntityModelViewerState
+    extends State<ViewLessonVirtualEntityModelViewer> {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
-        controllers: [ViewVirtualEntityController],
+        controllers: [ViewLessonController],
         builder: (context, snapshot) {
-          var entity = snapshot<ViewVirtualEntityModel>();
+          var entity = snapshot<ViewLessonModel>();
           String modelview = "<html>" +
               "   <head>" +
               "        <meta charset=\"UTF-8\">" +
@@ -29,14 +29,14 @@ class _ViewVirtualEntityModelViewerState
               "<body>" +
               "" +
               "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
-              entity.viewEntityLink +
+              entity.currentEntityImage +
               "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
               "" +
               "</body>" +
               "</html>";
           // ignore: undefined_prefixed_name
           ui.platformViewRegistry.registerViewFactory(
-              'edugo_view_model_viewer' + entity.viewEntityLink,
+              'edugo_view_model_viewer' + entity.currentEntityImage,
               (int viewId) => IFrameElement()
                 ..width = '300'
                 ..height = "360"
@@ -50,7 +50,7 @@ class _ViewVirtualEntityModelViewerState
                 height: 360,
                 child: HtmlElementView(
                     viewType:
-                        'edugo_view_model_viewer' + entity.viewEntityLink)),
+                        'edugo_view_model_viewer' + entity.currentEntityImage)),
           );
         });
   }

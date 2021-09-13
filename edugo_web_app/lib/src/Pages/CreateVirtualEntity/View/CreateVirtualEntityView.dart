@@ -325,189 +325,184 @@ class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
               if (snapshot.hasData)
                 return FocusWatcher(
                   child: PageLayout(
-                    top: 0,
-                    left: 80,
-                    right: 80,
-                    child:
-                        //* Content Container
-                        ListView(
-                      padding: EdgeInsets.only(
-                          top: 50, bottom: 70, left: 30, right: 30),
-                      children: [
-                        Form(
-                          key: _createEntityFormKey,
-                          child: Column(
-                            children: [
-                              Material(
-                                elevation: 40,
-                                borderRadius: BorderRadius.circular(10),
-                                shadowColor: Colors.green,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: EdgeInsets.only(left: 50, right: 50),
-                                  child: Row(
-                                    children: [
-                                      DesktopLeftContainer(
-                                          createEntityparentFormKey:
-                                              _createEntityFormKey),
-                                      Spacer(),
-                                      Container(
-                                        width: ScreenUtil().setWidth(400),
-                                        height: 500,
-                                        child: FutureBuilder(
-                                          future: linkLoaded,
-                                          builder: (BuildContext context,
-                                              AsyncSnapshot<String> snapshot) {
-                                            if (snapshot.hasData)
-                                              return DesktopRightContainer();
-                                            return Scaffold(
-                                              body: Center(
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    SizedBox(
-                                                      height: 100,
-                                                      width: 100,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        valueColor:
-                                                            new AlwaysStoppedAnimation<
-                                                                    Color>(
+                      top: 0,
+                      left: 80,
+                      right: 80,
+                      child:
+                          //* Content Container
+                          Form(
+                        key: _createEntityFormKey,
+                        child: ListView(
+                          padding: EdgeInsets.only(
+                              top: 50, bottom: 70, left: 30, right: 30),
+                          children: [
+                            Material(
+                              elevation: 40,
+                              borderRadius: BorderRadius.circular(10),
+                              shadowColor: Colors.green,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.only(left: 50, right: 50),
+                                child: Row(
+                                  children: [
+                                    DesktopLeftContainer(
+                                        createEntityParentFormKey:
+                                            _createEntityFormKey),
+                                    Spacer(),
+                                    Container(
+                                      width: ScreenUtil().setWidth(400),
+                                      height: 500,
+                                      child: FutureBuilder(
+                                        future: linkLoaded,
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<String> snapshot) {
+                                          if (snapshot.hasData)
+                                            return DesktopRightContainer();
+                                          return Scaffold(
+                                            body: Center(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 100,
+                                                    width: 100,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          new AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                              Color.fromARGB(
+                                                                  255,
+                                                                  97,
+                                                                  211,
+                                                                  87)),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 50,
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        "Rendering ",
+                                                        style: TextStyle(
+                                                            fontSize: 28),
+                                                      ),
+                                                      Text(
+                                                        "3D mo",
+                                                        style: TextStyle(
+                                                            color:
                                                                 Color.fromARGB(
                                                                     255,
                                                                     97,
                                                                     211,
-                                                                    87)),
+                                                                    87),
+                                                            fontSize: 28),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 50,
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          "Rendering ",
-                                                          style: TextStyle(
-                                                              fontSize: 28),
-                                                        ),
-                                                        Text(
-                                                          "3D mo",
-                                                          style: TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      97,
-                                                                      211,
-                                                                      87),
-                                                              fontSize: 28),
-                                                        ),
-                                                        Text(
-                                                          "del...",
-                                                          style: TextStyle(
-                                                              fontSize: 28),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
+                                                      Text(
+                                                        "del...",
+                                                        style: TextStyle(
+                                                            fontSize: 28),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
                                               ),
-                                            );
-                                          },
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 70,
+                            ),
+                            Material(
+                              elevation: 40,
+                              shadowColor: Colors.green,
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.all(50),
+                                child: Column(
+                                  children: [
+                                    QuizBuilder(
+                                        createQuizFormKey: _createQuizFormKey),
+                                    SizedBox(
+                                      height: 40,
+                                    ),
+                                    VirtualEntityButton(
+                                        elevation: 40,
+                                        child: Text(
+                                          "Create Virtual Entity",
+                                          style: TextStyle(color: Colors.white),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 70,
-                              ),
-                              Material(
-                                elevation: 40,
-                                shadowColor: Colors.green,
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: EdgeInsets.all(50),
-                                  child: Column(
-                                    children: [
-                                      QuizBuilder(
-                                          createQuizFormKey:
-                                              _createQuizFormKey),
-                                      SizedBox(
-                                        height: 40,
-                                      ),
-                                      VirtualEntityButton(
-                                          elevation: 40,
-                                          child: Text(
-                                            "Create Virtual Entity",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          onPressed: () {
-                                            if (createEntity
-                                                .modelLink.isEmpty) {
-                                              _uploadModelError();
-                                              _createEntityFormKey.currentState
-                                                  .validate();
-                                              _createQuizFormKey.currentState
-                                                  .validate();
-                                              return;
-                                            }
+                                        onPressed: () {
+                                          if (createEntity.modelLink.isEmpty) {
+                                            _uploadModelError();
+                                            _createEntityFormKey.currentState
+                                                .validate();
+                                            _createQuizFormKey.currentState
+                                                .validate();
+                                            return;
+                                          }
 
-                                            if (!Momentum.controller<
-                                                        QuizBuilderController>(
+                                          if (!Momentum.controller<
+                                                      QuizBuilderController>(
+                                                  context)
+                                              .validateQuiz(
+                                                  _createQuizFormKey)) {
+                                            _invalidQuizError();
+                                            return;
+                                          }
+                                          if (_createEntityFormKey.currentState
+                                                  .validate() &&
+                                              _createQuizFormKey.currentState
+                                                  .validate())
+                                            Momentum.controller<
+                                                        CreateVirtualEntityController>(
                                                     context)
-                                                .validateQuiz(
-                                                    _createQuizFormKey)) {
-                                              _invalidQuizError();
-                                              return;
-                                            }
-                                            if (_createEntityFormKey
-                                                    .currentState
-                                                    .validate() &&
-                                                _createQuizFormKey.currentState
-                                                    .validate())
-                                              Momentum.controller<
-                                                          CreateVirtualEntityController>(
-                                                      context)
-                                                  .createVirtualEntity(context)
-                                                  .then(
-                                                (value) {
-                                                  if (value ==
-                                                      "Virtual Entity Created") {
-                                                    _virtualEntityCreated();
-                                                  } else {
-                                                    _virtualEntityNotCreated();
-                                                  }
-                                                },
-                                              );
-                                          },
-                                          width: 450,
-                                          height: 65),
-                                    ],
-                                  ),
+                                                .createVirtualEntity(context)
+                                                .then(
+                                              (value) {
+                                                if (value ==
+                                                    "Virtual Entity Created") {
+                                                  _virtualEntityCreated();
+                                                  Momentum.controller<
+                                                              CreateVirtualEntityController>(
+                                                          context)
+                                                      .reset();
+                                                } else {
+                                                  _virtualEntityNotCreated();
+                                                }
+                                              },
+                                            );
+                                        },
+                                        width: 450,
+                                        height: 65),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                            ),
+                          ],
+                        ),
+                      )),
                 );
               return Scaffold(
                 body: Center(

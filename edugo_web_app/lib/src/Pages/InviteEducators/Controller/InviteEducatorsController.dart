@@ -25,7 +25,7 @@ class InviteEducatorsController
 
   Future<String> sendInvitations(context) async {
     model.update(inviteResponse: "");
-    var url = Uri.parse('http://34.65.226.152:8080/user/addEducators');
+    var url = Uri.parse(EduGoHttpModule().getBaseUrl() + '/user/addEducators');
     await post(
       url,
       headers: {
@@ -44,6 +44,7 @@ class InviteEducatorsController
           return "Invitations sent";
         }
         model.update(inviteResponse: "Invitations not sent");
+        print(response.body);
         return "Invitations not sent";
       },
     );

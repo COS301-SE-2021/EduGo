@@ -2,6 +2,7 @@ import 'package:edugo_web_app/src/Pages/CreateOrganisation/View/Components/Creat
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateOrganisationView extends StatelessWidget {
+  CreateOrganisationView() : super(key: Key("CreateOrganisationView"));
   @override
   Widget build(BuildContext context) {
     return Scaffold(

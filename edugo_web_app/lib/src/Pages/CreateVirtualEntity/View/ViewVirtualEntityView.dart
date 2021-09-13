@@ -79,10 +79,7 @@ class ViewVirtualEntityView extends StatelessWidget {
                                       builder: (BuildContext context,
                                           AsyncSnapshot<String> snapshot) {
                                         if (snapshot.hasData)
-                                          return ViewVirtualEntityModelViewer(
-                                            viewEntityLink:
-                                                entity.viewEntityLink,
-                                          );
+                                          return ViewVirtualEntityModelViewer();
                                         return Scaffold(
                                           body: Center(
                                             child: Column(
@@ -152,15 +149,18 @@ class ViewVirtualEntityView extends StatelessWidget {
                                       MouseRegion(
                                         cursor: SystemMouseCursors.click,
                                         child: SlidingSwitch(
-                                          value: false,
+                                          value: entity.public,
                                           width: 250,
-                                          onChanged: (bool value) {},
+                                          onChanged: (bool value) {
+                                            Momentum.controller<
+                                                        ViewVirtualEntityController>(
+                                                    context)
+                                                .makePublic(context);
+                                          },
                                           height: 55,
                                           animationDuration:
                                               const Duration(milliseconds: 400),
                                           onTap: () {},
-                                          onDoubleTap: () {},
-                                          onSwipe: () {},
                                           textOff: "Private",
                                           textOn: "Public",
                                           colorOn:

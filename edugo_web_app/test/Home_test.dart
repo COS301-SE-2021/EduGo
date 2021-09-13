@@ -1,28 +1,62 @@
-// This i Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// EduGo Web App Hoome Page widget test.
 
-import 'package:flutter/material.dart';
+import 'package:edugo_web_app/main.dart';
+import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    //await tester.pumpWidget(MyApp());
+  testWidgets(
+    'Home Page Component Rendering',
+    (WidgetTester tester) async {
+      // Info: Testing if all components of the home page render successfully
+      final widget = momentum();
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      final homeWidget = find.byKey(Key("HomeView"));
+      final homeNavigation = find.byKey(Key("HomeNavigation"));
+      final homeContent = find.byKey(Key("HomeContent"));
+      final homeFooter = find.byKey(Key("HomeFooter"));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      expect(homeWidget, findsOneWidget);
+      expect(homeNavigation, findsOneWidget);
+      expect(homeContent, findsOneWidget);
+      expect(homeFooter, findsOneWidget);
+    },
+  );
+  testWidgets(
+    'Sign In Page Redirect',
+    (WidgetTester tester) async {
+      // Info: Testing if sign in button redirects to sign in page
+      final widget = momentum();
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+      final signInButton = find.byKey(Key("SignInButton"));
+
+      expect(signInButton, findsOneWidget);
+      await tester.tap(signInButton);
+      await tester.pumpAndSettle();
+      final logInView = find.byKey(Key("LogInView"));
+      expect(logInView, findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'Register Organisation Page Redirect',
+    (WidgetTester tester) async {
+      // Info: Testing if register button redirects to register organisation page
+      final widget = momentum();
+      await tester.pumpWidget(widget);
+      await tester.pumpAndSettle();
+
+      final registerButton = find.byKey(Key("RegisterButton"));
+
+      expect(registerButton, findsOneWidget);
+      await tester.tap(registerButton);
+      await tester.pumpAndSettle();
+      final createOrganisationView = find.byKey(Key("CreateOrganisationView"));
+      expect(createOrganisationView, findsOneWidget);
+    },
+  );
 }
