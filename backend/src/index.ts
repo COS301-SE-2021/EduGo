@@ -41,6 +41,7 @@ if (!("SMTP_USERNAME" in process.env)) throw new Error("SMTP Username missing");
 if (!("SMTP_PASSWORD" in process.env)) throw new Error("SMTP Password missing");
 if (!("SMTP_PORT" in process.env)) throw new Error("SMTP Port missing");
 if (!("GENERATE_THUMBNAIL_URL" in process.env)) throw new Error("Generate thumbnail url missing");
+if (!("CONVERTER_URL" in process.env)) throw new Error("Converter url missing");
 
 if (process.env.NODE_ENV === "production") { 
 	if (!("AZURE_DB_SSL_CERT" in process.env)) throw new Error("Azure DB SSL Cert missing");
