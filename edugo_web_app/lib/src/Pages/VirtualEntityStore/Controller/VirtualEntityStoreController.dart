@@ -55,7 +55,7 @@ class VirtualEntityStoreController
   Future getAddStore(context,
       {Function addFunction, Function viewFunction}) async {
     var url = Uri.parse(EduGoHttpModule().getBaseUrl() +
-        '/virtualEntity/getPrivateVirtualEntities');
+        '/virtualEntity/getPublicVirtualEntities');
     await post(
       url,
       headers: {
@@ -66,57 +66,40 @@ class VirtualEntityStoreController
     ).then(
       (response) async {
         if (response.statusCode == 200) {
-          dynamic _virtualEntities = jsonDecode(response.body);
-          model.update(
-              addStore:
-                  VirtualEntities.fromJson(_virtualEntities).virtualEntities);
-          url = Uri.parse(EduGoHttpModule().getBaseUrl() +
-              '/virtualEntity/getPublicVirtualEntities');
-          await post(
-            url,
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization':
-                  Momentum.controller<AdminController>(context).getToken()
-            },
-          ).then(
-            (response) {
-              if (response.statusCode == 200) {
-                dynamic _virtualEntities = jsonDecode(response.body);
-                List<VirtualEntity> copy = model.addStore;
-                VirtualEntities.fromJson(_virtualEntities)
-                    .virtualEntities
-                    .forEach((entity) {
-                  copy.add(entity);
-                });
-                model.update(addStore: copy);
-                List<Widget> addCards = [];
-                model.addStore.forEach(
-                  (entity) {
-                    addCards.add(AddEntityStoreCard(
-                      id: entity.getVirtualEntityId().toString(),
-                      addFunction: addFunction,
-                      viewFunction: viewFunction,
-                      thumbNailLink: '',
-                      name: entity.getVirtualEntityName(),
-                      virtualEntityDescription: entity
-                          .getVirtualEntityDescription()
-                          .toString()
-                          .substring(
-                              1,
-                              entity
-                                      .getVirtualEntityDescription()
-                                      .toString()
-                                      .length -
-                                  1),
-                    ));
-                  },
-                );
-                model.update(addStoreCards: addCards);
-                return;
-              }
-            },
-          );
+          if (response.statusCode == 200) {
+            dynamic _virtualEntities = jsonDecode(response.body);
+            List<VirtualEntity> copy = model.addStore;
+            VirtualEntities.fromJson(_virtualEntities)
+                .virtualEntities
+                .forEach((entity) {
+              copy.add(entity);
+            });
+            model.update(addStore: copy);
+            List<Widget> addCards = [];
+            model.addStore.forEach(
+              (entity) {
+                addCards.add(AddEntityStoreCard(
+                  id: entity.getVirtualEntityId().toString(),
+                  addFunction: addFunction,
+                  viewFunction: viewFunction,
+                  thumbNailLink: '',
+                  name: entity.getVirtualEntityName(),
+                  virtualEntityDescription: entity
+                      .getVirtualEntityDescription()
+                      .toString()
+                      .substring(
+                          1,
+                          entity
+                                  .getVirtualEntityDescription()
+                                  .toString()
+                                  .length -
+                              1),
+                ));
+              },
+            );
+            model.update(addStoreCards: addCards);
+            return;
+          }
         }
       },
     );
