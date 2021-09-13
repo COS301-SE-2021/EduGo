@@ -327,7 +327,8 @@ export class VirtualEntityService {
 	async GetPublicVirtualEntities(): Promise<GVEs_VirtualEntity[]> {
 		try {
 			let source_entities = await this.virtualEntityRepository.find({
-				public: true,
+				where: {public: true},
+				relations: ["model"]
 			});
 			return source_entities.map((value) => {
 				let entity: GVEs_VirtualEntity = {
@@ -366,8 +367,8 @@ export class VirtualEntityService {
 
 			//A better query would be to get the organisation and then get all the virtual entities of that organisation
 			return await this.virtualEntityRepository.find({
-				organisation: user.organisation,
-				public: false,
+				where: {organisation: user.organisation, public: false},
+				relations: ["model"],
 			});
 		} catch (err) {
 			console.log(err);
