@@ -5,9 +5,11 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
   final String name;
   final int virtualEntityId;
   final String virtualEntityDescription;
+  final bool public;
 
   VirtualEntitiesStoreCard({
     this.name,
+    this.public,
     this.virtualEntityId,
     this.virtualEntityDescription,
   });
@@ -69,7 +71,7 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
                           .reset();
                       Momentum.controller<ViewVirtualEntityController>(context)
                           .viewEntity(name, virtualEntityDescription,
-                              virtualEntityId.toString(), context);
+                              virtualEntityId.toString(), public, context);
 
                       MomentumRouter.goto(context, ViewVirtualEntityView);
                     },
