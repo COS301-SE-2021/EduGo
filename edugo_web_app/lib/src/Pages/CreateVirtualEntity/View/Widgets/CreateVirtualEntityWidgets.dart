@@ -4,6 +4,6 @@ export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/Questio
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/QuizBuilderOption.dart';
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/VirtualEntityButton.dart';
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/VirtualEntityInputBox.dart';
-export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/VirtualEntityMultiLine.dart';
+export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/VirtualEntityInfoAdderCard.dart';
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/ViewVirtualEntityModelViewer.dart';
 export 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityModelViewer.dart';

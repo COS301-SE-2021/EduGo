@@ -4,45 +4,60 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'dart:ui' as ui;
 
-class ViewVirtualEntityModelViewer extends StatelessWidget {
-  final String viewEntityLink;
+class ViewVirtualEntityModelViewer extends StatefulWidget {
+  @override
+  _ViewVirtualEntityModelViewerState createState() =>
+      _ViewVirtualEntityModelViewerState();
+}
 
-  const ViewVirtualEntityModelViewer({Key key, this.viewEntityLink})
-      : super(key: key);
+class _ViewVirtualEntityModelViewerState
+    extends State<ViewVirtualEntityModelViewer> {
   @override
   Widget build(BuildContext context) {
-    String modelview = "<html>" +
-        "   <head>" +
-        "        <meta charset=\"UTF-8\">" +
-        "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
-        "        <script type=\"module\" src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js\"></script>" +
-        "        <script nomodule src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js\"></script>" +
-        "        <script type=\"module\" src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js\"></script>" +
-        "   </head>" +
-        "<body>" +
-        "" +
-        "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
-        viewEntityLink +
-        "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
-        "" +
-        "</body>" +
-        "</html>";
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(
-        'edugo_view_model_viewer',
-        (int viewId) => IFrameElement()
-          ..width = '300'
-          ..height = "360"
-          ..src =
-              "data:text/html;charset=utf-8," + Uri.encodeComponent(modelview)
-          ..style.border = 'none');
+    return MomentumBuilder(
+        controllers: [ViewVirtualEntityController],
+        builder: (context, snapshot) {
+          var entity = snapshot<ViewVirtualEntityModel>();
+          String modelview = "<html>" +
+              "   <head>" +
+              "        <meta charset=\"UTF-8\">" +
+              "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" +
+              "        <script type=\"module\" src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js\"></script>" +
+              "        <script nomodule src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js\"></script>" +
+              "        <script type=\"module\" src=\"https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js\"></script>" +
+              "   </head>" +
+              "<body>" +
+              "" +
+              "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
+              entity.viewEntityLink +
+              "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
+              "" +
+              "</body>" +
+              "</html>";
+          // ignore: undefined_prefixed_name
+          ui.platformViewRegistry.registerViewFactory(
+              'edugo_view_model_viewer' + entity.viewEntityLink,
+              (int viewId) => IFrameElement()
+                ..width = '300'
+                ..height = "360"
+                ..src = "data:text/html;charset=utf-8," +
+                    Uri.encodeComponent(modelview)
+                ..style.border = 'none');
+          return Directionality(
+            textDirection: TextDirection.ltr,
+            child: SizedBox(
+                width: 300,
+                height: 360,
+                child: HtmlElementView(
+                    viewType:
+                        'edugo_view_model_viewer' + entity.viewEntityLink)),
+          );
+        });
+  }
 
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: SizedBox(
-          width: 300,
-          height: 360,
-          child: HtmlElementView(viewType: 'edugo_view_model_viewer')),
-    );
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 }
