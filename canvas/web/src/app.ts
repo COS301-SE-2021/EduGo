@@ -8,7 +8,7 @@ import * as request from './requests';
 import axios from 'axios';
 import * as socket from 'socket.io-client';
 
-const io = socket.io('http://localhost:8084');
+const io = socket.io('http://edugo-backend.southafricanorth.cloudapp.azure.com:8081');
 let code: string = '';
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
