@@ -24,7 +24,8 @@ class CreateSubjectController extends MomentumController<CreateSubjectModel> {
 
   Future<String> createSubject(context) async {
     model.update(createSubjectLoadController: false);
-    var url = Uri.parse("http://34.65.226.152:8080/subject/createSubject");
+    var url =
+        Uri.parse(EduGoHttpModule().getBaseUrl() + "/subject/createSubject");
 
     var request = new MultipartRequest(
       "POST",
