@@ -5,10 +5,13 @@ import * as camera from './camera';
 import * as renderer from './renderer';
 import * as inputs from './inputs';
 import * as request from './requests';
+import * as helper from './helper';
 import axios from 'axios';
 import * as socket from 'socket.io-client';
 
-const io = socket.io('http://edugo-backend.southafricanorth.cloudapp.azure.com:8081');
+const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+
+const io = socket.io(BACKEND);
 let code: string = '';
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
@@ -64,14 +67,14 @@ io.on('accepted', async (data: any) => {
     };
     
     let response = await axios.post(
-        'http://localhost:8084/api/getVirtualEntity', 
+        `${BACKEND}/api/getVirtualEntity`, 
         { virtualEntityId: parseInt(modelId!) },
         {headers: {authorization: `Bearer ${request.getParameter('token') || ''}`}}
     );
     if (response.status === 200) {
         let {data} = response;
-        if ('model' in data && 'file_link' in data.model) {
-            let url = data.model.file_link;
+        if ('model' in data && 'fileLink' in data.model) {
+            let url = data.model.fileLink;
             io.emit('set_link', {link: url});
             init(url);
         }
@@ -130,7 +133,7 @@ const init = async (url: string) => {
     const uniforms = defaultShaders.getUniformLocations(gl, program);
 
     const environment = await cubemap.load(gl);
-    const model = await gltf.loadModel(gl, url);
+    const model = await gltf.loadModel(gl, helper.getGltfLink(url));
 
     cubemap.bind(gl, environment, uniforms.brdfLut, uniforms.environmentDiffuse, uniforms.environmentSpecular);
 
