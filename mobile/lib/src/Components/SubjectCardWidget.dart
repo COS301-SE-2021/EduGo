@@ -90,16 +90,19 @@ class SubjectCard extends StatelessWidget {
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.width / 12,
-                    child: Text(
-                      '$title',
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: true,
-                      style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        '$title',
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: true,
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
                     ),
                   ),
                 ),
@@ -112,12 +115,15 @@ class SubjectCard extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 2,
                     height: MediaQuery.of(context).size.width / 16,
                     child: Container(
-                      child: Text(
-                        '${educator}',
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        softWrap: true,
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          '${educator}',
+                          textAlign: TextAlign.left,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          softWrap: true,
+                        ),
                       ),
                     ),
                   ),

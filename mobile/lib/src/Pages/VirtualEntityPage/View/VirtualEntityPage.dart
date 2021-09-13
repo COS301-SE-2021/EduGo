@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Controller/VirtualEntityController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/View/ARWindow.dart';
@@ -46,31 +47,93 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
                     //   uri: snapshot.data!.model!.fileLink,
                     // ),
                     ),
-
-                //Align(
-                //alignment: Alignment.bottomCenter,
-                Container(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: new ListView(
-                      children: <Widget>[
-                        new Container(
-                          color: Colors.black,
-                          height: MediaQuery.of(context).size.height / 14,
-                          child: new ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: new List.generate(
-                              snapshot.data!.description.length,
-                              (index) => VirtualEntityInfoCard(
-                                description: snapshot.data!.description[index],
-                              ),
-                            ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    color: Colors.green,
+                    height: MediaQuery.of(context).size.height / 4,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView(
+                        //physics: NeverScrollableScrollPhysics(),
+                        //primary: false,
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(
+                          snapshot.data!.description.length,
+                          (index) => VirtualEntityInfoCard(
+                            description: snapshot.data!.description[index],
                           ),
                         ),
-                      ],
+                        // new Container(
+                        //   height: MediaQuery.of(context).size.height,
+                        //   color: Colors.blue,
+                        //   child: new ListView(
+                        //     primary: false,
+
+                        //     //physics: NeverScrollableScrollPhysics(),
+                        //     scrollDirection: Axis.horizontal,
+                        //     children: new List.generate(
+                        //       snapshot.data!.description.length,
+                        //       (index) => VirtualEntityInfoCard(
+                        //         description:
+                        //             snapshot.data!.description[index],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        //],
+                      ),
                     ),
+
+                    ///////////////////////////////////
+                    // child: new GridView.count(
+                    //   crossAxisCount: 2,
+                    //   mainAxisSpacing: 5,
+                    //   childAspectRatio: MediaQuery.of(context).size.height,
+
+                    //   primary: false,
+                    //   scrollDirection: Axis.horizontal,
+                    //   //padding: const EdgeInsets.only(top: 20),
+                    //   //  crossAxisSpacing: 0,
+                    //   shrinkWrap: true,
+                    //   children: new List.generate(
+                    //     snapshot.data!.description.length,
+                    //     (index) => VirtualEntityInfoCard(
+                    //       description: snapshot.data!.description[index],
+                    //     ),
+                    //   ),
+                    /////////////////////////////////
+                    ///
+                    ///
+                    // children: <Widget>[
+                    //   new Container(
+                    //     color: Colors.green,
+                    //     height: MediaQuery.of(context).size.height,
+                    //       child: new GridView.count(
+                    //         childAspectRatio:
+                    //             MediaQuery.of(context).size.height / 400,
+                    //         primary: false,
+                    //         //padding: const EdgeInsets.only(top: 20),
+                    //         crossAxisSpacing: 0,
+                    //         shrinkWrap: true,
+
+                    //         // mainAxisSpacing: 5,
+                    //         //makes 1 cards per row
+                    //         crossAxisCount: 1,
+                    //         scrollDirection: Axis.horizontal,
+                    //         children: new List.generate(
+                    //           snapshot.data!.description.length,
+                    //           (index) => VirtualEntityInfoCard(
+                    //             description: snapshot.data!.description[index],
+                    //           ),
+                    //         ),
+                    //),
+                    // ),
+                    //],
                   ),
                 ),
+                // )
               ],
             ),
           );
