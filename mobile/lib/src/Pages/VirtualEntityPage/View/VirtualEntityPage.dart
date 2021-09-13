@@ -31,106 +31,63 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<VirtualEntity>(
-        future: entity,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(snapshot.data!.title),
-              ),
-              body: Stack(
-                children: [
-                  Container(
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.yellow)),
-                    child: Text('Awee'),
+      future: entity,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(snapshot.data!.title),
+            ),
+            body: Stack(
+              children: [
+                Container(
+
                     // ARWindow(
                     //   uri: snapshot.data!.model!.fileLink,
                     // ),
-                  ),
+                    ),
 
-                  // Positioned(
-                  // bottom: 48.0,
-                  // left: 10.0,
-                  // right: 10.0,
-                  //child:
-                  Align(
+                //Align(
+                //alignment: Alignment.bottomCenter,
+                Container(
+                  child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 30.0),
-                      child: Container(
-                        color: Colors.white,
-                        height: MediaQuery.of(context).size.height / 4,
-                        width: MediaQuery.of(context).size.width / 1.8,
-                        // decoration: BoxDecoration(
-                        //     // border: Border.all(color: Colors.white),
-                        //     borderRadius: BorderRadius.circular(10)),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            // crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Text(
-                                  "Here is some text about the ${snapshot.data!.title} entity",
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  softWrap: true,
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                ),
+                    child: new ListView(
+                      children: <Widget>[
+                        new Container(
+                          color: Colors.black,
+                          height: MediaQuery.of(context).size.height / 14,
+                          child: new ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: new List.generate(
+                              snapshot.data!.description.length,
+                              (index) => VirtualEntityInfoCard(
+                                description: snapshot.data!.description[index],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: GridView.count(
-                                  //This makes 2 cards appear. So effectively
-                                  //two cards per page. (2 rows, 1 card per row)
-
-                                  childAspectRatio:
-                                      MediaQuery.of(context).size.height / 60,
-                                  primary: false,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  mainAxisSpacing: 3,
-                                  //makes 1 cards per row
-                                  crossAxisCount: 1,
-                                  //Call subject card here and pass in all arguments required
-                                  children: snapshot.data!.description
-                                      .map(
-                                        (description) => VirtualEntityInfoCard(
-                                            description: description),
-                                      )
-                                      .toList(),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                  // ),
-                  // if(snapshot.data!.information.isNotEmpty)
-                ],
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text('Virtual Entity'),
                 ),
-                body: Center(
-                  child: Text('There was an error loadinng the virtual entity'),
-                ));
-          } else {
-            return Scaffold(
-                appBar: AppBar(title: Text('Loading...')),
-                body: Center(child: CircularProgressIndicator()));
-          }
-        });
+              ],
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('Virtual Entity'),
+              ),
+              body: Center(
+                child: Text('There was an error loadinng the virtual entity'),
+              ));
+        } else {
+          return Scaffold(
+              appBar: AppBar(title: Text('Loading...')),
+              body: Center(child: CircularProgressIndicator()));
+        }
+      },
+    );
   }
 }

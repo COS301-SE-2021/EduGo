@@ -78,8 +78,8 @@ class SubjectsController extends MomentumController<SubjectsModel> {
                 ? httpMock.MockClient(mockApi.getSubjectsByUserClient)
                 : http.Client())
         .then((value) {
-      print('Value');
-      print(value);
+      //print('Value');
+      //print(value);
       model.update(subjects: value);
     });
   }

@@ -23,31 +23,34 @@ class VirtualEntityInfoCard extends StatelessWidget {
     //This is the main subject card design. It is all in a container and
     //displays info like the subject photo, subject title, subject educator
 
-    return Container(
-      // decoration: BoxDecoration(border: Border.all(color: Colors.green)),
-      child: Expanded(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Text(
-                    '${description}',
-                    textAlign: TextAlign.left,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    softWrap: true,
-                  ),
-                ),
-              ),
-            ),
-          ],
+    return Card(
+      semanticContainer: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      clipBehavior: Clip.antiAlias,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            '${description}',
+            textAlign: TextAlign.left,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
+            softWrap: true,
+            style: TextStyle(
+                fontSize: 10, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
         ),
       ),
     );
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // ),
+    //);
   }
 }
