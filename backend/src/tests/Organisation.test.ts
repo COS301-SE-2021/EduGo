@@ -26,6 +26,7 @@ describe("Organisation API tests", () => {
 				user_email: "",
 				username: "",
 				organisation_id: 1,
+				userType: userType.firstAdmin
 			};
 
 			when(App.mockedUserRepository.findOne(anything())).thenResolve(
