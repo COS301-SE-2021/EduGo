@@ -37,7 +37,7 @@ import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicRespon
 import { Lesson } from "../database/Lesson";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
 import { GetQuizesByLessonResponse } from "../models/virtualEntity/GetQuizesByLessonResponse";
-import { GenerateThumbnail } from "../helper/ExternalRequests";
+import { ConvertModel, GenerateThumbnail } from "../helper/ExternalRequests";
 
 @Service()
 export class VirtualEntityService {
@@ -73,6 +73,7 @@ export class VirtualEntityService {
 			throw new BadRequestError("Virtual Entity already has a Model");
 
 		let thumbnail = await GenerateThumbnail(request.fileLink);
+		await ConvertModel(request.fileLink);
 
 		let model: Model = new Model();
 		model.fileLink = request.fileLink;

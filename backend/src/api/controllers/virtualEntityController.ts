@@ -23,7 +23,7 @@ import {
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
-import { GenerateThumbnail } from "../helper/ExternalRequests";
+import { ConvertModel, GenerateThumbnail } from "../helper/ExternalRequests";
 @Service()
 @JsonController("/virtualEntity")
 @UseBefore(passport.authenticate("jwt", { session: false }))
@@ -51,7 +51,8 @@ export class VirtualEntityController {
 		if (file) {
 			let result = await this.fileManagement.UploadModelToAzure(file)
 			let thumbnail = await GenerateThumbnail(result);
-			let response: any = { fileLink: result, thumbnail: thumbnail.uploaded };
+			let gltf = await ConvertModel(result);
+			let response: any = { fileLink: result, thumbnail: thumbnail.uploaded, gltf };
 			return response;
 		} else throw new BadRequestError("User is invalid");
 	}
