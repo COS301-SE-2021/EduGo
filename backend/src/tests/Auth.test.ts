@@ -324,24 +324,42 @@ describe("Auth API tests", () => {
 	});
 
 	describe("POST /auth/verifyInvitation", () => {
-		it("should successfully login a student and return a token", async () => {
+		it("should not allow verify for existing user", async () => {
 			const req: VerifyInvitationRequest = {
-				email: "simekani",
-				verificationCode: "123235",
+				email: "unverifiedStudent@edugo.com",
+				verificationCode: "12345",
 			};
 
-            when(App.mockedUserRepository.findOne(anything())).thenResolve(
-				undefined
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(
+				Default.studentUser
 			);
 
-            when(
-				App.mockedUnverifiedUserRepository.findOne(anything())
-			).thenResolve(undefined);
+			const response = await request(App.app)
+				.post("/auth/verifyInvitation")
+				.set("Accept", "application/json")
+				.send(req)
+				.expect(404)
+				.expect("Content-Type", /json/);
+			    expect(response.body).toBeDefined();
+		});
 
-            when(
-				App.mockedUnverifiedUserRepository.findOne(anything())
-			).thenResolve(Default.unverifiedStudent);
+        it("should not allow verify for verified user", async () => {
+			const req: VerifyInvitationRequest = {
+				email: "unverifiedStudent@edugo.com",
+				verificationCode: "12345",
+			};
 
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(
+				Default.studentUser
+			);
+
+			const response = await request(App.app)
+				.post("/auth/verifyInvitation")
+				.set("Accept", "application/json")
+				.send(req)
+				.expect(404)
+				.expect("Content-Type", /json/);
+			    expect(response.body).toBeDefined();
 		});
 	});
 });
