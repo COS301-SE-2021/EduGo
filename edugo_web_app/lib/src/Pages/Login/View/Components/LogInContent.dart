@@ -20,7 +20,7 @@ class LogInContent extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                   width: ScreenUtil().setWidth(600),
-                  height: ScreenUtil().setHeight(850),
+                  height: ScreenUtil().setHeight(900),
                   padding: EdgeInsets.only(
                     top: 100,
                   ),
