@@ -7,16 +7,9 @@ class LogInButton extends StatelessWidget {
   final double elevation;
   final double width;
   final double height;
-  const LogInButton(
-      {Key key,
-      this.child,
-      this.onPressed,
-      this.width,
-      this.elevation,
-      this.height})
-      : super(
-          key: key,
-        );
+  LogInButton(
+      {this.child, this.onPressed, this.width, this.elevation, this.height})
+      : super(key: Key("LogInButton"));
 
   @override
   Widget build(BuildContext context) {

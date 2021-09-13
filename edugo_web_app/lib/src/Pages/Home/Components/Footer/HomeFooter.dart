@@ -1,15 +1,24 @@
-import 'package:edugo_web_app/src/Pages/Home/Components/Footer/HomeDesktopFooter.dart';
-import 'package:edugo_web_app/src/Pages/Home/Components/Footer/HomeTabletFooter.dart';
 import 'package:flutter/material.dart';
 
 class HomeFooter extends StatelessWidget {
-  @override
+  HomeFooter() : super(key: Key("HomeFooter"));
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > 800) {
-        return HomeDesktopFooter();
-      } else
-        return HomeTabletFooter();
-    });
+    return Container(
+      height: 150,
+      decoration: BoxDecoration(color: Color.fromARGB(255, 97, 211, 87)),
+      child: Row(
+        children: <Widget>[
+          Flexible(
+            child: Text(
+              "Design the footer as per the figma design!",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

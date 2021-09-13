@@ -1,4 +1,4 @@
-import 'package:edugo_web_app/src/Pages/ViewLesson/Model/Data/LessonVirtualEnity.dart';
+import 'package:edugo_web_app/src/Pages/ViewLesson/Model/Data/LessonVirtualEntity.dart';
 
 class LessonVirtualEntities {
   final List<LessonVirtualEntity> entities;

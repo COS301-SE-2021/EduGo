@@ -2,7 +2,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class StudentsGradesCard extends StatelessWidget {
   final String name;
-  final int grade;
+  final double grade;
   final Color _color = RandomColor().randomColor();
   StudentsGradesCard({this.name, this.grade});
 

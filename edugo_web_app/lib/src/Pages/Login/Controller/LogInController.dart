@@ -26,7 +26,7 @@ class LogInController extends MomentumController<LoginModel> {
         model.loginUserName != null &&
         model.loginUserName != "" &&
         model.loginPassword != "") {
-      var url = Uri.parse('http://34.65.226.152:8080/auth/login');
+      var url = Uri.parse(EduGoHttpModule().getBaseUrl() + "/auth/login");
       await http
           .post(url,
               headers: {

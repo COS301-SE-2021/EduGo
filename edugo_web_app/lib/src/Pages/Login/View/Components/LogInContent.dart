@@ -2,6 +2,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/Login/View/Widgets/LogInWidgets.dart';
 
 class LogInContent extends StatelessWidget {
+  LogInContent() : super(key: Key("LogInContent"));
   final _formKey = GlobalKey<FormState>();
   List<Widget> pageChildren(double width, context, bool spacer) {
     return <Widget>[
@@ -19,6 +20,7 @@ class LogInContent extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                   width: ScreenUtil().setWidth(600),
+                  height: ScreenUtil().setHeight(850),
                   padding: EdgeInsets.only(
                     top: 100,
                   ),
@@ -54,6 +56,7 @@ class LogInContent extends StatelessWidget {
                         width: ScreenUtil().setWidth(450),
                         height: 100,
                         child: TextFormField(
+                          key: Key("LogInUserName"),
                           onFieldSubmitted: (value) {
                             Momentum.controller<LogInController>(context)
                                 .loginUser(context: context, formkey: _formKey);
@@ -86,6 +89,7 @@ class LogInContent extends StatelessWidget {
                         width: ScreenUtil().setWidth(450),
                         height: 100,
                         child: TextFormField(
+                          key: Key("LogInPassword"),
                           onFieldSubmitted: (value) {
                             Momentum.controller<LogInController>(context)
                                 .loginUser(context: context, formkey: _formKey);
@@ -129,7 +133,7 @@ class LogInContent extends StatelessWidget {
                             Momentum.controller<LogInController>(context)
                                 .loginUser(context: context, formkey: _formKey);
                           },
-                          width: ScreenUtil().setWidth(550),
+                          width: ScreenUtil().setWidth(430),
                           height: 65),
                       SizedBox(
                         height: 50,

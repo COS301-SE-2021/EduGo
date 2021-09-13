@@ -22,10 +22,15 @@ class LessonsModel extends MomentumModel<LessonsController> {
           new LessonsCard(
             title: lesson.getLessonTitle(),
             id: lesson.getLessonId(),
+            description: lesson.getLessonDescription(),
           ),
         );
       },
     );
+    if (lessons.isEmpty) {
+      lessonCardsUpdate.add(Text("No Lessons"));
+    }
+
     update(lessonCards: lessonCardsUpdate);
   }
 

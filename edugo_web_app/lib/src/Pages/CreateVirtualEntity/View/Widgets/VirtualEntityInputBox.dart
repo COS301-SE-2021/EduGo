@@ -13,7 +13,7 @@ class VirtualEntityInputBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 370,
+      width: width != null ? width : 370,
       height: 75,
       child: TextFormField(
         onChanged: (value) {

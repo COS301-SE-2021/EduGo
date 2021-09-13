@@ -95,7 +95,8 @@ class SubjectsCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
                   onPressed: () {
-                    // Todo: make delete api request
+                    Momentum.controller<SubjectsController>(context)
+                        .deleteSubject(context, subjectId: this.subjectId);
                   },
                   child: Icon(
                     Icons.delete_outlined,
@@ -112,6 +113,12 @@ class SubjectsCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100)),
                   onPressed: () {
+                    //Info: set current subject Id to card's subect ID
+                    Momentum.controller<AdminController>(context)
+                        .setCurrentSubjectId(this.subjectId);
+                    Momentum.controller<AdminController>(context)
+                        .setCurrentSubjectImageLink(imageLink);
+                    //Info: redirect to lessons view
                     MomentumRouter.goto(context, LessonsView);
                   },
                   child: Icon(

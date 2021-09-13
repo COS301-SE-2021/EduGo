@@ -9,8 +9,8 @@ class SubjectsController extends MomentumController<SubjectsModel> {
 
 // Info: Get all subjects created by the educator
   Future<void> getEducatorSubjects(context) async {
-    var url =
-        Uri.parse('http://34.65.226.152:8080/organisation/getOrganisation');
+    var url = Uri.parse(
+        EduGoHttpModule().getBaseUrl() + '/organisation/getOrganisation');
     await post(
       url,
       headers: {
@@ -31,6 +31,27 @@ class SubjectsController extends MomentumController<SubjectsModel> {
           model.updateSubjectCards();
           return;
         }
+      },
+    );
+  }
+
+// Info: Delete a subject created by the educator
+  Future<void> deleteSubject(context, {int subjectId}) async {
+    var url =
+        Uri.parse(EduGoHttpModule().getBaseUrl() + '/subject/deleteSubject/');
+    final request = Request("DELETE", url);
+    request.headers.addAll(
+      <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization':
+            Momentum.controller<AdminController>(context).getToken()
+      },
+    );
+    request.body = jsonEncode({"id": subjectId});
+    await request.send().then(
+      (value) {
+        reset();
+        getEducatorSubjects(context);
       },
     );
   }
