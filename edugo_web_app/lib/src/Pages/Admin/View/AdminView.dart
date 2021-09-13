@@ -12,7 +12,7 @@ class AdminView extends StatelessWidget {
         Future<String> educatorsLoaded = Future<String>.delayed(
           const Duration(seconds: 0),
           () {
-            if (currentOrganisation.educatorCards.isEmpty) return null;
+            if (currentOrganisation.educators.isEmpty) return null;
             return "Data loaded";
           },
         );
