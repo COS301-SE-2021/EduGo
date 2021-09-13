@@ -38,17 +38,33 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
               appBar: AppBar(
                 title: Text(snapshot.data!.title),
               ),
-              body: Column(
+              body: Stack(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Align(
-                      alignment: Alignment.topCenter,
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.yellow)),
+                    child: Text('Awee'),
+                    // ARWindow(
+                    //   uri: snapshot.data!.model!.fileLink,
+                    // ),
+                  ),
+
+                  // Positioned(
+                  // bottom: 48.0,
+                  // left: 10.0,
+                  // right: 10.0,
+                  //child:
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 30.0),
                       child: Container(
+                        color: Colors.white,
                         height: MediaQuery.of(context).size.height / 4,
                         width: MediaQuery.of(context).size.width / 1.8,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black)),
+                        // decoration: BoxDecoration(
+                        //     // border: Border.all(color: Colors.white),
+                        //     borderRadius: BorderRadius.circular(10)),
                         child: SingleChildScrollView(
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,24 +84,28 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
                                       color: Colors.black),
                                 ),
                               ),
-                              GridView.count(
-                                //This makes 2 cards appear. So effectively
-                                //two cards per page. (2 rows, 1 card per row)
-                                childAspectRatio:
-                                    MediaQuery.of(context).size.height / 60,
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                mainAxisSpacing: 3,
-                                //makes 1 cards per row
-                                crossAxisCount: 1,
-                                //Call subject card here and pass in all arguments required
-                                children: snapshot.data!.description
-                                    .map(
-                                      (description) => VirtualEntityInfoCard(
-                                          description: description),
-                                    )
-                                    .toList(),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: GridView.count(
+                                  //This makes 2 cards appear. So effectively
+                                  //two cards per page. (2 rows, 1 card per row)
+
+                                  childAspectRatio:
+                                      MediaQuery.of(context).size.height / 60,
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  mainAxisSpacing: 3,
+                                  //makes 1 cards per row
+                                  crossAxisCount: 1,
+                                  //Call subject card here and pass in all arguments required
+                                  children: snapshot.data!.description
+                                      .map(
+                                        (description) => VirtualEntityInfoCard(
+                                            description: description),
+                                      )
+                                      .toList(),
+                                ),
                               ),
                             ],
                           ),
@@ -93,15 +113,8 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
                       ),
                     ),
                   ),
+                  // ),
                   // if(snapshot.data!.information.isNotEmpty)
-                  Container(
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.yellow)),
-                    child: Text('Awee'),
-                    // ARWindow(
-                    //   uri: snapshot.data!.model!.fileLink,
-                    // ),
-                  ),
                 ],
               ),
             );
