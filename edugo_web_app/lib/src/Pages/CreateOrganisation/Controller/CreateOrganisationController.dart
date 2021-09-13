@@ -51,8 +51,8 @@ class CreateOrganisationController
   }
 
   Future<void> createOrganisation() async {
-    var url =
-        Uri.parse('http://34.65.226.152:8080/organisation/createOrganisation');
+    var url = Uri.parse(
+        EduGoHttpModule().getBaseUrl() + '/organisation/createOrganisation');
     await post(
       url,
       headers: {
@@ -80,7 +80,7 @@ class CreateOrganisationController
         model.adminUserName != null &&
         model.adminUserName != "" &&
         model.adminPassword != "") {
-      var url = Uri.parse('http://34.65.226.152:8080/auth/login');
+      var url = Uri.parse(EduGoHttpModule().getBaseUrl() + '/auth/login');
       await http
           .post(url,
               headers: {
