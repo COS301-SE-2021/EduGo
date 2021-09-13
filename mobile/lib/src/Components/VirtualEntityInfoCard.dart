@@ -25,23 +25,25 @@ class VirtualEntityInfoCard extends StatelessWidget {
 
     return Container(
       // decoration: BoxDecoration(border: Border.all(color: Colors.green)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                '${description}',
-                textAlign: TextAlign.left,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-                softWrap: true,
+      child: Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(
+                  '${description}',
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                  softWrap: true,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

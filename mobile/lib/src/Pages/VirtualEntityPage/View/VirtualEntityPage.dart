@@ -38,27 +38,20 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
               appBar: AppBar(
                 title: Text(snapshot.data!.title),
               ),
-              body: Stack(
+              body: Column(
                 children: [
-                  // if(snapshot.data!.information.isNotEmpty)
-                  // Container(
-                  //   decoration:
-                  //       BoxDecoration(border: Border.all(color: Colors.yellow)),
-                  //   child: Text('Awee'),
-                  // ),
-
                   Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Container(
                         height: MediaQuery.of(context).size.height / 4,
-                        width: MediaQuery.of(context).size.width / 1.5,
+                        width: MediaQuery.of(context).size.width / 1.8,
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black)),
                         child: SingleChildScrollView(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Padding(
@@ -79,11 +72,11 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
                                 //This makes 2 cards appear. So effectively
                                 //two cards per page. (2 rows, 1 card per row)
                                 childAspectRatio:
-                                    MediaQuery.of(context).size.height / 30,
+                                    MediaQuery.of(context).size.height / 60,
                                 primary: false,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
-                                mainAxisSpacing: 5,
+                                mainAxisSpacing: 3,
                                 //makes 1 cards per row
                                 crossAxisCount: 1,
                                 //Call subject card here and pass in all arguments required
@@ -100,9 +93,15 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
                       ),
                     ),
                   ),
-                  // ARWindow(
-                  //   uri: snapshot.data!.model!.fileLink,
-                  // ),
+                  // if(snapshot.data!.information.isNotEmpty)
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.yellow)),
+                    child: Text('Awee'),
+                    // ARWindow(
+                    //   uri: snapshot.data!.model!.fileLink,
+                    // ),
+                  ),
                 ],
               ),
             );

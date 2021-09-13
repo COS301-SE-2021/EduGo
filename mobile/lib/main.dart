@@ -68,7 +68,8 @@ Momentum momentum({bool mock = false}) {
         RegistrationVerificationPage(Key('registration_verification')),
         SettingsPage(),
         SubjectsPage(),
-        LessonInformationPage(lessonTitle: '', lessonID: 0, lessonDescription: '')
+        LessonInformationPage(
+            lessonTitle: '', lessonID: 0, lessonDescription: '')
       ]),
     ],
   );
@@ -89,11 +90,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-//admin
-//eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2Mjk3ODgzMTEsImV4cCI6MTYyOTg3NDcxMX0.o7_1RT-Dww-UzULi4UQ32YWU49pv4V-hB6tRfnbSdAfuu05oZISA42q4YAzVfbkju6-YWcSeVjCGv0aCCYTlApcXUvLbXL3c5ctJf5V6A9be_o9aiMEpoMPpBZ_1zDSZlWRsfZMYcn9OwV7Nq2UwHeBjLN3Ck955OfwWufWJXdkUR1QNlenLRxI6h4Q9C30nmGhUTE61125qWeGLbl1yqNthOvProIIS6f5BbRk2-Dioq3tdYoCV_RKCYTvbg3eVcWS9CVgURvdArPb-K-yHj8Go4zYfLpm-vPeLyQhnW6aKdTWvK4K3ZIuXvVw8-h0PqxyxWEoABwM81Jv69pGMaHnw0e1YcdyfgZk5IJDzS24tyITBuzCg-4M3K39uqdaw-gRWo3znbL3tJNsibzyb_Uwu6vKlv-CsJU85_nKadp8zGxxmEBcPxWw2JawGNf_XQC6F0hk7Pi2HO2VZt-e3hrKj9AE6kvYIUOPMwJVw_vd-F8OcO2lM0trBPElUjV55vBiFpkeicXwIcJTeRpiRsOeRU1FGzjdatyD4N4ji7POJAqCMU82XDEZQl3Pq6FT8woYFcEydik_wxRTUE1dw3y7EM8VXJ7oeVlTDeY0dKJH8thEvTLy60I3xfXjtgCfQSeeYvVXoCl7O7oroPlsN5iqn8Icf1x2B6RPLwxrDeZE
-//{ "username":"jamesp", "password": "test"}
-
-//student
-//eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2Mjk3ODc2NTQsImV4cCI6MTYyOTg3NDA1NH0.XeB_Zt4vcP_gv0wm0Yd6Ho3irrwSyusF3W1_AVjbq1sgXRD7JpLi8QRJ3aVjOpqExB2Y-bYCVLBUHem0R4kUb_7WiUC9crx51vx60jPFFCSMgHjDo2LQwfV-Icw4_121N3_Xk0ieaL63nmqhztWR8GdNga2kfxBb0VI46HvIWO_LihP6YZbW5dovkCMwMInxVWL0LE1xPVNPEDKeQ62O70AsyLzPF0dx4JSbgxjzphJTJPNJiLtdJB0Ap3UgOk7oIgBvWSnwUK740nLD7BLPZIQRgjWdsODK598cNlzoANxorkx1iMqaDDG2pidTGLenaESlC8OvDswc6saK2--JZ-hWkSq6zPx54KtK4j__bZA8ZcRb5_-Q1_7e59PvS4N64LK6d1YG5Mpjr0yCAu8x-yljkcQe74D0MyPctDJeXrONDDGhp6nuzXI5RRGUQWwjNOpuuUxEPOkMK_e8GbZUnATl-OIyW5hlhnf-4Kt2BVWlAChsQyFfRjRU39Hv86ESOsDcDGFyaEJRmWnUKqMPga0YIuxGXEYMQeLrnaYrNk1NkDHS18w6RE8UPuj6YG03td10FPR8TDkNBmPsB69tWVNq38fGNBgfDjmKyNBB6JXfWnBTnTKyAtx-K0Y3fO1Fqa5TRe73Qmm8paYuL1ygVt-RhLXZo8W_EKuphQM0lm8
-//{ "username":"test1", "password": "Mish@1234"}
