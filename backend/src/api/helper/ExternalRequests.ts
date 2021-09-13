@@ -14,3 +14,16 @@ export const GenerateThumbnail = async (url: string) => {
         throw new InternalServerError('There was an error calling the generate thumbnail endpoint');
     });
 }
+
+export const ConvertModel = async (url: string) => {
+    return axios.post(process.env.CONVERTER_URL!, { url }).then((response) => {
+        if (response.status === 200) {
+            return response.data as string[];
+        }
+        throw new InternalServerError(`Error while converting model\nHTTP Code: ${response.status}\nResponse: ${response.data}`);
+    })
+    .catch((error) => {
+        console.log(error);
+        throw new InternalServerError('There was an error calling the converter endpoint');
+    });
+}

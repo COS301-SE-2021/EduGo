@@ -68,6 +68,11 @@ const identify = async (socket: socket.Socket, data: any) => {
 
 const disconnect = (socket: socket.Socket) => {
     console.log(`Disconnected: ${socket.id}`);
+    let code = userMap[socket.id];
+    if (activeRooms[code]['educator'] === socket.id) {
+        socket.to(code).emit('end');
+        delete activeRooms[code];
+    }
     delete userMap[socket.id];
 }
 
