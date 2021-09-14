@@ -191,6 +191,10 @@ const init = async () => {
 		.getElementById("drawbutton")
 		?.addEventListener("click", drawButton);
 
+	document
+		.getElementById("sliderrange")
+		?.addEventListener("input", getLineWidth);
+
 	//Render everything
 	render(uniforms, model);
 };
@@ -215,8 +219,19 @@ function changeColour(colour) {
 	console.log(colourOfPen);
 }
 
-const lineWidthLabel = document.getElementById("sliderrange");
-const lineWidthRange = document.getElementById("slidervalue");
+let widthOfLine;
+function getLineWidth(width) {
+	console.log(width);
+	widthOfLine = width.srcElement.value;
+	//console.log(width.srcElement.value);
+
+	//console.log(widthOfLine);
+	//console.log(width.target.value);
+	//console.log(widthOfLine);
+	//ctx.lineWidth;
+
+	//console.log(ctx.lineWidth);
+}
 
 //This function is used to disable the canvas2 features
 //and clear any annotations currently on the canvas. This
@@ -278,8 +293,9 @@ function stop() {
 //This is the main function for the draw feature.
 //It is used in the start and stop functions
 function draw(event) {
+	console.log(widthOfLine);
 	ctx.beginPath();
-	ctx.lineWidth = 5;
+	ctx.lineWidth = widthOfLine;
 	ctx.lineCap = "round";
 	ctx.strokeStyle = colourOfPen;
 	ctx.moveTo(coord.x, coord.y);
