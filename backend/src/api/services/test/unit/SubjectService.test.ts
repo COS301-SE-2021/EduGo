@@ -123,7 +123,7 @@ describe("Subject Service", () => {
 
 			expect(
 				async () => await subjectService.CreateSubject(request, 1, "")
-			).rejects.toThrow(BadRequestError);
+			).rejects.toThrow(NotFoundError);
 		});
 	});
 });
