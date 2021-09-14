@@ -27,6 +27,7 @@ const setSize = () => {
     const devicePixelRatio = window.devicePixelRatio || 1;
     canvas.width = window.innerWidth * devicePixelRatio;
     canvas.height = window.innerHeight * devicePixelRatio;
+    io.emit('new_ratio', window.innerWidth / window.innerHeight);
     gl.viewport(0, 0, canvas.width, canvas.height);
 }
 
@@ -51,12 +52,13 @@ const identify = async () => {
         throw new Error('Missing token in parameters')
     }
 
-    io.emit('identify', {
-        token: token
+    io.emit('identify_student', {
+        token: token,
+        ratio: window.innerWidth / window.innerHeight
     });
 }
 
-io.on('accepted', async (data: any) => {
+io.on('accepted_educator', async (data: any) => {
     document.getElementById('code')!.innerText = data.code;
     code = data.code;
 
