@@ -15,6 +15,13 @@ const io = socket.io(BACKEND);
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 const gl: WebGLRenderingContext = canvas.getContext('webgl')!;
 
+const setSize = () => {
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * devicePixelRatio;
+    canvas.height = window.innerHeight * devicePixelRatio;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+}
+
 const cam: camera.Camera = {
     rX: 0.0,
     rY: 0.0,
@@ -25,14 +32,17 @@ io.on('camera_updated', (data: any) => {
     cam.rX = data.rX;
     cam.rY = data.rY;
     cam.distance = data.distance;
-})
+});
 
-const setSize = () => {
+io.on('ratio_updated', (data: any) => {
     const devicePixelRatio = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * devicePixelRatio;
-    canvas.height = window.innerHeight * devicePixelRatio;
-    gl.viewport(0, 0, canvas.width, canvas.height);
-}
+    const ratio = Number(data);
+    let height = window.innerHeight * devicePixelRatio;
+    let width = height * ratio;
+    canvas.width = width;
+    canvas.height = height;
+    gl.viewport(0, 0, width, height);
+})
 
 if (!gl) alert('WebGL not available');
 
@@ -48,20 +58,32 @@ const identify = () => {
         alert('Missing code in parameters');
         throw new Error('Missing code in parameters');
     }
-
-    io.emit('identify', {token, code});
+    io.emit('identify_student', {token, code});
 }
 
-io.on('accepted', (data: any) => {
+io.on('accepted_student', (data: any) => {
     if (!('link' in data)) {
         alert('Missing link in response');
         throw new Error('Missing link in response');
+    }
+
+    if (!('ratio' in data)) {
+        alert('Missing ratio in response');
+        throw new Error('Missing ratio in response');
     }
 
     if (data.link == null) {
         alert('Link is null');
         throw new Error('Link is null');
     }
+
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    const ratio = data.ratio;
+    let height = window.innerHeight * devicePixelRatio;
+    let width = height * ratio;
+    canvas.width = width;
+    canvas.height = height;
+    gl.viewport(0, 0, width, height);
 
     init(data.link);
 })
@@ -70,7 +92,7 @@ const init = async (url: string) => {
     gl.clearColor(0.3, 0.3, 0.3, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
-    window.onresize = () => { setSize(); }
+    //window.onresize = () => { setSize(); }
     setSize();
 
     const program = gl.createProgram();
