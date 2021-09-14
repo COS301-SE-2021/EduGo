@@ -21,8 +21,8 @@ module.exports = (passport: any) => {
 	passport.use(
 		new JwtStrategy(options, (payload: any, done: any) => {
 			console.log(payload);
-			let conn = getConnection();
-			let UserRepo = conn.getRepository(User);
+			const conn = getConnection();
+			const UserRepo = conn.getRepository(User);
 			// We will assign the `sub` property on the JWT to the database ID of user
 			UserRepo.findOne(payload.sub)
 				.then((user) => {
@@ -34,5 +34,3 @@ module.exports = (passport: any) => {
 		})
 	);
 };
-
-

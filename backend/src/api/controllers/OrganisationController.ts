@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest";
 import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisationRequest";
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
@@ -13,9 +14,7 @@ export class OrganisationController {
 	private service: OrganisationService;
 
 	@Post("/createOrganisation")
-	CreateOrganisation(
-		@Body({ required: true }) body: CreateOrganisationRequest
-	) {
+	CreateOrganisation( @Body({ required: true }) body: CreateOrganisationRequest) {
 		return this.service.CreateOrganisation(body);
 	}
 	@Post("/getOrganisations")

@@ -1,3 +1,1 @@
-export class GetVirtualEntitiesRequest {
-
-}
+export class GetVirtualEntitiesRequest {}

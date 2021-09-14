@@ -1,4 +1,4 @@
 export interface AddSubjectToOrganisationResponse {
-    count: number;
-    message: string;
+	count: number;
+	message: string;
 }

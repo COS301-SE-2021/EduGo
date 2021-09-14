@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-import { ConnectionOptions } from 'typeorm';
+import dotenv from "dotenv";
+import { ConnectionOptions } from "typeorm";
 import { Answer } from "../api/database/Answer";
 import { Educator } from "../api/database/Educator";
 import { Grade } from "../api/database/Grade";
@@ -28,20 +28,20 @@ export default {
 	logging: true,
 	logger: "file",
 	entities: [
-		Answer, 
-		Educator, 
-		Grade, 
-		Image, 
-		Lesson, 
-		Model, 
-		Organisation, 
-		Question, 
-		Quiz, 
-		Student, 
-		Subject, 
+		Answer,
+		Educator,
+		Grade,
+		Image,
+		Lesson,
+		Model,
+		Organisation,
+		Question,
+		Quiz,
+		Student,
+		Subject,
 		UnverifiedUser,
-		User, 
-		VirtualEntity
+		User,
+		VirtualEntity,
 	],
 	migrations: ["src/api/database/migration/**/*.ts"],
 	subscribers: ["src/api/database/subscriber/**/*.ts"],
@@ -51,9 +51,11 @@ export default {
 		subscribersDir: "src/api/database/subscriber",
 	},
 	extra: {
-		ssl: true
+		ssl: true,
 	},
 	ssl: {
-		ca: Buffer.from(process.env.AZURE_DB_SSL_CERT!, 'base64').toString('ascii'),
-	}
-} as ConnectionOptions
+		ca: Buffer.from(process.env.AZURE_DB_SSL_CERT!, "base64").toString(
+			"ascii"
+		),
+	},
+} as ConnectionOptions;

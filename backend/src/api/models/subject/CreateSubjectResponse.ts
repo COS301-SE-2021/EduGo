@@ -1,3 +1,3 @@
 export interface CreateSubjectResponse {
-    id: number;
+	id: number;
 }

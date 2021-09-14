@@ -4,7 +4,7 @@ import passport from "passport";
 import {
 	BadRequestError,
 	UnauthorizedError,
-	ExpressMiddlewareInterface
+	ExpressMiddlewareInterface,
 } from "routing-controllers";
 import { Inject, Service } from "typedi";
 import { Repository } from "typeorm";
@@ -27,7 +27,8 @@ export interface RequestObjectWithUserId extends Request {
 @Service()
 export class ValidationMiddleware {
 	constructor(
-		@InjectRepository(User) private readonly userRepository: Repository<User>
+		@InjectRepository(User)
+		private readonly userRepository: Repository<User>
 	) {}
 
 	public async getUserDetails(id: number): Promise<AuthenticateObject> {
@@ -60,14 +61,19 @@ export class ValidationMiddleware {
 export class IsUserMiddleware implements ExpressMiddlewareInterface {
 	@Inject() validationMiddleware: ValidationMiddleware;
 
-	async use(req: RequestObjectWithUserId, res: any, next: (err?: any) => any) {
+	async use(
+		req: RequestObjectWithUserId,
+		res: any,
+		next: (err?: any) => any
+	) {
 		if (req.headers.authorization) {
 			const token = req.headers.authorization.slice(7);
 			const payload = jwtDecode<MyPayload>(token);
 			try {
-				let user: AuthenticateObject = await this.validationMiddleware.getUserDetails(
-					payload.user_id
-				);
+				const user: AuthenticateObject =
+					await this.validationMiddleware.getUserDetails(
+						payload.user_id
+					);
 				if (user) {
 					req.user_id = user.id;
 					next();
@@ -89,9 +95,10 @@ export class IsAdminMiddleware implements ExpressMiddlewareInterface {
 				const token = req.headers.authorization.slice(7);
 				const payload = jwtDecode<MyPayload>(token);
 
-				let user: AuthenticateObject = await this.validationMiddleware.getUserDetails(
-					payload.user_id
-				);
+				const user: AuthenticateObject =
+					await this.validationMiddleware.getUserDetails(
+						payload.user_id
+					);
 				if (user.isAdmin) {
 					req.user_id = user.id;
 					next();
@@ -109,15 +116,20 @@ export class IsAdminMiddleware implements ExpressMiddlewareInterface {
 export class IsEducatorMiddleware implements ExpressMiddlewareInterface {
 	@Inject() validationMiddleware: ValidationMiddleware;
 
-	async use(req: RequestObjectWithUserId, res: any, next: (err?: any) => any) {
+	async use(
+		req: RequestObjectWithUserId,
+		res: any,
+		next: (err?: any) => any
+	) {
 		if (req.headers.authorization) {
 			const token = req.headers.authorization.slice(7);
 			const payload = jwtDecode<MyPayload>(token);
 			console.log(payload);
 			try {
-				let user: AuthenticateObject = await this.validationMiddleware.getUserDetails(
-					payload.user_id
-				);
+				const user: AuthenticateObject =
+					await this.validationMiddleware.getUserDetails(
+						payload.user_id
+					);
 				if (user.isEducator) {
 					req.user_id = user.id;
 					next();

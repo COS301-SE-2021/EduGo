@@ -201,6 +201,7 @@ describe("Organisation API tests", () => {
 			organisation_id: 1,
 			userType: userType.student,
 		};
+		const red = " sadfga";
 
 		when(App.mockedOrganisationRepository.save(anything())).thenResolve(
 			Default.eduGoOrg
@@ -228,10 +229,8 @@ describe("Organisation API tests", () => {
 			when(
 				App.mockedOrganisationRepository.findOne(anything(), anything())
 			).thenResolve(undefined);
-			when(App.)
-			const req: GetOrganisationRequest = {
-				id: 1,
-			};
+
+			const req: GetOrganisationRequest = { id: 1 };
 			const response = await request(App.app)
 				.post("/organisation/getOrganisation")
 				.set("Accept", "application/json")

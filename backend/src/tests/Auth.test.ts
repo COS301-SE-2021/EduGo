@@ -403,16 +403,16 @@ describe("Auth API tests", () => {
 					.createQueryBuilder()
 					.update(anything())
 					.set(anything())
-					.where(anything(),anything())
+					.where(anything(), anything())
 					.execute()
 			).thenReturn(anything());
 
 			const response = await request(App.app)
 				.post("/auth/verifyInvitation")
 				.set("Accept", "application/json")
-				.send(req)
-				//.expect(200)
-				//.expect("Content-Type", /json/);
+				.send(req);
+			//.expect(200)
+			//.expect("Content-Type", /json/);
 			console.log(response.body);
 		});
 	});

@@ -20,7 +20,7 @@ export class Answer {
 	question: Question;
 
 	@Column()
-	answer: String;
+	answer: string;
 
 	@ManyToOne((type) => Grade, (grade) => grade.answers, {
 		onDelete: "CASCADE",

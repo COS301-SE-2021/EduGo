@@ -2,12 +2,12 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Model {
-    @PrimaryGeneratedColumn()
-    id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-    @Column()
-    fileLink: string;
+	@Column()
+	fileLink: string;
 
-    @Column({nullable: true})
-    thumbnail?: string;
+	@Column({ nullable: true })
+	thumbnail?: string;
 }

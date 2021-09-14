@@ -5,7 +5,9 @@ import { NotFoundError } from "routing-controllers";
 
 export async function getUserDetails(user_id: number): Promise<User> {
 	return getRepository(User)
-		.findOne(user_id, { relations: ["organisation","educator","student"] })
+		.findOne(user_id, {
+			relations: ["organisation", "educator", "student"],
+		})
 		.then((user) => {
 			if (user) {
 				return user;
@@ -13,9 +15,10 @@ export async function getUserDetails(user_id: number): Promise<User> {
 		});
 }
 
-export  function generateCode(length: number): string {
-	let charset = '0123456789';
-	let result = '';
-	for (let i = 0; i < length; i++) result += charset[Math.floor(Math.random() * charset.length)];
+export function generateCode(length: number): string {
+	const charset = "0123456789";
+	let result = "";
+	for (let i = 0; i < length; i++)
+		result += charset[Math.floor(Math.random() * charset.length)];
 	return result;
 }
