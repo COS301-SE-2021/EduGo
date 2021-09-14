@@ -47,6 +47,38 @@ describe("Organisation API tests", () => {
 			//console.log(response);
 			//expect(response.body.token).toBeDefined();
 		});
+
+		it("email exists error", async () => {
+			const req: CreateOrganisationRequest = {
+				organisation_name: "university",
+				organisation_email: "uni@gmail.com",
+				organisation_phone: "12352346",
+				password: "test",
+				user_firstName: "jamesp",
+				user_lastName: "pearson",
+				user_email: "jamesperson.com",
+				username: "jamesp",
+				organisation_id: 1,
+				userType: userType.student,
+			};
+
+			when(App.mockedOrganisationRepository.save(anything())).thenResolve(
+				Default.eduGoOrg
+			);
+			when(App.mockedUserRepository.findOne(anything()))
+				.thenResolve(undefined)
+				.thenResolve(Default.adminUser);
+
+			const response = await request(App.app)
+				.post("/organisation/createOrganisation")
+				.set("Accept", "application/json")
+				.send(req)
+				.expect(400)
+				.expect("Content-Type", /json/);
+			//console.log(response);
+			//expect(response.body.token).toBeDefined();
+		});
+		
 		
 	});
 });
