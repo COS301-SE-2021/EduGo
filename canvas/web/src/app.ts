@@ -196,6 +196,27 @@ const init = async () => {
 };
 //---------------------------------------------------------------------------------//
 //Start of Canvas drawing feature helper functions
+let colourOfPen;
+document.getElementById("red")!.addEventListener("click", changeColour);
+document.getElementById("green")!.addEventListener("click", changeColour);
+document.getElementById("yellow")!.addEventListener("click", changeColour);
+document.getElementById("olive")!.addEventListener("click", changeColour);
+document.getElementById("orange")!.addEventListener("click", changeColour);
+document.getElementById("teal")!.addEventListener("click", changeColour);
+document.getElementById("blue")!.addEventListener("click", changeColour);
+document.getElementById("violet")!.addEventListener("click", changeColour);
+document.getElementById("purple")!.addEventListener("click", changeColour);
+document.getElementById("pink")!.addEventListener("click", changeColour);
+document.getElementById("white")!.addEventListener("click", changeColour);
+document.getElementById("black")!.addEventListener("click", changeColour);
+
+function changeColour(colour) {
+	colourOfPen = colour.srcElement.id;
+	console.log(colourOfPen);
+}
+
+const lineWidthLabel = document.getElementById("sliderrange");
+const lineWidthRange = document.getElementById("slidervalue");
 
 //This function is used to disable the canvas2 features
 //and clear any annotations currently on the canvas. This
@@ -260,7 +281,7 @@ function draw(event) {
 	ctx.beginPath();
 	ctx.lineWidth = 5;
 	ctx.lineCap = "round";
-	ctx.strokeStyle = "#ACD3ED";
+	ctx.strokeStyle = colourOfPen;
 	ctx.moveTo(coord.x, coord.y);
 	reposition(event);
 	ctx.lineTo(coord.x, coord.y);
@@ -273,11 +294,19 @@ const canvasInit = (canvas) => {
 	canvas.style.cursor = "not-allowed";
 	canvas.style.pointerEvents = "none";
 };
+
+// lineWidthRange!.addEventListener("input", (event) => {
+// 	const width = event.target.value;
+// 	lineWidthLabel.innerHTML = width;
+// 	context.lineWidth = width;
+// });
+
 //End of Canvas drawing feature helper functions
 //---------------------------------------------------------------------------------//
 
 const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
 	// gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
 	gl.clear(gl.COLOR_BUFFER_BIT);
 
 	const cameraMatrix = camera.update(cam, canvas.width, canvas.height);
