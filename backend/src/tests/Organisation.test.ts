@@ -10,8 +10,21 @@ import { CreateOrganisationRequest } from "../api/models/organisation/CreateOrga
 import { Organisation } from "../api/database/Organisation";
 import { GetOrganisationResponse } from "../api/models/organisation/GetOrganisationResponse";
 import { GetOrganisationRequest } from "../api/models/organisation/GetOrganisationRequest";
+import { In } from "typeorm";
 
 describe("Organisation API tests", () => {
+	let educatorToken = "";
+	beforeAll(async () => {
+		when(App.mockedUserRepository.findOne(anything())).thenResolve(
+			Default.educatorUser
+		);
+		const educatorResponse = await request(App.app)
+			.post("/auth/login")
+			.set("Accept", "application/json")
+			.send({ username: "educator", password: "password" });
+		educatorToken = educatorResponse.body.token;
+	});
+
 	beforeEach(() => {
 		reset(App.mockedUserRepository);
 		reset(App.mockedUnverifiedUserRepository);
@@ -217,7 +230,7 @@ describe("Organisation API tests", () => {
 			.post("/organisation/createOrganisation")
 			.set("Accept", "application/json")
 			.send(req)
-			.expect(500)
+			.expect(200)
 			.expect("Content-Type", /json/);
 		//console.log(response);
 		//expect(response.body.token).toBeDefined();
@@ -228,15 +241,51 @@ describe("Organisation API tests", () => {
 			when(
 				App.mockedOrganisationRepository.findOne(anything(), anything())
 			).thenResolve(undefined);
+			when(
+				App.mockedUserRepository.find({
+					where: { id: In(anything()) },
+					relations: [anything()],
+				})
+			).thenResolve([Default.educatorUser]);
 
 			const req: GetOrganisationRequest = { id: 1 };
 			const response = await request(App.app)
 				.post("/organisation/getOrganisation")
 				.set("Accept", "application/json")
+				.set("Authorization", educatorToken)
+				.send(req)
+				.expect(400)
+				.expect("Content-Type", /json/);
+			//console.log(response);
+		});
+		it.skip("successfully get organisation", async () => {
+			when(
+				App.mockedOrganisationRepository.findOne(anything(), anything())
+			).thenResolve(Default.eduGoOrg);
+
+			const req: GetOrganisationRequest = { id: 1 };
+			const response = await request(App.app)
+				.post("/organisation/getOrganisation")
+				.set("Accept", "application/json")
+				.set("Authorization", educatorToken)
 				.send(req);
-			// .expect(404)
-			// .expect("Content-Type", /json/);
+			//.expect(200)
+			//.expect("Content-Type", /json/);
 			console.log(response);
+		});
+	});
+
+	describe("POST /organisation/getOrganisations", () => {
+		it("organisations returned", async () => {
+			when(App.mockedOrganisationRepository.find()).thenResolve([
+				Default.eduGoOrg,
+			]);
+			const response = await request(App.app)
+				.post("/organisation/getOrganisations")
+				.set("Accept", "application/json")
+				.expect(200)
+				.expect("Content-Type", /json/);
+			//console.log(response);
 		});
 	});
 });
