@@ -61,6 +61,7 @@ const identifyEducator = async (socket: socket.Socket, socket_data: any) => {
         socket.join(code);
         userMap[socket.id] = code;
         socket.emit('accepted_educator', {code: code});
+        console.log(io.sockets.adapter.rooms);
     }
     else socket.emit('declined', 'Invalid user type');
 }
@@ -95,9 +96,9 @@ const identifyStudent = async (socket: socket.Socket, socket_data: any) => {
 
     if (data.userType === 'student') {
         if (Object.keys(activeRooms).includes(identity.code)) {
-            socket.join(data.code);
-            userMap[socket.id] = data.code;
-            socket.emit('accepted', {code: identity.code, link: activeRooms[identity.code]['link']});
+            socket.join(identity.code);
+            userMap[socket.id] = identity.code;
+            socket.emit('accepted_student', {code: identity.code, link: activeRooms[identity.code]['link'], ratio: activeRooms[identity.code]['ratio']});
         }
         else socket.emit('declined', 'Invalid code');
     }
@@ -107,7 +108,7 @@ const identifyStudent = async (socket: socket.Socket, socket_data: any) => {
 const disconnect = (socket: socket.Socket) => {
     console.log(`Disconnected: ${socket.id}`);
     let code = userMap[socket.id];
-    if (activeRooms[code]['educator'] === socket.id) {
+    if (activeRooms[code] && activeRooms[code]['educator'] === socket.id) {
         socket.to(code).emit('end');
         delete activeRooms[code];
     }
@@ -126,7 +127,7 @@ const set_link = (socket: socket.Socket, data: any) => {
 
 const new_ratio = (socket: socket.Socket, data: any) => {
     let code = userMap[socket.id];
-    activeRooms[code]['ratio'] = data.ratio;
+    activeRooms[code]['ratio'] = data;
     socket.to(code).emit('ratio_updated', data);
 }
 
