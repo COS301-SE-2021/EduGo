@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { anyNumber, anyOfClass, anything, reset, when } from "ts-mockito";
 import * as App from "./App";
 import * as Default from "./Default";
@@ -45,12 +46,12 @@ describe("Lesson API tests", () => {
 			const response = await request(App.app)
 				.post("/lesson/createLesson")
 				.set("Accept", "application/json")
-				.set("Authorization", "Bearer " + educatorToken)
-				.send(req);
-			//.expect(200)
-			//.expect('Content-Type', /json/);
-			console.log(response);
-			//expect(response.body.id).toBeDefined();
+				.set("Authorization", educatorToken)
+				.send(req)
+				.expect(200)
+				.expect("Content-Type", /json/);
+
+			expect(response.body.id).toBeDefined();
 		});
 	});
 });

@@ -37,19 +37,16 @@ import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicRespon
 import { Lesson } from "../database/Lesson";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
 import { GetQuizesByLessonResponse } from "../models/virtualEntity/GetQuizesByLessonResponse";
-import { GenerateThumbnail } from "../helper/ExternalRequests";
+import { ConvertModel, GenerateThumbnail } from "../helper/ExternalRequests";
 
 @Service()
 export class VirtualEntityService {
 	constructor(
-		@InjectRepository(VirtualEntity)
-		private virtualEntityRepository: Repository<VirtualEntity>,
+		@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>,
 		@InjectRepository(Quiz) private quizRepository: Repository<Quiz>,
-		@InjectRepository(Question)
-		private questionRepository: Repository<Question>,
+		@InjectRepository(Question) private questionRepository: Repository<Question>,
 		@InjectRepository(User) private userRepository: Repository<User>,
-		@InjectRepository(Student)
-		private studentRepository: Repository<Student>,
+		@InjectRepository(Student) private studentRepository: Repository<Student>,
 		@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>
 	) {}
 
@@ -75,9 +72,10 @@ export class VirtualEntityService {
 		if (entity.model)
 			throw new BadRequestError("Virtual Entity already has a Model");
 
-		const thumbnail = await GenerateThumbnail(request.fileLink);
+		let thumbnail = await GenerateThumbnail(request.fileLink);
+		await ConvertModel(request.fileLink);
 
-		const model: Model = new Model();
+		let model: Model = new Model();
 		model.fileLink = request.fileLink;
 		model.thumbnail = thumbnail.uploaded;
 
@@ -91,9 +89,9 @@ export class VirtualEntityService {
 		}
 
 		if (result.model) {
-			const response: AddModelToVirtualEntityDatabaseResult = {
+			let response: AddModelToVirtualEntityDatabaseResult = {
 				model_id: result.model.id,
-				thumbnail: thumbnail.uploaded,
+				thumbnail: thumbnail.uploaded
 			};
 			return response;
 		} else
@@ -102,9 +100,7 @@ export class VirtualEntityService {
 			);
 	}
 
-	async GetVirtualEntity(
-		request: GetVirtualEntityRequest
-	): Promise<GetVirtualEntityResponse> {
+	async GetVirtualEntity(request: GetVirtualEntityRequest): Promise<GetVirtualEntityResponse> {
 		let entity: VirtualEntity | undefined;
 		try {
 			entity = await this.virtualEntityRepository.findOne(request.id, {
@@ -116,18 +112,19 @@ export class VirtualEntityService {
 
 		if (!entity) throw new NotFoundError("Could not find virtual entity");
 
-		const response: GetVirtualEntityResponse = {
+		let response: GetVirtualEntityResponse = {
 			id: entity.id,
 			title: entity.title,
 			description: entity.description,
 		};
 
+
 		if (entity.model) {
-			const model: GVE_Model = { ...entity.model };
+			let model: GVE_Model = { ...entity.model };
 			response.model = model;
 		}
 		if (entity.quiz) {
-			const quiz: GVE_Quiz = { ...entity.quiz };
+			let quiz: GVE_Quiz = { ...entity.quiz };
 			response.quiz = quiz;
 		}
 		return response;
@@ -154,23 +151,23 @@ export class VirtualEntityService {
 
 		if (!user) throw new NotFoundError("Could not find user");
 
-		const ve: VirtualEntity = new VirtualEntity();
+		let ve: VirtualEntity = new VirtualEntity();
 		ve.title = request.title;
 		ve.description = request.description?.map((info) => info) || [];
 		ve.public = request.public ?? false;
 		ve.organisation = user.organisation;
 
 		if (request.model !== undefined) {
-			const model: Model = new Model();
+			let model: Model = new Model();
 			model.fileLink = request.model.fileLink;
 			model.thumbnail = request.model.thumbnail;
 			ve.model = model;
 		}
 
 		if (request.quiz !== undefined) {
-			const quiz: Quiz = new Quiz();
+			let quiz: Quiz = new Quiz();
 			quiz.questions = request.quiz.questions.map((value) => {
-				const question: Question = new Question();
+				let question: Question = new Question();
 				question.question = value.question;
 				question.type = <QuestionType>value.type;
 				question.options = value.options;
@@ -188,7 +185,7 @@ export class VirtualEntityService {
 			throw new InternalServerError("Could not save virtual entity");
 		}
 
-		const response: CreateVirtualEntityResponse = {
+		let response: CreateVirtualEntityResponse = {
 			id: result.id,
 			message: "Successfully added virtual entity",
 		};
@@ -207,14 +204,12 @@ export class VirtualEntityService {
 	async AnswerQuiz(
 		request: AnswerQuizRequest,
 		user_id: number
-	): Promise<string> {
+	): Promise<String> {
 		let user: User | undefined;
 		let quiz: Quiz | undefined;
 		let lesson: Lesson | undefined;
 		try {
-			user = await this.userRepository.findOne(user_id, {
-				relations: ["organisation", "educator", "student"],
-			});
+			user = await this.userRepository.findOne(user_id, {relations: ["organisation", "educator", "student"]});
 			quiz = await this.quizRepository.findOne(request.quiz_id, {
 				relations: ["questions"],
 			});
@@ -228,13 +223,13 @@ export class VirtualEntityService {
 		if (!quiz) throw new NotFoundError("Could not find quiz");
 		if (!lesson) throw new NotFoundError("Could not find lesson");
 
-		const StudentGrade = new Grade();
-		let score = 0;
-		const total: number = quiz.questions.length;
+		let StudentGrade = new Grade();
+		let score: number = 0;
+		let total: number = quiz.questions.length;
 		StudentGrade.quiz = quiz;
 		StudentGrade.answers = [];
 		StudentGrade.lesson = lesson;
-		for (const value of request.answers) {
+		for (let value of request.answers) {
 			let question: Question | undefined;
 
 			try {
@@ -246,7 +241,7 @@ export class VirtualEntityService {
 			}
 
 			if (question) {
-				const answer = new Answer();
+				let answer = new Answer();
 				answer.answer = value.answer;
 				answer.question = question;
 				StudentGrade.answers.push(answer);
@@ -299,7 +294,8 @@ export class VirtualEntityService {
 			user = await this.userRepository.findOne(user_id, {
 				relations: ["organisation"],
 			});
-		} catch (err) {
+		}
+		catch (err) {
 			console.log(err);
 			throw new BadRequestError("User not found");
 		}
@@ -308,20 +304,19 @@ export class VirtualEntityService {
 			ve = await this.virtualEntityRepository.findOne(request.id, {
 				relations: ["organisation"],
 			});
-		} catch (err) {
+		}
+		catch (err) {
 			throw new BadRequestError("Virtual entity not found");
 		}
 		if (!user) throw new BadRequestError("User not found");
-		if (!ve)
-			throw new BadRequestError(
-				"Virtual entity does not belong to organisation"
-			);
+		if (!ve) throw new BadRequestError("Virtual entity does not belong to organisation");
 
 		if (ve.organisation.id === user.organisation.id) {
 			ve.public = !ve.public;
 			await this.virtualEntityRepository.save(ve);
 			return { public: ve.public };
-		} else
+		} 
+		else
 			throw new BadRequestError("User does not belong to organisation");
 	}
 
@@ -332,17 +327,18 @@ export class VirtualEntityService {
 	 */
 	async GetPublicVirtualEntities(): Promise<GVEs_VirtualEntity[]> {
 		try {
-			const source_entities = await this.virtualEntityRepository.find({
-				public: true,
+			let source_entities = await this.virtualEntityRepository.find({
+				where: {public: true},
+				relations: ["model"]
 			});
 			return source_entities.map((value) => {
-				const entity: GVEs_VirtualEntity = {
+				let entity: GVEs_VirtualEntity = {
 					id: value.id,
 					title: value.title,
 					description: value.description,
 				};
 				if (value.model) {
-					const model: GVEs_Model = {
+					let model: GVEs_Model = {
 						...value.model,
 					};
 					entity.model = model;
@@ -365,15 +361,15 @@ export class VirtualEntityService {
 		user_id: number
 	): Promise<GVEs_VirtualEntity[]> {
 		try {
-			const user = await this.userRepository.findOne(user_id, {
+			let user = await this.userRepository.findOne(user_id, {
 				relations: ["organisation"],
 			});
 			if (!user) throw new BadRequestError("User not found");
 
 			//A better query would be to get the organisation and then get all the virtual entities of that organisation
 			return await this.virtualEntityRepository.find({
-				organisation: user.organisation,
-				public: false,
+				where: {organisation: user.organisation, public: false},
+				relations: ["model"],
 			});
 		} catch (err) {
 			console.log(err);
@@ -387,29 +383,20 @@ export class VirtualEntityService {
 	 * @returns {Promise<GetQuizesByLessonResponse>}
 	 * @throws {BadRequestError}
 	 */
-	async GetQuizesByLesson(
-		request: GetQuizesByLessonRequest
-	): Promise<GetQuizesByLessonResponse> {
+	async GetQuizesByLesson(request: GetQuizesByLessonRequest): Promise<GetQuizesByLessonResponse> {
 		let lesson: Lesson | undefined;
 		try {
-			lesson = await this.lessonRepository.findOne(request.id, {
-				relations: [
-					"virtualEntities",
-					"virtualEntities.quiz",
-					"virtualEntities.quiz.questions",
-				],
-			});
-		} catch (err) {
+			lesson = await this.lessonRepository.findOne(request.id, {relations: ["virtualEntities", "virtualEntities.quiz", "virtualEntities.quiz.questions"]});
+		}
+		catch (err) {
 			throw new BadRequestError("Lesson not found");
 		}
 		if (!lesson) throw new BadRequestError("Lesson not found");
 
 		//Get only the virtual entites that have a quiz defined then get all the quizes of those virtual entities
-		const virtualEntities: VirtualEntity[] = lesson.virtualEntities.filter(
-			(entity) => entity.quiz !== undefined
-		);
-		const quizes: Quiz[] = virtualEntities.map((entity) => entity.quiz!);
+		let virtualEntities: VirtualEntity[] = lesson.virtualEntities.filter((entity) => entity.quiz !== undefined);
+		let quizes: Quiz[] = virtualEntities.map((entity) => entity.quiz!);
 
-		return { data: quizes.map((quiz) => ({ ...quiz })) };
+		return { data: quizes.map((quiz) => ({...quiz})) }
 	}
 }
