@@ -229,7 +229,7 @@ describe("Lesson API tests", () => {
 			.send(req)
 			.expect(200)
 			.expect("Content-Type", /json/);
-			console.log(response)
+			//console.log(response)
 		})
 
 	})

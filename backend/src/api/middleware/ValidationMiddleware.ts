@@ -123,7 +123,7 @@ export class IsEducatorMiddleware implements ExpressMiddlewareInterface {
 		if (req.headers.authorization) {
 			const token = req.headers.authorization.slice(7);
 			const payload = jwtDecode<MyPayload>(token);
-			console.log(payload);
+			//console.log(payload);
 			try {
 				const user: AuthenticateObject =
 					await this.validationMiddleware.getUserDetails(

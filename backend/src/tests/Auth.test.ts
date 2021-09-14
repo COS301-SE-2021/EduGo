@@ -383,7 +383,6 @@ describe("Auth API tests", () => {
 				.send(req)
 				.expect(400)
 				.expect("Content-Type", /json/);
-			console.log(response.body);
 		});
 
 		it.skip("should allow to verify a user", async () => {
@@ -413,7 +412,6 @@ describe("Auth API tests", () => {
 				.send(req);
 			//.expect(200)
 			//.expect("Content-Type", /json/);
-			console.log(response.body);
 		});
 	});
 });
