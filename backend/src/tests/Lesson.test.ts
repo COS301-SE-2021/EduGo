@@ -142,6 +142,29 @@ describe("Lesson API tests", () => {
 	})
 
 	describe('Add virtual entity to lesson', ()=> {
+		it('lesson doesnt exist', async ()=>{
+			const req: AddVirtualEntityToLessonRequest={
+				lessonId: 1, 
+				virtualEntityId: 1
+			}
+			when(
+				App.mockedSubjectRepository.findOne(anyNumber(), anything())
+			).thenResolve(Default.subjects[0]);
+			when(App.mockedLessonRepository.findOne(anyNumber(), anything())).thenResolve(undefined)
+			when(App.mockedVirtualEntityRepository.findOne(anything())).thenResolve(Default.virtualEntities[0])
+			when(App.mockedUserRepository.findOne(anyNumber(), anything())).thenResolve(Default.educatorUser);
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(Default.educatorUser);
+
+			const response = await request(App.app)
+			.post("/lesson/addVirtualEntityToLesson")
+			.set("Accept", "application/json")
+			.set("Authorization", educatorToken)
+			.send(req)
+			.expect(400)
+			.expect("Content-Type", /json/);
+			//console.log(response)
+		})
+
 		it('virtual entity doesnt exist', async ()=>{
 			const req: AddVirtualEntityToLessonRequest={
 				lessonId: 1, 
@@ -161,6 +184,50 @@ describe("Lesson API tests", () => {
 			.set("Authorization", educatorToken)
 			.send(req)
 			.expect(400)
+			.expect("Content-Type", /json/);
+			//console.log(response)
+		})
+		it('virtual entity already added', async ()=>{
+			const req: AddVirtualEntityToLessonRequest={
+				lessonId: 1, 
+				virtualEntityId: 1
+			}
+			when(
+				App.mockedSubjectRepository.findOne(anyNumber(), anything())
+			).thenResolve(Default.subjects[0]);
+			when(App.mockedLessonRepository.findOne(anyNumber(), anything())).thenResolve(Default.eduGoOrg.subjects[0].lessons[0])
+			when(App.mockedVirtualEntityRepository.findOne(anything())).thenResolve(Default.virtualEntities[0])
+			when(App.mockedUserRepository.findOne(anyNumber(), anything())).thenResolve(Default.educatorUser);
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(Default.educatorUser);
+
+			const response = await request(App.app)
+			.post("/lesson/addVirtualEntityToLesson")
+			.set("Accept", "application/json")
+			.set("Authorization", educatorToken)
+			.send(req)
+			.expect(400)
+			.expect("Content-Type", /json/);
+			//console.log(response)
+		})
+		it('succesfully added virtual entity to lesson', async ()=>{
+			const req: AddVirtualEntityToLessonRequest={
+				lessonId: 1, 
+				virtualEntityId: 1
+			}
+			when(
+				App.mockedSubjectRepository.findOne(anyNumber(), anything())
+			).thenResolve(Default.subjects[0]);
+			when(App.mockedLessonRepository.findOne(anyNumber(), anything())).thenResolve(Default.eduGoOrg.subjects[0].lessons[0])
+			when(App.mockedVirtualEntityRepository.findOne(anything())).thenResolve(Default.virtualEntities[2])
+			when(App.mockedUserRepository.findOne(anyNumber(), anything())).thenResolve(Default.educatorUser);
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(Default.educatorUser);
+
+			const response = await request(App.app)
+			.post("/lesson/addVirtualEntityToLesson")
+			.set("Accept", "application/json")
+			.set("Authorization", educatorToken)
+			.send(req)
+			.expect(200)
 			.expect("Content-Type", /json/);
 			console.log(response)
 		})

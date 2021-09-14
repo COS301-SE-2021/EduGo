@@ -9,6 +9,6 @@
 	]
 
 	, "rules": {
-		"max-len": ["error", {"code": 500, "ignoreUrls": true}]
+		"max-len": ["error", {"code": 700, "ignoreUrls": true}]
 	  }
 }

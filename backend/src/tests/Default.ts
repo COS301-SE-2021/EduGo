@@ -189,4 +189,5 @@ export const virtualEntities = [1, 2, 3].map((id) => {
 	return virtualEntity;
 });
 
-eduGoOrg.virtualEntities = virtualEntities;
+eduGoOrg.virtualEntities.push(virtualEntities[0]);
+eduGoOrg.virtualEntities.push(virtualEntities[1]);
