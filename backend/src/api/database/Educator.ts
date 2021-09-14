@@ -15,13 +15,13 @@ export class Educator {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@ManyToMany(type => Subject, subject => subject.educators)
+	@ManyToMany((type) => Subject, (subject) => subject.educators)
 	@JoinTable()
 	subjects: Subject[];
 
-	@Column({default:false})
+	@Column({ default: false })
 	admin: boolean;
 
-	@OneToOne((type) => User, user => user.educator)
+	@OneToOne((type) => User, (user) => user.educator)
 	user: User;
 }

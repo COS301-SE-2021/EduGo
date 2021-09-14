@@ -4,23 +4,22 @@ export interface QuizGrade {
 	student_score: number;
 }
 
+export interface GetStudentGradesResponse {
+	subjects: SubjectGrades[];
+}
 
-export interface GetStudentGradesResponse{
-	subjects: SubjectGrades[]; 
- }
-
- export interface SubjectGrades{
-	 id:number; 
-	 gradeAchieved: number; 
-	 subjectName:string; 
-	 lessonGrades: LessonGrades[]
- }
-
- export interface LessonGrades{
-	id:number;
+export interface SubjectGrades {
+	id: number;
 	gradeAchieved: number;
-	lessonName: string; 
-	quizGrades: QuizGrade[]
+	subjectName: string;
+	lessonGrades: LessonGrades[];
+}
+
+export interface LessonGrades {
+	id: number;
+	gradeAchieved: number;
+	lessonName: string;
+	quizGrades: QuizGrade[];
 }
 
 // export interface studentAnswer {

@@ -1,9 +1,4 @@
-import {
-	IsAlphanumeric,
-	IsEmail,
-	IsNotEmpty,
-	IsString,
-} from "class-validator";
+import { IsAlphanumeric, IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class LoginRequest {
 	@IsNotEmpty()

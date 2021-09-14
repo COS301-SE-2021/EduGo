@@ -34,17 +34,20 @@ orm_useContainer(orm_Container);
 let options: ConnectionOptions = ormDevelopment;
 
 if (!("DB_USER" in process.env)) throw new Error("Database username missing");
-if (!("DB_PASSWORD" in process.env)) throw new Error("Database password missing");
+if (!("DB_PASSWORD" in process.env))
+	throw new Error("Database password missing");
 if (!("EMAIL" in process.env)) throw new Error("Email address missing");
 if (!("SMTP_HOST" in process.env)) throw new Error("SMTP Host missing");
 if (!("SMTP_USERNAME" in process.env)) throw new Error("SMTP Username missing");
 if (!("SMTP_PASSWORD" in process.env)) throw new Error("SMTP Password missing");
 if (!("SMTP_PORT" in process.env)) throw new Error("SMTP Port missing");
-if (!("GENERATE_THUMBNAIL_URL" in process.env)) throw new Error("Generate thumbnail url missing");
+if (!("GENERATE_THUMBNAIL_URL" in process.env))
+	throw new Error("Generate thumbnail url missing");
 if (!("CONVERTER_URL" in process.env)) throw new Error("Converter url missing");
 
-if (process.env.NODE_ENV === "production") { 
-	if (!("AZURE_DB_SSL_CERT" in process.env)) throw new Error("Azure DB SSL Cert missing");
+if (process.env.NODE_ENV === "production") {
+	if (!("AZURE_DB_SSL_CERT" in process.env))
+		throw new Error("Azure DB SSL Cert missing");
 	options = ormProduction;
 }
 
@@ -60,17 +63,17 @@ createConnection(options)
 		}
 	})
 	.catch((err) => {
-		throw new Error(err)
+		throw new Error(err);
 	});
 
 const PORT = process.env.PORT || 8080;
-const app = express()
-app.use(cors(
-	{
+const app = express();
+app.use(
+	cors({
 		origin: "*",
 		methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-	}
-))
+	})
+);
 
 useExpressServer(app, {
 	controllers: [
@@ -79,9 +82,12 @@ useExpressServer(app, {
 		AuthController,
 		OrganisationController,
 		UserController,
-		VirtualEntityController
+		VirtualEntityController,
 	],
-	currentUserChecker: (action: Action) => {console.log(action.request.user_id);return action.request.user_id},
+	currentUserChecker: (action: Action) => {
+		console.log(action.request.user_id);
+		return action.request.user_id;
+	},
 });
 
 app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));

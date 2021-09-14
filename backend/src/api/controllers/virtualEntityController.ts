@@ -7,7 +7,10 @@ import {
 	AddModelToVirtualEntityRequest,
 } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
-import { IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
+import {
+	IsEducatorMiddleware,
+	IsUserMiddleware,
+} from "../middleware/ValidationMiddleware";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { Inject, Service } from "typedi";
 import {
@@ -49,10 +52,14 @@ export class VirtualEntityController {
 		file: Express.Multer.File
 	) {
 		if (file) {
-			let result = await this.fileManagement.UploadModelToAzure(file)
-			let thumbnail = await GenerateThumbnail(result);
-			let gltf = await ConvertModel(result);
-			let response: any = { fileLink: result, thumbnail: thumbnail.uploaded, gltf };
+			const result = await this.fileManagement.UploadModelToAzure(file);
+			const thumbnail = await GenerateThumbnail(result);
+			const gltf = await ConvertModel(result);
+			const response: any = {
+				fileLink: result,
+				thumbnail: thumbnail.uploaded,
+				gltf,
+			};
 			return response;
 		} else throw new BadRequestError("User is invalid");
 	}
@@ -65,18 +72,18 @@ export class VirtualEntityController {
 		@Body({ required: true }) body: AddModelToVirtualEntityRequest
 	) {
 		if (file) {
-			let result = await this.fileManagement.UploadModelToAzure(file);
-			let baseFile = {
+			const result = await this.fileManagement.UploadModelToAzure(file);
+			const baseFile = {
 				fileLink: result,
 			};
 
-			let data: AddModelToVirtualEntityFileData = {
+			const data: AddModelToVirtualEntityFileData = {
 				id: body.virtualEntity_id,
 				...baseFile,
 			};
-			let response = await this.service.AddModelToVirtualEntity(data);
+			const response = await this.service.AddModelToVirtualEntity(data);
 			if (response) {
-				let resp: AddModelToVirtualEntityResponse = {
+				const resp: AddModelToVirtualEntityResponse = {
 					model_id: response.model_id,
 					...body,
 					...baseFile,
@@ -126,7 +133,9 @@ export class VirtualEntityController {
 
 	@Post("/getQuizesByLesson")
 	@UseBefore(IsUserMiddleware)
-	GetQuizesByLesson(@Body({ required: true }) body: GetQuizesByLessonRequest) {
+	GetQuizesByLesson(
+		@Body({ required: true }) body: GetQuizesByLessonRequest
+	) {
 		return this.service.GetQuizesByLesson(body);
 	}
 }
