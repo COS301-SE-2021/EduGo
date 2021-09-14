@@ -52,7 +52,7 @@ const identify = async () => {
         throw new Error('Missing token in parameters')
     }
 
-    io.emit('identify_student', {
+    io.emit('identify_educator', {
         token: token,
         ratio: window.innerWidth / window.innerHeight
     });
