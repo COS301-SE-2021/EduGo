@@ -327,9 +327,8 @@ export default class AuthService {
 			user.organisation = organisation;
 			try {
 				let savedUser = await this.userRepository.save(user);
-				if (savedUser) {
-					return;
-				}
+				return;
+			
 			} catch (err) {
 				throw new InternalServerError("User unable to be saved to DB");
 			}
