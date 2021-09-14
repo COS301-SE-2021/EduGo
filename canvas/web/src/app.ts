@@ -9,7 +9,8 @@ import * as helper from './helper';
 import axios from 'axios';
 import * as socket from 'socket.io-client';
 
-const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+//const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+const BACKEND = 'http://localhost:8080'
 
 const io = socket.io(BACKEND);
 let code: string = '';
@@ -83,8 +84,7 @@ io.on('accepted_educator', async (data: any) => {
         if ('model' in data && 'fileLink' in data.model) {
             let url = data.model.fileLink;
             io.emit('set_link', {link: url});
-            //init(url);
-            init();
+            init(url);
         }
     }
     else {
@@ -100,15 +100,13 @@ io.on("declined", (data: any) => {
 });
 
 //url?: string
-const init = async () => {
+const init = async (url: string) => {
 	canvasInit(canvas2);
 
 	gl.clearColor(0.3, 0.3, 0.3, 1.0);
 	gl.enable(gl.DEPTH_TEST);
 
-	window.onresize = () => {
-		setSize();
-	};
+	window.onresize = () => { setSize(); };
 	setSize();
 
 	const program = gl.createProgram();
@@ -134,22 +132,9 @@ const init = async () => {
 	gl.compileShader(fragment_shader);
 
 	if (!gl.getShaderParameter(vertex_shader, gl.COMPILE_STATUS))
-		throw new Error(
-			`GL Vertex Shader compile failed: ${gl.getShaderInfoLog(
-				vertex_shader
-			)}`
-		);
+		throw new Error(`GL Vertex Shader compile failed: ${gl.getShaderInfoLog(vertex_shader)}`);
 	if (!gl.getShaderParameter(fragment_shader, gl.COMPILE_STATUS))
-		throw new Error(
-			`GL Fragment Shader compile failed: ${gl.getShaderInfoLog(
-				fragment_shader
-			)}`
-		);
-
-	// if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
-	// 	console.log("Failed to initialize shaders.");
-	// 	return;
-	// }
+		throw new Error(`GL Fragment Shader compile failed: ${gl.getShaderInfoLog(fragment_shader)}`);
 
 	gl.attachShader(program, vertex_shader);
 	gl.attachShader(program, fragment_shader);
@@ -166,8 +151,7 @@ const init = async () => {
 	const uniforms = defaultShaders.getUniformLocations(gl, program);
 
 	const environment = await cubemap.load(gl);
-	//const model = await gltf.loadModel(gl, url);
-	const model = await gltf.loadModel(gl, "./models/robot/robot.gltf");
+	const model = await gltf.loadModel(gl, helper.getGltfLink(url));
 
 	cubemap.bind(
 		gl,
@@ -246,6 +230,7 @@ function engageButton() {
 	canvas2.style.cursor = "not-allowed";
 	canvas2.style.pointerEvents = "none";
 	ctx.clearRect(0, 0, canvas2.width, canvas2.height);
+    io.emit('clear_draw');
 }
 
 //This function is used to enable the canvas2 features
@@ -307,6 +292,7 @@ function draw(event) {
 	reposition(event);
 	ctx.lineTo(coord.x, coord.y);
 	ctx.stroke();
+    io.emit('new_draw', {width: widthOfLine, coord, colour: colourOfPen});
 }
 
 //Initializes the canvas that is passed in to disables
@@ -355,4 +341,4 @@ const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
 	requestAnimationFrame(() => render(uniforms, model));
 };
 
-window.onload = init;
+window.onload = identify;
