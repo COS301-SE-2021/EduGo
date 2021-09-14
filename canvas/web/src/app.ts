@@ -7,7 +7,6 @@ import * as inputs from "./inputs";
 import * as request from "./requests";
 import axios from "axios";
 import * as socket from "socket.io-client";
-import * as sketch from "./sketch";
 
 const io = socket.io("http://localhost:8084");
 let code: string = "";
@@ -107,6 +106,7 @@ io.on("declined", (data: any) => {
 //url?: string
 const init = async () => {
 	canvasInit(canvas2);
+
 	gl.clearColor(0.3, 0.3, 0.3, 1.0);
 	gl.enable(gl.DEPTH_TEST);
 
@@ -195,11 +195,16 @@ const init = async () => {
 		.getElementById("sliderrange")
 		?.addEventListener("input", getLineWidth);
 
+	//document.getElementById("eraserbutton")?.addEventListener("click", eraser);
+
 	//Render everything
 	render(uniforms, model);
 };
 //---------------------------------------------------------------------------------//
 //Start of Canvas drawing feature helper functions
+
+//These functions change the colour of the pen when the
+//radio button is clicked. It calls the changeColour function
 let colourOfPen;
 document.getElementById("red")!.addEventListener("click", changeColour);
 document.getElementById("green")!.addEventListener("click", changeColour);
@@ -214,24 +219,29 @@ document.getElementById("pink")!.addEventListener("click", changeColour);
 document.getElementById("white")!.addEventListener("click", changeColour);
 document.getElementById("black")!.addEventListener("click", changeColour);
 
+//This function is the main function to
+//change the the pen colour
 function changeColour(colour) {
 	colourOfPen = colour.srcElement.id;
-	console.log(colourOfPen);
 }
 
+//This function is the main function for
+//changing the pen width
 let widthOfLine;
 function getLineWidth(width) {
-	console.log(width);
 	widthOfLine = width.srcElement.value;
-	//console.log(width.srcElement.value);
-
-	//console.log(widthOfLine);
-	//console.log(width.target.value);
-	//console.log(widthOfLine);
-	//ctx.lineWidth;
-
-	//console.log(ctx.lineWidth);
+	//changeValue(widthOfLine);
 }
+
+// function eraser() {
+// 	 = 50;
+// 	currentColor = ctx.fillStyle;
+// }
+
+// function changeValue(x) {
+// 	let value = document.getElementById("slidervalue")?.innerText;
+// 	value = x;
+// }
 
 //This function is used to disable the canvas2 features
 //and clear any annotations currently on the canvas. This
@@ -293,7 +303,6 @@ function stop() {
 //This is the main function for the draw feature.
 //It is used in the start and stop functions
 function draw(event) {
-	console.log(widthOfLine);
 	ctx.beginPath();
 	ctx.lineWidth = widthOfLine;
 	ctx.lineCap = "round";
