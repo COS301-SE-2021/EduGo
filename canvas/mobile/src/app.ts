@@ -8,17 +8,25 @@ import * as helper from './helper';
 import axios from 'axios';
 import * as socket from 'socket.io-client'
 
-const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+//const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+const BACKEND = 'http://localhost:8080'
 
 const io = socket.io(BACKEND);
 
 const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
 const gl: WebGLRenderingContext = canvas.getContext('webgl')!;
+const canvas2: HTMLCanvasElement = document.getElementById('canvas2') as HTMLCanvasElement;
+const ctx: CanvasRenderingContext2D = canvas2.getContext("2d")!;
+
+let prevCoords = { x: 0, y: 0 };
+let newLine = true;
 
 const setSize = () => {
     const devicePixelRatio = window.devicePixelRatio || 1;
     canvas.width = window.innerWidth * devicePixelRatio;
     canvas.height = window.innerHeight * devicePixelRatio;
+    canvas2.width = window.innerWidth * devicePixelRatio;
+	canvas2.height = window.innerHeight * devicePixelRatio;
     gl.viewport(0, 0, canvas.width, canvas.height);
 }
 
@@ -42,7 +50,27 @@ io.on('ratio_updated', (data: any) => {
     canvas.width = width;
     canvas.height = height;
     gl.viewport(0, 0, width, height);
-})
+});
+
+io.on('draw_updated', (data: any) => {
+    ctx.beginPath();
+	ctx.lineWidth = data.width;
+	ctx.lineCap = "round";
+	ctx.strokeStyle = data.colour;
+	ctx.moveTo(data.coord.x, data.coord.y);
+	//reposition(event);
+	!newLine ? ctx.lineTo(prevCoords.x, prevCoords.y) : ctx.moveTo(data.coord.x, data.coord.y);
+	ctx.stroke();
+    prevCoords = data.coord;
+    newLine = false;
+});
+
+io.on('clear_draw', () => {
+    // canvas2.style.cursor = "not-allowed";
+    // canvas2.style.pointerEvents = "none";
+    ctx.clearRect(0, 0, canvas2.width, canvas2.height);
+    newLine = true;
+});
 
 if (!gl) alert('WebGL not available');
 
@@ -83,12 +111,24 @@ io.on('accepted_student', (data: any) => {
     let width = height * ratio;
     canvas.width = width;
     canvas.height = height;
+    canvas2.width = width;
+	canvas2.height = height;
     gl.viewport(0, 0, width, height);
 
     init(data.link);
 })
 
+//Initializes the canvas that is passed in to disables
+//I.e. canvas 2, the transaprent one
+const initCanvas = (canvas: HTMLCanvasElement) => {
+	canvas.style.cursor = "not-allowed";
+	canvas.style.pointerEvents = "none";
+};
+
 const init = async (url: string) => {
+    canvas2.style.cursor = "auto";
+	canvas2.style.pointerEvents = "auto";
+
     gl.clearColor(0.3, 0.3, 0.3, 1.0);
     gl.enable(gl.DEPTH_TEST);
 

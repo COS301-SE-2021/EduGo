@@ -101,7 +101,7 @@ io.on("declined", (data: any) => {
 
 //url?: string
 const init = async (url: string) => {
-	canvasInit(canvas2);
+	initCanvas(canvas2);
 
 	gl.clearColor(0.3, 0.3, 0.3, 1.0);
 	gl.enable(gl.DEPTH_TEST);
@@ -185,7 +185,7 @@ const init = async (url: string) => {
 
 //These functions change the colour of the pen when the
 //radio button is clicked. It calls the changeColour function
-let colourOfPen;
+let colourOfPen = 'black';
 document.getElementById("red")!.addEventListener("click", changeColour);
 document.getElementById("green")!.addEventListener("click", changeColour);
 document.getElementById("yellow")!.addEventListener("click", changeColour);
@@ -207,21 +207,10 @@ function changeColour(colour) {
 
 //This function is the main function for
 //changing the pen width
-let widthOfLine;
+let widthOfLine = 1;
 function getLineWidth(width) {
 	widthOfLine = width.srcElement.value;
-	//changeValue(widthOfLine);
 }
-
-// function eraser() {
-// 	 = 50;
-// 	currentColor = ctx.fillStyle;
-// }
-
-// function changeValue(x) {
-// 	let value = document.getElementById("slidervalue")?.innerText;
-// 	value = x;
-// }
 
 //This function is used to disable the canvas2 features
 //and clear any annotations currently on the canvas. This
@@ -255,6 +244,7 @@ function clickUp() {
 function clickDown() {
 	canvas2.addEventListener("mouseup", stop);
 }
+
 //gets the 2d canvas
 const ctx = canvas2.getContext("2d")!;
 
@@ -292,21 +282,20 @@ function draw(event) {
 	reposition(event);
 	ctx.lineTo(coord.x, coord.y);
 	ctx.stroke();
-    io.emit('new_draw', {width: widthOfLine, coord, colour: colourOfPen});
+    let data: any = {
+        width: widthOfLine,
+        colour: colourOfPen,
+        coord: coord
+    }
+    io.emit('new_draw', data);
 }
 
 //Initializes the canvas that is passed in to disables
 //I.e. canvas 2, the transaprent one
-const canvasInit = (canvas) => {
+const initCanvas = (canvas: HTMLCanvasElement) => {
 	canvas.style.cursor = "not-allowed";
 	canvas.style.pointerEvents = "none";
 };
-
-// lineWidthRange!.addEventListener("input", (event) => {
-// 	const width = event.target.value;
-// 	lineWidthLabel.innerHTML = width;
-// 	context.lineWidth = width;
-// });
 
 //End of Canvas drawing feature helper functions
 //---------------------------------------------------------------------------------//
