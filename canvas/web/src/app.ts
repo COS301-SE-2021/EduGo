@@ -17,6 +17,12 @@ const canvas: HTMLCanvasElement = document.getElementById(
 ) as HTMLCanvasElement;
 const gl: WebGLRenderingContext = canvas.getContext("webgl")!;
 
+const canvas2: HTMLCanvasElement = document.getElementById(
+	"canvas2"
+) as HTMLCanvasElement;
+//const gl2: WebGLRenderingContext = canvas2.getContext("2d")!;
+// if (!gl2) alert("WebGL not available");
+
 const cam: camera.Camera = {
 	rX: 0.0,
 	rY: 0.0,
@@ -27,7 +33,10 @@ const setSize = () => {
 	const devicePixelRatio = window.devicePixelRatio || 1;
 	canvas.width = window.innerWidth * devicePixelRatio;
 	canvas.height = window.innerHeight * devicePixelRatio;
+	canvas2.width = window.innerWidth * devicePixelRatio;
+	canvas2.height = window.innerHeight * devicePixelRatio;
 	gl.viewport(0, 0, canvas.width, canvas.height);
+	// gl2.viewport(0, 0, canvas2.width, canvas2.height);
 };
 
 const rotate = (delta: inputs.Position) => {
@@ -97,6 +106,7 @@ io.on("declined", (data: any) => {
 
 //url?: string
 const init = async () => {
+	canvasInit(canvas2);
 	gl.clearColor(0.3, 0.3, 0.3, 1.0);
 	gl.enable(gl.DEPTH_TEST);
 
@@ -171,8 +181,100 @@ const init = async () => {
 		uniforms.environmentSpecular
 	);
 
+	//Listen is the 'engage with model' button is pressed
+	document
+		.getElementById("engagebutton")
+		?.addEventListener("click", engageButton);
+
+	//Loisten if the 'draw on model' button is pressed
+	document
+		.getElementById("drawbutton")
+		?.addEventListener("click", drawButton);
+
+	//Render everything
 	render(uniforms, model);
 };
+//---------------------------------------------------------------------------------//
+//Start of Canvas drawing feature helper functions
+
+//This function is used to disable the canvas2 features
+//and clear any annotations currently on the canvas. This
+//function is called when the 'engage' button is clicked
+function engageButton() {
+	canvas2.style.cursor = "not-allowed";
+	canvas2.style.pointerEvents = "none";
+	ctx.clearRect(0, 0, canvas2.width, canvas2.height);
+}
+
+//This function is used to enable the canvas2 features
+//and enables the draw functionality to annotate the 3d
+// model on the transparent canvas2. This function is
+//called when the 'draw' button is clicked
+function drawButton() {
+	canvas2.style.cursor = "auto";
+	canvas2.style.pointerEvents = "auto";
+	clickUp();
+	clickDown();
+}
+
+//This function calls the 'start drawing' function
+//when the mouse is clicked down on the transparent canvas2
+function clickUp() {
+	canvas2.addEventListener("mousedown", start);
+}
+
+//This function calls the 'stop drawing' function
+//when the mouse is clicked up on the transparent canvas2
+function clickDown() {
+	canvas2.addEventListener("mouseup", stop);
+}
+//gets the 2d canvas
+const ctx = canvas2.getContext("2d")!;
+
+//Stors the co-ordinates
+let coord = { x: 0, y: 0 };
+
+//The start function which starts
+//the drawing process on the 3d model
+function start(event) {
+	document.addEventListener("mousemove", draw);
+	reposition(event);
+}
+
+//The reposition function which will
+//register our mouse position.
+function reposition(event) {
+	coord.x = event.clientX - canvas2.offsetLeft;
+	coord.y = event.clientY - canvas2.offsetTop;
+}
+
+//The start function which starts
+//the drawing process on the 3d model
+function stop() {
+	document.removeEventListener("mousemove", draw);
+}
+
+//This is the main function for the draw feature.
+//It is used in the start and stop functions
+function draw(event) {
+	ctx.beginPath();
+	ctx.lineWidth = 5;
+	ctx.lineCap = "round";
+	ctx.strokeStyle = "#ACD3ED";
+	ctx.moveTo(coord.x, coord.y);
+	reposition(event);
+	ctx.lineTo(coord.x, coord.y);
+	ctx.stroke();
+}
+
+//Initializes the canvas that is passed in to disables
+//I.e. canvas 2, the transaprent one
+const canvasInit = (canvas) => {
+	canvas.style.cursor = "not-allowed";
+	canvas.style.pointerEvents = "none";
+};
+//End of Canvas drawing feature helper functions
+//---------------------------------------------------------------------------------//
 
 const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
 	// gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -203,5 +305,4 @@ const render = (uniforms: defaultShaders.DefaultShader, model: gltf.Model) => {
 	requestAnimationFrame(() => render(uniforms, model));
 };
 
-//window.onload = identify;
 window.onload = init;
