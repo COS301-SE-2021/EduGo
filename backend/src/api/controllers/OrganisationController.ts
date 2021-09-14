@@ -14,7 +14,9 @@ export class OrganisationController {
 	private service: OrganisationService;
 
 	@Post("/createOrganisation")
-	CreateOrganisation( @Body({ required: true }) body: CreateOrganisationRequest) {
+	CreateOrganisation(
+		@Body({ required: true }) body: CreateOrganisationRequest
+	) {
 		return this.service.CreateOrganisation(body);
 	}
 	@Post("/getOrganisations")
@@ -23,7 +25,7 @@ export class OrganisationController {
 	}
 
 	@Post("/getOrganisation")
-	@UseBefore(passport.authenticate("jwt", { session: false }))
+	//@UseBefore(passport.authenticate("jwt", { session: false }))
 	//TODO fix the isUser middleware
 	//@UseBefore(isUser)
 	GetOrganisation(@Body({ required: true }) body: GetOrganisationRequest) {

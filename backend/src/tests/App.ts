@@ -31,8 +31,11 @@ import { Quiz } from "../api/database/Quiz";
 import express from "express";
 import azureStorage from "azure-storage";
 import * as Default from "./Default";
+import passport, { PassportStatic } from "passport";
 
 Error.stackTraceLimit = Infinity;
+const mockedPassport: PassportStatic = mock(passport);
+const passportInstance: PassportStatic = instance(mockedPassport); 
 
 const mockedConnectionManager: ConnectionManager = mock(ConnectionManager);
 const connectionManagerInstance: ConnectionManager = instance(

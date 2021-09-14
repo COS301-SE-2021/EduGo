@@ -201,7 +201,6 @@ describe("Organisation API tests", () => {
 			organisation_id: 1,
 			userType: userType.student,
 		};
-		const red = " sadfga";
 
 		when(App.mockedOrganisationRepository.save(anything())).thenResolve(
 			Default.eduGoOrg

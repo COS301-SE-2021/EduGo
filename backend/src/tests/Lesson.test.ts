@@ -4,10 +4,8 @@ import * as Default from "./Default";
 import request from "supertest";
 import { CreateLessonRequest } from "../api/models/lesson/CreateLessonRequest";
 import { Lesson } from "../api/database/Lesson";
-
 describe("Lesson API tests", () => {
 	let educatorToken = "";
-
 	beforeAll(async () => {
 		when(App.mockedUserRepository.findOne(anything())).thenResolve(
 			Default.educatorUser
