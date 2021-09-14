@@ -5,7 +5,7 @@ import request from 'supertest';
 import { CreateLessonRequest } from "../api/models/lesson/CreateLessonRequest";
 import { Lesson } from "../api/database/Lesson";
 
-describe.skip('Lesson API tests', () => {
+describe('Lesson API tests', () => {
     let educatorToken = '';
 
     beforeAll(async () => {
@@ -16,6 +16,7 @@ describe.skip('Lesson API tests', () => {
             .send({username: 'educator', password: 'password'});
 
         educatorToken = educatorResponse.body.token;
+        console.log(educatorToken);
     });
 
     beforeEach(() => {
@@ -38,7 +39,7 @@ describe.skip('Lesson API tests', () => {
             const response = await request(App.app)
                 .post('/lesson/createLesson')
                 .set('Accept', 'application/json')
-                .set('Authorization', 'Bearer ' + educatorToken)
+                .set('Authorization', educatorToken)
                 .send(req)
                 .expect(200)
                 .expect('Content-Type', /json/);

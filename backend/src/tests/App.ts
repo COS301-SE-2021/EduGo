@@ -19,8 +19,10 @@ import { Student } from "../api/database/Student";
 import { Educator } from "../api/database/Educator";
 import { Grade } from "../api/database/Grade";
 import { Quiz } from "../api/database/Quiz";
+import { PassportMiddleware } from './passport';
 import express from "express";
 import azureStorage from 'azure-storage';
+import passport from 'passport';
 import * as Default from "./Default";
 
 Error.stackTraceLimit = Infinity;
@@ -92,6 +94,8 @@ Container.set(azureStorage.BlobService, azureBlobService);
 
 diUseContainer(Container);
 ormUseContainer(Container);
+
+const passportMiddleware = new PassportMiddleware(userRepository, passport);
 
 export const app: express.Express = createExpressServer({
     controllers: [
