@@ -6,6 +6,7 @@ import request from "supertest";
 import { CreateLessonRequest } from "../api/models/lesson/CreateLessonRequest";
 import { Lesson } from "../api/database/Lesson";
 import { GetLessonsBySubjectRequest } from "../api/models/lesson/GetLessonsBySubjectRequest";
+import { AddVirtualEntityToLessonRequest } from "../api/models/lesson/AddVirtualEntityToLessonRequest";
 describe("Lesson API tests", () => {
 	let educatorToken = "";
 	beforeAll(async () => {
@@ -23,6 +24,7 @@ describe("Lesson API tests", () => {
 		reset(App.mockedLessonRepository);
 		reset(App.mockedSubjectRepository); 
 		reset(App.mockedUserRepository); 
+		reset(App.mockedVirtualEntityRepository); 
 
 	});
 
@@ -112,14 +114,14 @@ describe("Lesson API tests", () => {
 			//console.log(response)
 
 		})
-		it("should get leesons by subject", async ()=>{
+		it.skip("should get leesons by subject", async ()=>{
 			const req: GetLessonsBySubjectRequest ={
 				subjectId:1
 			}
 
 			when(
 				App.mockedSubjectRepository.findOne(anyNumber(), anything())
-			).thenResolve(undefined);
+			).thenResolve(Default.subjects[0]);
 
 			when(
 				App.mockedUserRepository.findOne(anyNumber(), anything())
@@ -136,7 +138,31 @@ describe("Lesson API tests", () => {
 			.expect(400)
 			.expect("Content-Type", /json/);
 			//console.log(response)
+		})
+	})
 
+	describe('Add virtual entity to lesson', ()=> {
+		it('virtual entity doesnt exist', async ()=>{
+			const req: AddVirtualEntityToLessonRequest={
+				lessonId: 1, 
+				virtualEntityId: 1
+			}
+			when(
+				App.mockedSubjectRepository.findOne(anyNumber(), anything())
+			).thenResolve(Default.subjects[0]);
+			when(App.mockedLessonRepository.findOne(anyNumber(), anything())).thenResolve(Default.eduGoOrg.subjects[0].lessons[0])
+			when(App.mockedVirtualEntityRepository.findOne(anything())).thenResolve(undefined)
+			when(App.mockedUserRepository.findOne(anyNumber(), anything())).thenResolve(Default.educatorUser);
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(Default.educatorUser);
+
+			const response = await request(App.app)
+			.post("/lesson/addVirtualEntityToLesson")
+			.set("Accept", "application/json")
+			.set("Authorization", educatorToken)
+			.send(req)
+			.expect(400)
+			.expect("Content-Type", /json/);
+			console.log(response)
 		})
 
 	})
