@@ -39,11 +39,9 @@ export class SubjectService {
 		// get user information to use for the request
 		let user: User | undefined;
 		try {
-
-			userDetails = await this.userRepository.findOne(user_id, {
+			user = await this.userRepository.findOne(user_id, {
 				relations: ["organisation", "educator", "student"],
 			});
-
 		} catch (error) {
 			throw new InternalServerError(
 				"There was an error getting the user"
@@ -56,28 +54,8 @@ export class SubjectService {
 		subject.title = request.title;
 		subject.grade = request.grade;
 		subject.image = imageLink;
-		
-		// let org: Organisation | undefined;
-		// try {
-		// 	org = await this.organisationRepository.findOne(
-		// 		user.organisation.id
-		// 	);
-		// } catch (err) {
-		// 	throw new BadRequestError("Could not find organisation");
-		// }
-
-		// if (!org) throw new BadRequestError("Could not find organisation");
 
 		subject.organisation = user.organisation;
-
-		// let user: User | undefined;
-		// try {
-		// 	user = await this.userRepository.findOne(userDetails.educator.id, {
-		// 		relations: ["educator"],
-		// 	});
-		// } catch (err) {
-		// 	throw new BadRequestError("Could not find user");
-		// }
 
 		if (user && user.educator) {
 			subject.educators = [];
