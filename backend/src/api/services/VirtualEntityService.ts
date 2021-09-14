@@ -37,6 +37,7 @@ import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicRespon
 import { Lesson } from "../database/Lesson";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
 import { GetQuizesByLessonResponse } from "../models/virtualEntity/GetQuizesByLessonResponse";
+import { GenerateThumbnail } from "../helper/ExternalRequests";
 
 @Service()
 export class VirtualEntityService {
@@ -61,7 +62,7 @@ export class VirtualEntityService {
 		let entity: VirtualEntity | undefined;
 		try {
 			entity = await this.virtualEntityRepository.findOne(request.id, {
-				relations: ["model", "quiz", "quiz.questions"],
+				relations: ["model"],
 			});
 		} catch (err) {
 			throw new NotFoundError("Could not find virtual entity");
@@ -71,13 +72,11 @@ export class VirtualEntityService {
 		if (entity.model)
 			throw new BadRequestError("Virtual Entity already has a Model");
 
+		let thumbnail = await GenerateThumbnail(request.fileLink);
+
 		let model: Model = new Model();
-		model.name = request.name;
-		model.description = request.description;
-		model.file_name = request.file_name;
-		model.file_link = request.file_link;
-		model.file_size = request.file_size;
-		model.file_type = request.file_type;
+		model.fileLink = request.fileLink;
+		model.thumbnail = thumbnail.uploaded;
 
 		entity.model = model;
 		let result: VirtualEntity;
@@ -91,6 +90,7 @@ export class VirtualEntityService {
 		if (result.model) {
 			let response: AddModelToVirtualEntityDatabaseResult = {
 				model_id: result.model.id,
+				thumbnail: thumbnail.uploaded
 			};
 			return response;
 		} else
@@ -117,6 +117,7 @@ export class VirtualEntityService {
 			description: entity.description,
 		};
 
+
 		if (entity.model) {
 			let model: GVE_Model = { ...entity.model };
 			response.model = model;
@@ -127,39 +128,6 @@ export class VirtualEntityService {
 		}
 		return response;
 	}
-
-	/**
-	 * @description Get all the virtual entities in the system
-	 * @returns {Promise<GetVirtualEntitiesResponse>}
-	 * @throws {NotFoundError, InternalServerError}
-	 */
-	// async GetVirtualEntities(): Promise<GetVirtualEntitiesResponse> {
-	// 	let entities: VirtualEntity[];
-
-	// 	try {
-	// 		entities = await this.virtualEntityRepository.find({
-	// 			relations: ["model"],
-	// 		});
-	// 	} catch (err) {
-	// 		throw new InternalServerError("Could not find virtual entities");
-	// 	}
-
-	// 	let response: GetVirtualEntitiesResponse = {
-	// 		entities: entities.map((value) => {
-	// 			let entity: GVEs_VirtualEntity = {
-	// 				title: value.title,
-	// 				description: value.description,
-	// 				id: value.id,
-	// 			};
-	// 			if (value.model) {
-	// 				let model: GVEs_Model = { ...value.model };
-	// 				entity.model = model;
-	// 			}
-	// 			return entity;
-	// 		}),
-	// 	};
-	// 	return response;
-	// }
 
 	/**
 	 * @description Create a new virtual entity from the CreateVirtualEntityRequest object which may contain a model, quiz, and questions
@@ -184,19 +152,14 @@ export class VirtualEntityService {
 
 		let ve: VirtualEntity = new VirtualEntity();
 		ve.title = request.title;
-		ve.description = request.description;
+		ve.description = request.description?.map((info) => info) || [];
 		ve.public = request.public ?? false;
 		ve.organisation = user.organisation;
 
 		if (request.model !== undefined) {
 			let model: Model = new Model();
-			model.name = request.model.name;
-			model.description = request.model.description;
-			model.file_link = request.model.file_link;
-			model.file_name = request.model.file_name;
-			model.file_size = request.model.file_size;
-			model.file_type = request.model.file_type;
-			model.preview_img = request.model.preview_img;
+			model.fileLink = request.model.fileLink;
+			model.thumbnail = request.model.thumbnail;
 			ve.model = model;
 		}
 

@@ -21,24 +21,9 @@ export class Quiz {
 
 export class Model {
     @IsString()
-    name: string;
-
-    @IsString()
-    description: string;
-
-    @IsString()
-    file_link: string;
-
-    @IsInt()
-    file_size: number;
-
-    @IsString()
-    file_name: string;
-
-    @IsString()
-    file_type: string;
+    fileLink: string;
 
     @IsOptional()
     @IsString()
-    preview_img?: string;
+    thumbnail?: string;
 }

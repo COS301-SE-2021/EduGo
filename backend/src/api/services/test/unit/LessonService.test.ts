@@ -107,7 +107,7 @@ describe('Lesson', () => {
             let virtualEntity: VirtualEntity = new VirtualEntity();
             virtualEntity.id = 1;
             virtualEntity.title = 'Test Virtual Entity';
-            virtualEntity.description = 'Test Description';
+            virtualEntity.description = [];
             virtualEntity.public = true;
 
             when(mockedLessonRepository.findOne(anyNumber(), anything())).thenResolve(subject.lessons[0]);
@@ -143,7 +143,7 @@ describe('Lesson', () => {
             let virtualEntity: VirtualEntity = new VirtualEntity();
             virtualEntity.id = 1;
             virtualEntity.title = 'Test Virtual Entity';
-            virtualEntity.description = 'Test Description';
+            virtualEntity.description = [];
             virtualEntity.public = true;
 
             subject.lessons[0].virtualEntities.push(virtualEntity);

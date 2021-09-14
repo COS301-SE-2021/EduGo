@@ -53,7 +53,7 @@ export class UserController {
 	@UseBefore(IsEducatorMiddleware)
 	AddStudentsToSubject(
 		@Body({ required: true }) body: AddStudentsToSubjectRequest
-	) { 
+	) {
 		return this.studentService.AddUsersToSubject(body);
 	}
 
@@ -69,6 +69,12 @@ export class UserController {
 		return this.studentService.GetStudentGrades(id);
 	}
 
+	@Get("/getGradesByEducator")
+	//@UseBefore(isEducator)
+	GradesByEducator() {
+		console.log("hereeee");
+		return this.educatorService.getStudentGrades(1);
+	}
 
 	// TODO Test endpoint
 	@Post("/addEducatorToExistingSubject")

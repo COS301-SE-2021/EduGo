@@ -6,8 +6,8 @@ export class GVEs_Model extends Model {
 export class GVEs_VirtualEntity {
 	id: number;
 	title: string;
-	description: string;
 	model?: GVEs_Model;
+	description: string[];
 }
 
 export class GetVirtualEntitiesResponse {
