@@ -179,7 +179,7 @@ describe("Organisation API tests", () => {
 				.post("/organisation/createOrganisation")
 				.set("Accept", "application/json")
 				.send(req)
-				.expect(500)
+				.expect(200)
 				.expect("Content-Type", /json/);
 			//console.log(response);
 			//expect(response.body.token).toBeDefined();
