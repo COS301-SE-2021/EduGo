@@ -35,7 +35,7 @@ const setSize = () => {
 	canvas2.width = window.innerWidth * devicePixelRatio;
 	canvas2.height = window.innerHeight * devicePixelRatio;
 	gl.viewport(0, 0, canvas.width, canvas.height);
-	// gl2.viewport(0, 0, canvas2.width, canvas2.height);
+	//gl2.viewport(0, 0, canvas2.width, canvas2.height);
 };
 
 const rotate = (delta: inputs.Position) => {
@@ -195,8 +195,17 @@ const init = async () => {
 		.getElementById("sliderrange")
 		?.addEventListener("input", getLineWidth);
 
-	//document.getElementById("eraserbutton")?.addEventListener("click", eraser);
+	//FOR DOWNLOAD
+	// document.getElementById("download")?.addEventListener(
+	// 	"click",
+	// 	function () {
+	// 		downloadCanvas(this, "testdownload.png");
+	// 	},
+	// 	false
+	// );
 
+	//document.getElementById("eraserbutton")?.addEventListener("click", eraser);
+	//document.addEventListener("click", printMousePos);
 	//Render everything
 	render(uniforms, model);
 };
@@ -230,14 +239,9 @@ function changeColour(colour) {
 let widthOfLine;
 function getLineWidth(width) {
 	widthOfLine = width.srcElement.value;
-	//changeValue(widthOfLine);
 }
 
-// function eraser() {
-// 	 = 50;
-// 	currentColor = ctx.fillStyle;
-// }
-
+// SHOW VALUE OF RANGE BAR
 // function changeValue(x) {
 // 	let value = document.getElementById("slidervalue")?.innerText;
 // 	value = x;
@@ -320,11 +324,34 @@ const canvasInit = (canvas) => {
 	canvas.style.pointerEvents = "none";
 };
 
-// lineWidthRange!.addEventListener("input", (event) => {
-// 	const width = event.target.value;
-// 	lineWidthLabel.innerHTML = width;
-// 	context.lineWidth = width;
-// });
+//SAVE FUNCTION
+//-----------------------------------------------------------------
+// let linesArray = [];
+// function save() {
+// 	localStorage.removeItem("savedCanvas");
+// 	localStorage.setItem("savedCanvas", JSON.stringify(linesArray));
+// 	console.log("Saved canvas!");
+// }
+
+//DONLOAD FUNCTION
+//-----------------------------------------------------------------
+// function downloadCanvas(link, filename) {
+// 	console.log("Here 1");
+// 	console.log(link);
+// 	//let snapshot = document.getElementById(canvas) as HTMLCanvasElement;
+// 	link.href = canvas2.toDataURL();
+// 	console.log("Here 2");
+// 	//link.href = snapshot.toDataURL();
+// 	console.log("Here 3");
+// 	link.download = filename;
+// 	console.log("Here 4");
+// }
+
+//ERASER FUNCTION
+// function eraser() {
+// 	currentSize = 50;
+// 	currentColor = canvas2.fillStyle;
+// }
 
 //End of Canvas drawing feature helper functions
 //---------------------------------------------------------------------------------//

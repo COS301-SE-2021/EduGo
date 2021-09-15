@@ -38,6 +38,7 @@
                 margin: 5px;
                 padding: 10px 20px;
                 user-select: none;
+                border-radius: 10px;
             }
 
             #loading {
@@ -67,6 +68,7 @@
 
 input[type="radio"] {
 	display: none;
+    border-radius: 5px;
 }
 input[type="radio"]:checked + label span {
 	transform: scale(1.25);
@@ -169,10 +171,16 @@ label span.black {
         <canvas id="canvas2"></canvas>
         
         <div id="ui">
-            <button id="eraserBtn">Eraser</button>
+            <button class="btn btn-warning" id="save">Save</button>
+            <button class="btn btn-warning" id="load">Load</button>
+            <button class="btn btn-warning" id="clearCache">Clear</button>
+            <a id="download" class="btn btn-warning">Download</a>
+            <button class="btn btn-warning" id="download">Download</button>
+
+            <button id="eraserbutton">Eraser</button>
             <button id="drawbutton">Draw on model</button>
             <button id="engagebutton"> Engage with model</button>
-          
+
             <input type="radio" name="color" id="red" id="colorbuttons" value="red" />
             <label for="red"><span class="red"></span></label>
 
@@ -208,18 +216,9 @@ label span.black {
 
             <input type="radio" name="color" id="black" id="colorbuttons" />
             <label for="black"><span class="black"></span></label>
-           
-                <!-- <label class="db" for="eraser">eraser radius:<input type="range" min="5" max="50" value="20" id="eraser"><span id="showEraser">20</span></label> -->
-          
-                <input type="range" id="sliderrange" min="1" max="70" value="1">
-                <label id="slidervalue">1</label>Px
-     
- 
-                <!-- <label class="db" for="eraser"><input type="range" min="1" max="50" value="20" ><span id="showEraser">20</span></label> -->
-               
 
+            <input type="range" id="sliderrange" min="1" max="70" value="1">
+            <!-- <label id="slidervalue"><span>0</span></label> -->
         </div>
     </body>
-
-
 </html>
