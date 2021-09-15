@@ -16,6 +16,8 @@ export const onConnection = (socket: socket.Socket) => {
     socket.on('new_ratio', new_ratio.bind(this, socket));
     socket.on('new_camera', new_camera.bind(this, socket));
     socket.on('set_link', set_link.bind(this, socket));
+    socket.on('new_draw', new_draw.bind(this, socket));
+    socket.on('clear_draw', clear_draw.bind(this, socket));
 };
 
 const identifyEducator = async (socket: socket.Socket, socket_data: any) => {
@@ -129,6 +131,18 @@ const new_ratio = (socket: socket.Socket, data: any) => {
     let code = userMap[socket.id];
     activeRooms[code]['ratio'] = data;
     socket.to(code).emit('ratio_updated', data);
+}
+
+const new_draw = (socket: socket.Socket, data: any) => {
+    console.log(data);
+    let code = userMap[socket.id];
+    socket.to(code).emit('draw_updated', data);
+}
+
+const clear_draw = (socket: socket.Socket) => {
+    console.log('clear');
+    let code = userMap[socket.id];
+    socket.to(code).emit('clear_draw');
 }
 
 const generateCode = (length: number): string => {
