@@ -370,32 +370,66 @@ class _ViewLessonViewState extends State<ViewLessonView> {
                                           Text(
                                             " Entities",
                                             style: TextStyle(
-                                                fontSize: 32,
-                                                color: Color.fromARGB(
-                                                    255, 97, 211, 87)),
+                                              fontSize: 32,
+                                              color: Color.fromARGB(
+                                                  255, 97, 211, 87),
+                                            ),
                                           ),
                                           Spacer(),
-                                          LessonsButton(
-                                            onPressed: () {
-                                              _addEntity();
-                                            },
+                                          Flexible(
                                             child: Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.view_in_ar_outlined,
-                                                  color: Colors.white,
-                                                ),
-                                                SizedBox(width: 20),
-                                                Text(
-                                                  "Add Virtual Entity",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
+                                              children: [
+                                                MouseRegion(
+                                                  cursor:
+                                                      SystemMouseCursors.click,
+                                                  child: GestureDetector(
+                                                    child: Icon(
+                                                      Icons.computer_outlined,
+                                                      size: 30,
+                                                      color: Color.fromARGB(
+                                                          255, 97, 211, 87),
+                                                    ),
+                                                    onTap: () {
+                                                      Momentum.controller<
+                                                                  CanvasController>(
+                                                              context)
+                                                          .getCanvasView(
+                                                        context,
+                                                        Momentum.controller<
+                                                                    ViewLessonController>(
+                                                                context)
+                                                            .getEntityId()
+                                                            .toString(),
+                                                      );
+                                                    },
                                                   ),
+                                                ),
+                                                Spacer(),
+                                                LessonsButton(
+                                                  onPressed: () {
+                                                    _addEntity();
+                                                  },
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Icon(
+                                                        Icons
+                                                            .view_in_ar_outlined,
+                                                        color: Colors.white,
+                                                      ),
+                                                      SizedBox(width: 20),
+                                                      Text(
+                                                        "Add Virtual Entity",
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  width: 250,
+                                                  height: 60,
                                                 ),
                                               ],
                                             ),
-                                            width: 250,
-                                            height: 60,
                                           ),
                                         ],
                                       ),

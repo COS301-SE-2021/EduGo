@@ -47,77 +47,81 @@ class DesktopNavBar extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Column(children: <Widget>[
-                    //*
-                    //* Dashboard Icon
-                    //*
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        child: Icon(Icons.home_outlined,
-                            size: 30, color: Colors.white),
-                        onTap: () {
-                          MomentumRouter.goto(context, AdminView);
-                        },
+                  Column(
+                    children: <Widget>[
+                      //*
+                      //* Dashboard Icon
+                      //*
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          child: Icon(Icons.home_outlined,
+                              size: 30, color: Colors.white),
+                          onTap: () {
+                            MomentumRouter.goto(context, AdminView);
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 30),
-                    //*
-                    //* Subjects Icon
-                    //*
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        child: Icon(Icons.auto_stories_outlined,
-                            size: 30, color: Colors.white),
-                        onTap: () {
-                          MomentumRouter.goto(context, SubjectsView);
-                        },
+                      SizedBox(height: 30),
+                      //*
+                      //* Subjects Icon
+                      //*
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          child: Icon(Icons.auto_stories_outlined,
+                              size: 30, color: Colors.white),
+                          onTap: () {
+                            MomentumRouter.goto(context, SubjectsView);
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 30),
-                    //*
-                    //* Create VirtualEntity Icon
-                    //*
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        child: Icon(Icons.view_in_ar_outlined,
-                            size: 30, color: Colors.white),
-                        onTap: () {
-                          MomentumRouter.goto(context, CreateVirtualEntityView);
-                        },
+                      SizedBox(height: 30),
+                      //*
+                      //* Create VirtualEntity Icon
+                      //*
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          child: Icon(Icons.view_in_ar_outlined,
+                              size: 30, color: Colors.white),
+                          onTap: () {
+                            MomentumRouter.goto(
+                                context, CreateVirtualEntityView);
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 30),
-                    //*
-                    //* Virtual Entity Store Icon
-                    //*
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        child: Icon(Icons.store_outlined,
-                            size: 30, color: Colors.white),
-                        onTap: () {
-                          MomentumRouter.goto(context, VirtualEntityStoreView);
-                        },
+                      SizedBox(height: 30),
+                      //*
+                      //* Virtual Entity Store Icon
+                      //*
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          child: Icon(Icons.store_outlined,
+                              size: 30, color: Colors.white),
+                          onTap: () {
+                            MomentumRouter.goto(
+                                context, VirtualEntityStoreView);
+                          },
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 30),
-                    //*
-                    //* Grades Icon
-                    //*
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        child: Icon(Icons.school_outlined,
-                            size: 30, color: Colors.white),
-                        onTap: () {
-                          MomentumRouter.goto(context, StudentsGradesView);
-                        },
+                      SizedBox(height: 30),
+                      //*
+                      //* Grades Icon
+                      //*
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          child: Icon(Icons.school_outlined,
+                              size: 30, color: Colors.white),
+                          onTap: () {
+                            MomentumRouter.goto(context, StudentsGradesView);
+                          },
+                        ),
                       ),
-                    )
-                  ]),
+                    ],
+                  ),
                   //*
                   //* Settings Icon
                   //*

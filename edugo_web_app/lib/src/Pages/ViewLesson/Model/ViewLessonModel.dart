@@ -19,27 +19,6 @@ class ViewLessonModel extends MomentumModel<ViewLessonController> {
       this.lessonTitle})
       : super(controller);
 
-// Info: Update lesson virtual entity cards
-  void updateLessonVirtualEntityCards() {
-    List<Widget> lessonVirtualEntityCardsUpdate = [];
-    entities.forEach(
-      (entity) {
-        lessonVirtualEntityCardsUpdate.add(
-          new VirtualEntitySelectorCard(
-            title: entity.getVirtualEntityName(),
-            link: entity.getThumbNail(),
-          ),
-        );
-      },
-    );
-    if (lessonVirtualEntityCardsUpdate.isEmpty) {
-      lessonVirtualEntityCardsUpdate.add(Text('No Entities'));
-    }
-    update(
-        currentEntityImage: entities.isEmpty ? '' : entities[0].getThumbNail());
-    update(lessonVirtualEntityCards: lessonVirtualEntityCardsUpdate);
-  }
-
   @override
   void update(
       {List<Widget> lessonVirtualEntityCards,

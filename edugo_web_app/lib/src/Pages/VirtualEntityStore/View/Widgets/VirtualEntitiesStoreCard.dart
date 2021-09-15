@@ -7,6 +7,7 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
   final String virtualEntityDescription;
   final bool public;
   final String thumbNail;
+  final String model;
 
   VirtualEntitiesStoreCard({
     this.name,
@@ -14,6 +15,7 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
     this.virtualEntityId,
     this.thumbNail,
     this.virtualEntityDescription,
+    this.model,
   });
 
   @override

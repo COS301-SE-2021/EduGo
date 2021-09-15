@@ -46,3 +46,5 @@ export 'package:edugo_web_app/src/Pages/ViewLesson/View/ViewLessonView.dart';
 // Info: App Exports
 export 'package:edugo_web_app/src/View.dart';
 export 'package:edugo_web_app/src/Pages/Home/Home.dart';
+
+export 'package:edugo_web_app/src/Pages/CanvasView/View/CanvasView.dart';

@@ -43,3 +43,5 @@ export 'package:edugo_web_app/src/Pages/ViewLesson/Model/ViewLessonModel.dart';
 
 // Info: StudentsGrades Model Exports
 export 'package:edugo_web_app/src/Pages/StudentsGrades/Model/StudentsGradesModel.dart';
+
+export 'package:edugo_web_app/src/Pages/CanvasView/Controller/CanvasController.dart';

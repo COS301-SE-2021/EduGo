@@ -82,7 +82,7 @@ class VirtualEntityStoreController
                   id: entity.getVirtualEntityId().toString(),
                   addFunction: addFunction,
                   viewFunction: viewFunction,
-                  thumbNailLink: '',
+                  thumbNailLink: entity.getModel(),
                   name: entity.getVirtualEntityName(),
                   virtualEntityDescription: entity
                       .getVirtualEntityDescription()

@@ -1,6 +1,7 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/ViewLesson/Model/Data/LessonVirtualEntities.dart';
 import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/AddEntityStoreCard.dart';
+import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/ViewLessonWidgets.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntity.dart';
 
 class ViewLessonController extends MomentumController<ViewLessonModel> {
@@ -21,7 +22,7 @@ class ViewLessonController extends MomentumController<ViewLessonModel> {
     model.update(entities: entities);
     model.update(
         currentEntityImage: entities.isEmpty ? '' : entities[0].getThumbNail());
-    model.updateLessonVirtualEntityCards();
+    updateLessonVirtualEntityCards();
   }
 
   List<Widget> getEntities(
@@ -43,6 +44,42 @@ class ViewLessonController extends MomentumController<ViewLessonModel> {
 
   void setCurrentEntityImage({String imageLink}) {
     model.update(currentEntityImage: imageLink);
+  }
+
+// Info: Update lesson virtual entity cards
+  void updateLessonVirtualEntityCards() {
+    List<Widget> lessonVirtualEntityCardsUpdate = [];
+    model.entities.forEach(
+      (entity) {
+        lessonVirtualEntityCardsUpdate.add(
+          new VirtualEntitySelectorCard(
+            title: entity.getVirtualEntityName(),
+            link: entity.getThumbNail(),
+          ),
+        );
+      },
+    );
+    if (lessonVirtualEntityCardsUpdate.isEmpty) {
+      lessonVirtualEntityCardsUpdate.add(Text('No Entities'));
+    }
+    model.update(
+        currentEntityImage:
+            model.entities.isEmpty ? '' : model.entities[0].getThumbNail());
+    model.update(lessonVirtualEntityCards: lessonVirtualEntityCardsUpdate);
+  }
+
+  int getEntityId() {
+    int k = 0;
+    model.entities.forEach(
+      (entity) {
+        if (entity.getThumbNail() == model.currentEntityImage) {
+          k = entity.getVirtualEntityId();
+
+          return k;
+        }
+      },
+    );
+    return k;
   }
 
   String getCurrentEntityImage() {

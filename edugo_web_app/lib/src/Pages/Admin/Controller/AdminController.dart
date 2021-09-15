@@ -34,9 +34,11 @@ class AdminController extends MomentumController<AdminModel> {
           "username": username,
         })).then((response) async {
       if (response.statusCode == 200) {
-        await getOrganisationEducators().then((value) {
-          model.update(adminLoadController: true);
-        });
+        await getOrganisationEducators().then(
+          (value) {
+            model.update(adminLoadController: true);
+          },
+        );
         return;
       }
     });
@@ -86,15 +88,17 @@ class AdminController extends MomentumController<AdminModel> {
         },
         body: jsonEncode(<String, int>{
           "id": model.organisationId,
-        })).then((response) {
-      if (response.statusCode == 200) {
-        Map<String, dynamic> _organisation = jsonDecode(response.body);
-        model.updateEducators(Users.fromJson(_organisation).users);
-        model.updateEducatorsView();
+        })).then(
+      (response) {
+        if (response.statusCode == 200) {
+          Map<String, dynamic> _organisation = jsonDecode(response.body);
+          model.updateEducators(Users.fromJson(_organisation).users);
+          model.updateEducatorsView();
 
-        return;
-      }
-    });
+          return;
+        }
+      },
+    );
   }
 
   void setToken(String token) {
