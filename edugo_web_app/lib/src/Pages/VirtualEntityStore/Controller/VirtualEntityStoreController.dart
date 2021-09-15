@@ -2,7 +2,6 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/AddEntityStoreCard.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntities.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntity.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntityStore/View/Widgets/VirtualEntitiesStoreCard.dart';
 
 class VirtualEntityStoreController
     extends MomentumController<VirtualEntityStoreModel> {
