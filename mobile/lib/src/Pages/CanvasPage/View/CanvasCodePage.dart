@@ -32,7 +32,7 @@ class CanvasCodeState extends State<CanvasCodePage> {
               )
             ),
             MaterialButton(
-              onPressed: () => {MomentumRouter.goto(context, CanvasPage, params: CanvasPage(code: codeController.text))},
+              onPressed: () => {MomentumRouter.goto(context, CanvasPage, params: CanvasParam(code: codeController.text))},
               elevation: 40,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
