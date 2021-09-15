@@ -42,11 +42,8 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
             body: Stack(
               children: [
                 Container(
-
-                    // ARWindow(
-                    //   uri: snapshot.data!.model!.fileLink,
-                    // ),
-                    ),
+                    child: ARWindow(uri: snapshot.data!.model!.fileLink,),
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
