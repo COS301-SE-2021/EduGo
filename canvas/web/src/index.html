@@ -15,7 +15,14 @@
             #canvas {
                 position: fixed;
                 width: 100%;
+                height: 100%; 
+            }
+
+            #canvas2 {
+                position: fixed;
+                width: 100%;
                 height: 100%;
+                background-color: transparent;  
             }
 
             #ui {
@@ -24,6 +31,7 @@
                 width: 100vw;
                 display: flex;
                 justify-content: center;
+                background-color: aqua;
             }
 
             #ui button {
@@ -47,12 +55,171 @@
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+
+            @import url(https://fonts.googleapis.com/css?family=Lato:400,300);
+
+* {
+	box-sizing: border-box;
+}
+
+            /* css for buttons starts here */
+/* --------------------------------------------------*/
+
+input[type="radio"] {
+	display: none;
+}
+input[type="radio"]:checked + label span {
+	transform: scale(1.25);
+}
+input[type="radio"]:checked + label .red {
+	border: 2px solid #711313;
+}
+input[type="radio"]:checked + label .orange {
+	border: 2px solid #873a08;
+}
+input[type="radio"]:checked + label .yellow {
+	border: 2px solid #816102;
+}
+input[type="radio"]:checked + label .olive {
+	border: 2px solid #505a0b;
+}
+input[type="radio"]:checked + label .green {
+	border: 2px solid #0e4e1d;
+}
+input[type="radio"]:checked + label .teal {
+	border: 2px solid #003633;
+}
+input[type="radio"]:checked + label .blue {
+	border: 2px solid #103f62;
+}
+input[type="radio"]:checked + label .violet {
+	border: 2px solid #321a64;
+}
+input[type="radio"]:checked + label .purple {
+	border: 2px solid #501962;
+}
+input[type="radio"]:checked + label .pink {
+	border: 2px solid #851554;
+}
+
+label {
+    margin-top: 10px;
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+label:hover span {
+	transform: scale(1.25);
+}
+label span {
+    
+	display: block;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.2s ease-in-out;
+}
+label span.red {
+	background: #db2828;
+}
+label span.orange {
+	background: #f2711c;
+}
+label span.yellow {
+	background: #fbbd08;
+}
+label span.olive {
+	background: #b5cc18;
+}
+label span.green {
+	background: #21ba45;
+}
+label span.teal {
+	background: #00b5ad;
+}
+label span.blue {
+	background: #2185d0;
+}
+label span.violet {
+	background: #6435c9;
+}
+label span.purple {
+	background: #a333c8;
+}
+label span.pink {
+	background: #e03997;
+}
+label span.white {
+	background: white;
+}
+label span.black {
+	background: black;
+}
+
+            /* css for buttons ends here */
+ /* --------------------------------------------------*/
+
         </style>
     </head>
     <body>
         <h1 id="code"></h1>
         <div id="loading"></div>
         <canvas id="canvas"></canvas>
-        <div id="ui"></div>
+        <canvas id="canvas2"></canvas>
+        
+        <div id="ui">
+            <button id="eraserBtn">Eraser</button>
+            <button id="drawbutton">Draw on model</button>
+            <button id="engagebutton"> Engage with model</button>
+          
+            <input type="radio" name="color" id="red" id="colorbuttons" value="red" />
+            <label for="red"><span class="red"></span></label>
+
+            <input type="radio" name="color" id="orange" id="colorbuttons" />
+            <label for="orange"><span class="orange"></span></label>
+
+            <input type="radio" name="color" id="yellow" id="colorbuttons" />
+            <label for="yellow"><span class="yellow"></span></label>
+
+            <input type="radio" name="color" id="olive" id="colorbuttons" />
+            <label for="olive"><span class="olive"></span></label>
+            
+            <input type="radio" name="color" id="green" id="colorbuttons" />
+            <label for="green"><span class="green"></span></label>
+            
+            <input type="radio" name="color" id="teal" id="colorbuttons" />
+            <label for="teal"><span class="teal"></span></label>
+            
+            <input type="radio" name="color" id="blue" id="colorbuttons" />
+            <label for="blue"><span class="blue"></span></label>
+            
+            <input type="radio" name="color" id="violet" id="colorbuttons" />
+            <label for="violet"><span class="violet"></span></label>
+            
+            <input type="radio" name="color" id="purple"  id="colorbuttons"/>
+            <label for="purple"><span class="purple"></span></label>
+            
+            <input type="radio" name="color" id="pink" id="colorbuttons" />
+            <label for="pink"><span class="pink"></span></label>
+
+            <input type="radio" name="color" id="white" id="colorbuttons" />
+            <label for="white"><span class="white"></span></label>
+
+            <input type="radio" name="color" id="black" id="colorbuttons" />
+            <label for="black"><span class="black"></span></label>
+           
+                <!-- <label class="db" for="eraser">eraser radius:<input type="range" min="5" max="50" value="20" id="eraser"><span id="showEraser">20</span></label> -->
+          
+                <input type="range" id="sliderrange" min="1" max="70" value="1">
+                <label id="slidervalue">1</label>Px
+     
+ 
+                <!-- <label class="db" for="eraser"><input type="range" min="1" max="50" value="20" ><span id="showEraser">20</span></label> -->
+               
+
+        </div>
     </body>
+
+
 </html>
