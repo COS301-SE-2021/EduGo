@@ -13,6 +13,7 @@ import { Grade } from "./Grade";
 import { Subject } from "./Subject";
 import { VirtualEntity } from "./VirtualEntity";
 @Index(["subject", "title"], { unique: true })
+
 @Entity()
 export class Lesson {
 	@PrimaryGeneratedColumn()
@@ -41,7 +42,7 @@ export class Lesson {
 	// endTime: Date;
 
 	@JoinColumn()
-	@ManyToOne(() => Subject, (subject) => subject.lessons)
+	@ManyToOne(() => Subject, (subject) => subject.lessons, {onDelete: "CASCADE"})
 	subject: Subject;
 
 	

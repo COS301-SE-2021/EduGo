@@ -74,21 +74,23 @@ class _RegistrationVerificationPageState
 
     ////////////////////////////////  WIDGETS  /////////////////////////////////
     //These may include the following widgets: input fields, buttons, forms
-    //Page title: User Registration
-    Widget registration_heading_widget = Text(
-      "Registration",
+    //HEADING of the page: User Regsitration
+    Widget registration_heading_widget = new Text(
+      'Registration',
       key: Key('rv_registration_heading'),
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
       textDirection: TextDirection.ltr,
+      style: TextStyle(
+          fontSize: 35, color: Colors.black, fontWeight: FontWeight.normal),
     );
 
-    Widget verification_heading_widget = Text(
-      "Verification",
+    Widget verification_heading_widget = new Text(
+      'Verification',
       key: Key('rv_verification_heading'),
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
       textDirection: TextDirection.ltr,
+      style: TextStyle(
+          fontSize: 35,
+          color: Color.fromARGB(255, 97, 211, 87),
+          fontWeight: FontWeight.bold),
     );
 
     Widget email_input_widget = FractionallySizedBox(
@@ -97,7 +99,6 @@ class _RegistrationVerificationPageState
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ), //Email input field
         child: TextFormField(
           key: Key('email_input_field'),
@@ -115,7 +116,12 @@ class _RegistrationVerificationPageState
           //Input field UI
           style: TextStyle(),
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+            ),
             border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 15),
             hintText: "Email",
             suffixIcon: Icon(Icons.email),
           ),
@@ -129,7 +135,6 @@ class _RegistrationVerificationPageState
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         //Code input field
         child: TextFormField(
@@ -151,7 +156,12 @@ class _RegistrationVerificationPageState
           //Input field UI
           style: TextStyle(),
           decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              ),
               border: OutlineInputBorder(),
+              hintStyle: TextStyle(fontSize: 15),
               hintText: "Activation Code",
               suffixIcon: Icon(Icons.filter_5_rounded)),
         ),
@@ -166,12 +176,18 @@ class _RegistrationVerificationPageState
         key: Key('next_button'),
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: MaterialButton(
-          onPressed: () => _submitForm(),
+          elevation: 40,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          color: Color.fromARGB(255, 97, 211, 87),
+          disabledColor: Color.fromRGBO(211, 212, 217, 1),
           height: 60,
-          color: Colors.black,
+          onPressed: () => _submitForm(),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -188,35 +204,46 @@ class _RegistrationVerificationPageState
     );
 
     //page to be displayed
-    Widget child = Form(
-      key: _formkey,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              border: Border.all(
-                style: BorderStyle.solid,
-                color: Colors.green,
-              ),
-            ),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: Column(
-                  children: [
-                    registration_heading_widget,
-                    verification_heading_widget,
-                    email_input_widget,
-                    code_input_widget,
-                    next_button_widget,
-                  ],
+    Widget child = Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color.fromRGBO(20, 195, 50, 1.0),
+            Color.fromRGBO(11, 36, 54, 1.0)
+          ],
+        ),
+      ),
+      child: Form(
+        key: _formkey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+          child: Material(
+            elevation: 40,
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textDirection: TextDirection.ltr,
+                    children: [
+                      registration_heading_widget,
+                      verification_heading_widget,
+                      email_input_widget,
+                      code_input_widget,
+                      next_button_widget,
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
     ////////////////////////////////////////////////////////////////////////////

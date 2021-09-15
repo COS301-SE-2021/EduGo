@@ -37,15 +37,18 @@ import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicRespon
 import { Lesson } from "../database/Lesson";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
 import { GetQuizesByLessonResponse } from "../models/virtualEntity/GetQuizesByLessonResponse";
+import { GenerateThumbnail } from "../helper/ExternalRequests";
 
 @Service()
 export class VirtualEntityService {
-	@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>;
-	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
-	@InjectRepository(Question) private questionRepository: Repository<Question>;
-	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(Student) private studentRepository: Repository<Student>;
-	@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>;
+	constructor(
+		@InjectRepository(VirtualEntity) private virtualEntityRepository: Repository<VirtualEntity>,
+		@InjectRepository(Quiz) private quizRepository: Repository<Quiz>,
+		@InjectRepository(Question) private questionRepository: Repository<Question>,
+		@InjectRepository(User) private userRepository: Repository<User>,
+		@InjectRepository(Student) private studentRepository: Repository<Student>,
+		@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>
+	) {}
 
 	/**
 	 * @description This function will add a 3d model to a virtual entity. It will include checks to see if the virtual entity already has a model attached
@@ -59,7 +62,7 @@ export class VirtualEntityService {
 		let entity: VirtualEntity | undefined;
 		try {
 			entity = await this.virtualEntityRepository.findOne(request.id, {
-				relations: ["model", "quiz", "quiz.questions"],
+				relations: ["model"],
 			});
 		} catch (err) {
 			throw new NotFoundError("Could not find virtual entity");
@@ -69,13 +72,11 @@ export class VirtualEntityService {
 		if (entity.model)
 			throw new BadRequestError("Virtual Entity already has a Model");
 
+		let thumbnail = await GenerateThumbnail(request.fileLink);
+
 		let model: Model = new Model();
-		model.name = request.name;
-		model.description = request.description;
-		model.file_name = request.file_name;
-		model.file_link = request.file_link;
-		model.file_size = request.file_size;
-		model.file_type = request.file_type;
+		model.fileLink = request.fileLink;
+		model.thumbnail = thumbnail.uploaded;
 
 		entity.model = model;
 		let result: VirtualEntity;
@@ -89,6 +90,7 @@ export class VirtualEntityService {
 		if (result.model) {
 			let response: AddModelToVirtualEntityDatabaseResult = {
 				model_id: result.model.id,
+				thumbnail: thumbnail.uploaded
 			};
 			return response;
 		} else
@@ -127,39 +129,6 @@ export class VirtualEntityService {
 	}
 
 	/**
-	 * @description Get all the virtual entities in the system
-	 * @returns {Promise<GetVirtualEntitiesResponse>}
-	 * @throws {NotFoundError, InternalServerError}
-	 */
-	// async GetVirtualEntities(): Promise<GetVirtualEntitiesResponse> {
-	// 	let entities: VirtualEntity[];
-
-	// 	try {
-	// 		entities = await this.virtualEntityRepository.find({
-	// 			relations: ["model"],
-	// 		});
-	// 	} catch (err) {
-	// 		throw new InternalServerError("Could not find virtual entities");
-	// 	}
-
-	// 	let response: GetVirtualEntitiesResponse = {
-	// 		entities: entities.map((value) => {
-	// 			let entity: GVEs_VirtualEntity = {
-	// 				title: value.title,
-	// 				description: value.description,
-	// 				id: value.id,
-	// 			};
-	// 			if (value.model) {
-	// 				let model: GVEs_Model = { ...value.model };
-	// 				entity.model = model;
-	// 			}
-	// 			return entity;
-	// 		}),
-	// 	};
-	// 	return response;
-	// }
-
-	/**
 	 * @description Create a new virtual entity from the CreateVirtualEntityRequest object which may contain a model, quiz, and questions
 	 * @param {CreateVirtualEntityRequest} request
 	 * @returns {Promise<CreateVirtualEntityResponse>}
@@ -188,13 +157,8 @@ export class VirtualEntityService {
 
 		if (request.model !== undefined) {
 			let model: Model = new Model();
-			model.name = request.model.name;
-			model.description = request.model.description;
-			model.file_link = request.model.file_link;
-			model.file_name = request.model.file_name;
-			model.file_size = request.model.file_size;
-			model.file_type = request.model.file_type;
-			model.preview_img = request.model.preview_img;
+			model.fileLink = request.model.fileLink;
+			model.thumbnail = request.model.thumbnail;
 			ve.model = model;
 		}
 
@@ -239,11 +203,11 @@ export class VirtualEntityService {
 		request: AnswerQuizRequest,
 		user_id: number
 	): Promise<String> {
-		let user: User;
+		let user: User | undefined;
 		let quiz: Quiz | undefined;
 		let lesson: Lesson | undefined;
 		try {
-			user = await getUserDetails(user_id);
+			user = await this.userRepository.findOne(user_id, {relations: ["organisation", "educator", "student"]});
 			quiz = await this.quizRepository.findOne(request.quiz_id, {
 				relations: ["questions"],
 			});
@@ -252,6 +216,7 @@ export class VirtualEntityService {
 			throw error;
 		}
 
+		if (!user) throw new NotFoundError("Could not find user");
 		if (!user.student) throw new NotFoundError("Could not find student");
 		if (!quiz) throw new NotFoundError("Could not find quiz");
 		if (!lesson) throw new NotFoundError("Could not find lesson");

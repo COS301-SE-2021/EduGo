@@ -19,20 +19,6 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   /////////////////////////  VARIABLES & FUNCTIONS  ////////////////////////////
-  String selected_organisation = 'Select an organisation';
-  final List<String> organisations = <String>[
-    'Select an organisation',
-    'UP',
-    'WITS',
-    'UCT'
-  ];
-
-  String selected_user_type = 'Select a user type';
-  final List<String> user_types = <String>[
-    'Select a user type',
-    'educator',
-    'student'
-  ];
 
   // Text controllers used to retrieve the current value of the input fields
   final usernameTextController = TextEditingController();
@@ -40,8 +26,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final emailTextController = TextEditingController();
   final firstNameTextController = TextEditingController();
   final lastNameTextController = TextEditingController();
-  final orgIdTextController = TextEditingController();
-  final userTypeTextController = TextEditingController();
 
   //Snack bar that displays success or error message
   late SnackBar snackbarWidget;
@@ -55,8 +39,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
     emailTextController.dispose();
     firstNameTextController.dispose();
     lastNameTextController.dispose();
-    orgIdTextController.dispose();
-    userTypeTextController.dispose();
     super.dispose();
   }
 
@@ -72,98 +54,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
     //Get a specific controller (UserController) to call needed functions (register)
     UserController userController =
         Momentum.controller<UserController>(context);
-    //Page Title widget
-    Widget _pageTitle = Text(
-      "User Registration",
-      key: Key('regPageHeading'),
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 24),
+
+    //HEADING of the page: User Regsitration
+    Widget _regUserHeading = new Text(
+      'User',
+      key: Key('regUserHeading'),
+      textDirection: TextDirection.ltr,
+      style: TextStyle(
+          fontSize: 35, color: Colors.black, fontWeight: FontWeight.normal),
     );
 
-    //UserType input field
-    Widget _userTypeField = FractionallySizedBox(
-      widthFactor: 0.8,
-      alignment: Alignment.center,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 30,
-          left: 30,
-        ),
-        child: DropdownButtonFormField<String>(
-          key: Key('userDropdown'),
-          value: selected_user_type,
-          autovalidateMode: AutovalidateMode.always,
-          validator: MultiValidator([
-            RequiredValidator(errorText: "* Required"),
-          ]),
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            key: Key('userTypeIcon'),
-          ),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.black),
-          onChanged: (String? newValue) {
-            setState(() {
-              selected_user_type = newValue!;
-            });
-          },
-          onSaved: (String? newValue) {
-            setState(() {
-              selected_user_type = newValue!;
-            });
-          },
-          items: user_types.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-
-    //Organisations input
-    Widget _orgTypeField = FractionallySizedBox(
-      widthFactor: 0.8,
-      alignment: Alignment.center,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 30,
-          left: 30,
-        ),
-        child: DropdownButtonFormField<String>(
-          key: Key('orgDropdown'),
-          value: selected_organisation,
-          autovalidateMode: AutovalidateMode.always,
-          validator: MultiValidator([
-            RequiredValidator(errorText: "* Required"),
-          ]),
-          icon: const Icon(
-            Icons.arrow_drop_down,
-            key: Key('orgTypeIcon'),
-          ),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.black),
-          onChanged: (String? newValue) {
-            setState(() {
-              selected_organisation = newValue!;
-            });
-          },
-          onSaved: (String? newValue) {
-            setState(() {
-              selected_organisation = newValue!;
-            });
-          },
-          items: organisations.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-      ),
+    Widget _regLoginHeading = new Text(
+      'Registration',
+      key: Key('regLoginHeading'),
+      textDirection: TextDirection.ltr,
+      style: TextStyle(
+          fontSize: 35,
+          color: Color.fromARGB(255, 97, 211, 87),
+          fontWeight: FontWeight.bold),
     );
 
     //Username input field
@@ -173,7 +81,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: usernameTextController,
@@ -184,7 +91,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ]),
           style: TextStyle(),
           decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              ),
               border: OutlineInputBorder(),
+              hintStyle: TextStyle(fontSize: 15),
               hintText: "Username",
               prefixIcon: Icon(Icons.person)),
         ),
@@ -197,18 +109,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: firstNameTextController,
           autovalidateMode: AutovalidateMode.always,
           validator: MultiValidator([
             RequiredValidator(errorText: "* Required"),
-            LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid name')
+            LengthRangeValidator(min: 4, max: 20, errorText: 'Invalid name')
           ]),
           style: TextStyle(),
           decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              ),
               border: OutlineInputBorder(),
+              hintStyle: TextStyle(fontSize: 15),
               hintText: "First Name",
               prefixIcon: Icon(Icons.person_add)),
         ),
@@ -221,18 +137,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: lastNameTextController,
           autovalidateMode: AutovalidateMode.always,
           validator: MultiValidator([
             RequiredValidator(errorText: "* Required"),
-            LengthRangeValidator(min: 8, max: 20, errorText: 'Invalid name')
+            LengthRangeValidator(min: 4, max: 20, errorText: 'Invalid name')
           ]),
           style: TextStyle(),
           decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              ),
               border: OutlineInputBorder(),
+              hintStyle: TextStyle(fontSize: 15),
               hintText: "Last Name",
               prefixIcon: Icon(Icons.person_add_alt_1)),
         ),
@@ -245,7 +165,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: emailTextController,
@@ -256,7 +175,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ]),
           style: TextStyle(),
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+            ),
             border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 15),
             hintText: "Email",
             prefixIcon: Icon(Icons.email_outlined),
           ),
@@ -271,7 +195,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         child: new TextFormField(
           controller: passwordTextController,
@@ -286,7 +209,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
           obscureText: true,
           style: TextStyle(),
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+            ),
             border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 15),
             hintText: "Password",
             prefixIcon: Icon(Icons.visibility_off),
           ),
@@ -296,23 +224,31 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
     //Register button
     Widget _regButton = FractionallySizedBox(
-      widthFactor: 0.6,
-      alignment: Alignment.center,
+      widthFactor: 0.7,
+      alignment: Alignment.center, //Alignment.centerRight,
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
           bottom: 30,
         ),
         child: MaterialButton(
+          elevation: 40,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          color: Color.fromARGB(255, 97, 211, 87),
+          disabledColor: Color.fromRGBO(211, 212, 217, 1),
+          height: 60,
           onPressed: () async {
             if (await userController.register(
-                    username: usernameTextController.text,
-                    password: passwordTextController.text,
-                    email: emailTextController.text,
-                    firstName: firstNameTextController.text,
-                    lastName: lastNameTextController.text,
-                    organisation_id: orgIdTextController.text,
-                    type: userTypeTextController.text) ==
+                  username: usernameTextController.text,
+                  password: passwordTextController.text,
+                  email: emailTextController.text,
+                  firstName: firstNameTextController.text,
+                  lastName: lastNameTextController.text,
+                ) ==
                 true) {
               //Leads to login page
               MomentumRouter.goto(
@@ -328,14 +264,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
               print('Fail');
             }
           },
-          height: 60,
-          color: Colors.black,
           child: Row(
             children: <Widget>[
               Expanded(
                 child: Text(
                   "Register",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
               Icon(Icons.login_outlined, color: Colors.white),
@@ -359,25 +293,48 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ));
 
-    Widget child = Form(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.only(
-          top: 30,
-          left: 30,
-        ),
-        child: Column(
-          children: [
-            //TODO insert logo image
-            _pageTitle,
-            _userTypeField,
-            _orgTypeField,
-            _usernameField,
-            _firstNameField,
-            _lastNameField,
-            _emailField,
-            _passwordField,
-            _regButton,
+    Widget child = Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color.fromRGBO(20, 195, 50, 1.0),
+            Color.fromRGBO(11, 36, 54, 1.0)
           ],
+        ),
+      ),
+      child: Form(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+          child: Material(
+            elevation: 40,
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(top: 50),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(
+                  top: 30,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  textDirection: TextDirection.ltr,
+                  children: [
+                    _regUserHeading,
+                    _regLoginHeading,
+                    _usernameField,
+                    _firstNameField,
+                    _lastNameField,
+                    _emailField,
+                    _passwordField,
+                    _regButton,
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -396,74 +353,3 @@ class _RegistrationPageState extends State<RegistrationPage> {
     ////////////////////////////////////////////////////////////////////////////
   }
 }
-/*
-class RegistrationPage extends StatelessWidget {
-  const RegistrationPage();
-  static String id = "registration";
-
-  /
-//Organisation
-//User Type
-//Username
-  @override
-  Widget build(BuildContext context) {
-    Widget child = Stack(
-      children: [
-        //First Name input field
-        Padding(
-          padding: const EdgeInsets.only(top: 100),
-          child: TextFormField(
-            style: TextStyle(),
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), hintText: "First Name"),
-          ),
-        ),
-        //Last Name input field
-        Padding(
-          padding: const EdgeInsets.only(top: 30, left: 30,),
-          child: TextFormField(
-            style: TextStyle(),
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), hintText: "Last Name"),
-          ),
-        ),
-        //Email input field
-        Padding(
-          padding: const EdgeInsets.only(top: 30, left: 30,),
-          child: TextFormField(
-            style: TextStyle(),
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), hintText: "Email"),
-          ),
-        ),
-        //TODO getOrganisations
-        //Organisations input field
-        DropdownButton<String>(
-          value: "Select an organisations",
-          icon: const Icon(Icons.arrow_downward),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
-          underline: Container(
-            height: 2,
-            color: Colors.deepPurpleAccent,
-          ),
-          onChanged: (String? newValue) {
-            setState(() {
-              selectedOrganisation = newValue!;
-            });
-          },
-          organisations: <String>['One', 'Two', 'Free', 'Four']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        )
-      ],
-    );
-    return MobilePageLayout(true, true, child);
-  }
-}
-*/

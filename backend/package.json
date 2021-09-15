@@ -14,7 +14,8 @@
 	"author": "Gang of Five",
 	"license": "ISC",
 	"dependencies": {
-		"aws-sdk": "^2.929.0",
+		"axios": "^0.21.4",
+		"azure-storage": "^2.10.4",
 		"body-parser": "^1.19.0",
 		"class-transformer": "^0.3.1",
 		"class-validator": "^0.12.2",
@@ -32,6 +33,7 @@
 		"pg": "^8.6.0",
 		"reflect-metadata": "^0.1.13",
 		"routing-controllers": "^0.9.0",
+		"ts-mockito": "^2.6.1",
 		"typedi": "^0.10.0",
 		"typeorm": "^0.2.34",
 		"typeorm-typedi-extensions": "^0.4.1"

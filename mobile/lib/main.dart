@@ -4,7 +4,6 @@ import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/User/Service/UserService.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
-import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
@@ -29,6 +28,8 @@ import 'package:momentum/momentum.dart';
 
 void main() {
   //when mock=false it uses api calls. when mock=true, it uses mock data
+
+  //* Wrapping the App in a Momentum instance for state and MVC Management
   runApp(momentum(mock: false));
   //PaintingBinding.instance!.imageCache!.clear();
 }
@@ -37,9 +38,10 @@ Momentum momentum({bool mock = false}) {
   return Momentum(
     child: MyApp(),
     controllers: [
+      //*list of controller instances that can be reused down the tree multiple times.
+      //Controllers are used to update the models. Doing so rebuilds the widgets (view).
       QuizController(mock: false),
       QuestionPageController(mock: mock),
-      //GradesQuizSpecificsPage(mock: mock),
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
       GradesController(mock: mock),
@@ -49,27 +51,29 @@ Momentum momentum({bool mock = false}) {
     ],
     services: [
       UserApiService(), HomeService(),
-      //A built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
+      //MomentumRouter is a built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
-        LoginPage(),
+        LoginPage(), //
+        LessonsPage(),
+        LessonInformationPage(
+          lessonTitle: 'Algebra',
+          lessonID: 1,
+          lessonDescription: 'Introduction to Basic Algebra',
+          lessonVirtualEntity: [],
+        ),
+
         DetectMarkerPage(),
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),
-        LessonsPage(
-          title: '',
-          subjectID: 0,
-        ),
         OrganisationsPage(),
         PreferencesPage(),
         QuestionPage(),
         QuizPage(),
         QuizResultView(),
-        RegistrationPage(Key('registrationPageKey')),
-        RegistrationVerificationPage(Key('registration_verification')),
+        RegistrationPage(Key('registrationPageKey')), //
+        RegistrationVerificationPage(Key('registration_verification')), //
         SettingsPage(),
         SubjectsPage(),
-        LessonInformationPage(
-            lessonTitle: '', lessonID: 0, lessonDescription: '')
       ]),
     ],
   );

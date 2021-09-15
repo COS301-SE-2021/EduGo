@@ -15,9 +15,13 @@ import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError 
 
 @Service()
 export default class AuthService {
-	@InjectRepository(User) private userRepository: Repository<User>;
-	@InjectRepository(UnverifiedUser) private unverifiedUserRepository: Repository<UnverifiedUser>;
-	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>;
+	
+	
+	constructor(@InjectRepository(User) private userRepository: Repository<User>,
+	@InjectRepository(UnverifiedUser) private unverifiedUserRepository: Repository<UnverifiedUser>, 
+	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>){
+
+	}
 	/**
 	 * @description This function allows for a user to register onto the platform
 	 * 1. If User Type is the first admin for an organisation firstAdminRegistration will be used
@@ -45,7 +49,7 @@ export default class AuthService {
 	 */
 	public async login(request: LoginRequest): Promise<LoginResponse> {
 		try {
-			let user = await this.userRepository.findOne({where: { username: request.username },});
+			let user = await this.userRepository.findOne({where: { username: request.username }});
 
 			if (user == undefined) {
 				throw new UnauthorizedError(`User with username ${request.username} not found`);
@@ -83,7 +87,7 @@ export default class AuthService {
 	): Promise<boolean> {
 		try {
 			let existingUser = await this.userRepository.findOne({
-				where: { email: request.email },
+				where: { email: request.email }
 			});
 
 			if (existingUser) {
@@ -231,17 +235,21 @@ export default class AuthService {
 						await this.userRepository.save(user);
 						return "ok";
 					} catch (err) {
-
-						if (err.code == "23505") {
-							throw new BadRequestError(err)
-						}
-						throw new InternalServerError(err);
+						//TODO Review this line here
+						//!DO NOT FORGET
+						// if (err.code == "23505") {
+						// 	console.log(err);
+						// 	throw new BadRequestError('Duplicate entity')
+						// }
+						console.log(err);
+						throw new InternalServerError('Could not save user');
 					}
 					// removing user from unverified list after they have registered successfully
 					//TODO figure out what is wrong with the delete function for unverified user
 					//await unverifiedUserRepo.delete(invitedUser);
 					
 				} else {
+					//NOTE will never be reached
 					throw new NotFoundError(
 						"Email address that was invited with doesn't match provided email address"
 					);

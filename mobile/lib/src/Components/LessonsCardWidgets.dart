@@ -5,6 +5,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 
 /*------------------------------------------------------------------------------
  *                  Lesson Card used in the lesson page 
@@ -30,9 +31,12 @@ class LessonsCard extends StatelessWidget {
   //have a grade. Thus the lesson is completed
   final String lessonCompleted;
 
+  //List of all VE for lesson
+  final List<VirtualEntity> lessonVirtualEntity;
 //LessonCardConstructor. Takes in 4 arguments
   LessonsCard(
-      {required this.lessonTitle,
+      {required this.lessonVirtualEntity,
+      required this.lessonTitle,
       required this.lessonID,
       required this.lessonDescription,
       required this.lessonCompleted});
@@ -56,85 +60,13 @@ class LessonsCard extends StatelessWidget {
       backgroundColour = Color.fromRGBO(178, 34, 34, 1);
     }
 
-    //This is the main lesson card design. It is all in a container and
-    //displays info like the lesson title, lesson objectives and
-    //the lesson
-    // return Card(
-    //   semanticContainer: true,
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.circular(10),
-    //   ),
-    //   clipBehavior: Clip.antiAlias,
-    //   color: Colors.black,
-    //   //This allows the card to be clickable so that when clicked,
-    //   // it will go to the lessons description for that lesson
-    //   child: new InkWell(
-    //     //This redirects the page to the lessons description page on tap
-    //     //and passes in the lesson description, lesson objectives and lesson title
-    //     onTap: () {
-    //       Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => LessonInformationPage(
-    //             lessonTitle: this.lessonTitle,
-    //             lessonDescription: this.lessonDescription,
-    //             lessonID: this.lessonID,
-    //           ),
-    //         ),
-    //       );
-    //     },
-    //     child: Container(
-    //       child: Column(
-    //         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //         children: [
-    //           Expanded(
-    //             //   child: Container(
-    //             //     color: backgroundColour,
-    //             //     child: Align(
-    //             //       alignment: Alignment.center,
-    //             child: Padding(
-    //               padding: const EdgeInsets.only(top: 30),
-    //               child: Text(
-    //                 "$lessonTitle",
-    //                 textAlign: TextAlign.center,
-    //                 overflow: TextOverflow.ellipsis,
-    //                 maxLines: 3,
-    //                 softWrap: true,
-    //                 style: TextStyle(
-    //                     fontSize: 30,
-    //                     fontWeight: FontWeight.bold,
-    //                     color: Colors.white),
-    //                 // ),
-    //                 //),
-    //               ),
-    //             ),
-    //           ),
-    //           Expanded(
-    //             //   child: Container(
-    //             //     color: backgroundColour,
-    //             //     alignment: Alignment.center,
-    //             child: Padding(
-    //               padding: const EdgeInsets.only(top: 10),
-    //               child: Text(
-    //                 "$lessonStatus",
-    //                 textAlign: TextAlign.center,
-    //                 overflow: TextOverflow.ellipsis,
-    //                 maxLines: 3,
-    //                 softWrap: true,
-    //                 style: TextStyle(
-    //                     fontSize: 17,
-    //                     fontWeight: FontWeight.bold,
-    //                     color: Colors.white),
-    //               ),
-    //               //),
-    //             ),
-    //           )
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
-    return Card(
+    return Container(
+      height: 250,
+      width: 250,
+      //This is the main lesson card design. It is all in a container and
+      //displays info like the lesson title, lesson objectives and
+      //the lesson
+      child: Card(
         semanticContainer: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -151,6 +83,7 @@ class LessonsCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => LessonInformationPage(
+                  lessonVirtualEntity: this.lessonVirtualEntity,
                   lessonTitle: this.lessonTitle,
                   lessonDescription: this.lessonDescription,
                   lessonID: this.lessonID,
@@ -158,50 +91,59 @@ class LessonsCard extends StatelessWidget {
               ),
             );
           },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(
-                child: Container(
-                  color: backgroundColour,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Text(
-                        "$lessonTitle",
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
-                        softWrap: true,
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // Expanded(
+          child: //Container(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //child: //Column(
+              //children: [
+              //Expanded(
               //   child: Container(
               //     color: backgroundColour,
-              //     alignment: Alignment.center,
-              //     child: Text(
-              //       "$lessonStatus",
-              //       textAlign: TextAlign.center,
-              //       overflow: TextOverflow.ellipsis,
-              //       maxLines: 3,
-              //       softWrap: true,
-              //       style: TextStyle(
-              //           fontSize: 17,
-              //           fontWeight: FontWeight.bold,
-              //           color: Colors.white),
-              //     ),
-              //   ),
-              // )
-            ],
+              //     child: Align(
+              //       alignment: Alignment.center,
+              // child:
+              Padding(
+            padding: const EdgeInsets.only(top: 30),
+            child: Text(
+              "$lessonTitle",
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+              softWrap: true,
+              style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+              // ),
+              //),
+            ),
           ),
-        ));
+        ),
+        // Expanded(
+        //   child: Container(
+        //     color: backgroundColour,
+        //     alignment: Alignment.center,
+        //     child:
+        /*Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    "$lessonStatus",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    softWrap: true,
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    //  ),
+                    //),
+                  ),
+                )*/
+        //],
+      ),
+      //),
+      // ),
+      //),
+    );
   }
 }
