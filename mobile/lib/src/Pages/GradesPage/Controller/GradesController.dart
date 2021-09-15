@@ -37,7 +37,7 @@ Future<List<Subject>> getGrades({required http.Client client}) async {
     headers: <String, String>{
       'Content-Type': 'application/json',
       "Authorization":
-          "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2MjkyODY2NjMsImV4cCI6MTYyOTM3MzA2M30.KYzzZbqk6_HpW-_mdqf2p1LlWjzsOTVplx4Vi850KHNJDXAiSmBR-R8L85liOB-ijpOXFVqMa2zz63SBd-gx06kdBdms48Ah9oFVoOvOziSDuhSUKK-GmuV6GhBKr5rhoAoPbSS600AXjFuJCYSjdqitaVDPp5Be4JJjQUXzm_D-T7QoxhvJMyd5NESCGIT4Pv8OT-7ph90z1nGmSUNVLjV1FTBNHRcxnrKZDm4r8_iGwjBoTxcE5slXlh8xvNwJsWT3U3c-8mtnApRappfL5bE44gjmq0t2gxx6S4RkcipUYlC_cbzKwk10ITVQAcX9pEcNmoQAeE1ZYIemkyLS9I3sHVRffJoSOjJo5tHd0ZeTWCaLsdafBfSSjDvZr2jYtSky1ejDf_qpNjdS-_zbe-5i6wSA_3RedqHNyOHZMGmkgBjlgCwWkv6zGq-KifEcC18319CnPOW3H4SPrjugcbGFcP4NZ-cXnil3a-0GUtkgyYWI8O8n_NxEpggt-lc8Ge80vbSB4E-1jMkvSVDZSBcQgeIX5Jn5H2so1Yjoaz7ZO2QZn15EYwg6rgq35DYOH39OZI4IS8WOJksvBWz09OceiGJbppCJHX_Vlhhdd8cSY-hL-F2izT1ljjRSuHDTFKKc805AwG1YM5dzIjTA1W1T0vwqPuBss3L_EJzjxZk",
+          "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2Mjk3ODc2NTQsImV4cCI6MTYyOTg3NDA1NH0.XeB_Zt4vcP_gv0wm0Yd6Ho3irrwSyusF3W1_AVjbq1sgXRD7JpLi8QRJ3aVjOpqExB2Y-bYCVLBUHem0R4kUb_7WiUC9crx51vx60jPFFCSMgHjDo2LQwfV-Icw4_121N3_Xk0ieaL63nmqhztWR8GdNga2kfxBb0VI46HvIWO_LihP6YZbW5dovkCMwMInxVWL0LE1xPVNPEDKeQ62O70AsyLzPF0dx4JSbgxjzphJTJPNJiLtdJB0Ap3UgOk7oIgBvWSnwUK740nLD7BLPZIQRgjWdsODK598cNlzoANxorkx1iMqaDDG2pidTGLenaESlC8OvDswc6saK2--JZ-hWkSq6zPx54KtK4j__bZA8ZcRb5_-Q1_7e59PvS4N64LK6d1YG5Mpjr0yCAu8x-yljkcQe74D0MyPctDJeXrONDDGhp6nuzXI5RRGUQWwjNOpuuUxEPOkMK_e8GbZUnATl-OIyW5hlhnf-4Kt2BVWlAChsQyFfRjRU39Hv86ESOsDcDGFyaEJRmWnUKqMPga0YIuxGXEYMQeLrnaYrNk1NkDHS18w6RE8UPuj6YG03td10FPR8TDkNBmPsB69tWVNq38fGNBgfDjmKyNBB6JXfWnBTnTKyAtx-K0Y3fO1Fqa5TRe73Qmm8paYuL1ygVt-RhLXZo8W_EKuphQM0lm8",
 
       //UNCOMMENT THIS WHEN MERGED INTO DEVELOP-APP-MOBILE-COMBINED
       //"Authorization": token
@@ -46,11 +46,6 @@ Future<List<Subject>> getGrades({required http.Client client}) async {
 
   //If there is a list of subjects that is returned,
   //convert it to a json object, else throw an exception
-  print(response.statusCode);
-
-  // json.toString(response);
-
-  print(response.body);
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
     if (json['subjects'] != null) {
@@ -76,10 +71,9 @@ class GradesController extends MomentumController<GradesModel> {
     return GradesModel(this, subjects: []);
   }
 
-  @override
-  Future<void> bootstrapAsync() {
-    print('Mock');
-    print(mock);
+  //Used in the GradesSubjectPage to get the grades onload every time instead
+  //of at the start of app(not using bootstrapasync function)
+  Future<void> getGradesOnload() {
     return getGrades(
             //If bool is set to true in the controller constructor in the main file,
             //it uses mock the actual api end point

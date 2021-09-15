@@ -76,8 +76,6 @@ class GradesSubjectCard extends StatelessWidget {
             semanticContainer: true,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
-              //borderRadius: BorderRadius.zero;
-              //side: BorderSide(color: Colors.purple),
             ),
             clipBehavior: Clip.antiAlias,
             color: Color.fromARGB(0, 246, 246, 246),
@@ -137,7 +135,6 @@ class GradesSubjectCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // ),
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
