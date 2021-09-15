@@ -9,11 +9,9 @@ class LessonsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Todo: Lesson Card
     return MomentumBuilder(
         controllers: [LessonsController],
         builder: (context, snapshot) {
-          var lesson = snapshot<LessonsModel>();
           return Container(
             margin: EdgeInsets.only(bottom: 50),
             child: Padding(

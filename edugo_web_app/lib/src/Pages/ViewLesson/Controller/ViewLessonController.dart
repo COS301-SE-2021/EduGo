@@ -1,5 +1,4 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/Pages/ViewLesson/Model/Data/LessonVirtualEntities.dart';
 import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/AddEntityStoreCard.dart';
 import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/ViewLessonWidgets.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntity.dart';

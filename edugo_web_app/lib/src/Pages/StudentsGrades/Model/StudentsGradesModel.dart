@@ -1,6 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/StudentsGrades/Model/Data/Subject.dart';
-import 'package:edugo_web_app/src/Pages/StudentsGrades/View/Widgets/StudentsGradesWidgets.dart';
 
 class StudentsGradesModel extends MomentumModel<StudentsGradesController> {
   final List<Subject> subjects;
