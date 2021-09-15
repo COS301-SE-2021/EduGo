@@ -74,10 +74,9 @@ export class UserController {
 	}
 
 	@Get("/getGradesByEducator")
-	//@UseBefore(isEducator)
-	GradesByEducator() {
-		console.log("hereeee");
-		return this.educatorService.getStudentGrades(1);
+	@UseBefore(IsEducatorMiddleware)
+	GradesByEducator(@CurrentUser({ required: true }) id: number) {
+		return this.educatorService.getStudentGrades(id);
 	}
 
 	// TODO Test endpoint
