@@ -23,6 +23,8 @@ class _BottomBarState extends State<BottomBar> {
         title: Text('Grades'), icon: Icons.checklist_rtl_outlined),
     TitledNavigationBarItem(
         title: Text('Detect marker'), icon: Icons.center_focus_weak),
+    TitledNavigationBarItem(
+        title: Text('Canvas'), icon: Icons.vignette)
   ];
 
   List<Type> widgetOptions = <Type>[
