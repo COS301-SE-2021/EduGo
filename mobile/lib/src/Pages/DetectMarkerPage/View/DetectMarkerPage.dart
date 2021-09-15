@@ -21,34 +21,59 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
 
   @override
   Widget build(BuildContext context) {
+    VirtualEntityData ve = new VirtualEntityData(ve_id: 2);
+
     return MobilePageLayout(
         false,
         false,
         Scaffold(
             body: Column(children: <Widget>[
           Expanded(
-              flex: 5,
-              child: QRView(
-                key: qrKey,
-                onQRViewCreated: (QRViewController controller) {
-                  this.controller = controller;
+            flex: 5,
+            // child: MaterialButton(
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.all(Radius.circular(20)),
+            //     side: BorderSide(color: Colors.black),
+            //   ),
+            //   onPressed: () {
+            //     Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (context) => VirtualEntityView(data: ve)));
+            //   },
+            //   minWidth: 10,
+            //   height: 60,
+            //   child: Text(
+            //     "Go to virtual entity",
+            //     maxLines: 2,
+            //     softWrap: true,
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(
+            //         fontSize: 20,
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.black),
+            //   ),
+            // ),
 
-                  controller.scannedDataStream.listen((qr) {
-                    if (result == null) {
-                      result = qr;
+            child: QRView(
+              key: qrKey,
+              onQRViewCreated: (QRViewController controller) {
+                this.controller = controller;
 
-                      try {
-                        VirtualEntityData data = validateMarker(result!.code);
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                VirtualEntityView(data: data)));
-                      } catch (err) {
-                        //TODO handle error
-                      }
+                controller.scannedDataStream.listen((qr) {
+                  if (result == null) {
+                    result = qr;
+
+                    try {
+                      VirtualEntityData data = validateMarker(result!.code);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => VirtualEntityView(data: data)));
+                    } catch (err) {
+                      //TODO handle error
                     }
-                  });
-                },
-              )),
+                  }
+                });
+              },
+            ),
+          ),
           Expanded(flex: 1, child: Center(child: Text('Scan a marker')))
         ])),
         'Detect Marker');

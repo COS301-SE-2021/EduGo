@@ -11,10 +11,12 @@ VirtualEntity _$VirtualEntityFromJson(Map<String, dynamic> json) {
   return VirtualEntity(
     json['id'] as int,
     json['title'] as String,
-    json['description'] as String? ?? '',
-  )..model = json['model'] == null
-      ? null
-      : Model.fromJson(json['model'] as Map<String, dynamic>);
+    (json['description'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+        [],
+    json['model'] == null
+        ? null
+        : Model.fromJson(json['model'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$VirtualEntityToJson(VirtualEntity instance) =>
@@ -26,22 +28,14 @@ Map<String, dynamic> _$VirtualEntityToJson(VirtualEntity instance) =>
     };
 
 Model _$ModelFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['name', 'file_name', 'file_link']);
+  $checkKeys(json, requiredKeys: const ['fileLink', 'thumbnail']);
   return Model(
-    json['name'] as String,
-    json['description'] as String? ?? '',
-    json['file_name'] as String,
-    json['file_link'] as String,
-    json['file_size'] as int? ?? 0,
-    json['file_type'] as String? ?? '',
+    json['fileLink'] as String,
+    json['thumbnail'] as String,
   );
 }
 
 Map<String, dynamic> _$ModelToJson(Model instance) => <String, dynamic>{
-      'name': instance.name,
-      'description': instance.description,
-      'file_name': instance.file_name,
-      'file_link': instance.file_link,
-      'file_size': instance.file_size,
-      'file_type': instance.file_type,
+      'fileLink': instance.fileLink,
+      'thumbnail': instance.thumbnail,
     };

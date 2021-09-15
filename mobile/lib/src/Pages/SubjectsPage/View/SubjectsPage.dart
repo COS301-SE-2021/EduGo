@@ -7,7 +7,6 @@
 */
 
 import 'package:flutter/material.dart';
-import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Components/SubjectCardWidget.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
@@ -38,20 +37,22 @@ class _SubjectsPageState extends State<SubjectsPage> {
     return MobilePageLayout(
       true,
       true,
-      //Container(
       MomentumBuilder(
         controllers: [SubjectsController],
         builder: (context, snapshot) {
           //Stores a snapshot of the current subject
           //list in the SubjectModel page
           final subjects = snapshot<SubjectsModel>();
-
           //Stores the number of subjects for a particulat student
           int subjectsCount = subjects.subjects.length;
-
           //A check to see if there are subjects. If there are no subjects,
           //or if the list is empty display another card saying no
           //subjects are available
+          final subjectsController =
+              Momentum.controller<SubjectsController>(context);
+          //Call this function on every reload or click of
+          //page to display new subjects
+          subjectsController.getSubjects();
           if (subjectsCount > 0 && subjects.subjects.isNotEmpty) {
             return Container(
               child: SingleChildScrollView(
@@ -89,11 +90,14 @@ class _SubjectsPageState extends State<SubjectsPage> {
                       children: subjects.subjects
                           .map(
                             (subject) => SubjectCard(
-                                title: subject.title,
-                                grade: subject.grade,
-                                id: subject.id,
-                                count: subjectsCount,
-                                educator: subject.educatorName),
+                              title: subject.title,
+                              grade: subject.grade,
+                              id: subject.id,
+                              count: subjectsCount,
+                              educator: "Ms Kim Possible",
+                              subjectImage: subject.image,
+                              //subject.educatorName
+                            ),
                           )
                           .toList(),
                     ),
@@ -102,16 +106,9 @@ class _SubjectsPageState extends State<SubjectsPage> {
               ),
             );
           }
-          //If there are no subjects
+          //Display a spinner card if no mark for lessons
+          //or between api calls
           else
-            //
-            // return SizedBox(
-            //   height: MediaQuery.of(context).size.height,
-            //   child: CircularProgressIndicator(
-            //     backgroundColor: Colors.black,
-            //     strokeWidth: 10,
-            //   ),
-            // );
             return SpinKitCircle(
               color: Colors.black,
             );

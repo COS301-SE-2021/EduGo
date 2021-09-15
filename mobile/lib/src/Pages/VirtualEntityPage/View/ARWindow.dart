@@ -60,8 +60,8 @@ class ARWindowState extends State<ARWindow> {
       customPlaneTexturePath: "assets/images/triangle.png",
       handleTaps: true,
       showFeaturePoints: false,
-      showPlanes: true,
-      showWorldOrigin: true
+      //showPlanes: true,
+      //showWorldOrigin: true
     );
 
     this.arObjectManager?.onInitialize();

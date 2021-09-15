@@ -1,10 +1,17 @@
-import 'package:json_annotation/json_annotation.dart';
+/**
+ * This is the model for a virtual entity. 
+ * The getVirtualEntity endpoint will return a the information 
+ * with regards to the specific virtual entity id that is passed in. 
+ */
 
+import 'package:json_annotation/json_annotation.dart';
 part 'VirtualEntityModels.g.dart';
 
 class VirtualEntityData {
+  //Holds the virtual enitity id
   final int ve_id;
 
+  //Virtual entity data constructor
   VirtualEntityData({required this.ve_id});
 
   factory VirtualEntityData.fromJson(Map<String, dynamic> json) {
@@ -14,19 +21,24 @@ class VirtualEntityData {
 
 @JsonSerializable(explicitToJson: true)
 class VirtualEntity {
+  //Holds the virtual entity ID
   @JsonKey(required: true)
   int id;
 
+  //Holds the virtual entity title
   @JsonKey(required: true)
   String title;
 
-  @JsonKey(defaultValue: '')
-  String description;
+  //Holds the virtual entity description
+  @JsonKey(defaultValue: [])
+  List<String> description;
 
+  //Holds the actual model
   @JsonKey(defaultValue: null)
   Model? model;
 
-  VirtualEntity(this.id, this.title, this.description);
+  //Virtual entity constructor
+  VirtualEntity(this.id, this.title, this.description, this.model);
 
   factory VirtualEntity.fromJson(Map<String, dynamic> json) =>
       _$VirtualEntityFromJson(json);
@@ -35,90 +47,17 @@ class VirtualEntity {
 
 @JsonSerializable()
 class Model {
+  //Holds the filelink
   @JsonKey(required: true)
-  String name;
+  String fileLink;
 
-  @JsonKey(defaultValue: '')
-  String description;
-
+  //Holds a thumbnail of the 3d model
   @JsonKey(required: true)
-  String file_name;
+  String thumbnail;
 
-  @JsonKey(required: true)
-  String file_link;
-
-  @JsonKey(required: false, defaultValue: 0)
-  int file_size;
-
-  @JsonKey(required: false, defaultValue: '')
-  String file_type;
-
-  Model(this.name, this.description, this.file_name, this.file_link,
-      this.file_size, this.file_type);
+  //Model consatructor
+  Model(this.fileLink, this.thumbnail);
 
   factory Model.fromJson(Map<String, dynamic> json) => _$ModelFromJson(json);
   Map<String, dynamic> toJson() => _$ModelToJson(this);
 }
-
-/*
-@JsonSerializable(explicitToJson: true)
-class Quiz {
-  @JsonKey(required: true)
-  int id;
-
-  @JsonKey(required: true)
-  String title;
-
-  @JsonKey(defaultValue: '')
-  String description;
-
-  @JsonKey(defaultValue: null)
-  List<Question>? questions;
-
-  Quiz(this.id, this.title, this.description, this.questions);
-
-  factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
-  Map<String, dynamic> toJson() => _$QuizToJson(this);
-}
-*/
-
-/*
-QuestionType toQuestionType(String type) {
-  QuestionType t = QuestionType.values.firstWhere(
-      (element) => element.toString() == "QuestionType.${type}",
-      orElse: () => QuestionType.TrueFalse);
-  return t;
-}
-@JsonSerializable()
-class Question {
-  @JsonKey(required: true)
-  int id;
-
-  @JsonKey(required: true, unknownEnumValue: QuestionType.TrueFalse)
-  QuestionType type;
-
-  @JsonKey(required: true)
-  String question;
-
-  @JsonKey(defaultValue: '')
-  String correctAnswer;
-
-  @JsonKey(defaultValue: null)
-  List<String>? options;
-
-  Question(this.id, this.type, this.question, this.correctAnswer, this.options);
-
-  factory Question.fromJson(Map<String, dynamic> json) =>
-      _$QuestionFromJson(json);
-  Map<String, dynamic> toJson() => _$QuestionToJson(this);
-}
-
-enum QuestionType {
-  @JsonValue("TrueFalse")
-  TrueFalse,
-  @JsonValue("MultipleChoice")
-  MultipleChoice,
-  @JsonValue("FreeText")
-  FreeText,
-}
-*/
