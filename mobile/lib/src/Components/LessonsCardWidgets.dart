@@ -4,8 +4,10 @@
    * into the constructor when displaying the lesson cards.
 */
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                  Lesson Card used in the lesson page 
@@ -79,30 +81,12 @@ class LessonsCard extends StatelessWidget {
           //This redirects the page to the lessons description page on tap
           //and passes in the lesson description, lesson objectives and lesson title
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LessonInformationPage(
-                  lessonVirtualEntity: this.lessonVirtualEntity,
-                  lessonTitle: this.lessonTitle,
-                  lessonDescription: this.lessonDescription,
-                  lessonID: this.lessonID,
-                ),
-              ),
-            );
+            Momentum.controller<LessonInformationController>(context)
+                .updateLessonInformation(context, lessonTitle,
+                    lessonDescription, lessonID, lessonVirtualEntity);
           },
-          child: //Container(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //child: //Column(
-              //children: [
-              //Expanded(
-              //   child: Container(
-              //     color: backgroundColour,
-              //     child: Align(
-              //       alignment: Alignment.center,
-              // child:
-              Padding(
-            padding: const EdgeInsets.only(top: 30),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
             child: Text(
               "$lessonTitle",
               textAlign: TextAlign.center,
@@ -113,37 +97,10 @@ class LessonsCard extends StatelessWidget {
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),
-              // ),
-              //),
             ),
           ),
         ),
-        // Expanded(
-        //   child: Container(
-        //     color: backgroundColour,
-        //     alignment: Alignment.center,
-        //     child:
-        /*Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    "$lessonStatus",
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    softWrap: true,
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                    //  ),
-                    //),
-                  ),
-                )*/
-        //],
       ),
-      //),
-      // ),
-      //),
     );
   }
 }

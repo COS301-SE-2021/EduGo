@@ -12,6 +12,7 @@ import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
 import 'package:mobile/src/Pages/HomePage/Service/HomeService.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
@@ -50,7 +51,9 @@ Momentum momentum({bool mock = false}) {
       GradesController(mock: mock),
       BottomBarController(),
       UserController(mock: mock),
-      HomeController(mock: mock), QuizzesPageController()
+      HomeController(mock: mock),
+      QuizzesPageController(),
+      LessonInformationController(),
     ],
     services: [
       UserApiService(), HomeService(),
@@ -58,12 +61,7 @@ Momentum momentum({bool mock = false}) {
       MomentumRouter([
         LoginPage(), //
         LessonsPage(),
-        LessonInformationPage(
-          lessonTitle: 'Algebra',
-          lessonID: 1,
-          lessonDescription: 'Introduction to Basic Algebra',
-          lessonVirtualEntity: [],
-        ),
+        LessonInformationPage(),
 
         DetectMarkerPage(),
         GradesSubjectPage(),
@@ -88,7 +86,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'EduGo',
+      title: 'EduGo', debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: Color.fromARGB(255, 97, 211, 87),
           primarySwatch: Colors.blue,

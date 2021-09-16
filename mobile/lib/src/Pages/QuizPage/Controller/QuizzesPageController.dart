@@ -93,14 +93,14 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
       ),
     ).then(
       (response) {
-        if (response.statusCode == 200) {
-          int tempId = model.lessonId;
-          reset();
-          model.update(lessonId: tempId);
-          getLessonQuizzes(context, model.lessonId);
-          MomentumRouter.goto(context, QuizzesPageView);
-          return;
-        }
+        //if (response.statusCode == 200) {
+        int tempId = model.lessonId;
+        reset();
+        model.update(lessonId: tempId);
+        getLessonQuizzes(context, model.lessonId);
+
+        return;
+        //}
       },
     );
   }
@@ -192,5 +192,9 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
 
   void chooseAnswer(String answer) {
     model.update(currentAnswer: answer);
+  }
+
+  int getLessonId() {
+    return model.lessonId;
   }
 }
