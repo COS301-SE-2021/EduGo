@@ -134,13 +134,11 @@ const new_ratio = (socket: socket.Socket, data: any) => {
 }
 
 const new_draw = (socket: socket.Socket, data: any) => {
-    console.log(data);
     let code = userMap[socket.id];
     socket.to(code).emit('draw_updated', data);
 }
 
 const clear_draw = (socket: socket.Socket) => {
-    console.log('clear');
     let code = userMap[socket.id];
     socket.to(code).emit('clear_draw');
 }
