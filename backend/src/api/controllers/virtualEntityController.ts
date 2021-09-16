@@ -134,9 +134,10 @@ export class VirtualEntityController {
 	@Post("/getQuizesByLesson")
 	@UseBefore(IsUserMiddleware)
 	GetQuizesByLesson(
-		@Body({ required: true }) body: GetQuizesByLessonRequest
+		@Body({ required: true }) body: GetQuizesByLessonRequest,
+		@CurrentUser({ required: true }) id: number
 	) {
-		return this.service.GetQuizesByLesson(body);
+		return this.service.GetQuizesByLesson(body,id);
 	}
 }
 

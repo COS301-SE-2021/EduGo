@@ -390,7 +390,7 @@ export class VirtualEntityService {
 	 * @throws {BadRequestError}
 	 */
 	async GetQuizesByLesson(
-		request: GetQuizesByLessonRequest
+		request: GetQuizesByLessonRequest,userId:number
 	): Promise<GetQuizesByLessonResponse> {
 		let lesson: Lesson | undefined;
 		let user: User | undefined;
