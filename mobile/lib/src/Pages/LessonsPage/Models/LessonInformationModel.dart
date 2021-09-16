@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:momentum/momentum.dart';
@@ -8,14 +9,18 @@ class LessonInformationModel
   final String lessonTitle;
   final int lessonID;
   final String lessonDescription;
-  final List<VirtualEntity> lessonVirtualEntity;
+  final List<VirtualEntity> lessonVirtualEntities;
+  final VirtualEntity currentVirtualEntity;
+  final Widget view;
 
   LessonInformationModel(
     LessonInformationController controller, {
     required this.lessonTitle,
     required this.lessonID,
     required this.lessonDescription,
-    required this.lessonVirtualEntity,
+    required this.lessonVirtualEntities,
+    required this.currentVirtualEntity,
+    required this.view,
   }) : super(controller);
 
   @override
@@ -24,14 +29,19 @@ class LessonInformationModel
     String? lessonTitle,
     int? lessonID,
     String? lessonDescription,
-    List<VirtualEntity>? lessonVirtualEntity,
+    List<VirtualEntity>? lessonVirtualEntities,
+    VirtualEntity? currentVirtualEntity,
+    Widget? view,
   }) {
     LessonInformationModel(
       controller,
       lessonTitle: lessonTitle ?? this.lessonTitle,
       lessonID: lessonID ?? this.lessonID,
       lessonDescription: lessonDescription ?? this.lessonDescription,
-      lessonVirtualEntity: lessonVirtualEntity ?? this.lessonVirtualEntity,
+      lessonVirtualEntities:
+          lessonVirtualEntities ?? this.lessonVirtualEntities,
+      currentVirtualEntity: currentVirtualEntity ?? this.currentVirtualEntity,
+      view: view ?? this.view,
     ).updateMomentum();
   }
 }

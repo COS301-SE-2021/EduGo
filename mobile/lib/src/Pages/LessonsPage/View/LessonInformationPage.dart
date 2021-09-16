@@ -1,3 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
+import 'package:mobile/src/Pages/LessonsPage/Models/LessonInformationModel.dart';
+import 'package:momentum/momentum.dart';
+
+class LessonInformationPage extends StatefulWidget {
+  LessonInformationPage({Key? key}) : super(key: key);
+
+  @override
+  _LessonInformationPageState createState() => _LessonInformationPageState();
+}
+
+class _LessonInformationPageState extends State<LessonInformationPage> {
+  @override
+  Widget build(BuildContext context) {
+    MomentumBuilder child = MomentumBuilder(
+        controllers: [LessonInformationController],
+        builder: (context, snapshot) {
+          var info = snapshot<LessonInformationModel>();
+
+          return info.view;
+        });
+    return MobilePageLayout(true, true, child, 'LessonInfo');
+  }
+}
+/*
 /**
  * This is the lesson information page. It simply displays
  * the relevant information about a lesson when a specific 
@@ -244,3 +271,4 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
     );
   }
 }
+*/

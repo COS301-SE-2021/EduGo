@@ -8,6 +8,7 @@ import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
 import 'package:mobile/src/Pages/HomePage/Service/HomeService.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
@@ -46,18 +47,15 @@ Momentum momentum({bool mock = false}) {
       GradesController(mock: mock),
       BottomBarController(),
       UserController(mock: mock),
-      HomeController(mock: mock), QuizzesPageController()
+      HomeController(mock: mock),
+      QuizzesPageController(),
+      LessonInformationController(),
     ],
     services: [
       UserApiService(), HomeService(),
       //MomentumRouter is a built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
       MomentumRouter([
-        LessonInformationPage(
-          lessonTitle: 'Algebra',
-          lessonID: 1,
-          lessonDescription: 'Introduction to Basic Algebra',
-          lessonVirtualEntity: [],
-        ),
+        LessonInformationPage(),
         LoginPage(), //
         LessonsPage(),
 
