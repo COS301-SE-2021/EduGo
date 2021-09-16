@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Bottom/Controller/BottomBarController.dart';
 import 'package:mobile/src/Components/Nav/Bottom/Model/BottomBarModel.dart';
+import 'package:mobile/src/Pages/CanvasPage/View/CanvasCodePage.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
@@ -31,6 +32,7 @@ class _BottomBarState extends State<BottomBar> {
     SubjectsPage,
     GradesSubjectPage,
     DetectMarkerPage,
+    CanvasCodePage
   ];
 
   @override
