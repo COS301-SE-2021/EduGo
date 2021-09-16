@@ -22,7 +22,7 @@ class LessonInformationController
       ),
       view: Row(
         children: [
-          Text('No lessons'),
+          Text('No lesson'),
         ],
       ),
     );
@@ -42,13 +42,19 @@ class LessonInformationController
   //get the information to build the screen
   void updateLessonInformation(context, String lessonTitle, lessonDescription,
       int lessonID, List<VirtualEntity> virtualEntities) {
+    print('lesson page');
     model.update(
       lessonDescription: lessonDescription,
       lessonID: lessonID,
       lessonTitle: lessonTitle,
       lessonVirtualEntities: virtualEntities,
+      view: Row(
+        children: [
+          Text('view lesson info here'),
+        ],
+      ),
     );
-    buildLessonInfoView();
+    //buildLessonInfoView();
     MomentumRouter.goto(context, LessonInformationPage);
   }
 

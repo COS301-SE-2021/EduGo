@@ -5,13 +5,17 @@
 */
 
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:mobile/src/Exceptions.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
 import 'package:mobile/mockApi.dart' as mockApi;
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as httpMock;
 import 'package:mobile/globals.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:momentum/momentum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,7 +68,17 @@ class LessonsController extends MomentumController<LessonsModel> {
   //Initialize the lessons to an empty array in the beginning
   @override
   LessonsModel init() {
-    return LessonsModel(this, lessons: [], id: 0, title: '');
+    return LessonsModel(
+      this,
+      lessons: [],
+      id: 0,
+      title: '',
+      view: Row(
+        children: [
+          Text('No lesson(s)'),
+        ],
+      ),
+    );
   }
 
   Future<void> getLessons(int subjectID) {
@@ -82,12 +96,22 @@ class LessonsController extends MomentumController<LessonsModel> {
   }
 
   void updateLesson(context, int id, String title) {
+    print('lessons page');
     model.update(
       lessons: model.lessons,
       id: id,
       title: title,
+      view: MaterialButton(
+        onPressed: () =>
+            MomentumRouter.goto(context, LessonsPage), //print('lesson'),
+        // Momentum.controller<LessonInformationController>(context)
+        //     .updateLessonInformation(
+        //         context, 'lessonTitle', 'lessonDescription', 0, []),
+        child: Text('Lessons'),
+      ),
     );
-    buildLessonInfoView();
+    //buildLessonInfoView();
+    MomentumRouter.goto(context, LessonsPage);
     MomentumRouter.goto(context, LessonInformationPage);
   }
 
