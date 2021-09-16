@@ -85,30 +85,20 @@ class LessonsCard extends StatelessWidget {
                 .updateLessonInformation(context, lessonTitle,
                     lessonDescription, lessonID, lessonVirtualEntity);
           },
-          child: //Container(
-              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //child: //Column(
-              //children: [
-              //Expanded(
-              //   child: Container(
-              //     color: backgroundColour,
-              //     child: Align(
-              //       alignment: Alignment.center,
-              // child:
-              Padding(
+          child: Padding(
             padding: const EdgeInsets.only(top: 30),
-            child: Text(
-              "$lessonTitle",
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 3,
-              softWrap: true,
-              style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-              // ),
-              //),
+            child: Expanded(
+              child: Text(
+                "$lessonTitle",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -135,9 +125,6 @@ class LessonsCard extends StatelessWidget {
                 )*/
         //],
       ),
-      //),
-      // ),
-      //),
     );
   }
 }

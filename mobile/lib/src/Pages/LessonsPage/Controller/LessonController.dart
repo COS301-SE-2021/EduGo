@@ -6,6 +6,8 @@
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mobile/src/Components/LessonsCardWidgets.dart';
 import 'package:mobile/src/Exceptions.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
@@ -81,8 +83,8 @@ class LessonsController extends MomentumController<LessonsModel> {
     );
   }
 
-  Future<void> getLessons(int subjectID) {
-    return getLessonsBySubject(subjectID,
+  Future<void> getLessons(context, int subjectId, String subjectTitle) {
+    return getLessonsBySubject(subjectId,
             //If bool is set to true in the controller constructor in the main file,
             //it uses mock the actual api end point
             //If bool is set to true in the controller constructor in the main file,
@@ -92,27 +94,113 @@ class LessonsController extends MomentumController<LessonsModel> {
                 : http.Client())
         .then((value) {
       model.update(lessons: value);
+      int lessonsCount = model.lessons.length;
+
+      // A check to see if there are subjects. If there are no subjects,
+      // display another card saying no subjects are available
+      Widget view;
+
+      if (lessonsCount > 0 && model.lessons.isNotEmpty) {
+        view = Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Align(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: Text(
+                      subjectTitle,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: false,
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                ),
+                Align(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: Text(
+                      '$lessonsCount' + ' lessons',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: false,
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                ),
+                GridView.count(
+                  //This makes 2 cards appear. So effectively two cards
+                  //per page. (2 rows, 1 card per row)
+                  childAspectRatio: MediaQuery.of(context).size.height / 100,
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 0,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  mainAxisSpacing: 10,
+                  //makes 1 cards per row
+                  crossAxisCount: 1,
+                  children: model.lessons
+                      .map((lesson) => LessonsCard(
+                          lessonVirtualEntity: lesson.virtualEntities,
+                          lessonTitle: lesson.title,
+                          lessonID: lesson.id,
+                          lessonDescription: lesson.description,
+                          lessonCompleted: lesson.lessonCompleted))
+                      .toList(),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+      //Display a spinner card if no mark for lessons
+      //or between api calls
+      else
+        view = SpinKitCircle(
+          color: Colors.black,
+        );
+
+      model.update(
+        lessons: model.lessons,
+        id: subjectId,
+        title: subjectTitle,
+        view: view,
+      );
+      MomentumRouter.goto(context, LessonsPage);
     });
   }
 
-  void updateLesson(context, int id, String title) {
-    print('lessons page');
-    model.update(
-      lessons: model.lessons,
-      id: id,
-      title: title,
-      view: MaterialButton(
-        onPressed: () =>
-            MomentumRouter.goto(context, LessonsPage), //print('lesson'),
-        // Momentum.controller<LessonInformationController>(context)
-        //     .updateLessonInformation(
-        //         context, 'lessonTitle', 'lessonDescription', 0, []),
-        child: Text('Lessons'),
-      ),
+  void updateLesson(context, int subjectId, String subjectTitle) {
+    //API call to get all lesson details of this specific subject
+    getLessons(context, subjectId, subjectTitle);
+
+    //gotoLessonInfoPage(context, subjectId);
+  }
+
+  //use for cleaner code if i want
+  void setView() {}
+  Widget getView() {
+    return model.view;
+  }
+
+  void gotoLessonInfoPage(context, id) {
+    // display information for specific lesson
+    Momentum.controller<LessonInformationController>(context)
+        .updateLessonInformation(
+      context,
+      '',
+      '',
+      0,
+      [],
     );
-    //buildLessonInfoView();
-    MomentumRouter.goto(context, LessonsPage);
-    MomentumRouter.goto(context, LessonInformationPage);
   }
 
   void buildLessonInfoView() {
