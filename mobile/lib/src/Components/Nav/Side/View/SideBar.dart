@@ -4,7 +4,6 @@ import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/Controller/Preferences.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
-import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:momentum/momentum.dart';
 
