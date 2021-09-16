@@ -41,7 +41,11 @@ dependencies:
     version: ^0.0.0
   titled_navigation_bar: ^4.1.0
   flutter_spinkit: "^4.1.2"
+<<<<<<< HEAD
   sticky_headers: ^0.2.0
+=======
+  webview_flutter: ^0.3.24
+>>>>>>> master
 
 
 dev_dependencies:

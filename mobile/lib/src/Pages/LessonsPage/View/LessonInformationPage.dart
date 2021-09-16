@@ -7,6 +7,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
+<<<<<<< HEAD
+=======
+import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
+>>>>>>> master
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:momentum/momentum.dart';
 
@@ -140,7 +144,21 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                                   Radius.circular(10),
                                 ),
                               ),
+<<<<<<< HEAD
                               onPressed: () {},
+=======
+                              onPressed: () {
+                                MomentumRouter.goto(
+                                  context,
+                                  QuizPage,
+                                  params: QuizParam(lessonID),
+                                  transition: (context, page) {
+                                    return MaterialPageRoute(
+                                        builder: (context) => page);
+                                  },
+                                );
+                              },
+>>>>>>> master
                               minWidth: 10,
                               height: 25,
                               color: Color.fromARGB(255, 97, 211, 87),

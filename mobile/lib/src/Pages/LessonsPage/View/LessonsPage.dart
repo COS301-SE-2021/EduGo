@@ -69,7 +69,11 @@ class _LessonsPageState extends State<LessonsPage> {
           //Used to call the specific function in the controller called getLessons
           lessonController.getLessons(param!.subjectID);
           //This requires the subjectID to be passed
+<<<<<<< HEAD
           print(lessons.lessons);
+=======
+          // print(lessons.lessons);
+>>>>>>> master
           //Get the number of lessons for a particular subject
           int lessonsCount = lessons.lessons.length;
           //A check to see if there are subjects. If there are no subjects,
@@ -95,10 +99,33 @@ class _LessonsPageState extends State<LessonsPage> {
                         ),
                       ),
                     ),
+<<<<<<< HEAD
                     GridView.count(
                       //This makes 2 cards appear. So effectively two cards
                       //per page. (2 rows, 1 card per row)
                       childAspectRatio: 4 / 1,
+=======
+                    Align(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 25),
+                        child: Text(
+                          '$lessonsCount' + ' lessons',
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          softWrap: false,
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    GridView.count(
+                      //This makes 2 cards appear. So effectively two cards
+                      //per page. (2 rows, 1 card per row)
+                      childAspectRatio:
+                          MediaQuery.of(context).size.height / 100,
+>>>>>>> master
                       primary: false,
                       padding: const EdgeInsets.all(20),
                       crossAxisSpacing: 0,

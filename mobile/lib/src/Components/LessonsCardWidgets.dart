@@ -101,7 +101,12 @@ class LessonsCard extends StatelessWidget {
               //     child: Align(
               //       alignment: Alignment.center,
               // child:
+<<<<<<< HEAD
               Center(
+=======
+              Padding(
+            padding: const EdgeInsets.only(top: 30),
+>>>>>>> master
             child: Text(
               "$lessonTitle",
               textAlign: TextAlign.center,
