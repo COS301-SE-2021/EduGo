@@ -64,7 +64,7 @@ class LessonsController extends MomentumController<LessonsModel> {
   //Initialize the lessons to an empty array in the beginning
   @override
   LessonsModel init() {
-    return LessonsModel(this, lessons: []);
+    return LessonsModel(this, lessons: [], id: 0, title: '');
   }
 
   Future<void> getLessons(int subjectID) {
@@ -79,5 +79,37 @@ class LessonsController extends MomentumController<LessonsModel> {
         .then((value) {
       model.update(lessons: value);
     });
+  }
+
+  void updateLesson(context, int id, String title) {
+    model.update(
+      lessons: model.lessons,
+      id: id,
+      title: title,
+    );
+    buildLessonInfoView();
+    MomentumRouter.goto(context, LessonInformationPage);
+  }
+
+  void buildLessonInfoView() {
+    //display everything in model on screen
+
+    /*model.lessonVirtualEntities.forEach(
+      (ve) {
+        VECards.add(
+          new VECards(
+            //id
+            //thumbnail image
+          ),
+        );
+      },
+    );*/
+    model.update(
+      view: Row(
+        children: [
+          Text('view here'),
+        ],
+      ),
+    );
   }
 }

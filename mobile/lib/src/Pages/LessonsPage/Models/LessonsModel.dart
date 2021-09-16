@@ -14,15 +14,29 @@ import 'package:momentum/momentum.dart';
 
 //Momentum constructor
 class LessonsModel extends MomentumModel<LessonsController> {
-  LessonsModel(LessonsController controller, {required this.lessons})
-      : super(controller);
+  LessonsModel(
+    LessonsController controller, {
+    required this.lessons,
+    required this.id,
+    required this.title,
+  }) : super(controller);
 
   //List of lessons to return
   final List<Lesson> lessons;
+  final int id;
+  final String title;
 
   //Used by mvc momentum to update lesson model
   @override
-  void update({List<Lesson>? lessons}) {
-    LessonsModel(controller, lessons: lessons ?? this.lessons).updateMomentum();
+  void update({
+    List<Lesson>? lessons,
+    int? id,
+    String? title,
+  }) {
+    LessonsModel(controller,
+            lessons: lessons ?? this.lessons,
+            id: id ?? this.id,
+            title: title ?? this.title)
+        .updateMomentum();
   }
 }
