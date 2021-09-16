@@ -181,47 +181,5 @@ class LessonsController extends MomentumController<LessonsModel> {
   void updateLesson(context, int subjectId, String subjectTitle) {
     //API call to get all lesson details of this specific subject
     getLessons(context, subjectId, subjectTitle);
-
-    //gotoLessonInfoPage(context, subjectId);
-  }
-
-  //use for cleaner code if i want
-  void setView() {}
-  Widget getView() {
-    return model.view;
-  }
-
-  void gotoLessonInfoPage(context, id) {
-    // display information for specific lesson
-    Momentum.controller<LessonInformationController>(context)
-        .updateLessonInformation(
-      context,
-      '',
-      '',
-      0,
-      [],
-    );
-  }
-
-  void buildLessonInfoView() {
-    //display everything in model on screen
-
-    /*model.lessonVirtualEntities.forEach(
-      (ve) {
-        VECards.add(
-          new VECards(
-            //id
-            //thumbnail image
-          ),
-        );
-      },
-    );*/
-    model.update(
-      view: Row(
-        children: [
-          Text('view here'),
-        ],
-      ),
-    );
   }
 }
