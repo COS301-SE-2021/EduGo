@@ -100,78 +100,78 @@ class _LessonsPageState extends State<LessonsPage> {
 //           //A check to see if there are subjects. If there are no subjects,
 //           //display another card saying no subjects are available
 
-//           if (lessonsCount > 0 && lessons.lessons.isNotEmpty) {
-//             return Container(
-//               child: SingleChildScrollView(
-//                 child: Column(
-//                   children: [
-//                     Align(
-//                       child: Padding(
-//                         padding: const EdgeInsets.only(top: 25),
-//                         child: Text(
-//                           param.title,
-//                           overflow: TextOverflow.ellipsis,
-//                           maxLines: 2,
-//                           softWrap: false,
-//                           style: TextStyle(
-//                               fontSize: 30,
-//                               fontWeight: FontWeight.bold,
-//                               color: Colors.black),
-//                         ),
-//                       ),
-//                     ),
-//                     Align(
-//                       child: Padding(
-//                         padding: const EdgeInsets.only(top: 25),
-//                         child: Text(
-//                           '$lessonsCount' + ' lessons',
-//                           overflow: TextOverflow.ellipsis,
-//                           maxLines: 2,
-//                           softWrap: false,
-//                           style: TextStyle(
-//                               fontSize: 30,
-//                               fontWeight: FontWeight.bold,
-//                               color: Colors.black),
-//                         ),
-//                       ),
-//                     ),
-//                     GridView.count(
-//                       //This makes 2 cards appear. So effectively two cards
-//                       //per page. (2 rows, 1 card per row)
-//                       childAspectRatio:
-//                           MediaQuery.of(context).size.height / 100,
-//                       primary: false,
-//                       padding: const EdgeInsets.all(20),
-//                       crossAxisSpacing: 0,
-//                       shrinkWrap: true,
-//                       scrollDirection: Axis.vertical,
-//                       mainAxisSpacing: 10,
-//                       //makes 1 cards per row
-//                       crossAxisCount: 1,
-//                       children: lessons.lessons
-//                           .map(
-//                             (lesson) => LessonsCard(
-//                               lessonVirtualEntity: lesson.virtualEntities,
-//                               lessonTitle: lesson.title,
-//                               lessonID: lesson.id,
-//                               lessonDescription: lesson.description,
-//                               lessonCompleted: lesson.lessonCompleted,
-//                             ),
-//                           )
-//                           .toList(),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             );
-//           }
-//           //Display a spinner card if no mark for lessons
-//           //or between api calls
-//           else
-//             return SpinKitCircle(
-//               color: Colors.black,
-//             );
-//         },
+        //   if (lessonsCount > 0 && lessons.lessons.isNotEmpty) {
+        //     return Container(
+        //       child: SingleChildScrollView(
+        //         child: Column(
+        //           children: [
+        //             Align(
+        //               child: Padding(
+        //                 padding: const EdgeInsets.only(top: 25),
+        //                 child: Text(
+        //                   param.title,
+        //                   overflow: TextOverflow.ellipsis,
+        //                   maxLines: 2,
+        //                   softWrap: false,
+        //                   style: TextStyle(
+        //                       fontSize: 30,
+        //                       fontWeight: FontWeight.bold,
+        //                       color: Colors.black),
+        //                 ),
+        //               ),
+        //             ),
+        //             Align(
+        //               child: Padding(
+        //                 padding: const EdgeInsets.only(top: 25),
+        //                 child: Text(
+        //                   '$lessonsCount' + ' lessons',
+        //                   overflow: TextOverflow.ellipsis,
+        //                   maxLines: 2,
+        //                   softWrap: false,
+        //                   style: TextStyle(
+        //                       fontSize: 30,
+        //                       fontWeight: FontWeight.bold,
+        //                       color: Colors.black),
+        //                 ),
+        //               ),
+        //             ),
+        //             GridView.count(
+        //               //This makes 2 cards appear. So effectively two cards
+        //               //per page. (2 rows, 1 card per row)
+        //               childAspectRatio:
+        //                   MediaQuery.of(context).size.height / 100,
+        //               primary: false,
+        //               padding: const EdgeInsets.all(20),
+        //               crossAxisSpacing: 0,
+        //               shrinkWrap: true,
+        //               scrollDirection: Axis.vertical,
+        //               mainAxisSpacing: 10,
+        //               //makes 1 cards per row
+        //               crossAxisCount: 1,
+        //               children: lessons.lessons
+        //                   .map(
+        //                     (lesson) => LessonsCard(
+        //                       lessonVirtualEntity: lesson.virtualEntities,
+        //                       lessonTitle: lesson.title,
+        //                       lessonID: lesson.id,
+        //                       lessonDescription: lesson.description,
+        //                       lessonCompleted: lesson.lessonCompleted,
+        //                     ),
+        //                   )
+        //                   .toList(),
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     );
+        //   }
+        //   //Display a spinner card if no mark for lessons
+        //   //or between api calls
+        //   else
+        //     return SpinKitCircle(
+        //       color: Colors.black,
+        //     );
+        // },
 //       ),
 //       'Lessons',
 //     );
