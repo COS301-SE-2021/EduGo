@@ -17,11 +17,10 @@ import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:mobile/src/Pages/OrganisationsPage/View/OrganisationsPage.dart';
 import 'package:mobile/src/Pages/PreferencesPage/View/PreferencesPage.dart';
-import 'package:mobile/src/Pages/QuizPage/Controller/QuestionPageController.dart';
-import 'package:mobile/src/Pages/QuizPage/Controller/QuizController.dart';
-import 'package:mobile/src/Pages/QuizPage/View/QuestionPage.dart';
-import 'package:mobile/src/Pages/QuizPage/View/QuizPage.dart';
-import 'package:mobile/src/Pages/QuizPage/View/QuizResultView.dart';
+import 'package:mobile/src/Pages/QuizPage/Controller/QuizzesPageController.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuizCompletedView.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuizPageView.dart';
+import 'package:mobile/src/Pages/QuizPage/View/QuizzesPageView.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
@@ -44,14 +43,14 @@ Momentum momentum({bool mock = false}) {
     controllers: [
       //*list of controller instances that can be reused down the tree multiple times.
       //Controllers are used to update the models. Doing so rebuilds the widgets (view).
-      QuizController(mock: false),
-      QuestionPageController(mock: mock),
+      // QuizController(mock: false),
+      // QuestionPageController(mock: mock),
       LessonsController(mock: mock),
       SubjectsController(mock: mock),
       GradesController(mock: mock),
       BottomBarController(),
       UserController(mock: mock),
-      HomeController(mock: mock)
+      HomeController(mock: mock), QuizzesPageController()
     ],
     services: [
       UserApiService(), HomeService(),
@@ -71,9 +70,8 @@ Momentum momentum({bool mock = false}) {
         HomePage(Key('homePageKey')),
         OrganisationsPage(),
         PreferencesPage(),
-        QuestionPage(),
-        QuizPage(),
-        QuizResultView(),
+        QuizzesPageView(),
+        QuizPageView(), QuizCompletedView(),
         RegistrationPage(Key('registrationPageKey')), //
         RegistrationVerificationPage(Key('registration_verification')), //
         SettingsPage(),

@@ -69,7 +69,6 @@ class _LessonsPageState extends State<LessonsPage> {
           //Used to call the specific function in the controller called getLessons
           lessonController.getLessons(param!.subjectID);
           //This requires the subjectID to be passed
-          // print(lessons.lessons);
           //Get the number of lessons for a particular subject
           int lessonsCount = lessons.lessons.length;
           //A check to see if there are subjects. If there are no subjects,

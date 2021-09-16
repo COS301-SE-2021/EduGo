@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
           //Controller is notified when the text changes
           controller: username_text_controller,
           //Control when the auto validation should happen
-          autovalidateMode: AutovalidateMode.always,
+
           //username is required
           validator: //UsernameFieldValidator.validate,
               MultiValidator([
@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
           controller: password_text_controller,
           obscureText: true,
           //Control when the auto validation should happen
-          autovalidateMode: AutovalidateMode.always,
+
           //password is required, must be 6 digits long and must be numeric
           validator: //PasswordFieldValidator.validate,
               MultiValidator([
@@ -217,7 +217,10 @@ class _LoginPageState extends State<LoginPage> {
               Radius.circular(10),
             ),
           ),
-          onPressed: () => _submitForm(userController),
+          onPressed: () {
+            if (_loginFormKey.currentState!.validate())
+              _submitForm(userController);
+          },
           height: 60,
           color: Color.fromARGB(255, 97, 211, 87),
           disabledColor: Color.fromRGBO(211, 212, 217, 1),
@@ -274,7 +277,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         child: Form(
-          key: _scaffoldKey,
+          key: _loginFormKey,
           child: Stack(key: Key('login_form'), children: <Widget>[
             //to see te underlying green color
             Padding(
