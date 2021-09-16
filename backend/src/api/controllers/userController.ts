@@ -7,7 +7,11 @@ import { EducatorService } from "../services/EducatorService";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { AddEducatorsRequest } from "../models/user/AddEducatorsRequest";
 import passport from "passport";
-import { IsAdminMiddleware, IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
+import {
+	IsAdminMiddleware,
+	IsEducatorMiddleware,
+	IsUserMiddleware,
+} from "../middleware/ValidationMiddleware";
 import { AddEducatorToExistingSubjectRequest } from "../models/user/AddEducatorToExistingSubjectRequest";
 import { Inject, Service } from "typedi";
 import {
@@ -70,10 +74,9 @@ export class UserController {
 	}
 
 	@Get("/getGradesByEducator")
-	//@UseBefore(isEducator)
-	GradesByEducator() {
-		console.log("hereeee");
-		return this.educatorService.getStudentGrades(1);
+	@UseBefore(IsEducatorMiddleware)
+	GradesByEducator(@CurrentUser({ required: true }) id: number) {
+		return this.educatorService.getStudentGrades(id);
 	}
 
 	// TODO Test endpoint

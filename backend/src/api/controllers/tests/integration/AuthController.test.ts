@@ -13,22 +13,26 @@ import {
 	UnauthorizedError,
 } from "routing-controllers";
 import { VerifyInvitationRequest } from "../../../../api/models/auth/VerifyInvitationRequest";
-import { RegisterRequest, userType } from "../../../../api/models/auth/RegisterRequest";
+import {
+	RegisterRequest,
+	userType,
+} from "../../../../api/models/auth/RegisterRequest";
 
-let mockedUserRepo: Repository<User> = mock(Repository);
-let userRepo: Repository<User> = instance(mockedUserRepo);
+const mockedUserRepo: Repository<User> = mock(Repository);
+const userRepo: Repository<User> = instance(mockedUserRepo);
 
-let mockedUnverifiedRepo: Repository<UnverifiedUser> = mock(Repository);
-let unverifiedRepo: Repository<UnverifiedUser> = instance(mockedUnverifiedRepo);
-let mockedOrgRepo: Repository<Organisation> = mock(Repository);
-let orgRepo: Repository<Organisation> = instance(mockedOrgRepo);
+const mockedUnverifiedRepo: Repository<UnverifiedUser> = mock(Repository);
+const unverifiedRepo: Repository<UnverifiedUser> =
+	instance(mockedUnverifiedRepo);
+const mockedOrgRepo: Repository<Organisation> = mock(Repository);
+const orgRepo: Repository<Organisation> = instance(mockedOrgRepo);
 
-let authService: AuthService = new AuthService(
+const authService: AuthService = new AuthService(
 	userRepo,
 	unverifiedRepo,
 	orgRepo
 );
-let authController: AuthController = new AuthController(authService);
+const authController: AuthController = new AuthController(authService);
 
 describe("Auth controller integration tests", () => {
 	beforeEach(() => {
@@ -39,7 +43,7 @@ describe("Auth controller integration tests", () => {
 
 	describe("Login ", () => {
 		it("Unsucessfull login ", async () => {
-			let request: LoginRequest = {
+			const request: LoginRequest = {
 				username: "test",
 				password: "test",
 			};
@@ -54,7 +58,7 @@ describe("Auth controller integration tests", () => {
 
 	describe("Verify Invitation", () => {
 		it("User Already exists error", async () => {
-			let request: VerifyInvitationRequest = {
+			const request: VerifyInvitationRequest = {
 				email: "simek ",
 				verificationCode: "2346",
 			};
@@ -67,7 +71,7 @@ describe("Auth controller integration tests", () => {
 		});
 
 		it("User Has not been invited error", async () => {
-			let request: VerifyInvitationRequest = {
+			const request: VerifyInvitationRequest = {
 				email: "simek ",
 				verificationCode: "2346",
 			};
@@ -81,7 +85,7 @@ describe("Auth controller integration tests", () => {
 			).rejects.toThrow(BadRequestError);
 		});
 		it("Incorrect invitation code was given", async () => {
-			let request: VerifyInvitationRequest = {
+			const request: VerifyInvitationRequest = {
 				email: "simek ",
 				verificationCode: "2346",
 			};
@@ -95,44 +99,42 @@ describe("Auth controller integration tests", () => {
 			).rejects.toThrow(BadRequestError);
 		});
 	});
-describe('user registration ', ()=>{
-    it('Username already exists', async ()=> {
-        let request: RegisterRequest= { 
-            password: "test", 
-            user_firstName: "simk", 
-            user_lastName: "mab", 
-            username: "simk", 
-            user_email: "simekani.mabambe@gmail.com", 
-            userType: userType.educator, 
-            organisation_id: 0
-        }
+	describe("user registration ", () => {
+		it("Username already exists", async () => {
+			const request: RegisterRequest = {
+				password: "test",
+				user_firstName: "simk",
+				user_lastName: "mab",
+				username: "simk",
+				user_email: "simekani.mabambe@gmail.com",
+				userType: userType.educator,
+				organisation_id: 0,
+			};
 
-        when(mockedUserRepo.findOne(anything())).thenResolve(new User());
-        await expect(() =>authController.Register(request)).rejects.toThrow(BadRequestError);});
+			when(mockedUserRepo.findOne(anything())).thenResolve(new User());
+			await expect(() =>
+				authController.Register(request)
+			).rejects.toThrow(BadRequestError);
+		});
 
-        it('User has not been invited to organisation', async ()=> {
-            let request: RegisterRequest= { 
-                password: "test", 
-                user_firstName: "simk", 
-                user_lastName: "mab", 
-                username: "simk", 
-                user_email: "simekani.mabambe@gmail.com", 
-                userType: userType.educator, 
-                organisation_id: 0
-            }
-    
-            when(mockedUserRepo.findOne(anything())).thenResolve(undefined);
-            when(mockedUnverifiedRepo.findOne(anything())).thenResolve(
+		it("User has not been invited to organisation", async () => {
+			const request: RegisterRequest = {
+				password: "test",
+				user_firstName: "simk",
+				user_lastName: "mab",
+				username: "simk",
+				user_email: "simekani.mabambe@gmail.com",
+				userType: userType.educator,
+				organisation_id: 0,
+			};
+
+			when(mockedUserRepo.findOne(anything())).thenResolve(undefined);
+			when(mockedUnverifiedRepo.findOne(anything())).thenResolve(
 				undefined
 			);
-            await expect(() =>authController.Register(request)).rejects.toThrow(NotFoundError);});
-
-
-    })
-
-    
-})
-
-
-
-
+			await expect(() =>
+				authController.Register(request)
+			).rejects.toThrow(NotFoundError);
+		});
+	});
+});

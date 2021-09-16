@@ -1,13 +1,16 @@
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import { VirtualEntityService } from "../services/VirtualEntityService";
-import { upload, UploadModelToAzure } from "../helper/File";
+import { upload, FileManagement } from "../helper/File";
 import {
 	AddModelToVirtualEntityFileData,
 	AddModelToVirtualEntityRequest,
 } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
-import { IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
+import {
+	IsEducatorMiddleware,
+	IsUserMiddleware,
+} from "../middleware/ValidationMiddleware";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { Inject, Service } from "typedi";
 import {
@@ -23,13 +26,14 @@ import {
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
-import { GenerateThumbnail } from "../helper/ExternalRequests";
+import { ConvertModel, GenerateThumbnail } from "../helper/ExternalRequests";
 @Service()
 @JsonController("/virtualEntity")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class VirtualEntityController {
 	constructor(
-		@Inject() private service: VirtualEntityService
+		@Inject() private service: VirtualEntityService,
+		@Inject() private fileManagement: FileManagement
 	) {}
 
 	@Post("/createVirtualEntity")
@@ -48,9 +52,14 @@ export class VirtualEntityController {
 		file: Express.Multer.File
 	) {
 		if (file) {
-			let result = await UploadModelToAzure(file)
-			let thumbnail = await GenerateThumbnail(result);
-			let response: any = { fileLink: result, thumbnail: thumbnail.uploaded };
+			const result = await this.fileManagement.UploadModelToAzure(file);
+			const thumbnail = await GenerateThumbnail(result);
+			const gltf = await ConvertModel(result);
+			const response: any = {
+				fileLink: result,
+				thumbnail: thumbnail.uploaded,
+				gltf,
+			};
 			return response;
 		} else throw new BadRequestError("User is invalid");
 	}
@@ -63,18 +72,18 @@ export class VirtualEntityController {
 		@Body({ required: true }) body: AddModelToVirtualEntityRequest
 	) {
 		if (file) {
-			let result = await UploadModelToAzure(file);
-			let baseFile = {
+			const result = await this.fileManagement.UploadModelToAzure(file);
+			const baseFile = {
 				fileLink: result,
 			};
 
-			let data: AddModelToVirtualEntityFileData = {
+			const data: AddModelToVirtualEntityFileData = {
 				id: body.virtualEntity_id,
 				...baseFile,
 			};
-			let response = await this.service.AddModelToVirtualEntity(data);
+			const response = await this.service.AddModelToVirtualEntity(data);
 			if (response) {
-				let resp: AddModelToVirtualEntityResponse = {
+				const resp: AddModelToVirtualEntityResponse = {
 					model_id: response.model_id,
 					...body,
 					...baseFile,
@@ -124,7 +133,9 @@ export class VirtualEntityController {
 
 	@Post("/getQuizesByLesson")
 	@UseBefore(IsUserMiddleware)
-	GetQuizesByLesson(@Body({ required: true }) body: GetQuizesByLessonRequest) {
+	GetQuizesByLesson(
+		@Body({ required: true }) body: GetQuizesByLessonRequest
+	) {
 		return this.service.GetQuizesByLesson(body);
 	}
 }

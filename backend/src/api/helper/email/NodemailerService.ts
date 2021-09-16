@@ -20,15 +20,15 @@ export class NodemailerService implements EmailService {
 	addedToSubjectTemplate: HandlebarsTemplateDelegate<AddedToSubjectTemplateObject>;
 
 	constructor() {
-		let rawVerificationCodeTemplate = fs.readFileSync(
+		const rawVerificationCodeTemplate = fs.readFileSync(
 			`${__dirname}/templates/VerificationCode.hbs`,
 			"utf-8"
 		);
-		let rawVerificationReminderTemplate = fs.readFileSync(
+		const rawVerificationReminderTemplate = fs.readFileSync(
 			`${__dirname}/templates/VerificationReminder.hbs`,
 			"utf-8"
 		);
-		let rawAddedToSubjectTemplate = fs.readFileSync(
+		const rawAddedToSubjectTemplate = fs.readFileSync(
 			`${__dirname}/templates/AddedToSubject.hbs`,
 			"utf-8"
 		);
@@ -41,23 +41,25 @@ export class NodemailerService implements EmailService {
 		this.addedToSubjectTemplate = Handlebars.compile(
 			rawAddedToSubjectTemplate
 		);
-	
+
 		this.transporter = nodemailer.createTransport({
-			service: "gmail",
+			host: process.env.SMTP_HOST,
+			port: Number(process.env.SMTP_PORT),
+			secure: false,
 			auth: {
-				user: process.env.GMAIL_EMAIL,
-				pass: process.env.GMAIL_PASSWORD,
+				user: process.env.SMTP_USERNAME,
+				pass: process.env.SMTP_PASSWORD,
 			},
 		});
 	}
 	sendOneEmail(to: string, name: string, code: string): void {
-		let html = this.verificationCodeTemplate({
+		const html = this.verificationCodeTemplate({
 			code: code,
 			link: `http://localhost:8082/?user=sthenyandeni&code=ABCD`,
 		});
 
-		let mailOptions = {
-			from: process.env.GMAIL_EMAIL,
+		const mailOptions = {
+			from: process.env.EMAIL,
 			to: to,
 			subject: "Verification Code",
 			html: html,
@@ -93,17 +95,17 @@ export class NodemailerService implements EmailService {
 	): Promise<boolean> {
 		if (content.length === 0) return true;
 
-		let recipientEmails: string = content
+		const recipientEmails: string = content
 			.map((value) => value.email)
 			.join(", ");
 
-		let recipientJSON: any = [];
+		const recipientJSON: any = [];
 
 		if (type === "verification" && this.isVerificationEmail(content)) {
 			for (let i = 0; i < content.length; i++) {
 				recipientJSON.push(
 					this.sendMail({
-						from: process.env.GMAIL_EMAIL,
+						from: process.env.EMAIL,
 						to: content[i].email,
 						subject: "Verification Code",
 						html: this.verificationCodeTemplate({
@@ -117,7 +119,7 @@ export class NodemailerService implements EmailService {
 			for (let i = 0; i < content.length; i++) {
 				recipientJSON.push(
 					this.sendMail({
-						from: process.env.GMAIL_EMAIL,
+						from: process.env.EMAIL,
 						to: content[i].email,
 						subject: "Just a little reminder",
 						html: this.verificationReminderTemplate({
@@ -131,7 +133,7 @@ export class NodemailerService implements EmailService {
 			for (let i = 0; i < content.length; i++) {
 				recipientJSON.push(
 					this.sendMail({
-						from: process.env.GMAIL_EMAIL,
+						from: process.env.EMAIL,
 						to: content[i].email,
 						subject: "Another subject",
 						html: this.addedToSubjectTemplate({

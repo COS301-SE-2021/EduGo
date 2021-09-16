@@ -11,17 +11,22 @@ import { Student } from "../database/Student";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { LoginResponse } from "../models/auth/LoginResponse";
-import { BadRequestError, InternalServerError, NotFoundError, UnauthorizedError } from "routing-controllers";
+import {
+	BadRequestError,
+	InternalServerError,
+	NotFoundError,
+	UnauthorizedError,
+} from "routing-controllers";
 
 @Service()
 export default class AuthService {
-	
-	
-	constructor(@InjectRepository(User) private userRepository: Repository<User>,
-	@InjectRepository(UnverifiedUser) private unverifiedUserRepository: Repository<UnverifiedUser>, 
-	@InjectRepository(Organisation) private organisationRepository: Repository<Organisation>){
-
-	}
+	constructor(
+		@InjectRepository(User) private userRepository: Repository<User>,
+		@InjectRepository(UnverifiedUser)
+		private unverifiedUserRepository: Repository<UnverifiedUser>,
+		@InjectRepository(Organisation)
+		private organisationRepository: Repository<Organisation>
+	) {}
 	/**
 	 * @description This function allows for a user to register onto the platform
 	 * 1. If User Type is the first admin for an organisation firstAdminRegistration will be used
@@ -49,16 +54,24 @@ export default class AuthService {
 	 */
 	public async login(request: LoginRequest): Promise<LoginResponse> {
 		try {
-			let user = await this.userRepository.findOne({where: { username: request.username }});
+			const user = await this.userRepository.findOne({
+				where: { username: request.username },
+			});
 
 			if (user == undefined) {
-				throw new UnauthorizedError(`User with username ${request.username} not found`);
+				throw new UnauthorizedError(
+					`User with username ${request.username} not found`
+				);
 			}
 
-			let isValid = validPassword(request.password, user.hash, user.salt);
+			const isValid = validPassword(
+				request.password,
+				user.hash,
+				user.salt
+			);
 
 			if (isValid) {
-				let response: LoginResponse = {
+				const response: LoginResponse = {
 					token: issueJWT(user).token,
 				};
 				return response;
@@ -86,22 +99,22 @@ export default class AuthService {
 		request: VerifyInvitationRequest
 	): Promise<boolean> {
 		try {
-			let existingUser = await this.userRepository.findOne({
-				where: { email: request.email }
+			const existingUser = await this.userRepository.findOne({
+				where: { email: request.email },
 			});
 
 			if (existingUser) {
 				throw new NotFoundError("User is already registered");
 			}
 
-			let user = await this.unverifiedUserRepository.findOne({
+			const user = await this.unverifiedUserRepository.findOne({
 				where: { email: request.email },
 			});
 
 			if (user) {
 				if (user.verificationCode == request.verificationCode) {
 					try {
-						let verified: boolean = await this.setUserToverified(
+						const verified: boolean = await this.setUserToverified(
 							user.id
 						);
 						if (verified) {
@@ -152,7 +165,7 @@ export default class AuthService {
 	 * @memberof AuthService
 	 */
 	public async doesEmailExist(request: RegisterRequest) {
-		let emailExists = await this.userRepository.findOne({
+		const emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
 
@@ -168,7 +181,7 @@ export default class AuthService {
 	 */
 	public async doesUsernameExist(request: RegisterRequest) {
 		// check if username and password exist
-		let usernameExists = await this.userRepository.findOne({
+		const usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
 		});
 
@@ -187,27 +200,27 @@ export default class AuthService {
 	 * @returns  {Promise<void>}
 	 * @memberof AuthService
 	 */
-	public async userRegistration(request: RegisterRequest): Promise<String> {
+	public async userRegistration(request: RegisterRequest): Promise<string> {
 		// if user name and password don't exist proceed
 
 		if (!(await this.doesEmailExist(request))) {
 			if (!(await this.doesUsernameExist(request))) {
 				// check if user did verify their number
-				let invitedUser = await this.unverifiedUserRepository.findOne({
-					where: { email: request.user_email },
-					relations: ["subjects", "organisation"],
-				});
+				const invitedUser = await this.unverifiedUserRepository.findOne(
+					{
+						where: { email: request.user_email },
+						relations: ["subjects", "organisation"],
+					}
+				);
 				// Only invited users can register
 				if (invitedUser) {
 					if (!invitedUser.verified) {
-						throw new NotFoundError(
-							"User has not been Invited"
-						);
+						throw new NotFoundError("User has not been Invited");
 					}
 
-					let org = invitedUser.organisation;
+					const org = invitedUser.organisation;
 
-					let user = new User();
+					const user = new User();
 					user.email = request.user_email.toLowerCase();
 					user.firstName = request.user_firstName;
 					user.lastName = request.user_lastName;
@@ -220,13 +233,13 @@ export default class AuthService {
 					if (invitedUser.type == userType.student) {
 						user.student = new Student();
 						user.student.subjects = [];
-						for (let index of invitedUser.subjects) {
+						for (const index of invitedUser.subjects) {
 							user.student.subjects.push(index);
 						}
 					} else {
 						user.educator = new Educator();
 						user.educator.subjects = [];
-						for (let index of invitedUser.subjects) {
+						for (const index of invitedUser.subjects) {
 							user.educator.subjects.push(index);
 						}
 					}
@@ -242,12 +255,11 @@ export default class AuthService {
 						// 	throw new BadRequestError('Duplicate entity')
 						// }
 						console.log(err);
-						throw new InternalServerError('Could not save user');
+						throw new InternalServerError("Could not save user");
 					}
 					// removing user from unverified list after they have registered successfully
 					//TODO figure out what is wrong with the delete function for unverified user
 					//await unverifiedUserRepo.delete(invitedUser);
-					
 				} else {
 					//NOTE will never be reached
 					throw new NotFoundError(
@@ -263,8 +275,8 @@ export default class AuthService {
 	 * @returns  {Promise<Boolean>}
 	 * @memberof AuthService
 	 */
-	public async emailExists(request: RegisterRequest): Promise<Boolean> {
-		let emailExists = await this.userRepository.findOne({
+	public async emailExists(request: RegisterRequest): Promise<boolean> {
+		const emailExists = await this.userRepository.findOne({
 			where: { email: request.user_email },
 		});
 		if (emailExists == undefined) return true;
@@ -277,8 +289,8 @@ export default class AuthService {
 	 * @returns  {Promise<Boolean>}
 	 * @memberof AuthService
 	 */
-	public async usernameExists(request: RegisterRequest): Promise<Boolean> {
-		let usernameExists = await this.userRepository.findOne({
+	public async usernameExists(request: RegisterRequest): Promise<boolean> {
+		const usernameExists = await this.userRepository.findOne({
 			where: { username: request.username },
 		});
 		if (usernameExists == undefined) return true;
@@ -295,14 +307,16 @@ export default class AuthService {
 	 * @returns   {Promise<void>}
 	 * @memberof AuthService
 	 */
-	public async firstAdminRegistration(request: RegisterRequest): Promise<void> {
+	public async firstAdminRegistration(
+		request: RegisterRequest
+	): Promise<void> {
 		let organisation: Organisation;
 		if (
 			!(await this.doesEmailExist(request)) &&
 			!(await this.doesUsernameExist(request))
 		) {
 			try {
-				let org = await this.organisationRepository.findOne(
+				const org = await this.organisationRepository.findOne(
 					request.organisation_id
 				);
 				if (org) organisation = org;
@@ -313,7 +327,7 @@ export default class AuthService {
 				throw error;
 			}
 
-			let user = new User();
+			const user = new User();
 			user.email = request.user_email.toLowerCase();
 			user.firstName = request.user_firstName;
 			user.lastName = request.user_lastName;
@@ -326,10 +340,8 @@ export default class AuthService {
 			user.educator.admin = true;
 			user.organisation = organisation;
 			try {
-				let savedUser = await this.userRepository.save(user);
-				if (savedUser) {
-					return;
-				}
+				const savedUser = await this.userRepository.save(user);
+				return;
 			} catch (err) {
 				throw new InternalServerError("User unable to be saved to DB");
 			}

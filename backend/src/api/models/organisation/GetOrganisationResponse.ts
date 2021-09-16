@@ -11,5 +11,5 @@ export interface educatorDetails {
 	firstName: string;
 	lastName: string;
 	username: string;
-    isAdmin: boolean; 
+	isAdmin: boolean;
 }

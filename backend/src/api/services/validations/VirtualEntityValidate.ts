@@ -8,32 +8,32 @@ interface validationResult {
 export const validateCreateVirtualEntityRequest = (
 	body: any
 ): validationResult => {
-	let keys = ["title", "description"];
-	let model_keys = [
+	const keys = ["title", "description"];
+	const model_keys = [
 		"name",
 		"file_link",
 		"file_size",
 		"file_name",
 		"file_type",
 	];
-	let quiz_keys = ["title", "description"];
-	let question_keys = ["type", "question"];
+	const quiz_keys = ["title", "description"];
+	const question_keys = ["type", "question"];
 
-	let body_keys = Object.keys(body);
-	for (let key of keys) {
+	const body_keys = Object.keys(body);
+	for (const key of keys) {
 		if (!body_keys.includes(key)) return missing(key);
 	}
 
 	if ("model" in body) {
-		let body_keys = Object.keys(body.model);
-		for (let key of model_keys) {
+		const body_keys = Object.keys(body.model);
+		for (const key of model_keys) {
 			if (!body_keys.includes(key)) return missing(`model.${key}`);
 		}
 	}
 
 	if ("quiz" in body) {
-		let body_keys = Object.keys(body.quiz);
-		for (let key of quiz_keys) {
+		const body_keys = Object.keys(body.quiz);
+		for (const key of quiz_keys) {
 			if (!body_keys.includes(key)) return missing(`quiz.${key}`);
 		}
 	}
@@ -44,9 +44,9 @@ export const validateCreateVirtualEntityRequest = (
 		body.quiz.questions instanceof Array &&
 		body.quiz.questions.length > 0
 	) {
-		for (let question of body.quiz.questions) {
-			let body_keys = Object.keys(question);
-			for (let key of question_keys) {
+		for (const question of body.quiz.questions) {
+			const body_keys = Object.keys(question);
+			for (const key of question_keys) {
 				if (!body_keys.includes(key)) return missing(`question.${key}`);
 			}
 		}
@@ -58,10 +58,10 @@ export const validateCreateVirtualEntityRequest = (
 export const validateAddModelToVirtualEntityRequest = (
 	body: any
 ): validationResult => {
-	let keys = ["virtualEntity_id", "name", "description"];
+	const keys = ["virtualEntity_id", "name", "description"];
 
-	let body_keys = Object.keys(keys);
-	for (let key of keys) {
+	const body_keys = Object.keys(keys);
+	for (const key of keys) {
 		if (!body_keys.includes(key)) return missing(key);
 	}
 
@@ -74,10 +74,10 @@ export const validateAddModelToVirtualEntityRequest = (
 export const validateGetVirtualEntityRequest = (
 	body: any
 ): validationResult => {
-	let keys = ["id"];
+	const keys = ["id"];
 
-	let body_keys = Object.keys(body);
-	for (let key of keys) if (!body_keys.includes(key)) return missing(key);
+	const body_keys = Object.keys(body);
+	for (const key of keys) if (!body_keys.includes(key)) return missing(key);
 
 	if (typeof body.id !== "number" || body.id <= 0) return invalid("id");
 
