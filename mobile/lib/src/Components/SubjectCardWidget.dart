@@ -5,6 +5,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                 Subject Card used in the subject page 
@@ -55,13 +56,12 @@ class SubjectCard extends StatelessWidget {
         onTap: () {
           //This redirects the page to the lessons page on tap
           //and passes in the subject title, and subject id
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  LessonsPage(title: this.title, subjectID: this.id),
-            ),
-          );
+          // Leads to subjects page
+          MomentumRouter.goto(context, LessonsPage,
+              params: LessonsPageParam(id, title), transition: (context, page) {
+            return MaterialPageRoute(builder: (context) => page);
+          });
+          return;
         },
         child: Container(
           decoration: BoxDecoration(
@@ -87,11 +87,15 @@ class SubjectCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 150, left: 20),
                   //TODO: make this text container flexible and according
                   //to side and not have a fixed width and length
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 12,
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
+                  child: Material(
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    color: Colors.black54,
+                    child: Flexible(
                       child: Text(
                         '$title',
                         textAlign: TextAlign.left,
@@ -99,9 +103,10 @@ class SubjectCard extends StatelessWidget {
                         maxLines: 2,
                         softWrap: true,
                         style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70,
+                        ),
                       ),
                     ),
                   ),
@@ -111,18 +116,25 @@ class SubjectCard extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 16,
-                    child: Container(
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(
-                          '${educator}',
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          softWrap: true,
+                  child: Material(
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    color: Colors.black54,
+                    child: Flexible(
+                      child: Text(
+                        '$educator',
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: true,
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70,
                         ),
                       ),
                     ),
