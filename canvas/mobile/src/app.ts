@@ -8,8 +8,8 @@ import * as helper from './helper';
 import axios from 'axios';
 import * as socket from 'socket.io-client'
 
-//const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
-const BACKEND = 'http://localhost:8080'
+const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+//const BACKEND = 'http://localhost:8080'
 
 const io = socket.io(BACKEND);
 
@@ -129,7 +129,7 @@ const init = async (url: string) => {
     canvas2.style.cursor = "auto";
 	canvas2.style.pointerEvents = "auto";
 
-    gl.clearColor(0.3, 0.3, 0.3, 1.0);
+    gl.clearColor(0.7, 0.7, 0.7, 1.0);
     gl.enable(gl.DEPTH_TEST);
 
     //window.onresize = () => { setSize(); }
