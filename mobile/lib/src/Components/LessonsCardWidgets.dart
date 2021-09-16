@@ -4,8 +4,10 @@
    * into the constructor when displaying the lesson cards.
 */
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                  Lesson Card used in the lesson page 
@@ -79,12 +81,9 @@ class LessonsCard extends StatelessWidget {
           //This redirects the page to the lessons description page on tap
           //and passes in the lesson description, lesson objectives and lesson title
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LessonInformationPage(),
-              ),
-            );
+            Momentum.controller<LessonInformationController>(context)
+                .updateLessonInformation(context, lessonTitle,
+                    lessonDescription, lessonID, lessonVirtualEntity);
           },
           child: //Container(
               //mainAxisAlignment: MainAxisAlignment.spaceEvenly,

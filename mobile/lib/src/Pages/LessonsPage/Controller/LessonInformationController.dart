@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonInformationModel.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:momentum/momentum.dart';
 
@@ -39,14 +40,16 @@ class LessonInformationController
   }
 
   //get the information to build the screen
-  void udateLessonInformation(String lessonTitle, lessonDescription,
+  void updateLessonInformation(context, String lessonTitle, lessonDescription,
       int lessonID, List<VirtualEntity> virtualEntities) {
     model.update(
-        lessonDescription: lessonDescription,
-        lessonID: lessonID,
-        lessonTitle: lessonTitle,
-        lessonVirtualEntities: virtualEntities);
+      lessonDescription: lessonDescription,
+      lessonID: lessonID,
+      lessonTitle: lessonTitle,
+      lessonVirtualEntities: virtualEntities,
+    );
     buildLessonInfoView();
+    MomentumRouter.goto(context, LessonInformationPage);
   }
 
   void buildLessonInfoView() {
