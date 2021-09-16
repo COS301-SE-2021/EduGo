@@ -21,7 +21,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
 
           return info.view;
         });
-    return MobilePageLayout(true, true, child, 'LessonInfo');
+    return MobilePageLayout(false, true, child, 'LessonInfo');
   }
 }
 /*
