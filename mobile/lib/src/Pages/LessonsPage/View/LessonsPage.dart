@@ -55,7 +55,7 @@ class _LessonsPageState extends State<LessonsPage> {
 
     return MobilePageLayout(
       false,
-      true,
+      false,
       MomentumBuilder(
         controllers: [LessonsController],
         builder: (context, snapshot) {
