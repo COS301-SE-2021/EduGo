@@ -93,14 +93,14 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
       ),
     ).then(
       (response) {
-        if (response.statusCode == 200) {
-          int tempId = model.lessonId;
-          reset();
-          model.update(lessonId: tempId);
-          getLessonQuizzes(context, model.lessonId);
+        //if (response.statusCode == 200) {
+        int tempId = model.lessonId;
+        reset();
+        model.update(lessonId: tempId);
+        getLessonQuizzes(context, model.lessonId);
 
-          return;
-        }
+        return;
+        //}
       },
     );
   }
