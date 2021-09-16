@@ -390,7 +390,8 @@ export class VirtualEntityService {
 	 * @throws {BadRequestError}
 	 */
 	async GetQuizesByLesson(
-		request: GetQuizesByLessonRequest,userId:number
+		request: GetQuizesByLessonRequest,
+		userId: number
 	): Promise<GetQuizesByLessonResponse> {
 		let lesson: Lesson | undefined;
 		let user: User | undefined;
@@ -405,23 +406,21 @@ export class VirtualEntityService {
 			console.log(lesson);
 
 			user = await this.userRepository.findOne(userId, {
-				relations: [
-					"student",
-					"student.grades",
-					"student.grades.quiz",
-				],
+				relations: ["student", "student.grades", "student.grades.quiz"],
 			});
 
 			if (!lesson) throw new BadRequestError("Lesson not found");
 			if (!user) throw new BadRequestError("User not found");
 
 			//Get only the virtual entites that have a quiz defined then get all the quizes of those virtual entities
-			let virtualEntities: VirtualEntity[] =
+			const virtualEntities: VirtualEntity[] =
 				lesson.virtualEntities.filter(
 					(entity) => entity.quiz !== undefined
 				);
-			let quizes: Quiz[] = virtualEntities.map((entity) => entity.quiz!);
-			let quizesAnswered = user.student.grades.map((grades) => {
+			const quizes: Quiz[] = virtualEntities.map(
+				(entity) => entity.quiz!
+			);
+			const quizesAnswered = user.student.grades.map((grades) => {
 				return grades.quiz.id;
 			});
 			return {
@@ -429,7 +428,7 @@ export class VirtualEntityService {
 				answeredQuiz_ids: quizesAnswered,
 			};
 		} catch (err) {
-			throw new BadRequestError(err.mess);
+			throw err;
 		}
 	}
 }

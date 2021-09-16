@@ -260,7 +260,7 @@ export class EducatorService {
 		return list;
 	}
 
-	public async getStudentGrades(userId: number) {
+	public async getStudentGrades(userId: number) { 
 		let user: User;
 		try {
 			const dUser = await this.userRepository.findOne(userId, {

@@ -137,7 +137,7 @@ export class VirtualEntityController {
 		@Body({ required: true }) body: GetQuizesByLessonRequest,
 		@CurrentUser({ required: true }) id: number
 	) {
-		return this.service.GetQuizesByLesson(body,id);
+		return this.service.GetQuizesByLesson(body, id);
 	}
 }
 
