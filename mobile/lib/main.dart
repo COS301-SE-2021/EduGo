@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'EduGo',
+      title: 'EduGo', debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: Color.fromARGB(255, 97, 211, 87),
           primarySwatch: Colors.blue,

@@ -98,7 +98,7 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
           reset();
           model.update(lessonId: tempId);
           getLessonQuizzes(context, model.lessonId);
-          MomentumRouter.goto(context, QuizzesPageView);
+
           return;
         }
       },
@@ -192,5 +192,9 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
 
   void chooseAnswer(String answer) {
     model.update(currentAnswer: answer);
+  }
+
+  int getLessonId() {
+    return model.lessonId;
   }
 }

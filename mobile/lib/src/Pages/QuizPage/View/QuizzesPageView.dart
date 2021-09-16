@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Nav/Bottom/View/BottomBarView.dart';
 import 'package:momentum/momentum.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizzesPageController.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/QuizzesPageModel.dart';
@@ -8,13 +9,12 @@ class QuizzesPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Momentum.controller<QuizzesPageController>(context)
-        .getLessonQuizzes(context, 5);
     return MomentumBuilder(
         controllers: [QuizzesPageController],
         builder: (context, snapshot) {
           var quizzes = snapshot<QuizzesPageModel>();
           return Scaffold(
+              bottomNavigationBar: new BottomBar(),
               appBar: AppBar(
                 title: Row(
                   children: [
