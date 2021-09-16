@@ -20,7 +20,7 @@ class CanvasView extends StatelessWidget {
               ..height = '200'
               ..src =
                   "http://edugo-backend.southafricanorth.cloudapp.azure.com:8082/?model=" +
-                      canvas.entityId +
+                      "2" +
                       "&token=" +
                       canvas.token
               ..style.border = 'none');
