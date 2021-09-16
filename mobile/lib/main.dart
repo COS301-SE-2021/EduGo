@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Bottom/Controller/BottomBarController.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Components/User/Service/UserService.dart';
+import 'package:mobile/src/Pages/CanvasPage/View/CanvasCodePage.dart';
+import 'package:mobile/src/Pages/CanvasPage/View/CanvasPage.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
@@ -74,6 +78,8 @@ Momentum momentum({bool mock = false}) {
         RegistrationVerificationPage(Key('registration_verification')), //
         SettingsPage(),
         SubjectsPage(),
+        CanvasCodePage(),
+        CanvasPage()
       ]),
     ],
   );
