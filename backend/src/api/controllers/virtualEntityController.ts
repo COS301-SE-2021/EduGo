@@ -131,6 +131,15 @@ export class VirtualEntityController {
 		return this.service.GetPrivateVirtualEntities(id);
 	}
 
+	@Post("/getVirtualEntities")
+	@UseBefore(IsEducatorMiddleware)
+	async GetVirtualEntities(@CurrentUser({ required: true }) id: number) {
+		let publicVirtualEntities = await this.service.GetPublicVirtualEntities();
+		let privateVirtualEntities = await this.service.GetPrivateVirtualEntities(id);
+
+		return [...publicVirtualEntities, ...privateVirtualEntities];
+	}
+
 	@Post("/getQuizesByLesson")
 	@UseBefore(IsUserMiddleware)
 	GetQuizesByLesson(
