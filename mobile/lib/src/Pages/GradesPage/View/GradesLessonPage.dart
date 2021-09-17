@@ -89,7 +89,7 @@ class _GradesLessonState extends State<GradesLessonPage> {
                               //as a percentage
                               GradesLessonCard(
                             lessonTitle: lesson.lessonName,
-                            lessonMark: lesson.gradeAchieved,
+                            lessonMark: lesson.gradeAchieved.round(),
                             quizList: lesson.quizGrades,
                           ),
                         )
