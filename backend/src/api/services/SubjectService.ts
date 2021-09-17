@@ -40,7 +40,7 @@ export class SubjectService {
 		let user: User | undefined;
 		try {
 
-			userDetails = await this.userRepository.findOne(user_id, {
+			user = await this.userRepository.findOne(user_id, {
 				relations: ["organisation", "educator", "student"],
 			});
 
