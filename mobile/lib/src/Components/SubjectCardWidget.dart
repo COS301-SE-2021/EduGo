@@ -58,11 +58,6 @@ class SubjectCard extends StatelessWidget {
           //This redirects the page to the lessons page on tap
           //and passes in the subject title, and subject id
           // Leads to subjects page
-          // MomentumRouter.goto(context, LessonsPage,
-          //     params: LessonsPageParam(id, title), transition: (context, page) {
-          //   return MaterialPageRoute(builder: (context) => page);
-          // });
-
           Momentum.controller<LessonsController>(context)
               .updateLesson(context, id, title);
           return;
@@ -73,8 +68,7 @@ class SubjectCard extends StatelessWidget {
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.hue),
-              // image: NetworkImage(
-              //     //TODO: FIX THE SUBJECT IMAGE SO THAT A SPECIFIC SUBJECT IMAGE
+              //     //FIX THE SUBJECT IMAGE SO THAT A SPECIFIC SUBJECT IMAGE
               //     //CAN ALWAYS BE DISPLAYED AND NOT THE MOCK IMAGE. FIX SUBJECT
               //     //CARD AND HAVE SOME OPACITY INVOLVED SO YOU CAN STILL SEE SUBJECT
               //     //TITLE AND EDUCATOR NAME
@@ -89,8 +83,6 @@ class SubjectCard extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 150, left: 20),
-                  //TODO: make this text container flexible and according
-                  //to side and not have a fixed width and length
                   child: Material(
                     elevation: 20,
                     shape: RoundedRectangleBorder(
