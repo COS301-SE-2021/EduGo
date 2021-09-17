@@ -260,7 +260,7 @@ export class EducatorService {
 		return list;
 	}
 
-	public async getStudentGrades(userId: number) { 
+	public async getStudentGrades(userId: number) {
 		let user: User;
 		try {
 			const dUser = await this.userRepository.findOne(userId, {
@@ -292,7 +292,7 @@ export class EducatorService {
 				subjectName: sub.title,
 				students: sub.students.map((student) => {
 					const grades = student.grades.filter(
-						(grad) => grad.subject.id == sub.id
+						(grad) => grad.subject?.id == sub.id
 					);
 
 					const studentData: StudentG = {
