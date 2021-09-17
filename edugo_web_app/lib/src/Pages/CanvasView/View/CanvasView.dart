@@ -14,13 +14,13 @@ class CanvasView extends StatelessWidget {
 
         // ignore: undefined_prefixed_name
         ui.platformViewRegistry.registerViewFactory(
-            'test-view-type',
+            'test-view-type' + canvas.entityId,
             (int viewId) => IFrameElement()
               ..width = '640'
               ..height = '200'
               ..src =
                   "http://edugo-backend.southafricanorth.cloudapp.azure.com:8082/?model=" +
-                      "2" +
+                      canvas.entityId +
                       "&token=" +
                       canvas.token
               ..style.border = 'none');
@@ -29,7 +29,7 @@ class CanvasView extends StatelessWidget {
           top: 0,
           left: 0,
           right: 0,
-          child: HtmlElementView(viewType: 'test-view-type'),
+          child: HtmlElementView(viewType: 'test-view-type' + canvas.entityId),
         );
       },
     );

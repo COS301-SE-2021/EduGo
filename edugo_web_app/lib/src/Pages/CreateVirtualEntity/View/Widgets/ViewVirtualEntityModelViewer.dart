@@ -3,15 +3,9 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'dart:ui' as ui;
+import 'package:easy_web_view/easy_web_view.dart';
 
-class ViewVirtualEntityModelViewer extends StatefulWidget {
-  @override
-  _ViewVirtualEntityModelViewerState createState() =>
-      _ViewVirtualEntityModelViewerState();
-}
-
-class _ViewVirtualEntityModelViewerState
-    extends State<ViewVirtualEntityModelViewer> {
+class ViewVirtualEntityModelViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
@@ -36,7 +30,7 @@ class _ViewVirtualEntityModelViewerState
               "</html>";
           // ignore: undefined_prefixed_name
           ui.platformViewRegistry.registerViewFactory(
-              'edugo_view_model_viewer' + entity.viewEntityLink,
+              'edugo_view_model_viewer' + entity.name,
               (int viewId) => IFrameElement()
                 ..width = '300'
                 ..height = "360"
@@ -49,14 +43,8 @@ class _ViewVirtualEntityModelViewerState
                 width: 300,
                 height: 360,
                 child: HtmlElementView(
-                    viewType:
-                        'edugo_view_model_viewer' + entity.viewEntityLink)),
+                    viewType: 'edugo_view_model_viewer' + entity.name)),
           );
         });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

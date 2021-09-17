@@ -42,6 +42,8 @@ export 'package:edugo_web_app/src/Pages/StudentsGrades/View/StudentsGradesView.d
 
 // Info: ViewLesson View Exports
 export 'package:edugo_web_app/src/Pages/ViewLesson/View/ViewLessonView.dart';
+export 'package:edugo_web_app/src/Pages/ViewLesson/View/AddEntityStore.dart';
+export 'package:edugo_web_app/src/Pages/ViewLesson/View/AddVirtualEntityView.dart';
 
 // Info: App Exports
 export 'package:edugo_web_app/src/View.dart';

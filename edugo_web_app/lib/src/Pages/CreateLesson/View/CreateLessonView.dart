@@ -170,85 +170,55 @@ class _CreateLessonViewState extends State<CreateLessonView> {
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.hasData)
                 return PageLayout(
-                  top: 0,
-                  left: 100,
-                  right: 100,
-                  child: ListView(
-                    padding: EdgeInsets.only(
-                        top: 50, bottom: 100, left: 40, right: 40),
-                    children: [
-                      Form(
-                        key: _createLessonFormKey,
-                        child: Column(
+                  top: 50,
+                  left: 150,
+                  right: 150,
+                  child: Form(
+                    key: _createLessonFormKey,
+                    child: Stack(
+                      children: [
+                        //* Title Row
+                        Row(
                           children: [
-                            //* Title Row
-                            Row(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Create Lesson",
-                                    style: TextStyle(
-                                      fontSize: 32,
-                                    ),
-                                  ),
-                                ),
-                                Spacer(),
-                                CreateLessonButton(
-                                    child: Wrap(
-                                      children: [
-                                        Icon(
-                                          Icons.arrow_back,
-                                          color: Colors.white,
-                                          size: 20,
-                                        ),
-                                        Spacer(),
-                                        Text(
-                                          " Back",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
-                                    onPressed: () {
-                                      MomentumRouter.goto(context, LessonsView);
-                                    },
-                                    width: ScreenUtil().setWidth(200),
-                                    height: 50)
-                              ],
+                            Text(
+                              "Create Lesson",
+                              style: TextStyle(
+                                fontSize: 32,
+                              ),
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            CreateLessonContainer(
-                              createLessonParentKey: _createLessonFormKey,
-                              containerOnSubmit: () async {
-                                if (_createLessonFormKey.currentState
-                                    .validate()) {
-                                  await Momentum.controller<
-                                          CreateLessonController>(context)
-                                      .createLesson(context)
-                                      .then(
-                                    (value) {
-                                      if (value == "Lesson created") {
-                                        _lessonCreated();
-                                      } else {
-                                        _lessonNotCreated();
-                                      }
-                                    },
-                                  );
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 40,
-                            ),
+                            Spacer(),
                             CreateLessonButton(
-                                elevation: 40,
-                                child: Text(
-                                  "Create Lesson",
-                                  style: TextStyle(color: Colors.white),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_back,
+                                      color: Colors.white,
+                                      size: 20,
+                                    ),
+                                    Text(
+                                      " Back",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
                                 ),
-                                onPressed: () async {
+                                onPressed: () {
+                                  MomentumRouter.goto(context, LessonsView);
+                                },
+                                width: ScreenUtil().setWidth(200),
+                                height: 50)
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 75),
+                          child: ListView(
+                            padding: EdgeInsets.only(bottom: 30),
+                            children: [
+                              CreateLessonContainer(
+                                createLessonParentKey: _createLessonFormKey,
+                                containerOnSubmit: () async {
                                   if (_createLessonFormKey.currentState
                                       .validate()) {
                                     await Momentum.controller<
@@ -265,12 +235,40 @@ class _CreateLessonViewState extends State<CreateLessonView> {
                                     );
                                   }
                                 },
-                                width: ScreenUtil().setWidth(500),
-                                height: 65),
-                          ],
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              CreateLessonButton(
+                                  elevation: 40,
+                                  child: Text(
+                                    "Create Lesson",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: () async {
+                                    if (_createLessonFormKey.currentState
+                                        .validate()) {
+                                      await Momentum.controller<
+                                              CreateLessonController>(context)
+                                          .createLesson(context)
+                                          .then(
+                                        (value) {
+                                          if (value == "Lesson created") {
+                                            _lessonCreated();
+                                          } else {
+                                            _lessonNotCreated();
+                                          }
+                                        },
+                                      );
+                                    }
+                                  },
+                                  width: 00,
+                                  height: 65),
+                            ],
+                          ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                 );
               return Scaffold(

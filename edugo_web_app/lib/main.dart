@@ -44,8 +44,8 @@ Momentum momentum() {
           InviteStudentsView(),
           CreateVirtualEntityView(),
           CreateSubjectView(),
-          SubjectsView(),
-          CreateLessonView(),
+          SubjectsView(), AddVirtualEntityView(),
+          CreateLessonView(), AddEntityStore(),
           LessonsView(),
           LogInView(),
           CreateOrganisationView(),
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
     //* Screenutil used for screen sizing
     return ScreenUtilInit(
       //* Initial design screen size
-      designSize: Size(1440, 1024),
+      designSize: Size(1920, 1080),
       builder: () => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'EduGo',

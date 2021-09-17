@@ -69,7 +69,8 @@ class LessonsCard extends StatelessWidget {
                           //* Lesson Card Edit Icon
                           MaterialButton(
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100)),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
                             onPressed: () {
                               Momentum.controller<ViewLessonController>(context)
                                   .viewLessonDetails(

@@ -170,6 +170,9 @@ class CreateVirtualEntityController
           model.update(createEntityResponse: "Virtual Entity Created");
           model.update(creatingEntityLoader: false);
         } else {
+          model.clearLinkTo3DModel();
+          Momentum.controller<QuizBuilderController>(context)
+              .resetQuizBuilder();
           model.update(createEntityResponse: "Virtual Entity Not Created");
           model.update(creatingEntityLoader: false);
         }

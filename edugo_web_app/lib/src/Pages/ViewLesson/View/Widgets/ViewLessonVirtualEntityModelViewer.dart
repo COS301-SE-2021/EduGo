@@ -18,6 +18,7 @@ class _ViewLessonVirtualEntityModelViewerState
         controllers: [ViewLessonController],
         builder: (context, snapshot) {
           var entity = snapshot<ViewLessonModel>();
+
           String modelview = "<html>" +
               "   <head>" +
               "        <meta charset=\"UTF-8\">" +
@@ -29,7 +30,7 @@ class _ViewLessonVirtualEntityModelViewerState
               "<body>" +
               "" +
               "<model-viewer style='width: 100%; height: 340px;' id=\"model\" src='" +
-              entity.currentEntityImage +
+              entity.currentModel +
               "' alt=\"A 3D model of an astronaut\" ar ar-modes=\"webxr scene-viewer quick-look\" environment-image=\"neutral\" auto-rotate camera-controls></model-viewer>" +
               "" +
               "</body>" +

@@ -1,16 +1,12 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/AddEntityStoreCard.dart';
 import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/ViewLessonWidgets.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntity.dart';
 
 class ViewLessonController extends MomentumController<ViewLessonModel> {
   @override
   ViewLessonModel init() {
-    return ViewLessonModel(
-      this,
-      entities: [],
-      lessonVirtualEntityCards: [],
-    );
+    return ViewLessonModel(this,
+        entities: [], lessonVirtualEntityCards: [], responseString: "init");
   }
 
   void viewLessonDetails(String title, String description, String id,
@@ -21,24 +17,8 @@ class ViewLessonController extends MomentumController<ViewLessonModel> {
     model.update(entities: entities);
     model.update(
         currentEntityImage: entities.isEmpty ? '' : entities[0].getThumbNail());
+    model.update(currentModel: entities.isEmpty ? '' : entities[0].getModel());
     updateLessonVirtualEntityCards();
-  }
-
-  List<Widget> getEntities(
-      {Function addFunction, Function viewFunction, String lessonId}) {
-    List<Widget> lessonEntities = [];
-    for (int k = 0; k < 15; k++) {
-      lessonEntities.add(
-        new AddEntityStoreCard(
-          name: k.toString(),
-          virtualEntityDescription: k.toString(),
-          addFunction: addFunction,
-          viewFunction: viewFunction,
-          thumbNailLink: "",
-        ),
-      );
-    }
-    return lessonEntities;
   }
 
   void setCurrentEntityImage({String imageLink}) {
@@ -73,7 +53,6 @@ class ViewLessonController extends MomentumController<ViewLessonModel> {
       (entity) {
         if (entity.getThumbNail() == model.currentEntityImage) {
           k = entity.getVirtualEntityId();
-
           return k;
         }
       },
@@ -85,26 +64,59 @@ class ViewLessonController extends MomentumController<ViewLessonModel> {
     return model.currentEntityImage;
   }
 
-  Future<void> addEntityToLesson(context, {String entityId}) async {
+  Future<String> addEntityToLesson(context,
+      {String entityId,
+      bool addViewLoadController,
+      bool addStoreLoadController}) async {
+    model.update(responseString: "");
+    if (addViewLoadController == true) {
+      model.update(addViewLoadController: false);
+    }
+    if (addStoreLoadController == true) {
+      model.update(addStoreLoadController: false);
+    }
     var url = Uri.parse(
         EduGoHttpModule().getBaseUrl() + '/lesson/addVirtualEntityToLesson');
-    await post(url,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization':
-              Momentum.controller<AdminController>(context).getToken()
-        },
-        body: jsonEncode(<String, int>{
+    await post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization':
+            Momentum.controller<AdminController>(context).getToken()
+      },
+      body: jsonEncode(
+        <String, int>{
           "lessonId": int.parse(model.lessonId),
           'virtualEntityId': int.parse(entityId)
-        })).then(
+        },
+      ),
+    ).then(
       (response) {
-        //if (response.statusCode == 200) {
-
-        MomentumRouter.goto(context, LessonsView);
-        return;
-        //}
+        if (response.statusCode == 200) {
+          if (addViewLoadController == false) {
+            model.update(addViewLoadController: true);
+          }
+          if (addStoreLoadController == false) {
+            model.update(addStoreLoadController: true);
+          }
+          model.update(responseString: "Entity Added");
+          return;
+        } else {
+          if (addViewLoadController == false) {
+            model.update(addViewLoadController: true);
+          }
+          if (addStoreLoadController == false) {
+            model.update(addStoreLoadController: true);
+          }
+          model.update(responseString: "Entity Not Added");
+          return;
+        }
       },
     );
+    return model.responseString;
+  }
+
+  void addVirtualEntityLoadControllerReset() {
+    model.update(addViewLoadController: true);
   }
 }

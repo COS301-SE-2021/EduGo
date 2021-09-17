@@ -86,7 +86,9 @@ class StudentsGradesCard extends StatelessWidget {
                       color: Color.fromARGB(255, 97, 211, 87),
                     ),
                     child: Center(
-                      child: Text("80%"),
+                      child: Text(
+                        grade == null ? "--" : grade.toString(),
+                      ),
                     ),
                   ),
                 ),

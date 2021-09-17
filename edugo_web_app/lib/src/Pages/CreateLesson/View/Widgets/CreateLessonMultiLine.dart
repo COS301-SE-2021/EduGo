@@ -13,7 +13,7 @@ class CreateLessonMultiLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: ScreenUtil().setWidth(1000),
+      width: ScreenUtil().setWidth(1500),
       child: TextFormField(
         onChanged: (value) {
           onChanged(value);

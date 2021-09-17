@@ -27,11 +27,6 @@ class StudentsGradesController extends MomentumController<StudentsGradesModel> {
           dynamic _subjects = jsonDecode(response.body);
           updateSubjects(Subjects.fromJson(_subjects).subjects);
           updateStudentCards(index: 0);
-          model.update(
-            currentSubject: model.subjects.isEmpty
-                ? null
-                : model.subjects[0].getSubjectName(),
-          );
           updateSubjectsStrings();
           return;
         }
@@ -45,12 +40,12 @@ class StudentsGradesController extends MomentumController<StudentsGradesModel> {
     model.subjects.forEach(
       (subject) {
         if (subject.getSubjectName() == name) {
+          updateStudentCards(index: index);
           return;
         }
         index++;
       },
     );
-    updateStudentCards(index: index);
   }
 
 // Info: Update student cards
@@ -67,14 +62,15 @@ class StudentsGradesController extends MomentumController<StudentsGradesModel> {
           );
         },
       );
+      model.update(studentCards: studentCardsUpdate);
       if (model.subjects[index].getStudents().isEmpty) {
-        studentCardsUpdate.add(Text("No grades"));
+        studentCardsUpdate.add(Text("No Students"));
+        model.update(studentCards: studentCardsUpdate);
       }
     } else {
-      studentCardsUpdate.add(Text("No grades"));
+      studentCardsUpdate.add(Text("No Grades"));
+      model.update(studentCards: studentCardsUpdate);
     }
-
-    model.update(studentCards: studentCardsUpdate);
   }
 
   // Info: Update list of subjects strings
@@ -88,12 +84,17 @@ class StudentsGradesController extends MomentumController<StudentsGradesModel> {
           );
         },
       );
+      model.update(currentSubject: model.subjects[0].getSubjectName());
+      model.update(subjectsStrings: subjectsUpdate);
     }
-    model.update(subjectsStrings: subjectsUpdate);
   }
 
   // Info: Update list of subjects
   void updateSubjects(List<Subject> subjectsUpdate) {
     model.update(subjects: subjectsUpdate);
+  }
+
+  List<String> getSubjectsStrings() {
+    return model.subjectsStrings;
   }
 }
