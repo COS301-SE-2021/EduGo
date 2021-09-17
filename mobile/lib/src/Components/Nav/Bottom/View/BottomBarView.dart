@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Components/Nav/Bottom/Controller/BottomBarController.dart';
 import 'package:mobile/src/Components/Nav/Bottom/Model/BottomBarModel.dart';
+import 'package:mobile/src/Pages/CanvasPage/View/CanvasCodePage.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
@@ -23,12 +24,15 @@ class _BottomBarState extends State<BottomBar> {
         title: Text('Grades'), icon: Icons.checklist_rtl_outlined),
     TitledNavigationBarItem(
         title: Text('Detect marker'), icon: Icons.center_focus_weak),
+    TitledNavigationBarItem(
+        title: Text('Canvas'), icon: Icons.vignette)
   ];
 
   List<Type> widgetOptions = <Type>[
     SubjectsPage,
     GradesSubjectPage,
     DetectMarkerPage,
+    CanvasCodePage
   ];
 
   @override
