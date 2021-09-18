@@ -148,8 +148,9 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                               ),
                             ),
                             //Quizzes button
-                            new Align(
-                              alignment: Alignment.topRight,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 15.0, bottom: 8.0),
                               child: MaterialButton(
                                 elevation: 20,
                                 shape: RoundedRectangleBorder(
