@@ -120,21 +120,6 @@ class LessonsController extends MomentumController<LessonsModel> {
                     ),
                   ),
                 ),
-                // Align(
-                //   child: Padding(
-                //     padding: const EdgeInsets.only(top: 10, bottom: 10),
-                //     child: Text(
-                //       '$lessonsCount' + ' lessons',
-                //       overflow: TextOverflow.ellipsis,
-                //       maxLines: 2,
-                //       softWrap: false,
-                //       style: TextStyle(
-                //           fontSize: 30,
-                //           fontWeight: FontWeight.bold,
-                //           color: Colors.black),
-                //     ),
-                //   ),
-                // ),
                 GridView.count(
                   //This makes 2 cards appear. So effectively two cards
                   //per page. (2 rows, 1 card per row)

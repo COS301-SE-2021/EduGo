@@ -39,16 +39,21 @@ class User {
 }
 
 class UserModel extends MomentumModel<UserController> {
-  UserModel(UserController controller, {this.user, this.isLoggedIn = false})
+  UserModel(UserController controller,
+      {this.user, this.isLoggedIn = false, this.loadingData = true})
       : super(controller);
 
   User? user;
   bool isLoggedIn;
+  bool loadingData;
 
   @override
-  void update({User? user, bool? isLoggedIn}) {
-    UserModel(controller,
-            user: user ?? this.user, isLoggedIn: isLoggedIn ?? this.isLoggedIn)
-        .updateMomentum();
+  void update({User? user, bool? isLoggedIn, bool? loadingData}) {
+    UserModel(
+      controller,
+      user: user ?? this.user,
+      isLoggedIn: isLoggedIn ?? this.isLoggedIn,
+      loadingData: loadingData ?? this.loadingData,
+    ).updateMomentum();
   }
 }

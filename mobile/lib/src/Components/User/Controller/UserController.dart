@@ -28,12 +28,21 @@ class UserController extends MomentumController<UserModel> {
 
   //TODO: Logout
 
-  Future<User> loadUser() {
+  Future<void> loadUser() async {
+    // model.update(
+    //     user: new User(
+    //         0, 'username', 'firstName', 'lastName', 'email', UserType.Student),
+    //     loadingData: true);
     final api = service<UserApiService>();
-    return api.getUser(
-        client: mock == true
-            ? httpMock.MockClient(mockApi.loadUserClient)
-            : http.Client());
+    return api
+        .getUser(
+            client: mock == true
+                ? httpMock.MockClient(mockApi.loadUserClient)
+                : http.Client())
+        .then((value) {
+      model.update(user: value, loadingData: false);
+      print('updated');
+    });
   }
 
   Future<bool> verify({required String email, required String code}) {

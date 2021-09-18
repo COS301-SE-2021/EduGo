@@ -19,13 +19,13 @@ class UserApiService extends MomentumService {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
-      print(response.body);
+      //print(response.body);
       if (json['token'] != null) {
         String token = json['token'] as String;
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('user_token', token);
-        print(token);
-        print(prefs.getString("user_token"));
+        //print(token);
+        //print(prefs.getString("user_token"));
         return true;
       } else
         throw new BadResponse('No token property');
@@ -37,12 +37,15 @@ class UserApiService extends MomentumService {
       {String? user_token, required http.Client client}) async {
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('user_token') ?? user_token ?? null;
-
+    // print('token');
+    // print(token);
     if (token == null) throw NoToken();
 
-    final response = await client.post(Uri.parse("${baseUrl}auth/user"),
+    final response = await client.get(
+        Uri.parse("${baseUrl}user/getUserDetails"), //updated from auth/user
         headers: <String, String>{'Authorization': token});
-
+    print('response');
+    print(response.body);
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
       User user = User.fromJson(json);
@@ -56,8 +59,6 @@ class UserApiService extends MomentumService {
       {required String email,
       required String code,
       required http.Client client}) async {
-    //print(code);
-    //print(email);
     final response = await client.post(
         Uri.parse("${baseUrl}auth/verifyInvitation"),
         headers: <String, String>{
@@ -65,8 +66,6 @@ class UserApiService extends MomentumService {
         },
         body: jsonEncode(
             <String, String>{'email': email, 'verificationCode': code}));
-    //print(" sifikile ");
-    //print(response.statusCode);
     if (response.statusCode == 200) return true;
     return false;
   }
