@@ -1,8 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as httpMock;
+import 'package:mobile/main.dart';
 import 'package:mobile/mockApi.dart' as mockApi;
 import 'package:mobile/src/Components/User/Models/UserModel.dart';
 import 'package:mobile/src/Components/User/Service/UserService.dart';
+import 'package:mobile/src/Pages/LoginPage/View/LoginPage.dart';
 import 'package:momentum/momentum.dart';
 
 ///Momentum controller for the User Controller
@@ -16,17 +18,29 @@ class UserController extends MomentumController<UserModel> {
     return UserModel(this);
   }
 
-  Future<bool> login({required String username, required String password}) {
+  Future<bool> login(
+      {required String username, required String password}) async {
     final api = service<UserApiService>();
-    return api.login(
+    model.isLoggedIn = await api.login(
         username: username,
         password: password,
         client: mock == true
             ? httpMock.MockClient(mockApi.loginClient)
             : http.Client());
+    return model.isLoggedIn;
   }
 
-  //TODO: Logout
+  Future<void> logout(context) async {
+    final api = service<UserApiService>();
+    await api.logout(http.Client());
+    model.isLoggedIn = false;
+    //clear navigation history and set an initial page
+    final router = Momentum.service<MomentumRouter>(context);
+    // this will not automatically go to the login page.
+    await router.reset<LoginPage>();
+    // will be restarted in the login page.
+    Momentum.restart(context, momentum());
+  }
 
   Future<User> loadUser() async {
     // model.update(

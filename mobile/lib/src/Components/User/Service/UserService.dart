@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:mobile/globals.dart';
 import 'package:mobile/src/Components/User/Models/UserModel.dart';
@@ -8,6 +9,15 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserApiService extends MomentumService {
+  Future<void> logout(client) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userPreference');
+    await Future.delayed(Duration(seconds: 2));
+    final String? token = prefs.getString('user_token') ?? null;
+    if (token == null) throw NoToken();
+    // getUser(user_token: token, client: client).then((value) => model.update);
+  }
+
   Future<bool> login(
       {required String username,
       required String password,

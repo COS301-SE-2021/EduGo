@@ -48,9 +48,21 @@ class _SideBarState extends State<SideBar> {
                   //Drawer header onsists of a profile picture, the user's current org, the user's name and surname
                   DrawerHeader(
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Color.fromARGB(255, 97, 211, 87),
                     ),
-                    child: Text(userModel.user!.firstName),
+                    child: UserAccountsDrawerHeader(
+                      accountName: Text(userModel.user!.firstName +
+                          ' ' +
+                          userModel.user!.lastName),
+                      accountEmail: Text(userModel.user!.email),
+                      currentAccountPicture: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Text(
+                          userModel.user!.firstName[0],
+                          style: TextStyle(fontSize: 40.0),
+                        ),
+                      ),
+                    ),
                   ),
                   ListTile(
                     leading: Icon(Icons.verified_user),
@@ -81,7 +93,9 @@ class _SideBarState extends State<SideBar> {
                   ListTile(
                     leading: Icon(Icons.exit_to_app),
                     title: Text('Logout'),
-                    onTap: () => {MomentumRouter.goto(context, LoginPage)},
+                    onTap: () => {
+                      userController.logout(context),
+                    },
                   ),
                 ],
               ),
