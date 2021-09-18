@@ -14,7 +14,9 @@ class SideBar extends StatefulWidget {
   _SideBarState createState() => _SideBarState();
 }
 
-//todo momentum name and surname
+//new User(
+//     0, 'username', 'firstName', 'lastName', 'email', UserType.Student),
+// loadingData: true);
 class _SideBarState extends State<SideBar> {
   final user = Preferences.user;
   @override
@@ -55,19 +57,6 @@ class _SideBarState extends State<SideBar> {
                   MomentumRouter.goto(
                 context,
                 SettingsPage,
-                transition: (context, page) {
-                  return MaterialPageRoute(builder: (context) => page);
-                },
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Toggle Organisations'),
-              onTap: () =>
-                  //Leads to Toggle Organisations page
-                  MomentumRouter.goto(
-                context,
-                OrganisationsPage,
                 transition: (context, page) {
                   return MaterialPageRoute(builder: (context) => page);
                 },
