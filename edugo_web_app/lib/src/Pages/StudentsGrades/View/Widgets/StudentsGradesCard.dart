@@ -87,7 +87,9 @@ class StudentsGradesCard extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        grade == null ? "--" : grade.toString(),
+                        grade == null
+                            ? "--"
+                            : grade.roundToDouble().toString() + " %",
                       ),
                     ),
                   ),
