@@ -7,6 +7,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.centerLeft,
@@ -24,7 +25,6 @@ class Home extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 60),
                 child: HomeContent(),
               ),
-              HomeFooter()
             ],
           ),
         ),

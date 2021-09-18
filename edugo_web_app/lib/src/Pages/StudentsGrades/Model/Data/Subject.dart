@@ -20,10 +20,10 @@ class Subject {
 
   factory Subject.fromJson(Map<String, dynamic> json) {
     return Subject(
-      name: json['title'] as String,
+      name: json['subjectName'] as String,
       students: Students.fromJson(
-        json['students'],
-      ),
+        json,
+      ).students,
     );
   }
 }

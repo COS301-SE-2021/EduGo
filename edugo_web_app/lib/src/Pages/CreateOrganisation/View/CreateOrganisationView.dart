@@ -7,6 +7,7 @@ class CreateOrganisationView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.centerLeft,

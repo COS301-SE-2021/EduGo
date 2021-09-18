@@ -302,7 +302,7 @@ class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
       controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
         var createEntity = snapshot<CreateVirtualEntityModel>();
-        var quizBuilder = snapshot<QuizBuilderModel>();
+
         Future<String> linkLoaded = Future<String>.delayed(
           const Duration(seconds: 0),
           () {

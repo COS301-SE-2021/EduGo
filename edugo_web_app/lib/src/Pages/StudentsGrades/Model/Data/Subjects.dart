@@ -5,11 +5,14 @@ class Subjects {
 
   Subjects({this.subjects});
 
-  factory Subjects.fromJson(Map<String, dynamic> subjectsJson) {
+  factory Subjects.fromJson(dynamic subjectsJson) {
     var list = subjectsJson['subjects'] as List;
 
-    List<Subject> subjectList =
-        list.map((subject) => Subject.fromJson(subject)).toList();
+    List<Subject> subjectList = list
+        .map(
+          (subject) => Subject.fromJson(subject),
+        )
+        .toList();
     return Subjects(subjects: subjectList);
   }
 }

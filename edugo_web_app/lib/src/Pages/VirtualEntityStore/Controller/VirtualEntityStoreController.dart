@@ -2,7 +2,6 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/AddEntityStoreCard.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntities.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntity.dart';
-import 'package:edugo_web_app/src/Pages/VirtualEntityStore/View/Widgets/VirtualEntitiesStoreCard.dart';
 
 class VirtualEntityStoreController
     extends MomentumController<VirtualEntityStoreModel> {
@@ -52,10 +51,11 @@ class VirtualEntityStoreController
     });
   }
 
-  Future getAddStore(context,
-      {Function addFunction, Function viewFunction}) async {
-    var url = Uri.parse(EduGoHttpModule().getBaseUrl() +
-        '/virtualEntity/getPublicVirtualEntities');
+  Future getAddStore(
+    context,
+  ) async {
+    var url = Uri.parse(
+        EduGoHttpModule().getBaseUrl() + '/virtualEntity/getVirtualEntities');
     await post(
       url,
       headers: {
@@ -66,40 +66,37 @@ class VirtualEntityStoreController
     ).then(
       (response) async {
         if (response.statusCode == 200) {
-          if (response.statusCode == 200) {
-            dynamic _virtualEntities = jsonDecode(response.body);
-            List<VirtualEntity> copy = model.addStore;
-            VirtualEntities.fromJson(_virtualEntities)
-                .virtualEntities
-                .forEach((entity) {
+          dynamic _virtualEntities = jsonDecode(response.body);
+          List<VirtualEntity> copy = [];
+          VirtualEntities.fromJson(_virtualEntities).virtualEntities.forEach(
+            (entity) {
               copy.add(entity);
-            });
-            model.update(addStore: copy);
-            List<Widget> addCards = [];
-            model.addStore.forEach(
-              (entity) {
-                addCards.add(AddEntityStoreCard(
+            },
+          );
+          model.update(addStore: copy);
+          List<Widget> addCards = [];
+          model.addStore.forEach(
+            (entity) {
+              addCards.add(
+                AddEntityStoreCard(
                   id: entity.getVirtualEntityId().toString(),
-                  addFunction: addFunction,
-                  viewFunction: viewFunction,
-                  thumbNailLink: '',
+                  thumbNailLink: entity.getThumbNail(),
                   name: entity.getVirtualEntityName(),
+                  modelLink: entity.getModel(),
                   virtualEntityDescription: entity
                       .getVirtualEntityDescription()
                       .toString()
                       .substring(
-                          1,
-                          entity
-                                  .getVirtualEntityDescription()
-                                  .toString()
-                                  .length -
-                              1),
-                ));
-              },
-            );
-            model.update(addStoreCards: addCards);
-            return;
-          }
+                        1,
+                        entity.getVirtualEntityDescription().toString().length -
+                            1,
+                      ),
+                ),
+              );
+            },
+          );
+          model.update(addStoreCards: addCards);
+          return;
         }
       },
     );

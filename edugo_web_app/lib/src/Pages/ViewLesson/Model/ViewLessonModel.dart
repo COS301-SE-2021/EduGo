@@ -1,5 +1,4 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
-import 'package:edugo_web_app/src/Pages/ViewLesson/View/Widgets/ViewLessonWidgets.dart';
 import 'package:edugo_web_app/src/Pages/VirtualEntityStore/Model/Data/VirtualEntity.dart';
 
 class ViewLessonModel extends MomentumModel<ViewLessonController> {
@@ -8,33 +7,24 @@ class ViewLessonModel extends MomentumModel<ViewLessonController> {
   final String lessonId;
   final String lessonTitle;
   final String lessonDescription;
-
   final String currentEntityImage;
+  final String currentModel;
+  final bool addStoreLoadController;
+  final bool addViewLoadController;
+  final String responseString;
+
   ViewLessonModel(ViewLessonController controller,
       {this.entities,
+      this.currentModel,
       this.currentEntityImage,
+      this.responseString,
       this.lessonId,
+      this.addStoreLoadController,
+      this.addViewLoadController,
       this.lessonVirtualEntityCards,
       this.lessonDescription,
       this.lessonTitle})
       : super(controller);
-
-// Info: Update lesson virtual entity cards
-  void updateLessonVirtualEntityCards() {
-    List<Widget> lessonVirtualEntityCardsUpdate = [];
-    entities.forEach(
-      (entity) {
-        lessonVirtualEntityCardsUpdate.add(
-          new VirtualEntitySelectorCard(
-            title: entity.getVirtualEntityName(),
-            link: entity.getThumbNail(),
-          ),
-        );
-      },
-    );
-    update(currentEntityImage: entities[0].getThumbNail());
-    update(lessonVirtualEntityCards: lessonVirtualEntityCardsUpdate);
-  }
 
   @override
   void update(
@@ -43,7 +33,11 @@ class ViewLessonModel extends MomentumModel<ViewLessonController> {
       String lessonTitle,
       String lessonDescription,
       String lessonId,
-      String currentEntityImage}) {
+      String currentEntityImage,
+      String currentModel,
+      bool addStoreLoadController,
+      bool addViewLoadController,
+      String responseString}) {
     ViewLessonModel(controller,
             entities: entities ?? this.entities,
             lessonId: lessonId ?? this.lessonId,
@@ -51,7 +45,13 @@ class ViewLessonModel extends MomentumModel<ViewLessonController> {
             lessonVirtualEntityCards:
                 lessonVirtualEntityCards ?? this.lessonVirtualEntityCards,
             lessonDescription: lessonDescription ?? this.lessonDescription,
-            currentEntityImage: currentEntityImage ?? this.currentEntityImage)
+            currentEntityImage: currentEntityImage ?? this.currentEntityImage,
+            currentModel: currentModel ?? this.currentModel,
+            addStoreLoadController:
+                addStoreLoadController ?? this.addStoreLoadController,
+            addViewLoadController:
+                addViewLoadController ?? this.addViewLoadController,
+            responseString: responseString ?? this.responseString)
         .updateMomentum();
   }
 }

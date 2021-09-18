@@ -50,7 +50,7 @@ class CreateOrganisationController
     model.setAdminUserName(adminUserName);
   }
 
-  Future<void> createOrganisation() async {
+  Future<String> createOrganisation() async {
     var url = Uri.parse(
         EduGoHttpModule().getBaseUrl() + '/organisation/createOrganisation');
     await post(
@@ -70,7 +70,16 @@ class CreateOrganisationController
           "username": model.getAdminUserName()
         },
       ),
-    ).then((response) async {});
+    ).then(
+      (response) async {
+        if (response.statusCode == 200) {
+          model.update(errorString: "Organisation Created");
+        } else {
+          model.update(errorString: "Organisation Not Created");
+        }
+      },
+    );
+    return model.errorString;
   }
 
   Future<void> loginUser(
@@ -82,26 +91,31 @@ class CreateOrganisationController
         model.adminPassword != "") {
       var url = Uri.parse(EduGoHttpModule().getBaseUrl() + '/auth/login');
       await http
-          .post(url,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: jsonEncode(<String, String>{
-                "username": model.adminUserName,
-                "password": model.adminPassword
-              }))
-          .then((response) {
-        Map<String, dynamic> _user = jsonDecode(response.body);
-
-        if (response.statusCode == 200) {
-          String bearerToken = _user['token'];
-          Momentum.controller<AdminController>(context).setToken(bearerToken);
-          Momentum.controller<AdminController>(context)
-              .setUserName(model.adminUserName);
-          MomentumRouter.goto(context, AdminView);
-          return;
-        }
-      });
+          .post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(
+          <String, String>{
+            "username": model.adminUserName,
+            "password": model.adminPassword
+          },
+        ),
+      )
+          .then(
+        (response) {
+          if (response.statusCode == 200) {
+            Map<String, dynamic> _user = jsonDecode(response.body);
+            String bearerToken = _user['token'];
+            Momentum.controller<AdminController>(context).setToken(bearerToken);
+            Momentum.controller<AdminController>(context)
+                .setUserName(model.adminUserName);
+            MomentumRouter.goto(context, AdminView);
+            return;
+          }
+        },
+      );
     }
   }
 }

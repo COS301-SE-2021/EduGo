@@ -4,10 +4,12 @@ class VirtualEntity {
   int _id;
   bool _public;
   String _thumbNail;
+  String _model;
 
-  VirtualEntity({name, description, id, thumbNail, public})
+  VirtualEntity({name, description, id, model, thumbNail, public})
       : _description = description,
         _name = name,
+        _model = model,
         _id = id,
         _public = public,
         _thumbNail = thumbNail;
@@ -24,6 +26,10 @@ class VirtualEntity {
     return _thumbNail;
   }
 
+  String getModel() {
+    return _model;
+  }
+
   bool getPublic() {
     return _public;
   }
@@ -37,8 +43,9 @@ class VirtualEntity {
         name: json['title'] as String,
         id: json['id'] as int,
         description: json['description'] as List<dynamic>,
+        model: json['model'] == null ? '' : json['model']['fileLink'] as String,
         public: json['public'] == null ? true : json['public'] as bool,
         thumbNail:
-            json['model'] == null ? '' : json['model']['fileLink'] as String);
+            json['model'] == null ? '' : json['model']['thumbnail'] as String);
   }
 }

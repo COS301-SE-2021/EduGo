@@ -32,6 +32,7 @@ class VirtualEntityStoreModel
           name: virtualEntity.getVirtualEntityName(),
           virtualEntityId: virtualEntity.getVirtualEntityId(),
           public: virtualEntity.getPublic(),
+          thumbNail: virtualEntity.getThumbNail(),
           virtualEntityDescription: virtualEntity
               .getVirtualEntityDescription()
               .toString()
