@@ -108,7 +108,6 @@ export class SubjectService {
 			throw new BadRequestError("Could not find error");
 		}
 
-		console.log(user);
 
 		if (!user) throw new BadRequestError("Could not find user");
 
