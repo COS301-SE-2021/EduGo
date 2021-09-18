@@ -6,12 +6,16 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
   final int virtualEntityId;
   final String virtualEntityDescription;
   final bool public;
+  final String thumbNail;
+  final String model;
 
   VirtualEntitiesStoreCard({
     this.name,
     this.public,
     this.virtualEntityId,
+    this.thumbNail,
     this.virtualEntityDescription,
+    this.model,
   });
 
   @override
@@ -29,31 +33,16 @@ class VirtualEntitiesStoreCard extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  ListTile(
-                    title: Column(
-                      children: [
-                        Icon(
-                          Icons.view_in_ar_outlined,
-                          size: 60,
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Align(
-                            alignment: Alignment.center,
-                            child: Text(name, style: TextStyle(fontSize: 22))),
-                      ],
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5.0),
+                      topRight: Radius.circular(5.0),
                     ),
-                    subtitle: Column(
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          // child: Text('Entity by: Mr TN Mafaralala'),
-                        ),
-                      ],
+                    child: Image.network(
+                      thumbNail,
+                      width: 400,
+                      height: 150,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   SizedBox(

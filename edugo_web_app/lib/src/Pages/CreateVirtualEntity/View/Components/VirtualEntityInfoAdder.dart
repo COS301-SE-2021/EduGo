@@ -1,4 +1,3 @@
-import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class VirtualEntityInfoAdder extends StatefulWidget {

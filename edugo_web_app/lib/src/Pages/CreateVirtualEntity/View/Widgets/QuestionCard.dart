@@ -1,7 +1,7 @@
 import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
-class QuestionCard extends StatelessWidget {
+class QuestionCard extends StatefulWidget {
   final int questionId;
   final String question;
   final String questionType;
@@ -19,6 +19,11 @@ class QuestionCard extends StatelessWidget {
           key: key,
         );
 
+  @override
+  _QuestionCardState createState() => _QuestionCardState();
+}
+
+class _QuestionCardState extends State<QuestionCard> {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
@@ -39,10 +44,11 @@ class QuestionCard extends StatelessWidget {
                       Align(
                         alignment: Alignment.topLeft,
                         child: DropdownButton<String>(
-                          value:
-                              (quizBuilder.questions[questionId].type != null)
-                                  ? '${quizBuilder.questions[questionId].type}'
-                                  : "TrueFalse",
+                          value: (quizBuilder
+                                      .questions[widget.questionId].type !=
+                                  null)
+                              ? '${quizBuilder.questions[widget.questionId].type}'
+                              : "TrueFalse",
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 40,
                           underline: Container(
@@ -52,9 +58,9 @@ class QuestionCard extends StatelessWidget {
                           elevation: 20,
                           onChanged: (String type) {
                             Momentum.controller<QuizBuilderController>(context)
-                                .inputQuestionType(type, questionId);
+                                .inputQuestionType(type, widget.questionId);
                           },
-                          items: <String>['TrueFalse', 'Multiple Choice']
+                          items: <String>['TrueFalse', 'MultipleChoice']
                               .map<DropdownMenuItem<String>>(
                             (String value) {
                               return DropdownMenuItem<String>(
@@ -74,7 +80,7 @@ class QuestionCard extends StatelessWidget {
                               color: Color.fromARGB(255, 97, 211, 87)),
                           onTap: () {
                             Momentum.controller<QuizBuilderController>(context)
-                                .removeQuestion(questionId);
+                                .removeQuestion(widget.questionId);
                           },
                         ),
                       ),
@@ -85,20 +91,22 @@ class QuestionCard extends StatelessWidget {
                   height: 40,
                 ),
                 QuestionInputCard(
-                  questionId: questionId,
+                  questionId: widget.questionId,
                 ),
                 SizedBox(
                   height: 40,
                 ),
-                (quizBuilder.questions[questionId].type == "Multiple Choice")
-                    ? QuestionOptionInputCard(questionId: questionId)
+                (quizBuilder.questions[widget.questionId].type ==
+                        "MultipleChoice")
+                    ? QuestionOptionInputCard(questionId: widget.questionId)
                     : SizedBox(),
                 SizedBox(
                   height: 40,
                 ),
-                (quizBuilder.questions[questionId].type == "Multiple Choice")
+                (quizBuilder.questions[widget.questionId].type ==
+                        "MultipleChoice")
                     ? Momentum.controller<QuizBuilderController>(context)
-                        .buildQuizBuilderOptionView(questionId)
+                        .buildQuizBuilderOptionView(widget.questionId)
                     : SizedBox(),
                 Padding(
                   padding: const EdgeInsets.only(left: 32.0, bottom: 40),
@@ -110,7 +118,7 @@ class QuestionCard extends StatelessWidget {
                         style: TextStyle(fontSize: 20),
                       ),
                       value:
-                          '${quizBuilder.questions[questionId].correctAnswer}',
+                          '${quizBuilder.questions[widget.questionId].correctAnswer}',
                       icon: const Icon(Icons.arrow_drop_down),
                       iconSize: 40,
                       underline: Container(
@@ -120,9 +128,9 @@ class QuestionCard extends StatelessWidget {
                       elevation: 20,
                       onChanged: (String answer) {
                         Momentum.controller<QuizBuilderController>(context)
-                            .inputCorrectAnswer(answer, questionId);
+                            .inputCorrectAnswer(answer, widget.questionId);
                       },
-                      items: quizBuilder.questions[questionId].options
+                      items: quizBuilder.questions[widget.questionId].options
                           .map<DropdownMenuItem<String>>(
                         (String value) {
                           return DropdownMenuItem<String>(

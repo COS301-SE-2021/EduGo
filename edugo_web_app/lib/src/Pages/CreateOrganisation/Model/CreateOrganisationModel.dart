@@ -10,10 +10,12 @@ class CreateOrganisationModel
   final String adminEmail;
   final String adminUserName;
   final String adminPassword;
+  final String errorString;
 
   CreateOrganisationModel(CreateOrganisationController controller,
       {this.organisationName,
       this.organisationEmail,
+      this.errorString,
       this.phoneNumber,
       this.adminEmail,
       this.adminFirstName,
@@ -95,17 +97,18 @@ class CreateOrganisationModel
       adminFirstName,
       adminLastName,
       adminPassword,
-      adminUserName}) {
-    CreateOrganisationModel(
-      controller,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      organisationName: organisationName ?? this.organisationName,
-      organisationEmail: organisationEmail ?? this.organisationEmail,
-      adminEmail: adminEmail ?? this.adminEmail,
-      adminFirstName: adminFirstName ?? this.adminFirstName,
-      adminLastName: adminLastName ?? this.adminLastName,
-      adminPassword: adminPassword ?? this.adminPassword,
-      adminUserName: adminUserName ?? this.adminUserName,
-    ).updateMomentum();
+      adminUserName,
+      errorString}) {
+    CreateOrganisationModel(controller,
+            phoneNumber: phoneNumber ?? this.phoneNumber,
+            organisationName: organisationName ?? this.organisationName,
+            organisationEmail: organisationEmail ?? this.organisationEmail,
+            adminEmail: adminEmail ?? this.adminEmail,
+            adminFirstName: adminFirstName ?? this.adminFirstName,
+            adminLastName: adminLastName ?? this.adminLastName,
+            adminPassword: adminPassword ?? this.adminPassword,
+            adminUserName: adminUserName ?? this.adminUserName,
+            errorString: errorString ?? this.errorString)
+        .updateMomentum();
   }
 }

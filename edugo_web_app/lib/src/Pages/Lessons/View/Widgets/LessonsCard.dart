@@ -9,11 +9,9 @@ class LessonsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Todo: Lesson Card
     return MomentumBuilder(
         controllers: [LessonsController],
         builder: (context, snapshot) {
-          var lesson = snapshot<LessonsModel>();
           return Container(
             margin: EdgeInsets.only(bottom: 50),
             child: Padding(
@@ -71,16 +69,19 @@ class LessonsCard extends StatelessWidget {
                           //* Lesson Card Edit Icon
                           MaterialButton(
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100)),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
                             onPressed: () {
                               Momentum.controller<ViewLessonController>(context)
                                   .viewLessonDetails(
-                                      title,
-                                      description,
-                                      id.toString(),
-                                      Momentum.controller<LessonsController>(
-                                              context)
-                                          .getLessonEntities(id.toString()));
+                                title,
+                                description,
+                                id.toString(),
+                                Momentum.controller<LessonsController>(context)
+                                    .getLessonEntities(
+                                  id.toString(),
+                                ),
+                              );
                               MomentumRouter.goto(context, ViewLessonView);
                             },
                             child: Icon(

@@ -21,46 +21,47 @@ class LogInController extends MomentumController<LoginModel> {
     model.update(errorString: null);
   }
 
-  Future<void> loginUser({context, GlobalKey<FormState> formkey}) async {
+  Future<String> loginUser({
+    context,
+  }) async {
     if (model.loginPassword != null &&
         model.loginUserName != null &&
         model.loginUserName != "" &&
         model.loginPassword != "") {
       var url = Uri.parse(EduGoHttpModule().getBaseUrl() + "/auth/login");
       await http
-          .post(url,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: jsonEncode(<String, String>{
-                "username": model.loginUserName,
-                "password": model.loginPassword
-              }))
-          .then((response) {
-        Map<String, dynamic> _user = jsonDecode(response.body);
+          .post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(
+          <String, String>{
+            "username": model.loginUserName,
+            "password": model.loginPassword
+          },
+        ),
+      )
+          .then(
+        (response) {
+          Map<String, dynamic> _user = jsonDecode(response.body);
 
-        if (_user['name'] == "UnauthorizedError") {
-          model.update(errorString: "Invalid Credentials");
-          formkey.currentState.validate();
-          return;
-        }
-
-        if (response.statusCode == 200) {
-          model.update(errorString: null);
-          formkey.currentState.validate();
-          String bearerToken = _user['token'];
-          Momentum.controller<AdminController>(context).setToken(bearerToken);
-          Momentum.controller<AdminController>(context)
-              .setUserName(model.loginUserName);
-          MomentumRouter.goto(context, AdminView);
-          return;
-        } else {
-          model.update(errorString: "Invalid Credentials");
-          formkey.currentState.validate();
-          return;
-        }
-      });
-    } else
-      formkey.currentState.validate();
+          if (response.statusCode == 200) {
+            String bearerToken = _user['token'];
+            Momentum.controller<AdminController>(context).setToken(bearerToken);
+            Momentum.controller<AdminController>(context)
+                .setUserName(model.loginUserName);
+            MomentumRouter.goto(context, AdminView);
+            model.update(errorString: "Logged In");
+            return;
+          } else {
+            model.update(errorString: "Invalid Credentials");
+            return;
+          }
+        },
+      );
+      return model.errorString;
+    }
+    return model.errorString;
   }
 }
