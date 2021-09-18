@@ -19,13 +19,10 @@ class UserApiService extends MomentumService {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
-      //print(response.body);
       if (json['token'] != null) {
         String token = json['token'] as String;
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('user_token', token);
-        //print(token);
-        //print(prefs.getString("user_token"));
         return true;
       } else
         throw new BadResponse('No token property');
@@ -37,18 +34,17 @@ class UserApiService extends MomentumService {
       {String? user_token, required http.Client client}) async {
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('user_token') ?? user_token ?? null;
-    // print('token');
-    // print(token);
     if (token == null) throw NoToken();
 
     final response = await client.get(
-        Uri.parse("${baseUrl}user/getUserDetails"), //updated from auth/user
+        Uri.parse("${baseUrl}user/getUserDetails"),
         headers: <String, String>{'Authorization': token});
-    print('response');
-    print(response.body);
+
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
+      print(json);
       User user = User.fromJson(json);
+      print(user.firstName);
       return user;
     } else if (response.statusCode == 401)
       throw new BadResponse('Unauthorized');

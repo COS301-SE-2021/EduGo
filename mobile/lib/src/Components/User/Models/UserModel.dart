@@ -7,17 +7,14 @@ part 'UserModel.g.dart';
 enum UserType {
   @JsonValue('Educator')
   Educator,
-  @JsonValue('Student')
-  Student
+  @JsonValue('student')
+  student
 }
 
 @JsonSerializable()
 class User {
   @JsonKey(required: true)
-  final int id;
-
-  @JsonKey(required: true)
-  final String username;
+  final String email;
 
   @JsonKey(required: true)
   final String firstName;
@@ -26,13 +23,16 @@ class User {
   final String lastName;
 
   @JsonKey(required: true)
-  final String email;
+  final String username;
 
   @JsonKey(required: true)
-  final UserType type;
+  final int organisation_id;
 
-  User(this.id, this.username, this.firstName, this.lastName, this.email,
-      this.type);
+  @JsonKey(required: true)
+  final UserType userType;
+
+  User(this.email, this.firstName, this.lastName, this.username,
+      this.organisation_id, this.userType);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);

@@ -28,7 +28,7 @@ class UserController extends MomentumController<UserModel> {
 
   //TODO: Logout
 
-  Future<void> loadUser() async {
+  Future<User> loadUser() async {
     // model.update(
     //     user: new User(
     //         0, 'username', 'firstName', 'lastName', 'email', UserType.Student),
@@ -42,6 +42,7 @@ class UserController extends MomentumController<UserModel> {
         .then((value) {
       model.update(user: value, loadingData: false);
       print('updated');
+      return value;
     });
   }
 
