@@ -219,7 +219,9 @@ export class VirtualEntityService {
 			quiz = await this.quizRepository.findOne(request.quiz_id, {
 				relations: ["questions"],
 			});
-			lesson = await this.lessonRepository.findOne(request.lesson_id);
+			lesson = await this.lessonRepository.findOne(request.lesson_id, {
+				relations: ["subject"],
+			});
 		} catch (error) {
 			throw error;
 		}
@@ -235,6 +237,7 @@ export class VirtualEntityService {
 		StudentGrade.quiz = quiz;
 		StudentGrade.answers = [];
 		StudentGrade.lesson = lesson;
+		StudentGrade.subject = lesson.subject;
 		for (const value of request.answers) {
 			let question: Question | undefined;
 

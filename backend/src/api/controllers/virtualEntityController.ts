@@ -134,8 +134,10 @@ export class VirtualEntityController {
 	@Post("/getVirtualEntities")
 	@UseBefore(IsEducatorMiddleware)
 	async GetVirtualEntities(@CurrentUser({ required: true }) id: number) {
-		let publicVirtualEntities = await this.service.GetPublicVirtualEntities();
-		let privateVirtualEntities = await this.service.GetPrivateVirtualEntities(id);
+		const publicVirtualEntities =
+			await this.service.GetPublicVirtualEntities();
+		const privateVirtualEntities =
+			await this.service.GetPrivateVirtualEntities(id);
 
 		return [...publicVirtualEntities, ...privateVirtualEntities];
 	}

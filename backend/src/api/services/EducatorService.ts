@@ -1,4 +1,4 @@
-import { In, Repository } from "typeorm";
+import { In, Repository, SimpleConsoleLogger } from "typeorm";
 import { validateEmails } from "./validations/EmailValidate";
 import { Organisation } from "../database/Organisation";
 import { UnverifiedUser } from "../database/UnverifiedUser";
@@ -291,10 +291,10 @@ export class EducatorService {
 			const subjectG: SubjectGrade = {
 				subjectName: sub.title,
 				students: sub.students.map((student) => {
+					console.log(student.grades);
 					const grades = student.grades.filter(
-						(grad) => grad.subject?.id == sub.id
+						(grad) => grad.subject.id == sub.id
 					);
-
 					const studentData: StudentG = {
 						username: student.user.username,
 						firstname: student.user.firstName,
