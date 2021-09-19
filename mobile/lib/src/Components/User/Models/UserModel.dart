@@ -7,17 +7,14 @@ part 'UserModel.g.dart';
 enum UserType {
   @JsonValue('Educator')
   Educator,
-  @JsonValue('Student')
-  Student
+  @JsonValue('student')
+  student
 }
 
 @JsonSerializable()
 class User {
   @JsonKey(required: true)
-  final int id;
-
-  @JsonKey(required: true)
-  final String username;
+  final String email;
 
   @JsonKey(required: true)
   final String firstName;
@@ -26,29 +23,37 @@ class User {
   final String lastName;
 
   @JsonKey(required: true)
-  final String email;
+  final String username;
 
   @JsonKey(required: true)
-  final UserType type;
+  final int organisation_id;
 
-  User(this.id, this.username, this.firstName, this.lastName, this.email,
-      this.type);
+  @JsonKey(required: true)
+  final UserType userType;
+
+  User(this.email, this.firstName, this.lastName, this.username,
+      this.organisation_id, this.userType);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
 
 class UserModel extends MomentumModel<UserController> {
-  UserModel(UserController controller, {this.user, this.isLoggedIn = false})
+  UserModel(UserController controller,
+      {this.user, this.isLoggedIn = false, this.loadingData = true})
       : super(controller);
 
   User? user;
   bool isLoggedIn;
+  bool loadingData;
 
   @override
-  void update({User? user, bool? isLoggedIn}) {
-    UserModel(controller,
-            user: user ?? this.user, isLoggedIn: isLoggedIn ?? this.isLoggedIn)
-        .updateMomentum();
+  void update({User? user, bool? isLoggedIn, bool? loadingData}) {
+    UserModel(
+      controller,
+      user: user ?? this.user,
+      isLoggedIn: isLoggedIn ?? this.isLoggedIn,
+      loadingData: loadingData ?? this.loadingData,
+    ).updateMomentum();
   }
 }

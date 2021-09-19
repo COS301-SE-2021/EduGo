@@ -17,8 +17,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as httpMock;
 import 'package:mobile/globals.dart';
 import 'package:momentum/momentum.dart';
-//UNCOMMENT THIS IMPORT WHEN MERGED INTO DEVELOP-MOBILE-APP-COMBINED
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /*------------------------------------------------------------------------------
  *                          Grades controller
@@ -27,20 +26,16 @@ import 'package:momentum/momentum.dart';
 
 //Function to get the list of subjects from the database
 Future<List<Subject>> getGrades({required http.Client client}) async {
-  //UNCOMMENT THESE 3 COMMENTS WHEN MERGED INTO DEVELOP-MOBILE-APP-COMBINED
-  // final prefs = await SharedPreferences.getInstance();
-  // final String? token = prefs.getString('user_token') ?? null;
+  final prefs = await SharedPreferences.getInstance();
+  final String? token = prefs.getString('user_token') ?? null;
 
-  // if (token == null) throw NoToken();
+
+  if (token == null) throw NoToken();
   final response = await client.get(
     Uri.parse("${baseUrl}user/getStudentGrades"),
     headers: <String, String>{
       'Content-Type': 'application/json',
-      "Authorization":
-          "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJpYXQiOjE2Mjk3ODc2NTQsImV4cCI6MTYyOTg3NDA1NH0.XeB_Zt4vcP_gv0wm0Yd6Ho3irrwSyusF3W1_AVjbq1sgXRD7JpLi8QRJ3aVjOpqExB2Y-bYCVLBUHem0R4kUb_7WiUC9crx51vx60jPFFCSMgHjDo2LQwfV-Icw4_121N3_Xk0ieaL63nmqhztWR8GdNga2kfxBb0VI46HvIWO_LihP6YZbW5dovkCMwMInxVWL0LE1xPVNPEDKeQ62O70AsyLzPF0dx4JSbgxjzphJTJPNJiLtdJB0Ap3UgOk7oIgBvWSnwUK740nLD7BLPZIQRgjWdsODK598cNlzoANxorkx1iMqaDDG2pidTGLenaESlC8OvDswc6saK2--JZ-hWkSq6zPx54KtK4j__bZA8ZcRb5_-Q1_7e59PvS4N64LK6d1YG5Mpjr0yCAu8x-yljkcQe74D0MyPctDJeXrONDDGhp6nuzXI5RRGUQWwjNOpuuUxEPOkMK_e8GbZUnATl-OIyW5hlhnf-4Kt2BVWlAChsQyFfRjRU39Hv86ESOsDcDGFyaEJRmWnUKqMPga0YIuxGXEYMQeLrnaYrNk1NkDHS18w6RE8UPuj6YG03td10FPR8TDkNBmPsB69tWVNq38fGNBgfDjmKyNBB6JXfWnBTnTKyAtx-K0Y3fO1Fqa5TRe73Qmm8paYuL1ygVt-RhLXZo8W_EKuphQM0lm8",
-
-      //UNCOMMENT THIS WHEN MERGED INTO DEVELOP-APP-MOBILE-COMBINED
-      //"Authorization": token
+      "Authorization": token
     },
   );
 
