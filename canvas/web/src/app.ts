@@ -9,8 +9,8 @@ import * as helper from './helper';
 import axios from 'axios';
 import * as socket from 'socket.io-client';
 
-const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
-//const BACKEND = 'http://localhost:8080'
+//const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+const BACKEND = 'http://localhost:8080'
 
 const io = socket.io(BACKEND);
 let code: string = '';
@@ -274,18 +274,22 @@ function stop() {
 //This is the main function for the draw feature.
 //It is used in the start and stop functions
 function draw(event) {
+	let ratio = window.devicePixelRatio;
+	let offset = document.getElementById('code')?.offsetHeight || 0;
 	ctx.beginPath();
 	ctx.lineWidth = widthOfLine;
 	ctx.lineCap = "round";
 	ctx.strokeStyle = colourOfPen;
-	ctx.moveTo(coord.x, coord.y);
+	ctx.moveTo(coord.x * ratio, coord.y * ratio);
 	reposition(event);
-	ctx.lineTo(coord.x, coord.y);
+	ctx.lineTo(coord.x * ratio, coord.y * ratio);
 	ctx.stroke();
     let data: any = {
         width: widthOfLine,
         colour: colourOfPen,
-        coord: coord
+        coord: coord,
+		pageWidth: window.innerWidth,
+		offset: offset
     }
     io.emit('new_draw', data);
 }

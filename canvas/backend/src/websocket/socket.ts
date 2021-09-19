@@ -13,7 +13,7 @@ export const onConnection = (socket: socket.Socket) => {
     socket.on('disconnect', disconnect.bind(this, socket));
     socket.on('identify_educator', identifyEducator.bind(this, socket));
     socket.on('identify_student', identifyStudent.bind(this, socket));
-    socket.on('new_ratio', new_ratio.bind(this, socket));
+    //socket.on('new_ratio', new_ratio.bind(this, socket));
     socket.on('new_camera', new_camera.bind(this, socket));
     socket.on('set_link', set_link.bind(this, socket));
     socket.on('new_draw', new_draw.bind(this, socket));
@@ -27,10 +27,10 @@ const identifyEducator = async (socket: socket.Socket, socket_data: any) => {
         return;
     }
 
-    if (identity.ratio == undefined) {
-        socket.emit('declined', 'Missing ratio');
-        return;
-    }
+    // if (identity.ratio == undefined) {
+    //     socket.emit('declined', 'Missing ratio');
+    //     return;
+    // }
 
     let response = await axios.get(
         `${process.env.BACKEND}/user/getUserDetails`, 
@@ -59,7 +59,7 @@ const identifyEducator = async (socket: socket.Socket, socket_data: any) => {
         activeRooms[code] = {};
         activeRooms[code]['educator'] = socket.id;
         activeRooms[code]['link'] = null;
-        activeRooms[code]['ratio'] = identity.ratio;
+        //activeRooms[code]['ratio'] = identity.ratio;
         socket.join(code);
         userMap[socket.id] = code;
         socket.emit('accepted_educator', {code: code});
@@ -96,11 +96,14 @@ const identifyStudent = async (socket: socket.Socket, socket_data: any) => {
         return;
     }
 
+    console.log(data);
+
     if (data.userType === 'student') {
         if (Object.keys(activeRooms).includes(identity.code)) {
             socket.join(identity.code);
             userMap[socket.id] = identity.code;
-            socket.emit('accepted_student', {code: identity.code, link: activeRooms[identity.code]['link'], ratio: activeRooms[identity.code]['ratio']});
+            //socket.emit('accepted_student', {code: identity.code, link: activeRooms[identity.code]['link'], ratio: activeRooms[identity.code]['ratio']});
+            socket.emit('accepted_student', {code: identity.code, link: activeRooms[identity.code]['link']});
         }
         else socket.emit('declined', 'Invalid code');
     }
@@ -127,11 +130,11 @@ const set_link = (socket: socket.Socket, data: any) => {
     activeRooms[code]['link'] = data.link;
 }
 
-const new_ratio = (socket: socket.Socket, data: any) => {
-    let code = userMap[socket.id];
-    activeRooms[code]['ratio'] = data;
-    socket.to(code).emit('ratio_updated', data);
-}
+// const new_ratio = (socket: socket.Socket, data: any) => {
+//     let code = userMap[socket.id];
+//     activeRooms[code]['ratio'] = data;
+//     socket.to(code).emit('ratio_updated', data);
+// }
 
 const new_draw = (socket: socket.Socket, data: any) => {
     let code = userMap[socket.id];
