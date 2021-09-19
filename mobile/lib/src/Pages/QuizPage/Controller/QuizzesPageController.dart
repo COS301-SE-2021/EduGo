@@ -20,6 +20,7 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     return QuizzesPageModel(
       this,
       currentAnswer: "",
+      answeredQuizzes: [],
       lessonQuizzes: [],
       currentQuiz: new Quiz(
         id: 0,
@@ -32,7 +33,7 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
       questionCount: 0,
       currentQuestion: new QuestionCard(
         questionId: 0,
-        question: "",
+        question: "question",
         answerOptions: [],
       ),
     );
@@ -62,6 +63,8 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
           setLessonId(id);
           dynamic _quizzes = jsonDecode(response.body);
           model.update(lessonQuizzes: Quizzes.fromJson(_quizzes, id).quizzes);
+          model.update(
+              answeredQuizzes: _quizzes['answeredQuiz_ids'].cast<int>());
           buildQuizzesView();
           MomentumRouter.goto(context, QuizzesPageView);
           return;
@@ -93,14 +96,11 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
       ),
     ).then(
       (response) {
-        //if (response.statusCode == 200) {
         int tempId = model.lessonId;
         reset();
         model.update(lessonId: tempId);
         getLessonQuizzes(context, model.lessonId);
-
         return;
-        //}
       },
     );
   }
@@ -127,12 +127,21 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     List<Widget> quizCards = [];
     model.lessonQuizzes.forEach(
       (quiz) {
-        quizCards.add(
-          new QuizCard(
-            numQuestions: quiz.getNumQuestions(),
-            id: quiz.getId(),
-          ),
+        bool find = false;
+        model.answeredQuizzes.forEach(
+          (id) {
+            if (quiz.getId() == id) {
+              find = true;
+            }
+          },
         );
+        if (find == false)
+          quizCards.add(
+            new QuizCard(
+              numQuestions: quiz.getNumQuestions(),
+              id: quiz.getId(),
+            ),
+          );
       },
     );
     model.update(quizzesView: quizCards);

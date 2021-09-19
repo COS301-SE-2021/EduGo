@@ -33,6 +33,6 @@ class _LessonsPageState extends State<LessonsPage> {
 
           return lessonsPage.view;
         });
-    return MobilePageLayout(false, true, child, 'Lessons');
+    return MobilePageLayout(false, true, false, child, 'Lessons');
   }
 }

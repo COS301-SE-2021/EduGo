@@ -200,6 +200,6 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                 ]),
           );
         });
-    return MobilePageLayout(false, true, child, 'LessonInfo');
+    return MobilePageLayout(false, true, false, child, 'LessonInfo');
   }
 }

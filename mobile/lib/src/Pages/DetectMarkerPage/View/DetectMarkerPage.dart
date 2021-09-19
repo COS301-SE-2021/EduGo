@@ -26,6 +26,7 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
     return MobilePageLayout(
         false,
         false,
+        false,
         Scaffold(
             body: Column(children: <Widget>[
           Expanded(

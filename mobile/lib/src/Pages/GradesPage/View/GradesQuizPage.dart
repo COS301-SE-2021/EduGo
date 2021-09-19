@@ -58,6 +58,7 @@ class _GradesQuizState extends State<GradesQuizPage> {
       return MobilePageLayout(
           false,
           false,
+          false,
           Container(
             child: SingleChildScrollView(
               child: Column(

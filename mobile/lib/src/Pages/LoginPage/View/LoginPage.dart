@@ -159,10 +159,10 @@ class _LoginPageState extends State<LoginPage> {
           validator: //PasswordFieldValidator.validate,
               MultiValidator([
             RequiredValidator(errorText: "* Required"),
-            MinLengthValidator(8, errorText: "Invalid password"),
-            PatternValidator(
-                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-                errorText: "Invalid password"),
+            // MinLengthValidator(8, errorText: "Invalid password"),
+            // PatternValidator(
+            //     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+            //     errorText: "Invalid password"),
           ]),
           //type of keyboard to use for editing the text.
           //keyboardType: TextInputType.,

@@ -346,6 +346,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           return MobilePageLayout(
             false,
             false,
+            false,
             child,
             'Registration',
           );
