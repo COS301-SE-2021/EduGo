@@ -8,7 +8,7 @@ import { AddedToSubjectEmail } from "../helper/email/models/AddedToSubjectEmail"
 import { VerificationEmail } from "../helper/email/models/VerificationEmail";
 import { AddStudentsToSubjectRequest } from "../models/user/AddStudentToSubjectRequest";
 import { EmailList } from "../models/user/SerivceModels";
-import { Service } from "typedi";
+import { Inject, Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { Student } from "../database/Student";
 import {
@@ -41,8 +41,8 @@ export class StudentService {
 	@InjectRepository(Quiz) private quizRepository: Repository<Quiz>;
 
 	//TODO check error regarding mockEmailService injectable
-	//@Inject('mailgunEmailService')
-	emailService: EmailService = new NodemailerService();
+	@Inject()
+	emailService: NodemailerService = new NodemailerService();
 
 	/**
 	 * @param {request} request - A request consisting of the organisation id and an array of email strings
@@ -58,17 +58,23 @@ export class StudentService {
 		request: AddStudentsToSubjectRequest
 	): Promise<string> {
 		const emails: string[] = request.students;
-
-		if (validateEmails(emails)) {
-			const list = await this.CategoriseStudentsFromEmails(emails);
-			this.HandleVerifiedStudents(list.verified, request.subject_id);
-			this.HandleUnverifiedStudents(list.unverified, request.subject_id);
-			this.HandleNonexistentStudents(
-				list.nonexistent,
-				request.subject_id
-			);
-			return "ok";
-		} else throw new BadRequestError("Could not validate emails");
+		try {
+			if (validateEmails(emails)) {
+				const list = await this.CategoriseStudentsFromEmails(emails);
+				this.HandleVerifiedStudents(list.verified, request.subject_id);
+				this.HandleUnverifiedStudents(
+					list.unverified,
+					request.subject_id
+				);
+				this.HandleNonexistentStudents(
+					list.nonexistent,
+					request.subject_id
+				);
+				return "ok";
+			} else throw new BadRequestError("Could not validate emails");
+		} catch (err) {
+			throw err;
+		}
 	}
 
 	/**
@@ -93,11 +99,10 @@ export class StudentService {
 			subject = await this.subjectRepository.findOne(id, {
 				relations: ["students", "students.user"],
 			});
+			if (!subject) throw new NotFoundError("Subject could not be found");
 		} catch (error) {
-			throw new BadRequestError("Could not find subject");
+			return;
 		}
-
-		if (!subject) throw new BadRequestError("Subject could not be found");
 
 		const allEnrolledUserEmails: string[] = subject.students.map(
 			(value) => value.user.email
@@ -143,11 +148,14 @@ export class StudentService {
 		id: number
 	): Promise<void> {
 		let subject: Subject | undefined;
-
-		subject = await this.subjectRepository.findOne(id, {
-			relations: ["unverifiedUsers"],
-		});
-		if (!subject) throw new BadRequestError("Could not find subject");
+		try {
+			subject = await this.subjectRepository.findOne(id, {
+				relations: ["unverifiedUsers"],
+			});
+			if (!subject) throw new BadRequestError("Could not find subject");
+		} catch (err) {
+			return;
+		}
 
 		const allEnrolledUnverifiedEmails: string[] =
 			subject.unverifiedUsers.map((value) => value.email);
@@ -183,10 +191,15 @@ export class StudentService {
 		id: number
 	): Promise<void> {
 		let subject: Subject | undefined;
-		subject = await this.subjectRepository.findOne(id, {
-			relations: ["unverifiedUsers", "organisation"],
-		});
-		if (!subject) throw new BadRequestError("Could not find subject");
+
+		try {
+			subject = await this.subjectRepository.findOne(id, {
+				relations: ["unverifiedUsers", "organisation"],
+			});
+			if (!subject) throw new BadRequestError("Could not find subject");
+		} catch (err) {
+			return;
+		}
 
 		const unverifiedUsers: UnverifiedUser[] = emails.map((value) => {
 			const user: UnverifiedUser = new UnverifiedUser();
@@ -272,9 +285,7 @@ export class StudentService {
 					"student.grades.lesson.subject",
 				],
 			});
-		} catch (err) {
-			throw new BadRequestError("Could not find user");
-		}
+		} catch (err) {}
 
 		if (!user) throw new BadRequestError("Could not find user");
 		if (!user.student) throw new BadRequestError("Could not find student");
@@ -364,88 +375,6 @@ export class StudentService {
 		});
 		return response;
 	}
-
-	// public async GetStudentGrades(
-	// 	user_id: number
-	// ): Promise<GetStudentGradesResponse> {
-	// 	let user: User;
-	// 	try {
-	// 		user = await getUserDetails(user_id);
-	// 	} catch (err) {
-	// 		throw err;
-	// 	}
-	// 	if (!user.student) throw new ForbiddenError("Only student grades can be displayed");
-
-	// 	try {
-	// 		let student = await this.studentRepository.findOne(
-	// 			user.student.id,
-	// 			{ relations: ["grades", "subjects"] }
-	// 		);
-	// 		if (!student) throw new BadRequestError("Could not find student");
-
-	// 		let studentGrade = await this.populateGrades(student);
-	// 		let quizGrades = await Promise.all(
-	// 			student.grades.map(async (grade) => {
-	// 				let quizGrade = {
-	// 					name: "",
-	// 					students_score: 0,
-	// 					quiz_total: 0,
-	// 					VirtualEntityId: 0,
-	// 					lessonId: 0,
-	// 				};
-	// 				let gradeInfo = await this.getGradeInfo(grade.id);
-
-	// 				if (gradeInfo) {
-	// 					quizGrade.students_score = gradeInfo.score;
-	// 					quizGrade.quiz_total = gradeInfo.total;
-	// 					quizGrade.lessonId = gradeInfo.lesson?.id;
-	// 					quizGrade.VirtualEntityId =
-	// 						await this.getvirtualEntityId(
-	// 							gradeInfo.quiz.id
-	// 						);
-	// 					return await quizGrade;
-	// 				}
-	// 			})
-	// 		);
-	// 		console.log(studentGrade);
-	// 		if(!studentGrade.subjects) throw new NotFoundError("blank not created")
-
-	// 		studentGrade.subjects = studentGrade.subjects.map(
-	// 			(subject) => {
-	// 				let subjectG = subject.lessonGrades.map(
-	// 					(lesson) => {
-	// 						let lessonG = quizGrades.map((quizMark) => {
-	// 							if (quizMark?.lessonId == lesson.id) {
-	// 								let quizes = quizGrades.map(
-	// 									(quiz) => {
-	// 										let quizer: QuizGrade={};
-	// 										if (quiz && quizMark) {
-	// 											quizer.name = quiz.name;
-	// 											quizer.student_score = quiz.students_score;
-	// 											quizer.quiz_total = quiz.quiz_total;
-	// 										}
-	// 										return quizer;
-	// 									}
-	// 								);
-
-	// 								lesson.quizGrades = quizes;
-	// 							}
-	// 							return lesson;
-	// 						});
-	// 						subject.lessonGrades = lessonG;
-	// 						return subject;
-	// 					}
-	// 				);
-	// 				return subject;
-	// 			}
-	// 		);
-	// 		return studentGrade;
-	// 	} catch (err) {
-	// 		throw err;
-	// 	}
-	// }
-
-	async getUserSubjects() {}
 	async getGradeInfo(grade_id: number) {
 		try {
 			const Quiz = await this.gradeRepository.findOne(grade_id, {
@@ -522,5 +451,4 @@ export class StudentService {
 
 		return StudentGrades;
 	}
-	async GenerateAverages(studentGrade: GetStudentGradesResponse) {}
 }
