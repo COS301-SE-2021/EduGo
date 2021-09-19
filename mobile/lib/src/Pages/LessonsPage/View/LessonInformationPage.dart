@@ -70,23 +70,87 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                   Column(
                     //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      //Lesson title, aligned top left. Button leading to Quiz top right
+                      //Lesson title, aligned top left.
+
+                      //lesson title
+                      new Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          info.lessonTitle,
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+
+                      //Lesson description
+                      new Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 25),
+                          child: Text(
+                            info.lessonDescription,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 10,
+                            softWrap: true,
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ),
+                      ),
                       new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //lesson title
-                            new Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                info.lessonTitle,
-                                style: TextStyle(
-                                  fontSize: 25,
+                            //Scan QR code
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 15.0, bottom: 8.0),
+                              child: MaterialButton(
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  MomentumRouter.goto(
+                                    context,
+                                    DetectMarkerPage,
+                                    transition: (context, page) {
+                                      return MaterialPageRoute(
+                                          builder: (context) => page);
+                                    },
+                                  );
+                                },
+                                minWidth: 10,
+                                height: 25,
+                                color: Color.fromARGB(255, 97, 211, 87),
+                                disabledColor: Color.fromRGBO(211, 212, 217, 1),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.qr_code,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
+                                      Text(
+                                        "Scan QR code ",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                             //Quizzes button
-                            new Align(
-                              alignment: Alignment.topRight,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 15.0, bottom: 8.0),
                               child: MaterialButton(
                                 elevation: 20,
                                 shape: RoundedRectangleBorder(
@@ -122,66 +186,6 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                               ),
                             ),
                           ]),
-                      //Lesson description
-                      new Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 25),
-                          child: Text(
-                            info.lessonDescription,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 10,
-                            softWrap: true,
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                        ),
-                      ),
-                      //Scan QR code
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 8.0),
-                        child: MaterialButton(
-                            elevation: 20,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            onPressed: () {
-                              MomentumRouter.goto(
-                                context,
-                                DetectMarkerPage,
-                                transition: (context, page) {
-                                  return MaterialPageRoute(
-                                      builder: (context) => page);
-                                },
-                              );
-                            },
-                            minWidth: 10,
-                            height: 25,
-                            color: Color.fromARGB(255, 97, 211, 87),
-                            disabledColor: Color.fromRGBO(211, 212, 217, 1),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.qr_code,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
-                                  Text(
-                                    "Scan QR code ",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      ),
-
                       //Virtual entities display:
                       //the number of tabs represent the no of virual entity
                       // each virtual entity is labeled by it's id
