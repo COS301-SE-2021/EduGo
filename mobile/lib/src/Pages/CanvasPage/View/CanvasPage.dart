@@ -58,6 +58,7 @@ class CanvasPage extends StatelessWidget {
     return MobilePageLayout(
       false, 
       false,
+      false,
       Scaffold(
         body: canvas
       )
