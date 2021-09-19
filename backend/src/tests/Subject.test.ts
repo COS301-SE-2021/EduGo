@@ -9,6 +9,7 @@ import { GetLessonsBySubjectRequest } from "../api/models/lesson/GetLessonsBySub
 import { AddVirtualEntityToLessonRequest } from "../api/models/lesson/AddVirtualEntityToLessonRequest";
 import { CreateSubjectRequest } from "../api/models/subject/CreateSubjectRequest";
 import { DeleteSubjectRequest } from "../api/models/subject/DeleteSubjectRequest";
+import { Subject } from "../api/database/Subject";
 describe("Subject API tests", () => {
 	let educatorToken = "";
 	beforeAll(async () => {
@@ -43,12 +44,10 @@ describe("Subject API tests", () => {
 		when(
 			App.mockedLessonRepository.save(anyOfClass(Lesson))
 		).thenResolve({ id: 1 });
-
-
 	});
 
 	describe("POST /subject/createSubject", () => {
-		it.skip("should create a new Subject", async () => {
+		it("should create a new Subject", async () => {
 			const req: CreateSubjectRequest = {
 				grade:1, 
 				title:"Test Subject"
@@ -57,27 +56,21 @@ describe("Subject API tests", () => {
 				App.mockedUserRepository.findOne(anyNumber(), anything())
 			).thenResolve(Default.educatorUser);
 
-			when(App.mockedUserRepository.findOne(anything())).thenResolve(
-				Default.educatorUser
-			);
 			when(
-				App.mockedSubjectRepository.findOne(anyNumber(), anything())
-			).thenResolve(Default.subjects[0]);
-
-			when(
-				App.mockedLessonRepository.save(anyOfClass(Lesson))
+				App.mockedSubjectRepository.save(anyOfClass(Subject))
 			).thenResolve({ id: 1 });
 
-			
+			when(App.mockedAzureBlobService.createAppendBlobFromStream(anything(),anything(),anything(),anyNumber(), anything())).thenResolve().thenResolve()
+			when(App.mockedAzureBlobService.getUrl(anything(),anything())).thenReturn("www.edugo.com")
 			const response = await request(App.app)
 				.post("/subject/createSubject")
-				.set("Accept", "application/json")
 				.set("Authorization", educatorToken)
-				.send(req)
-				//.expect(200)
-			//	.expect("Content-Type", /json/);
-				//expect(response.body.id).toBeDefined();
-				console.log(response)
+				.field("grade", req.grade)
+				.field("title", req.title)
+				.attach('file', "C:/Users/simek/Downloads/output-onlinepngtools.png")
+				.expect(200)
+				.expect("Content-Type", /json/);
+				expect(response.body.id).toBeDefined();
 		});
 		
 	});
@@ -145,8 +138,5 @@ describe("Subject API tests", () => {
 		});
 		
 	});
-
-
-
 
 });
