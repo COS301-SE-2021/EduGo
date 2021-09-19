@@ -45,14 +45,15 @@ class UserController extends MomentumController<UserModel> {
             mock == true ? httpMock.MockClient(mockApi.verify) : http.Client());
   }
 
-  Future<bool> register(
-      {required String username,
-      required String password,
-      required String email,
-      required String firstName,
-      required String lastName,
-      required String organisation_id,
-      required String type}) {
+  Future<bool> register({
+    required String username,
+    required String password,
+    required String email,
+    required String firstName,
+    required String lastName,
+    // required String organisation_id,
+    // required String type
+  }) {
     final api = service<UserApiService>();
     return api.register(
         username: username,
@@ -60,8 +61,8 @@ class UserController extends MomentumController<UserModel> {
         email: email,
         firstName: firstName,
         lastName: lastName,
-        organisation_id: organisation_id,
-        type: type,
+        // organisation_id: organisation_id,
+        // type: type,
         client: mock == true
             ? httpMock.MockClient(mockApi.register)
             : http.Client());

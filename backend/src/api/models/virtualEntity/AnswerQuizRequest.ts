@@ -6,5 +6,5 @@ export class AnswerQuizRequest {
 
 export class Answer {
 	question_id: number;
-	answer: String;
+	answer: string;
 }

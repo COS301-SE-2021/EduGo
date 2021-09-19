@@ -20,20 +20,21 @@ const options = {
 };
 
 export class PassportMiddleware {
-	constructor(private userRepository: Repository<User>, passport: PassportStatic) {
+	constructor(
+		private userRepository: Repository<User>,
+		passport: PassportStatic
+	) {
 		passport.use(
 			new JwtStrategy(options, async (payload: any, done: any) => {
 				// We will assign the `sub` property on the JWT to the database ID of user
 				try {
-					let user = await this.userRepository.findOne(payload.sub)
+					const user = await this.userRepository.findOne(payload.sub);
 					if (user) return done(null, user);
 					else done(null, false);
-				}
-				catch (err) {
+				} catch (err) {
 					return done(err, false);
 				}
 			})
-		)
+		);
 	}
-
 }

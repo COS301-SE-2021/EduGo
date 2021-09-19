@@ -56,11 +56,11 @@ export class StudentService {
 	 */
 	public async AddUsersToSubject(
 		request: AddStudentsToSubjectRequest
-	): Promise<String> {
-		let emails: string[] = request.students;
+	): Promise<string> {
+		const emails: string[] = request.students;
 
 		if (validateEmails(emails)) {
-			let list = await this.CategoriseStudentsFromEmails(emails);
+			const list = await this.CategoriseStudentsFromEmails(emails);
 			this.HandleVerifiedStudents(list.verified, request.subject_id);
 			this.HandleUnverifiedStudents(list.unverified, request.subject_id);
 			this.HandleNonexistentStudents(
@@ -99,28 +99,30 @@ export class StudentService {
 
 		if (!subject) throw new BadRequestError("Subject could not be found");
 
-		let allEnrolledUserEmails: string[] = subject.students.map(
+		const allEnrolledUserEmails: string[] = subject.students.map(
 			(value) => value.user.email
 		);
-		let nonEnrolledUserEmails: string[] = emails.filter(
+		const nonEnrolledUserEmails: string[] = emails.filter(
 			(value) => !allEnrolledUserEmails.includes(value)
 		);
 
-		let users = await this.userRepository.find({
+		const users = await this.userRepository.find({
 			where: { email: In(nonEnrolledUserEmails) },
 			relations: ["student"],
 		});
 		subject.students.push(...users.map((value) => value.student));
-		let addedToSubjectEmails: AddedToSubjectEmail[] = users.map((value) => {
-			return {
-				email: value.email,
-				name: value.firstName,
-				subject: subject!.title,
-			};
-		});
+		const addedToSubjectEmails: AddedToSubjectEmail[] = users.map(
+			(value) => {
+				return {
+					email: value.email,
+					name: value.firstName,
+					subject: subject!.title,
+				};
+			}
+		);
 
 		await this.subjectRepository.save(subject);
-		let status = await this.emailService.SendBulkAddedToSubjectEmails(
+		const status = await this.emailService.SendBulkAddedToSubjectEmails(
 			addedToSubjectEmails
 		);
 		if (!status)
@@ -147,18 +149,17 @@ export class StudentService {
 		});
 		if (!subject) throw new BadRequestError("Could not find subject");
 
-		let allEnrolledUnverifiedEmails: string[] = subject.unverifiedUsers.map(
-			(value) => value.email
-		);
+		const allEnrolledUnverifiedEmails: string[] =
+			subject.unverifiedUsers.map((value) => value.email);
 
-		let nonEnrolledUnverifiedEmails: string[] = emails.filter(
+		const nonEnrolledUnverifiedEmails: string[] = emails.filter(
 			(value) => !allEnrolledUnverifiedEmails.includes(value)
 		);
 
-		let users = await this.unverifiedUserRepository.find({
+		const users = await this.unverifiedUserRepository.find({
 			where: { email: In(nonEnrolledUnverifiedEmails) },
 		});
-		let unverifiedEmails: VerificationEmail[] = users.map((value) => {
+		const unverifiedEmails: VerificationEmail[] = users.map((value) => {
 			return {
 				code: value.verificationCode,
 				email: value.email,
@@ -167,9 +168,10 @@ export class StudentService {
 		subject.unverifiedUsers.push(...users);
 
 		await this.subjectRepository.save(subject);
-		let status = await this.emailService.SendBulkVerificationReminderEmails(
-			unverifiedEmails
-		);
+		const status =
+			await this.emailService.SendBulkVerificationReminderEmails(
+				unverifiedEmails
+			);
 		if (!status)
 			throw new InternalServerError("Could not send reminder emails");
 	}
@@ -186,8 +188,8 @@ export class StudentService {
 		});
 		if (!subject) throw new BadRequestError("Could not find subject");
 
-		let unverifiedUsers: UnverifiedUser[] = emails.map((value) => {
-			let user: UnverifiedUser = new UnverifiedUser();
+		const unverifiedUsers: UnverifiedUser[] = emails.map((value) => {
+			const user: UnverifiedUser = new UnverifiedUser();
 			user.email = value;
 			user.verificationCode = this.generateCode(5);
 			user.organisation = subject!.organisation;
@@ -196,7 +198,7 @@ export class StudentService {
 			return user;
 		});
 
-		let unverifiedEmails: VerificationEmail[] = unverifiedUsers.map(
+		const unverifiedEmails: VerificationEmail[] = unverifiedUsers.map(
 			(value) => {
 				return {
 					code: value.verificationCode,
@@ -206,7 +208,7 @@ export class StudentService {
 		);
 
 		await this.unverifiedUserRepository.save(unverifiedUsers);
-		let status = await this.emailService.SendBulkVerificationEmails(
+		const status = await this.emailService.SendBulkVerificationEmails(
 			unverifiedEmails
 		);
 		if (!status) throw new InternalServerError("Could not send all emails");
@@ -215,21 +217,21 @@ export class StudentService {
 	private async CategoriseStudentsFromEmails(
 		emails: string[]
 	): Promise<EmailList> {
-		let list: EmailList = {
+		const list: EmailList = {
 			verified: [],
 			unverified: [],
 			nonexistent: [],
 		};
 
-		let users = await this.userRepository.find({
+		const users = await this.userRepository.find({
 			where: { email: In(emails) },
 		});
 		list.verified = users.map((value) => value.email);
-		let withoutVerified: string[] = emails.filter(
+		const withoutVerified: string[] = emails.filter(
 			(value) => !list.verified.includes(value)
 		);
 
-		let unverifiedUsers = await this.unverifiedUserRepository.find({
+		const unverifiedUsers = await this.unverifiedUserRepository.find({
 			where: { email: In(withoutVerified) },
 		});
 		list.unverified = unverifiedUsers.map((value) => value.email);
@@ -241,7 +243,7 @@ export class StudentService {
 	}
 
 	private generateCode(length: number): string {
-		let charset = "0123456789";
+		const charset = "0123456789";
 		let result = "";
 		for (let i = 0; i < length; i++)
 			result += charset[Math.floor(Math.random() * charset.length)];
@@ -277,14 +279,14 @@ export class StudentService {
 		if (!user) throw new BadRequestError("Could not find user");
 		if (!user.student) throw new BadRequestError("Could not find student");
 
-		let response: GetStudentGradesResponse = {
+		const response: GetStudentGradesResponse = {
 			subjects: [],
 		};
 
 		//For each grade
 		user.student.grades.map((value) => {
 			//Get the subject name
-			let subjectName: string = value.lesson.subject.title;
+			const subjectName: string = value.lesson.subject.title;
 
 			//Search for the corresponding SubjectGrades object in the response object
 			let subject: SubjectGrades | undefined = response.subjects.find(
@@ -303,7 +305,7 @@ export class StudentService {
 			}
 
 			//Get the lesson name
-			let lessonName: string = value.lesson.title;
+			const lessonName: string = value.lesson.title;
 
 			//Search for the corresponding LessonGrades object in the current subject object
 			let lesson: LessonGrades | undefined = subject.lessonGrades.find(
@@ -322,7 +324,7 @@ export class StudentService {
 			}
 
 			//Create the quiz grade object and push it to the current lesson object
-			let grade: QuizGrade = {
+			const grade: QuizGrade = {
 				name: "",
 				quiz_total: value.total,
 				student_score: value.score,
@@ -332,10 +334,10 @@ export class StudentService {
 		});
 
 		//Get all the subjects that have grades for the user then get the remaining user subjects that do not have grades
-		let existingSubjectIds: number[] = response.subjects.map(
+		const existingSubjectIds: number[] = response.subjects.map(
 			(sub) => sub.id
 		);
-		let remainingSubjects: Subject[] = user.student.subjects.filter(
+		const remainingSubjects: Subject[] = user.student.subjects.filter(
 			(sub) => !existingSubjectIds.includes(sub.id)
 		);
 
@@ -352,7 +354,7 @@ export class StudentService {
 		});
 		//For each remaining subject create a new SubjectGrades object and push it to the response object
 		remainingSubjects.map((sub) => {
-			let subject: SubjectGrades = {
+			const subject: SubjectGrades = {
 				id: sub.id,
 				subjectName: sub.title,
 				gradeAchieved: 0,
@@ -362,7 +364,6 @@ export class StudentService {
 		});
 		return response;
 	}
-
 
 	// public async GetStudentGrades(
 	// 	user_id: number
@@ -447,7 +448,7 @@ export class StudentService {
 	async getUserSubjects() {}
 	async getGradeInfo(grade_id: number) {
 		try {
-			let Quiz = await this.gradeRepository.findOne(grade_id, {
+			const Quiz = await this.gradeRepository.findOne(grade_id, {
 				relations: ["quiz", "lesson"],
 			});
 			if (Quiz) {
@@ -455,13 +456,15 @@ export class StudentService {
 			} else throw new NotFoundError("Quiz not found");
 		} catch (err) {
 			console.log(err);
-			throw new InternalServerError(`Could not find grade id: ${grade_id}`);
+			throw new InternalServerError(
+				`Could not find grade id: ${grade_id}`
+			);
 		}
 	}
 
 	async getvirtualEntityId(quiz_id: number) {
 		try {
-			let quiz = await this.quizRepository.findOne(quiz_id, {
+			const quiz = await this.quizRepository.findOne(quiz_id, {
 				relations: ["virtualEntity"],
 			});
 
@@ -471,7 +474,9 @@ export class StudentService {
 			return 0;
 		} catch (err) {
 			console.log(err);
-			throw new InternalServerError(`Could not finnd quiz id: ${quiz_id}`);
+			throw new InternalServerError(
+				`Could not finnd quiz id: ${quiz_id}`
+			);
 		}
 	}
 	/**
@@ -482,8 +487,8 @@ export class StudentService {
 	async populateGrades(student: Student): Promise<GetStudentGradesResponse> {
 		console.log(student);
 
-		let studentSubjects = student.subjects.map((subject) => {
-			let createdSubject: SubjectGrades = {
+		const studentSubjects = student.subjects.map((subject) => {
+			const createdSubject: SubjectGrades = {
 				id: subject.id,
 				subjectName: subject.title,
 				gradeAchieved: -1,
@@ -493,13 +498,13 @@ export class StudentService {
 		});
 
 		console.log(studentSubjects);
-		let ids = studentSubjects.map((subject) => subject.id);
-		let subjects: Subject[] = await this.subjectRepository.find({
+		const ids = studentSubjects.map((subject) => subject.id);
+		const subjects: Subject[] = await this.subjectRepository.find({
 			where: { id: In(ids) },
 			relations: ["lessons"],
 		});
 		studentSubjects.map(async (subject) => {
-			let subjectLesson = subjects.find((sub) => sub.id == subject.id);
+			const subjectLesson = subjects.find((sub) => sub.id == subject.id);
 			if (!subjectLesson) throw new NotFoundError("Subject not found");
 
 			subject.lessonGrades = subjectLesson.lessons.map((lesson) => {
@@ -511,7 +516,7 @@ export class StudentService {
 				};
 			});
 		});
-		let StudentGrades: GetStudentGradesResponse = {
+		const StudentGrades: GetStudentGradesResponse = {
 			subjects: studentSubjects,
 		};
 

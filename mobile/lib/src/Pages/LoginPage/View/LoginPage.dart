@@ -1,12 +1,21 @@
+<<<<<<< HEAD
+import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
+import 'package:momentum/momentum.dart';
+import 'package:mobile/src/Components/User/Controller/UserController.dart';
+=======
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:mobile/src/Components/Common/ValidationClasses.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 import 'package:momentum/momentum.dart';
 import 'package:mobile/src/Components/User/Controller/UserController.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationPage.dart';
+>>>>>>> master
 import 'package:mobile/src/Pages/RegistrationPage/View/RegistrationVerificationPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -42,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             username: username_text_controller.text,
             password: password_text_controller.text) ==
         true) {
-      // Leads to home page
+      // Leads to subjects page
       MomentumRouter.goto(context, SubjectsPage, transition: (context, page) {
         return MaterialPageRoute(builder: (context) => page);
       });
@@ -81,42 +90,81 @@ class _LoginPageState extends State<LoginPage> {
     //////////////////////////////////  WIDGETS  /////////////////////////////////
     //These may include the following widgets: input fields, buttons, forms
 
-    /*
-    Widget loginImage (int height, int width) = Container(
-        alignment: Alignment.center,
-        height: height * 0.45,
-        widthFactor: 0.9,
-        child: Image.asset(
-          'assets/login_image',
-          fit: BoxFit.fill,
-        ));
-    */
-
+    //HEADING of the page: User Login
     Widget loginUserHeading = new Text(
       'User',
       key: Key('loginUserHeading'),
       textDirection: TextDirection.ltr,
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
+      style: TextStyle(
+<<<<<<< HEAD
+          fontSize: 40, color: Colors.black, fontWeight: FontWeight.normal),
+=======
+          fontSize: 35, color: Colors.black, fontWeight: FontWeight.normal),
+>>>>>>> master
     );
 
     Widget loginLoginHeading = new Text(
       'Login',
       key: Key('loginLoginHeading'),
       textDirection: TextDirection.ltr,
-      style: const TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
+      style: TextStyle(
+<<<<<<< HEAD
+          fontSize: 45,
+=======
+          fontSize: 35,
+>>>>>>> master
+          color: Color.fromARGB(255, 97, 211, 87),
+          fontWeight: FontWeight.bold),
     );
 
+    // Username input field
     Widget usernameInputWidget = FractionallySizedBox(
       widthFactor: 0.8,
       alignment: Alignment.center,
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         //username input field
+<<<<<<< HEAD
+        child: Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ThemeData().colorScheme.copyWith(
+                    primary: Color.fromARGB(255, 97, 211, 87),
+                  ),
+            ),
+            child: TextFormField(
+              key: Key('login_username'),
+
+              //Controller is notified when the text changes
+              controller: username_text_controller,
+              //username is required
+              validator: //UsernameFieldValidator.validate,
+                  MultiValidator(
+                [
+                  RequiredValidator(errorText: "* Required"),
+                  LengthRangeValidator(
+                      min: 4, max: 20, errorText: 'Invalid username')
+                ],
+              ),
+              //type of keyboard to use for editing the text.
+              //keyboardType: TextInputType.name,
+              //Input field UI
+              style: TextStyle(),
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+                ),
+                border: OutlineInputBorder(),
+                hintStyle: TextStyle(fontSize: 15),
+                hintText: "Username",
+                suffixIcon: Icon(
+                  Icons.person,
+                ),
+              ),
+            )),
+=======
         child: new TextFormField(
           key: Key('login_username'),
           //Controller is notified when the text changes
@@ -134,13 +182,17 @@ class _LoginPageState extends State<LoginPage> {
           //Input field UI
           style: TextStyle(),
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
             ),
+            border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 15),
             hintText: "Username",
             suffixIcon: Icon(Icons.person),
           ),
         ),
+>>>>>>> master
       ),
     );
 
@@ -150,9 +202,47 @@ class _LoginPageState extends State<LoginPage> {
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
-          left: 30,
         ),
         //password input field
+<<<<<<< HEAD
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ThemeData().colorScheme.copyWith(
+                  primary: Color.fromARGB(255, 97, 211, 87),
+                ),
+          ),
+          child: TextFormField(
+            key: Key('login_password'),
+            //Controller is notified when the text changes
+            controller: password_text_controller,
+            obscureText: true,
+
+            //password is required, must be 6 digits long and must be numeric
+            validator: //PasswordFieldValidator.validate,
+                MultiValidator([
+              RequiredValidator(errorText: "* Required"),
+              MinLengthValidator(8, errorText: "Invalid password"),
+              PatternValidator(
+                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                  errorText: "Invalid password"),
+            ]),
+            //type of keyboard to use for editing the text.
+            //keyboardType: TextInputType.,
+            //Input field UI
+            style: TextStyle(),
+            decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
+              ),
+              border: OutlineInputBorder(),
+              hintStyle: TextStyle(fontSize: 15),
+              hintText: "Password",
+              suffixIcon: Icon(
+                Icons.visibility_off,
+              ),
+            ),
+=======
         child: TextFormField(
           key: Key('login_password'),
           //Controller is notified when the text changes
@@ -174,16 +264,51 @@ class _LoginPageState extends State<LoginPage> {
           //Input field UI
           style: TextStyle(),
           decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 97, 211, 87), width: 2.0),
             ),
+            border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 15),
             hintText: "Password",
             suffixIcon: Icon(Icons.visibility_off),
+>>>>>>> master
           ),
         ),
       ),
     );
 
+<<<<<<< HEAD
+    Widget registerWidget = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Text('Can\'t log in yet: '),
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            key: navigateToVerificationLinkKey,
+            onTap: () {
+              //Leads to registration verification page
+              MomentumRouter.goto(context, RegistrationVerificationPage,
+                  transition: (context, page) {
+                return MaterialPageRoute(builder: (context) => page);
+              });
+            },
+            child: Text(
+              'Verify Registration',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 97, 211, 87),
+                  decoration: TextDecoration.underline),
+            ),
+          ),
+        )
+      ],
+    );
+
+    Widget loginButtonWidget = FractionallySizedBox(
+      widthFactor: 0.8,
+=======
     Widget registerWidget = GestureDetector(
       key: navigateToVerificationLinkKey,
       onTap: () {
@@ -206,23 +331,37 @@ class _LoginPageState extends State<LoginPage> {
 
     Widget loginButtonWidget = FractionallySizedBox(
       widthFactor: 0.7,
+>>>>>>> master
       alignment: Alignment.centerRight,
       child: Padding(
         padding: const EdgeInsets.only(
           top: 30,
           bottom: 30,
-          left: 30,
         ),
         child: MaterialButton(
+          elevation: 40,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+<<<<<<< HEAD
+          onPressed: () {
+            if (_loginFormKey.currentState!.validate())
+              _submitForm(userController);
+          },
+=======
           onPressed: () => _submitForm(userController),
+>>>>>>> master
           height: 60,
-          color: Colors.black,
+          color: Color.fromARGB(255, 97, 211, 87),
+          disabledColor: Color.fromRGBO(211, 212, 217, 1),
           child: Row(
             children: <Widget>[
               Expanded(
                 child: Text(
                   "Login",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
               ),
               Icon(Icons.login_outlined, color: Colors.white),
@@ -232,7 +371,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    Widget paddingWidget = Padding(padding: const EdgeInsets.only(top: 50));
+    Widget paddingWidget = Padding(padding: const EdgeInsets.only(top: 25));
 
     error_snackbar = SnackBar(
         key: Key('login_snackbar'),
@@ -258,38 +397,74 @@ class _LoginPageState extends State<LoginPage> {
         ));
 
     Widget child = Scaffold(
-        body: Form(
-            key: _scaffoldKey,
-            child: Stack(key: Key('login_form'), children: <Widget>[
-              Container(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              Color.fromRGBO(20, 195, 50, 1.0),
+              Color.fromRGBO(11, 36, 54, 1.0)
+            ],
+          ),
+        ),
+        child: Form(
+<<<<<<< HEAD
+          key: _loginFormKey,
+=======
+          key: _scaffoldKey,
+>>>>>>> master
+          child: Stack(key: Key('login_form'), children: <Widget>[
+            //to see te underlying green color
+            Padding(
+              padding:
+<<<<<<< HEAD
+                  const EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
+=======
+                  const EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+>>>>>>> master
+              child: Material(
+                elevation: 40,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      style: BorderStyle.solid,
-                      color: Colors.green,
+<<<<<<< HEAD
+                  padding: EdgeInsets.only(top: 25, bottom: 15),
+=======
+                  padding: EdgeInsets.only(top: 50),
+>>>>>>> master
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 30,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+<<<<<<< HEAD
+                        crossAxisAlignment: CrossAxisAlignment.center,
+=======
+>>>>>>> master
+                        textDirection: TextDirection.ltr,
+                        children: [
+                          loginUserHeading,
+                          loginLoginHeading,
+                          paddingWidget,
+                          usernameInputWidget,
+                          passwordInputWidget,
+                          loginButtonWidget,
+                          registerWidget,
+                        ],
+                      ),
                     ),
                   ),
-                  child: SingleChildScrollView(
-                      child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 30,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            textDirection: TextDirection.ltr,
-                            children: [
-                              //loginImage,
-                              loginUserHeading,
-                              loginLoginHeading,
-                              paddingWidget,
-                              usernameInputWidget,
-                              passwordInputWidget,
-                              loginButtonWidget,
-                              registerWidget,
-                            ],
-                          ))))
-            ])));
+                ),
+              ),
+            ),
+          ]),
+        ),
+      ),
+    );
     //////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////  VIEW RETURNED  //////////////////////////////

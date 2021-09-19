@@ -15,13 +15,13 @@ export class Student {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@ManyToMany(type => Subject, subject => subject.students)
+	@ManyToMany((type) => Subject, (subject) => subject.students)
 	@JoinTable()
 	subjects: Subject[];
 
-	@OneToMany((type) => Grade, (grade) => grade.student,{cascade:true})
+	@OneToMany((type) => Grade, (grade) => grade.student, { cascade: true })
 	grades: Grade[];
 
-	@OneToOne(type => User, user => user.student)
+	@OneToOne((type) => User, (user) => user.student)
 	user: User;
 }

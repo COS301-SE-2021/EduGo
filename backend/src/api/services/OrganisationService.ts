@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest";
 import { AddSubjectToOrganisationResponse } from "../models/organisation/AddSubjectToOrganisationResponse";
 import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisationRequest";
@@ -5,7 +6,7 @@ import { CreateOrganisationResponse } from "../models/organisation/CreateOrganis
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
 import {
 	GetOrganisationResponse,
-	educatorDetails
+	educatorDetails,
 } from "../models/organisation/GetOrganisationResponse";
 
 import { Organisation } from "../database/Organisation";
@@ -64,7 +65,7 @@ export class OrganisationService {
 								this.organisationRepository
 									.save(organisation)
 									.then((result) => {
-										let response: AddSubjectToOrganisationResponse =
+										const response: AddSubjectToOrganisationResponse =
 											{
 												count: result.subjects.length,
 												message: `Added subject ID ${subject.id} to organisation ID ${result.id}`,
@@ -101,7 +102,7 @@ export class OrganisationService {
 	async CreateOrganisation(
 		request: CreateOrganisationRequest
 	): Promise<CreateOrganisationResponse> {
-		let organisation: Organisation = new Organisation();
+		const organisation: Organisation = new Organisation();
 		organisation.name = request.organisation_name;
 		organisation.email = request.organisation_email;
 		organisation.phone = request.organisation_phone;
@@ -112,13 +113,13 @@ export class OrganisationService {
 			.then(async (org) => {
 				request.userType = userType.firstAdmin;
 				request.organisation_id = org.id;
-				let registerObj: RegisterRequest = {
+				const registerObj: RegisterRequest = {
 					...request,
 				};
 
 				try {
 					await this.authService.register(registerObj);
-					let response: CreateOrganisationResponse = {
+					const response: CreateOrganisationResponse = {
 						id: org.id,
 					};
 					return response;
@@ -143,7 +144,7 @@ export class OrganisationService {
 			.findOne(request.id, { relations: ["subjects", "users"] })
 			.then(async (organisation) => {
 				if (organisation) {
-					let response: GetOrganisationResponse = {
+					const response: GetOrganisationResponse = {
 						organisation_email: organisation.email,
 						organisation_name: organisation.name,
 						organisation_phone: organisation.phone,
@@ -152,16 +153,16 @@ export class OrganisationService {
 						educator: [],
 					};
 
-					let ids = organisation.users.map((user) => user.id);
+					const ids = organisation.users.map((user) => user.id);
 
-					let users: User[] = await (
+					const users: User[] = await (
 						await this.userRepository.find({
 							where: { id: In(ids) },
 							relations: ["educator"],
 						})
 					).filter((user) => user.educator != undefined);
-					let educators: educatorDetails[] = users.map((user) => {
-						let populatedUserDetails: educatorDetails = {
+					const educators: educatorDetails[] = users.map((user) => {
+						const populatedUserDetails: educatorDetails = {
 							username: user.username,
 							firstName: user.lastName,
 							lastName: user.lastName,
@@ -195,9 +196,9 @@ export class OrganisationService {
 		return this.organisationRepository
 			.find()
 			.then((organisations) => {
-				let response: GetOrganisationsResponse = {
+				const response: GetOrganisationsResponse = {
 					organisations: organisations.map((value) => {
-						let organisation: GOs_Organisation = {
+						const organisation: GOs_Organisation = {
 							organisation_email: value.email,
 							organisation_name: value.name,
 							organisation_phone: value.phone,

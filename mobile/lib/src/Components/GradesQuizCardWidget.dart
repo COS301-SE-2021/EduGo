@@ -13,6 +13,10 @@ import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
  *------------------------------------------------------------------------------
 */
 
+//TODO: CHECK IF THE QUIZ WILL HAVE A QUIZ TITLE. I THINK IT SHOULD.
+//IF IT DOES, ADD IT TO THE PAGE ETC. ALSO ASK IF WE NEED QUIZ ID.
+//REDIRECT TO GO TO MISH'S PAGE OF SEEING ALL ANSWERS
+
 class GradesQuizCard extends StatelessWidget {
   //Holds the quiz title
   // final String quizTitle;
@@ -41,8 +45,6 @@ class GradesQuizCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      // height: 400,
-      // width: 400,
       //This is the main lesson card design. It is all in a container and
       //displays info like the lesson title, lesson objectives and
       //the lesson
@@ -52,10 +54,8 @@ class GradesQuizCard extends StatelessWidget {
             semanticContainer: true,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
-              //side: BorderSide(color: Colors.purple),
             ),
             clipBehavior: Clip.antiAlias,
-            //color: Colors.green,
             color: Color.fromARGB(0, 246, 246, 246),
             //This allows the card to be clickable so that when clicked,
             // it will go to the lessons description for that lesson
@@ -81,22 +81,15 @@ class GradesQuizCard extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.width / 10,
-                        // child: DecoratedBox(
-                        // decoration: BoxDecoration(color: Colors.purple),
-                        //),
-
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: MaterialButton(
-                            // color: backgroundColourForMark,
                             shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
                               side: BorderSide(color: Colors.black),
                             ),
                             onPressed: () {},
-                            //minWidth: 50,
-                            //height: 60,
                             child: Text(
                               '$studentQuizMark' + '/' + '$quizTotalMark',
                               textAlign: TextAlign.center,
@@ -122,24 +115,6 @@ class GradesQuizCard extends StatelessWidget {
                     //       softWrap: false,
                     //       style: TextStyle(
                     //           fontSize: 22,
-                    //           fontWeight: FontWeight.bold,
-                    //           color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
-                    // Align(
-                    //   alignment: Alignment.bottomCenter,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.only(top: 15),
-                    //     child: Text(
-                    //       "marksDescription",
-                    //       //"",
-                    //       textAlign: TextAlign.center,
-                    //       overflow: TextOverflow.ellipsis,
-                    //       maxLines: 4,
-                    //       softWrap: false,
-                    //       style: TextStyle(
-                    //           fontSize: 18,
                     //           fontWeight: FontWeight.bold,
                     //           color: Colors.black),
                     //     ),

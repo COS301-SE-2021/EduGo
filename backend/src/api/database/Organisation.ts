@@ -15,13 +15,13 @@ export class Organisation {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column({unique:true})
+	@Column({ unique: true })
 	name: string;
 
-	@Column({unique:true})
+	@Column({ unique: true })
 	email: string;
 
-	@Column({unique:true})
+	@Column({ unique: true })
 	phone: string;
 
 	@OneToMany((type) => Subject, (subject) => subject.organisation, {
@@ -45,6 +45,9 @@ export class Organisation {
 	//Emblem
 	//Banner
 
-	@OneToMany((type) => VirtualEntity, (virtualEntity) => virtualEntity.organisation)
+	@OneToMany(
+		(type) => VirtualEntity,
+		(virtualEntity) => virtualEntity.organisation
+	)
 	virtualEntities: VirtualEntity[];
 }

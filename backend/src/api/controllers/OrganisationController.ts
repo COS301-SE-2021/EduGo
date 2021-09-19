@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { AddSubjectToOrganisationRequest } from "../models/organisation/AddSubjectToOrganisationRequest";
 import { CreateOrganisationRequest } from "../models/organisation/CreateOrganisationRequest";
 import { GetOrganisationRequest } from "../models/organisation/GetOrganisationRequest";
@@ -24,7 +25,7 @@ export class OrganisationController {
 	}
 
 	@Post("/getOrganisation")
-	@UseBefore(passport.authenticate("jwt", { session: false }))
+	//@UseBefore(passport.authenticate("jwt", { session: false }))
 	//TODO fix the isUser middleware
 	//@UseBefore(isUser)
 	GetOrganisation(@Body({ required: true }) body: GetOrganisationRequest) {

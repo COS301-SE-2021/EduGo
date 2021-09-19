@@ -8,10 +8,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:mobile/src/Components/ErrorHandelingCard.dart';
 import 'package:mobile/src/Components/LessonsCardWidgets.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
+import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
 import 'package:momentum/momentum.dart';
 
@@ -19,61 +19,66 @@ import 'package:momentum/momentum.dart';
  *                          Lesson View Page  
  *------------------------------------------------------------------------------
  */
-class LessonsPage extends StatefulWidget {
+
+class LessonsPageParam extends RouterParam {
   //This title variable holds the subject
   //title of the card that was clicked on
-  final String title;
-
+  final int subjectID;
   //This subject ID variable holds the subject
   //id of the card that was clicked on
-  final int subjectID;
+  final String title;
+  LessonsPageParam(this.subjectID, this.title);
+}
 
+// usage
+// MomentumRouter.goto(context, HomePage, params: LessonsPageParam('Hello', 'World'));
+
+class LessonsPage extends StatefulWidget {
   //LessonPage constructor
-  LessonsPage({Key? key, required this.title, required this.subjectID})
-      : super(key: key);
+  LessonsPage({Key? key}) : super(key: key);
 
   @override
-  _LessonsPageState createState() =>
-      _LessonsPageState(title: this.title, subjectID: this.subjectID);
+  _LessonsPageState createState() => _LessonsPageState();
 }
 
 class _LessonsPageState extends State<LessonsPage> {
-  String title;
-  int subjectID;
-
-  _LessonsPageState({required this.subjectID, required this.title});
+  _LessonsPageState();
 
   @override
   Widget build(BuildContext context) {
+    final param = MomentumRouter.getParam<LessonsPageParam>(context);
+
     //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
     //the two bool represent side bar and navbar. so if true and true, them
     //the side bar and nav bar will be displayed.
     //i.e true=yes display, false=no do not display
+
     return MobilePageLayout(
       false,
       true,
-      //Container(
       MomentumBuilder(
         controllers: [LessonsController],
         builder: (context, snapshot) {
           //Used by momentum mvc model
           //Used to get the list of lessons
           final lessons = snapshot<LessonsModel>();
-
-          //Used to call the specific function in the controller called getLessons
-          //This requires the subjectID to be passed
-          final lessonController =
-              Momentum.controller<LessonsController>(context);
-
           //Call the getLessonsfunction to pass in the subject id.
           //This is needed to map the lessons to the subjects in the controller
-          lessonController.getLessons(subjectID);
-
+          final lessonController =
+              Momentum.controller<LessonsController>(context);
+          //Used to call the specific function in the controller called getLessons
+          lessonController.getLessons(param!.subjectID);
+          //This requires the subjectID to be passed
+<<<<<<< HEAD
+          print(lessons.lessons);
+=======
+          // print(lessons.lessons);
+>>>>>>> master
           //Get the number of lessons for a particular subject
           int lessonsCount = lessons.lessons.length;
-
           //A check to see if there are subjects. If there are no subjects,
           //display another card saying no subjects are available
+
           if (lessonsCount > 0 && lessons.lessons.isNotEmpty) {
             return Container(
               child: SingleChildScrollView(
@@ -83,7 +88,7 @@ class _LessonsPageState extends State<LessonsPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25),
                         child: Text(
-                          title,
+                          param.title,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           softWrap: false,
@@ -94,6 +99,12 @@ class _LessonsPageState extends State<LessonsPage> {
                         ),
                       ),
                     ),
+<<<<<<< HEAD
+                    GridView.count(
+                      //This makes 2 cards appear. So effectively two cards
+                      //per page. (2 rows, 1 card per row)
+                      childAspectRatio: 4 / 1,
+=======
                     Align(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 25),
@@ -113,7 +124,8 @@ class _LessonsPageState extends State<LessonsPage> {
                       //This makes 2 cards appear. So effectively two cards
                       //per page. (2 rows, 1 card per row)
                       childAspectRatio:
-                          MediaQuery.of(context).size.height / 180,
+                          MediaQuery.of(context).size.height / 100,
+>>>>>>> master
                       primary: false,
                       padding: const EdgeInsets.all(20),
                       crossAxisSpacing: 0,
@@ -125,6 +137,7 @@ class _LessonsPageState extends State<LessonsPage> {
                       children: lessons.lessons
                           .map(
                             (lesson) => LessonsCard(
+                              lessonVirtualEntity: lesson.virtualEntities,
                               lessonTitle: lesson.title,
                               lessonID: lesson.id,
                               lessonDescription: lesson.description,
@@ -138,12 +151,9 @@ class _LessonsPageState extends State<LessonsPage> {
               ),
             );
           }
-          //If there are no lessons
+          //Display a spinner card if no mark for lessons
+          //or between api calls
           else
-            // return ErrorCard(
-            //   errorDescription:
-            //       "There are currently no lessons to be displayed",
-            // );
             return SpinKitCircle(
               color: Colors.black,
             );

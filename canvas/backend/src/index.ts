@@ -26,7 +26,8 @@ import { onConnection } from './websocket/socket';
 export const io = new socket.Server(server, {
     cors: {
         origin: '*',
-        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"]
+        methods: ["GET", "POST", "OPTIONS", "PATCH", "PUT", "DELETE", "HEAD"],
+        allowedHeaders: ["*"]
     }
 });
 io.on('connection', onConnection);

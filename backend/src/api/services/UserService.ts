@@ -1,5 +1,5 @@
 import { User } from "../database/User";
-import {  Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { RevokeUserFromAdminRequest } from "../models/user/RevokeUserFromAdminRequest";
 import { SetUserToAdminRequest } from "../models/user/SetUserToAdminRequet";
 import { Service } from "typedi";
@@ -7,43 +7,47 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { getUserDetails } from "../helper/auth/Userhelper";
 import { GetUserDetailsResponse } from "../models/user/GetUserDetailsResponse";
 import { userType } from "../models/auth/RegisterRequest";
-import { BadRequestError, ForbiddenError, NotFoundError } from "routing-controllers";
+import {
+	BadRequestError,
+	ForbiddenError,
+	NotFoundError,
+} from "routing-controllers";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
 
 @Service()
 export class UserService {
 	@InjectRepository(User) private userRepository: Repository<User>;
 
-	public async SetUserToAdmin(request: SetUserToAdminRequest): Promise<String> {
+	public async SetUserToAdmin(
+		request: SetUserToAdminRequest
+	): Promise<string> {
 		if (request.username == null) {
 			throw new BadRequestError("Username not provided");
 		}
 		// TODO change this to cater for Educators not user
-		let username = request.username;
-		let user = await this.userRepository.findOne({where: { username: username }, relations: ["educator"]});
+		const username = request.username;
+		const user = await this.userRepository.findOne({
+			where: { username: username },
+			relations: ["educator"],
+		});
 
 		if (user) {
 			if (user.educator) {
 				if (!user.educator.admin) {
 					user.educator.admin = true;
 					try {
-						await this.userRepository.save(user)
-					}
-					catch (err) {
+						await this.userRepository.save(user);
+					} catch (err) {
 						handleSavetoDBErrors(err);
 					}
-					return 'ok';
-
-				} 
-				else {
+					return "ok";
+				} else {
 					throw new BadRequestError("User is already admin");
 				}
-			} 
-			else {
+			} else {
 				throw new ForbiddenError("User is not an educator");
 			}
-		} 
-		else {
+		} else {
 			throw new NotFoundError("user not found");
 		}
 	}
@@ -57,7 +61,7 @@ export class UserService {
 		}
 
 		if (user) {
-			let response: GetUserDetailsResponse = {
+			const response: GetUserDetailsResponse = {
 				email: user.email,
 				firstName: user.firstName,
 				lastName: user.lastName,
@@ -69,35 +73,36 @@ export class UserService {
 		}
 	}
 
-	public async RevokeUserFromAdmin(request: RevokeUserFromAdminRequest): Promise<String> {
+	public async RevokeUserFromAdmin(
+		request: RevokeUserFromAdminRequest
+	): Promise<string> {
 		if (request.username == undefined) {
 			throw new BadRequestError("Username not provided");
 		}
 
-		let username = request.username;
-		let user = await this.userRepository.findOne({where: { username: username }, relations: ["educator"]});
+		const username = request.username;
+		const user = await this.userRepository.findOne({
+			where: { username: username },
+			relations: ["educator"],
+		});
 
 		if (user) {
 			if (user.educator) {
 				if (user.educator.admin) {
 					user.educator.admin = false;
 					try {
-						await this.userRepository.save(user)
-					}
-					catch (err) {
+						await this.userRepository.save(user);
+					} catch (err) {
 						handleSavetoDBErrors(err);
 					}
-					return 'ok';
-				} 
-				else {
+					return "ok";
+				} else {
 					throw new BadRequestError("User is already not an admin");
 				}
-			} 
-			else {
+			} else {
 				throw new ForbiddenError("User is not an educator");
 			}
-		} 
-		else {
+		} else {
 			throw new NotFoundError("user not found");
 		}
 	}

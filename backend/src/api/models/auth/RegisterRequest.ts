@@ -22,7 +22,6 @@ export class RegisterRequest {
 	@IsNotEmpty()
 	@IsEmail()
 	user_email: string;
-
 	userType: userType;
 
 	@IsNotEmpty()

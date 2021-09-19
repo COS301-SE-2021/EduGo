@@ -1,6 +1,6 @@
-import { IsInt, Min } from 'class-validator';
+import { IsInt, Min } from "class-validator";
 export class GetLessonsBySubjectRequest {
-    @IsInt()
-    @Min(1)
-    subjectId: number;
+	@IsInt()
+	@Min(1)
+	subjectId: number;
 }

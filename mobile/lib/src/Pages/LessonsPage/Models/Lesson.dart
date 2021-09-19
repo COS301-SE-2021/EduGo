@@ -6,6 +6,7 @@
  */
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 part 'Lesson.g.dart';
 
 /*------------------------------------------------------------------------------
@@ -32,11 +33,12 @@ class Lesson {
   String lessonCompleted;
 
   //Lesson entities
-  // @JsonKey(defaultValue: [])
-  // List<VirtualEntity> virtualEntities;
+  @JsonKey(defaultValue: [])
+  List<VirtualEntity> virtualEntities;
 
   //Lesson constructor
-  Lesson(this.id, this.title, this.description, this.lessonCompleted);
+  Lesson(this.id, this.title, this.description, this.lessonCompleted,
+      this.virtualEntities);
 
   //Factory method used in lessonController to map lesson attributes to json
   factory Lesson.fromJson(Map<String, dynamic> json) => _$LessonFromJson(json);

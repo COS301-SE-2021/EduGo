@@ -5,6 +5,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                 Subject Card used in the subject page 
@@ -14,9 +15,6 @@ import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 class SubjectCard extends StatelessWidget {
   //Holds the subject title
   final String title;
-
-  //Holds the subject title
-  //final String educator;
 
   //Holds the subject grade
   final int grade;
@@ -28,24 +26,20 @@ class SubjectCard extends StatelessWidget {
   final int count;
 
   //Holds the subject image
-  // final String subjectImage;
+  final String subjectImage;
   final String educator;
 
 //This is the subject card constructor. it requires 5 arguments to be passed in
-  SubjectCard({
-    required this.title,
-    required this.grade,
-    required this.id,
-    required this.count,
-    required this.educator,
-  });
+  SubjectCard(
+      {required this.title,
+      required this.grade,
+      required this.id,
+      required this.count,
+      required this.educator,
+      required this.subjectImage});
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //   height: 500,
-    //   width: 280,
-
     //This is the main subject card design. It is all in a container and
     //displays info like the subject photo, subject title, subject educator
     //and how many lessons are in that subject
@@ -55,39 +49,37 @@ class SubjectCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       clipBehavior: Clip.antiAlias,
-      //color: Color.fromARGB(255, 97, 211, 87),
       color: Colors.black,
-
       //This allows the card to be clickable so that when clicked,
       // it will go to the lessons for that subject
       child: new InkWell(
         onTap: () {
           //This redirects the page to the lessons page on tap
           //and passes in the subject title, and subject id
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  LessonsPage(title: this.title, subjectID: this.id),
-            ),
-          );
+          // Leads to subjects page
+          MomentumRouter.goto(context, LessonsPage,
+              params: LessonsPageParam(id, title), transition: (context, page) {
+            return MaterialPageRoute(builder: (context) => page);
+          });
+          return;
         },
         child: Container(
           decoration: BoxDecoration(
+            color: const Color(0xff7c94b6),
             image: DecorationImage(
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.hue),
-              image: NetworkImage(
-                  'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
-              // image: AssetImage(
-              //     'https://edugo-files.s3.af-south-1.amazonaws.com/test_images/profile.jpg'),
+              // image: NetworkImage(
+              //     //TODO: FIX THE SUBJECT IMAGE SO THAT A SPECIFIC SUBJECT IMAGE
+              //     //CAN ALWAYS BE DISPLAYED AND NOT THE MOCK IMAGE. FIX SUBJECT
+              //     //CARD AND HAVE SOME OPACITY INVOLVED SO YOU CAN STILL SEE SUBJECT
+              //     //TITLE AND EDUCATOR NAME
+              //     'https://edugo-files.s3.af-south-1.amazonaws.com/subject-choice.jpg'),
+              image: NetworkImage('${subjectImage}'),
               fit: BoxFit.fill,
-              //alignment: Alignment.center,
             ),
           ),
           child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
-            //mainAxisAlignment: MainAxisAlignment.
             children: [
               Align(
                 alignment: Alignment.centerLeft,
@@ -95,24 +87,27 @@ class SubjectCard extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 150, left: 20),
                   //TODO: make this text container flexible and according
                   //to side and not have a fixed width and length
-
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 12,
-                    child: Text(
-                      //If there is a mark, display it.
-                      //Els display the two dashes
-                      '$title',
-                      textAlign: TextAlign.left,
-                      //textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: true,
-
-                      style: TextStyle(
+                  child: Material(
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    color: Colors.black54,
+                    child: Flexible(
+                      child: Text(
+                        '$title',
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: true,
+                        style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black),
+                          color: Colors.white70,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -121,26 +116,35 @@ class SubjectCard extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    height: MediaQuery.of(context).size.width / 16,
-                    child: Container(
+                  child: Material(
+                    elevation: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                    ),
+                    color: Colors.black54,
+                    child: Flexible(
                       child: Text(
-                        //If there is a mark, display it.
-                        //Els display the two dashes
-                        '${educator}',
+                        '$educator',
                         textAlign: TextAlign.left,
-                        //textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                        maxLines: 2,
                         softWrap: true,
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ])
+        ),
       ),
-    ));
+    );
   }
 }
