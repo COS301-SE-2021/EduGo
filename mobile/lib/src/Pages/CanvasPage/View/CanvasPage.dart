@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:momentum/momentum.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,14 +24,13 @@ class CanvasPage extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     prefs = SharedPreferences.getInstance();
 
-    return FutureBuilder<SharedPreferences>(
+    var canvas = FutureBuilder<SharedPreferences>(
       future: prefs,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           String token = snapshot.data!.getString('user_token') ?? '';
           token = token.split(' ')[1];
           String url = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8083/?code=${code}&token=${token}';
-          //String url = 'https://get.webgl.org';
           return WebView(
                 initialUrl: url,
                 javascriptMode: JavascriptMode.unrestricted,
@@ -54,6 +54,15 @@ class CanvasPage extends StatelessWidget {
         }
       },
     );
+
+    return MobilePageLayout(
+      false, 
+      false,
+      Scaffold(
+        body: canvas
+      )
+      , 
+      'Canvas');
     
   }
 
