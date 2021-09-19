@@ -9,8 +9,8 @@ import * as helper from './helper';
 import axios from 'axios';
 import * as socket from 'socket.io-client';
 
-//const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
-const BACKEND = 'http://localhost:8080'
+const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+//const BACKEND = 'http://localhost:8080'
 
 const io = socket.io(BACKEND);
 let code: string = '';
