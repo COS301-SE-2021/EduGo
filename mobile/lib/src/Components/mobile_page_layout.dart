@@ -64,6 +64,10 @@ class MobilePageLayoutState extends State<MobilePageLayout> {
     if (!isSideBarVisible & isBottomBarVisible) {
       return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => MomentumRouter.pop(context),
+          ),
           title: Text(appBarTitle),
           backgroundColor: Color.fromARGB(255, 97, 211, 87),
         ),

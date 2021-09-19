@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Controller/VirtualEntityController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/View/ARWindow.dart';
@@ -31,90 +32,122 @@ class _VirtualEntityViewState extends State<VirtualEntityView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<VirtualEntity>(
-        future: entity,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(snapshot.data!.title),
-              ),
-              body: Stack(
-                children: [
-                  // if(snapshot.data!.information.isNotEmpty)
-                  Container(
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.yellow)),
-                    child: Text('Awee'),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 150),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height / 4,
-                      width: MediaQuery.of(context).size.width / 1.5,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black)),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Text(
-                                "Here is some text about the ${snapshot.data!.title} entity",
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                softWrap: true,
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                            ),
-                            GridView.count(
-                              //This makes 2 cards appear. So effectively
-                              //two cards per page. (2 rows, 1 card per row)
-                              childAspectRatio:
-                                  MediaQuery.of(context).size.height / 30,
-                              primary: false,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              mainAxisSpacing: 5,
-                              //makes 1 cards per row
-                              crossAxisCount: 1,
-                              //Call subject card here and pass in all arguments required
-                              children: snapshot.data!.description
-                                  .map(
-                                    (description) => VirtualEntityInfoCard(
-                                        description: description),
-                                  )
-                                  .toList(),
-                            ),
-                          ],
+      future: entity,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(snapshot.data!.title),
+            ),
+            body: Stack(
+              children: [
+                Container(
+                    child: ARWindow(uri: snapshot.data!.model!.fileLink,),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    color: Colors.green,
+                    height: MediaQuery.of(context).size.height / 4,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView(
+                        //physics: NeverScrollableScrollPhysics(),
+                        //primary: false,
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(
+                          snapshot.data!.description.length,
+                          (index) => VirtualEntityInfoCard(
+                            description: snapshot.data!.description[index],
+                          ),
                         ),
+                        // new Container(
+                        //   height: MediaQuery.of(context).size.height,
+                        //   color: Colors.blue,
+                        //   child: new ListView(
+                        //     primary: false,
+
+                        //     //physics: NeverScrollableScrollPhysics(),
+                        //     scrollDirection: Axis.horizontal,
+                        //     children: new List.generate(
+                        //       snapshot.data!.description.length,
+                        //       (index) => VirtualEntityInfoCard(
+                        //         description:
+                        //             snapshot.data!.description[index],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        //],
                       ),
                     ),
+
+                    ///////////////////////////////////
+                    // child: new GridView.count(
+                    //   crossAxisCount: 2,
+                    //   mainAxisSpacing: 5,
+                    //   childAspectRatio: MediaQuery.of(context).size.height,
+
+                    //   primary: false,
+                    //   scrollDirection: Axis.horizontal,
+                    //   //padding: const EdgeInsets.only(top: 20),
+                    //   //  crossAxisSpacing: 0,
+                    //   shrinkWrap: true,
+                    //   children: new List.generate(
+                    //     snapshot.data!.description.length,
+                    //     (index) => VirtualEntityInfoCard(
+                    //       description: snapshot.data!.description[index],
+                    //     ),
+                    //   ),
+                    /////////////////////////////////
+                    ///
+                    ///
+                    // children: <Widget>[
+                    //   new Container(
+                    //     color: Colors.green,
+                    //     height: MediaQuery.of(context).size.height,
+                    //       child: new GridView.count(
+                    //         childAspectRatio:
+                    //             MediaQuery.of(context).size.height / 400,
+                    //         primary: false,
+                    //         //padding: const EdgeInsets.only(top: 20),
+                    //         crossAxisSpacing: 0,
+                    //         shrinkWrap: true,
+
+                    //         // mainAxisSpacing: 5,
+                    //         //makes 1 cards per row
+                    //         crossAxisCount: 1,
+                    //         scrollDirection: Axis.horizontal,
+                    //         children: new List.generate(
+                    //           snapshot.data!.description.length,
+                    //           (index) => VirtualEntityInfoCard(
+                    //             description: snapshot.data!.description[index],
+                    //           ),
+                    //         ),
+                    //),
+                    // ),
+                    //],
                   ),
-                  // ARWindow(
-                  //   uri: snapshot.data!.model!.fileLink,
-                  // ),
-                ],
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text('Virtual Entity'),
                 ),
-                body: Center(
-                  child: Text('There was an error loadinng the virtual entity'),
-                ));
-          } else {
-            return Scaffold(
-                appBar: AppBar(title: Text('Loading...')),
-                body: Center(child: CircularProgressIndicator()));
-          }
-        });
+                // )
+              ],
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('Virtual Entity'),
+              ),
+              body: Center(
+                child: Text('There was an error loadinng the virtual entity'),
+              ));
+        } else {
+          return Scaffold(
+              appBar: AppBar(title: Text('Loading...')),
+              body: Center(child: CircularProgressIndicator()));
+        }
+      },
+    );
   }
 }

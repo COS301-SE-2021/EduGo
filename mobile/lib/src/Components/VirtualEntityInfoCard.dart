@@ -23,25 +23,85 @@ class VirtualEntityInfoCard extends StatelessWidget {
     //This is the main subject card design. It is all in a container and
     //displays info like the subject photo, subject title, subject educator
 
+    // return Container(
+    //   height: MediaQuery.of(context).size.height,
+    //   width: MediaQuery.of(context).size.width / 2,
+    //   child: SingleChildScrollView(
+    //     scrollDirection: Axis.vertical,
+    //     child: Column(
+    //       children: [
+    //         Card(
+    //           elevation: 8.0,
+    //           shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(8.0),
+    //           ),
+    //           semanticContainer: true,
+    //           clipBehavior: Clip.antiAlias,
+    //           color: Colors.white,
+    //           child: Padding(
+    //             padding: const EdgeInsets.all(5),
+    //             // child: FittedBox(
+    //             //   fit: BoxFit.contain,
+    //             child: Text(
+    //               '${description}',
+    //               textAlign: TextAlign.left,
+    //               overflow: TextOverflow.ellipsis,
+    //               maxLines: null,
+    //               softWrap: true,
+    //               style: TextStyle(
+    //                   fontSize: 15,
+    //                   fontWeight: FontWeight.bold,
+    //                   color: Colors.black),
+    //             ),
+    //             // ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // ),
+    //);
     return Container(
-      // decoration: BoxDecoration(border: Border.all(color: Colors.green)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                '${description}',
-                textAlign: TextAlign.left,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-                softWrap: true,
+      width: MediaQuery.of(context).size.width / 2,
+      height: 20,
+      // MediaQuery.of(context).size.height,
+      child: new Card(
+        elevation: 8.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: new Container(
+            width: MediaQuery.of(context).size.width / 2,
+            height: MediaQuery.of(context).size.height / 4,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              //child: Column(children: [
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  '${description}',
+                  // "jkebfjewnfjodnfconfibewufbweobfuoewbnfoienfioewbfioeqnfioenfipeqnfouien fk; ejonfkl cjonsaiofn",
+                  // textAlign: TextAlign.left,
+                  // overflow: TextOverflow.clip,
+                  maxLines: null,
+                  // softWrap: false,
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                ),
               ),
+              //],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

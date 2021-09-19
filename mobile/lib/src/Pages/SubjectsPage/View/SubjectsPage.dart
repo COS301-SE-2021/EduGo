@@ -47,7 +47,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
           int subjectsCount = subjects.subjects.length;
 
           if (subjectsCount > 0)
-            print('no of subjects: ' + subjectsCount.toString());
+          //print('no of subjects: ' + subjectsCount.toString());
           if (subjects.subjects.isEmpty) print('no subjects');
           //A check to see if there are subjects. If there are no subjects,
           //or if the list is empty display another card saying no
@@ -98,9 +98,8 @@ class _SubjectsPageState extends State<SubjectsPage> {
                               grade: subject.grade,
                               id: subject.id,
                               count: subjectsCount,
-                              educator: "Ms Kim Possible",
+                              educator: subject.educatorName,
                               subjectImage: subject.image,
-                              //subject.educatorName
                             ),
                           )
                           .toList(),

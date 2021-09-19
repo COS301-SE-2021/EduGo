@@ -8,30 +8,30 @@ part of 'UserModel.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const [
-    'id',
-    'username',
+    'email',
     'firstName',
     'lastName',
-    'email',
-    'type'
+    'username',
+    'organisation_id',
+    'userType'
   ]);
   return User(
-    json['id'] as int,
-    json['username'] as String,
+    json['email'] as String,
     json['firstName'] as String,
     json['lastName'] as String,
-    json['email'] as String,
-    _$enumDecode(_$UserTypeEnumMap, json['type']),
+    json['username'] as String,
+    json['organisation_id'] as int,
+    _$enumDecode(_$UserTypeEnumMap, json['userType']),
   );
 }
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'id': instance.id,
-      'username': instance.username,
+      'email': instance.email,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
-      'email': instance.email,
-      'type': _$UserTypeEnumMap[instance.type],
+      'username': instance.username,
+      'organisation_id': instance.organisation_id,
+      'userType': _$UserTypeEnumMap[instance.userType],
     };
 
 K _$enumDecode<K, V>(
@@ -62,5 +62,5 @@ K _$enumDecode<K, V>(
 
 const _$UserTypeEnumMap = {
   UserType.Educator: 'Educator',
-  UserType.Student: 'Student',
+  UserType.student: 'student',
 };
