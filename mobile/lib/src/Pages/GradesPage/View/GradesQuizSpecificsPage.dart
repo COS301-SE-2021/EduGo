@@ -87,7 +87,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
       //the side bar and nav bar will be displayed.
       //i.e true=yes display, false=no do not display
       false,
-      false,
+      false, false,
       Container(
         child: Column(
           children: [

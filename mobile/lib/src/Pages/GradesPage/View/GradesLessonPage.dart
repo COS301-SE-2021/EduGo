@@ -49,6 +49,7 @@ class _GradesLessonState extends State<GradesLessonPage> {
       return MobilePageLayout(
           false,
           false,
+          false,
           Container(
             child: SingleChildScrollView(
               child: Column(

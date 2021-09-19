@@ -36,6 +36,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
     return MobilePageLayout(
       true,
       true,
+      false,
       MomentumBuilder(
         controllers: [GradesController],
         builder: (context, snapshot) {

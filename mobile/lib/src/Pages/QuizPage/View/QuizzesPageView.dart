@@ -19,7 +19,7 @@ class QuizzesPageView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 60),
             children: quizzes.quizzesView,
           );
-          return MobilePageLayout(false, true, child, 'Quizzes');
+          return MobilePageLayout(false, false, true, child, 'Quizzes');
         });
   }
 }

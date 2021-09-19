@@ -63,6 +63,8 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
           setLessonId(id);
           dynamic _quizzes = jsonDecode(response.body);
           model.update(lessonQuizzes: Quizzes.fromJson(_quizzes, id).quizzes);
+          model.update(
+              answeredQuizzes: _quizzes['answeredQuiz_ids'].cast<int>());
           buildQuizzesView();
           MomentumRouter.goto(context, QuizzesPageView);
           return;
@@ -94,13 +96,11 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
       ),
     ).then(
       (response) {
-        if (response.statusCode == 200) {
-          int tempId = model.lessonId;
-          reset();
-          model.update(lessonId: tempId);
-          getLessonQuizzes(context, model.lessonId);
-          return;
-        }
+        int tempId = model.lessonId;
+        reset();
+        model.update(lessonId: tempId);
+        getLessonQuizzes(context, model.lessonId);
+        return;
       },
     );
   }
