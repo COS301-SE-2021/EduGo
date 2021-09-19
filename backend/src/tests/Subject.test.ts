@@ -72,6 +72,32 @@ describe("Subject API tests", () => {
 				.expect("Content-Type", /json/);
 				expect(response.body.id).toBeDefined();
 		});
+
+		it("should fail to create a new Subject", async () => {
+			const req: CreateSubjectRequest = {
+				grade:1, 
+				title:"Test Subject"
+			};
+			when(
+				App.mockedUserRepository.findOne(anyNumber(), anything())
+			).thenResolve(Default.educatorUser);
+
+			when(
+				App.mockedSubjectRepository.save(anyOfClass(Subject))
+			).thenResolve({ id: 1 });
+
+			when(App.mockedAzureBlobService.createAppendBlobFromStream(anything(),anything(),anything(),anyNumber(), anything())).thenResolve().thenResolve()
+			when(App.mockedAzureBlobService.getUrl(anything(),anything())).thenReturn("www.edugo.com")
+			const response = await request(App.app)
+				.post("/subject/createSubject")
+				.set("Authorization", educatorToken)
+				.field("grade", req.grade)
+				.field("title", req.title)
+				//.attach('file', "C:/Users/simek/Downloads/output-onlinepngtools.png")
+				.expect(400)
+				.expect("Content-Type", /json/);
+				//expect(response.body.id).toBeDefined();
+		});
 		
 	});
 
@@ -110,6 +136,41 @@ describe("Subject API tests", () => {
 			//console.log(response)
 
 		});
+
+		it("should delete a Subject", async () => {
+			const req: DeleteSubjectRequest = {
+				id: 1
+			};
+			when(
+				App.mockedUserRepository.findOne(anyNumber(), anything())
+			).thenResolve(Default.educatorUser);
+
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(
+				Default.educatorUser
+			);
+			when(
+				App.mockedSubjectRepository.findOne(anyNumber(), anything())
+			).thenResolve(undefined);
+
+			when(
+				App.mockedLessonRepository.save(anyOfClass(Lesson))
+		).thenResolve({val:1});
+
+			when(
+				App.mockedSubjectRepository.delete(anything())
+			).thenResolve();
+
+			const response = await request(App.app)
+				.delete("/subject/deleteSubject")
+				.set("Accept", "application/json")
+				.set("Authorization", educatorToken)
+				.send(req)
+				.expect(200)
+			//	.expect("Content-Type", /json/);
+			//	expect(response.body.id).toBeDefined();
+			//console.log(response)
+
+		});
 		
 	});
 
@@ -120,7 +181,6 @@ describe("Subject API tests", () => {
 				title:"Test Subject"
 			};
 
-			
 			when(
 				App.mockedUserRepository.findOne(anyNumber(), anything())
 			).thenResolve(Default.educatorUser);
