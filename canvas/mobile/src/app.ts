@@ -8,8 +8,8 @@ import * as helper from './helper';
 import axios from 'axios';
 import * as socket from 'socket.io-client'
 
-//const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
-const BACKEND = 'http://localhost:8080'
+const BACKEND = 'http://edugo-backend.southafricanorth.cloudapp.azure.com:8081'
+//const BACKEND = 'http://localhost:8080'
 
 const io = socket.io(BACKEND);
 
@@ -20,6 +20,7 @@ const ctx: CanvasRenderingContext2D = canvas2.getContext("2d")!;
 
 let prevCoords = { x: 0, y: 0 };
 let newLine = true;
+let timer;
 
 const setSize = () => {
     const devicePixelRatio = window.devicePixelRatio || 1;
@@ -31,10 +32,11 @@ const setSize = () => {
 }
 
 const normalizeWidth = (x: number, width: number): number => {
-    let windowWidth = window.innerWidth;
+    let windowWidth = window.innerWidth * (window.devicePixelRatio || 1);
     let windowMidpoint = windowWidth / 2;
     let midpoint = width / 2;
     let newX = x - midpoint;
+    console.log(windowMidpoint + newX)
     return windowMidpoint + newX;
 }
 
@@ -61,6 +63,9 @@ io.on('camera_updated', (data: any) => {
 // });
 
 io.on('draw_updated', (data: any) => {
+    console.log(data)
+    clearTimeout(timer);
+    timer = setTimeout(() => {newLine = true}, 1000);
     let ratio = window.devicePixelRatio || 1;
     ctx.beginPath();
 	ctx.lineWidth = data.width;
@@ -68,9 +73,9 @@ io.on('draw_updated', (data: any) => {
 	ctx.strokeStyle = data.colour;
     data.coord.x = normalizeWidth(data.coord.x, data.pageWidth);
     data.coord.y = data.coord.y + data.offset
-	ctx.moveTo(data.coord.x * ratio, data.coord.y * ratio);
+	ctx.moveTo(data.coord.x, data.coord.y);
 	//reposition(event);
-	!newLine ? ctx.lineTo(prevCoords.x * ratio, prevCoords.y * ratio) : ctx.lineTo(data.coord.x * ratio, data.coord.y * ratio);
+	!newLine ? ctx.lineTo(prevCoords.x, prevCoords.y) : ctx.lineTo(data.coord.x, data.coord.y);
 	ctx.stroke();
     prevCoords = data.coord;
     newLine = false;
