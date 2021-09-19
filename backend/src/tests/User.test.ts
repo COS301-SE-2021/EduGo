@@ -86,8 +86,7 @@ describe("User API tests", () => {
 			//	.expect("Content-Type", /json/);
 				//expect(response.body.id).toBeDefined();
 			//	console.log(response)
-		});
-		
+		});	
 	});
 
 	describe("POST /user/revokeUserFromAdmin", () => {

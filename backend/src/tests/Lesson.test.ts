@@ -162,7 +162,7 @@ describe("Lesson API tests", () => {
 			.send(req)
 			.expect(400)
 			.expect("Content-Type", /json/);
-			//console.log(response)
+		
 		})
 
 		it('virtual entity doesnt exist', async ()=>{
@@ -185,7 +185,7 @@ describe("Lesson API tests", () => {
 			.send(req)
 			.expect(400)
 			.expect("Content-Type", /json/);
-			//console.log(response)
+		
 		})
 		it('virtual entity already added', async ()=>{
 			const req: AddVirtualEntityToLessonRequest={
