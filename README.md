@@ -9,11 +9,11 @@
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
  ## Table Of Contents
-- [Project Overview:](#books-project-overview)
-- [EduGo Team Members:](#people_holding_hands-edugo-team-members)
-- [Git Structure:](#gear-git-structure)
-- [Technology Stack:](#hammer_and_wrench-technology-stack)
-- [Documententation:](#page_facing_up-documentation)
+- [Project Overview](#books-project-overview)
+- [EduGo Team Members](#people_holding_hands-edugo-team-members)
+- [Git Structure](#gear-git-structure)
+- [Technology Stack](#hammer_and_wrench-technology-stack)
+- [Documententation](#page_facing_up-documentation)
 - [Project Management Tool](#card_index_dividers-project-management-tool)
 - [Code Quality](#books-project-overview)
 - [Contact us](#telephone_receiver-contact-us)
@@ -21,14 +21,14 @@
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
   
-## :books: Project Overview:
+## :books: Project Overview
 EduGo is an educational system that aims to shape and influence the future of education through the use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and will also enable educators to add virtual entities -along with quizzes about the virtual entity- to a lesson.
   
 <!--Fix team members desc and photos here -->
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
-## :people_holding_hands: EduGo Team Members:
+## :people_holding_hands: EduGo Team Members
 
 | **Team Member** | **Profiles** | **Skills/Interest**
 | :-----: | :-----: | :-----: |
@@ -40,7 +40,7 @@ EduGo is an educational system that aims to shape and influence the future of ed
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
-## :gear: Git Structure:
+## :gear: Git Structure
 ### Branching Strategy
 
 master ( build )
@@ -60,7 +60,7 @@ master ( build )
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
-## :hammer_and_wrench: Technology Stack: 
+## :hammer_and_wrench: Technology Stack 
 <!-- add all tags here and all proper info -->
 
 ### Front end for Android App 
@@ -106,7 +106,7 @@ master ( build )
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
 ## :page_facing_up: Documentation:
-### SRS Document:
+### SRS Document
 <ul>
   <li> :label: <a href='https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=sharing'> SRS - V1</a></li>
   <li> :label: <a href='https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=sharing'> SRS - V2</a></li>
@@ -116,7 +116,7 @@ master ( build )
 
 <hr>
 
-### Architectural Requirements:
+### Architectural Requirements
 <ul>
    <li> :open_book: <a href=''>Architectural Requirement Document - V1</a></li>
    <li> :open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirement Document - V2</a></li>
@@ -125,35 +125,35 @@ master ( build )
 
 <hr>
 
-### User Manual:
+### User Manual
 <ul>
  <li> :page_with_curl: <a href='https://drive.google.com/file/d/12bmn0Kbi0PfIHuXWqHJLEuYA1g0kJecB/view?usp=sharing'>User Manual</a></li>
 </ul>
  
  <hr>
  
-### Instillation Manual:
+### Instillation Manual
 <ul>
  <li> :bell: <a href='https://drive.google.com/file/d/1LGXCdM1HO4nKuoEqfs2IvMp3n0urwK9y/view?usp=sharing'>Technical Instillation Manual</a></li>
 </ul>
  
  <hr>
  
-### Coding Standards:
+### Coding Standards
 <ul>
  <li> :pencil: <a href='https://drive.google.com/file/d/1lD0U4w0lQHLxK8LwYes7YboLhW3yFTVA/view?usp=sharing'>Coding Standards Document</a></li>
 </ul>
  
 <hr>
 
-### Testing Quality Document:
+### Testing Quality Document
 <ul>
  <li> :mag_right:
 </ul>
  
 <hr>
  
-###  Demo Recordings :
+###  Demo Recordings
 <ul>
   <li> :tv: <a href='https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing'>Demo 1</a></li>
   <li> :tv: <a href='https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing'>Demo 2</a></li>
