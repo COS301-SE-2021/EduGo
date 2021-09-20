@@ -64,9 +64,8 @@ master ( build )
 <!-- add all tags here and all proper info -->
 
 ### Front end for Android App 
-
-      [![AGPL License](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
-      [![AGPL License](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+  [![AGPL License](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+  [![AGPL License](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
  
 
 ### Front end for Android App 
