@@ -119,7 +119,7 @@ master ( build )
 ### Testing
    <ul>
      <li>Striker</li>
-     <li>Jest></li>
+     <li>Jest</li>
    </ul>
    
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
@@ -160,14 +160,14 @@ master ( build )
  
 ### Coding Standards:
 <ul>
- <li> :memo::pencil: <a href='https://drive.google.com/file/d/1lD0U4w0lQHLxK8LwYes7YboLhW3yFTVA/view?usp=sharing'>Coding Standards Document</a></li>
+ <li> :pencil: <a href='https://drive.google.com/file/d/1lD0U4w0lQHLxK8LwYes7YboLhW3yFTVA/view?usp=sharing'>Coding Standards Document</a></li>
 </ul>
  
 <hr>
  
 ###  Demo Recordings :
 <ul>
- <li> :tv: <a href='https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing'>Demo 1</a></li>
+  <li> :tv: <a href='https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing'>Demo 1</a></li>
   <li> :tv: <a href='https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing'>Demo 2</a></li>
   <li> :tv: <a href='https://drive.google.com/file/d/1WuS3KmJ2zxvCAIW9hqg81GTnNJTXkC86/view?usp=sharing'>Demo 3</a></li>
   <li> :tv: <a href=''>Demo 4</a></li>
