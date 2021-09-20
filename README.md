@@ -9,30 +9,15 @@
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
  ## Table Of Contents
-- [Project Overview:](#-books--project-overview-)
-- [EduGo Team Members:](#-people-holding-hands--edugo-team-members-)
-- [Git Structure:](#-gear--git-structure-)
-  * [Branching Strategy](#branching-strategy)
-- [Tech Stack:](#-hammer-and-wrench--tech-stack-)
-  * [Front end for Android App](#front-end-for-android-app)
-  * [Front end for Android App](#front-end-for-android-app-1)
-  * [Backend](#backend)
-  * [Database](#database)
-  * [Hosting](#hosting)
-  * [Storage](#storage)
-  * [Container](#container)
-  * [Testing](#testing)
-- [Documententation:](#-page-facing-up--documententation-)
-  * [SRS Document:](#srs-document-)
-  * [Architectural Requirements:](#architectural-requirements-)
-  * [User Manual:](#user-manual-)
-  * [Instillation Manual:](#instillation-manual-)
-  * [Coding Standards:](#coding-standards-)
-  * [:clapper: Demo Recordings :](#-clapper--demo-recordings--)
-- [Project Management Tool](#project-management-tool)
-- [Code Quality](#code-quality)
-  * [Contact us](#contact-us)
-  * [Stakeholders](#stakeholders)
+- [Project Overview:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#books-project-overview)
+- [EduGo Team Members:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#people_holding_hands-edugo-team-members)
+- [Git Structure:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#gear-git-structure)
+- [Technology Stack:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#hammer_and_wrench-tech-stack)
+- [Documententation:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#page_facing_up-documentatiomn)
+- [Project Management Tool](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#pencil-project-overview)
+- [Code Quality](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#books-project-overview)
+- [Contact us](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#telephone_receiver-contact-us)
+- [Stakeholders]()
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
   
@@ -75,7 +60,7 @@ master ( build )
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
-## :hammer_and_wrench: Tech Stack: 
+## :hammer_and_wrench: Technology Stack: 
 <!-- add all tags here and all proper info -->
 
 ### Front end for Android App 
@@ -172,7 +157,7 @@ master ( build )
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
-## Project Management Tool
+## :card_index_dividers: Project Management Tool
 <ul>
    <li> :paperclip: <a href='https://3.basecamp.com/5098601/projects/22442122'> GitHub for version control </a></li>
    <li> :paperclip: <a href='https://3.basecamp.com/5098601/projects/22442122'> Basecamp for managing all project tasks </a></li>
@@ -199,7 +184,7 @@ master ( build )
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
-## Contact us
+## :telephone_receiver: Contact us
   <ul>
      <li> :iphone: Team Email: <a href='gangoffive301@gmail.com'> GitHub for version control </a></li>
        <li> :iphone: Team Email: <a href='ulrik.demuelenaere@5dt.com'> GitHub for version control </a></li>
