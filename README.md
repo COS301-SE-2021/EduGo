@@ -10,13 +10,13 @@
 
  ## Table Of Contents
 - [Project Overview:](#books-project-overview)
-- [EduGo Team Members:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#people_holding_hands-edugo-team-members)
-- [Git Structure:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#gear-git-structure)
-- [Technology Stack:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#hammer_and_wrench-tech-stack)
-- [Documententation:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#page_facing_up-documentatiomn)
-- [Project Management Tool](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#pencil-project-overview)
-- [Code Quality](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#books-project-overview)
-- [Contact us](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#telephone_receiver-contact-us)
+- [EduGo Team Members:](#people_holding_hands-edugo-team-members)
+- [Git Structure:](#gear-git-structure)
+- [Technology Stack:](#hammer_and_wrench-tech-stack)
+- [Documententation:](#page_facing_up-documentatiomn)
+- [Project Management Tool](#pencil-project-overview)
+- [Code Quality](#books-project-overview)
+- [Contact us](#telephone_receiver-contact-us)
 - [Stakeholders]()
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
