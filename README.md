@@ -1,6 +1,6 @@
 
 # EduGo
-### by Gang of Five
+#### by Gang of Five
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
     <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200"> </a>
@@ -45,6 +45,7 @@ EduGo is an educational system that aims to shape and influence the future of ed
 <!--Fix team members desc and photos here -->
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
+
 ## :people_holding_hands: EduGo Team Members:
 
 | **Team Member** | **Profiles** | **Skills/Interest**
