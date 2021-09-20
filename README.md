@@ -164,28 +164,25 @@ master ( build )
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
 ## :card_index_dividers: Project Management Tool
+
+  ![AGPL License](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+  ![AGPL License](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
+  ![AGPL License](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
+  ![AGPL License](https://img.shields.io/badge/Google%20Meet-32A350?style=for-the-badge&logo=google-meet&logoColor=white) 
+
 <ul>
    <li> :paperclip: <a href='https://github.com'> GitHub for version control </a></li>  
-    ![AGPL License](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-    ![AGPL License](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
-  
    <li> :paperclip: <a href='https://3.basecamp.com/5098601/projects/22442122'> Basecamp for managing all project tasks </a></li>
    <li> :paperclip: <a href='https://discord.com/'> Discord for all Gang Of Five team meetings </a></li>
-  
-  ![AGPL License](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
-  
-  <li> :paperclip: <a href='https://workspace.google.com/intl/en/products/meet/?utm_source=google&utm_medium=cpc&utm_campaign=emea-ZA-all-en-dr-bkws-all-all-trial-e-googlemeet-1010042&utm_content=text-ad-none-none-DEV_c-CRE_538261178073-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Meet%20~%20General-KWID_43700065562271932-kwd-299356619278-userloc_1028684&utm_term=KW_google%20meet-ST_google%20meet&gclid=CjwKCAjw4qCKBhAVEiwAkTYsPMlZwJyZUYRXs2eMHdz1xjjqOAJYCgEkq2FbkfpMYfnV0zDNShB5bxoCLrkQAvD_BwE&gclsrc=aw.ds'> Google meets used for meeting with the Business client Stakeholders </a></li>
-    ![AGPL License](https://img.shields.io/badge/Google%20Meet-32A350?style=for-the-badge&logo=google-meet&logoColor=white) 
-  
+  <li> :paperclip: <a href='https://meet.google.com/'> Google meets used for meeting with the Business client Stakeholders </a></li>
   <li> :paperclip: <a href='https://eduvation.up.ac.za/students/index.php/blackboard-collaborate'> BlackBoard Collaborate used for meeting with the Computer Science Dempartment Stakeholders </a></li>
 </ul>
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
+
 ## Code Quality
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/EduGo?label=Pull%20Requests)](https://github.com/COS301-SE-2021/EduGo/pulls)
 ![GitHub API Build](https://img.shields.io/github/workflow/status/COS301-SE-2021/EduGo/API%20Build?label=API%20Build)
-
-
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=bugs)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=code_smells)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
@@ -211,9 +208,12 @@ master ( build )
 ### University of Pretoria Computer Science Department
   <a href="https://www.up.ac.za/">
     <img src="https://edugo.blob.core.windows.net/edugo/readme/up_logo.jpg" alt="Logo" width="300" height="200"> </a>
-
+<hr>
 
 ### 5DT
   <a href="https://5dt.com/?gclid=CjwKCAjw4qCKBhAVEiwAkTYsPNJ6GF6DXGp_9g6OxlRG-xvLD76Lfc_HNh1SLWGZe9Y1D--Oo0XLLxoC9gYQAvD_BwE">
     <img src="https://edugo.blob.core.windows.net/edugo/readme/unknown.png" alt="Logo" width="600" height="200"> </a>
+    
+    
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
