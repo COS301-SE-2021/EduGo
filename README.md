@@ -1,6 +1,6 @@
 
 <h1>EduGo</h1>
-<h2> by Gang of Five</h2>
+<h3> by Gang of Five</h3>
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
     <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200"> </a>
@@ -9,7 +9,7 @@
 ## :books: <h1>Project Overview:</h1>
 EduGo is an educational system that aims to shape and influence the future of education through the use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and will alos enable educators to add virtual entities -along with quizzes about the virtual entity- to a lesson.
   
-## :people_holding_hands: <h1>EduGo Team Members:</h1>
+## :people_holding_hands: EduGo Team Members:
 
 | **Team Member** | **Profiles** | **Skills/Interest**
 | :-----: | :-----: | :-----: |
@@ -19,8 +19,8 @@ EduGo is an educational system that aims to shape and influence the future of ed
 | [<img src="https://media-exp3.licdn.com/dms/image/C4E03AQF2xPBrMsCF1w/profile-displayphoto-shrink_400_400/0/1615451522260?e=1629936000&v=beta&t=JcCWPFFa1WffhAFO4sVY1FSfpke33w5Xo3JGpHaG6-g" width="150" height="150">](https://github.com/MihlaliMgwebi "Mihlali Mgwebi") <br/> Mihlali Mgwebi <br/> u19187166 | [GitHub](https://github.com/MihlaliMgwebi) <br/> [Profile Page](https://github.com/MihlaliMgwebi) <br/> [LinkedIn](https://www.linkedin.com/in/mihlali-mgwebi-161a83208) <br/> | Gyming  <br/>Skating  <br/> Software Development <br/>
 | [<img src="https://edugo-files.s3.af-south-1.amazonaws.com/WhatsApp+Image+2021-08-15+at+22.01.19.jpeg" width="150" height="150">](https://github.com/Tshwarelo-Noah "Noah Mafarala") <br/> Noah Mafarala <br/> u19181851 | [GitHub](https://github.com/Tshwarelo-Noah) <br/> [Profile Page](https://github.com/Tshwarelo-Noah) <br/> [LinkedIn](https://www.linkedin.com/in/noah-mafaralala-815760178/) <br/> | Trading  <br/>Music  <br/> Food <br/>
   
-## :gear: <h1>Git Structure:</h1>
-### <h2>Branching Strategy</h2>
+## :gear:Git Structure:
+### Branching Strategy
 
 master ( build )
 </br>
@@ -37,7 +37,7 @@ master ( build )
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-web−feature 
 </br>
 
-## :page_facing_up: <h1>Documententation</h1>
+## :page_facing_up: Documententation:
 ### Software requirements specification (Demo 1)
 https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=sharing
 ### Software requirements specification (Demo 2)
