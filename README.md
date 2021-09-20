@@ -188,8 +188,9 @@ master ( build )
 
 ## :telephone_receiver: Contact us
   <ul>
-     <li> :iphone: team Email: <a href='mailto:gangoffive301@gmail.com'> gangoffive301@gmail.com</a></li>
+     <li> :iphone: Gang Of Five Team Email: <a href='mailto:gangoffive301@gmail.com'> gangoffive301@gmail.com</a></li>
      <li> :iphone: 5DT Client Email: <a href='mailto:ulrik.demuelenaere@5dt.com'>ulrik.demuelenaere@5dt.com </a></li>
+     <li> :iphone: University of Pretoria COS301 Module Co-Ordinator Email <a href='mailto:stacey.baror@cs.up.ac.za'> stacey.baror@cs.up.ac.za </a></li>
   </ul>
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
