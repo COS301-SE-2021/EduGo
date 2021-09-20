@@ -1,7 +1,7 @@
 
 # EduGo
 #### by Gang of Five
-
+<p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
     <img src="https://edugo.blob.core.windows.net/edugo/readme/unknown.png"  width="600" height="200"> </a>
   
@@ -198,10 +198,12 @@ master ( build )
 ## :pushpin: Stakeholders
   
 ### University of Pretoria Computer Science Department
+<p align="center">
   <a href="https://www.up.ac.za/">
     <img src="https://edugo.blob.core.windows.net/edugo/readme/up_logo.jpg" alt="Logo" width="300" height="200"> </a>
 
 ### 5DT
+<p align="center">
   <a href="https://5dt.com/?gclid=CjwKCAjw4qCKBhAVEiwAkTYsPNJ6GF6DXGp_9g6OxlRG-xvLD76Lfc_HNh1SLWGZe9Y1D--Oo0XLLxoC9gYQAvD_BwE">
     <img src="https://edugo.blob.core.windows.net/edugo/readme/unknown.png" alt="Logo" width="600" height="200"> </a>
     
