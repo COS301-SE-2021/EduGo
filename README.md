@@ -119,6 +119,7 @@ master ( build )
 ### Testing
    <ul>
      <li>Striker</li>
+     <li>Jest></li>
    </ul>
    
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
@@ -176,11 +177,11 @@ master ( build )
 
 ## Project Management Tool
 <ul>
-  <li> :clock3: <a href='https://3.basecamp.com/5098601/projects/22442122'> GitHub for version control </a></li>
-   <li> :clock3: <a href='https://3.basecamp.com/5098601/projects/22442122'> Basecamp for managing all project tasks </a></li>
-   <li> :clock3: <a href='https://discord.com/'> Dischord for all Gang Of Five team meetings </a></li>
-   <li> :clock3:<a href='https://workspace.google.com/intl/en/products/meet/?utm_source=google&utm_medium=cpc&utm_campaign=emea-ZA-all-en-dr-bkws-all-all-trial-e-googlemeet-1010042&utm_content=text-ad-none-none-DEV_c-CRE_538261178073-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Meet%20~%20General-KWID_43700065562271932-kwd-299356619278-userloc_1028684&utm_term=KW_google%20meet-ST_google%20meet&gclid=CjwKCAjw4qCKBhAVEiwAkTYsPMlZwJyZUYRXs2eMHdz1xjjqOAJYCgEkq2FbkfpMYfnV0zDNShB5bxoCLrkQAvD_BwE&gclsrc=aw.ds'> Google meets used for meeting with the Business client Stakeholders </a></li>
-  <li> :clock3: <a href='https://3.basecamp.com/5098601/projects/22442122'> BlackBoard Collaborate used for meeting with the Computer Science Dempartment Stakeholders </a></li>
+   <li> :paperclip: <a href='https://3.basecamp.com/5098601/projects/22442122'> GitHub for version control </a></li>
+   <li> :paperclip: <a href='https://3.basecamp.com/5098601/projects/22442122'> Basecamp for managing all project tasks </a></li>
+   <li> :paperclip: <a href='https://discord.com/'> Dischord for all Gang Of Five team meetings </a></li>
+   <li> :paperclip: <a href='https://workspace.google.com/intl/en/products/meet/?utm_source=google&utm_medium=cpc&utm_campaign=emea-ZA-all-en-dr-bkws-all-all-trial-e-googlemeet-1010042&utm_content=text-ad-none-none-DEV_c-CRE_538261178073-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Meet%20~%20General-KWID_43700065562271932-kwd-299356619278-userloc_1028684&utm_term=KW_google%20meet-ST_google%20meet&gclid=CjwKCAjw4qCKBhAVEiwAkTYsPMlZwJyZUYRXs2eMHdz1xjjqOAJYCgEkq2FbkfpMYfnV0zDNShB5bxoCLrkQAvD_BwE&gclsrc=aw.ds'> Google meets used for meeting with the Business client Stakeholders </a></li>
+  <li> :paperclip: <a href='https://3.basecamp.com/5098601/projects/22442122'> BlackBoard Collaborate used for meeting with the Computer Science Dempartment Stakeholders </a></li>
 </ul>
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
