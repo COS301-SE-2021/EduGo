@@ -1,9 +1,9 @@
 
 # EduGo
 #### by Gang of Five
-<p align="center">
+
   <a href="https://github.com/COS301-SE-2021/EduGo">
-    <img src="https://edugo.blob.core.windows.net/edugo/readme/unknown.png" alt="Logo" width="600" height="200"> </a>
+    <img src="https://edugo.blob.core.windows.net/edugo/readme/unknown.png"  width="600" height="200"> </a>
   
 <!--  Change edugo photo here -->
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
