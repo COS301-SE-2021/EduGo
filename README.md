@@ -22,7 +22,7 @@
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
   
 ## :books: Project Overview:
-EduGo is an educational system that aims to shape and influence the future of education through the use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and will alos enable educators to add virtual entities -along with quizzes about the virtual entity- to a lesson.
+EduGo is an educational system that aims to shape and influence the future of education through the use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and will also enable educators to add virtual entities -along with quizzes about the virtual entity- to a lesson.
   
 <!--Fix team members desc and photos here -->
   
@@ -152,7 +152,7 @@ master ( build )
   <li> :tv: <a href='https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing'>Demo 1</a></li>
   <li> :tv: <a href='https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing'>Demo 2</a></li>
   <li> :tv: <a href='https://drive.google.com/file/d/1WuS3KmJ2zxvCAIW9hqg81GTnNJTXkC86/view?usp=sharing'>Demo 3</a></li>
-  <li> :tv: <a href=''>Demo 4</a></li>
+  <li> :tv: <a href='https://drive.google.com/file/d/1deYmlztBeZu7jPyCivCjT_rSXdYbLjte/view?usp=sharing'>Demo 4</a></li>
  </ul>
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
