@@ -61,11 +61,11 @@ describe("Virtual Entity API tests", () => {
 			when(App.mockedUserRepository.findOne(anything())).thenResolve(Default.educatorUser);
 			when(App.mockedAzureBlobService.createAppendBlobFromStream(anything(),anything(),anything(),anyNumber(), anything())).thenResolve().thenResolve()
 			when(App.mockedAzureBlobService.getUrl(anything(),anything())).thenReturn("www.edugo.com");
-			
+
 			const response = await request(App.app)
 				.post("/virtualEntity/uploadModel")
 				.set("Authorization", educatorToken)
-				.attach('file', path.join(__dirname, 'Other/Duck.glb'))
+				.attach('file', path.join(__dirname, 'Other/Duck.file'))
 				.expect(200)
 				.expect("Content-Type", /json/);
 				//expect(response.body.id).toBeDefined();
