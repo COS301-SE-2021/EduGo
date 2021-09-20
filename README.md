@@ -1,16 +1,15 @@
 
-
-<br />
-<h1 align="center">EduGo</h1>
-  by Gang of Five
+<h1 >EduGo</h1>
+<h2 by Gang of Five</h2>
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
-    <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200">
-  </a>
+    <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200"> </a>
+  
+  
 
 
 
-## Description 
+## :books: Description 
 EduGo is an educational system that aims to shape and influence the future of education through the use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and will alos enable educators to add virtual entities -along with quizzes about the virtual entity- to a lesson.
 
 ## Code Quality
