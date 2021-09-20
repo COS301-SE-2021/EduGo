@@ -189,6 +189,7 @@ export class VirtualEntityService {
 			throw new InternalServerError("Could not save virtual entity");
 		}
 
+		if (!result) throw new NotFoundError("Virtual entity not saved ");
 		const response: CreateVirtualEntityResponse = {
 			id: result.id,
 			message: "Successfully added virtual entity",
