@@ -1,6 +1,6 @@
 
-:iphone: ##EduGo
-### by Gang of Five###
+:iphone: ## EduGo
+### by Gang of Five
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
     <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200"> </a>
@@ -45,39 +45,42 @@ master ( build )
 ## :hammer_and_wrench: Tech Stack: 
 <!-- add all tags here and all proper info -->
 
-### Front End for web app - Flutter
+### Front end for Android App 
+  <ul>
+    <li> Flutter</li>
+  </ul>
 
-  ###Front end for Android App 
+### Front end for Android App 
   <ul>
     <li> Flutter</li>
   </ul>
   
-  ###Backend
+### Backend
    <ul>
      <li> Node.js</li>
    </ul>
    
-  ###Database 
+### Database 
    <ul>
     <li> Postgres</li>
    </ul>
    
-  ###Hosting
+### Hosting
    <ul>
      <li>AWS</li>
    </ul>
    
-  ###Storage
+### Storage
    <ul>
     <li>Amazon S3</li>
    </ul>
    
-  ###Container 
+### Container 
    <ul>     
     <li>Docker</li>
    </ul>
   
-  ###Testing
+### Testing
    <ul>
      <li>Striker</li>
    </ul>
@@ -152,13 +155,13 @@ master ( build )
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 
   
-###Contact us
+### Contact us
   <ul>
      <li> :clock3: Team Email: <a href='gangoffive301@gmail.com'> GitHub for version control </a></li>
        <li> :clock3: Team Email: <a href='ulrik.demuelenaere@5dt.com'> GitHub for version control </a></li>
   </ul>
   
- ###Stakeholders
+ ### Stakeholders
   
 <!--   insert edugo and cs dempartment logo here -->
 
