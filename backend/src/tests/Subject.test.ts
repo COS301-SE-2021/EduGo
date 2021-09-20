@@ -10,6 +10,7 @@ import { AddVirtualEntityToLessonRequest } from "../api/models/lesson/AddVirtual
 import { CreateSubjectRequest } from "../api/models/subject/CreateSubjectRequest";
 import { DeleteSubjectRequest } from "../api/models/subject/DeleteSubjectRequest";
 import { Subject } from "../api/database/Subject";
+import path from "path";
 describe("Subject API tests", () => {
 	let educatorToken = "";
 	beforeAll(async () => {
@@ -67,7 +68,7 @@ describe("Subject API tests", () => {
 				.set("Authorization", educatorToken)
 				.field("grade", req.grade)
 				.field("title", req.title)
-				.attach('file', "Other/Duck.file")
+				.attach('file', path.join(__dirname, "Other/Duck.file"))
 				.expect(200)
 				.expect("Content-Type", /json/);
 				expect(response.body.id).toBeDefined();

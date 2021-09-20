@@ -25,6 +25,7 @@ import { GetQuizesByLessonRequest } from "../../../models/virtualEntity/GetQuize
 import { Organisation } from "../../../database/Organisation";
 import { FileManagement } from "../../../helper/File";
 import azureStorage from "azure-storage";
+import { ExternalRequests } from "../../../../api/helper/ExternalRequests";
 
 const mockedVirtualEntityRepository: Repository<VirtualEntity> =
 	mock(Repository);
@@ -54,19 +55,23 @@ const lessonRepository: Repository<Lesson> = instance(mockedLessonRepository);
 const mockedAzureBlobService = mock(azureStorage.BlobService);
 const azureBlobService = instance(mockedAzureBlobService);
 
+const mockedExternalRequest: ExternalRequests = mock(ExternalRequests);
+const externalRequest = instance(mockedExternalRequest);
+
 const virtualEntityService: VirtualEntityService = new VirtualEntityService(
 	virtualEntityRepository,
 	quizRepository,
 	questionRepository,
 	userRepository,
 	studentRepository,
-	lessonRepository
+	lessonRepository,
+	externalRequest
 );
 
 const fileManagement: FileManagement = new FileManagement(azureBlobService);
 
 const virtualEntityController: VirtualEntityController =
-	new VirtualEntityController(virtualEntityService, fileManagement);
+	new VirtualEntityController(virtualEntityService, fileManagement, externalRequest);
 
 const organisation: Organisation = new Organisation();
 organisation.id = 1;
