@@ -1,5 +1,5 @@
 
-## :iphone: EduGo
+# :iphone: EduGo
 ### by Gang of Five
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
@@ -8,7 +8,7 @@
 <!--  Change edugo photo here -->
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
- ### Table Of Contents
+ ## Table Of Contents
 - [:books: Project Overview:](#-books--project-overview-)
 - [:people_holding_hands: EduGo Team Members:](#-people-holding-hands--edugo-team-members-)
 - [:gear: Git Structure:](#-gear--git-structure-)
@@ -189,14 +189,15 @@ master ( build )
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
-### Contact us
+
+## Contact us
   <ul>
      <li> :clock3: Team Email: <a href='gangoffive301@gmail.com'> GitHub for version control </a></li>
        <li> :clock3: Team Email: <a href='ulrik.demuelenaere@5dt.com'> GitHub for version control </a></li>
   </ul>
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
-### Stakeholders
+## Stakeholders
   
 <!--   insert edugo and cs dempartment logo here -->
 
