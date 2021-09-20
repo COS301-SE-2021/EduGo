@@ -1,13 +1,18 @@
 
-<h1>EduGo</h1>
-<h3> by Gang of Five</h3>
+:iphone: ##EduGo
+### by Gang of Five###
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
     <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200"> </a>
   
+<!--  Change edugo photo here -->
   
-## :books: <h1>Project Overview:</h1>
+<!--  Add table of contents here -->
+  
+## :books: Project Overview:
 EduGo is an educational system that aims to shape and influence the future of education through the use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and will alos enable educators to add virtual entities -along with quizzes about the virtual entity- to a lesson.
+  
+<!--Fix team members desc and photos here -->
   
 ## :people_holding_hands: EduGo Team Members:
 
@@ -37,6 +42,46 @@ master ( build )
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-web−feature 
 </br>
 
+## :hammer_and_wrench: Tech Stack: 
+<!-- add all tags here and all proper info -->
+
+### Front End for web app - Flutter
+
+  ###Front end for Android App 
+  <ul>
+    <li> Flutter</li>
+  </ul>
+  
+  ###Backend
+   <ul>
+     <li> Node.js</li>
+   </ul>
+   
+  ###Database 
+   <ul>
+    <li> Postgres</li>
+   </ul>
+   
+  ###Hosting
+   <ul>
+     <li>AWS</li>
+   </ul>
+   
+  ###Storage
+   <ul>
+    <li>Amazon S3</li>
+   </ul>
+   
+  ###Container 
+   <ul>     
+    <li>Docker</li>
+   </ul>
+  
+  ###Testing
+   <ul>
+     <li>Striker</li>
+   </ul>
+   
 ## :page_facing_up: Documententation:
 ### SRS Document:
 <ul>
@@ -48,9 +93,9 @@ master ( build )
 
 ### Architectural Requirements:
 <ul>
-   <li> :book::open_book: <a href=''>Architectural Requirement Document - V1</a></li>
-   <li> :book::open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirement Document - V2</a></li>
-     <li> :book::open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirement Document - V3</a></li>
+   <li> :open_book: <a href=''>Architectural Requirement Document - V1</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirement Document - V2</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirement Document - V3</a></li>
 </ul>
 
 ### User Manual:
@@ -78,7 +123,13 @@ master ( build )
 
 
 ## Project Management Tool
-https://3.basecamp.com/5098601/projects/22442122
+<ul>
+  <li> :clock3: <a href='https://3.basecamp.com/5098601/projects/22442122'> GitHub for version control </a></li>
+   <li> :clock3: <a href='https://3.basecamp.com/5098601/projects/22442122'> Basecamp for managing all project tasks </a></li>
+   <li> :clock3: <a href='https://discord.com/'> Dischord for all Gang Of Five team meetings </a></li>
+   <li> :clock3:<a href='https://workspace.google.com/intl/en/products/meet/?utm_source=google&utm_medium=cpc&utm_campaign=emea-ZA-all-en-dr-bkws-all-all-trial-e-googlemeet-1010042&utm_content=text-ad-none-none-DEV_c-CRE_538261178073-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Meet%20~%20General-KWID_43700065562271932-kwd-299356619278-userloc_1028684&utm_term=KW_google%20meet-ST_google%20meet&gclid=CjwKCAjw4qCKBhAVEiwAkTYsPMlZwJyZUYRXs2eMHdz1xjjqOAJYCgEkq2FbkfpMYfnV0zDNShB5bxoCLrkQAvD_BwE&gclsrc=aw.ds'> Google meets used for meeting with the Business client Stakeholders </a></li>
+  <li> :clock3: <a href='https://3.basecamp.com/5098601/projects/22442122'> BlackBoard Collaborate used for meeting with the Computer Science Dempartment Stakeholders </a></li>
+
 
 ## :clapper: Demo Recordings 
 
@@ -100,4 +151,14 @@ https://3.basecamp.com/5098601/projects/22442122
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=sqale_index)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 
+  
+###Contact us
+  <ul>
+     <li> :clock3: Team Email: <a href='gangoffive301@gmail.com'> GitHub for version control </a></li>
+       <li> :clock3: Team Email: <a href='ulrik.demuelenaere@5dt.com'> GitHub for version control </a></li>
+  </ul>
+  
+ ###Stakeholders
+  
+<!--   insert edugo and cs dempartment logo here -->
 
