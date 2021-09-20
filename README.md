@@ -210,7 +210,7 @@ master ( build )
   
 ### University of Pretoria Computer Science Department
   <a href="https://www.up.ac.za/">
-    <img src="https://edugo.blob.core.windows.net/edugo/readme/up_logo.jpg" alt="Logo" width="400" height="200"> </a>
+    <img src="https://edugo.blob.core.windows.net/edugo/readme/up_logo.jpg" alt="Logo" width="300" height="200"> </a>
 
 
 ### 5DT
