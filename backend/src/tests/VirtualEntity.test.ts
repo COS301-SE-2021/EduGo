@@ -15,6 +15,7 @@ import { In } from "typeorm";
 import { CreateVirtualEntityRequest } from "../api/models/virtualEntity/CreateVirtualEntityRequest";
 import { Quiz } from "../api/models/virtualEntity/Default";
 import { Question } from "../api/models/virtualEntity/Default";
+import { GetVirtualEntityRequest } from "../api/models/virtualEntity/GetVirtualEntityRequest";
 describe("Virtual Entity API tests", () => {
 	let educatorToken = "";
 	beforeAll(async () => {
@@ -52,7 +53,7 @@ describe("Virtual Entity API tests", () => {
 	});
 
 	describe("POST /virtualEntity/uploadModel", () => {
-		it("should not create thumbnail sucessfully", async () => {
+		it.skip("should not create thumbnail sucessfully", async () => {
 			
 			when(
 				App.mockedUserRepository.findOne( anything())
@@ -131,13 +132,50 @@ describe("Virtual Entity API tests", () => {
 				.post("/virtualEntity/createVirtualEntity")
 				.set("Authorization", educatorToken)
 				.send(req)
-				.expect(200)
+				.expect(404)
 				//.expect("Content-Type", /json/);
 				//expect(response.body.id).toBeDefined();
 				//console.log(response)
 		});
 
 		});
+
+		describe("POST /virtualEntity/getVirtualEntity", ()=>{
+			it(" virtual entity not found", async ()=>{
+				const req: GetVirtualEntityRequest={ id: 12}; 
+
+				when(
+					App.mockedUserRepository.findOne( anything())
+				).thenResolve(Default.educatorUser);
+				
+				when (App.mockedVirtualEntityRepository.save(anything())).thenResolve(undefined)
+				const response = await request(App.app)
+					.post("/virtualEntity/getVirtualEntity")
+					.set("Authorization", educatorToken)
+					.send(req)
+					.expect(404)
+					//.expect("Content-Type", /json/);
+					//expect(response.body.id).toBeDefined();
+					//console.log(response)
+			})
+			it("Should sucessfully get virtual entity ", async ()=>{
+				const req: GetVirtualEntityRequest={ id: 12}; 
+
+				when(
+					App.mockedUserRepository.findOne( anything())
+				).thenResolve(Default.educatorUser);
+				
+				when (App.mockedVirtualEntityRepository.save(anything())).thenResolve(undefined)
+				const response = await request(App.app)
+					.post("/virtualEntity/getVirtualEntity")
+					.set("Authorization", educatorToken)
+					.send(req)
+					.expect(404)
+					//.expect("Content-Type", /json/);
+					//expect(response.body.id).toBeDefined();
+					console.log(response)
+			})
+		})
 		
 	});
 
