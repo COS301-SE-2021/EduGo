@@ -3,7 +3,7 @@
 #### by Gang of Five
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
-    <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200"> </a>
+    <img src="https://edugo.blob.core.windows.net/edugo/readme/unknown.png" alt="Logo" width="600" height="200"> </a>
   
 <!--  Change edugo photo here -->
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
@@ -205,7 +205,15 @@ master ( build )
   </ul>
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
+
 ## Stakeholders
   
-<!--   insert edugo and cs dempartment logo here -->
+### University of Pretoria Computer Science Department
+  <a href="https://www.up.ac.za/">
+    <img src="https://edugo.blob.core.windows.net/edugo/readme/up_logo.jpg" alt="Logo" width="600" height="200"> </a>
+
+
+### 5DT
+  <a href="https://5dt.com/?gclid=CjwKCAjw4qCKBhAVEiwAkTYsPNJ6GF6DXGp_9g6OxlRG-xvLD76Lfc_HNh1SLWGZe9Y1D--Oo0XLLxoC9gYQAvD_BwE">
+    <img src="https://edugo.blob.core.windows.net/edugo/readme/unknown.png" alt="Logo" width="600" height="200"> </a>
 
