@@ -26,14 +26,15 @@ import {
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
-import { ConvertModel, GenerateThumbnail } from "../helper/ExternalRequests";
+import { ExternalRequests } from "../helper/ExternalRequests";
 @Service()
 @JsonController("/virtualEntity")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class VirtualEntityController {
 	constructor(
 		@Inject() private service: VirtualEntityService,
-		@Inject() private fileManagement: FileManagement
+		@Inject() private fileManagement: FileManagement,
+		@Inject() private externalRequests: ExternalRequests
 	) {}
 
 	@Post("/createVirtualEntity")
@@ -53,8 +54,8 @@ export class VirtualEntityController {
 	) {
 		if (file) {
 			const result = await this.fileManagement.UploadModelToAzure(file);
-			const thumbnail = await GenerateThumbnail(result);
-			const gltf = await ConvertModel(result);
+			const thumbnail = await this.externalRequests.GenerateThumbnail(result);
+			const gltf = await this.externalRequests.ConvertModel(result);
 			const response: any = {
 				fileLink: result,
 				thumbnail: thumbnail.uploaded,

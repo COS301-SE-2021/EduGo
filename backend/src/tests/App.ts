@@ -35,6 +35,7 @@ import azureStorage from "azure-storage";
 import passport from "passport";
 import * as Default from "./Default";
 import axios, { AxiosStatic } from "axios";
+import { ExternalRequests } from "../api/helper/ExternalRequests";
 
 Error.stackTraceLimit = Infinity;
 
@@ -49,8 +50,8 @@ const connectionInstance: Connection = instance(mockedConnection);
 const mockedFileManagement: FileManagement = mock(FileManagement);
 const fileManagementInstance: FileManagement = instance(mockedFileManagement);
 
-// const mockedaxios: AxiosStatic = mock(axios);
-// const axiosInstance: AxiosStatic = instance(mockedaxios);
+export const mockedExternalRequests: ExternalRequests = mock(ExternalRequests);
+const externalRequestsInstance: ExternalRequests = instance(mockedExternalRequests);
 
 export const mockedEducatorRepository: Repository<Educator> = mock(Repository);
 const educatorRepository: Repository<Educator> = instance(
@@ -121,6 +122,7 @@ when(mockedConnection.getRepository(VirtualEntity)).thenReturn(
 
 Container.set(ConnectionManager, connectionManagerInstance);
 Container.set(FileManagement, fileManagementInstance);
+Container.set(ExternalRequests, externalRequestsInstance);
 Container.set(Repository, educatorRepository);
 Container.set(Repository, gradeRepository);
 Container.set(Repository, lessonRepository);
@@ -132,7 +134,6 @@ Container.set(Repository, unverifiedUsersRepository);
 Container.set(Repository, userRepository);
 Container.set(Repository, virtualEntityRepository);
 Container.set(azureStorage.BlobService, azureBlobService);
-//Container.set(AxiosStatic, axiosInstance);
 diUseContainer(Container);
 ormUseContainer(Container);
 

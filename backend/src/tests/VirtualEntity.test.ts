@@ -11,11 +11,12 @@ import { CreateSubjectRequest } from "../api/models/subject/CreateSubjectRequest
 import { DeleteSubjectRequest } from "../api/models/subject/DeleteSubjectRequest";
 import { SetUserToAdminRequest } from "../api/models/user/SetUserToAdminRequet";
 import { AddStudentsToSubjectRequest } from "../api/models/user/AddStudentToSubjectRequest";
-import { In } from "typeorm";
 import { CreateVirtualEntityRequest } from "../api/models/virtualEntity/CreateVirtualEntityRequest";
 import { Quiz } from "../api/models/virtualEntity/Default";
 import { Question } from "../api/models/virtualEntity/Default";
 import { GetVirtualEntityRequest } from "../api/models/virtualEntity/GetVirtualEntityRequest";
+import path from "path";
+
 describe("Virtual Entity API tests", () => {
 	let educatorToken = "";
 	beforeAll(async () => {
@@ -53,26 +54,23 @@ describe("Virtual Entity API tests", () => {
 	});
 
 	describe("POST /virtualEntity/uploadModel", () => {
-		it.skip("should not create thumbnail sucessfully", async () => {
-			
-			when(
-				App.mockedUserRepository.findOne( anything())
-			).thenResolve(Default.educatorUser);
-			
+		it("should create thumbnail sucessfully", async () => {
+
+			when(App.mockedExternalRequests.GenerateThumbnail(anything())).thenResolve({download: '', uploaded: ''});
+			when(App.mockedExternalRequests.ConvertModel(anything())).thenResolve([]);
+			when(App.mockedUserRepository.findOne(anything())).thenResolve(Default.educatorUser);
 			when(App.mockedAzureBlobService.createAppendBlobFromStream(anything(),anything(),anything(),anyNumber(), anything())).thenResolve().thenResolve()
-			when(App.mockedAzureBlobService.getUrl(anything(),anything())).thenReturn("www.edugo.com")
+			when(App.mockedAzureBlobService.getUrl(anything(),anything())).thenReturn("www.edugo.com");
+
 			const response = await request(App.app)
 				.post("/virtualEntity/uploadModel")
 				.set("Authorization", educatorToken)
-				.attach('file', "C:/Users/simek/Downloads/rxt.glb")
-				.expect(500)
-				//.expect("Content-Type", /json/);
+				.attach('file', path.join(__dirname, 'Other/Duck.file'))
+				.expect(200)
+				.expect("Content-Type", /json/);
 				//expect(response.body.id).toBeDefined();
 		});
-			//	.expect("Content-Type", /json/);
-				//expect(response.body.id).toBeDefined();
-			//	console.log(response)
-		});
+	});
 		
 	describe("POST /virtualEntity/createVirtualEntity", () => {
 		it("should create VirtualEntity", async () => {
@@ -157,7 +155,8 @@ describe("Virtual Entity API tests", () => {
 					//.expect("Content-Type", /json/);
 					//expect(response.body.id).toBeDefined();
 					//console.log(response)
-			})
+			});
+
 			it.skip("Should sucessfully get virtual entity ", async ()=>{
 				const req: GetVirtualEntityRequest={ id: 12}; 
 
@@ -174,7 +173,7 @@ describe("Virtual Entity API tests", () => {
 					//.expect(200)
 					//.expect("Content-Type", /json/);
 					//expect(response.body.id).toBeDefined();
-					console.log(response)
+					//console.log(response.body);
 			})
 		})
 		

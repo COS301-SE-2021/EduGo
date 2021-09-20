@@ -25,7 +25,7 @@ import { Grade } from "../database/Grade";
 import { Answer } from "../database/Answer";
 import { Student } from "../database/Student";
 import { handleSavetoDBErrors } from "../helper/ErrorCatch";
-import { Service } from "typedi";
+import { Inject, Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import {
@@ -37,7 +37,7 @@ import { TogglePublicResponse } from "../models/virtualEntity/TogglePublicRespon
 import { Lesson } from "../database/Lesson";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
 import { GetQuizesByLessonResponse } from "../models/virtualEntity/GetQuizesByLessonResponse";
-import { ConvertModel, GenerateThumbnail } from "../helper/ExternalRequests";
+import { ExternalRequests } from "../helper/ExternalRequests";
 
 @Service()
 export class VirtualEntityService {
@@ -50,7 +50,8 @@ export class VirtualEntityService {
 		@InjectRepository(User) private userRepository: Repository<User>,
 		@InjectRepository(Student)
 		private studentRepository: Repository<Student>,
-		@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>
+		@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>,
+		@Inject() private externalRequests: ExternalRequests
 	) {}
 
 	/**
@@ -75,8 +76,8 @@ export class VirtualEntityService {
 		if (entity.model)
 			throw new BadRequestError("Virtual Entity already has a Model");
 
-		const thumbnail = await GenerateThumbnail(request.fileLink);
-		await ConvertModel(request.fileLink);
+		const thumbnail = await this.externalRequests.GenerateThumbnail(request.fileLink);
+		await this.externalRequests.ConvertModel(request.fileLink);
 
 		const model: Model = new Model();
 		model.fileLink = request.fileLink;
@@ -116,6 +117,7 @@ export class VirtualEntityService {
 		}
 
 		if (!entity) throw new NotFoundError("Could not find virtual entity");
+		console.log(entity);
 
 		const response: GetVirtualEntityResponse = {
 			id: entity.id,
