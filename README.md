@@ -1,5 +1,5 @@
 
-# :iphone: EduGo
+# EduGo
 ### by Gang of Five
 <p align="center">
   <a href="https://github.com/COS301-SE-2021/EduGo">
@@ -131,6 +131,8 @@ master ( build )
   <li> :label: <a href=''> SRS - V4</a></li>
 </ul>
 
+<hr>
+
 ### Architectural Requirements:
 <ul>
    <li> :open_book: <a href=''>Architectural Requirement Document - V1</a></li>
@@ -138,22 +140,30 @@ master ( build )
    <li> :open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirement Document - V3</a></li>
 </ul>
 
+<hr>
+
 ### User Manual:
 <ul>
  <li> :page_with_curl: <a href='https://drive.google.com/file/d/12bmn0Kbi0PfIHuXWqHJLEuYA1g0kJecB/view?usp=sharing'>User Manual</a></li>
- </ul>
+</ul>
+ 
+ <hr>
  
 ### Instillation Manual:
 <ul>
  <li> :bell: <a href='https://drive.google.com/file/d/1LGXCdM1HO4nKuoEqfs2IvMp3n0urwK9y/view?usp=sharing'>Technical Instillation Manual</a></li>
- </ul>
+</ul>
+ 
+ <hr>
  
 ### Coding Standards:
 <ul>
  <li> :memo::pencil: <a href='https://drive.google.com/file/d/1lD0U4w0lQHLxK8LwYes7YboLhW3yFTVA/view?usp=sharing'>Coding Standards Document</a></li>
- </ul>
+</ul>
  
-###  :clapper: Demo Recordings :
+<hr>
+ 
+###  Demo Recordings :
 <ul>
  <li> :tv: <a href='https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing'>Demo 1</a></li>
   <li> :tv: <a href='https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing'>Demo 2</a></li>
@@ -192,8 +202,8 @@ master ( build )
 
 ## Contact us
   <ul>
-     <li> :clock3: Team Email: <a href='gangoffive301@gmail.com'> GitHub for version control </a></li>
-       <li> :clock3: Team Email: <a href='ulrik.demuelenaere@5dt.com'> GitHub for version control </a></li>
+     <li> :iphone: Team Email: <a href='gangoffive301@gmail.com'> GitHub for version control </a></li>
+       <li> :iphone: Team Email: <a href='ulrik.demuelenaere@5dt.com'> GitHub for version control </a></li>
   </ul>
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
