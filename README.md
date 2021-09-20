@@ -17,7 +17,7 @@
 - [Project Management Tool](#card_index_dividers-project-management-tool)
 - [Code Quality](#books-project-overview)
 - [Contact us](#telephone_receiver-contact-us)
-- [Stakeholders]()
+- [Stakeholders](#pushpin-stakeholders)
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
   
@@ -203,12 +203,11 @@ master ( build )
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
-## Stakeholders
+## :pushpin: Stakeholders
   
 ### University of Pretoria Computer Science Department
   <a href="https://www.up.ac.za/">
     <img src="https://edugo.blob.core.windows.net/edugo/readme/up_logo.jpg" alt="Logo" width="300" height="200"> </a>
-<hr>
 
 ### 5DT
   <a href="https://5dt.com/?gclid=CjwKCAjw4qCKBhAVEiwAkTYsPNJ6GF6DXGp_9g6OxlRG-xvLD76Lfc_HNh1SLWGZe9Y1D--Oo0XLLxoC9gYQAvD_BwE">
