@@ -9,11 +9,11 @@
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
  ## Table Of Contents
-- [:books: Project Overview:](#-books--project-overview-)
-- [:people_holding_hands: EduGo Team Members:](#-people-holding-hands--edugo-team-members-)
-- [:gear: Git Structure:](#-gear--git-structure-)
+- [Project Overview:](#-books--project-overview-)
+- [EduGo Team Members:](#-people-holding-hands--edugo-team-members-)
+- [Git Structure:](#-gear--git-structure-)
   * [Branching Strategy](#branching-strategy)
-- [:hammer_and_wrench: Tech Stack:](#-hammer-and-wrench--tech-stack-)
+- [Tech Stack:](#-hammer-and-wrench--tech-stack-)
   * [Front end for Android App](#front-end-for-android-app)
   * [Front end for Android App](#front-end-for-android-app-1)
   * [Backend](#backend)
@@ -22,7 +22,7 @@
   * [Storage](#storage)
   * [Container](#container)
   * [Testing](#testing)
-- [:page_facing_up: Documententation:](#-page-facing-up--documententation-)
+- [Documententation:](#-page-facing-up--documententation-)
   * [SRS Document:](#srs-document-)
   * [Architectural Requirements:](#architectural-requirements-)
   * [User Manual:](#user-manual-)
@@ -33,9 +33,6 @@
 - [Code Quality](#code-quality)
   * [Contact us](#contact-us)
   * [Stakeholders](#stakeholders)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
   
