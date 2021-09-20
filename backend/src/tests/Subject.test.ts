@@ -67,7 +67,7 @@ describe("Subject API tests", () => {
 				.set("Authorization", educatorToken)
 				.field("grade", req.grade)
 				.field("title", req.title)
-				.attach('file', "C:/Users/simek/Downloads/output-onlinepngtools.png")
+				.attach('file', "Other/Duck.file")
 				.expect(200)
 				.expect("Content-Type", /json/);
 				expect(response.body.id).toBeDefined();
