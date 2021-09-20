@@ -6,13 +6,14 @@
     <img src="https://edugo-files.s3.af-south-1.amazonaws.com/5dtlogo.png" alt="Logo" width="600" height="200"> </a>
   
 <!--  Change edugo photo here -->
-  
-<!--  Add table of contents here -->
-- [Project Overview:](#-books--project-overview-)
-- [EduGo Team Members:](#-people-holding-hands--edugo-team-members-)
-- [Git Structure:](#-gear--git-structure-)
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
+
+ ### Table Of Contents
+- [:books: Project Overview:](#-books--project-overview-)
+- [:people_holding_hands: EduGo Team Members:](#-people-holding-hands--edugo-team-members-)
+- [:gear: Git Structure:](#-gear--git-structure-)
   * [Branching Strategy](#branching-strategy)
-- [Tech Stack:](#-hammer-and-wrench--tech-stack-)
+- [:hammer_and_wrench: Tech Stack:](#-hammer-and-wrench--tech-stack-)
   * [Front end for Android App](#front-end-for-android-app)
   * [Front end for Android App](#front-end-for-android-app-1)
   * [Backend](#backend)
@@ -21,7 +22,7 @@
   * [Storage](#storage)
   * [Container](#container)
   * [Testing](#testing)
-- [Documententation:](#-page-facing-up--documententation-)
+- [:page_facing_up: Documententation:](#-page-facing-up--documententation-)
   * [SRS Document:](#srs-document-)
   * [Architectural Requirements:](#architectural-requirements-)
   * [User Manual:](#user-manual-)
@@ -35,12 +36,15 @@
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
   
 ## :books: Project Overview:
 EduGo is an educational system that aims to shape and influence the future of education through the use of Augmented Reality technology. The objective is to allow students to view AR entities through the use of their phones to enhance their learning experiences. The system will also allow educators to create subjects, add lessons to the subjects and will alos enable educators to add virtual entities -along with quizzes about the virtual entity- to a lesson.
   
 <!--Fix team members desc and photos here -->
   
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 ## :people_holding_hands: EduGo Team Members:
 
 | **Team Member** | **Profiles** | **Skills/Interest**
@@ -51,6 +55,8 @@ EduGo is an educational system that aims to shape and influence the future of ed
 | [<img src="https://media-exp3.licdn.com/dms/image/C4E03AQF2xPBrMsCF1w/profile-displayphoto-shrink_400_400/0/1615451522260?e=1629936000&v=beta&t=JcCWPFFa1WffhAFO4sVY1FSfpke33w5Xo3JGpHaG6-g" width="150" height="150">](https://github.com/MihlaliMgwebi "Mihlali Mgwebi") <br/> Mihlali Mgwebi <br/> u19187166 | [GitHub](https://github.com/MihlaliMgwebi) <br/> [Profile Page](https://github.com/MihlaliMgwebi) <br/> [LinkedIn](https://www.linkedin.com/in/mihlali-mgwebi-161a83208) <br/> | Gyming  <br/>Skating  <br/> Software Development <br/>
 | [<img src="https://edugo-files.s3.af-south-1.amazonaws.com/WhatsApp+Image+2021-08-15+at+22.01.19.jpeg" width="150" height="150">](https://github.com/Tshwarelo-Noah "Noah Mafarala") <br/> Noah Mafarala <br/> u19181851 | [GitHub](https://github.com/Tshwarelo-Noah) <br/> [Profile Page](https://github.com/Tshwarelo-Noah) <br/> [LinkedIn](https://www.linkedin.com/in/noah-mafaralala-815760178/) <br/> | Trading  <br/>Music  <br/> Food <br/>
   
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
+
 ## :gear: Git Structure:
 ### Branching Strategy
 
@@ -68,6 +74,8 @@ master ( build )
 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-web−feature 
 </br>
+
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
 ## :hammer_and_wrench: Tech Stack: 
 <!-- add all tags here and all proper info -->
@@ -112,6 +120,8 @@ master ( build )
      <li>Striker</li>
    </ul>
    
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
+
 ## :page_facing_up: Documententation:
 ### SRS Document:
 <ul>
@@ -151,6 +161,7 @@ master ( build )
   <li> :tv: <a href=''>Demo 4</a></li>
  </ul>
 
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
 ## Project Management Tool
 <ul>
@@ -159,12 +170,12 @@ master ( build )
    <li> :clock3: <a href='https://discord.com/'> Dischord for all Gang Of Five team meetings </a></li>
    <li> :clock3:<a href='https://workspace.google.com/intl/en/products/meet/?utm_source=google&utm_medium=cpc&utm_campaign=emea-ZA-all-en-dr-bkws-all-all-trial-e-googlemeet-1010042&utm_content=text-ad-none-none-DEV_c-CRE_538261178073-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Meet%20~%20General-KWID_43700065562271932-kwd-299356619278-userloc_1028684&utm_term=KW_google%20meet-ST_google%20meet&gclid=CjwKCAjw4qCKBhAVEiwAkTYsPMlZwJyZUYRXs2eMHdz1xjjqOAJYCgEkq2FbkfpMYfnV0zDNShB5bxoCLrkQAvD_BwE&gclsrc=aw.ds'> Google meets used for meeting with the Business client Stakeholders </a></li>
   <li> :clock3: <a href='https://3.basecamp.com/5098601/projects/22442122'> BlackBoard Collaborate used for meeting with the Computer Science Dempartment Stakeholders </a></li>
+</ul>
 
-
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 ## Code Quality
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/EduGo?label=Pull%20Requests)](https://github.com/COS301-SE-2021/EduGo/pulls)
 ![GitHub API Build](https://img.shields.io/github/workflow/status/COS301-SE-2021/EduGo/API%20Build?label=API%20Build)
-
 
 
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=bugs)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
@@ -177,13 +188,14 @@ master ( build )
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=sqale_index)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_EduGo&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_EduGo)
 
-  
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 ### Contact us
   <ul>
      <li> :clock3: Team Email: <a href='gangoffive301@gmail.com'> GitHub for version control </a></li>
        <li> :clock3: Team Email: <a href='ulrik.demuelenaere@5dt.com'> GitHub for version control </a></li>
   </ul>
   
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 ### Stakeholders
   
 <!--   insert edugo and cs dempartment logo here -->
