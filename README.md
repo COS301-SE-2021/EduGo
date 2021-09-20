@@ -19,7 +19,7 @@ EduGo is an educational system that aims to shape and influence the future of ed
 | [<img src="https://media-exp3.licdn.com/dms/image/C4E03AQF2xPBrMsCF1w/profile-displayphoto-shrink_400_400/0/1615451522260?e=1629936000&v=beta&t=JcCWPFFa1WffhAFO4sVY1FSfpke33w5Xo3JGpHaG6-g" width="150" height="150">](https://github.com/MihlaliMgwebi "Mihlali Mgwebi") <br/> Mihlali Mgwebi <br/> u19187166 | [GitHub](https://github.com/MihlaliMgwebi) <br/> [Profile Page](https://github.com/MihlaliMgwebi) <br/> [LinkedIn](https://www.linkedin.com/in/mihlali-mgwebi-161a83208) <br/> | Gyming  <br/>Skating  <br/> Software Development <br/>
 | [<img src="https://edugo-files.s3.af-south-1.amazonaws.com/WhatsApp+Image+2021-08-15+at+22.01.19.jpeg" width="150" height="150">](https://github.com/Tshwarelo-Noah "Noah Mafarala") <br/> Noah Mafarala <br/> u19181851 | [GitHub](https://github.com/Tshwarelo-Noah) <br/> [Profile Page](https://github.com/Tshwarelo-Noah) <br/> [LinkedIn](https://www.linkedin.com/in/noah-mafaralala-815760178/) <br/> | Trading  <br/>Music  <br/> Food <br/>
   
-## :gear:Git Structure:
+## :gear: Git Structure:
 ### Branching Strategy
 
 master ( build )
@@ -38,42 +38,55 @@ master ( build )
 </br>
 
 ## :page_facing_up: Documententation:
-### Software requirements specification (Demo 1)
-https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=sharing
-### Software requirements specification (Demo 2)
-https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=sharing
-### Architectural requirements specification (Demo 2)
-https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing
-### Software requirements specification (Demo 3)
-https://drive.google.com/file/d/1yz29wqZXcBQZ2XHFUbllYDV1l_CuMyuZ/view?usp=sharing
-### Architectural requirements specification (Demo 3)
-https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing
-### User Manual (Demo 3)
-https://drive.google.com/file/d/12bmn0Kbi0PfIHuXWqHJLEuYA1g0kJecB/view?usp=sharing
-### Technical Installation Manual (Demo 3)
-https://drive.google.com/file/d/1LGXCdM1HO4nKuoEqfs2IvMp3n0urwK9y/view?usp=sharing
-### Coding Standards/Quality Manual (Demo 3)
-https://drive.google.com/file/d/1lD0U4w0lQHLxK8LwYes7YboLhW3yFTVA/view?usp=sharing
+### SRS Document:
+<ul>
+  <li> :label: <a href='https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=sharing'> SRS - V1</a></li>
+  <li> :label: <a href='https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=sharing'> SRS - V2</a></li>
+  <li> :label: <a href='https://drive.google.com/file/d/1yz29wqZXcBQZ2XHFUbllYDV1l_CuMyuZ/view?usp=sharing'> SRS - V3</a></li>
+  <li> :label: <a href=''> SRS - V4</a></li>
+</ul>
+
+### Architectural Requirements:
+<ul>
+   <li> :book::open_book: <a href=''>Architectural Requirement Document - V1</a></li>
+   <li> :book::open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirement Document - V2</a></li>
+     <li> :book::open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirement Document - V3</a></li>
+</ul>
+
+### User Manual:
+<ul>
+ <li> :page_with_curl: <a href='https://drive.google.com/file/d/12bmn0Kbi0PfIHuXWqHJLEuYA1g0kJecB/view?usp=sharing'>User Manual</a></li>
+ </ul>
+ 
+### Instillation Manual:
+<ul>
+ <li> :bell: <a href='https://drive.google.com/file/d/1LGXCdM1HO4nKuoEqfs2IvMp3n0urwK9y/view?usp=sharing'>Technical Instillation Manual</a></li>
+ </ul>
+ 
+### Coding Standards:
+<ul>
+ <li> :memo::pencil: <a href='https://drive.google.com/file/d/1lD0U4w0lQHLxK8LwYes7YboLhW3yFTVA/view?usp=sharing'>Coding Standards Document</a></li>
+ </ul>
+ 
+### Recorded Demos:
+<ul>
+ <li> :tv: <a href='https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing'>Demo 1</a></li>
+  <li> :tv: <a href='https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing'>Demo 2</a></li>
+  <li> :tv: <a href='https://drive.google.com/file/d/1WuS3KmJ2zxvCAIW9hqg81GTnNJTXkC86/view?usp=sharing'>Demo 3</a></li>
+  <li> :tv: <a href=''>Demo 4</a></li>
+ </ul>
+
+
 ## Project Management Tool
 https://3.basecamp.com/5098601/projects/22442122
 
 ## :clapper: Demo Recordings 
-### Recorded Demo 1 Video
-https://drive.google.com/file/d/1RIXQcITcelj4GaSmUtWqXE0fi6j3JdLS/view?usp=sharing
-### Recorded Demo 2 video
-https://drive.google.com/file/d/1iHJgScCNGbikE3fsQw5rotdFBa3A0Bus/view?usp=sharing
-### Recorded Demo 3 Video
-https://drive.google.com/file/d/1WuS3KmJ2zxvCAIW9hqg81GTnNJTXkC86/view?usp=sharing
+
+
 
 ## Code Quality
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/EduGo?label=Pull%20Requests)](https://github.com/COS301-SE-2021/EduGo/pulls)
 ![GitHub API Build](https://img.shields.io/github/workflow/status/COS301-SE-2021/EduGo/API%20Build?label=API%20Build)
-
-
-
-
-
-
 
 
 
