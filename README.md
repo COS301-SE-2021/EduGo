@@ -9,7 +9,7 @@
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
  ## Table Of Contents
-- [Project Overview:](https://github.com/COS301-SE-2021/EduGo/blob/master/README.md/#books-project-overview)
+- [Project Overview:](#books-project-overview)
 - [EduGo Team Members:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#people_holding_hands-edugo-team-members)
 - [Git Structure:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#gear-git-structure)
 - [Technology Stack:](https://github.com/COS301-SE-2021/EduGo/blob/master/REAMME.md/#hammer_and_wrench-tech-stack)
