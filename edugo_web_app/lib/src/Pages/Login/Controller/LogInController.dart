@@ -52,6 +52,9 @@ class LogInController extends MomentumController<LoginModel> {
             Momentum.controller<AdminController>(context)
                 .setUserName(model.loginUserName);
             MomentumRouter.goto(context, AdminView);
+            Momentum.controller<AdminController>(context)
+                .getOrganisationId(context);
+
             model.update(errorString: "Logged In");
             return;
           } else {

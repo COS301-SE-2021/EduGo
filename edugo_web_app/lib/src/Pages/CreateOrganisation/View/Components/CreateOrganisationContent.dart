@@ -215,12 +215,17 @@ class _CreateOrganisationContentState extends State<CreateOrganisationContent> {
                           width: 400,
                           height: 100,
                           child: TextFormField(
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Organisation phone number cannot be blank';
-                              }
-                              return null;
-                            },
+                            validator: MultiValidator([
+                              PatternValidator(r'^[0-9]*$',
+                                  errorText: "Invalid phone number"),
+                              RequiredValidator(
+                                  errorText:
+                                      "Organisation phone number cannot be blank."),
+                              MinLengthValidator(10,
+                                  errorText: "Invalid phone number"),
+                              MaxLengthValidator(10,
+                                  errorText: "Invalid phone number"),
+                            ]),
                             onChanged: (value) {
                               if (value != null)
                                 Momentum.controller<
@@ -387,12 +392,15 @@ class _CreateOrganisationContentState extends State<CreateOrganisationContent> {
                           height: 100,
                           child: TextFormField(
                             obscureText: true,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Password cannot be blank';
-                              }
-                              return null;
-                            },
+                            validator: MultiValidator([
+                              RequiredValidator(errorText: "* Required"),
+                              MinLengthValidator(8,
+                                  errorText: "Invalid password"),
+                              PatternValidator(
+                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                                  errorText:
+                                      "Invalid password: should contain numbers & characters"),
+                            ]),
                             onChanged: (value) {
                               if (value != null)
                                 Momentum.controller<

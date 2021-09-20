@@ -15,11 +15,13 @@ class AdminModel extends MomentumModel<AdminController> {
   final String userName;
   final String virtualEntityViewerModelLink;
   final String currentSubjectImageLink;
+  final User currentUser;
 
   AdminModel(AdminController controller,
       {this.organisationName,
       this.currentSubjectImageLink,
       this.userName,
+      this.currentUser,
       this.organisationId,
       this.adminLoadController,
       this.currentLessonId,
@@ -29,79 +31,6 @@ class AdminModel extends MomentumModel<AdminController> {
       this.educatorCards,
       this.educators})
       : super(controller);
-
-  void updateEducators(List<User> educators) {
-    update(educators: educators);
-  }
-
-  void updateEducatorsView() {
-    List<Widget> educatorsWidgets = [];
-    educators.forEach((educator) {
-      if (educator.getAdmin() == true && educator.getName() == userName) {
-      } else {
-        educatorsWidgets.add(new EducatorCard(
-          name: educator.getName(),
-          admin: educator.getAdmin(),
-        ));
-        educatorsWidgets.add(SizedBox(
-          height: 20,
-        ));
-      }
-    });
-    update(educatorCards: educatorsWidgets);
-  }
-
-  void setCurrentSubjectId(int id) {
-    update(currentSubjectId: id);
-  }
-
-  void setUserName(String name) {
-    update(userName: name);
-  }
-
-  void setCurrentLessonId(int id) {
-    update(currentLessonId: id);
-  }
-
-  void setToken(String token) {
-    update(token: token);
-  }
-
-  void setVirtualEntityViewerModelLink(String link) {
-    update(virtualEntityViewerModelLink: link);
-  }
-
-  void setOrganisationId(int id) {
-    update(organisationId: id);
-  }
-
-  void setCurrentSubjectImage(String link) {
-    update(currentSubjectImageLink: link);
-  }
-
-  void setOrganisationName(String name) {
-    update(organisationName: name);
-  }
-
-  String getToken() {
-    return token;
-  }
-
-  String getVirtualEntityViewerModelLink() {
-    return virtualEntityViewerModelLink;
-  }
-
-  int getCurrentSubjectId() {
-    return currentSubjectId;
-  }
-
-  int getCurrentLessonId() {
-    return currentLessonId;
-  }
-
-  int getOrganisationId() {
-    return currentLessonId;
-  }
 
   @override
   void update(
@@ -114,9 +43,11 @@ class AdminModel extends MomentumModel<AdminController> {
       virtualEntityViewerModelLink,
       currentLessonId,
       userName,
+      currentUser,
       adminLoadController,
       currentSubjectImageLink}) {
     AdminModel(controller,
+            currentUser: currentUser ?? this.currentUser,
             organisationName: organisationName ?? this.organisationName,
             userName: userName ?? this.userName,
             organisationId: organisationId ?? this.organisationId,
