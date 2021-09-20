@@ -12,10 +12,10 @@
 - [Project Overview](#books-project-overview)
 - [EduGo Team Members](#people_holding_hands-edugo-team-members)
 - [Git Structure](#gear-git-structure)
+- [Code Quality](#bar_chart-code-quality)
 - [Technology Stack](#hammer_and_wrench-technology-stack)
 - [Documententation](#page_facing_up-documentation)
 - [Project Management Tool](#card_index_dividers-project-management-tool)
-- [Code Quality](#bar_chart-code-quality)
 - [Contact us](#telephone_receiver-contact-us)
 - [Stakeholders](#pushpin-stakeholders)
 
