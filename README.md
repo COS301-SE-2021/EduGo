@@ -127,6 +127,7 @@ master ( build )
    <li> :open_book: <a href=''>Architectural Requirement Document - V1</a></li>
    <li> :open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirement Document - V2</a></li>
    <li> :open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirement Document - V3</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1QLxuWgSxSRTfNrK60wSmWUrdmIGxf87F/view?usp=sharing'>Architectural Requirement Document - V4</a></li>
 </ul>
 
 <hr>
