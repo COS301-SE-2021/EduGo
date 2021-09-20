@@ -186,8 +186,8 @@ master ( build )
 
 ## :telephone_receiver: Contact us
   <ul>
-     <li> :iphone: Team Email: <a href='gangoffive301@gmail.com'> Gang of Five </a></li>
-       <li> :iphone: Team Email: <a href='ulrik.demuelenaere@5dt.com'> 5DT </a></li>
+     <li> :iphone: Gang of Five Email: <a href='gangoffive301@gmail.com' </a></li>
+     <li> :iphone: 5DT Client Email: <a href='ulrik.demuelenaere@5dt.com' </a></li>
   </ul>
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
