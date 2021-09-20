@@ -15,7 +15,7 @@
 - [Technology Stack](#hammer_and_wrench-technology-stack)
 - [Documententation](#page_facing_up-documentation)
 - [Project Management Tool](#card_index_dividers-project-management-tool)
-- [Code Quality](#books-project-overview)
+- [Code Quality](#bar_chart-code-quality)
 - [Contact us](#telephone_receiver-contact-us)
 - [Stakeholders](#pushpin-stakeholders)
 
@@ -57,6 +57,12 @@ master ( build )
 </br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;− develop-web−feature 
 </br>
+
+<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
+
+## :bar_chart: Code Quality
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/EduGo?label=Pull%20Requests)](https://github.com/COS301-SE-2021/EduGo/pulls)
+![GitHub API Build](https://img.shields.io/github/workflow/status/COS301-SE-2021/EduGo/API%20Build?label=API%20Build)
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
@@ -177,13 +183,6 @@ master ( build )
   <li> :paperclip: <a href='https://meet.google.com/'> Google meets used for meeting with the Business client Stakeholders </a></li>
   <li> :paperclip: <a href='https://eduvation.up.ac.za/students/index.php/blackboard-collaborate'> BlackBoard Collaborate used for meeting with the Computer Science Dempartment Stakeholders </a></li>
 </ul>
-
-<hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
-
-## Code Quality
-[![GitHub pull-requests](https://img.shields.io/github/issues-pr/COS301-SE-2021/EduGo?label=Pull%20Requests)](https://github.com/COS301-SE-2021/EduGo/pulls)
-![GitHub API Build](https://img.shields.io/github/workflow/status/COS301-SE-2021/EduGo/API%20Build?label=API%20Build)
-
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
