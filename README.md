@@ -14,7 +14,7 @@
 - [Git Structure:](#gear-git-structure)
 - [Technology Stack:](#hammer_and_wrench-technology-stack)
 - [Documententation:](#page_facing_up-documentation)
-- [Project Management Tool](#card_index_dividers-project-overview)
+- [Project Management Tool](#card_index_dividers-project-management-tool)
 - [Code Quality](#books-project-overview)
 - [Contact us](#telephone_receiver-contact-us)
 - [Stakeholders]()
@@ -106,7 +106,7 @@ master ( build )
    
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
 
-## :page_facing_up: Documententation:
+## :page_facing_up: Documentation:
 ### SRS Document:
 <ul>
   <li> :label: <a href='https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=sharing'> SRS - V1</a></li>
