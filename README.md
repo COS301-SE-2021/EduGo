@@ -30,11 +30,17 @@ EduGo is an educational system that aims to shape and influence the future of ed
 ## :bulb: EduGo Systems
 
   ### APK for EduGo Android App
+    <ul>
+    <li> :desktop_computer: <a href='https://drive.google.com/file/d/1cNUOm-vSx8-2NhxwQo9nMMdMYizw7vjV/view?usp=sharing'>EduGo Web App</a></li>
+    <li> :desktop_computer: <a href='https://drive.google.com/file/d/1cNREGMrGek1DGTtPoqQGXq1rrLRy2EW3/view?usp=sharing'>EduGo Web App</a></li>
+  </ul>
   
   ### Link for EduGo WebApp
   <ul>
     <li> :desktop_computer: <a href='http://edugo-backend.southafricanorth.cloudapp.azure.com:8086/'>EduGo Web App</a></li>
   </ul>
+  
+
   
   
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
