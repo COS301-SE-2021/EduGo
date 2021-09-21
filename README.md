@@ -33,7 +33,7 @@ EduGo is an educational system that aims to shape and influence the future of ed
   
   ### Link for EduGo WebApp
   <ul>
-    <li> :pencil: <a href='http://edugo-backend.southafricanorth.cloudapp.azure.com:8086/'>EduGo Web App</a></li>
+    <li> :desktop_computer: <a href='http://edugo-backend.southafricanorth.cloudapp.azure.com:8086/'>EduGo Web App</a></li>
   </ul>
   
   
