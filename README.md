@@ -11,7 +11,7 @@
  ## Table Of Contents
 - [Project Overview](#books-project-overview)
 - [EduGo Team Members](#people_holding_hands-edugo-team-members)
-- [EduGo Systems[(#bul-edugo-systems)
+- [EduGo Systems[(#bulb-edugo-systems)
 - [Git Structure](#gear-git-structure)
 - [Code Quality](#bar_chart-code-quality)
 - [Technology Stack](#hammer_and_wrench-technology-stack)
