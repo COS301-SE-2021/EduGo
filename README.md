@@ -140,7 +140,7 @@ master ( build )
  
 ### Instillation Manual
 <ul>
- <li> :bell: <a href='https://drive.google.com/file/d/1LGXCdM1HO4nKuoEqfs2IvMp3n0urwK9y/view?usp=sharing'>Technical Instillation Manual</a></li>
+ <li> :bell: <a href='https://drive.google.com/file/d/1x5zNR04yCAaC05IQsMMvT_fstOvrRHBu/view?usp=sharing'>Technical Instillation Manual</a></li>
 </ul>
  
  <hr>
@@ -182,8 +182,8 @@ master ( build )
    <li> :paperclip: <a href='https://github.com'> GitHub for version control </a></li>  
    <li> :paperclip: <a href='https://3.basecamp.com/5098601/projects/22442122'> Basecamp for managing all project tasks </a></li>
    <li> :paperclip: <a href='https://discord.com/'> Discord for all Gang Of Five team meetings </a></li>
-  <li> :paperclip: <a href='https://meet.google.com/'> Google meets used for meeting with the Business client Stakeholders </a></li>
-  <li> :paperclip: <a href='https://eduvation.up.ac.za/students/index.php/blackboard-collaborate'> BlackBoard Collaborate used for meeting with the Computer Science Dempartment Stakeholders </a></li>
+   <li> :paperclip: <a href='https://meet.google.com/'> Google meets used for meeting with the Business client Stakeholders </a></li>
+   <li> :paperclip: <a href='https://eduvation.up.ac.za/students/index.php/blackboard-collaborate'> BlackBoard Collaborate used for meeting with the Computer Science Dempartment Stakeholders </a></li>
 </ul>
 
 <hr style=" border-top: 4px solid #bbb; border-radius: 2px;">
