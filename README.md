@@ -174,7 +174,9 @@ master ( build )
   ![AGPL License](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
   ![AGPL License](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
   ![AGPL License](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
-  ![AGPL License](https://img.shields.io/badge/Google%20Meet-32A350?style=for-the-badge&logo=google-meet&logoColor=white) 
+  ![AGPL License](https://img.shields.io/badge/Google%20Meet-32A350?style=for-the-badge&logo=google-meet&logoColor=white)
+  ![AGPL License](https://img.shields.io/badge/Overleaf-47A141?style=for-the-badge&logo=Overleaf&logoColor=white) 
+  ![AGPL License](https://img.shields.io/badge/Basecamp-47A141?style=for-the-badge&color=yellow)
 
 <ul>
    <li> :paperclip: <a href='https://github.com'> GitHub for version control </a></li>  
