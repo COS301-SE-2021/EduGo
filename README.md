@@ -133,7 +133,7 @@ master ( build )
 
 ### User Manual
 <ul>
- <li> :page_with_curl: <a href='https://drive.google.com/file/d/12bmn0Kbi0PfIHuXWqHJLEuYA1g0kJecB/view?usp=sharing'>User Manual</a></li>
+ <li> :page_with_curl: <a href='https://drive.google.com/file/d/17ar46Ac1n__3wUsx3qsb0DGWDZ6En5HA/view?usp=sharing'>User Manual</a></li>
 </ul>
  
  <hr>
