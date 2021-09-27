@@ -1,8 +1,11 @@
 import { SubjectService } from "../services/SubjectService";
 import { CreateSubjectRequest } from "../models/subject/CreateSubjectRequest";
-import { IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
+import {
+	IsEducatorMiddleware,
+	IsUserMiddleware,
+} from "../middleware/ValidationMiddleware";
 import passport from "passport";
-import { upload, UploadImageToAzure } from "../helper/File";
+import { upload, FileManagement } from "../helper/File";
 import { Service, Inject } from "typedi";
 import {
 	UseBefore,
@@ -13,14 +16,18 @@ import {
 	InternalServerError,
 	JsonController,
 	ContentType,
+	Delete,
 } from "routing-controllers";
+import { DeleteSubjectRequest } from "../models/subject/DeleteSubjectRequest";
 
 @Service()
 @JsonController("/subject")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class SubjectController {
-	@Inject()
-	private service: SubjectService;
+	constructor(
+		@Inject() private service: SubjectService,
+		@Inject() private fileManagement: FileManagement
+	) {}
 
 	@Post("/createSubject")
 	@UseBefore(IsEducatorMiddleware)
@@ -31,13 +38,18 @@ export class SubjectController {
 		@CurrentUser({ required: true }) id: number
 	) {
 		if (file) {
-			let result = await UploadImageToAzure(file);
-			let link = file
+			const result = await this.fileManagement.UploadImageToAzure(file);
+			const link = file
 				? result
 				: "https://edugo-files.s3.af-south-1.amazonaws.com/subject_default.jpg";
 			return this.service.CreateSubject(body, id, link);
-		}
-		else throw new InternalServerError("File is invalid");
+		} else throw new InternalServerError("File is invalid");
+	}
+
+	@Delete("/deleteSubject")
+	@UseBefore(IsEducatorMiddleware)
+	async DeleteSubject(@Body({ required: true }) body: DeleteSubjectRequest) {
+		return this.service.DeleteSubject(body);
 	}
 
 	@Post("/getSubjectsByUser")

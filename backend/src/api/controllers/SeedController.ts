@@ -18,11 +18,11 @@ router.post("/hidden/seed", async (req, res) => {
 	// 	await repository.clear(); // Clear each entity table's content
 	// }
 
-	let organisationRepository = getRepository(Organisation);
-	let userRepository = getRepository(User);
-	let invitedUserRepo = getRepository(UnverifiedUser);
-	let organisations: Organisation[] = seed.organisation.map((value) => {
-		let organisation: Organisation = new Organisation();
+	const organisationRepository = getRepository(Organisation);
+	const userRepository = getRepository(User);
+	const invitedUserRepo = getRepository(UnverifiedUser);
+	const organisations: Organisation[] = seed.organisation.map((value) => {
+		const organisation: Organisation = new Organisation();
 		organisation.id = value.id;
 		organisation.name = value.name;
 		organisation.email = value.email;
@@ -31,10 +31,10 @@ router.post("/hidden/seed", async (req, res) => {
 		return organisation;
 	});
 
-	let orgLength = organisations.length;
+	const orgLength = organisations.length;
 
-	let users: User[] = seed.user.map((value, index) => {
-		let user: User = new User();
+	const users: User[] = seed.user.map((value, index) => {
+		const user: User = new User();
 		user.id = value.id;
 		user.username = value.username;
 		user.firstName = value.firstName;
@@ -87,8 +87,8 @@ router.post("/hidden/seed", async (req, res) => {
 });
 
 router.get("/hidden/seed", async (req, res) => {
-	let organisationRepository = getRepository(Organisation);
-	let userRepository = getRepository(User);
+	const organisationRepository = getRepository(Organisation);
+	const userRepository = getRepository(User);
 
 	// userRepository.findByIds([1,2,3,4,5,6,7,8], {relations: ['organisation']}).then(users => {
 	//     res.status(200).json(users);
@@ -104,11 +104,11 @@ router.get("/hidden/seed", async (req, res) => {
 });
 
 function addInvitedUsersToDB(res: any) {
-	let organisationRepository = getRepository(Organisation);
-	let invitedUserRepo = getRepository(UnverifiedUser);
-	let invitedUsers: UnverifiedUser[] = seed.invitedUsers.map(
+	const organisationRepository = getRepository(Organisation);
+	const invitedUserRepo = getRepository(UnverifiedUser);
+	const invitedUsers: UnverifiedUser[] = seed.invitedUsers.map(
 		(value, index) => {
-			let invitedUser: UnverifiedUser = new UnverifiedUser();
+			const invitedUser: UnverifiedUser = new UnverifiedUser();
 			invitedUser.email = value.email;
 			invitedUser.id = value.id;
 			invitedUser.type = <UserType>value.type;
@@ -133,7 +133,7 @@ function addInvitedUsersToDB(res: any) {
 		.save(invitedUsers)
 		.then((invitedUse) => {
 			if (invitedUse) {
-				let response = {
+				const response = {
 					invited_count: invitedUse.length,
 				};
 				res.status(200).json(response);

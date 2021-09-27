@@ -15,15 +15,15 @@
 // 	firstName: string;
 // 	lastName: string;
 // 	username: string;
-//     isAdmin: boolean; 
+//     isAdmin: boolean;
 // }
 
 import { Organisation } from "./Default";
 
 export interface GOs_Organisation extends Organisation {
-    id: number;
+	id: number;
 }
 
 export interface GetOrganisationsResponse {
-    organisations: GOs_Organisation[];
+	organisations: GOs_Organisation[];
 }

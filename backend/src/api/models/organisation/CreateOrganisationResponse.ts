@@ -1,3 +1,3 @@
 export interface CreateOrganisationResponse {
-    id: number;
+	id: number;
 }

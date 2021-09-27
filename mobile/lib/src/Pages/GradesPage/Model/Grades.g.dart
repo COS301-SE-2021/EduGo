@@ -18,7 +18,7 @@ Subject _$SubjectFromJson(Map<String, dynamic> json) {
     (json['lessonGrades'] as List<dynamic>)
         .map((e) => Lesson.fromJson(e as Map<String, dynamic>))
         .toList(),
-    json['gradeAchieved'] as int,
+    (json['gradeAchieved'] as num).toDouble(),
     json['subjectName'] as String,
   );
 }
@@ -35,7 +35,7 @@ Lesson _$LessonFromJson(Map<String, dynamic> json) {
       requiredKeys: const ['id', 'gradeAchieved', 'lessonName', 'quizGrades']);
   return Lesson(
     json['id'] as int,
-    json['gradeAchieved'] as int,
+    (json['gradeAchieved'] as num).toDouble(),
     (json['quizGrades'] as List<dynamic>)
         .map((e) => Quiz.fromJson(e as Map<String, dynamic>))
         .toList(),

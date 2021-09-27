@@ -1,4 +1,4 @@
-import { In, Repository } from "typeorm";
+import { In, Repository, SimpleConsoleLogger } from "typeorm";
 import { validateEmails } from "./validations/EmailValidate";
 import { Organisation } from "../database/Organisation";
 import { UnverifiedUser } from "../database/UnverifiedUser";
@@ -56,7 +56,7 @@ export class EducatorService {
 	async AddEducatorToExistingSubject(
 		body: AddEducatorToExistingSubjectRequest,
 		user_id: number
-	): Promise<String> {
+	): Promise<string> {
 		let adminDetails: User;
 		let subjectDetails: Subject | undefined;
 		let educatorDetails: User | undefined;
@@ -117,7 +117,7 @@ export class EducatorService {
 		request: AddEducatorsRequest,
 		user_id: number
 	): Promise<string> {
-		let emails: string[] = request.educators;
+		const emails: string[] = request.educators;
 
 		if (validateEmails(emails)) {
 			let user: User | undefined;
@@ -135,8 +135,8 @@ export class EducatorService {
 			}
 
 			if (user && user.organisation) {
-				let org = user.organisation;
-				let list = this.CategoriseEducatorsFromEmails(emails, org);
+				const org = user.organisation;
+				const list = this.CategoriseEducatorsFromEmails(emails, org);
 				this.HandleNonExistentEducators(list.nonexistent, org);
 				this.HandleUnverifiedEducators(list.unverified);
 				return "ok";
@@ -165,7 +165,7 @@ export class EducatorService {
 			throw new InternalServerError("Could not find unverified users");
 		}
 
-		let reminderEmails: VerificationEmail[] = users
+		const reminderEmails: VerificationEmail[] = users
 			.filter((value) => value)
 			.map((value) => {
 				return {
@@ -174,9 +174,10 @@ export class EducatorService {
 				};
 			});
 
-		let status = await this.emailService.SendBulkVerificationReminderEmails(
-			reminderEmails
-		);
+		const status =
+			await this.emailService.SendBulkVerificationReminderEmails(
+				reminderEmails
+			);
 		if (!status)
 			throw new InternalServerError("Could not send all reminder emails");
 	}
@@ -196,8 +197,8 @@ export class EducatorService {
 		emails: string[],
 		org: Organisation
 	) {
-		let users: UnverifiedUser[] = emails.map((value) => {
-			let user: UnverifiedUser = new UnverifiedUser();
+		const users: UnverifiedUser[] = emails.map((value) => {
+			const user: UnverifiedUser = new UnverifiedUser();
 			user.email = value;
 			user.type = "educator";
 			user.subjects = [];
@@ -207,12 +208,12 @@ export class EducatorService {
 			return user;
 		});
 
-		let unverifiedEmails: VerificationEmail[] = users.map((value) => {
+		const unverifiedEmails: VerificationEmail[] = users.map((value) => {
 			return { code: value.verificationCode, email: value.email };
 		});
 
 		await this.unverifiedUserRepository.save(users);
-		let status = await this.emailService.SendBulkVerificationEmails(
+		const status = await this.emailService.SendBulkVerificationEmails(
 			unverifiedEmails
 		);
 		if (!status)
@@ -237,15 +238,15 @@ export class EducatorService {
 		emails: string[],
 		org: Organisation
 	): EmailList {
-		let list: EmailList = {
+		const list: EmailList = {
 			verified: [],
 			unverified: [],
 			nonexistent: [],
 		};
-		let allUnverifiedUserEmails: string[] = org.unverifiedUsers.map(
+		const allUnverifiedUserEmails: string[] = org.unverifiedUsers.map(
 			(value) => value.email
 		);
-		let allVerifiedUserEmails: string[] = org.users
+		const allVerifiedUserEmails: string[] = org.users
 			.filter((value) => value.educator)
 			.map((value) => value.email);
 
@@ -262,7 +263,7 @@ export class EducatorService {
 	public async getStudentGrades(userId: number) {
 		let user: User;
 		try {
-			let dUser = await this.userRepository.findOne(userId, {
+			const dUser = await this.userRepository.findOne(userId, {
 				relations: [
 					"educator",
 					"educator.subjects",
@@ -275,24 +276,26 @@ export class EducatorService {
 			if (!dUser) throw new NotFoundError("User not found");
 			user = dUser;
 		} catch (err) {
-			throw new InternalServerError('There was an error finding the user');
+			throw new InternalServerError(
+				"There was an error finding the user"
+			);
 		}
 
 		interface response {
 			allGrades: any;
 		}
 
-		let educatorGrades: GetGradesByEducatorResponse = { subjects: [] };
+		const educatorGrades: GetGradesByEducatorResponse = { subjects: [] };
 
 		educatorGrades.subjects = user.educator.subjects.map((sub) => {
-			let subjectG: SubjectGrade = {
+			const subjectG: SubjectGrade = {
 				subjectName: sub.title,
 				students: sub.students.map((student) => {
-					let grades = student.grades.filter(
+					console.log(student.grades);
+					const grades = student.grades.filter(
 						(grad) => grad.subject.id == sub.id
 					);
-
-					let studentData: StudentG = {
+					const studentData: StudentG = {
 						username: student.user.username,
 						firstname: student.user.firstName,
 						lastname: student.user.lastName,
@@ -328,7 +331,7 @@ export class EducatorService {
 	 * Length will be determined from the length parameter
 	 */
 	private generateCode(length: number): string {
-		let charset = "0123456789";
+		const charset = "0123456789";
 		let result = "";
 		for (let i = 0; i < length; i++)
 			result += charset[Math.floor(Math.random() * charset.length)];

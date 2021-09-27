@@ -28,7 +28,7 @@ class Subject {
 
   //Overall subject mark in a percentage
   @JsonKey(required: true)
-  int gradeAchieved;
+  double gradeAchieved;
 
   //List of lessons grades and info
   @JsonKey(required: true)
@@ -56,7 +56,7 @@ class Lesson {
 
   //Overall lesson mark in a percentage
   @JsonKey(required: true)
-  int gradeAchieved;
+  double gradeAchieved;
 
   //Lesson title/name
   @JsonKey(required: true)
