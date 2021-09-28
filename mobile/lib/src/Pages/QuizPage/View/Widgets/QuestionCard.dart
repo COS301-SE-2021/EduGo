@@ -30,7 +30,134 @@ class _QuestionCardState extends State<QuestionCard> {
       controllers: [QuizzesPageController],
       builder: (context, snapshot) {
         var quiz = snapshot<QuizzesPageModel>();
-
+        //Fill in the missing word question content
+        if (widget.question.getType() == 'ImageQuestion') {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+            child: Material(
+              shadowColor: Colors.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 40,
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.only(top: 60, bottom: 60),
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "Question " + (quiz.questionCount + 1).toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Color.fromARGB(255, 97, 211, 87),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      width: 100.00,
+                      height: 100.00,
+                      decoration: new BoxDecoration(
+                        image: new DecorationImage(
+                          image: ExactAssetImage(widget.question.getImage()),
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(40.0),
+                      child: Text(
+                        widget.question.getQuestion(),
+                        maxLines: 3,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.visible,
+                        softWrap: true,
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 70,
+                        right: 70,
+                      ),
+                      child: RadioGroup<String>.builder(
+                        activeColor: Color.fromARGB(255, 97, 211, 87),
+                        direction: Axis.vertical,
+                        groupValue: quiz.currentAnswer,
+                        onChanged: (value) {
+                          Momentum.controller<QuizzesPageController>(context)
+                              .chooseAnswer(value!);
+                        },
+                        items: widget.question.getAnswerOptions(),
+                        itemBuilder: (item) => RadioButtonBuilder(
+                          item,
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Momentum.controller<QuizzesPageController>(context)
+                          .answerQuestion(context);
+                    },
+                    child: Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 40.0,
+                          left: 40.0,
+                          right: 40.0,
+                        ),
+                        child: Material(
+                          shadowColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          elevation: 40,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 97, 211, 87),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 90.0,
+                            ),
+                            height: 50,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Next ",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
         //Fill in the missing word question content
         if (widget.question.getType() == 'FillinMissingWord') {
           // create rows of optional dropdowns with accompanying text. The number of

@@ -46,17 +46,6 @@ Future<http.Response> getQuizesByLesson() async {
           "description": "Quiz 1 d",
           "questions": [
             {
-              "id": 3,
-              "type": "ImageQuestion",
-              "image": "../assets/images/profile.jpg",
-              "question": "Is this the right atrium or left ventricle?",
-              "correctAnswer": "right atrium",
-              "options": [
-                "right atrium",
-                "left ventricle"
-              ]
-            },
-            {
               "id": 4,
               "type": "FillinMissingWord",
               "question": "1+1 = _. 2+2 =_. 3 x 3 = _.",
@@ -71,6 +60,17 @@ Future<http.Response> getQuizesByLesson() async {
                 "7",
                 "8",
                 "9"
+              ]
+            },
+            {
+              "id": 3,
+              "type": "ImageQuestion",
+              "image": "../assets/images/profile.jpg",
+              "question": "Is this the right atrium or left ventricle?",
+              "correctAnswer": "right atrium",
+              "options": [
+                "right atrium",
+                "left ventricle"
               ]
             },
             {
