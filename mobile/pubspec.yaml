@@ -45,6 +45,7 @@ dependencies:
     titled_navigation_bar: ^4.1.0
     flutter_spinkit: "^4.1.2"
     webview_flutter: ^0.3.24
+    flutter_dropdown: ^1.0.0+hotfix.1
 
 
 dev_dependencies:

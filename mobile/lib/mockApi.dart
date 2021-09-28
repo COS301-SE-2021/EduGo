@@ -46,6 +46,23 @@ Future<http.Response> getQuizesByLesson() async {
           "description": "Quiz 1 d",
           "questions": [
             {
+              "id": 4,
+              "type": "FillinMissingWord",
+              "question": "1+1 = _. 2+2 =_. 3 x 3 = _.",
+              "correctAnswer": "2;4;9",
+              "options": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9"
+              ]
+            },
+            {
               "id": 1,
               "type": "TrueFalse",
               "question": "Select True",
@@ -74,23 +91,6 @@ Future<http.Response> getQuizesByLesson() async {
               "options": [
                 "right atrium",
                 "left ventricle"
-              ]
-            },
-            {
-              "id": 4,
-              "type": "FillinMissingWord",
-              "question": "1+1 = _. 2+2 =_. 3 x 3 = _.",
-              "correctAnswer": "2;4;9",
-              "options": [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9"
               ]
             }
           ],
