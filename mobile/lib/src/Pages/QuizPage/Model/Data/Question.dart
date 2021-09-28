@@ -1,5 +1,13 @@
+// enum QuestionType {
+//   TrueFalse,
+//   MultipleChoice,
+//   FillinTheMissingWord,
+//   ImageQuestion,
+// }
+
 class Question {
   int _id;
+  String _type;
   String _question;
   String _correctAnswer;
   List<String> _answerOptions;
@@ -7,11 +15,13 @@ class Question {
 
   Question(
       {required int id,
+      required String type,
       required String question,
       required String correctAnswer,
       required List<String> answerOptions,
       required String givenAnswer})
       : _id = id,
+        _type = type,
         _answerOptions = answerOptions,
         _correctAnswer = correctAnswer,
         _question = question,
@@ -23,6 +33,10 @@ class Question {
 
   String getQuestion() {
     return _question;
+  }
+
+  String getType() {
+    return _type;
   }
 
   String getCorrectAnswer() {
@@ -46,6 +60,7 @@ class Question {
     List<String> stringList = dynList.cast<String>();
     return Question(
         id: json['id'] as int,
+        type: json['type'] as String,
         question: json['question'] as String,
         correctAnswer: json['correctAnswer'] as String,
         answerOptions: stringList,

@@ -32,9 +32,16 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
       lessonId: 0,
       questionCount: 0,
       currentQuestion: new QuestionCard(
-        questionId: 0,
-        question: "question",
-        answerOptions: [],
+        // questionId: 0,
+        // question: "question",
+        // answerOptions: [],
+        question: Question(
+            id: 0,
+            type: 'TrueFalse',
+            question: 'no available question',
+            answerOptions: [],
+            givenAnswer: '',
+            correctAnswer: ''),
       ),
     );
   }
@@ -197,9 +204,10 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
   void setCurrentQuestionCard() {
     Question question = model.currentQuiz.getQuestions()[model.questionCount];
     QuestionCard questionCard = new QuestionCard(
-      questionId: question.getId(),
-      question: question.getQuestion(),
-      answerOptions: question.getAnswerOptions(),
+      // questionId: question.getId(),
+      // question: question.getQuestion(),
+      // answerOptions: question.getAnswerOptions(),
+      question: question,
     );
     model.update(currentQuestion: questionCard);
   }
