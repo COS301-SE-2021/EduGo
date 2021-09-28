@@ -75,7 +75,7 @@ export class VirtualEntityController {
 		file: Express.Multer.File
 	) {
 		if (file) {
-			const result = await this.fileManagement.UploadModelToAzure(file);
+			const result = await this.fileManagement.UploadImageToAzure(file);
 			const response: any = {
 				fileLink: result,
 			};
