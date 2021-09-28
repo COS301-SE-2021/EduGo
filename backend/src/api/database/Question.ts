@@ -32,6 +32,9 @@ export class Question {
 	@Column()
 	question: string;
 
+	@Column()
+	imageLink?: string
+
 	@OneToMany((type) => Answer, (answer) => answer.question)
 	answers: Answer[];
 

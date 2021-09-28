@@ -178,6 +178,18 @@ export class VirtualEntityService {
 				const question: Question = new Question();
 				question.question = value.question;
 				question.type = <QuestionType>value.type;
+
+				if (
+					<QuestionType>value.type == QuestionType.image &&
+					value.imageLink == undefined
+				) {
+					throw new BadRequestError(
+						"Image link for Image question not provided"
+					);
+				} else {
+					question.imageLink = value.imageLink;
+				}
+
 				question.options = value.options;
 				question.correctAnswer = value.correctAnswer;
 				return question;
