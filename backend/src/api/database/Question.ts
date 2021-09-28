@@ -13,7 +13,7 @@ export enum QuestionType {
 	TrueFalse = "TrueFalse",
 	MultipleChoice = "MultipleChoice",
 	FreeText = "FreeText",
-	MissingWord = "FillinMissinWord",
+	MissingWord = "FillinMissingWord",
 	image = "ImageQuestion"
 }
 

@@ -19,11 +19,19 @@ export class FileManagement {
 	public async UploadImageToAzure(
 		file: Express.Multer.File
 	): Promise<string> {
-		let allowedExtensions = ["jpg", "jpeg", "png"];
+		const allowedExtensions = ["jpg", "jpeg", "png"];
 		return new Promise<string>((resolve, reject) => {
 			if (!this.ValidateExtension(file.originalname, allowedExtensions)) {
-				reject(`Invalid file extension. Only supported: ${allowedExtensions.join(', ')}`);
-				throw new BadRequestError(`Invalid file extension. Only supported: ${allowedExtensions.join(', ')}`);
+				reject(
+					`Invalid file extension. Only supported: ${allowedExtensions.join(
+						", "
+					)}`
+				);
+				throw new BadRequestError(
+					`Invalid file extension. Only supported: ${allowedExtensions.join(
+						", "
+					)}`
+				);
 			}
 			const name = this.getBlobName(file.originalname);
 			const length = file.buffer.length || 0;
@@ -54,11 +62,19 @@ export class FileManagement {
 	public async UploadModelToAzure(
 		file: Express.Multer.File
 	): Promise<string> {
-		let allowedExtensions = ["glb"];
+		const allowedExtensions = ["glb"];
 		return new Promise<string>((resolve, reject) => {
 			if (!this.ValidateExtension(file.originalname, allowedExtensions)) {
-				reject(`Invalid file extension. Only supported: ${allowedExtensions.join(', ')}`);
-				throw new BadRequestError(`Invalid file extension. Only supported: ${allowedExtensions.join(', ')}`);
+				reject(
+					`Invalid file extension. Only supported: ${allowedExtensions.join(
+						", "
+					)}`
+				);
+				throw new BadRequestError(
+					`Invalid file extension. Only supported: ${allowedExtensions.join(
+						", "
+					)}`
+				);
 			}
 			const name = this.getBlobName(file.originalname);
 			const length = file.buffer.length || 0;
@@ -87,10 +103,15 @@ export class FileManagement {
 	}
 
 	private GetExtension(filename: string): string {
-		return filename.slice((Math.max(0, filename.lastIndexOf(".")) || Infinity) + 1);
+		return filename.slice(
+			(Math.max(0, filename.lastIndexOf(".")) || Infinity) + 1
+		);
 	}
 
-	private ValidateExtension(filename: string, allowedExtensions: string[]): boolean {
+	private ValidateExtension(
+		filename: string,
+		allowedExtensions: string[]
+	): boolean {
 		const extension = this.GetExtension(filename);
 		return allowedExtensions.includes(extension);
 	}

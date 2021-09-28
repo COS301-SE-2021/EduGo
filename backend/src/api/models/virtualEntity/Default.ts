@@ -1,8 +1,11 @@
-import { IsArray, IsInt, IsOptional, IsString } from "class-validator";
+import { IsArray, IsEnum, IsInt, IsOptional, IsString } from "class-validator";
+import { QuestionType } from "../../../api/database/Question";
 
 export class Question {
-	@IsString()
+	@IsEnum(QuestionType)
 	type: string;
+
+	imageLink?: string;
 
 	@IsString()
 	question: string;

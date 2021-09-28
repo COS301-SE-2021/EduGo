@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import { VirtualEntityService } from "../services/VirtualEntityService";
@@ -62,6 +63,21 @@ export class VirtualEntityController {
 				fileLink: result,
 				thumbnail: thumbnail.uploaded,
 				gltf,
+			};
+			return response;
+		} else throw new BadRequestError("User is invalid");
+	}
+
+	@Post("/uploadImage")
+	@UseBefore(IsEducatorMiddleware)
+	async UploadImage(
+		@UploadedFile("image", { required: true, options: upload })
+		file: Express.Multer.File
+	) {
+		if (file) {
+			const result = await this.fileManagement.UploadModelToAzure(file);
+			const response: any = {
+				fileLink: result,
 			};
 			return response;
 		} else throw new BadRequestError("User is invalid");
