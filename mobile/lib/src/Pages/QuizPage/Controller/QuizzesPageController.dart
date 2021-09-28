@@ -48,17 +48,17 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
         "http://edugo-backend.southafricanorth.cloudapp.azure.com:8080/virtualEntity/getQuizesByLesson");
     await mockApi.getQuizesByLesson().
         // post(
-        //   url,
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     'Authorization': tk,
+        // url,
+        // headers: {
+        //   'Content-Type': 'application/json',
+        //   'Authorization': tk,
+        // },
+        // body: jsonEncode(
+        //   <String, int>{
+        //     "id": id,
         //   },
-        //   body: jsonEncode(
-        //     <String, int>{
-        //       "id": id,
-        //     },
-        //   ),
-        // ).
+        // ),
+        //).
         then(
       (response) {
         if (response.statusCode == 200) {
@@ -68,7 +68,8 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
           print(_quizzes);
           model.update(lessonQuizzes: Quizzes.fromJson(_quizzes, id).quizzes);
           model.update(
-              answeredQuizzes: _quizzes['answeredQuiz_ids'].cast<int>());
+              answeredQuizzes: _quizzes[
+                  'answeredQuiz_ids']); //_quizzes['answeredQuiz_ids'].cast<int>());
           buildQuizzesView();
           MomentumRouter.goto(context, QuizzesPageView);
           return;
