@@ -38,6 +38,7 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
         question: Question(
             id: 0,
             type: 'TrueFalse',
+            image: '',
             question: 'no available question',
             answerOptions: [],
             givenAnswer: '',
