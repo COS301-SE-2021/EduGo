@@ -216,6 +216,15 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     model.update(currentAnswer: answer);
   }
 
+  void chooseAnswers(String answer) {
+    if (model.currentAnswer != '') {
+      model.update(currentAnswer: model.currentAnswer + ';' + answer);
+      print('answers: ' + model.currentAnswer);
+      return;
+    }
+    model.update(currentAnswer: answer);
+  }
+
   int getLessonId() {
     return model.lessonId;
   }

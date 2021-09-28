@@ -30,7 +30,38 @@ class _QuestionCardState extends State<QuestionCard> {
       controllers: [QuizzesPageController],
       builder: (context, snapshot) {
         var quiz = snapshot<QuizzesPageModel>();
+
+        //Fill in the missing word question content
         if (widget.question.getType() == 'FillinMissingWord') {
+          // create rows of optional dropdowns with accompanying text. The number of
+          // rows are the number of blanks that need to be filled.
+          List<Widget> rows = [];
+
+          RegExp regExp = new RegExp(
+            r"_",
+            caseSensitive: false,
+            multiLine: false,
+          );
+          for (var i = 0;
+              i < regExp.allMatches(widget.question.getQuestion()).length;
+              i++) {
+            rows.add(
+              DropDown(
+                items: widget.question.getAnswerOptions(),
+                hint: Text(
+                    'Blank no.' + (i + 1).toString()), //(quiz.currentAnswer),
+                icon: Icon(
+                  Icons.expand_more,
+                  color: Colors.green,
+                ),
+                onChanged: (String? value) {
+                  Momentum.controller<QuizzesPageController>(context)
+                      .chooseAnswers(value!);
+                },
+              ),
+            );
+          }
+          //display question content.
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
             child: Material(
@@ -53,6 +84,7 @@ class _QuestionCardState extends State<QuestionCard> {
                       ),
                     ),
                   ),
+                  // question asked
                   Padding(
                     padding: const EdgeInsets.all(40.0),
                     child: Text(
@@ -72,28 +104,14 @@ class _QuestionCardState extends State<QuestionCard> {
                     ),
                     child: Center(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Missing blank: '),
-                          DropDown(
-                            items: widget.question.getAnswerOptions(),
-                            hint: Text(quiz.currentAnswer),
-                            icon: Icon(
-                              Icons.expand_more,
-                              color: Colors.green,
-                            ),
-                            onChanged: (String? value) {
-                              Momentum.controller<QuizzesPageController>(
-                                      context)
-                                  .chooseAnswer(value!);
-                            },
-                          ),
-                        ],
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: rows,
                       ),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
+                      //answer questions
                       Momentum.controller<QuizzesPageController>(context)
                           .answerQuestion(context);
                     },
