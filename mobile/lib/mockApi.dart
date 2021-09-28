@@ -2,45 +2,43 @@ import 'package:http/http.dart' as http;
 
 Future<http.Response> getQuestionsByQuizId(request) async {
   return http.Response('''
-    {
-      "data": 
-      [
-        {
-          "id": 1,
-          "type": "TrueFalse",
-          "question": "Select True",
-          "correctAnswer": "True",
-          "options": ["True","False"],
-        },
-        {
-          "id": 2,
-          "type": "MultipleChoice",
-          "question": "Select A",
-          "correctAnswer": "A",
-          "options": ["A","B","C"],
-        },
-        {
-          "id": 3,
-          "type": "MultipleChoice",
-          "question": "Select B",
-          "correctAnswer": "B",
-          "options": ["A","B","C"],
-        },
-        {
-          "id": 4,
-          "type": "TrueFalse",
-          "question": "Select False",
-          "correctAnswer": "False",
-          "options": ["True","False"],
-        },
-      ]
-    }
+      {
+  	"data": [{
+  			"id": 1,
+  			"type": "TrueFalse",
+  			"question": "Select True",
+  			"correctAnswer": "True",
+  			"options": ["True", "False"]
+  		},
+  		{
+  			"id": 2,
+  			"type": "MultipleChoice",
+  			"question": "Select A",
+  			"correctAnswer": "A",
+  			"options": ["A", "B", "C"]
+  		},
+  		{
+  			"id": 3,
+  			"type": "MultipleChoice",
+  			"question": "Select B",
+  			"correctAnswer": "B",
+  			"options": ["A", "B", "C"]
+  		},
+  		{
+  			"id": 4,
+  			"type": "TrueFalse",
+  			"question": "Select False",
+  			"correctAnswer": "False",
+  			"options": ["True", "False"]
+  		}
+  	]
+  }
   ''', 200);
 }
 
-Future<http.Response> getQuizesByLesson(request) async {
+Future<http.Response> getQuizesByLesson() async {
   return http.Response('''
-  {
+    {
     "data": [
       {
       "id" : 0,
@@ -51,68 +49,31 @@ Future<http.Response> getQuizesByLesson(request) async {
           "id": 1,
           "type": "TrueFalse",
           "question": "Select True",
-          "correctAnswer": "True",
+          "correctAnswer": ["True"],
           "options": ["True","False"]
         },
         {
           "id": 2,
           "type": "MultipleChoice",
           "question": "Select A",
-          "correctAnswer": "A",
+          "correctAnswer": ["A"],
           "options": ["A","B","C"]
         },
         {
           "id": 3,
-          "type": "MultipleChoice",
-          "question": "Select B",
-          "correctAnswer": "B",
-          "options": ["A","B","C"]
+          "type": "LabelImage",
+          "question": "Is this the right atrium or left ventricle?",
+          "correctAnswer": ["right atrium"],
+          "options": []
         },
         {
           "id": 4,
-          "type": "TrueFalse",
-          "question": "Select False",
-          "correctAnswer": "False",
-          "options": ["True","False"]
+          "type": "FillInTheBlanks",
+          "question": "1+1 = _. 2+2 =_. 3 x 3 = _.",
+          "correctAnswer": ["2", "4", "9"],
+          "options": []
         }
-       ]
-      },
-      {
-      "id" : 1,
-      "title": "Quiz 2",
-      "description": "Quiz 2 d",
-      "questions": [
-        {
-          "id": 1,
-          "type": "TrueFalse",
-          "question": "Select False",
-          "correctAnswer": "False",
-          "options": ["True","False"]
-        },
-        {
-          "id": 2,
-          "type": "MultipleChoice",
-          "question": "Select A",
-          "correctAnswer": "A",
-          "options": ["A","B","C"]
-        },
-        {
-          "id": 3,
-          "type": "MultipleChoice",
-          "question": "Select B",
-          "correctAnswer": "B",
-          "options": ["A","B","C"]
-        },
-        {
-          "id": 4,
-          "type": "TrueFalse",
-          "question": "Select False",
-          "correctAnswer": "False",
-          "options": ["True","False"]
-        }
-      ]
-      }
-    ]
+      ]}]
   }
    ''', 200);
 }

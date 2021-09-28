@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:mobile/mockApi.dart' as mockApi;
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/Data/Question.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuizCompletedView.dart';
@@ -46,22 +46,26 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     String tk = token.toString();
     var url = Uri.parse(
         "http://edugo-backend.southafricanorth.cloudapp.azure.com:8080/virtualEntity/getQuizesByLesson");
-    await post(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': tk,
-      },
-      body: jsonEncode(
-        <String, int>{
-          "id": id,
-        },
-      ),
-    ).then(
+    await mockApi.getQuizesByLesson().
+        // post(
+        //   url,
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     'Authorization': tk,
+        //   },
+        //   body: jsonEncode(
+        //     <String, int>{
+        //       "id": id,
+        //     },
+        //   ),
+        // ).
+        then(
       (response) {
         if (response.statusCode == 200) {
+          print(response.body);
           setLessonId(id);
           dynamic _quizzes = jsonDecode(response.body);
+          print(_quizzes);
           model.update(lessonQuizzes: Quizzes.fromJson(_quizzes, id).quizzes);
           model.update(
               answeredQuizzes: _quizzes['answeredQuiz_ids'].cast<int>());
