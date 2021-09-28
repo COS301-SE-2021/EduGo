@@ -54,7 +54,9 @@ export class VirtualEntityController {
 	) {
 		if (file) {
 			const result = await this.fileManagement.UploadModelToAzure(file);
-			const thumbnail = await this.externalRequests.GenerateThumbnail(result);
+			const thumbnail = await this.externalRequests.GenerateThumbnail(
+				result
+			);
 			const gltf = await this.externalRequests.ConvertModel(result);
 			const response: any = {
 				fileLink: result,

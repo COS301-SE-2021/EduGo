@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
 	Column,
 	Entity,
@@ -12,6 +13,8 @@ export enum QuestionType {
 	TrueFalse = "TrueFalse",
 	MultipleChoice = "MultipleChoice",
 	FreeText = "FreeText",
+	MissingWord = "FillinMissinWord",
+	image = "ImageQuestion"
 }
 
 @Entity()

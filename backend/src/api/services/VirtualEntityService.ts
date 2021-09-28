@@ -76,7 +76,9 @@ export class VirtualEntityService {
 		if (entity.model)
 			throw new BadRequestError("Virtual Entity already has a Model");
 
-		const thumbnail = await this.externalRequests.GenerateThumbnail(request.fileLink);
+		const thumbnail = await this.externalRequests.GenerateThumbnail(
+			request.fileLink
+		);
 		await this.externalRequests.ConvertModel(request.fileLink);
 
 		const model: Model = new Model();

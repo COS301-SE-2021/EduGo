@@ -71,7 +71,11 @@ const virtualEntityService: VirtualEntityService = new VirtualEntityService(
 const fileManagement: FileManagement = new FileManagement(azureBlobService);
 
 const virtualEntityController: VirtualEntityController =
-	new VirtualEntityController(virtualEntityService, fileManagement, externalRequest);
+	new VirtualEntityController(
+		virtualEntityService,
+		fileManagement,
+		externalRequest
+	);
 
 const organisation: Organisation = new Organisation();
 organisation.id = 1;
