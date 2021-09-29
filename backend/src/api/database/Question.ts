@@ -12,7 +12,6 @@ import { Quiz } from "./Quiz";
 export enum QuestionType {
 	TrueFalse = "TrueFalse",
 	MultipleChoice = "MultipleChoice",
-	FreeText = "FreeText",
 	MissingWord = "FillinMissingWord",
 	image = "ImageQuestion"
 }
@@ -32,7 +31,7 @@ export class Question {
 	@Column()
 	question: string;
 
-	@Column()
+	@Column({nullable: true})
 	imageLink?: string
 
 	@OneToMany((type) => Answer, (answer) => answer.question)
