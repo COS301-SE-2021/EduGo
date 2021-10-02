@@ -21,6 +21,8 @@ export class Answer {
 
 	@Column()
 	answer: string;
+	@Column({ nullable: true })
+	correctAnswer: string;
 
 	@ManyToOne((type) => Grade, (grade) => grade.answers, {
 		onDelete: "CASCADE",

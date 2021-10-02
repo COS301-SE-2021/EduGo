@@ -270,6 +270,7 @@ export class VirtualEntityService {
 				const answer = new Answer();
 				answer.answer = value.answer;
 				answer.question = question;
+				answer.correctAnswer = question.correctAnswer;
 				StudentGrade.answers.push(answer);
 				if (value.answer == question.correctAnswer) score++;
 			} else {
