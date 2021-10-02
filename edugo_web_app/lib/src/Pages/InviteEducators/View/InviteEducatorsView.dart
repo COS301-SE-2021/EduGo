@@ -218,6 +218,7 @@ class _InviteEducatorsViewState extends State<InviteEducatorsView> {
 
   @override
   Widget build(BuildContext context) {
+    Momentum.controller<InviteEducatorsController>(context).reset();
     return MomentumBuilder(
         controllers: [InviteEducatorsController],
         builder: (context, snapshot) {
@@ -293,15 +294,33 @@ class _InviteEducatorsViewState extends State<InviteEducatorsView> {
                                       SizedBox(
                                         height: 50,
                                       ),
-                                      EducatorsEmailInputCard(),
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                            child: EducatorsEmailInputCard(),
+                                          ),
+                                          InviteEducatorsButton(
+                                              elevation: 40,
+                                              child: Text(
+                                                "Upload csv",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              onPressed: () {
+                                                Momentum.controller<
+                                                            InviteEducatorsController>(
+                                                        context)
+                                                    .selectCSVFile(context);
+                                              },
+                                              width: 200,
+                                              height: 65),
+                                        ],
+                                      ),
                                       SizedBox(
                                         height: 20,
                                       ),
                                       Column(
-                                        children: Momentum.controller<
-                                                    InviteEducatorsController>(
-                                                context)
-                                            .getEmailView(),
+                                        children: educators.emailCards,
                                       ),
                                       SizedBox(
                                         height: 40,
@@ -329,6 +348,10 @@ class _InviteEducatorsViewState extends State<InviteEducatorsView> {
                                                   if (value ==
                                                       "Invitations sent") {
                                                     _invitationsSent();
+                                                    Momentum.controller<
+                                                                InviteEducatorsController>(
+                                                            context)
+                                                        .reset();
                                                   }
                                                 },
                                               );
