@@ -25,6 +25,7 @@ import {
 import { Grade } from "../database/Grade";
 import { Quiz } from "../database/Quiz";
 import { NodemailerService } from "../helper/email/NodemailerService";
+import { Answer } from "../database/Answer";
 
 /**
  * A class consisting of the functions that make up the student service
@@ -281,6 +282,7 @@ export class StudentService {
 					"student.subjects",
 					"student.grades",
 					"student.grades.quiz",
+					"student.grades.answers",
 					"student.grades.lesson",
 					"student.grades.lesson.subject",
 				],
@@ -339,8 +341,11 @@ export class StudentService {
 				name: "",
 				quiz_total: value.total,
 				student_score: value.score,
+				correct_answer: "",
+				answers: value.answers,
 			};
 			lesson.quizGrades.push(grade);
+
 			lesson.gradeAchieved += (value.score / value.total) * 100;
 		});
 
@@ -352,12 +357,19 @@ export class StudentService {
 			(sub) => !existingSubjectIds.includes(sub.id)
 		);
 
+		const answersForQuizzes: Answer[] = [];
+		user.student.grades.map((grade) => {
+			grade.answers.map((answer) => {
+				answersForQuizzes.push(answer);
+			});
+		});
+
+		console.log(answersForQuizzes);
 		//calculate the running total fot the lessons
 		response.subjects = response.subjects.map((sub) => {
 			sub.lessonGrades = sub.lessonGrades.map((les) => {
 				les.gradeAchieved = les.gradeAchieved / les.quizGrades.length;
 				sub.gradeAchieved += les.gradeAchieved;
-
 				return les;
 			});
 			sub.gradeAchieved = sub.gradeAchieved / sub.lessonGrades.length;
