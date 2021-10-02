@@ -1,11 +1,11 @@
 class QuestionObject {
-  String question;
-  String currentOptionInput;
-  String currentWordInput;
-  String currentSentenceInput;
+  String question = "";
+  String currentOptionInput = "";
+  String currentWordInput = "";
+  String currentSentenceInput = "";
   int missingWordCount;
-  String type;
-  String correctAnswer;
+  String type = "";
+  String correctAnswer = "";
   String imageLink = "";
   List<String> options = [];
   List<String> words = [];
