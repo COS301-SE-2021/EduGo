@@ -68,7 +68,7 @@ class Question {
     return Question(
         id: json['id'] as int,
         type: json['type'] as String,
-        image: json['image'] as String,
+        image: json['imageLink'] as String,
         question: json['question'] as String,
         correctAnswer: json['correctAnswer'] as String,
         answerOptions: stringList,

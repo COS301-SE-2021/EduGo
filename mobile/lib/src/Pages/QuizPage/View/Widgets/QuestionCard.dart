@@ -62,7 +62,8 @@ class _QuestionCardState extends State<QuestionCard> {
                       height: 100.00,
                       decoration: new BoxDecoration(
                         image: new DecorationImage(
-                          image: ExactAssetImage(widget.question.getImage()),
+                          image: NetworkImage(widget.question.getImage()),
+                          //image: ExactAssetImage(widget.question.getImage()), //mock
                           fit: BoxFit.fitHeight,
                         ),
                       ),
@@ -165,10 +166,15 @@ class _QuestionCardState extends State<QuestionCard> {
           List<Widget> rows = [];
 
           RegExp regExp = new RegExp(
-            r"_",
+            r"_____",
             caseSensitive: false,
             multiLine: false,
           );
+          print("no of blanks: " +
+              regExp
+                  .allMatches(widget.question.getQuestion())
+                  .length
+                  .toString());
           for (var i = 0;
               i < regExp.allMatches(widget.question.getQuestion()).length;
               i++) {

@@ -219,8 +219,21 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
   void chooseAnswers(String answer, int pos) {
     //split correct answers into array. correct answers are separteded by semi colons
     //e.g. "Autonomous Robots;Teleoperated Robots"
-    var correctAnswers = model.currentQuestion.question.getCorrectAnswer();
-    correctAnswers.split(";");
+    print('correct answers: ' +
+        model.currentQuestion.question.getCorrectAnswer());
+    var correctAnswers =
+        model.currentQuestion.question.getCorrectAnswer().split(";");
+    print('correct answers array(' +
+        correctAnswers.length.toString() +
+        "): " +
+        correctAnswers.toString());
+
+    // only one missing word and hence one correct answer
+    if (correctAnswers.length == 1) {
+      model.update(currentAnswer: answer);
+      print('one answer: ' + model.currentAnswer);
+      return;
+    }
 
     // create a list of size n (n = number of answers) that consists of empty string.
     // the answer will be inserted in the list at postion pos. (pos and answer from parameter)
