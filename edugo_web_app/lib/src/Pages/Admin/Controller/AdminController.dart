@@ -48,6 +48,43 @@ class AdminController extends MomentumController<AdminModel> {
         }
       },
     );
+    if (model.educators.length == 1) {
+      educatorsWidgets.add(
+        Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 150, bottom: 30),
+                child: Icon(
+                  Icons.supervisor_account,
+                  size: 150,
+                  color: Color.fromARGB(255, 97, 211, 87),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "No Edu",
+                    style: TextStyle(
+                      fontSize: 45,
+                    ),
+                  ),
+                  Text(
+                    "cators",
+                    style: TextStyle(
+                      fontSize: 45,
+                      color: Color.fromARGB(255, 97, 211, 87),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    }
     model.update(educatorCards: educatorsWidgets);
   }
 
