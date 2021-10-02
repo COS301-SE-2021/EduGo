@@ -4,7 +4,7 @@ export interface QuizGrade {
 	name: string;
 	quiz_total: number;
 	student_score: number;
-	answers: Answer;
+	quiz_answers: Answer[];
 }
 
 export interface GetStudentGradesResponse {

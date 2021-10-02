@@ -341,8 +341,7 @@ export class StudentService {
 				name: "",
 				quiz_total: value.total,
 				student_score: value.score,
-				correct_answer: "",
-				answers: value.answers,
+				quiz_answers: value.answers,
 			};
 			lesson.quizGrades.push(grade);
 
