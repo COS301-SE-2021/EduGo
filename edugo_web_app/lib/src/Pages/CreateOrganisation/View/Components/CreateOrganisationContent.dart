@@ -392,15 +392,17 @@ class _CreateOrganisationContentState extends State<CreateOrganisationContent> {
                           height: 100,
                           child: TextFormField(
                             obscureText: true,
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: "* Required"),
-                              MinLengthValidator(8,
-                                  errorText: "Invalid password"),
-                              PatternValidator(
-                                  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
-                                  errorText:
-                                      "Invalid password: should contain numbers & characters"),
-                            ]),
+                            validator: MultiValidator(
+                              [
+                                RequiredValidator(errorText: "* Required"),
+                                MinLengthValidator(8,
+                                    errorText: "Minimum password length is 8"),
+                                PatternValidator(
+                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                                    errorText:
+                                        "Password must contain A-Z, a-z, 0-9, and special characters"),
+                              ],
+                            ),
                             onChanged: (value) {
                               if (value != null)
                                 Momentum.controller<
@@ -425,16 +427,29 @@ class _CreateOrganisationContentState extends State<CreateOrganisationContent> {
                           height: 100,
                           child: TextFormField(
                             obscureText: true,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Confirmation password cannot be blank';
-                              }
-                              if (value != '${organisation.adminPassword}') {
-                                return 'Passwords do not match';
-                              }
+                            validator: MultiValidator(
+                              [
+                                RequiredValidator(errorText: "* Required"),
+                                MinLengthValidator(8,
+                                    errorText: "Minimum password length is 8"),
+                                PatternValidator(
+                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$',
+                                    errorText:
+                                        "Password must contain A-Z, a-z, 0-9, and special characters"),
+                                PasswordEqual("Passwords don't match",
+                                    '${organisation.adminPassword}')
+                              ],
+                            ),
+                            // (value) {
+                            //   if (value.isEmpty) {
+                            //     return 'Confirmation password cannot be blank';
+                            //   }
+                            //   if (value != '${organisation.adminPassword}') {
+                            //     return 'Passwords do not match';
+                            //   }
 
-                              return null;
-                            },
+                            //   return null;
+                            // },
                             cursorColor: Color.fromARGB(255, 97, 211, 87),
                             decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
@@ -493,5 +508,16 @@ class _CreateOrganisationContentState extends State<CreateOrganisationContent> {
         );
       },
     );
+  }
+}
+
+class PasswordEqual extends TextFieldValidator {
+  final String errorText;
+  final String value1;
+  PasswordEqual(this.errorText, this.value1) : super(errorText);
+
+  @override
+  bool isValid(String value) {
+    return value == value1 ? true : false;
   }
 }
