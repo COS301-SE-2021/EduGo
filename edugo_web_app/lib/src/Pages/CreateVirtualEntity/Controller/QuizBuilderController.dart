@@ -9,31 +9,38 @@ class QuizBuilderController extends MomentumController<QuizBuilderModel> {
   }
 
   bool validateQuiz(GlobalKey<FormState> quizFormKey) {
+    bool returnBool = true;
     if (model.questions.isEmpty) {
       return false;
     }
     model.questions.forEach(
       (question) {
-        if (question.type == "FillinMissingWord" &&
-            (question.words.isEmpty || question.sentences.isEmpty)) {
-          quizFormKey.currentState.validate();
-          return false;
-        } else if (question.type == "ImageQuestion" &&
-            (question.options.isEmpty ||
-                question.question.isEmpty ||
-                question.imageLink.isEmpty)) {
-          quizFormKey.currentState.validate();
-          return false;
-        } else if (question.correctAnswer.isEmpty ||
+        if (question.correctAnswer.isEmpty ||
             question.options.isEmpty ||
             question.question.isEmpty) {
           quizFormKey.currentState.validate();
+          returnBool = false;
           return false;
+        }
+        if (question.type == "FillinMissingWord") {
+          if (question.words.isEmpty || question.sentences.isEmpty) {
+            quizFormKey.currentState.validate();
+            returnBool = false;
+            return false;
+          }
+        }
+        if (question.type == "ImageQuestion") {
+          if (question.options.isEmpty ||
+              question.question.isEmpty ||
+              question.imageLink.isEmpty) {
+            quizFormKey.currentState.validate();
+            returnBool = false;
+            return false;
+          }
         }
       },
     );
-
-    return true;
+    return returnBool;
   }
 
   void inputQuestionType(String type, int id) {
