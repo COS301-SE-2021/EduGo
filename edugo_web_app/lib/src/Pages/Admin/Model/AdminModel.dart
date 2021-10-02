@@ -1,4 +1,3 @@
-import 'package:edugo_web_app/src/Pages/Admin/View/Widgets/AdminWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 import 'Data/User.dart';
