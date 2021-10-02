@@ -39,7 +39,41 @@ class ViewLessonController extends MomentumController<ViewLessonModel> {
       },
     );
     if (lessonVirtualEntityCardsUpdate.isEmpty) {
-      lessonVirtualEntityCardsUpdate.add(Text('No Entities'));
+      lessonVirtualEntityCardsUpdate.add(
+        Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: Icon(
+                  Icons.view_in_ar_outlined,
+                  size: 60,
+                  color: Color.fromARGB(255, 97, 211, 87),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "No Ent",
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                  Text(
+                    "ities",
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Color.fromARGB(255, 97, 211, 87),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
     }
     model.update(
         currentEntityImage:
