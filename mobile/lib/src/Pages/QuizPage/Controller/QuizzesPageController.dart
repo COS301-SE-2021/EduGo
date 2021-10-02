@@ -54,20 +54,19 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     String tk = token.toString();
     var url = Uri.parse(
         "http://edugo-backend.southafricanorth.cloudapp.azure.com:8080/virtualEntity/getQuizesByLesson");
-    await mockApi.getQuizesByLesson().
-        // post(
-        // url,
-        // headers: {
-        //   'Content-Type': 'application/json',
-        //   'Authorization': tk,
-        // },
-        // body: jsonEncode(
-        //   <String, int>{
-        //     "id": id,
-        //   },
-        // ),
-        //).
-        then(
+    await //mockApi.getQuizesByLesson(). mock
+        post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': tk,
+      },
+      body: jsonEncode(
+        <String, int>{
+          "id": id,
+        },
+      ),
+    ).then(
       (response) {
         if (response.statusCode == 200) {
           print(response.body);
@@ -76,8 +75,7 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
           print(_quizzes);
           model.update(lessonQuizzes: Quizzes.fromJson(_quizzes, id).quizzes);
           model.update(
-              answeredQuizzes: _quizzes[
-                  'answeredQuiz_ids']); //_quizzes['answeredQuiz_ids'].cast<int>());
+              answeredQuizzes: _quizzes['answeredQuiz_ids'].cast<int>());
           buildQuizzesView();
           MomentumRouter.goto(context, QuizzesPageView);
           return;
@@ -217,13 +215,26 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     model.update(currentAnswer: answer);
   }
 
-  void chooseAnswers(String answer) {
-    if (model.currentAnswer != '') {
-      model.update(currentAnswer: model.currentAnswer + ';' + answer);
-      print('answers: ' + model.currentAnswer);
-      return;
-    }
-    model.update(currentAnswer: answer);
+//concatenate answers
+  void chooseAnswers(String answer, int pos) {
+    //split correct answers into array. correct answers are separteded by semi colons
+    //e.g. "Autonomous Robots;Teleoperated Robots"
+    var correctAnswers = model.currentQuestion.question.getCorrectAnswer();
+    correctAnswers.split(";");
+
+    // create a list of size n (n = number of answers) that consists of empty string.
+    // the answer will be inserted in the list at postion pos. (pos and answer from parameter)
+    var givenAnswers = List<String>.filled(correctAnswers.length, "");
+    givenAnswers[pos] = answer;
+    model.update(currentAnswer: givenAnswers.join(";"));
+    print('answers: ' + model.currentAnswer);
+
+    // if (model.currentAnswer != '') {
+    //   model.update(currentAnswer: model.currentAnswer + ';' + answer);
+    //   print('answers: ' + model.currentAnswer);
+    //   return;
+    // }
+    // model.update(currentAnswer: answer);
   }
 
   int getLessonId() {

@@ -183,7 +183,7 @@ class _QuestionCardState extends State<QuestionCard> {
                 ),
                 onChanged: (String? value) {
                   Momentum.controller<QuizzesPageController>(context)
-                      .chooseAnswers(value!);
+                      .chooseAnswers(value!, i);
                 },
               ),
             );
