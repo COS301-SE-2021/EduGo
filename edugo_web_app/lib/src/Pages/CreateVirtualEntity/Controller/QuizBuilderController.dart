@@ -5,7 +5,11 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class QuizBuilderController extends MomentumController<QuizBuilderModel> {
   @override
   QuizBuilderModel init() {
-    return QuizBuilderModel(this, quizBuilderViewComponents: [], questions: []);
+    return QuizBuilderModel(
+      this,
+      quizBuilderViewComponents: [],
+      questions: [],
+    );
   }
 
   bool validateQuiz(GlobalKey<FormState> quizFormKey) {
