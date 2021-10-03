@@ -51,7 +51,9 @@ const mockedFileManagement: FileManagement = mock(FileManagement);
 const fileManagementInstance: FileManagement = instance(mockedFileManagement);
 
 export const mockedExternalRequests: ExternalRequests = mock(ExternalRequests);
-const externalRequestsInstance: ExternalRequests = instance(mockedExternalRequests);
+const externalRequestsInstance: ExternalRequests = instance(
+	mockedExternalRequests
+);
 
 export const mockedEducatorRepository: Repository<Educator> = mock(Repository);
 const educatorRepository: Repository<Educator> = instance(

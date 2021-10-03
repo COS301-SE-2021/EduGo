@@ -9,10 +9,15 @@ export class ExternalRequests {
 			.post(process.env.GENERATE_THUMBNAIL_URL!, { url })
 			.then((response) => {
 				if (response.status === 200) {
-					return response.data as { download: string; uploaded: string };
+					return response.data as {
+						download: string;
+						uploaded: string;
+					};
 				}
 				console.log(response.data);
-				throw new InternalServerError("Error while generating thumbnail");
+				throw new InternalServerError(
+					"Error while generating thumbnail"
+				);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -20,8 +25,8 @@ export class ExternalRequests {
 					"There was an error calling the generate thumbnail endpoint"
 				);
 			});
-	};
-	
+	}
+
 	async ConvertModel(url: string) {
 		return axios
 			.post(process.env.CONVERTER_URL!, { url })
@@ -39,6 +44,5 @@ export class ExternalRequests {
 					"There was an error calling the converter endpoint"
 				);
 			});
-	};
-	
+	}
 }

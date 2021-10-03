@@ -1,7 +1,10 @@
+import { Answer } from "../../../api/database/Answer";
+
 export interface QuizGrade {
 	name: string;
 	quiz_total: number;
 	student_score: number;
+	quiz_answers: Answer[];
 }
 
 export interface GetStudentGradesResponse {
