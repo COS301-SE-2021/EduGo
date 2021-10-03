@@ -283,6 +283,7 @@ export class StudentService {
 					"student.grades",
 					"student.grades.quiz",
 					"student.grades.answers",
+					"student.grades.answers.question",
 					"student.grades.lesson",
 					"student.grades.lesson.subject",
 				],
