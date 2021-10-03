@@ -191,3 +191,23 @@ export const virtualEntities = [1, 2, 3].map((id) => {
 
 eduGoOrg.virtualEntities.push(virtualEntities[0]);
 eduGoOrg.virtualEntities.push(virtualEntities[1]);
+
+export const emptySubject = new Subject();
+emptySubject.id = 5;
+emptySubject.title = `Test Subject ${5}`;
+emptySubject.grade = 12;
+emptySubject.image = "";
+emptySubject.organisation = eduGoOrg;
+emptySubject.educators = [educatorUser.educator];
+emptySubject.students = [studentUser.student];
+emptySubject.unverifiedUsers = [];
+emptySubject.lessons = [1, 2, 3].map((id) => {
+	const lesson = new Lesson();
+	lesson.id = 20;
+	lesson.title = `Test Lesson 20`;
+	lesson.description = `Test Description 20`;
+	lesson.subject = new Subject();
+	lesson.grades = [];
+	lesson.virtualEntities = [];
+	return lesson;
+});

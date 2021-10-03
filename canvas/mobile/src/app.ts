@@ -30,6 +30,14 @@ const setSize = () => {
     gl.viewport(0, 0, canvas.width, canvas.height);
 }
 
+const normalizeWidth = (x: number, width: number): number => {
+    let windowWidth = window.innerWidth;
+    let windowMidpoint = windowWidth / 2;
+    let midpoint = width / 2;
+    let newX = x - midpoint;
+    return windowMidpoint + newX;
+}
+
 const cam: camera.Camera = {
     rX: 0.0,
     rY: 0.0,
@@ -42,24 +50,27 @@ io.on('camera_updated', (data: any) => {
     cam.distance = data.distance;
 });
 
-io.on('ratio_updated', (data: any) => {
-    const devicePixelRatio = window.devicePixelRatio || 1;
-    const ratio = Number(data);
-    let height = window.innerHeight * devicePixelRatio;
-    let width = height * ratio;
-    canvas.width = width;
-    canvas.height = height;
-    gl.viewport(0, 0, width, height);
-});
+// io.on('ratio_updated', (data: any) => {
+//     const devicePixelRatio = window.devicePixelRatio || 1;
+//     const ratio = Number(data);
+//     let height = window.innerHeight * devicePixelRatio;
+//     let width = height * ratio;
+//     canvas.width = width;
+//     canvas.height = height;
+//     gl.viewport(0, 0, width, height);
+// });
 
 io.on('draw_updated', (data: any) => {
+    let ratio = window.devicePixelRatio || 1;
     ctx.beginPath();
 	ctx.lineWidth = data.width;
 	ctx.lineCap = "round";
 	ctx.strokeStyle = data.colour;
-	ctx.moveTo(data.coord.x, data.coord.y);
+    data.coord.x = normalizeWidth(data.coord.x, data.pageWidth);
+    data.coord.y = data.coord.y + data.offset
+	ctx.moveTo(data.coord.x * ratio, data.coord.y * ratio);
 	//reposition(event);
-	!newLine ? ctx.lineTo(prevCoords.x, prevCoords.y) : ctx.moveTo(data.coord.x, data.coord.y);
+	!newLine ? ctx.lineTo(prevCoords.x * ratio, prevCoords.y * ratio) : ctx.lineTo(data.coord.x * ratio, data.coord.y * ratio);
 	ctx.stroke();
     prevCoords = data.coord;
     newLine = false;
@@ -95,10 +106,10 @@ io.on('accepted_student', (data: any) => {
         throw new Error('Missing link in response');
     }
 
-    if (!('ratio' in data)) {
-        alert('Missing ratio in response');
-        throw new Error('Missing ratio in response');
-    }
+    // if (!('ratio' in data)) {
+    //     alert('Missing ratio in response');
+    //     throw new Error('Missing ratio in response');
+    // }
 
     if (data.link == null) {
         alert('Link is null');
@@ -106,14 +117,14 @@ io.on('accepted_student', (data: any) => {
     }
 
     const devicePixelRatio = window.devicePixelRatio || 1;
-    const ratio = data.ratio;
+    //const ratio = data.ratio;
     let height = window.innerHeight * devicePixelRatio;
-    let width = height * ratio;
-    canvas.width = width;
-    canvas.height = height;
-    canvas2.width = width;
-	canvas2.height = height;
-    gl.viewport(0, 0, width, height);
+    //let width = height * ratio;
+    // canvas.width = width;
+    // canvas.height = height;
+    // canvas2.width = width;
+	// canvas2.height = height;
+    // gl.viewport(0, 0, width, height);
 
     init(data.link);
 })

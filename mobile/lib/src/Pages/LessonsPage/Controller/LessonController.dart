@@ -5,13 +5,19 @@
 */
 
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mobile/src/Components/LessonsCardWidgets.dart';
 import 'package:mobile/src/Exceptions.dart';
+import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationController.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/Lesson.dart';
 import 'package:mobile/mockApi.dart' as mockApi;
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart' as httpMock;
 import 'package:mobile/globals.dart';
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonsModel.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonInformationPage.dart';
+import 'package:mobile/src/Pages/LessonsPage/View/LessonsPage.dart';
 import 'package:momentum/momentum.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -64,11 +70,21 @@ class LessonsController extends MomentumController<LessonsModel> {
   //Initialize the lessons to an empty array in the beginning
   @override
   LessonsModel init() {
-    return LessonsModel(this, lessons: []);
+    return LessonsModel(
+      this,
+      lessons: [],
+      id: 0,
+      title: '',
+      view: Row(
+        children: [
+          Text('No lesson(s)'),
+        ],
+      ),
+    );
   }
 
-  Future<void> getLessons(int subjectID) {
-    return getLessonsBySubject(subjectID,
+  Future<void> getLessons(context, int subjectId, String subjectTitle) {
+    return getLessonsBySubject(subjectId,
             //If bool is set to true in the controller constructor in the main file,
             //it uses mock the actual api end point
             //If bool is set to true in the controller constructor in the main file,
@@ -78,6 +94,77 @@ class LessonsController extends MomentumController<LessonsModel> {
                 : http.Client())
         .then((value) {
       model.update(lessons: value);
+      int lessonsCount = model.lessons.length;
+
+      // A check to see if there are subjects. If there are no subjects,
+      // display another card saying no subjects are available
+      Widget view;
+
+      if (lessonsCount > 0 && model.lessons.isNotEmpty) {
+        view = Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Align(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      subjectTitle,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: false,
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ),
+                ),
+                GridView.count(
+                  //This makes 2 cards appear. So effectively two cards
+                  //per page. (2 rows, 1 card per row)
+                  childAspectRatio: MediaQuery.of(context).size.height / 100,
+                  primary: false,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 0,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  mainAxisSpacing: 10,
+                  //makes 1 cards per row
+                  crossAxisCount: 1,
+                  children: model.lessons
+                      .map((lesson) => LessonsCard(
+                          lessonVirtualEntity: lesson.virtualEntities,
+                          lessonTitle: lesson.title,
+                          lessonID: lesson.id,
+                          lessonDescription: lesson.description,
+                          lessonCompleted: lesson.lessonCompleted))
+                      .toList(),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+      //Display a spinner card if no mark for lessons
+      //or between api calls
+      else
+        view = SpinKitCircle(
+          color: Colors.black,
+        );
+
+      model.update(
+        lessons: model.lessons,
+        id: subjectId,
+        title: subjectTitle,
+        view: view,
+      );
+      MomentumRouter.goto(context, LessonsPage);
     });
+  }
+
+  void updateLesson(context, int subjectId, String subjectTitle) {
+    //API call to get all lesson details of this specific subject
+    getLessons(context, subjectId, subjectTitle);
   }
 }

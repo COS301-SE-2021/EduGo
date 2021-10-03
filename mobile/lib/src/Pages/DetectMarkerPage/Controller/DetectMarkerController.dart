@@ -14,7 +14,7 @@ VirtualEntityData validateMarker(String data) {
       return VirtualEntityData.fromJson(json);
     }
     catch (err) {
-      //TODO : Log this error
+      throw Exception('Marker is not valid JSON');
     }
   }
   throw Exception('Invalid Marker');

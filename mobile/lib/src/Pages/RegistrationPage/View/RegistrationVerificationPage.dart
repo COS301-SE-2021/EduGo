@@ -252,7 +252,7 @@ class _RegistrationVerificationPageState
     //return view
     return MobilePageLayout(
       false, //no side bar
-      false, //no bottom bar
+      false, false, //no bottom bar
       MomentumBuilder(
           controllers: [UserController],
           builder: (context, snapshot) {

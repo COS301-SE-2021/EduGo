@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:mobile/globals.dart';
 import 'package:mobile/src/Components/User/Models/UserModel.dart';
@@ -8,6 +9,15 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserApiService extends MomentumService {
+  Future<void> logout(client) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userPreference');
+    await Future.delayed(Duration(seconds: 2));
+    final String? token = prefs.getString('user_token') ?? null;
+    if (token == null) throw NoToken();
+    // getUser(user_token: token, client: client).then((value) => model.update);
+  }
+
   Future<bool> login(
       {required String username,
       required String password,
@@ -19,13 +29,10 @@ class UserApiService extends MomentumService {
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
-      print(response.body);
       if (json['token'] != null) {
         String token = json['token'] as String;
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('user_token', token);
-        print(token);
-        print(prefs.getString("user_token"));
         return true;
       } else
         throw new BadResponse('No token property');
@@ -37,15 +44,17 @@ class UserApiService extends MomentumService {
       {String? user_token, required http.Client client}) async {
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('user_token') ?? user_token ?? null;
-
     if (token == null) throw NoToken();
 
-    final response = await client.post(Uri.parse("${baseUrl}auth/user"),
+    final response = await client.get(
+        Uri.parse("${baseUrl}user/getUserDetails"),
         headers: <String, String>{'Authorization': token});
 
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
+      print(json);
       User user = User.fromJson(json);
+      print(user.firstName);
       return user;
     } else if (response.statusCode == 401)
       throw new BadResponse('Unauthorized');
@@ -56,8 +65,6 @@ class UserApiService extends MomentumService {
       {required String email,
       required String code,
       required http.Client client}) async {
-    //print(code);
-    //print(email);
     final response = await client.post(
         Uri.parse("${baseUrl}auth/verifyInvitation"),
         headers: <String, String>{
@@ -65,8 +72,6 @@ class UserApiService extends MomentumService {
         },
         body: jsonEncode(
             <String, String>{'email': email, 'verificationCode': code}));
-    //print(" sifikile ");
-    //print(response.statusCode);
     if (response.statusCode == 200) return true;
     return false;
   }

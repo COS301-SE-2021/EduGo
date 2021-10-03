@@ -36,6 +36,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
     return MobilePageLayout(
       true,
       true,
+      false,
       MomentumBuilder(
         controllers: [GradesController],
         builder: (context, snapshot) {
@@ -88,7 +89,7 @@ class _GradesSubjectState extends State<GradesSubjectPage> {
                                 //Also pass in the subject title and the subject mark
                                 GradesSubjectCard(
                               subjectLessons: subject.lessonGrades,
-                              subjectMark: subject.gradeAchieved,
+                              subjectMark: subject.gradeAchieved.round(),
                               subjectTitle: subject.subjectName,
                             ),
                           )

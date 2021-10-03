@@ -114,14 +114,14 @@ describe("Lesson API tests", () => {
 			//console.log(response)
 
 		})
-		it.skip("should get leesons by subject", async ()=>{
+		it("should get leesons by subject", async () => {
 			const req: GetLessonsBySubjectRequest ={
 				subjectId:1
 			}
 
 			when(
-				App.mockedSubjectRepository.findOne(anyNumber(), anything())
-			).thenResolve(Default.subjects[0]);
+				App.mockedSubjectRepository.findOne(anything(), anything())
+			).thenResolve(Default.emptySubject);
 
 			when(
 				App.mockedUserRepository.findOne(anyNumber(), anything())
@@ -135,9 +135,9 @@ describe("Lesson API tests", () => {
 			.set("Accept", "application/json")
 			.set("Authorization", educatorToken)
 			.send(req)
-			.expect(400)
+			.expect(200)
 			.expect("Content-Type", /json/);
-			//console.log(response)
+			//console.log(response.body);
 		})
 	})
 
@@ -162,7 +162,7 @@ describe("Lesson API tests", () => {
 			.send(req)
 			.expect(400)
 			.expect("Content-Type", /json/);
-			//console.log(response)
+		
 		})
 
 		it('virtual entity doesnt exist', async ()=>{
@@ -185,7 +185,7 @@ describe("Lesson API tests", () => {
 			.send(req)
 			.expect(400)
 			.expect("Content-Type", /json/);
-			//console.log(response)
+		
 		})
 		it('virtual entity already added', async ()=>{
 			const req: AddVirtualEntityToLessonRequest={

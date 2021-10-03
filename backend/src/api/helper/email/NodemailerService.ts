@@ -10,9 +10,10 @@ import {
 } from "./models/TemplateObjects";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 import { InternalServerError } from "routing-controllers";
+import { Service } from "typedi";
 
 type EmailType = "verification" | "reminder" | "added";
-
+@Service()
 export class NodemailerService implements EmailService {
 	private transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
 	verificationCodeTemplate: HandlebarsTemplateDelegate<VerificationCodeTemplateObject>;

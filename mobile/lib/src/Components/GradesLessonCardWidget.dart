@@ -6,8 +6,10 @@
    * gradelesson cards.
 */
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Model/GradesQuizPageParam.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesQuizPage.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *              GradeLesson Cards used in the GradeLesson page 
@@ -80,16 +82,22 @@ class GradesLessonCard extends StatelessWidget {
               //This redirects the page to the gradespecific page on tap
               //and passes in the marks array, lesson title and lesson grade
               onTap: () {
-                // if (hasMark) {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => GradesQuizPage(
-                //         quizList: quizList,
-                //       ),
-                //     ),
-                //   );
-                // }
+                if (hasMark) {
+                  MomentumRouter.goto(
+                    context,
+                    GradesQuizPage,
+                    params: GradesQuizPageParam(quizList: quizList),
+                    transition: (context, page) => MaterialPageRoute(builder: (context) => page
+                  ));
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => GradesQuizPage(
+                  //       quizList: quizList,
+                  //     ),
+                  //   ),
+                  // );
+                }
               },
               child: Container(
                 child: Column(

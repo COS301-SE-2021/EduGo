@@ -1,6 +1,6 @@
 export class IdentifyEducatorRequest {
     token: string;
-    ratio: number;
+    //ratio: number;
 }
 
 export class IdentifyStudentRequest {

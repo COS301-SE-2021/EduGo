@@ -11,6 +11,7 @@ import { Organisation } from "../api/database/Organisation";
 import { GetOrganisationResponse } from "../api/models/organisation/GetOrganisationResponse";
 import { GetOrganisationRequest } from "../api/models/organisation/GetOrganisationRequest";
 import { In } from "typeorm";
+import { BadRequestError } from "routing-controllers";
 
 describe("Organisation API tests", () => {
 	let educatorToken = "";
@@ -284,6 +285,17 @@ describe("Organisation API tests", () => {
 				.post("/organisation/getOrganisations")
 				.set("Accept", "application/json")
 				.expect(200)
+				.expect("Content-Type", /json/);
+			//console.log(response);
+		});
+		it("organisations not returned", async () => {
+			when(App.mockedOrganisationRepository.find()).thenThrow(
+				new BadRequestError("errr")
+			);
+			const response = await request(App.app)
+				.post("/organisation/getOrganisations")
+				.set("Accept", "application/json")
+				.expect(400)
 				.expect("Content-Type", /json/);
 			//console.log(response);
 		});

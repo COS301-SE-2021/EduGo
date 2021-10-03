@@ -28,7 +28,7 @@ class Subject {
 
   //Overall subject mark in a percentage
   @JsonKey(required: true)
-  int gradeAchieved;
+  double gradeAchieved;
 
   //List of lessons grades and info
   @JsonKey(required: true)
@@ -56,7 +56,7 @@ class Lesson {
 
   //Overall lesson mark in a percentage
   @JsonKey(required: true)
-  int gradeAchieved;
+  double gradeAchieved;
 
   //Lesson title/name
   @JsonKey(required: true)
@@ -83,13 +83,9 @@ class Lesson {
 
 @JsonSerializable()
 class Quiz {
-  // //Quiz id
-  // @JsonKey(required: true)
-  // int id;
-
-  // //Quiz title
-  // @JsonKey(required: true)
-  // String title;
+  //Quiz name
+  @JsonKey(required: true)
+  String name;
 
   //Overall student mark for the quiz
   //(Not a percentage)
@@ -100,18 +96,76 @@ class Quiz {
   @JsonKey(required: true)
   int quiz_total;
 
-  // //List of student quiz answers
-  // @JsonKey(required: true)
-  // List<String> studentAnswers;
-
-  // //List of correct quiz answers
-  // @JsonKey(required: true)
-  // List<String> correctAnswers;
+  //List of student quiz answers
+  @JsonKey(required: true)
+  List<QuizAnswers> quiz_answers;
 
   //Quiz constructor
-  Quiz(this.quiz_total, this.student_score);
+  Quiz(this.name, this.quiz_total, this.student_score, this.quiz_answers);
 
   //Factory method used in gradesController to map quiz attributes to json
   factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
   Map<String, dynamic> toJson() => _$QuizToJson(this);
+}
+
+/*------------------------------------------------------------------------------
+ *                        QuizAnswers model class for grades
+ *------------------------------------------------------------------------------
+ */
+
+@JsonSerializable()
+class QuizAnswers {
+  //QuizAnswers id
+  @JsonKey(required: true)
+  int id;
+
+  //student's answer
+  @JsonKey(required: true)
+  String answer;
+
+  //correct answer
+  @JsonKey(required: true)
+  String correctAnswer;
+
+  //Question
+  @JsonKey(required: true)
+  Question question;
+
+  //QuizAnswer constructor
+  QuizAnswers(this.id, this.answer, this.correctAnswer, this.question);
+
+  //Factory method used in gradesController to map quiz attributes to json
+  factory QuizAnswers.fromJson(Map<String, dynamic> json) =>
+      _$QuizAnswersFromJson(json);
+  Map<String, dynamic> toJson() => _$QuizAnswersToJson(this);
+}
+
+@JsonSerializable()
+class Question {
+  @JsonKey(required: true)
+  String type;
+
+  //correct answer
+  @JsonKey(required: true)
+  String question;
+
+  String imageLink;
+
+  @JsonKey(required: true)
+  int id;
+
+  @JsonKey(required: true)
+  List<String> options;
+
+  @JsonKey(required: true)
+  String correctAnswer;
+
+  //QuizAnswer constructor
+  Question(this.type, this.question, this.id, this.imageLink, this.options,
+      this.correctAnswer);
+
+  //Factory method used in gradesController to map quiz attributes to json
+  factory Question.fromJson(Map<String, dynamic> json) =>
+      _$QuestionFromJson(json);
+  Map<String, dynamic> toJson() => _$QuestionToJson(this);
 }

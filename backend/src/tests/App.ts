@@ -29,10 +29,13 @@ import { Educator } from "../api/database/Educator";
 import { Grade } from "../api/database/Grade";
 import { Quiz } from "../api/database/Quiz";
 import { PassportMiddleware } from "./passport";
+import { FileManagement } from "../api/helper/File";
 import express from "express";
 import azureStorage from "azure-storage";
 import passport from "passport";
 import * as Default from "./Default";
+import axios, { AxiosStatic } from "axios";
+import { ExternalRequests } from "../api/helper/ExternalRequests";
 
 Error.stackTraceLimit = Infinity;
 
@@ -43,6 +46,14 @@ const connectionManagerInstance: ConnectionManager = instance(
 
 const mockedConnection: Connection = mock(Connection);
 const connectionInstance: Connection = instance(mockedConnection);
+
+const mockedFileManagement: FileManagement = mock(FileManagement);
+const fileManagementInstance: FileManagement = instance(mockedFileManagement);
+
+export const mockedExternalRequests: ExternalRequests = mock(ExternalRequests);
+const externalRequestsInstance: ExternalRequests = instance(
+	mockedExternalRequests
+);
 
 export const mockedEducatorRepository: Repository<Educator> = mock(Repository);
 const educatorRepository: Repository<Educator> = instance(
@@ -112,6 +123,8 @@ when(mockedConnection.getRepository(VirtualEntity)).thenReturn(
 );
 
 Container.set(ConnectionManager, connectionManagerInstance);
+Container.set(FileManagement, fileManagementInstance);
+Container.set(ExternalRequests, externalRequestsInstance);
 Container.set(Repository, educatorRepository);
 Container.set(Repository, gradeRepository);
 Container.set(Repository, lessonRepository);
@@ -123,7 +136,6 @@ Container.set(Repository, unverifiedUsersRepository);
 Container.set(Repository, userRepository);
 Container.set(Repository, virtualEntityRepository);
 Container.set(azureStorage.BlobService, azureBlobService);
-
 diUseContainer(Container);
 ormUseContainer(Container);
 
