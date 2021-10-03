@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/Model/Data/ArModel.dart';
+import 'package:edugo_web_app/src/Pages/CreateVirtualEntity/View/Widgets/CreateVirtualEntityWidgets.dart';
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 class CreateVirtualEntityController
@@ -7,6 +8,7 @@ class CreateVirtualEntityController
   CreateVirtualEntityModel init() {
     return CreateVirtualEntityModel(this,
         modelLink: "",
+        name: "",
         arModel: new ArModel(),
         informationString: [],
         informationCards: []);
@@ -46,7 +48,9 @@ class CreateVirtualEntityController
 
   void clearLinkTo3DModel() {
     model.update(loadingModelLink: false);
-    model.clearLinkTo3DModel();
+
+    model.update(modelLink: "");
+    model.update(modelViewer: new CreateVirtualEntityModelViewer());
   }
 
   //! Virtual Entity Controller Helper Methods and Attributes
@@ -201,7 +205,8 @@ class CreateVirtualEntityController
               Map<String, dynamic> _decoded3DModel = jsonDecode(response.body);
               linkTo3DModel = _decoded3DModel['fileLink'];
               String thumbNailString = _decoded3DModel["thumbnail"];
-              model.setCreateVirtualEntityModelLink(linkTo3DModel);
+              setCreateVirtualEntityModelLink(linkTo3DModel);
+              model.update(modelViewer: new CreateVirtualEntityModelViewer());
               ArModel modelClone = model.arModel;
               modelClone.setFileLink(linkTo3DModel);
               modelClone.setPreviewImage(thumbNailString);
@@ -237,20 +242,21 @@ class CreateVirtualEntityController
     ).then(
       (response) {
         if (response.statusCode == 200) {
-          model.clearLinkTo3DModel();
+          clearLinkTo3DModel();
           Momentum.controller<QuizBuilderController>(context)
               .resetQuizBuilder();
           model.update(createEntityResponse: "Virtual Entity Created");
           model.update(creatingEntityLoader: false);
         } else {
-          model.clearLinkTo3DModel();
-          Momentum.controller<QuizBuilderController>(context)
-              .resetQuizBuilder();
           model.update(createEntityResponse: "Virtual Entity Not Created");
           model.update(creatingEntityLoader: false);
         }
       },
     );
     return model.createEntityResponse;
+  }
+
+  void setCreateVirtualEntityModelLink(String inModelLink) {
+    model.update(modelLink: inModelLink);
   }
 }
