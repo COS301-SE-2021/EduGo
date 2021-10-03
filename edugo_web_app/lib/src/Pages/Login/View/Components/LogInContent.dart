@@ -157,12 +157,8 @@ class _LogInContentState extends State<LogInContent> {
                                   },
                                 );
                               },
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'User name cannot be blank';
-                                }
-                                return errorStringFetch.errorString;
-                              },
+                              validator:
+                                  RequiredValidator(errorText: "* Required"),
                               onChanged: (value) {
                                 Momentum.controller<LogInController>(context)
                                     .setLoginUserName(value);
@@ -201,13 +197,8 @@ class _LogInContentState extends State<LogInContent> {
                                 );
                               },
                               obscureText: true,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Password cannot be blank';
-                                }
-
-                                return errorStringFetch.errorString;
-                              },
+                              validator:
+                                  RequiredValidator(errorText: "* Required"),
                               onChanged: (value) {
                                 Momentum.controller<LogInController>(context)
                                     .setLoginPassword(value);
@@ -236,21 +227,62 @@ class _LogInContentState extends State<LogInContent> {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
-                                await await Momentum.controller<
-                                        LogInController>(context)
-                                    .loginUser(
-                                  context: context,
-                                )
-                                    .then(
-                                  (value) {
-                                    if (value == "Invalid Credentials") {
-                                      _unAuthorized();
-                                    }
-                                  },
-                                );
+                                if (_formKey.currentState.validate())
+                                  await Momentum.controller<LogInController>(
+                                          context)
+                                      .loginUser(
+                                    context: context,
+                                  )
+                                      .then(
+                                    (value) {
+                                      if (value == "Invalid Credentials") {
+                                        _unAuthorized();
+                                      }
+                                    },
+                                  );
                               },
                               width: 600,
                               height: 65),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text("Got a verification code?  "),
+                                GestureDetector(
+                                  onTap: () {
+                                    MomentumRouter.goto(
+                                        context, VerificationView);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.only(
+                                      bottom:
+                                          3, // This can be the space you need betweeb text and underline
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          color: Colors.blue,
+                                          width:
+                                              1.0, // This would be the width of the underline
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "Get Verified & Register",
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

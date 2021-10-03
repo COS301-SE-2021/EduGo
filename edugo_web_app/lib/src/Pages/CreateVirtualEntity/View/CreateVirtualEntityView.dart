@@ -223,6 +223,79 @@ class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
     );
   }
 
+  void _informationError() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          insetPadding:
+              EdgeInsets.only(top: 100, bottom: 100, left: 100, right: 100),
+          title: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Icon(
+                  Icons.warning_rounded,
+                  color: Colors.red,
+                  size: 100,
+                ),
+              ),
+              Center(
+                child: new Text(
+                  'Could not create virtual entity',
+                  style: TextStyle(fontSize: 22, color: Colors.red),
+                ),
+              ),
+            ],
+          ),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: [
+                Center(
+                  child: new Text(
+                    'Please enter all required information!',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Center(
+                  child: MaterialButton(
+                elevation: 20,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                minWidth: ScreenUtil().setWidth(150),
+                height: 50,
+                child: Text(
+                  'Ok',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+                color: Color.fromARGB(255, 97, 211, 87),
+                disabledColor: Color.fromRGBO(211, 212, 217, 1),
+              )),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _invalidQuizError() {
     showDialog(
       context: context,
@@ -302,7 +375,7 @@ class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
       controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
         var createEntity = snapshot<CreateVirtualEntityModel>();
-
+        var quiz = snapshot<QuizBuilderModel>();
         Future<String> linkLoaded = Future<String>.delayed(
           const Duration(seconds: 0),
           () {
@@ -442,8 +515,67 @@ class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
                                 padding: EdgeInsets.all(50),
                                 child: Column(
                                   children: [
-                                    QuizBuilder(
-                                        createQuizFormKey: _createQuizFormKey),
+                                    Column(
+                                      children: <Widget>[
+                                        Material(
+                                          elevation: 40,
+                                          shadowColor: Colors.green,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 50),
+                                            height: 100,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Quiz",
+                                                  style:
+                                                      TextStyle(fontSize: 32),
+                                                ),
+                                                Text(
+                                                  "Builder",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 32,
+                                                    color: Color.fromARGB(
+                                                        255, 97, 211, 87),
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                VirtualEntityButton(
+                                                    elevation: 40,
+                                                    child: Text(
+                                                      "New Question",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    onPressed: () {
+                                                      Momentum.controller<
+                                                                  QuizBuilderController>(
+                                                              context)
+                                                          .newQuestion();
+                                                    },
+                                                    width: 200,
+                                                    height: 50),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        Form(
+                                          key: _createQuizFormKey,
+                                          child: Column(
+                                            children:
+                                                quiz.quizBuilderViewComponents,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     SizedBox(
                                       height: 40,
                                     ),
@@ -456,6 +588,25 @@ class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
                                         onPressed: () {
                                           if (createEntity.modelLink.isEmpty) {
                                             _uploadModelError();
+                                            _createEntityFormKey.currentState
+                                                .validate();
+                                            _createQuizFormKey.currentState
+                                                .validate();
+                                            return;
+                                          }
+
+                                          if (createEntity.name.isEmpty) {
+                                            _informationError();
+                                            _createEntityFormKey.currentState
+                                                .validate();
+                                            _createQuizFormKey.currentState
+                                                .validate();
+                                            return;
+                                          }
+
+                                          if (createEntity
+                                              .informationString.isEmpty) {
+                                            _informationError();
                                             _createEntityFormKey.currentState
                                                 .validate();
                                             _createQuizFormKey.currentState

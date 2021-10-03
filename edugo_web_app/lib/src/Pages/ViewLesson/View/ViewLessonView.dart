@@ -45,10 +45,14 @@ class ViewLessonView extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text(
-                                    viewLesson.lessonTitle,
-                                    style: TextStyle(
-                                      fontSize: 32,
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: Text(
+                                      viewLesson.lessonTitle,
+                                      style: TextStyle(
+                                        fontSize: 40,
+                                      ),
                                     ),
                                   ),
                                   Spacer(),
@@ -110,7 +114,12 @@ class ViewLessonView extends StatelessWidget {
                                       SizedBox(
                                         height: 20,
                                       ),
-                                      Text(viewLesson.lessonDescription),
+                                      Text(
+                                        viewLesson.lessonDescription,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),

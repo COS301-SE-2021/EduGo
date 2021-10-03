@@ -10,7 +10,7 @@ class SubjectsController extends MomentumController<SubjectsModel> {
 // Info: Get all subjects created by the educator
   Future<void> getEducatorSubjects(context) async {
     var url = Uri.parse(
-        EduGoHttpModule().getBaseUrl() + '/organisation/getOrganisation');
+        EduGoHttpModule().getBaseUrl() + '/subject/getSubjectsByUser');
     await post(
       url,
       headers: {
@@ -18,11 +18,11 @@ class SubjectsController extends MomentumController<SubjectsModel> {
         'Authorization':
             Momentum.controller<AdminController>(context).getToken()
       },
-      body: jsonEncode(
-        <String, int>{
-          "id": Momentum.controller<AdminController>(context).getId()
-        },
-      ),
+      // body: jsonEncode(
+      //   <String, int>{
+      //     "id": Momentum.controller<AdminController>(context).getId()
+      //   },
+      // ),
     ).then(
       (response) {
         if (response.statusCode == 200) {

@@ -6,12 +6,15 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
   final List<QuestionObject> questions;
   final List<Widget> quizBuilderViewComponents;
-
+  final String currentMissingWord;
+  final String currentSentencePart;
   final GlobalKey<FormState> createQuizFormKey;
 
   QuizBuilderModel(
     QuizBuilderController controller, {
     this.questions,
+    this.currentMissingWord,
+    this.currentSentencePart,
     this.quizBuilderViewComponents,
     this.createQuizFormKey,
   }) : super(controller);
@@ -62,13 +65,23 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
   void removeOption({int questionId, int optionId}) {
     List<QuestionObject> tempQuestions = questions;
     tempQuestions[questionId].options.removeAt(optionId);
+    if (tempQuestions[questionId].options.length > 0)
+      questions[questionId].correctAnswer =
+          tempQuestions[questionId].options[0];
+    else
+      questions[questionId].correctAnswer = null;
+    update(questions: tempQuestions);
+  }
+
+  void removeWord({int questionId, int wordId}) {
+    List<QuestionObject> tempQuestions = questions;
+    tempQuestions[questionId].words.removeAt(wordId);
     update(questions: tempQuestions);
   }
 
   List<Widget> getOptionsView(int questionId) {
     int id = 0;
     List<Widget> tempComponents = <Widget>[];
-
     questions[questionId].options.forEach(
       (option) {
         tempComponents.add(
@@ -115,11 +128,163 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
     update(questions: tempQuestions);
   }
 
-  List<Map<String, dynamic>> getQuizBuilderResult() {
+  List<Map<String, dynamic>> getQuizBuilderResult(context) {
     List<Map<String, dynamic>> quizBuilderResult = [];
     if (questions.isNotEmpty) {
       questions.forEach(
         (question) {
+          if (question.type == "FillinMissingWord" &&
+              question.words.length < question.missingWordCount) {
+            if (question.sentences.length < question.missingWordCount) {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return new AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    insetPadding: EdgeInsets.only(
+                        top: 100, bottom: 100, left: 100, right: 100),
+                    title: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15),
+                          child: Icon(
+                            Icons.warning_rounded,
+                            color: Colors.red,
+                            size: 100,
+                          ),
+                        ),
+                        Center(
+                          child: new Text(
+                            'Not enough sentence parts.',
+                            style: TextStyle(fontSize: 22, color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    ),
+                    content: new SingleChildScrollView(
+                      child: new ListBody(
+                        children: [
+                          Center(
+                            child: new Text(
+                              'Add more sentence parts and try again.',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Center(
+                          child: MaterialButton(
+                            elevation: 20,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            minWidth: ScreenUtil().setWidth(150),
+                            height: 50,
+                            child: Text(
+                              'Ok',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            color: Color.fromARGB(255, 97, 211, 87),
+                            disabledColor: Color.fromRGBO(211, 212, 217, 1),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+              quizBuilderResult = [];
+              return quizBuilderResult;
+            }
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return new AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  insetPadding: EdgeInsets.only(
+                      top: 100, bottom: 100, left: 100, right: 100),
+                  title: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: Icon(
+                          Icons.warning_rounded,
+                          color: Colors.red,
+                          size: 100,
+                        ),
+                      ),
+                      Center(
+                        child: new Text(
+                          'Not enough missing words.',
+                          style: TextStyle(fontSize: 22, color: Colors.red),
+                        ),
+                      ),
+                    ],
+                  ),
+                  content: new SingleChildScrollView(
+                    child: new ListBody(
+                      children: [
+                        Center(
+                          child: new Text(
+                            'Add more missing words and try again.',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Center(
+                        child: MaterialButton(
+                          elevation: 20,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          minWidth: ScreenUtil().setWidth(150),
+                          height: 50,
+                          child: Text(
+                            'Ok',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                          color: Color.fromARGB(255, 97, 211, 87),
+                          disabledColor: Color.fromRGBO(211, 212, 217, 1),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+            quizBuilderResult = [];
+            return quizBuilderResult;
+          }
+
           quizBuilderResult.add(
             question.toJson(),
           );
@@ -151,12 +316,21 @@ class QuizBuilderModel extends MomentumModel<QuizBuilderController> {
   }
 
   @override
-  void update({questions, quizBuilderViewComponents, createQuizFormKey}) {
-    QuizBuilderModel(controller,
-            questions: questions ?? this.questions,
-            quizBuilderViewComponents:
-                quizBuilderViewComponents ?? this.quizBuilderViewComponents,
-            createQuizFormKey: createQuizFormKey ?? this.createQuizFormKey)
-        .updateMomentum();
+  void update({
+    questions,
+    quizBuilderViewComponents,
+    createQuizFormKey,
+    currentMissingWord,
+    currentSentencePart,
+  }) {
+    QuizBuilderModel(
+      controller,
+      questions: questions ?? this.questions,
+      quizBuilderViewComponents:
+          quizBuilderViewComponents ?? this.quizBuilderViewComponents,
+      createQuizFormKey: createQuizFormKey ?? this.createQuizFormKey,
+      currentMissingWord: currentMissingWord ?? this.currentMissingWord,
+      currentSentencePart: currentSentencePart ?? this.currentSentencePart,
+    ).updateMomentum();
   }
 }

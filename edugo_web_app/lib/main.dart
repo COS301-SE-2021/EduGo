@@ -26,6 +26,7 @@ Momentum momentum() {
       QuizBuilderController(),
       VirtualEntityStoreController(),
       ViewVirtualEntityController(),
+      VerificationController(),
       LogInController(),
       ViewLessonController(),
       StudentsGradesController()
@@ -48,6 +49,7 @@ Momentum momentum() {
           CreateLessonView(), AddEntityStore(),
           LessonsView(),
           LogInView(),
+          VerificationView(), RegisterView(),
           CreateOrganisationView(),
           StudentsGradesView()
         ],

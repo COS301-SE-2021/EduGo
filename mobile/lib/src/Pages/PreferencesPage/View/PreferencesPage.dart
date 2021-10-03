@@ -20,6 +20,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
     return MobilePageLayout(
       true,
       true,
+      false,
       Container(child: Text("Preferences")),
       'Preferences',
     );

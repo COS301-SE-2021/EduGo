@@ -28,7 +28,41 @@ class LessonsModel extends MomentumModel<LessonsController> {
       },
     );
     if (lessons.isEmpty) {
-      lessonCardsUpdate.add(Text("No Lessons"));
+      lessonCardsUpdate.add(
+        Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 150, bottom: 30),
+                child: Icon(
+                  Icons.new_releases_outlined,
+                  size: 150,
+                  color: Color.fromARGB(255, 97, 211, 87),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "No Les",
+                    style: TextStyle(
+                      fontSize: 45,
+                    ),
+                  ),
+                  Text(
+                    "sons",
+                    style: TextStyle(
+                      fontSize: 45,
+                      color: Color.fromARGB(255, 97, 211, 87),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
     }
 
     update(lessonCards: lessonCardsUpdate);

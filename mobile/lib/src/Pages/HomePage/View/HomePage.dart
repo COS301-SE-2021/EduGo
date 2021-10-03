@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> {
     return MobilePageLayout(
       true,
       true,
+      false,
       Container(child: Text("Home")),
       'Under Construction...',
     );

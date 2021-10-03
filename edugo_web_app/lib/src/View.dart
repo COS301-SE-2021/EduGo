@@ -31,6 +31,10 @@ export 'package:edugo_web_app/src/Pages/Lessons/View/LessonsView.dart';
 // Info: Login View Exports
 export 'package:edugo_web_app/src/Pages/Login/View/LogInView.dart';
 
+// Info: Verification View Exports
+export 'package:edugo_web_app/src/Pages/Verification/View/VerificationView.dart';
+export 'package:edugo_web_app/src/Pages/Verification/View/RegisterView.dart';
+
 // Info: Subjects View Exports
 export 'package:edugo_web_app/src/Pages/Subjects/View/SubjectsView.dart';
 

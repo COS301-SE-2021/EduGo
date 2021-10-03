@@ -6,12 +6,14 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
   final String currentEmailInput;
   final String inviteResponse;
   final List<String> emails;
+  final List<Widget> emailCards;
 
   final String subjectId;
   final String subjectName;
 
   InviteStudentsModel(InviteStudentsController controller,
       {this.currentEmailInput,
+      this.emailCards,
       this.emails,
       this.inviteResponse,
       this.subjectId,
@@ -31,7 +33,7 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
       List<String> tempEmails = emails;
       tempEmails.add(currentEmailInput);
       update(emails: tempEmails);
-      getEmailView();
+      update(emailCards: getEmailView());
     }
   }
 
@@ -47,7 +49,9 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
     List<String> tempEmails = emails;
     tempEmails.removeAt(emailId);
     update(emails: tempEmails);
-    getEmailView();
+    List<Widget> tempWidgets = emailCards;
+    tempWidgets.removeAt(emailId);
+    update(emailCards: getEmailView());
   }
 
   List<Widget> getEmailView() {
@@ -55,10 +59,12 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
     int id = 0;
     emails.forEach(
       (email) {
-        inviteEmailCards.add(StudentsEmailCard(
-          emailId: id,
-          emailValue: email,
-        ));
+        inviteEmailCards.add(
+          StudentsEmailCard(
+            emailId: id,
+            emailValue: email,
+          ),
+        );
         inviteEmailCards.add(
           SizedBox(
             height: 20,
@@ -67,19 +73,24 @@ class InviteStudentsModel extends MomentumModel<InviteStudentsController> {
         id++;
       },
     );
-
     return inviteEmailCards;
   }
 
   @override
   void update(
-      {currentEmailInput, emails, subjectId, subjectName, inviteResponse}) {
+      {currentEmailInput,
+      emails,
+      subjectId,
+      subjectName,
+      inviteResponse,
+      emailCards}) {
     InviteStudentsModel(controller,
             currentEmailInput: currentEmailInput ?? this.currentEmailInput,
             emails: emails ?? this.emails,
             subjectId: subjectId ?? this.subjectId,
             subjectName: subjectName ?? this.subjectName,
-            inviteResponse: inviteResponse ?? this.inviteResponse)
+            inviteResponse: inviteResponse ?? this.inviteResponse,
+            emailCards: emailCards ?? this.emailCards)
         .updateMomentum();
   }
 }

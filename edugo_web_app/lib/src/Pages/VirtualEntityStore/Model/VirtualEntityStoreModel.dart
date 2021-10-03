@@ -47,7 +47,41 @@ class VirtualEntityStoreModel
       },
     );
     if (virtualEntities.isEmpty) {
-      virtualEntityCardsUpdate.add(Text('No Entities'));
+      virtualEntityCardsUpdate.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 150, bottom: 30),
+              child: Icon(
+                Icons.view_in_ar_outlined,
+                size: 150,
+                color: Color.fromARGB(255, 97, 211, 87),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "No Ent",
+                  style: TextStyle(
+                    fontSize: 45,
+                  ),
+                ),
+                Text(
+                  "ities",
+                  style: TextStyle(
+                    fontSize: 45,
+                    color: Color.fromARGB(255, 97, 211, 87),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
     }
     update(virtualEntityCards: virtualEntityCardsUpdate);
   }

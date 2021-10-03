@@ -34,14 +34,9 @@ class HomeNavigation extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: ScreenUtil().setWidth(500),
+              width: ScreenUtil().setWidth(450),
               child: Row(
                 children: <Widget>[
-                  Text(
-                    "About Us",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Spacer(),
                   RegisterButton(),
                   Spacer(),
                   SignInButton(),

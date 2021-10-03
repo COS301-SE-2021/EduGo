@@ -19,6 +19,7 @@ class _QuizPageViewState extends State<QuizPageView> {
           var quiz = snapshot<QuizzesPageModel>();
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Color.fromARGB(255, 97, 211, 87),
               title: Row(
                 children: [
                   Icon(Icons.menu, color: Colors.white),

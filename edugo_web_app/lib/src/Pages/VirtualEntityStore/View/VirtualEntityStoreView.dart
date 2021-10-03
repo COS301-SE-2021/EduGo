@@ -189,19 +189,28 @@ class VirtualEntityStoreView extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              content: GridView.count(
-                                physics: NeverScrollableScrollPhysics(),
-                                primary: false,
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.only(
-                                    right: 30, left: 30, top: 40, bottom: 80),
-                                crossAxisSpacing: 40,
-                                mainAxisSpacing: 40,
-                                crossAxisCount: 4,
-                                childAspectRatio: 1 / 1.1,
-                                children:
-                                    educatorVirtualEntities.virtualEntityCards,
-                              ),
+                              content: educatorVirtualEntities
+                                      .virtualEntities.isNotEmpty
+                                  ? GridView.count(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      primary: false,
+                                      shrinkWrap: true,
+                                      padding: const EdgeInsets.only(
+                                          right: 30,
+                                          left: 30,
+                                          top: 40,
+                                          bottom: 80),
+                                      crossAxisSpacing: 40,
+                                      mainAxisSpacing: 40,
+                                      crossAxisCount: 4,
+                                      childAspectRatio: 1 / 1.1,
+                                      children: educatorVirtualEntities
+                                          .virtualEntityCards,
+                                    )
+                                  : Column(
+                                      children: educatorVirtualEntities
+                                          .virtualEntityCards,
+                                    ),
                             ),
                           ],
                         ),

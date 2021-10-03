@@ -29,15 +29,14 @@ EduGo is an educational system that aims to shape and influence the future of ed
   
 ## :bulb: EduGo Systems
 
-  ### APK for EduGo Android App
+  ### Android App Release
    <ul>
-    <li> :desktop_computer: <a href='https://drive.google.com/file/d/1cNUOm-vSx8-2NhxwQo9nMMdMYizw7vjV/view?usp=sharing'>EduGo App-arm64 App</a></li>
-    <li> :desktop_computer: <a href='https://drive.google.com/file/d/1cNREGMrGek1DGTtPoqQGXq1rrLRy2EW3/view?usp=sharing'>EduGo App x86</a></li>
+    <li> :iphone: <a href='https://github.com/COS301-SE-2021/EduGo/releases/tag/v1.0'>Release v1.0</a></li>
   </ul>
   
-  ### Link for EduGo WebApp
+  ### EduGo Web App
   <ul>
-    <li> :desktop_computer: <a href='http://edugo-backend.southafricanorth.cloudapp.azure.com:8086/'>EduGo Web App</a></li>
+    <li> :desktop_computer: <a href='http://edugo-backend.southafricanorth.cloudapp.azure.com/'>EduGo Web App</a></li>
   </ul>
   
 
@@ -51,7 +50,7 @@ EduGo is an educational system that aims to shape and influence the future of ed
 | :-----: | :-----: | :-----: |
 | [<img src="https://edugo.blob.core.windows.net/edugo/readme/1614194042425.jpeg" width="150" height="150">](https://github.com/sthenyandeni "Sithembiso Nyandeni") <br/> Sithembiso Nyandeni <br/> u19091479 | [GitHub](https://github.com/sthenyandeni) <br/> [Profile Page](https://github.com/sthenyandeni) <br/> [LinkedIn](https://www.linkedin.com/in/sithembiso-nyandeni-b8884b1b2) <br/> | Software Development <br/> Music <br/> Design <br/>
 | [<img src="https://edugo.blob.core.windows.net/edugo/readme/1594897821188.jpg" width="150" height="150">](https://github.com/simekani18 "Simekani Mabambi") <br/> Simekani Mabambi <br/> u19134101 | [GitHub](https://github.com/simekani18) <br/> [Profile Page](https://github.com/simekani18) <br/> [LinkedIn](https://www.linkedin.com/in/simekani/) <br/> |Sport <br/> Software Development <br/>
-| [<img src="https://edugo.blob.core.windows.net/edugo/readme/1E96D130-B906-49D0-9B69-29463C879C4D.jpeg" width="150" height="150">](https://github.com/kieran-woodrow "Kieran Woodrow") <br/> Kieran Woodrow <br/> u19304308 | [GitHub](https://github.com/kieran-woodrow) <br/> [Profile Page](https://github.com/kieran-woodrow) <br/> [LinkedIn](https://www.linkedin.com/in/kieran-woodrow-3b915b210/) <br/> | Software Development <br/> Applied Mathamatics <br/> Friends, family and sport <br/>
+| [<img src="https://edugo.blob.core.windows.net/edugo/readme/1E96D130-B906-49D0-9B69-29463C879C4D.jpeg" width="150" height="150">](https://github.com/kieran-woodrow "Kieran Woodrow") <br/> Kieran Woodrow <br/> u19304308 | [GitHub](https://github.com/kieran-woodrow) <br/> [Profile Page](https://github.com/kieran-woodrow) <br/> [LinkedIn](https://www.linkedin.com/in/kieran-woodrow-3b915b210/) <br/> | Software Development <br/> Applied Mathamatics <br/> Teaching <br/>
 | [<img src="https://edugo.blob.core.windows.net/edugo/readme/mish.png" width="150" height="150">](https://github.com/MihlaliMgwebi "Mihlali Mgwebi") <br/> Mihlali Mgwebi <br/> u19187166 | [GitHub](https://github.com/MihlaliMgwebi) <br/> [Profile Page](https://github.com/MihlaliMgwebi) <br/> [LinkedIn](https://www.linkedin.com/in/mihlali-mgwebi-161a83208) <br/> | Gyming  <br/>Skating  <br/> Software Development <br/>
 | [<img src="https://edugo.blob.core.windows.net/edugo/readme/68747470733a2f2f656475676f2d66696c65732e73332e61662d736f7574682d312e616d617a6f6e6177732e636f6d2f57686174734170702b496d6167652b323032312d30382d31352b61742b32322e30312e31392e6a706567.jpeg" width="150" height="150">](https://github.com/Tshwarelo-Noah "Noah Mafarala") <br/> Noah Mafarala <br/> u19181851 | [GitHub](https://github.com/Tshwarelo-Noah) <br/> [Profile Page](https://github.com/Tshwarelo-Noah) <br/> [LinkedIn](https://www.linkedin.com/in/noah-mafaralala-815760178/) <br/> | Trading  <br/>Music  <br/> Food <br/>
   
@@ -141,9 +140,10 @@ master ( build )
 
 ### Architectural Requirements
 <ul>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirement Document - V2</a></li>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirement Document - V3</a></li>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1QLxuWgSxSRTfNrK60wSmWUrdmIGxf87F/view?usp=sharing'>Architectural Requirement Document - V4</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirements Document - V2</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirements Document - V3</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1QLxuWgSxSRTfNrK60wSmWUrdmIGxf87F/view?usp=sharing'>Architectural Requirements Document - V4</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1erj2GkLlnE_IGfBH7_o9OUnuryptbh_r/view?usp=sharing'>Architectural Requirements Document -V4.2</a></li>
 </ul>
 
 <hr>
@@ -155,9 +155,9 @@ master ( build )
  
  <hr>
  
-### Instillation Manual
+### Installation Manual
 <ul>
- <li> :bell: <a href='https://drive.google.com/file/d/1x5zNR04yCAaC05IQsMMvT_fstOvrRHBu/view?usp=sharing'>Technical Instillation Manual</a></li>
+ <li> :bell: <a href='https://drive.google.com/file/d/1x5zNR04yCAaC05IQsMMvT_fstOvrRHBu/view?usp=sharing'>Technical Installation Manual</a></li>
 </ul>
  
  <hr>
@@ -171,7 +171,7 @@ master ( build )
 
 ### Testing Quality Document
 <ul>
- <li> :mag_right: https://drive.google.com/file/d/1WwdnOAkNXvSVU_khakMsPA0sXwgjziQv/view?usp=sharing
+ <li> :mag_right: <a href='https://drive.google.com/file/d/1WwdnOAkNXvSVU_khakMsPA0sXwgjziQv/view?usp=sharing'>Testing Quality Document</a></li>
 </ul>
  
 <hr>

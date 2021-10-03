@@ -64,11 +64,79 @@ class StudentsGradesController extends MomentumController<StudentsGradesModel> {
       );
       model.update(studentCards: studentCardsUpdate);
       if (model.subjects[index].getStudents().isEmpty) {
-        studentCardsUpdate.add(Text("No Students"));
+        studentCardsUpdate.add(
+          Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 150, bottom: 30),
+                  child: Icon(
+                    Icons.school_outlined,
+                    size: 150,
+                    color: Color.fromARGB(255, 97, 211, 87),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "No Stu",
+                      style: TextStyle(
+                        fontSize: 45,
+                      ),
+                    ),
+                    Text(
+                      "dents",
+                      style: TextStyle(
+                        fontSize: 45,
+                        color: Color.fromARGB(255, 97, 211, 87),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
         model.update(studentCards: studentCardsUpdate);
       }
     } else {
-      studentCardsUpdate.add(Text("No Grades"));
+      studentCardsUpdate.add(
+        Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 150, bottom: 30),
+                child: Icon(
+                  Icons.grading_outlined,
+                  size: 150,
+                  color: Color.fromARGB(255, 97, 211, 87),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "No Gr",
+                    style: TextStyle(
+                      fontSize: 45,
+                    ),
+                  ),
+                  Text(
+                    "ades",
+                    style: TextStyle(
+                      fontSize: 45,
+                      color: Color.fromARGB(255, 97, 211, 87),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
       model.update(studentCards: studentCardsUpdate);
     }
   }

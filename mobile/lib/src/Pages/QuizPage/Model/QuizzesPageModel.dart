@@ -12,12 +12,14 @@ class QuizzesPageModel extends MomentumModel<QuizzesPageController> {
   final int lessonId;
   final int questionCount;
   final String currentAnswer;
+  final List<int> answeredQuizzes;
 
   QuizzesPageModel(
     QuizzesPageController controller, {
     required this.lessonQuizzes,
     required this.currentAnswer,
     required this.currentQuiz,
+    required this.answeredQuizzes,
     required this.quizzesView,
     required this.lessonId,
     required this.questionCount,
@@ -32,7 +34,8 @@ class QuizzesPageModel extends MomentumModel<QuizzesPageController> {
       int? lessonId,
       int? questionCount,
       QuestionCard? currentQuestion,
-      String? currentAnswer}) {
+      String? currentAnswer,
+      List<int>? answeredQuizzes}) {
     QuizzesPageModel(controller,
             currentAnswer: currentAnswer ?? this.currentAnswer,
             lessonQuizzes: lessonQuizzes ?? this.lessonQuizzes,
@@ -40,7 +43,8 @@ class QuizzesPageModel extends MomentumModel<QuizzesPageController> {
             quizzesView: quizzesView ?? this.quizzesView,
             questionCount: questionCount ?? this.questionCount,
             lessonId: lessonId ?? this.lessonId,
-            currentQuestion: currentQuestion ?? this.currentQuestion)
+            currentQuestion: currentQuestion ?? this.currentQuestion,
+            answeredQuizzes: answeredQuizzes ?? this.answeredQuizzes)
         .updateMomentum();
   }
 }

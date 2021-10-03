@@ -7,7 +7,12 @@ import 'package:mobile/src/Components/User/Service/UserService.dart';
 import 'package:mobile/src/Pages/CanvasPage/View/CanvasCodePage.dart';
 import 'package:mobile/src/Pages/CanvasPage/View/CanvasPage.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradeLessonPageController.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradesQuizPageController.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesLessonPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
@@ -28,6 +33,8 @@ import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/View/ARWindow.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/View/VirtualEntityPage.dart';
 import 'package:momentum/momentum.dart';
 
 void main() {
@@ -54,28 +61,35 @@ Momentum momentum({bool mock = false}) {
       HomeController(mock: mock),
       QuizzesPageController(),
       LessonInformationController(),
+      GradeLessonPageController(),
+      GradesQuizPageController()
     ],
     services: [
-      UserApiService(), HomeService(),
-      //MomentumRouter is a built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
+      UserApiService(), 
+      HomeService(),
       MomentumRouter([
         LoginPage(), //
         LessonsPage(),
         LessonInformationPage(),
-
+        VirtualEntityView(),
+        ARWindow(),
         DetectMarkerPage(),
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),
         OrganisationsPage(),
         PreferencesPage(),
         QuizzesPageView(),
-        QuizPageView(), QuizCompletedView(),
-        RegistrationPage(Key('registrationPageKey')), //
-        RegistrationVerificationPage(Key('registration_verification')), //
+        QuizPageView(), 
+        QuizCompletedView(),
+        RegistrationPage(Key('registrationPageKey')),
+        RegistrationVerificationPage(Key('registration_verification')),
         SettingsPage(),
         SubjectsPage(),
         CanvasCodePage(),
-        CanvasPage()
+        CanvasPage(),
+        GradesLessonPage(),
+        GradesQuizPage(),
+        GradesQuizSpecificsPage()
       ]),
     ],
   );

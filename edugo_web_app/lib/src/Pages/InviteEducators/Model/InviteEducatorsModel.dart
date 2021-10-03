@@ -5,9 +5,13 @@ class InviteEducatorsModel extends MomentumModel<InviteEducatorsController> {
   final String currentEmailInput;
   final List<String> emails;
   final String inviteResponse;
+  final List<Widget> emailCards;
 
   InviteEducatorsModel(InviteEducatorsController controller,
-      {this.currentEmailInput, this.emails, this.inviteResponse})
+      {this.currentEmailInput,
+      this.emails,
+      this.emailCards,
+      this.inviteResponse})
       : super(controller);
 
   void inputEmail(String email) {
@@ -19,7 +23,7 @@ class InviteEducatorsModel extends MomentumModel<InviteEducatorsController> {
       List<String> tempEmails = emails;
       tempEmails.add(currentEmailInput);
       update(emails: tempEmails);
-      getEmailView();
+      update(emailCards: getEmailView());
     }
   }
 
@@ -27,7 +31,9 @@ class InviteEducatorsModel extends MomentumModel<InviteEducatorsController> {
     List<String> tempEmails = emails;
     tempEmails.removeAt(emailId);
     update(emails: tempEmails);
-    getEmailView();
+    List<Widget> tempWidgets = emailCards;
+    tempWidgets.removeAt(emailId);
+    update(emailCards: getEmailView());
   }
 
   List<Widget> getEmailView() {
@@ -61,12 +67,13 @@ class InviteEducatorsModel extends MomentumModel<InviteEducatorsController> {
   }
 
   @override
-  void update({currentEmailInput, emails, inviteResponse}) {
+  void update({currentEmailInput, emails, inviteResponse, emailCards}) {
     InviteEducatorsModel(
       controller,
       currentEmailInput: currentEmailInput ?? this.currentEmailInput,
       emails: emails ?? this.emails,
       inviteResponse: inviteResponse ?? this.inviteResponse,
+      emailCards: emailCards ?? this.emailCards,
     ).updateMomentum();
   }
 }

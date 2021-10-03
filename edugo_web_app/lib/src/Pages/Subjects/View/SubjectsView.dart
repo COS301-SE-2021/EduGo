@@ -93,18 +93,25 @@ class SubjectsView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            content: GridView.count(
-                              physics: NeverScrollableScrollPhysics(),
-                              primary: false,
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.only(
-                                  right: 30, left: 30, top: 40, bottom: 80),
-                              crossAxisSpacing: 40,
-                              mainAxisSpacing: 40,
-                              crossAxisCount: 4,
-                              childAspectRatio: 1 / 1.1,
-                              children: educatorSubjects.subjectCards,
-                            ),
+                            content: educatorSubjects.subjects.isNotEmpty
+                                ? GridView.count(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    primary: false,
+                                    shrinkWrap: true,
+                                    padding: const EdgeInsets.only(
+                                        right: 30,
+                                        left: 30,
+                                        top: 40,
+                                        bottom: 80),
+                                    crossAxisSpacing: 40,
+                                    mainAxisSpacing: 40,
+                                    crossAxisCount: 4,
+                                    childAspectRatio: 1 / 1.1,
+                                    children: educatorSubjects.subjectCards,
+                                  )
+                                : Column(
+                                    children: educatorSubjects.subjectCards,
+                                  ),
                           ),
                         ],
                       ),
