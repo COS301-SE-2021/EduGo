@@ -302,7 +302,7 @@ class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
       controllers: [CreateVirtualEntityController, QuizBuilderController],
       builder: (context, snapshot) {
         var createEntity = snapshot<CreateVirtualEntityModel>();
-
+        var quiz = snapshot<QuizBuilderModel>();
         Future<String> linkLoaded = Future<String>.delayed(
           const Duration(seconds: 0),
           () {
@@ -442,8 +442,67 @@ class _CreateVirtualEntityViewState extends State<CreateVirtualEntityView> {
                                 padding: EdgeInsets.all(50),
                                 child: Column(
                                   children: [
-                                    QuizBuilder(
-                                        createQuizFormKey: _createQuizFormKey),
+                                    Column(
+                                      children: <Widget>[
+                                        Material(
+                                          elevation: 40,
+                                          shadowColor: Colors.green,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 50),
+                                            height: 100,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Quiz",
+                                                  style:
+                                                      TextStyle(fontSize: 32),
+                                                ),
+                                                Text(
+                                                  "Builder",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 32,
+                                                    color: Color.fromARGB(
+                                                        255, 97, 211, 87),
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                VirtualEntityButton(
+                                                    elevation: 40,
+                                                    child: Text(
+                                                      "New Question",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    onPressed: () {
+                                                      Momentum.controller<
+                                                                  QuizBuilderController>(
+                                                              context)
+                                                          .newQuestion();
+                                                    },
+                                                    width: 200,
+                                                    height: 50),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        Form(
+                                          key: _createQuizFormKey,
+                                          child: Column(
+                                            children:
+                                                quiz.quizBuilderViewComponents,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     SizedBox(
                                       height: 40,
                                     ),
