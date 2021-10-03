@@ -18,7 +18,7 @@ import 'package:mobile/src/Pages/VirtualEntityPage/Controller/VirtualEntityContr
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-import 'package:vector_math/vector_math_64.dart';
+import 'package:vector_math/vector_math_64.dart' as Math;
 import 'package:http/http.dart' as http;
 
 
@@ -41,18 +41,19 @@ class ARWindowState extends State<ARWindow> {
   List<Widget> cards = [];
 
   int entityCount = 0;
+  bool tapping = false;
 
   double _scale = 0.4;
 
   @override
   Widget build(BuildContext context) {
-    if (nodes.length > 0 && anchors.length == nodes.length) {
+    if (nodes.length > 0 && anchors.length == nodes.length && !tapping) {
       for (var i = 0; i < nodes.length; i++) {
         ARNode node = nodes[i];
         ARPlaneAnchor anchor = anchors[i];
         this.arObjectManager!.removeNode(node);
         this.arAnchorManager!.removeAnchor(anchor);
-        node.scale = Vector3(_scale, _scale, _scale);
+        node.scale = Math.Vector3(_scale, _scale, _scale);
         this.arAnchorManager?.addAnchor(anchor).then((anchored) => {
           if (anchored!) {
             this.arObjectManager?.addNode(node, planeAnchor: anchor)   
@@ -63,6 +64,7 @@ class ARWindowState extends State<ARWindow> {
 
     if (entities.length > 0 && entities.length != entityCount) {
       entityCount = entities.length;
+      tapping = false;
       cards = List.generate(
         entities[0].description.length,
         (index) => VirtualEntityInfoCard(description: entities[0].description[index])
@@ -79,10 +81,26 @@ class ARWindowState extends State<ARWindow> {
             )
           ),
           Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              color: Colors.green,
+              height: MediaQuery.of(context).size.height / 14,
+              child: Slider(
+                label: 'Scale',
+                min: 0.0,
+                max: 1.0,
+                value: _scale,
+                onChanged: (value) { setState(() {
+                  _scale = value;
+                });}
+              ),
+            ),
+          ),
+          Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              // color: Colors.green,
-              height: MediaQuery.of(context).size.height / 4,
+              color: Colors.green,
+              height: MediaQuery.of(context).size.height / 3.5,
               width: MediaQuery.of(context).size.width,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -94,14 +112,8 @@ class ARWindowState extends State<ARWindow> {
                 )
               )
             )
-          )
+          ),
         ]
-      )
-    );
-    Container(
-      child: ARView(
-        planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-        onARViewCreated: onARViewCreated,
       )
     );
   }
@@ -126,6 +138,7 @@ class ARWindowState extends State<ARWindow> {
 
     this.arObjectManager?.onInitialize();
     this.arSessionManager?.onPlaneOrPointTap = onTap;
+    this.arObjectManager?.onNodeTap = onNodeTap;
   }
 
   Future<ARNode> getNode() async {
@@ -146,9 +159,9 @@ class ARWindowState extends State<ARWindow> {
     return ARNode(
       type: NodeType.fileSystemAppFolderGLB,
       uri: filename,
-      scale: Vector3(_scale, _scale, _scale),
-      position: Vector3(0.0, 0.0, 0.0),
-      rotation: Vector4(1.0, 0.0, 0.0, 0.0)
+      scale: Math.Vector3(_scale, _scale, _scale),
+      position: Math.Vector3(0.0, 0.0, 0.0),
+      rotation: Math.Vector4(1.0, 0.0, 0.0, 0.0)
     );
   }
 
@@ -171,6 +184,21 @@ class ARWindowState extends State<ARWindow> {
     }
     else {
       this.arSessionManager?.onError("Adding anchor failed");
+    }
+  }
+
+  Future<void> onNodeTap(List<String> nodes) async {
+    if (nodes.length < 1 || nodes.length > 1) return;
+    String node = nodes[0];
+    int index = this.nodes.indexWhere((element) => element.name == node);
+    VirtualEntity ve = entities[index];
+    if (ve.description.length > 0) {
+      cards = List.generate(
+        ve.description.length,
+        (index) => VirtualEntityInfoCard(description: ve.description[index])
+      );
+      tapping = true;
+      setState(() {});
     }
   }
 }
