@@ -5,6 +5,8 @@ import 'package:mobile/src/Pages/LessonsPage/Controller/LessonInformationControl
 import 'package:mobile/src/Pages/LessonsPage/Models/LessonInformationModel.dart';
 import 'package:mobile/src/Pages/QuizPage/Controller/QuizzesPageController.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/View/ARWindow.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/View/VirtualEntityPage.dart';
 import 'package:momentum/momentum.dart';
 
 class LessonInformationPage extends StatefulWidget {
@@ -104,7 +106,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                       new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //Scan QR code
+                            //Go to virtual entity
                             Padding(
                               padding:
                                   const EdgeInsets.only(top: 15.0, bottom: 8.0),
@@ -118,7 +120,7 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                                 onPressed: () {
                                   MomentumRouter.goto(
                                     context,
-                                    DetectMarkerPage,
+                                    VirtualEntityView,
                                     transition: (context, page) {
                                       return MaterialPageRoute(
                                           builder: (context) => page);
@@ -134,12 +136,12 @@ class _LessonInformationPageState extends State<LessonInformationPage> {
                                   child: Row(
                                     children: <Widget>[
                                       Icon(
-                                        Icons.qr_code,
+                                        Icons.view_in_ar,
                                         color: Colors.white,
                                         size: 20,
                                       ),
                                       Text(
-                                        "Scan QR code ",
+                                        "AR",
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ],

@@ -2,8 +2,8 @@
     package="com.example.mobile">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="mobile"
-        android:icon="@mipmap/ic_launcher"
+        android:label="EduGo"
+        android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"

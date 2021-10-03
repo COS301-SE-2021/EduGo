@@ -28,6 +28,8 @@ import 'package:mobile/src/Pages/SettingsPage/View/SettingsPage.dart';
 import 'package:mobile/src/Pages/SubjectsPage/View/SubjectsPage.dart';
 import 'package:mobile/src/Pages/LessonsPage/Controller/LessonController.dart';
 import 'package:mobile/src/Pages/SubjectsPage/Controller/SubjectController.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/View/ARWindow.dart';
+import 'package:mobile/src/Pages/VirtualEntityPage/View/VirtualEntityPage.dart';
 import 'package:momentum/momentum.dart';
 
 void main() {
@@ -56,22 +58,24 @@ Momentum momentum({bool mock = false}) {
       LessonInformationController(),
     ],
     services: [
-      UserApiService(), HomeService(),
-      //MomentumRouter is a built-in MomentumService for persistent navigation system: https://www.xamantra.dev/momentum/#/router
+      UserApiService(), 
+      HomeService(),
       MomentumRouter([
         LoginPage(), //
         LessonsPage(),
         LessonInformationPage(),
-
+        VirtualEntityView(),
+        ARWindow(),
         DetectMarkerPage(),
         GradesSubjectPage(),
         HomePage(Key('homePageKey')),
         OrganisationsPage(),
         PreferencesPage(),
         QuizzesPageView(),
-        QuizPageView(), QuizCompletedView(),
-        RegistrationPage(Key('registrationPageKey')), //
-        RegistrationVerificationPage(Key('registration_verification')), //
+        QuizPageView(), 
+        QuizCompletedView(),
+        RegistrationPage(Key('registrationPageKey')),
+        RegistrationVerificationPage(Key('registration_verification')),
         SettingsPage(),
         SubjectsPage(),
         CanvasCodePage(),
