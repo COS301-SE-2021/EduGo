@@ -157,12 +157,8 @@ class _LogInContentState extends State<LogInContent> {
                                   },
                                 );
                               },
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'User name cannot be blank';
-                                }
-                                return errorStringFetch.errorString;
-                              },
+                              validator:
+                                  RequiredValidator(errorText: "* Required"),
                               onChanged: (value) {
                                 Momentum.controller<LogInController>(context)
                                     .setLoginUserName(value);
@@ -201,13 +197,8 @@ class _LogInContentState extends State<LogInContent> {
                                 );
                               },
                               obscureText: true,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Password cannot be blank';
-                                }
-
-                                return errorStringFetch.errorString;
-                              },
+                              validator:
+                                  RequiredValidator(errorText: "* Required"),
                               onChanged: (value) {
                                 Momentum.controller<LogInController>(context)
                                     .setLoginPassword(value);
@@ -236,18 +227,19 @@ class _LogInContentState extends State<LogInContent> {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
-                                await Momentum.controller<LogInController>(
-                                        context)
-                                    .loginUser(
-                                  context: context,
-                                )
-                                    .then(
-                                  (value) {
-                                    if (value == "Invalid Credentials") {
-                                      _unAuthorized();
-                                    }
-                                  },
-                                );
+                                if (_formKey.currentState.validate())
+                                  await Momentum.controller<LogInController>(
+                                          context)
+                                      .loginUser(
+                                    context: context,
+                                  )
+                                      .then(
+                                    (value) {
+                                      if (value == "Invalid Credentials") {
+                                        _unAuthorized();
+                                      }
+                                    },
+                                  );
                               },
                               width: 600,
                               height: 65),
