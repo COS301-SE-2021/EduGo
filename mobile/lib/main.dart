@@ -8,6 +8,8 @@ import 'package:mobile/src/Pages/CanvasPage/View/CanvasCodePage.dart';
 import 'package:mobile/src/Pages/CanvasPage/View/CanvasPage.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesLessonPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
@@ -79,7 +81,9 @@ Momentum momentum({bool mock = false}) {
         SettingsPage(),
         SubjectsPage(),
         CanvasCodePage(),
-        CanvasPage()
+        CanvasPage(),
+        GradesLessonPage(),
+        GradesQuizPage()
       ]),
     ],
   );

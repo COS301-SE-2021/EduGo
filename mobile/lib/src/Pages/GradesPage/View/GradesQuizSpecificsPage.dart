@@ -6,9 +6,11 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Model/GradesQuizSpecificsParam.dart';
 import 'package:mobile/src/Components/QuizAnswersCard.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                   Grade Quiz Specific View Page 
@@ -16,29 +18,21 @@ import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 */
 
 class GradesQuizSpecificsPage extends StatefulWidget {
-  //Holds the QuizAnswers List
-  final List<QuizAnswers> quizAnswers;
-
   //LessonPage constructor
   GradesQuizSpecificsPage({
     Key? key,
-    required this.quizAnswers,
   }) : super(key: key);
 
   @override
   _GradesQuizSpecificsPageState createState() =>
-      _GradesQuizSpecificsPageState(quizAnswers: this.quizAnswers);
+      _GradesQuizSpecificsPageState();
 }
 
 class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
-  final List<QuizAnswers> quizAnswers;
-
-  _GradesQuizSpecificsPageState({
-    required this.quizAnswers,
-  });
-
   @override
   Widget build(BuildContext context) {
+    List<QuizAnswers> quizAnswers = MomentumRouter.getParam<GradesQuizSpecificsParam>(context)?.quizAnswers ?? [];
+
     return MobilePageLayout(
         false,
         false,

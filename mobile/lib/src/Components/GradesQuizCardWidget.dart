@@ -6,8 +6,10 @@
    * gradequiz cards.
 **/
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Model/GradesQuizSpecificsParam.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *              GradeQuiz Cards used in the GradeQuiz page 
@@ -59,13 +61,19 @@ class GradesQuizCard extends StatelessWidget {
               //This redirects the page to the gradespecific page on tap
               //and passes in the marks array, subject title and total grade
               onTap: () {
-                Navigator.push(
+                MomentumRouter.goto(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        GradesQuizSpecificsPage(quizAnswers: this.quizAnswers),
-                  ),
+                  GradesQuizSpecificsPage,
+                  params: GradesQuizSpecificsParam(quizAnswers: quizAnswers),
+                  transition: (context, page) => MaterialPageRoute(builder: (context) => page)
                 );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) =>
+                //         GradesQuizSpecificsPage(quizAnswers: this.quizAnswers),
+                //   ),
+                // );
               },
               child: Container(
                 child: Column(
