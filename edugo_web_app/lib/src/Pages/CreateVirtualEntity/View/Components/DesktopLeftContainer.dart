@@ -3,11 +3,17 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 
 import 'VirtualEntityInfoAdder.dart';
 
-class DesktopLeftContainer extends StatelessWidget {
+class DesktopLeftContainer extends StatefulWidget {
   final GlobalKey<FormState> createEntityParentFormKey;
 
   const DesktopLeftContainer({Key key, this.createEntityParentFormKey})
       : super(key: key);
+
+  @override
+  _DesktopLeftContainerState createState() => _DesktopLeftContainerState();
+}
+
+class _DesktopLeftContainerState extends State<DesktopLeftContainer> {
   @override
   Widget build(BuildContext context) {
     return MomentumBuilder(
@@ -48,7 +54,7 @@ class DesktopLeftContainer extends StatelessWidget {
                     padding: EdgeInsets.only(
                         top: 25, bottom: 5, right: 20, left: 20),
                     child: VirtualEntityInputBox(
-                      createEntityKey: createEntityParentFormKey,
+                      createEntityKey: widget.createEntityParentFormKey,
                       text: "Entity Name...",
                       width: 450,
                       onChanged:
