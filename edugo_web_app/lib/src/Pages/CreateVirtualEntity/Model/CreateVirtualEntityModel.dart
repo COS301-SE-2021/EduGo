@@ -13,9 +13,11 @@ class CreateVirtualEntityModel
   final String currentInfoInput;
   final List<String> informationString;
   final List<Widget> informationCards;
+  final Widget modelViewer;
   CreateVirtualEntityModel(CreateVirtualEntityController controller,
       {this.name,
       this.currentInfoInput,
+      this.modelViewer,
       this.informationCards,
       this.loadingModelLink,
       this.informationString,
@@ -34,14 +36,6 @@ class CreateVirtualEntityModel
     stringArr = informationString;
     stringArr.add(currentInfoInput);
     update(informationString: stringArr);
-  }
-
-  void setCreateVirtualEntityModelLink(String inModelLink) {
-    update(modelLink: inModelLink);
-  }
-
-  void clearLinkTo3DModel() {
-    update(modelLink: "");
   }
 
   String getCreateVirtualEntityName() {
@@ -81,6 +75,7 @@ class CreateVirtualEntityModel
       String createEntityResponse,
       bool creatingEntityLoader,
       String currentInfoInput,
+      Widget modelViewer,
       List<Widget> informationCards}) {
     CreateVirtualEntityModel(controller,
             name: name ?? this.name,
@@ -93,7 +88,8 @@ class CreateVirtualEntityModel
             creatingEntityLoader:
                 creatingEntityLoader ?? this.creatingEntityLoader,
             currentInfoInput: currentInfoInput ?? this.currentInfoInput,
-            informationCards: informationCards ?? this.informationCards)
+            informationCards: informationCards ?? this.informationCards,
+            modelViewer: modelViewer ?? this.modelViewer)
         .updateMomentum();
   }
 }
