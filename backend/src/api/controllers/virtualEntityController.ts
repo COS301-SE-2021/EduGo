@@ -1,13 +1,16 @@
 import { CreateVirtualEntityRequest } from "../models/virtualEntity/CreateVirtualEntityRequest";
 import { GetVirtualEntityRequest } from "../models/virtualEntity/GetVirtualEntityRequest";
 import { VirtualEntityService } from "../services/VirtualEntityService";
-import { upload, UploadModelToAzure } from "../helper/File";
+import { upload, FileManagement } from "../helper/File";
 import {
 	AddModelToVirtualEntityFileData,
 	AddModelToVirtualEntityRequest,
 } from "../models/virtualEntity/AddModelToVirtualEntityRequest";
 import { AddModelToVirtualEntityResponse } from "../models/virtualEntity/AddModelToVirtualEntityResponse";
-import { IsEducatorMiddleware, IsUserMiddleware } from "../middleware/ValidationMiddleware";
+import {
+	IsEducatorMiddleware,
+	IsUserMiddleware,
+} from "../middleware/ValidationMiddleware";
 import { AnswerQuizRequest } from "../models/virtualEntity/AnswerQuizRequest";
 import { Inject, Service } from "typedi";
 import {
@@ -23,13 +26,15 @@ import {
 import { TogglePublicRequest } from "../models/virtualEntity/TogglePublicRequest";
 import passport from "passport";
 import { GetQuizesByLessonRequest } from "../models/virtualEntity/GetQuizesByLessonRequest";
-import { GenerateThumbnail } from "../helper/ExternalRequests";
+import { ExternalRequests } from "../helper/ExternalRequests";
 @Service()
 @JsonController("/virtualEntity")
 @UseBefore(passport.authenticate("jwt", { session: false }))
 export class VirtualEntityController {
 	constructor(
-		@Inject() private service: VirtualEntityService
+		@Inject() private service: VirtualEntityService,
+		@Inject() private fileManagement: FileManagement,
+		@Inject() private externalRequests: ExternalRequests
 	) {}
 
 	@Post("/createVirtualEntity")
@@ -48,9 +53,14 @@ export class VirtualEntityController {
 		file: Express.Multer.File
 	) {
 		if (file) {
-			let result = await UploadModelToAzure(file)
-			let thumbnail = await GenerateThumbnail(result);
-			let response: any = { fileLink: result, thumbnail: thumbnail.uploaded };
+			const result = await this.fileManagement.UploadModelToAzure(file);
+			const thumbnail = await this.externalRequests.GenerateThumbnail(result);
+			const gltf = await this.externalRequests.ConvertModel(result);
+			const response: any = {
+				fileLink: result,
+				thumbnail: thumbnail.uploaded,
+				gltf,
+			};
 			return response;
 		} else throw new BadRequestError("User is invalid");
 	}
@@ -63,18 +73,18 @@ export class VirtualEntityController {
 		@Body({ required: true }) body: AddModelToVirtualEntityRequest
 	) {
 		if (file) {
-			let result = await UploadModelToAzure(file);
-			let baseFile = {
+			const result = await this.fileManagement.UploadModelToAzure(file);
+			const baseFile = {
 				fileLink: result,
 			};
 
-			let data: AddModelToVirtualEntityFileData = {
+			const data: AddModelToVirtualEntityFileData = {
 				id: body.virtualEntity_id,
 				...baseFile,
 			};
-			let response = await this.service.AddModelToVirtualEntity(data);
+			const response = await this.service.AddModelToVirtualEntity(data);
 			if (response) {
-				let resp: AddModelToVirtualEntityResponse = {
+				const resp: AddModelToVirtualEntityResponse = {
 					model_id: response.model_id,
 					...body,
 					...baseFile,
@@ -122,10 +132,24 @@ export class VirtualEntityController {
 		return this.service.GetPrivateVirtualEntities(id);
 	}
 
+	@Post("/getVirtualEntities")
+	@UseBefore(IsEducatorMiddleware)
+	async GetVirtualEntities(@CurrentUser({ required: true }) id: number) {
+		const publicVirtualEntities =
+			await this.service.GetPublicVirtualEntities();
+		const privateVirtualEntities =
+			await this.service.GetPrivateVirtualEntities(id);
+
+		return [...publicVirtualEntities, ...privateVirtualEntities];
+	}
+
 	@Post("/getQuizesByLesson")
 	@UseBefore(IsUserMiddleware)
-	GetQuizesByLesson(@Body({ required: true }) body: GetQuizesByLessonRequest) {
-		return this.service.GetQuizesByLesson(body);
+	GetQuizesByLesson(
+		@Body({ required: true }) body: GetQuizesByLessonRequest,
+		@CurrentUser({ required: true }) id: number
+	) {
+		return this.service.GetQuizesByLesson(body, id);
 	}
 }
 

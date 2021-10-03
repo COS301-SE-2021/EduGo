@@ -1,4 +1,5 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
+import 'Components/HomeComponents.dart';
 
 class Home extends StatelessWidget {
   @override

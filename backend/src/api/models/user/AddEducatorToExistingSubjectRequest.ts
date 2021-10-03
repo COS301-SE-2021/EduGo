@@ -1,4 +1,4 @@
 export interface AddEducatorToExistingSubjectRequest {
-    username:string; 
-    subject_id:number; 
+	username: string;
+	subject_id: number;
 }

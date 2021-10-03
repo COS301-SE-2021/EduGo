@@ -21,7 +21,7 @@ const PRIV_KEY = fs.readFileSync(pathToKey, "utf8");
  * the decrypted hash/salt with the password that the user provided at login
  */
 export function validPassword(password: string, hash: string, salt: string) {
-	var hashVerify = crypto
+	const hashVerify = crypto
 		.pbkdf2Sync(password, salt, 10000, 64, "sha512")
 		.toString("hex");
 	return hash === hashVerify;
@@ -38,8 +38,8 @@ export function validPassword(password: string, hash: string, salt: string) {
  * You would then store the hashed password in the database and then re-hash it to verify later (similar to what we do here)
  */
 export function genPassword(password: string) {
-	var salt = crypto.randomBytes(32).toString("hex");
-	var genHash = crypto
+	const salt = crypto.randomBytes(32).toString("hex");
+	const genHash = crypto
 		.pbkdf2Sync(password, salt, 10000, 64, "sha512")
 		.toString("hex");
 
@@ -62,7 +62,7 @@ export function issueJWT(user: User) {
 	}
 
 	const payload = {
-		user_id: user.id
+		user_id: user.id,
 	};
 
 	const signedToken = jsonwebtoken.sign(payload, PRIV_KEY, {

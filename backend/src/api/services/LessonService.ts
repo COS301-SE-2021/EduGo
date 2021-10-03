@@ -10,7 +10,7 @@ import { VirtualEntity } from "../database/VirtualEntity";
 import { Service } from "typedi";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { BadRequestError } from "routing-controllers";
-let statusRes: any = {
+const statusRes: any = {
 	message: "",
 	type: "fail",
 };
@@ -26,7 +26,7 @@ export class LessonService {
 
 	public async CreateLesson(request: CreateLessonRequest) {
 		// Set all attributes of a lesson
-		let lesson: Lesson = new Lesson();
+		const lesson: Lesson = new Lesson();
 		lesson.title = request.title;
 		lesson.description = request.description;
 		lesson.virtualEntities = [];
@@ -36,9 +36,12 @@ export class LessonService {
 
 		//let subjectRepository = getRepository(Subject);
 		// search for subject with the givem id
-		let subject = await this.subjectRepository.findOne(request.subjectId, {
-			relations: ["lessons"],
-		});
+		const subject = await this.subjectRepository.findOne(
+			request.subjectId,
+			{
+				relations: ["lessons"],
+			}
+		);
 		if (subject) {
 			lesson.subject = subject;
 			// set add the lesson to the subject
@@ -57,13 +60,19 @@ export class LessonService {
 	public async GetLessonsBySubject(request: GetLessonsBySubjectRequest) {
 		let subject: Subject | undefined;
 		try {
-			subject = await this.subjectRepository.findOne(request.subjectId,{ relations: ["lessons"] });
+			subject = await this.subjectRepository.findOne(request.subjectId, {
+				relations: [
+					"lessons",
+					"lessons.virtualEntities",
+					"lessons.virtualEntities.model",
+				],
+			});
 		} catch (err) {
 			throw new BadRequestError("Subject does not exist");
 		}
 		if (subject) {
-			let lessons = subject.lessons;
-			let LessonsData: GetLessonsBySubjectResponse = {
+			const lessons = subject.lessons;
+			const LessonsData: GetLessonsBySubjectResponse = {
 				data: lessons,
 				statusMessage: "Successful",
 			};
@@ -72,16 +81,21 @@ export class LessonService {
 	}
 
 	async AddVirtualEntityToLesson(request: AddVirtualEntityToLessonRequest) {
-		let lesson = await this.lessonRepository.findOne(request.lessonId, {
+		const lesson = await this.lessonRepository.findOne(request.lessonId, {
 			relations: ["virtualEntities"],
 		});
-		let virtualEntity = await this.virtualEntityRepository.findOne(
+		const virtualEntity = await this.virtualEntityRepository.findOne(
 			request.virtualEntityId
 		);
 
-		if (!lesson) throw new BadRequestError("Lesson does not exist"); 
-		if (!virtualEntity) throw new BadRequestError("Virtual Entity does not exist");
-		if (lesson.virtualEntities.find(e => e.id === virtualEntity!.id) !== undefined) throw new BadRequestError("Virtual Entity has already been added");
+		if (!lesson) throw new BadRequestError("Lesson does not exist");
+		if (!virtualEntity)
+			throw new BadRequestError("Virtual Entity does not exist");
+		if (
+			lesson.virtualEntities.find((e) => e.id === virtualEntity!.id) !==
+			undefined
+		)
+			throw new BadRequestError("Virtual Entity has already been added");
 
 		lesson.virtualEntities.push(virtualEntity);
 		try {
