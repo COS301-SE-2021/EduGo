@@ -1,17 +1,17 @@
 import 'package:edugo_web_app/src/Pages/EduGo.dart';
 import 'package:edugo_web_app/src/Pages/Login/View/Widgets/LogInWidgets.dart';
 
-class LogInContent extends StatefulWidget {
-  LogInContent() : super(key: Key("LogInContent"));
+class VerificationContent extends StatefulWidget {
+  VerificationContent() : super(key: Key("LogInContent"));
 
   @override
-  _LogInContentState createState() => _LogInContentState();
+  _VerificationContentState createState() => _VerificationContentState();
 }
 
-class _LogInContentState extends State<LogInContent> {
+class _VerificationContentState extends State<VerificationContent> {
   final _formKey = GlobalKey<FormState>();
 
-  void _unAuthorized() {
+  void _unInvited() {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -33,7 +33,7 @@ class _LogInContentState extends State<LogInContent> {
               ),
               Center(
                 child: new Text(
-                  'Invalid Credentials',
+                  'Invalid Verification Credentials',
                   style: TextStyle(fontSize: 22, color: Colors.red),
                 ),
               ),
@@ -90,10 +90,11 @@ class _LogInContentState extends State<LogInContent> {
     return Column(
       children: [
         MomentumBuilder(
-          controllers: [LogInController],
+          controllers: [VerificationController],
           builder: (context, snapshot) {
-            Momentum.controller<LogInController>(context).resetErrorString();
-            var errorStringFetch = snapshot<LoginModel>();
+            Momentum.controller<VerificationController>(context)
+                .resetErrorString();
+            var errorStringFetch = snapshot<VerificationModel>();
 
             return SizedBox(
               child: Padding(
@@ -142,26 +143,38 @@ class _LogInContentState extends State<LogInContent> {
                             width: ScreenUtil().setWidth(600),
                             height: 100,
                             child: TextFormField(
-                              key: Key("LogInUserName"),
-                              onFieldSubmitted: (value) async {
-                                await Momentum.controller<LogInController>(
-                                        context)
-                                    .loginUser(
-                                  context: context,
-                                )
-                                    .then(
-                                  (value) {
-                                    if (value == "Invalid Credentials") {
-                                      _unAuthorized();
-                                    }
-                                  },
-                                );
+                              onFieldSubmitted: (input) async {
+                                if (_formKey.currentState.validate())
+                                  await Momentum.controller<
+                                          VerificationController>(context)
+                                      .verifyUser()
+                                      .then(
+                                    (value) {
+                                      if (value == "Invalid Credentials") {
+                                        _unInvited();
+                                      } else {
+                                        MomentumRouter.goto(
+                                            context, RegisterView);
+                                      }
+                                    },
+                                  );
                               },
-                              validator:
+                              validator: MultiValidator(
+                                [
                                   RequiredValidator(errorText: "* Required"),
+                                  LengthRangeValidator(
+                                      min: 5,
+                                      max: 5,
+                                      errorText: 'Invalid Code'),
+                                  PatternValidator(r'^[0-9]*$',
+                                      errorText: "Invalid Code"),
+                                ],
+                              ),
+                              keyboardType: TextInputType.number,
                               onChanged: (value) {
-                                Momentum.controller<LogInController>(context)
-                                    .setLoginUserName(value);
+                                Momentum.controller<VerificationController>(
+                                        context)
+                                    .setVerificationCode(value);
                               },
                               cursorColor: Color.fromARGB(255, 97, 211, 87),
                               textAlign: TextAlign.center,
@@ -173,7 +186,7 @@ class _LogInContentState extends State<LogInContent> {
                                 ),
                                 border: OutlineInputBorder(),
                                 hintStyle: TextStyle(fontSize: 20),
-                                hintText: "User Name",
+                                hintText: "Verificaction Code",
                               ),
                             ),
                           ),
@@ -181,27 +194,34 @@ class _LogInContentState extends State<LogInContent> {
                             width: ScreenUtil().setWidth(600),
                             height: 100,
                             child: TextFormField(
-                              key: Key("LogInPassword"),
-                              onFieldSubmitted: (value) async {
-                                await Momentum.controller<LogInController>(
-                                        context)
-                                    .loginUser(
-                                  context: context,
-                                )
-                                    .then(
-                                  (value) {
-                                    if (value == "Invalid Credentials") {
-                                      _unAuthorized();
-                                    }
-                                  },
-                                );
+                              onFieldSubmitted: (input) async {
+                                if (_formKey.currentState.validate())
+                                  await Momentum.controller<
+                                          VerificationController>(context)
+                                      .verifyUser()
+                                      .then(
+                                    (value) {
+                                      if (value == "Invalid Credentials") {
+                                        _unInvited();
+                                      } else {
+                                        MomentumRouter.goto(
+                                            context, RegisterView);
+                                      }
+                                    },
+                                  );
                               },
-                              obscureText: true,
-                              validator:
+                              validator: MultiValidator(
+                                [
                                   RequiredValidator(errorText: "* Required"),
+                                  PatternValidator(
+                                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                                      errorText: "Invalid Email"),
+                                ],
+                              ),
                               onChanged: (value) {
-                                Momentum.controller<LogInController>(context)
-                                    .setLoginPassword(value);
+                                Momentum.controller<VerificationController>(
+                                        context)
+                                    .setVerificationEmail(value);
                               },
                               textAlign: TextAlign.center,
                               cursorColor: Color.fromARGB(255, 97, 211, 87),
@@ -213,7 +233,7 @@ class _LogInContentState extends State<LogInContent> {
                                 ),
                                 border: OutlineInputBorder(),
                                 hintStyle: TextStyle(fontSize: 20),
-                                hintText: "Password",
+                                hintText: "Email",
                               ),
                             ),
                           ),
@@ -223,20 +243,21 @@ class _LogInContentState extends State<LogInContent> {
                           LogInButton(
                               elevation: 40,
                               child: Text(
-                                "Sign In",
+                                "Verify",
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
                                 if (_formKey.currentState.validate())
-                                  await Momentum.controller<LogInController>(
-                                          context)
-                                      .loginUser(
-                                    context: context,
-                                  )
+                                  await Momentum.controller<
+                                          VerificationController>(context)
+                                      .verifyUser()
                                       .then(
                                     (value) {
                                       if (value == "Invalid Credentials") {
-                                        _unAuthorized();
+                                        _unInvited();
+                                      } else {
+                                        MomentumRouter.goto(
+                                            context, RegisterView);
                                       }
                                     },
                                   );
@@ -252,11 +273,10 @@ class _LogInContentState extends State<LogInContent> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text("Got a verification code?  "),
+                                Text("Already Verified?  "),
                                 GestureDetector(
                                   onTap: () {
-                                    MomentumRouter.goto(
-                                        context, VerificationView);
+                                    MomentumRouter.goto(context, LogInView);
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(
@@ -273,7 +293,7 @@ class _LogInContentState extends State<LogInContent> {
                                       ),
                                     ),
                                     child: Text(
-                                      "Get Verified & Register",
+                                      "Sign In",
                                       style: TextStyle(
                                         color: Colors.blue,
                                       ),

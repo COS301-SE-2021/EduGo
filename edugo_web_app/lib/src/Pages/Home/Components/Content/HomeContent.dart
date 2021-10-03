@@ -43,11 +43,10 @@ class HomeContent extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 40.0),
-        child: Image.network("https://edugo.blob.core.windows.net/edugo/images/web/lp_image.png", width: width,)
-        // child: Image.asset(
-        //   "../assets/images/lp_image.png",
-        //   width: width,
-        // ),
+        child: Image.network(
+          "https://edugo.blob.core.windows.net/edugo/images/web/lp_image.png",
+          width: width,
+        ),
       )
     ];
   }

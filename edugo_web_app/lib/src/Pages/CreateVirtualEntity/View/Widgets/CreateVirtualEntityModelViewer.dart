@@ -11,7 +11,6 @@ class CreateVirtualEntityModelViewer extends StatelessWidget {
         controllers: [CreateVirtualEntityController],
         builder: (context, snapshot) {
           var entity = snapshot<CreateVirtualEntityModel>();
-
           String modelview = "<html>" +
               "   <head>" +
               "        <meta charset=\"UTF-8\">" +
@@ -30,7 +29,7 @@ class CreateVirtualEntityModelViewer extends StatelessWidget {
               "</html>";
           // ignore: undefined_prefixed_name
           ui.platformViewRegistry.registerViewFactory(
-              'edugo_create_model_viewer',
+              'edugo_create_model_viewer' + entity.modelLink,
               (int viewId) => IFrameElement()
                 ..width = '300'
                 ..height = "360"
@@ -43,7 +42,8 @@ class CreateVirtualEntityModelViewer extends StatelessWidget {
             child: SizedBox(
                 width: 300,
                 height: 360,
-                child: HtmlElementView(viewType: 'edugo_create_model_viewer')),
+                child: HtmlElementView(
+                    viewType: 'edugo_create_model_viewer' + entity.modelLink)),
           );
         });
   }

@@ -4,6 +4,7 @@ import 'package:edugo_web_app/src/Pages/EduGo.dart';
 class AdminView extends StatelessWidget {
   Widget build(BuildContext context) {
     Momentum.controller<AdminController>(context).getOrganisationId(context);
+
     return MomentumBuilder(
       controllers: [AdminController],
       builder: (context, snapshot) {
@@ -139,89 +140,107 @@ class AdminView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            content: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 100),
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 50,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Educators",
-                                      style: TextStyle(
-                                        fontSize: 32,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  FutureBuilder<String>(
-                                      future: educatorsReLoaded,
-                                      builder: (context, snapshot) {
-                                        if (snapshot.hasData)
-                                          return Column(
-                                            children: currentOrganisation
-                                                .educatorCards,
-                                          );
-                                        return Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 50,
-                                                width: 50,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  valueColor:
-                                                      new AlwaysStoppedAnimation<
-                                                              Color>(
-                                                          Color.fromARGB(255,
-                                                              97, 211, 87)),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 50,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    "Re",
-                                                    style: TextStyle(
-                                                        color: Color.fromARGB(
-                                                            255, 97, 211, 87),
-                                                        fontSize: 28),
-                                                  ),
-                                                  Text(
-                                                    "freshing",
-                                                    style:
-                                                        TextStyle(fontSize: 28),
-                                                  ),
-                                                  Text(
-                                                    "...",
-                                                    style: TextStyle(
-                                                        color: Color.fromARGB(
-                                                            255, 97, 211, 87),
-                                                        fontSize: 28),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
+                            content: currentOrganisation.educators.length > 1
+                                ? Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 100),
+                                    child: Column(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Educators",
+                                            style: TextStyle(
+                                              fontSize: 32,
+                                            ),
                                           ),
-                                        );
-                                      })
-                                ],
-                              ),
-                            ),
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        FutureBuilder<String>(
+                                            future: educatorsReLoaded,
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData)
+                                                return Column(
+                                                  children: currentOrganisation
+                                                      .educatorCards,
+                                                );
+                                              return Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 50,
+                                                      width: 50,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            new AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    97,
+                                                                    211,
+                                                                    87)),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 50,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "Re",
+                                                          style: TextStyle(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      97,
+                                                                      211,
+                                                                      87),
+                                                              fontSize: 28),
+                                                        ),
+                                                        Text(
+                                                          "freshing",
+                                                          style: TextStyle(
+                                                              fontSize: 28),
+                                                        ),
+                                                        Text(
+                                                          "...",
+                                                          style: TextStyle(
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      97,
+                                                                      211,
+                                                                      87),
+                                                              fontSize: 28),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            })
+                                      ],
+                                    ),
+                                  )
+                                : Column(
+                                    children: currentOrganisation.educatorCards,
+                                  ),
                           ),
                         ],
                       ),

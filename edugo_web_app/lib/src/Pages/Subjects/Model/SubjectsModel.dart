@@ -33,7 +33,41 @@ class SubjectsModel extends MomentumModel<SubjectsController> {
       },
     );
     if (subjects.isEmpty) {
-      subjectCardsUpdate.add(Text("No Subjects"));
+      subjectCardsUpdate.add(
+        Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 150, bottom: 30),
+                child: Icon(
+                  Icons.auto_stories_outlined,
+                  size: 150,
+                  color: Color.fromARGB(255, 97, 211, 87),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "No Sub",
+                    style: TextStyle(
+                      fontSize: 45,
+                    ),
+                  ),
+                  Text(
+                    "jects",
+                    style: TextStyle(
+                      fontSize: 45,
+                      color: Color.fromARGB(255, 97, 211, 87),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
     }
     update(subjectCards: subjectCardsUpdate);
   }

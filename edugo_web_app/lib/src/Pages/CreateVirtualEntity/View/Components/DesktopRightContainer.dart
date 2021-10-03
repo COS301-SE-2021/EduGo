@@ -50,7 +50,9 @@ class DesktopRightContainer extends StatelessWidget {
                           height: 50),
                     ),
                     SizedBox(height: 10),
-                    CreateVirtualEntityModelViewer(),
+                    entity.modelViewer == null
+                        ? SizedBox()
+                        : entity.modelViewer,
                   ],
                 ),
               );

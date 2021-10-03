@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 
-class VirtualEntityInputBox extends StatelessWidget {
+class VirtualEntityInputBox extends StatefulWidget {
   final String text;
   final double width;
 
   final Function onChanged;
+  static var _controller = TextEditingController();
   final GlobalKey<FormState> createEntityKey;
   const VirtualEntityInputBox(
       {Key key, this.onChanged, this.width, this.text, this.createEntityKey})
       : super(key: key);
 
   @override
+  _VirtualEntityInputBoxState createState() => _VirtualEntityInputBoxState();
+}
+
+class _VirtualEntityInputBoxState extends State<VirtualEntityInputBox> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width != null ? width : 370,
+      width: widget.width != null ? widget.width : 370,
       height: 75,
       child: TextFormField(
         onChanged: (value) {
-          onChanged(value);
+          widget.onChanged(value);
         },
         validator: (value) {
           if (value.isEmpty) {
@@ -25,6 +31,7 @@ class VirtualEntityInputBox extends StatelessWidget {
           }
           return null;
         },
+        controller: VirtualEntityInputBox._controller,
         cursorColor: Color.fromARGB(255, 97, 211, 87),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
@@ -33,7 +40,7 @@ class VirtualEntityInputBox extends StatelessWidget {
           ),
           border: OutlineInputBorder(),
           hintStyle: TextStyle(fontSize: 20),
-          hintText: text,
+          hintText: widget.text,
         ),
       ),
     );
