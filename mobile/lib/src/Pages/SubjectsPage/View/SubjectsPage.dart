@@ -37,6 +37,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
     return MobilePageLayout(
       true,
       true,
+      false,
       MomentumBuilder(
         controllers: [SubjectsController],
         builder: (context, snapshot) {
@@ -113,11 +114,11 @@ class _SubjectsPageState extends State<SubjectsPage> {
           //or between api calls
           else
             return SpinKitCircle(
-              color: Colors.black,
+              color: Color.fromARGB(255, 97, 211, 87),
             );
         },
       ),
-      'Subjects',
+      'Home',
     );
   }
 }

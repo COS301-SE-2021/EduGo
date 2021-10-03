@@ -9,8 +9,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile/src/Components/GradesQuizCardWidget.dart';
+import 'package:mobile/src/Components/Model/GradesQuizPageParam.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradesQuizPageController.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                         Grade Quiz View Page 
@@ -18,10 +21,6 @@ import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 */
 
 class GradesQuizPage extends StatefulWidget {
-  //Holds the list of quizzes to be
-  //passed in from the GradesQuizCard
-  final List<Quiz> quizList;
-
   //Holds the list of student answers to be
   //passed in from the GradesQuizCard
   // final List<String> studentAnswers;
@@ -32,30 +31,27 @@ class GradesQuizPage extends StatefulWidget {
 
   GradesQuizPage({
     Key? key,
-    required this.quizList,
   }) : super(key: key);
 
   @override
-  _GradesQuizState createState() => _GradesQuizState(
-        quizList: this.quizList,
-      );
+  _GradesQuizState createState() => _GradesQuizState();
 }
 
 class _GradesQuizState extends State<GradesQuizPage> {
-  final List<Quiz> quizList;
+  List<Quiz> quizList = [];
 
-  _GradesQuizState({
-    required this.quizList,
-  });
-
-  //TODO:
-  //CHANGE THIS PAGE TO DISPLAY CARDS OF THE QUIZ SECTION RATHER THAN INDIVIDUAL QUIZZES
-  //A LESSON NO LONGER HAS MORE THAN ONE QUIZ. IT HAS ONE BIG QUIZ WITH
-  //DIFFERENT SECTIONS INSTEAD
   @override
   Widget build(BuildContext context) {
+    if (Momentum.controller<GradesQuizPageController>(context).getList().length == 0) {
+      quizList = MomentumRouter.getParam<GradesQuizPageParam>(context)?.quizList ?? [];
+      Momentum.controller<GradesQuizPageController>(context).setList(quizList);
+    }
+    if (quizList.length == 0) 
+      quizList = Momentum.controller<GradesQuizPageController>(context).getList();
+      
     if (quizList.isNotEmpty && quizList.length > 0) {
       return MobilePageLayout(
+          false,
           false,
           false,
           Container(
@@ -97,10 +93,11 @@ class _GradesQuizState extends State<GradesQuizPage> {
                               //Also pass in the lesson title and the overall lesson mark
                               //as a percentage
                               GradesQuizCard(
-                            //quizTitle: quiz.title,
-                            studentQuizMark: quiz.student_score,
-                            quizTotalMark: quiz.quiz_total,
-                          ),
+                                  studentQuizMark: quiz.student_score,
+                                  quizTotalMark: quiz.quiz_total,
+                                  name: quiz.name,
+                                  quizAnswers: quiz.quiz_answers,
+                                  count: quizList.indexOf(quiz)),
                         )
                         .toList(),
                   ),

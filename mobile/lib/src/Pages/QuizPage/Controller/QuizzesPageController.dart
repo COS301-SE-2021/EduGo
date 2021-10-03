@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:mobile/mockApi.dart' as mockApi;
 import 'package:flutter/material.dart';
 import 'package:mobile/src/Pages/QuizPage/Model/Data/Question.dart';
 import 'package:mobile/src/Pages/QuizPage/View/QuizCompletedView.dart';
@@ -20,6 +20,7 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     return QuizzesPageModel(
       this,
       currentAnswer: "",
+      answeredQuizzes: [],
       lessonQuizzes: [],
       currentQuiz: new Quiz(
         id: 0,
@@ -31,9 +32,17 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
       lessonId: 0,
       questionCount: 0,
       currentQuestion: new QuestionCard(
-        questionId: 0,
-        question: "",
-        answerOptions: [],
+        // questionId: 0,
+        // question: "question",
+        // answerOptions: [],
+        question: Question(
+            id: 0,
+            type: 'TrueFalse',
+            image: '',
+            question: 'no available question',
+            answerOptions: [],
+            givenAnswer: '',
+            correctAnswer: ''),
       ),
     );
   }
@@ -45,7 +54,8 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     String tk = token.toString();
     var url = Uri.parse(
         "http://edugo-backend.southafricanorth.cloudapp.azure.com:8080/virtualEntity/getQuizesByLesson");
-    await post(
+    await //mockApi.getQuizesByLesson(). mock
+        post(
       url,
       headers: {
         'Content-Type': 'application/json',
@@ -59,9 +69,13 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     ).then(
       (response) {
         if (response.statusCode == 200) {
+          print(response.body);
           setLessonId(id);
           dynamic _quizzes = jsonDecode(response.body);
+          print(_quizzes);
           model.update(lessonQuizzes: Quizzes.fromJson(_quizzes, id).quizzes);
+          model.update(
+              answeredQuizzes: _quizzes['answeredQuiz_ids'].cast<int>());
           buildQuizzesView();
           MomentumRouter.goto(context, QuizzesPageView);
           return;
@@ -93,14 +107,11 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
       ),
     ).then(
       (response) {
-        //if (response.statusCode == 200) {
         int tempId = model.lessonId;
         reset();
         model.update(lessonId: tempId);
         getLessonQuizzes(context, model.lessonId);
-
         return;
-        //}
       },
     );
   }
@@ -127,12 +138,21 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
     List<Widget> quizCards = [];
     model.lessonQuizzes.forEach(
       (quiz) {
-        quizCards.add(
-          new QuizCard(
-            numQuestions: quiz.getNumQuestions(),
-            id: quiz.getId(),
-          ),
+        bool find = false;
+        model.answeredQuizzes.forEach(
+          (id) {
+            if (quiz.getId() == id) {
+              find = true;
+            }
+          },
         );
+        if (find == false)
+          quizCards.add(
+            new QuizCard(
+              numQuestions: quiz.getNumQuestions(),
+              id: quiz.getId(),
+            ),
+          );
       },
     );
     model.update(quizzesView: quizCards);
@@ -157,6 +177,7 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
   }
 
   void nextQuestion() {
+    model.update(currentAnswer: "");
     int tempCount = model.questionCount;
     tempCount++;
     model.update(questionCount: tempCount);
@@ -183,14 +204,51 @@ class QuizzesPageController extends MomentumController<QuizzesPageModel> {
   void setCurrentQuestionCard() {
     Question question = model.currentQuiz.getQuestions()[model.questionCount];
     QuestionCard questionCard = new QuestionCard(
-      questionId: question.getId(),
-      question: question.getQuestion(),
-      answerOptions: question.getAnswerOptions(),
+      // questionId: question.getId(),
+      // question: question.getQuestion(),
+      // answerOptions: question.getAnswerOptions(),
+      question: question,
     );
     model.update(currentQuestion: questionCard);
   }
 
   void chooseAnswer(String answer) {
+    model.update(currentAnswer: answer);
+  }
+
+//concatenate answers
+  void chooseAnswers(String answer, int pos) {
+    // //split correct answers into array. correct answers are separteded by semi colons
+    // //e.g. "Autonomous Robots;Teleoperated Robots"
+    // print('correct answers: ' +
+    //     model.currentQuestion.question.getCorrectAnswer());
+    // var correctAnswers =
+    //     model.currentQuestion.question.getCorrectAnswer().split(";");
+    // print('correct answers array(' +
+    //     correctAnswers.length.toString() +
+    //     "): " +
+    //     correctAnswers.toString());
+
+    // // only one missing word and hence one correct answer
+    // if (correctAnswers.length == 1) {
+    //   model.update(currentAnswer: answer);
+    //   print('one answer: ' + model.currentAnswer);
+    //   return;
+    // }
+
+    //bug: given answers is reset. fill it up with current answer
+    // // create a list of size n (n = number of answers) that consists of empty string.
+    // // the answer will be inserted in the list at postion pos. (pos and answer from parameter)
+    // var givenAnswers = List<String>.filled(correctAnswers.length, "'");
+    // givenAnswers[pos] = answer;
+    // model.update(currentAnswer: givenAnswers.join(";"));
+    // print('answers: ' + model.currentAnswer);
+
+    if (model.currentAnswer != '') {
+      model.update(currentAnswer: model.currentAnswer + ';' + answer);
+      print('answers: ' + model.currentAnswer);
+      return;
+    }
     model.update(currentAnswer: answer);
   }
 

@@ -26,33 +26,11 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
     return MobilePageLayout(
         false,
         false,
+        false,
         Scaffold(
             body: Column(children: <Widget>[
           Expanded(
             flex: 5,
-            // child: MaterialButton(
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.all(Radius.circular(20)),
-            //     side: BorderSide(color: Colors.black),
-            //   ),
-            //   onPressed: () {
-            //     Navigator.of(context).push(MaterialPageRoute(
-            //         builder: (context) => VirtualEntityView(data: ve)));
-            //   },
-            //   minWidth: 10,
-            //   height: 60,
-            //   child: Text(
-            //     "Go to virtual entity",
-            //     maxLines: 2,
-            //     softWrap: true,
-            //     textAlign: TextAlign.center,
-            //     style: TextStyle(
-            //         fontSize: 20,
-            //         fontWeight: FontWeight.bold,
-            //         color: Colors.black),
-            //   ),
-            // ),
-
             child: QRView(
               key: qrKey,
               onQRViewCreated: (QRViewController controller) {
@@ -64,8 +42,7 @@ class _DetectMarkerPageState extends State<DetectMarkerPage> {
 
                     try {
                       VirtualEntityData data = validateMarker(result!.code);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => VirtualEntityView(data: data)));
+                      Navigator.pop(context, data.ve_id);
                     } catch (err) {
                       //TODO handle error
                     }

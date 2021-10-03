@@ -6,23 +6,19 @@
    * gradequiz cards.
 **/
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/Model/GradesQuizSpecificsParam.dart';
+import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *              GradeQuiz Cards used in the GradeQuiz page 
  *------------------------------------------------------------------------------
 */
 
-//TODO: CHECK IF THE QUIZ WILL HAVE A QUIZ TITLE. I THINK IT SHOULD.
-//IF IT DOES, ADD IT TO THE PAGE ETC. ALSO ASK IF WE NEED QUIZ ID.
-//REDIRECT TO GO TO MISH'S PAGE OF SEEING ALL ANSWERS
-
 class GradesQuizCard extends StatelessWidget {
-  //Holds the quiz title
-  // final String quizTitle;
-
-  //Holds the quiz id
-  // final int id;
+  //Holds the quiz name
+  final String name;
 
   //Holds the mark that the student received for the quiz
   final int studentQuizMark;
@@ -30,20 +26,22 @@ class GradesQuizCard extends StatelessWidget {
   //Holds the total mark that the quiz was out of
   final int quizTotalMark;
 
-  // //Holds the student answers from the quiz
-  // final List<String> studentAnswers;
+  //Holds the quiz answers array
+  final List<QuizAnswers> quizAnswers;
 
-  // //Holds the correct answers from the quiz
-  // final List<String> correctAnswers;
+  final int count;
 
 //QuizCardConstructor. Takes in 4 arguments
-  GradesQuizCard({
-    required this.quizTotalMark,
-    required this.studentQuizMark,
-  });
+  GradesQuizCard(
+      {required this.quizTotalMark,
+      required this.studentQuizMark,
+      required this.quizAnswers,
+      required this.name,
+      required this.count});
 
   @override
   Widget build(BuildContext context) {
+    int counter = this.count + 1;
     return Column(
       //This is the main lesson card design. It is all in a container and
       //displays info like the lesson title, lesson objectives and
@@ -63,19 +61,43 @@ class GradesQuizCard extends StatelessWidget {
               //This redirects the page to the gradespecific page on tap
               //and passes in the marks array, subject title and total grade
               onTap: () {
+                MomentumRouter.goto(
+                  context,
+                  GradesQuizSpecificsPage,
+                  params: GradesQuizSpecificsParam(quizAnswers: quizAnswers),
+                  transition: (context, page) => MaterialPageRoute(builder: (context) => page)
+                );
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(
-                //     builder: (context) => GradesQuizSpecificsPage(
-                //       studentQuizMark: this.studentQuizMark,
-                //       quizTotalMark: this.quizTotalMark,
-                //     ),
+                //     builder: (context) =>
+                //         GradesQuizSpecificsPage(quizAnswers: this.quizAnswers),
                 //   ),
                 // );
               },
               child: Container(
                 child: Column(
                   children: [
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Flexible(
+                          child: Text(
+                            "Quiz " + '$counter'.toString(),
+                            textAlign: TextAlign.left,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            softWrap: true,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: SizedBox(
@@ -102,24 +124,6 @@ class GradesQuizCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // ),
-                    // Align(
-                    //   alignment: Alignment.center,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.only(top: 25),
-                    //     child: Text(
-                    //       '$quizTitle',
-                    //       textAlign: TextAlign.center,
-                    //       overflow: TextOverflow.ellipsis,
-                    //       maxLines: 4,
-                    //       softWrap: false,
-                    //       style: TextStyle(
-                    //           fontSize: 22,
-                    //           fontWeight: FontWeight.bold,
-                    //           color: Colors.black),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),

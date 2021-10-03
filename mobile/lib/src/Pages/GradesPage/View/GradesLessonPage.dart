@@ -14,8 +14,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile/src/Components/GradesLessonCardWidget.dart';
+import 'package:mobile/src/Components/Model/GradeLessonPageParam.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradeLessonPageController.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
+import 'package:momentum/momentum.dart';
 
 /*------------------------------------------------------------------------------
  *                       Grade Lesson View Page 
@@ -23,30 +26,28 @@ import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 */
 
 class GradesLessonPage extends StatefulWidget {
-  //Holds the list of lessons to be
-  //passed in from the GradesLessonCard
-  final List<Lesson> lessonList;
-
-  GradesLessonPage({Key? key, required this.lessonList}) : super(key: key);
+  GradesLessonPage({Key? key}) : super(key: key);
 
   @override
   _GradesLessonState createState() =>
-      _GradesLessonState(lessonList: this.lessonList);
+      _GradesLessonState();
 }
 
 class _GradesLessonState extends State<GradesLessonPage> {
-  final List<Lesson> lessonList;
-
-  _GradesLessonState({
-    required this.lessonList,
-  });
-
+  List<Lesson> lessonList = [];
   @override
   Widget build(BuildContext context) {
+    if (Momentum.controller<GradeLessonPageController>(context).getList().length == 0) {
+      lessonList = MomentumRouter.getParam<GradeLessonPageParam>(context)?.lessonList ?? [];
+      Momentum.controller<GradeLessonPageController>(context).setList(lessonList);
+    }
+    if (lessonList.length == 0)
+      lessonList = Momentum.controller<GradeLessonPageController>(context).getList();
     //Null check to see if list is empty as well
     //as check to see if no subjects are in the list
     if (lessonList.isNotEmpty && lessonList.length > 0) {
       return MobilePageLayout(
+          false,
           false,
           false,
           Container(

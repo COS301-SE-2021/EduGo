@@ -1,10 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/globals.dart' as globals;
 import 'package:mobile/src/Exceptions.dart';
 import 'package:mobile/src/Pages/VirtualEntityPage/Models/VirtualEntityModels.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path/path.dart';
 
 //Http post request for getting virtual entities from baseUrl/virtualEntity/getVirtualEntity endpoint
 //Using application/json as content type
@@ -27,5 +32,16 @@ Future<VirtualEntity> getVirtualEntity(int id,
   if (response.statusCode == 200) {
     return VirtualEntity.fromJson(jsonDecode(response.body));
   }
-  throw Exception('Not a code 200');
+  throw Exception('Code ' + response.statusCode.toString() + ', Response ' + response.body);
+}
+
+Future<File> download(String url) async {
+  HttpClientRequest request = await HttpClient().getUrl(Uri.parse(url));
+  HttpClientResponse response = await request.close();
+  Uint8List bytes = await consolidateHttpClientResponseBytes(response);
+  String dir = (await getApplicationDocumentsDirectory()).path;
+  String filename = basename(url);
+  File file = new File('$dir/$filename');
+  await file.writeAsBytes(bytes);
+  return file;
 }

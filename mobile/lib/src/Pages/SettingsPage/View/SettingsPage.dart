@@ -15,6 +15,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return MobilePageLayout(
       true,
       true,
+      false,
       Container(child: Text("Settings")),
       'Settings',
     );
