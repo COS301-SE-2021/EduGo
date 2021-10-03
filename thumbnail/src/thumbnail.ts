@@ -15,7 +15,7 @@ export const generateThumbnail = (input: string) => {
     }
     let output = generateOutputName(input);
     try {
-        const run = execSync(`screenshot-glb -i ${path.join(__dirname, 'input', input)} -o ${path.join(__dirname, 'output', output)}`, {encoding: 'utf8'});
+        const run = execSync(`screenshot-glb -i ${path.join(__dirname, 'input', input)} -o ${path.join(__dirname, 'output', output)} -t 120000`, {encoding: 'utf8'});
         
     }
     catch (err) {
