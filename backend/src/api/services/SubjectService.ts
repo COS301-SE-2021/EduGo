@@ -108,7 +108,6 @@ export class SubjectService {
 			throw new BadRequestError("Could not find error");
 		}
 
-
 		if (!user) throw new BadRequestError("Could not find user");
 
 		if (user.educator) {

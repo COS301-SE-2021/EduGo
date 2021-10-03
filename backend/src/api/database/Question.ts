@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
 	Column,
 	Entity,
@@ -11,7 +12,8 @@ import { Quiz } from "./Quiz";
 export enum QuestionType {
 	TrueFalse = "TrueFalse",
 	MultipleChoice = "MultipleChoice",
-	FreeText = "FreeText",
+	MissingWord = "FillinMissingWord",
+	image = "ImageQuestion"
 }
 
 @Entity()
@@ -28,6 +30,9 @@ export class Question {
 
 	@Column()
 	question: string;
+
+	@Column({nullable: true})
+	imageLink?: string
 
 	@OneToMany((type) => Answer, (answer) => answer.question)
 	answers: Answer[];

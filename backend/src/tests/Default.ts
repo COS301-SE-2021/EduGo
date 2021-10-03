@@ -208,6 +208,6 @@ emptySubject.lessons = [1, 2, 3].map((id) => {
 	lesson.description = `Test Description 20`;
 	lesson.subject = new Subject();
 	lesson.grades = [];
-	lesson.virtualEntities = []
+	lesson.virtualEntities = [];
 	return lesson;
 });
