@@ -6,171 +6,78 @@
 */
 
 import 'package:flutter/material.dart';
+import 'package:mobile/src/Components/QuizAnswersCard.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 
 /*------------------------------------------------------------------------------
  *                   Grade Quiz Specific View Page 
  *------------------------------------------------------------------------------
 */
 
-//TODO: FIX UP DESIGN OF THIS PAGE. CHECK IF YOU WILL RECEIVE
-//A LIST OF ANSWERS(STUDENT AND CORRECT) AND SEE IF YOU NEED THE
-//ID AND QUIZ TITLE
-
 class GradesQuizSpecificsPage extends StatefulWidget {
-  //Holds the quiz title
-  // final String quizTitle;
-
-  //Holds the quizid
-  // final int id;
-
-  //Holds the mark that the
-  //student received for the quiz
-  final int studentQuizMark;
-
-  //Holds the total mark
-  //that the quiz was out of
-  final int quizTotalMark;
-
-  // // Holds the list of the correct answers
-  // final List<String> correctAnswers;
-
-  // // Holds the list of the student answers
-  // final List<String> studentAnswers;
+  //Holds the QuizAnswers List
+  final List<QuizAnswers> quizAnswers;
 
   //LessonPage constructor
   GradesQuizSpecificsPage({
     Key? key,
-    required this.studentQuizMark,
-    required this.quizTotalMark,
+    required this.quizAnswers,
   }) : super(key: key);
-  // static String id = "lessons";
 
   @override
-  _GradesQuizSpecificsPageState createState() => _GradesQuizSpecificsPageState(
-        quizTotalMark: this.quizTotalMark,
-        studentQuizMark: this.studentQuizMark,
-      );
+  _GradesQuizSpecificsPageState createState() =>
+      _GradesQuizSpecificsPageState(quizAnswers: this.quizAnswers);
 }
 
 class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
-  //Holds the quiz title
-  // final String quizTitle;
-
-  //Holds the quizid
-  // final int id;
-
-  //Holds the mark that the student received for the quiz
-  final int studentQuizMark;
-
-  //Holds the total mark that the quiz was out of
-  final int quizTotalMark;
-
-  //Holds the list of student answers to be
-  //passed in from the GradesQuizCard
-  // final List<String> studentAnswers;
-
-  // //Holds the list of quizzes to be
-  // //passed in from the GradesQuizCard
-  // final List<String> correctAnswers;
+  final List<QuizAnswers> quizAnswers;
 
   _GradesQuizSpecificsPageState({
-    required this.quizTotalMark,
-    required this.studentQuizMark,
+    required this.quizAnswers,
   });
 
   @override
   Widget build(BuildContext context) {
     return MobilePageLayout(
-      //mobilepagelayout takes 3 arguments. 2 bools and a momentumbuilder.
-      //the two bool represent side bar and navbar. so if true and true, them
-      //the side bar and nav bar will be displayed.
-      //i.e true=yes display, false=no do not display
-      false,
-      false, false,
-      Container(
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 60),
-                child: Text(
-                  'Your Mark:',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  softWrap: false,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.solid,
-                    decorationColor: Colors.black,
-                  ),
+        false,
+        false,
+        false,
+        Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                GridView.count(
+                  //This makes 2 cards appear. So effectively
+                  //two cards per page. (2 rows, 1 card per row)
+                  childAspectRatio: MediaQuery.of(context).size.height / 350,
+                  primary: false,
+                  padding: const EdgeInsets.only(top: 20),
+                  crossAxisSpacing: 0,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  mainAxisSpacing: 10,
+                  //makes 1 cards per row
+                  crossAxisCount: 1,
+                  //Call subject card here and pass in all arguments required
+                  children: quizAnswers
+                      .map(
+                        (quiz) =>
+                            //Pass in the entire lesson list of quizzes
+                            //Also pass in the lesson title and the overall lesson mark
+                            //as a percentage
+                            QuizAnswerCard(
+                                correctAnswer: quiz.correctAnswer,
+                                studentAnswer: quiz.answer,
+                                id: quiz.id,
+                                question: quiz.question.question),
+                      )
+                      .toList(),
                 ),
-              ),
+              ],
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  '$studentQuizMark',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                  softWrap: false,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: Text(
-                  'Quiz total mark:',
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  softWrap: false,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.solid,
-                    decorationColor: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 25),
-                child: Text(
-                  '$quizTotalMark',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
-                  softWrap: false,
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-            ),
-            //TODO: DISPLAY QUIZ ANSWERS. THE STUDENT'S ANSWERS AS WELL
-            //AS THE CORRECT ANSWERS
-          ],
+          ),
         ),
-      ),
-      'Grades Quiz Specific Page',
-    );
+        'Correct Answers');
   }
 }

@@ -98,10 +98,11 @@ class _GradesQuizState extends State<GradesQuizPage> {
                               //Also pass in the lesson title and the overall lesson mark
                               //as a percentage
                               GradesQuizCard(
-                            //quizTitle: quiz.title,
-                            studentQuizMark: quiz.student_score,
-                            quizTotalMark: quiz.quiz_total,
-                          ),
+                                  studentQuizMark: quiz.student_score,
+                                  quizTotalMark: quiz.quiz_total,
+                                  name: quiz.name,
+                                  quizAnswers: quiz.quiz_answers,
+                                  count: quizList.indexOf(quiz)),
                         )
                         .toList(),
                   ),
