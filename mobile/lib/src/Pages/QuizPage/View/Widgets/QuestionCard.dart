@@ -33,7 +33,7 @@ class _QuestionCardState extends State<QuestionCard> {
         //Fill in the missing word question content
         if (widget.question.getType() == 'ImageQuestion') {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 0),
             child: Material(
               shadowColor: Colors.green,
               shape: RoundedRectangleBorder(
@@ -71,7 +71,8 @@ class _QuestionCardState extends State<QuestionCard> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(40.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 0),
                       child: Text(
                         widget.question.getQuestion(),
                         maxLines: 3,
@@ -86,8 +87,8 @@ class _QuestionCardState extends State<QuestionCard> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(
-                        left: 70,
-                        right: 70,
+                        left: 40, //70,
+                        right: 40, //70,
                       ),
                       child: RadioGroup<String>.builder(
                         activeColor: Color.fromARGB(255, 97, 211, 87),
@@ -128,7 +129,7 @@ class _QuestionCardState extends State<QuestionCard> {
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 90.0,
+                              horizontal: 40.0, //90.0,
                             ),
                             height: 50,
                             child: Row(
@@ -161,9 +162,9 @@ class _QuestionCardState extends State<QuestionCard> {
         }
         //Fill in the missing word question content
         if (widget.question.getType() == 'FillinMissingWord') {
-          // create rows of optional dropdowns with accompanying text. The number of
-          // rows are the number of blanks that need to be filled.
-          List<Widget> rows = [];
+          // create column of optional dropdowns with accompanying text. The number of
+          // column are the number of blanks that need to be filled.
+          List<Widget> column = [];
 
           RegExp regExp = new RegExp(
             r"_____",
@@ -178,7 +179,7 @@ class _QuestionCardState extends State<QuestionCard> {
           for (var i = 0;
               i < regExp.allMatches(widget.question.getQuestion()).length;
               i++) {
-            rows.add(
+            column.add(
               DropDown(
                 items: widget.question.getAnswerOptions(),
                 hint: Text(
@@ -196,7 +197,7 @@ class _QuestionCardState extends State<QuestionCard> {
           }
           //display question content.
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
             child: Material(
               shadowColor: Colors.green,
               shape: RoundedRectangleBorder(
@@ -232,14 +233,11 @@ class _QuestionCardState extends State<QuestionCard> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      left: 70,
-                      right: 70,
+                      left: 40, //70,
+                      right: 40, //70,
                     ),
                     child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: rows,
-                      ),
+                      child: Column(children: column),
                     ),
                   ),
                   GestureDetector(
@@ -266,7 +264,7 @@ class _QuestionCardState extends State<QuestionCard> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 90.0,
+                            horizontal: 40, //90.0,
                           ),
                           height: 50,
                           child: Row(
@@ -300,7 +298,7 @@ class _QuestionCardState extends State<QuestionCard> {
         //Default
         //if ((widget.question.getType() == QuestionType.TrueFalse) || (widget.question.getType() == QuestionType.MultipleChoice))
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 10),
           child: Material(
             shadowColor: Colors.green,
             shape: RoundedRectangleBorder(
@@ -322,7 +320,7 @@ class _QuestionCardState extends State<QuestionCard> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(40.0),
+                  padding: const EdgeInsets.all(20.0),
                   child: Text(
                     widget.question.getQuestion(),
                     maxLines: 3,
@@ -335,8 +333,8 @@ class _QuestionCardState extends State<QuestionCard> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: 70,
-                    right: 70,
+                    left: 20, //70,
+                    right: 20, //70,
                   ),
                   child: RadioGroup<String>.builder(
                     activeColor: Color.fromARGB(255, 97, 211, 87),
@@ -360,8 +358,8 @@ class _QuestionCardState extends State<QuestionCard> {
                   child: Padding(
                     padding: const EdgeInsets.only(
                       top: 40.0,
-                      left: 40.0,
-                      right: 40.0,
+                      left: 20.0,
+                      right: 20.0,
                     ),
                     child: Material(
                       shadowColor: Colors.green,
