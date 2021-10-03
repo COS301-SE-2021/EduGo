@@ -50,7 +50,7 @@ class _GradesQuizSpecificsPageState extends State<GradesQuizSpecificsPage> {
                 GridView.count(
                   //This makes 2 cards appear. So effectively
                   //two cards per page. (2 rows, 1 card per row)
-                  childAspectRatio: MediaQuery.of(context).size.height / 350,
+                  childAspectRatio: MediaQuery.of(context).size.height / 400,
                   primary: false,
                   padding: const EdgeInsets.only(top: 20),
                   crossAxisSpacing: 0,
