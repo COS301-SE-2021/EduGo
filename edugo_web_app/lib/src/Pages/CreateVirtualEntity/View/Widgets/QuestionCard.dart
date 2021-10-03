@@ -258,7 +258,8 @@ class _QuestionCardState extends State<QuestionCard> {
                             ),
                           ),
                           Spacer(),
-                          (widget.questionType == 'ImageQuestion')
+                          (quizBuilder.questions[widget.questionId].type ==
+                                  'ImageQuestion')
                               ? (quizBuilder.questions[widget.questionId]
                                       .imageLink.isEmpty)
                                   ? VirtualEntityButton(
