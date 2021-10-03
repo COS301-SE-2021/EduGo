@@ -29,15 +29,14 @@ EduGo is an educational system that aims to shape and influence the future of ed
   
 ## :bulb: EduGo Systems
 
-  ### APK for EduGo Android App
+  ### Android App Release
    <ul>
-    <li> :desktop_computer: <a href='https://drive.google.com/file/d/1cNUOm-vSx8-2NhxwQo9nMMdMYizw7vjV/view?usp=sharing'>EduGo App-arm64 App</a></li>
-    <li> :desktop_computer: <a href='https://drive.google.com/file/d/1cNREGMrGek1DGTtPoqQGXq1rrLRy2EW3/view?usp=sharing'>EduGo App x86</a></li>
+    <li> :iphone: <a href='https://github.com/COS301-SE-2021/EduGo/releases/tag/v1.0'>Release v1.0</a></li>
   </ul>
   
-  ### Link for EduGo WebApp
+  ### EduGo Web App
   <ul>
-    <li> :desktop_computer: <a href='http://edugo-backend.southafricanorth.cloudapp.azure.com:8086/'>EduGo Web App</a></li>
+    <li> :desktop_computer: <a href='http://edugo-backend.southafricanorth.cloudapp.azure.com/'>EduGo Web App</a></li>
   </ul>
   
 
@@ -141,9 +140,10 @@ master ( build )
 
 ### Architectural Requirements
 <ul>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirement Document - V2</a></li>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirement Document - V3</a></li>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1QLxuWgSxSRTfNrK60wSmWUrdmIGxf87F/view?usp=sharing'>Architectural Requirement Document - V4</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirements Document - V2</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirements Document - V3</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1QLxuWgSxSRTfNrK60wSmWUrdmIGxf87F/view?usp=sharing'>Architectural Requirements Document - V4</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1erj2GkLlnE_IGfBH7_o9OUnuryptbh_r/view?usp=sharing'>Architectural Requirements Document -V4.2</a></li>
 </ul>
 
 <hr>
@@ -155,9 +155,9 @@ master ( build )
  
  <hr>
  
-### Instillation Manual
+### Installation Manual
 <ul>
- <li> :bell: <a href='https://drive.google.com/file/d/1x5zNR04yCAaC05IQsMMvT_fstOvrRHBu/view?usp=sharing'>Technical Instillation Manual</a></li>
+ <li> :bell: <a href='https://drive.google.com/file/d/1x5zNR04yCAaC05IQsMMvT_fstOvrRHBu/view?usp=sharing'>Technical Installation Manual</a></li>
 </ul>
  
  <hr>
@@ -171,7 +171,7 @@ master ( build )
 
 ### Testing Quality Document
 <ul>
- <li> :mag_right: https://drive.google.com/file/d/1WwdnOAkNXvSVU_khakMsPA0sXwgjziQv/view?usp=sharing
+ <li> :mag_right: <a href='https://drive.google.com/file/d/1WwdnOAkNXvSVU_khakMsPA0sXwgjziQv/view?usp=sharing'>Testing Quality Document</a></li>
 </ul>
  
 <hr>
