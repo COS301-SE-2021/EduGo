@@ -11,6 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile/src/Components/GradesQuizCardWidget.dart';
 import 'package:mobile/src/Components/Model/GradesQuizPageParam.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradesQuizPageController.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 import 'package:momentum/momentum.dart';
 
@@ -37,9 +38,17 @@ class GradesQuizPage extends StatefulWidget {
 }
 
 class _GradesQuizState extends State<GradesQuizPage> {
+  List<Quiz> quizList = [];
+
   @override
   Widget build(BuildContext context) {
-    List<Quiz> quizList = MomentumRouter.getParam<GradesQuizPageParam>(context)?.quizList ?? [];
+    if (Momentum.controller<GradesQuizPageController>(context).getList().length == 0) {
+      quizList = MomentumRouter.getParam<GradesQuizPageParam>(context)?.quizList ?? [];
+      Momentum.controller<GradesQuizPageController>(context).setList(quizList);
+    }
+    if (quizList.length == 0) 
+      quizList = Momentum.controller<GradesQuizPageController>(context).getList();
+      
     if (quizList.isNotEmpty && quizList.length > 0) {
       return MobilePageLayout(
           false,

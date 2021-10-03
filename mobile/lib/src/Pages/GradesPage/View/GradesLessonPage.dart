@@ -16,6 +16,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile/src/Components/GradesLessonCardWidget.dart';
 import 'package:mobile/src/Components/Model/GradeLessonPageParam.dart';
 import 'package:mobile/src/Components/mobile_page_layout.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradeLessonPageController.dart';
 import 'package:mobile/src/Pages/GradesPage/Model/Grades.dart';
 import 'package:momentum/momentum.dart';
 
@@ -33,15 +34,15 @@ class GradesLessonPage extends StatefulWidget {
 }
 
 class _GradesLessonState extends State<GradesLessonPage> {
-  List<Lesson> lessonList = []
+  List<Lesson> lessonList = [];
   @override
   Widget build(BuildContext context) {
-    try {
+    if (Momentum.controller<GradeLessonPageController>(context).getList().length == 0) {
       lessonList = MomentumRouter.getParam<GradeLessonPageParam>(context)?.lessonList ?? [];
+      Momentum.controller<GradeLessonPageController>(context).setList(lessonList);
     }
-    catch (e) {
-      lessonList = 
-    }
+    if (lessonList.length == 0)
+      lessonList = Momentum.controller<GradeLessonPageController>(context).getList();
     //Null check to see if list is empty as well
     //as check to see if no subjects are in the list
     if (lessonList.isNotEmpty && lessonList.length > 0) {

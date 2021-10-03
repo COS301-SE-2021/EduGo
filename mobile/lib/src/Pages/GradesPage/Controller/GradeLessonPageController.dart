@@ -11,4 +11,8 @@ class GradeLessonPageController extends MomentumController<GradeLessonPageModel>
   void setList(List<Lesson> lessonList) {
     model.update(lessonList: lessonList);
   }
+
+  List<Lesson> getList() {
+    return model.lessonList;
+  }
 }

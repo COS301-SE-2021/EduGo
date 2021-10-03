@@ -7,9 +7,12 @@ import 'package:mobile/src/Components/User/Service/UserService.dart';
 import 'package:mobile/src/Pages/CanvasPage/View/CanvasCodePage.dart';
 import 'package:mobile/src/Pages/CanvasPage/View/CanvasPage.dart';
 import 'package:mobile/src/Pages/DetectMarkerPage/View/DetectMarkerPage.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradeLessonPageController.dart';
 import 'package:mobile/src/Pages/GradesPage/Controller/GradesController.dart';
+import 'package:mobile/src/Pages/GradesPage/Controller/GradesQuizPageController.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesLessonPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesQuizPage.dart';
+import 'package:mobile/src/Pages/GradesPage/View/GradesQuizSpecificsPage.dart';
 import 'package:mobile/src/Pages/GradesPage/View/GradesSubjectPage.dart';
 import 'package:mobile/src/Pages/HomePage/View/HomePage.dart';
 import 'package:mobile/src/Pages/HomePage/Controller/HomeController.dart';
@@ -58,6 +61,8 @@ Momentum momentum({bool mock = false}) {
       HomeController(mock: mock),
       QuizzesPageController(),
       LessonInformationController(),
+      GradeLessonPageController(),
+      GradesQuizPageController()
     ],
     services: [
       UserApiService(), 
@@ -83,7 +88,8 @@ Momentum momentum({bool mock = false}) {
         CanvasCodePage(),
         CanvasPage(),
         GradesLessonPage(),
-        GradesQuizPage()
+        GradesQuizPage(),
+        GradesQuizSpecificsPage()
       ]),
     ],
   );
