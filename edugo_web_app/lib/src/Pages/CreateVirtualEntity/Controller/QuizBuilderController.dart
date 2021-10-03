@@ -19,17 +19,11 @@ class QuizBuilderController extends MomentumController<QuizBuilderModel> {
     }
     model.questions.forEach(
       (question) {
-        if (question.correctAnswer.isEmpty ||
-            question.options.isEmpty ||
-            question.question.isEmpty) {
-          quizFormKey.currentState.validate();
-          returnBool = false;
-          return false;
-        }
         if (question.type == "FillinMissingWord") {
           if (question.words.isEmpty || question.sentences.isEmpty) {
             quizFormKey.currentState.validate();
             returnBool = false;
+
             return false;
           }
         }
@@ -37,6 +31,16 @@ class QuizBuilderController extends MomentumController<QuizBuilderModel> {
           if (question.options.isEmpty ||
               question.question.isEmpty ||
               question.imageLink.isEmpty) {
+            quizFormKey.currentState.validate();
+            returnBool = false;
+            return false;
+          }
+        }
+        if (question.type != "FillinMissingWord") if (question.type !=
+            "ImageQuestion") {
+          if (question.correctAnswer.isEmpty ||
+              question.options.isEmpty ||
+              question.question.isEmpty) {
             quizFormKey.currentState.validate();
             returnBool = false;
             return false;
