@@ -130,20 +130,14 @@ master ( build )
 ## :page_facing_up: Documentation:
 ### SRS Document
 <ul>
-  <li> :label: <a href='https://drive.google.com/file/d/1sdqnE-01hnlyeGMicVRJn2vLWN0zIvGr/view?usp=sharing'> SRS - V1</a></li>
-  <li> :label: <a href='https://drive.google.com/file/d/1q4KiRin-8eBBUh4XM-V2zphMUaCamtMi/view?usp=sharing'> SRS - V2</a></li>
-  <li> :label: <a href='https://drive.google.com/file/d/1yz29wqZXcBQZ2XHFUbllYDV1l_CuMyuZ/view?usp=sharing'> SRS - V3</a></li>
-  <li> :label: <a href='https://drive.google.com/file/d/155tzN0i0L5boADjVT66ph0Kj6ujAIsib/view?usp=sharing'> SRS - V4</a></li>
+  <li> :label: <a href='https://drive.google.com/file/d/155tzN0i0L5boADjVT66ph0Kj6ujAIsib/view?usp=sharing'> SRS </a></li>
 </ul>
 
 <hr>
 
 ### Architectural Requirements
 <ul>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1agS74cT7KBwivo5dsbMluqSP1Y11gW19/view?usp=sharing'>Architectural Requirements Document - V2</a></li>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1XwFmcODpXvSCM3sihjAe2rosdBKnMMMJ/view?usp=sharing'>Architectural Requirements Document - V3</a></li>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1QLxuWgSxSRTfNrK60wSmWUrdmIGxf87F/view?usp=sharing'>Architectural Requirements Document - V4</a></li>
-   <li> :open_book: <a href='https://drive.google.com/file/d/1erj2GkLlnE_IGfBH7_o9OUnuryptbh_r/view?usp=sharing'>Architectural Requirements Document -V4.2</a></li>
+   <li> :open_book: <a href='https://drive.google.com/file/d/1erj2GkLlnE_IGfBH7_o9OUnuryptbh_r/view?usp=sharing'>Architectural Requirements Document</a></li>
 </ul>
 
 <hr>
